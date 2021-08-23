@@ -112,7 +112,7 @@
         </page>
         <page
               category="msi.gama.lang.gaml.Gaml"
-              class="msi.gama.lang.gaml.ui.editbox.EditboxPreferencePage"
+              class="gama.core.lang.ui.editbox.EditboxPreferencePage"
               id="pm.eclipse.editbox.pref.default"
               name="EditBox">
         </page>
@@ -207,7 +207,7 @@
         allPopups="false"
         locationURI="menu:org.eclipse.ui.main.menu">
      <dynamic
-           class="ummisco.gama.ui.modeling.EditorMenu"
+           class="gama.ui.modeling.menus.EditorMenu"
            id="ummisco.gama.ui.modeling.dynamic5">
         <visibleWhen
               checkEnabled="false">
@@ -441,14 +441,14 @@
     <view
           allowMultiple="false"
           category="msi.gama.gui.category.gama"
-          class="ummisco.gama.ui.views.SyntaxErrorsView"
+          class="gama.ui.modeling.views.SyntaxErrorsView"
           icon="platform:/plugin/ummisco.gama.ui.shared/icons/view.problems2.png"
           id="msi.gama.application.problems"
           name="Validation"
           restorable="true">
     </view>
     <view
-          class="msi.gama.lang.gaml.ui.templates.TemplatesView"
+          class="gama.core.lang.ui.templates.TemplatesView"
           id="msi.gama.lang.gaml.ui.templates"
           name="Templates"
           restorable="true">
@@ -467,7 +467,7 @@
 	    <extension point="org.eclipse.ui.decorators">
            <decorator
                  adaptable="true"
-                 class="msi.gama.lang.gaml.ui.decorators.GamlDecorator"
+                 class="gama.core.lang.ui.decorators.GamlDecorator"
                  id="msi.gama.light.decorator"
                  label="Gaml Errors"
                  lightweight="true"
@@ -506,12 +506,6 @@
           </enablement>
        </decorator>
 	</extension>
-    <extension
-          point="org.eclipse.ui.startup">
-       <startup
-             class="msi.gama.lang.gaml.ui.AutoStartup">
-       </startup>
-    </extension>
     <extension
           point="org.eclipse.ui.ide.markerSupport">
           
@@ -657,7 +651,7 @@
                 id="msi.gama.lang.gaml.ui.markerFieldConfiguration1"
                 name="Problems"
                 scope="ON_ANY"
-                values="ummisco.gama.ui.views.GamlProblems">
+                values="gama.ui.modeling.views.GamlProblems">
           </markerFieldConfiguration>
           <markerFieldReference
                 id="msi.gama.lang.gaml.ui.description.field"
@@ -677,12 +671,12 @@
           </markerFieldReference>
        </markerContentGenerator>
        <markerField
-             class="msi.gama.lang.gaml.ui.markers.ProjectMarkerField"
+             class="gama.core.lang.ui.markers.ProjectMarkerField"
              id="msi.gama.lang.gaml.ui.project.field"
              name="Project">
        </markerField>
        <markerField
-             class="msi.gama.lang.gaml.ui.markers.GamlDescriptionMarkerField"
+             class="gama.core.lang.ui.markers.GamlDescriptionMarkerField"
              id="msi.gama.lang.gaml.ui.description.field"
              name="Description">
        </markerField>
@@ -690,17 +684,17 @@
     <extension
           point="org.eclipse.ui.ide.markerImageProviders">
        <imageprovider
-             class="msi.gama.lang.gaml.ui.markers.GamlMarkerImageProvider"
+             class="gama.core.lang.ui.markers.GamlMarkerImageProvider"
              id="msi.gama.lang.gaml.ui.imageprovider.normal"
              markertype="ummisco.gama.ui.modeling.gaml.check.normal">
        </imageprovider>
        <imageprovider
-             class="msi.gama.lang.gaml.ui.markers.GamlMarkerImageProvider"
+             class="gama.core.lang.ui.markers.GamlMarkerImageProvider"
              id="msi.gama.lang.gaml.ui.imageprovider.expensive"
              markertype="ummisco.gama.ui.modeling.gaml.check.expensive">
        </imageprovider>
        <imageprovider
-             class="msi.gama.lang.gaml.ui.markers.GamlMarkerImageProvider"
+             class="gama.core.lang.ui.markers.GamlMarkerImageProvider"
              id="msi.gama.lang.gaml.ui.imageprovider.fast"
              markertype="ummisco.gama.ui.modeling.gaml.check.fast">
        </imageprovider>
@@ -740,7 +734,7 @@
              label="Search Gaml Elements"
              visible="true">
           <action
-                class="msi.gama.lang.gaml.ui.editor.DelegateForAllElements"
+                class="gama.core.lang.ui.editor.DelegateForAllElements"
                 icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.searchtext2.png"
                 id="msi.gama.application.action1"
                 label="GAML elements in models..."
@@ -812,7 +806,7 @@
     <extension
           point="org.eclipse.ui.perspectives">
        <perspective
-             class="ummisco.gama.ui.perspective.ModelingPerspective"
+             class="gama.ui.modeling.perspective.ModelingPerspective"
              fixed="false"
              icon="platform:/plugin/ummisco.gama.ui.shared/icons/perspective.modeling2.png"
              id="msi.gama.application.perspectives.ModelingPerspective"
@@ -825,21 +819,21 @@
     <extension
           point="org.eclipse.ui.services">
        <serviceFactory
-             factoryClass="msi.gama.lang.gaml.ui.utils.ModelRunner">
+             factoryClass="gama.core.lang.ui.utils.ModelRunner">
           <service
                 serviceClass="ummisco.gama.ui.interfaces.IModelRunner"></service>
        </serviceFactory>
        <serviceFactory
-             factoryClass="msi.gama.lang.gaml.ui.outline.LabelProviderFactory">
+             factoryClass="gama.core.lang.ui.outline.LabelProviderFactory">
           <service
-                serviceClass="msi.gama.common.interfaces.IGamlLabelProvider">
+                serviceClass="msi.gama.common.ui.IGamlLabelProvider">
           </service>
        </serviceFactory>
     </extension>
     <extension
           point="org.eclipse.xtext.ui.shared.overridingGuiceModule">
        <module
-             class="msi.gama.lang.gaml.ui.OverridingModule">
+             class="gama.core.lang.ui.OverridingModule">
        </module>
     </extension>
     <extension point="org.eclipse.ui.handlers">

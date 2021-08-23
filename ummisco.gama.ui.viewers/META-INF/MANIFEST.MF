@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Viewers
-Bundle-SymbolicName: ummisco.gama.ui.viewers;singleton:=true
+Bundle-SymbolicName: gama.ui.viewers;singleton:=true
 Bundle-Version: 1.8.1.qualifier
 Bundle-Vendor: UMMISCO
 Bundle-RequiredExecutionEnvironment: JavaSE-11
@@ -9,23 +9,23 @@ Require-Bundle: org.eclipse.jface,
  org.eclipse.ui.workbench,
  org.eclipse.core.resources,
  org.eclipse.core.runtime;bundle-version="3.11.1",
- msi.gama.core,
- msi.gama.ext,
+ gama.core.kernel,
+ gama.ext.libs,
  org.eclipse.ui;bundle-version="3.107.0",
  org.eclipse.ui.editors;bundle-version="3.9.0",
  org.eclipse.jface.text;bundle-version="3.10.0",
  org.eclipse.ui.ide,
  org.eclipse.ui.browser;bundle-version="3.4.300",
- ummisco.gama.ui.shared,
- msi.gama.application,
- ummisco.gama.ui.navigator
+ gama.ui.base,
+ gama.core.application,
+ gama.ui.navigator
 Bundle-ActivationPolicy: lazy
 Automatic-Module-Name: ummisco.gama.ui.viewers
-Export-Package: ummisco.gama.ui.viewers.csv,
- ummisco.gama.ui.viewers.csv.model,
- ummisco.gama.ui.viewers.csv.text,
- ummisco.gama.ui.viewers.gis,
- ummisco.gama.ui.viewers.gis.geotools.styling,
- ummisco.gama.ui.viewers.html,
- ummisco.gama.ui.viewers.image
+Export-Package: gama.ui.viewers.csv,
+ gama.ui.viewers.csv.model,
+ gama.ui.viewers.csv.text,
+ gama.ui.viewers.gis,
+ gama.ui.viewers.gis.geotools.styling,
+ gama.ui.viewers.html,
+ gama.ui.viewers.image
 

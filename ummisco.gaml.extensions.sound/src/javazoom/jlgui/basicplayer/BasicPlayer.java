@@ -45,8 +45,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import org.tritonus.share.sampled.TAudioFormat;
 import org.tritonus.share.sampled.file.TAudioFileFormat;
 
+import gama.core.dev.utils.DEBUG;
 import javazoom.spi.PropertiesContainer;
-import ummisco.gama.dev.utils.DEBUG;
 
 /**
  * BasicPlayer is a threaded simple player class based on JavaSound API. It has been successfully tested under J2SE

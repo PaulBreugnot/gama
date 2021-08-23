@@ -50,7 +50,7 @@
          point="org.eclipse.core.runtime.applications">
       <application>
          <run
-               class="msi.gama.application.Application">
+               class="gama.core.application.Application">
             <parameter
                   name="preferenceCustomization"
                   value="plugin_customization.ini">
@@ -65,7 +65,7 @@
          point="org.eclipse.core.resources.natures">
       <runtime>
          <run
-               class="msi.gama.application.projects.GamaNature"> 
+               class="gama.core.application.projects.GamaNature"> 
          </run>
       </runtime>
       <content-type
@@ -79,7 +79,7 @@
                point="org.eclipse.core.resources.natures">
             <runtime>
                <run
-                     class="msi.gama.application.projects.BuiltinNature">
+                     class="gama.core.application.projects.BuiltinNature">
                </run>
             </runtime>
             <requires-nature
@@ -92,7 +92,7 @@
                point="org.eclipse.core.resources.natures">
             <runtime>
                <run
-                     class="msi.gama.application.projects.PluginNature">
+                     class="gama.core.application.projects.PluginNature">
                </run>
             </runtime>
             <requires-nature
@@ -145,7 +145,7 @@
                point="org.eclipse.core.resources.natures">
             <runtime>
                <run
-                     class="msi.gama.application.projects.TestNature">
+                     class="gama.core.application.projects.TestNature">
                </run>
             </runtime>
              <requires-nature

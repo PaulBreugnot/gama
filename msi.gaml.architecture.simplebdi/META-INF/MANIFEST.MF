@@ -1,11 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Simple bdi architecture
-Bundle-SymbolicName: msi.gaml.architecture.simplebdi;singleton:=true
+Bundle-SymbolicName: gama.ext.bdi;singleton:=true
 Bundle-Version: 1.8.1.qualifier
-Require-Bundle: msi.gama.core,
- msi.gama.ext
-Export-Package: msi.gaml.architecture.simplebdi
+Require-Bundle: gama.core.kernel,
+ gama.ext.libs
+Export-Package: gama.ext.bdi
 Bundle-ClassPath: .
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-11

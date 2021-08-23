@@ -3,7 +3,8 @@ package msi.gama.doc.websiteGen.utilClasses;
 import java.lang.reflect.Field;
 import java.text.*;
 import java.util.*;
-import msi.gama.precompiler.IConcept;
+
+import gama.core.dev.annotations.IConcept;
 
 public class ConceptManager {
 

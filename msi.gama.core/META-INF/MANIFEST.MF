@@ -1,22 +1,21 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Core plugin of GAMA
-Bundle-SymbolicName: msi.gama.core;singleton:=true
+Bundle-SymbolicName: gama.core.kernel;singleton:=true
 Bundle-Version: 1.8.1.qualifier
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.ecore;visibility:=reexport,
- msi.gama.ext,
- org.eclipse.core.resources,
- ummisco.gama.annotations;visibility:=reexport,
- msi.gama.processor;visibility:=reexport,
- com.google.guava,
- org.eclipse.core.filesystem,
- org.apache.commons.compress,
- org.apache.commons.lang
+Require-Bundle: gama.ext.libs;visibility:=reexport,
+ gama.core.dev;bundle-version="1.8.1";visibility:=reexport,
+ org.eclipse.emf.common;bundle-version="2.23.0";visibility:=reexport,
+ org.eclipse.emf.ecore;bundle-version="2.25.0";visibility:=reexport,
+ org.eclipse.core.resources;bundle-version="3.15.100",
+ org.eclipse.ecf;bundle-version="3.9.102",
+ org.eclipse.ecf.filetransfer;bundle-version="5.1.102",
+ org.eclipse.ecf.identity;bundle-version="3.9.402",
+ org.eclipse.ecf.provider.filetransfer;bundle-version="3.2.700"
 Bundle-ActivationPolicy: lazy
-Export-Package: msi.gama.common,
- msi.gama.common.geometry,
- msi.gama.common.interfaces;
+Export-Package: gama.common,
+ gama.common.geometry,
+ gama.common.interfaces;
   uses:="org.eclipse.emf.ecore.resource,
    msi.gama.precompiler,
    org.jfree.chart,
@@ -33,8 +32,9 @@ Export-Package: msi.gama.common,
    msi.gaml.descriptions,
    msi.gama.metamodel.agent,
    msi.gama.runtime.exceptions",
- msi.gama.common.preferences,
- msi.gama.common.util;
+ gama.common.preferences,
+ gama.common.ui,
+ gama.common.util;
   uses:="msi.gama.precompiler,
    msi.gama.util.random,
    msi.gama.kernel.experiment,
@@ -52,13 +52,13 @@ Export-Package: msi.gama.common,
    org.opengis.referencing.operation,
    org.locationtech.jts.geom,
    msi.gama.runtime.exceptions",
- msi.gama.extensions.messaging,
- msi.gama.kernel.batch;
+ gama.extensions.messaging,
+ gama.kernel.batch;
   uses:="msi.gaml.expressions,
    msi.gama.kernel.experiment,
    msi.gaml.descriptions,
    msi.gaml.compilation",
- msi.gama.kernel.experiment;
+ gama.kernel.experiment;
   uses:="msi.gama.common.util,
    msi.gaml.expressions,
    msi.gama.runtime,
@@ -75,14 +75,14 @@ Export-Package: msi.gama.common,
    msi.gaml.descriptions,
    msi.gama.metamodel.agent,
    msi.gama.runtime.exceptions",
- msi.gama.kernel.model;
+ gama.kernel.model;
   uses:="msi.gaml.species,
    msi.gama.kernel.experiment,
    msi.gama.metamodel.topology,
    msi.gaml.descriptions,
    msi.gaml.compilation",
- msi.gama.kernel.root,
- msi.gama.kernel.simulation;
+ gama.kernel.root,
+ gama.kernel.simulation;
   uses:="msi.gama.common.interfaces,
    msi.gama.metamodel.population,
    msi.gama.kernel.experiment,
@@ -90,7 +90,7 @@ Export-Package: msi.gama.common,
    msi.gama.kernel.model,
    msi.gama.metamodel.agent,
    msi.gaml.compilation",
- msi.gama.metamodel.agent;
+ gama.metamodel.agent;
   uses:="msi.gama.runtime,
    msi.gama.metamodel.topology,
    msi.gama.util,
@@ -102,7 +102,7 @@ Export-Package: msi.gama.common,
    msi.gama.metamodel.population,
    msi.gama.metamodel.shape,
    org.locationtech.jts.geom",
- msi.gama.metamodel.population;
+ gama.metamodel.population;
   uses:="msi.gaml.variables,
    msi.gaml.expressions,
    msi.gama.runtime,
@@ -118,7 +118,7 @@ Export-Package: msi.gama.common,
    msi.gama.metamodel.shape,
    msi.gaml.descriptions,
    msi.gama.metamodel.agent",
- msi.gama.metamodel.shape;
+ gama.metamodel.shape;
   uses:="org.locationtech.jts.geom.prep,
    msi.gaml.expressions,
    org.locationtech.jts.algorithm.distance,
@@ -131,7 +131,7 @@ Export-Package: msi.gama.common,
    org.locationtech.jts.geom,
    org.locationtech.jts.algorithm,
    msi.gama.metamodel.agent",
- msi.gama.metamodel.topology;
+ gama.metamodel.topology;
   uses:="msi.gaml.expressions,
    msi.gama.runtime,
    msi.gama.util,
@@ -144,7 +144,7 @@ Export-Package: msi.gama.common,
    msi.gaml.descriptions,
    msi.gama.metamodel.topology.filter,
    msi.gama.metamodel.agent",
- msi.gama.metamodel.topology.continuous;
+ gama.metamodel.topology.continuous;
   uses:="msi.gama.metamodel.population,
    msi.gama.metamodel.topology,
    msi.gama.runtime,
@@ -154,21 +154,21 @@ Export-Package: msi.gama.common,
    msi.gama.metamodel.topology.filter,
    msi.gama.metamodel.agent,
    msi.gaml.types",
- msi.gama.metamodel.topology.filter;
+ gama.metamodel.topology.filter;
   uses:="msi.gaml.species,
    msi.gama.metamodel.topology.graph,
    msi.gama.metamodel.population,
    msi.gama.runtime,
    msi.gama.util,
    msi.gama.metamodel.shape",
- msi.gama.metamodel.topology.graph;
+ gama.metamodel.topology.graph;
   uses:="msi.gama.metamodel.topology,
    msi.gama.runtime,
    msi.gama.util,
    msi.gama.metamodel.shape,
    msi.gama.metamodel.topology.filter,
    msi.gama.util.graph",
- msi.gama.metamodel.topology.grid;
+ gama.metamodel.topology.grid;
   uses:="msi.gama.common.util,
    msi.gama.runtime,
    msi.gama.metamodel.topology,
@@ -179,8 +179,8 @@ Export-Package: msi.gama.common,
    org.locationtech.jts.geom,
    msi.gama.metamodel.topology.filter,
    msi.gama.metamodel.agent",
- msi.gama.metamodel.topology.projection,
- msi.gama.outputs;
+ gama.metamodel.topology.projection,
+ gama.outputs;
   uses:="msi.gaml.expressions,
    msi.gama.kernel.experiment,
    msi.gama.runtime,
@@ -188,8 +188,8 @@ Export-Package: msi.gama.common,
    msi.gama.common.interfaces,
    msi.gama.kernel.simulation,
    msi.gaml.descriptions",
- msi.gama.outputs.display,
- msi.gama.outputs.layers;
+ gama.outputs.display,
+ gama.outputs.layers;
   uses:="org.jfree.chart,
    msi.gaml.expressions,
    msi.gama.runtime,
@@ -204,8 +204,8 @@ Export-Package: msi.gama.common,
    msi.gama.metamodel.shape,
    msi.gaml.descriptions,
    msi.gama.metamodel.topology.grid",
- msi.gama.outputs.layers.charts,
- msi.gama.runtime;
+ gama.outputs.layers.charts,
+ gama.runtime;
   uses:="msi.gama.common.util,
    msi.gaml.expressions,
    msi.gama.kernel.experiment,
@@ -217,10 +217,10 @@ Export-Package: msi.gama.common,
    msi.gaml.descriptions,
    msi.gama.metamodel.agent,
    msi.gama.runtime.exceptions",
- msi.gama.runtime.benchmark,
- msi.gama.runtime.concurrent,
- msi.gama.runtime.exceptions;uses:="msi.gama.common.interfaces",
- msi.gama.util;
+ gama.runtime.benchmark,
+ gama.runtime.concurrent,
+ gama.runtime.exceptions;uses:="msi.gama.common.interfaces",
+ gama.util;
   uses:="org.jgrapht,
    msi.gama.runtime,
    msi.gama.metamodel.topology,
@@ -232,18 +232,18 @@ Export-Package: msi.gama.common,
    msi.gama.metamodel.shape,
    org.locationtech.jts.geom,
    msi.gama.metamodel.agent",
- msi.gama.util.file;
+ gama.util.file;
   uses:="msi.gama.runtime,
    msi.gama.util,
    msi.gama.util.matrix,
    msi.gama.metamodel.shape,
    msi.gaml.types",
- msi.gama.util.file.csv,
- msi.gama.util.file.json,
- msi.gama.util.graph,
- msi.gama.util.graph.layout,
- msi.gama.util.graph.loader,
- msi.gama.util.graph.writer;
+ gama.util.file.csv,
+ gama.util.file.json,
+ gama.util.graph,
+ gama.util.graph.layout,
+ gama.util.graph.loader,
+ gama.util.graph.writer;
   uses:="org.jgrapht,
    msi.gama.runtime,
    msi.gama.util,
@@ -254,21 +254,21 @@ Export-Package: msi.gama.common,
    msi.gama.metamodel.population,
    msi.gama.metamodel.shape,
    msi.gama.metamodel.agent",
- msi.gama.util.matrix;
+ gama.util.matrix;
   uses:="msi.gama.common.util,
    msi.gama.runtime,
    msi.gama.metamodel.shape,
    msi.gama.util,
    msi.gaml.types",
- msi.gama.util.path,
- msi.gama.util.random,
- msi.gama.util.tree,
- msi.gaml.architecture;
+ gama.util.path,
+ gama.util.random,
+ gama.util.tree,
+ gaml.architecture;
   uses:="msi.gaml.species,
    msi.gaml.commands,
    msi.gama.runtime,
    msi.gaml.skills",
- msi.gaml.architecture.finite_state_machine;
+ gaml.architecture.finite_state_machine;
   uses:="msi.gaml.species,
    msi.gaml.architecture.reflex,
    msi.gaml.expressions,
@@ -277,7 +277,7 @@ Export-Package: msi.gama.common,
    msi.gama.util,
    msi.gaml.descriptions,
    msi.gama.metamodel.agent",
- msi.gaml.architecture.reflex;
+ gaml.architecture.reflex;
   uses:="msi.gaml.architecture,
    msi.gaml.species,
    msi.gaml.expressions,
@@ -287,15 +287,15 @@ Export-Package: msi.gama.common,
    msi.gama.metamodel.agent,
    msi.gaml.skills,
    msi.gaml.types",
- msi.gaml.architecture.rule_based,
- msi.gaml.architecture.user,
- msi.gaml.architecture.weighted_tasks;
+ gaml.architecture.rule_based,
+ gaml.architecture.user,
+ gaml.architecture.weighted_tasks;
   uses:="msi.gaml.architecture.reflex,
    msi.gaml.expressions,
    msi.gaml.commands,
    msi.gama.runtime,
    msi.gaml.descriptions",
- msi.gaml.compilation;
+ gaml.compilation;
   uses:="msi.gama.common.util,
    msi.gaml.expressions,
    msi.gama.runtime,
@@ -310,10 +310,10 @@ Export-Package: msi.gama.common,
    msi.gaml.descriptions,
    org.codehaus.commons.compiler,
    msi.gama.metamodel.agent",
- msi.gaml.compilation.annotations,
- msi.gaml.compilation.ast,
- msi.gaml.compilation.kernel,
- msi.gaml.descriptions;
+ gaml.compilation.annotations,
+ gaml.compilation.ast,
+ gaml.compilation.kernel,
+ gaml.descriptions;
   uses:="msi.gama.precompiler,
    msi.gaml.expressions,
    msi.gama.runtime,
@@ -324,7 +324,7 @@ Export-Package: msi.gama.common,
    msi.gama.common.interfaces,
    msi.gaml.architecture,
    msi.gaml.commands",
- msi.gaml.expressions;
+ gaml.expressions;
   uses:="msi.gaml.commands,
    msi.gama.runtime,
    msi.gama.util,
@@ -332,17 +332,18 @@ Export-Package: msi.gama.common,
    msi.gaml.factories,
    msi.gaml.compilation,
    msi.gaml.types",
- msi.gaml.expressions.data,
- msi.gaml.expressions.operators,
- msi.gaml.expressions.types,
- msi.gaml.expressions.units,
- msi.gaml.expressions.variables,
- msi.gaml.extensions.multi_criteria;
+ gaml.expressions.data,
+ gaml.expressions.operators,
+ gaml.expressions.types,
+ gaml.expressions.units,
+ gaml.expressions.variables,
+ gaml.extensions.messaging,
+ gaml.extensions.multi_criteria;
   uses:="msi.gama.kernel.simulation,
    msi.gama.metamodel.population,
    msi.gama.runtime,
    msi.gama.metamodel.agent",
- msi.gaml.factories;
+ gaml.factories;
   uses:="org.eclipse.emf.ecore.resource,
    msi.gama.outputs.layers,
    msi.gama.common.util,
@@ -352,7 +353,7 @@ Export-Package: msi.gama.common,
    msi.gama.outputs,
    msi.gaml.commands,
    msi.gaml.descriptions",
- msi.gaml.operators;
+ gaml.operators;
   uses:="org.joda.time.chrono,
    msi.gaml.expressions,
    msi.gama.runtime,
@@ -369,8 +370,8 @@ Export-Package: msi.gama.common,
    org.locationtech.jts.geom,
    org.locationtech.jts.algorithm,
    msi.gama.metamodel.agent",
- msi.gaml.operators.noise,
- msi.gaml.skills;
+ gaml.operators.noise,
+ gaml.skills;
   uses:="org.graphstream.stream.file,
    org.graphstream.stream,
    msi.gama.metamodel.population,
@@ -380,7 +381,7 @@ Export-Package: msi.gama.common,
    msi.gama.metamodel.shape,
    msi.gama.metamodel.agent,
    msi.gama.util.graph",
- msi.gaml.species;
+ gaml.species;
   uses:="msi.gaml.expressions,
    msi.gaml.variables,
    msi.gama.runtime,
@@ -391,7 +392,7 @@ Export-Package: msi.gama.common,
    msi.gama.common.interfaces,
    msi.gaml.commands,
    msi.gaml.descriptions",
- msi.gaml.statements;
+ gaml.statements;
   uses:="msi.gaml.expressions,
    msi.gama.runtime,
    msi.gama.util,
@@ -402,9 +403,9 @@ Export-Package: msi.gama.common,
    msi.gaml.descriptions,
    msi.gama.metamodel.agent,
    msi.gama.runtime.exceptions",
- msi.gaml.statements.draw,
- msi.gaml.statements.test,
- msi.gaml.types;
+ gaml.statements.draw,
+ gaml.statements.test,
+ gaml.types;
   uses:="msi.gama.precompiler,
    msi.gaml.expressions,
    msi.gama.metamodel.topology,
@@ -418,7 +419,7 @@ Export-Package: msi.gama.common,
    msi.gama.metamodel.shape,
    msi.gaml.descriptions,
    msi.gama.metamodel.agent",
- msi.gaml.variables;
+ gaml.variables;
   uses:="msi.gaml.expressions,
    msi.gama.kernel.experiment,
    msi.gama.runtime,
@@ -429,6 +430,12 @@ Export-Package: msi.gama.common,
    msi.gaml.types"
 Bundle-ClassPath: schema/,
  .
-Bundle-Activator: msi.gama.common.Activator
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: msi.gama.core
+Import-Package: org.apache.commons.compress.compressors.bzip2;version="1.19.0",
+ org.apache.commons.lang;version="2.6.0",
+ org.eclipse.core.filesystem,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime;version="3.7.0",
+ org.eclipse.core.runtime.preferences;version="3.4.0",
+ org.osgi.framework;version="1.10.0"

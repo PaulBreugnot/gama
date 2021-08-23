@@ -26,9 +26,9 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
-import msi.gama.precompiler.doc.utils.Constants;
-import msi.gama.precompiler.doc.utils.TypeConverter;
-import msi.gama.precompiler.doc.utils.XMLElements;
+import gama.core.dev.documentation.utils.Constants;
+import gama.core.dev.documentation.utils.TypeConverter;
+import gama.core.dev.documentation.utils.XMLElements;
 
 public class UnifyDoc {
 

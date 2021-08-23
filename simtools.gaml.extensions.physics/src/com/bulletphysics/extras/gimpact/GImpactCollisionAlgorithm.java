@@ -27,7 +27,7 @@ import static com.bulletphysics.Pools.TRANSFORMS;
 import static com.bulletphysics.Pools.TRIANGLES;
 import static com.bulletphysics.Pools.VECTORS;
 import static com.bulletphysics.Pools.VECTORS4;
-import static msi.gama.common.util.PoolUtils.create;
+import static gama.common.util.PoolUtils.create;
 
 import java.util.ArrayList;
 
@@ -51,7 +51,7 @@ import com.bulletphysics.linearmath.Transform;
 import com.bulletphysics.linearmath.VectorUtil;
 import com.bulletphysics.util.IntArrayList;
 
-import msi.gama.common.util.PoolUtils.ObjectPool;
+import gama.common.util.PoolUtils.ObjectPool;
 
 /**
  * Collision Algorithm for GImpact Shapes.

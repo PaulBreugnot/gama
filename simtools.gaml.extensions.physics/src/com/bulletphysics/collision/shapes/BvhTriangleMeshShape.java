@@ -19,7 +19,7 @@
 package com.bulletphysics.collision.shapes;
 
 import static com.bulletphysics.Pools.VECTORS;
-import static msi.gama.common.util.PoolUtils.create;
+import static gama.common.util.PoolUtils.create;
 
 import javax.vecmath.Vector3f;
 
@@ -28,7 +28,7 @@ import com.bulletphysics.collision.broadphase.BroadphaseNativeType;
 import com.bulletphysics.collision.broadphase.DispatcherInfo;
 import com.bulletphysics.linearmath.VectorUtil;
 
-import msi.gama.common.util.PoolUtils.ObjectPool;
+import gama.common.util.PoolUtils.ObjectPool;
 
 /**
  * BvhTriangleMeshShape is a static-triangle mesh shape with several optimizations, such as bounding volume hierarchy.

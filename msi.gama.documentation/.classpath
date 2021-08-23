@@ -20,6 +20,6 @@
 	<classpathentry exported="true" kind="lib" path="libs/xercesImpl-2.7.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/xmlgraphics-commons-1.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/jdom-2.0.1.jar"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/ummisco.gama.annotations"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/gama.core.dev"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -6,7 +6,7 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            class="ummisco.gama.ui.perspective.SimulationPerspective"
+            class="gama.ui.experiment.perspective.SimulationPerspective"
             fixed="false"
             icon="platform:/plugin/ummisco.gama.ui.shared/icons/perspective.simulation2.png"
             id="msi.gama.application.perspectives.SimulationPerspective"
@@ -36,7 +36,7 @@
       <view
             allowMultiple="false"
             category="msi.gama.gui.category.gama"
-            class="ummisco.gama.ui.views.console.ConsoleView"
+            class="gama.ui.experiment.views.console.ConsoleView"
             icon="platform:/plugin/ummisco.gama.ui.shared/icons/view.console2.png"
             id="msi.gama.application.view.ConsoleView"
             name="Console"
@@ -45,7 +45,7 @@
       <view
             allowMultiple="true"
             category="msi.gama.gui.category.gama"
-            class="ummisco.gama.ui.views.inspectors.PopulationInspectView"
+            class="gama.ui.experiment.views.inspectors.PopulationInspectView"
             icon="platform:/plugin/ummisco.gama.ui.shared/icons/view.browser2.png"
             id="msi.gama.application.view.TableAgentInspectView"
             name="Browser"
@@ -54,7 +54,7 @@
       <view
             allowMultiple="true"
             category="msi.gama.gui.category.gama"
-            class="ummisco.gama.ui.views.inspectors.AgentInspectView"
+            class="gama.ui.experiment.views.inspectors.AgentInspectView"
             icon="platform:/plugin/ummisco.gama.ui.shared/icons/view.inspector2.png"
             id="msi.gama.application.view.AgentInspectView"
             name="Inspector"
@@ -63,7 +63,7 @@
       <view
             allowMultiple="false"
             category="msi.gama.gui.category.gama"
-            class="ummisco.gama.ui.views.inspectors.MonitorView"
+            class="gama.ui.experiment.views.inspectors.MonitorView"
             icon="platform:/plugin/ummisco.gama.ui.shared/icons/view.monitors2.png"
             id="msi.gama.application.view.MonitorView"
             name="Monitors"
@@ -72,7 +72,7 @@
       <view
             allowMultiple="false"
             category="msi.gama.gui.category.gama"
-            class="ummisco.gama.ui.views.inspectors.ExperimentParametersView"
+            class="gama.ui.experiment.views.inspectors.ExperimentParametersView"
             icon="platform:/plugin/ummisco.gama.ui.shared/icons/view.parameters2.png"
             id="msi.gama.application.view.ParameterView"
             name="Parameters"
@@ -81,7 +81,7 @@
       <view
             allowMultiple="false"
             category="msi.gama.gui.category.gama"
-            class="ummisco.gama.ui.views.ErrorView"
+            class="gama.ui.experiment.views.ErrorView"
             icon="platform:/plugin/ummisco.gama.ui.shared/icons/view.errors2.png"
             id="msi.gama.application.view.ErrorView"
             name="Errors"
@@ -89,7 +89,7 @@
       </view>
       <view
             category="msi.gama.gui.category.gama"
-            class="ummisco.gama.ui.views.user.UserControlView"
+            class="gama.ui.experiment.views.user.UserControlView"
             fastViewWidthRatio="0.2"
             icon="platform:/plugin/ummisco.gama.ui.shared/icons/view.panel2.png"
             id="msi.gama.views.userControlView"
@@ -225,7 +225,7 @@
          <menu
                label="Agents">
             <dynamic
-                  class="ummisco.gama.ui.menus.AgentsMenu"
+                  class="gama.ui.experiment.menus.AgentsMenu"
                   id="msi.gama.application.agents.menu">
             </dynamic>
             <visibleWhen
@@ -305,7 +305,7 @@
                   </reference>
                </visibleWhen>
                <dynamic
-                     class="ummisco.gama.ui.menus.OutputsMenu"
+                     class="gama.ui.experiment.menus.OutputsMenu"
                      id="ummisco.gama.ui.experiment.outputs.menu">
                </dynamic>
             </menu>
@@ -435,7 +435,7 @@
                      icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.open.view2.png"
                      label="Show View">
                   <dynamic
-                        class="ummisco.gama.ui.commands.ShowViewContributionItem"
+                        class="gama.ui.experiment.commands.ShowViewContributionItem"
                         id="msi.gama.application.showView">
                   </dynamic>
                </menu>
@@ -473,7 +473,7 @@
                   tooltip="  ">
             </command>
             <control
-                  class="ummisco.gama.ui.controls.StatusControlContribution"
+                  class="gama.ui.experiment.controls.StatusControlContribution"
                   id="msi.gama.application.status">
             </control>
             <command
@@ -540,7 +540,7 @@
                </visibleWhen>
             </command>
             <control
-                  class="ummisco.gama.ui.controls.SimulationSpeedContributionItem"
+                  class="gama.ui.experiment.controls.SimulationSpeedContributionItem"
                   id="msi.gama.application.speed">
                <visibleWhen
                      checkEnabled="false">
@@ -586,7 +586,7 @@
                </visibleWhen>
             </command>
             <control
-                  class="ummisco.gama.ui.controls.Separator"
+                  class="gama.ui.experiment.controls.Separator"
                   id="separator2876">
             </control>
       </menuContribution>
@@ -594,7 +594,7 @@
    <extension
          point="org.eclipse.ui.handlers">
       <handler
-            class="ummisco.gama.ui.commands.StepBackHandler"
+            class="gama.ui.experiment.commands.StepBackHandler"
             commandId="msi.gama.application.commands.StepBackSimulation">
          <activeWhen>
             <with
@@ -614,7 +614,7 @@
          </enabledWhen>
       </handler>
       <handler
-            class="ummisco.gama.ui.commands.PlayPauseSimulationHandler"
+            class="gama.ui.experiment.commands.PlayPauseSimulationHandler"
             commandId="msi.gama.application.commands.PlaySimulation">
          <activeWhen>
             <reference
@@ -628,7 +628,7 @@
          </enabledWhen>
       </handler>
       <handler
-            class="ummisco.gama.ui.commands.StepByStepHandler"
+            class="gama.ui.experiment.commands.StepByStepHandler"
             commandId="msi.gama.application.commands.StepByStepSimulation">
          <activeWhen>
             <and>
@@ -656,7 +656,7 @@
          </enabledWhen>
       </handler>
       <handler
-            class="ummisco.gama.ui.commands.ReloadSimulationHandler"
+            class="gama.ui.experiment.commands.ReloadSimulationHandler"
             commandId="msi.gama.application.commands.ReloadSimulation">
          <activeWhen>
             <reference
@@ -665,7 +665,7 @@
          </activeWhen>
       </handler>
       <handler
-            class="ummisco.gama.ui.commands.AddMonitorHandler"
+            class="gama.ui.experiment.commands.AddMonitorHandler"
             commandId="msi.gama.application.commands.AddMonitor">
          <activeWhen>
             <reference
@@ -674,7 +674,7 @@
          </activeWhen>
       </handler>
       <handler
-            class="ummisco.gama.ui.commands.ShowHideParametersViewHandler"
+            class="gama.ui.experiment.commands.ShowHideParametersViewHandler"
             commandId="msi.gama.application.commands.ShowHideParametersView">
          <activeWhen>
             <reference
@@ -683,7 +683,7 @@
          </activeWhen>
       </handler>
       <handler
-            class="ummisco.gama.ui.commands.ShowHideConsoleViewHandler"
+            class="gama.ui.experiment.commands.ShowHideConsoleViewHandler"
             commandId="msi.gama.application.commands.ShowHideConsoleView">
          <activeWhen>
             <reference
@@ -692,7 +692,7 @@
          </activeWhen>
       </handler>
       <handler
-            class="ummisco.gama.ui.commands.CancelRun"
+            class="gama.ui.experiment.commands.CancelRun"
             commandId="msi.gama.application.commands.Cancel">
          <activeWhen>
             <reference
@@ -701,19 +701,19 @@
          </activeWhen>
       </handler>
       <handler
-            class="ummisco.gama.ui.commands.ErrorsPauseAndEdit"
+            class="gama.ui.experiment.commands.ErrorsPauseAndEdit"
             commandId="msi.gama.application.commands.PauseAndEdit">
       </handler>
       <handler
-            class="ummisco.gama.ui.commands.TreatWarningsAsErrors"
+            class="gama.ui.experiment.commands.TreatWarningsAsErrors"
             commandId="msi.gama.application.commands.WarningsAsErrors">
       </handler>
       <handler
-            class="ummisco.gama.ui.commands.ShowErrors"
+            class="gama.ui.experiment.commands.ShowErrors"
             commandId="msi.gama.application.ShowErrors">
       </handler>
       <handler
-            class="ummisco.gama.ui.commands.SwitchToModeling"
+            class="gama.ui.experiment.commands.SwitchToModeling"
             commandId="msi.gama.application.goto.modeling">
          <activeWhen>
             <or>
@@ -727,7 +727,7 @@
          </activeWhen>
       </handler>
       <handler
-            class="ummisco.gama.ui.commands.ToggleDisplayTabs"
+            class="gama.ui.experiment.commands.ToggleDisplayTabs"
             commandId="msi.gama.application.toggleDisplayTabs">
          <activeWhen>
             <and>
@@ -741,7 +741,7 @@
          </activeWhen>
       </handler>
       <handler
-            class="ummisco.gama.ui.commands.ArrangeDisplayViews"
+            class="gama.ui.experiment.commands.ArrangeDisplayViews"
             commandId="msi.gama.application.layoutDisplays">
          <activeWhen>
             <and>
@@ -755,7 +755,7 @@
          </activeWhen>
       </handler>
       <handler
-            class="ummisco.gama.ui.commands.SwitchToSimulation"
+            class="gama.ui.experiment.commands.SwitchToSimulation"
             commandId="msi.gama.application.goto.simulation">
          <activeWhen>
             <and>
@@ -774,7 +774,7 @@
          </activeWhen>
       </handler>
       <handler
-            class="ummisco.gama.ui.commands.CopyLayout"
+            class="gama.ui.experiment.commands.CopyLayout"
             commandId="ummisco.gama.ui.experiment.copyLayout">
          <activeWhen>
             <and>
@@ -788,7 +788,7 @@
          </activeWhen>
       </handler>
       <handler
-            class="ummisco.gama.ui.commands.ResetModelingPerspective"
+            class="gama.ui.experiment.commands.ResetModelingPerspective"
             commandId="ummisco.gama.ui.resetPerspective">
          <activeWhen>
             <reference
@@ -960,13 +960,13 @@
          point="org.eclipse.ui.commands">
       <command
             categoryId="msi.gama.category"
-            defaultHandler="ummisco.gama.ui.commands.PlayPauseSimulationHandler"
+            defaultHandler="gama.ui.experiment.commands.PlayPauseSimulationHandler"
             id="msi.gama.application.commands.PlaySimulation"
             name="Play Experiment">
       </command>
       <command
             categoryId="msi.gama.category"
-            defaultHandler="ummisco.gama.ui.commands.PlayPauseSimulationHandler"
+            defaultHandler="gama.ui.experiment.commands.PlayPauseSimulationHandler"
             id="msi.gama.application.commands.PauseSimulation"
             name="Pause Simulation">
       </command>
@@ -982,13 +982,13 @@
       </command>
       <command
             categoryId="msi.gama.category"
-            defaultHandler="ummisco.gama.ui.commands.ReloadSimulationHandler"
+            defaultHandler="gama.ui.experiment.commands.ReloadSimulationHandler"
             id="msi.gama.application.commands.ReloadSimulation"
             name="Reload Simulation">
       </command>
       <command
             categoryId="msi.gama.category"
-            defaultHandler="ummisco.gama.ui.commands.ShowHideParametersViewHandler"
+            defaultHandler="gama.ui.experiment.commands.ShowHideParametersViewHandler"
             id="msi.gama.application.commands.ShowHideParametersView"
             name="Show parameters">
       </command>
@@ -1044,12 +1044,12 @@
             name="Switch to simulation perspective">
       </command>
       <command
-            defaultHandler="ummisco.gama.ui.commands.DummyHandler"
+            defaultHandler="gama.ui.experiment.commands.DummyHandler"
             id="ummisco.gama.ui.experiment.dummy"
             name="Separator">
       </command>
       <command
-            defaultHandler="ummisco.gama.ui.commands.ShowInteractiveConsole"
+            defaultHandler="gama.ui.experiment.commands.ShowInteractiveConsole"
             id="msi.gama.application.command.interactive"
             name="Show Interactive Console">
       </command>
@@ -1070,17 +1070,17 @@
    <extension
          point="org.eclipse.ui.services">
       <serviceFactory
-            factoryClass="ummisco.gama.ui.factories.AgentMenuFactory">
+            factoryClass="gama.ui.experiment.factories.AgentMenuFactory">
          <service
                serviceClass="ummisco.gama.ui.interfaces.IAgentMenuFactory"></service>
       </serviceFactory>
       <serviceFactory
-            factoryClass="ummisco.gama.ui.factories.UserDialogFactory">
+            factoryClass="gama.ui.experiment.factories.UserDialogFactory">
          <service
                serviceClass="ummisco.gama.ui.interfaces.IUserDialogFactory"></service>
       </serviceFactory>
       <sourceProvider
-            provider="ummisco.gama.ui.commands.SimulationStateProvider">
+            provider="gama.ui.experiment.commands.SimulationStateProvider">
          <variable
                name="ummisco.gama.ui.experiment.SimulationRunningState"
                priorityLevel="workbench">
@@ -1091,40 +1091,40 @@
          </variable>
       </sourceProvider>
       <serviceFactory
-            factoryClass="ummisco.gama.ui.factories.SpeedDisplayerFactory">
+            factoryClass="gama.ui.experiment.factories.SpeedDisplayerFactory">
          <service
                serviceClass="ummisco.gama.ui.interfaces.ISpeedDisplayer">
          </service>
       </serviceFactory>
       <serviceFactory
-            factoryClass="ummisco.gama.ui.factories.StatusDisplayerFactory">
+            factoryClass="gama.ui.experiment.factories.StatusDisplayerFactory">
          <service
-               serviceClass="msi.gama.common.interfaces.IStatusDisplayer">
+               serviceClass="msi.gama.common.ui.IStatusDisplayer">
          </service>
       </serviceFactory>
       <serviceFactory
-            factoryClass="ummisco.gama.ui.factories.ConsoleDisplayerFactory">
+            factoryClass="gama.ui.experiment.factories.ConsoleDisplayerFactory">
          <service
-               serviceClass="msi.gama.common.interfaces.IConsoleDisplayer">
+               serviceClass="msi.gama.common.ui.IConsoleDisplayer">
          </service>
       </serviceFactory>
       <serviceFactory
-            factoryClass="ummisco.gama.ui.factories.DisplayLayoutFactory">
+            factoryClass="gama.ui.experiment.factories.DisplayLayoutFactory">
          <service
                serviceClass="ummisco.gama.ui.interfaces.IDisplayLayoutManager">
          </service>
       </serviceFactory>
       <serviceFactory
-            factoryClass="ummisco.gama.ui.factories.RuntimeExceptionHandlerFactory">
+            factoryClass="gama.ui.experiment.factories.RuntimeExceptionHandlerFactory">
          <service
-               serviceClass="msi.gama.common.interfaces.IRuntimeExceptionHandler">
+               serviceClass="msi.gama.common.ui.IRuntimeExceptionHandler">
          </service>
       </serviceFactory>
    </extension>
    <extension
          point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester
-            class="ummisco.gama.ui.perspective.PerspectiveNamePropertyTester"
+            class="gama.ui.experiment.perspective.PerspectiveNamePropertyTester"
             id="ummisco.gama.ui.PerspectiveNamePropertyTester"
             namespace="ummisco.gama.ui"
             properties="containsString"

@@ -1,12 +1,12 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Traffic
-Bundle-SymbolicName: simtools.gaml.extensions.traffic;singleton:=true
+Bundle-SymbolicName: gama.ext.traffic;singleton:=true
 Bundle-Version: 1.8.1.qualifier
-Require-Bundle: msi.gama.core,
- msi.gama.ext
+Require-Bundle: gama.core.kernel,
+ gama.ext.libs
 Import-Package: org.locationtech.jts.geom
-Export-Package: simtools.gaml.extensions.traffic
+Export-Package: gama.ext.traffic
 Bundle-ClassPath: .
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-11

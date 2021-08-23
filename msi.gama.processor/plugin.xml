@@ -8,7 +8,7 @@
       <java6processors
             enableDefault="true">
          <java6processor
-               class="msi.gama.precompiler.GamaProcessor">
+               class="gama.build.processor.GamaProcessor">
          </java6processor>
       </java6processors>
    </extension>

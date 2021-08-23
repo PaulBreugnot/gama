@@ -61,7 +61,7 @@
             <view
             allowMultiple="false"
             category="msi.gama.gui.category.gama"
-            class="ummisco.gama.ui.views.InteractiveConsoleView"
+            class="gama.ui.base.views.InteractiveConsoleView"
             icon="/icons/view.interactive2.png"
             id="msi.gama.application.view.InteractiveConsoleView"
             name="Interactive console"
@@ -70,7 +70,7 @@
             <view
                   allowMultiple="false"
                   category="msi.gama.gui.category.gama"
-                  class="ummisco.gama.ui.views.TestView"
+                  class="gama.ui.base.views.TestView"
                   icon="/icons/view.test2.png"
                   id="msi.gama.application.view.TestView"
                   name="Tests"
@@ -81,7 +81,7 @@
          point="org.eclipse.ui.commands">
       <command
             categoryId="msi.gama.category"
-            defaultHandler="ummisco.gama.ui.commands.OpenGamaWebsiteHandler"
+            defaultHandler="gama.ui.base.commands.OpenGamaWebsiteHandler"
             id="msi.gama.application.command.web"
             name="Welcome page">
       </command>
@@ -293,31 +293,31 @@
       
       <command
             categoryId="msi.gama.category"
-            defaultHandler="ummisco.gama.ui.commands.DetailsHandler"
+            defaultHandler="gama.ui.base.commands.DetailsHandler"
             id="ummisco.gama.ui.details"
             name="Installation details">
       </command>
       <command
             categoryId="msi.gama.category"
-            defaultHandler="ummisco.gama.ui.commands.SwitchWorkspaceHandler"
+            defaultHandler="gama.ui.base.commands.SwitchWorkspaceHandler"
             id="ummisco.gama.ui.switchWorkspace"
             name="Switch Workspace">
      </command>
       <command
             categoryId="msi.gama.category"
-            defaultHandler="ummisco.gama.ui.commands.InstallHandler"
+            defaultHandler="gama.ui.base.commands.InstallHandler"
             id="ummisco.gama.ui.install"
             name="Install new plugins...">
       </command>
       <command
             categoryId="msi.gama.category"
-            defaultHandler="ummisco.gama.ui.commands.UpdateHandler"
+            defaultHandler="gama.ui.base.commands.UpdateHandler"
             id="ummisco.gama.ui.update"
             name="Check for updates">
       </command>
       <command
             categoryId="msi.gama.category"
-            defaultHandler="ummisco.gama.ui.commands.RestartHandler"
+            defaultHandler="gama.ui.base.commands.RestartHandler"
             id="ummisco.gama.ui.restart"
             name="Restart GAMA">
       </command>
@@ -325,7 +325,7 @@
       <extension
          point="org.eclipse.ui.handlers">
                <handler
-            class="ummisco.gama.ui.commands.PreferencesHandler"
+            class="gama.ui.base.commands.PreferencesHandler"
             commandId="org.eclipse.ui.window.preferences">
          <activeWhen>
             <or>
@@ -339,30 +339,31 @@
          </activeWhen>
       </handler>
    </extension>
-   <extension
-         point="org.eclipse.ui.startup">
-      <startup
-            class="ummisco.gama.ui.Startup">
-      </startup>
-   </extension>
    <extension point="org.eclipse.ui.services">
       <serviceFactory
-            factoryClass="ummisco.gama.ui.shared.WebHelperFactory">
+            factoryClass="gama.ui.base.shared.WebHelperFactory">
          <service
-               serviceClass="msi.gama.application.workbench.IWebHelper">
+               serviceClass="gama.ui.base.interfaces.IWebHelper">
          </service>
       </serviceFactory>
       <serviceFactory
-            factoryClass="ummisco.gama.ui.shared.IconProviderFactory">
+            factoryClass="gama.ui.base.shared.IconProviderFactory">
          <service
-               serviceClass="msi.gama.application.workbench.IIconProvider"></service>
+               serviceClass="gama.ui.base.interfaces.IIconProvider"></service>
       </serviceFactory>
       <serviceFactory
-            factoryClass="ummisco.gama.ui.shared.PreferenceHelperFactory">
+            factoryClass="gama.ui.base.shared.PreferenceHelperFactory">
          <service
-               serviceClass="msi.gama.application.workbench.IPreferenceHelper">
+               serviceClass="gama.ui.base.interfaces.IPreferenceHelper">
          </service>
       </serviceFactory>
+   </extension>
+   <extension
+         point="gama.ui.provider">
+      <implementation
+            class="ummisco.gama.ui.ApplicationUIControlFactory"
+            keyword="ui">
+      </implementation>
    </extension>
 
 </plugin>

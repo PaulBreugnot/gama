@@ -5,13 +5,17 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry excluding="irit/gaml/extensions/database/skills/XmlaTest.java|irit/gaml/extensions/database/skills/MondrianApp.java|irit/gaml/extensions/database/skills/MondrianXmlaApp.java|irit/gaml/extensions/database/skills/MyAPP.java|irit/gaml/extensions/database/skills/MDXApp.java|irit/gaml/extensions/database/skills/QueryLab.java" kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins">
+		<accessrules>
+			<accessrule kind="accessible" pattern="*/**"/>
+		</accessrules>
+	</classpathentry>
 	<classpathentry kind="src" path="gaml">
 		<attributes>
 			<attribute name="optional" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="lib" path="lib/olap4j 1.2.0/jars/olap4j-1.2.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/olap4j 1.2.0/jars/olap4j-xmla-1.2.0.jar"/>
 	<classpathentry kind="output" path="bin"/>

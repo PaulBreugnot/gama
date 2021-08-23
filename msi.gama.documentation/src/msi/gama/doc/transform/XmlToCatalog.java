@@ -18,7 +18,8 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import org.xml.sax.SAXException;
-import msi.gama.precompiler.doc.utils.Constants;
+
+import gama.core.dev.documentation.utils.Constants;
 
 
 public class XmlToCatalog {

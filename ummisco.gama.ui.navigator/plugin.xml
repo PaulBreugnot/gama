@@ -5,7 +5,7 @@
          point="org.eclipse.ui.decorators">
       <decorator
             adaptable="false"
-            class="ummisco.gama.ui.navigator.NavigatorBaseLighweightDecorator"
+            class="gama.ui.navigator.NavigatorBaseLighweightDecorator"
             id="msi.gama.application.decorator"
             label="Metadata Decorator"
             lightweight="true"
@@ -14,13 +14,13 @@
          <enablement>
             <or>
                <objectClass
-                     name="ummisco.gama.ui.navigator.contents.LinkedFile">
+                     name="gama.ui.navigator.contents.LinkedFile">
                </objectClass>
                <objectClass
-                     name="ummisco.gama.ui.navigator.contents.WrappedProject">
+                     name="gama.ui.navigator.contents.WrappedProject">
                </objectClass>
                <objectClass
-                     name="ummisco.gama.ui.navigator.contents.WrappedLink">
+                     name="gama.ui.navigator.contents.WrappedLink">
                </objectClass>
                <and>
                   <objectClass
@@ -58,26 +58,26 @@
                   </or>
                </and>
                <objectClass
-                     name="ummisco.gama.ui.navigator.contents.WrappedFolder">
+                     name="gama.ui.navigator.contents.WrappedFolder">
                </objectClass>
                <objectClass
-                     name="ummisco.gama.ui.navigator.contents.TopLevelFolder">
+                     name="gama.ui.navigator.contents.TopLevelFolder">
                </objectClass>
                <objectClass
-                     name="ummisco.gama.ui.navigator.contents.WrappedFile">
+                     name="gama.ui.navigator.contents.WrappedFile">
                </objectClass>
                <objectClass
-                     name="ummisco.gama.ui.navigator.contents.WrappedGamaFile">
+                     name="gama.ui.navigator.contents.WrappedGamaFile">
                </objectClass>
                <objectClass
-                     name="ummisco.gama.ui.navigator.contents.WrappedSyntacticContent">
+                     name="gama.ui.navigator.contents.WrappedSyntacticContent">
                </objectClass>
             </or>
          </enablement>
       </decorator>
       <decorator
             adaptable="true"
-            class="ummisco.gama.ui.navigator.NavigatorDateLighweightDecorator"
+            class="gama.ui.navigator.NavigatorDateLighweightDecorator"
             id="msi.gama.application.date.decorator"
             label="Date Decorator"
             lightweight="true"
@@ -111,7 +111,7 @@
                            operator="and">
                         <or>
                            <instanceof
-                                 value="ummisco.gama.ui.navigator.contents.UserProjectsFolder">
+                                 value="gama.ui.navigator.contents.UserProjectsFolder">
                            </instanceof>
                         </or>
                      </iterate>
@@ -167,13 +167,13 @@
                         operator="and">
                      <or>
                         <instanceof
-                              value="ummisco.gama.ui.navigator.contents.WrappedProject">
+                              value="gama.ui.navigator.contents.WrappedProject">
                         </instanceof>
                         <instanceof
-                              value="ummisco.gama.ui.navigator.contents.WrappedFolder">
+                              value="gama.ui.navigator.contents.WrappedFolder">
                         </instanceof>
                         <instanceof
-                              value="ummisco.gama.ui.navigator.contents.UserProjectsFolder">
+                              value="gama.ui.navigator.contents.UserProjectsFolder">
                         </instanceof>
                      </or>
                   </iterate>
@@ -203,7 +203,7 @@
                            operator="and">
                         <or>
                            <instanceof
-                                 value="ummisco.gama.ui.navigator.contents.UserProjectsFolder">
+                                 value="gama.ui.navigator.contents.UserProjectsFolder">
                            </instanceof>
                         </or>
                      </iterate>
@@ -249,13 +249,13 @@
                         operator="and">
                      <or>
                         <instanceof
-                              value="ummisco.gama.ui.navigator.contents.WrappedProject">
+                              value="gama.ui.navigator.contents.WrappedProject">
                         </instanceof>
                         <instanceof
-                              value="ummisco.gama.ui.navigator.contents.WrappedFolder">
+                              value="gama.ui.navigator.contents.WrappedFolder">
                         </instanceof>
                         <instanceof
-                              value="ummisco.gama.ui.navigator.contents.UserProjectsFolder">
+                              value="gama.ui.navigator.contents.UserProjectsFolder">
                         </instanceof>
                      </or>
                   </iterate>
@@ -289,10 +289,10 @@
                         operator="and">
                      <or>
                         <instanceof
-                              value="ummisco.gama.ui.navigator.contents.WrappedProject">
+                              value="gama.ui.navigator.contents.WrappedProject">
                         </instanceof>
                         <instanceof
-                              value="ummisco.gama.ui.navigator.contents.WrappedFolder">
+                              value="gama.ui.navigator.contents.WrappedFolder">
                         </instanceof>
                      </or>
                   </iterate>
@@ -336,7 +336,7 @@
                         ifEmpty="false"
                         operator="and">
                      <instanceof
-                           value="ummisco.gama.ui.navigator.contents.LinkedFile">
+                           value="gama.ui.navigator.contents.LinkedFile">
                      </instanceof>
                   </iterate>
                </with>
@@ -364,7 +364,7 @@
                         operator="and">
                      <or>
                         <instanceof
-                              value="ummisco.gama.ui.navigator.contents.UserProjectsFolder">
+                              value="gama.ui.navigator.contents.UserProjectsFolder">
                         </instanceof>
                      </or>
                   </iterate>
@@ -507,16 +507,16 @@
       <navigatorContent
             activeByDefault="true"
             appearsBefore="org.eclipse.ui.navigator.resourceContent"
-            contentProvider="ummisco.gama.ui.navigator.NavigatorContentProvider"
+            contentProvider="gama.ui.navigator.NavigatorContentProvider"
             id="msi.gama.application.resourceVirtualNavigatorContent"
-            labelProvider="ummisco.gama.ui.navigator.NavigatorLabelProvider"
+            labelProvider="gama.ui.navigator.NavigatorLabelProvider"
             name="Virtual GamaNavigator Content"
             priority="highest"
             providesSaveables="false">
          <triggerPoints>
             <or>
                <instanceof
-                     value="ummisco.gama.ui.navigator.contents.VirtualContent">
+                     value="gama.ui.navigator.contents.VirtualContent">
                </instanceof>
 
             </or>
@@ -524,40 +524,40 @@
          <possibleChildren>
             <or>
                <instanceof
-                     value="ummisco.gama.ui.navigator.contents.LinkedFile">
+                     value="gama.ui.navigator.contents.LinkedFile">
                </instanceof>
                <instanceof
-                     value="ummisco.gama.ui.navigator.contents.Category">
+                     value="gama.ui.navigator.contents.Category">
                </instanceof>
                <instanceof
-                     value="ummisco.gama.ui.navigator.contents.VirtualContent">
+                     value="gama.ui.navigator.contents.VirtualContent">
                </instanceof>
             </or>
          </possibleChildren>
          <commonSorter
-               class="ummisco.gama.ui.navigator.NavigatorSorter"
+               class="gama.ui.navigator.NavigatorSorter"
                id="msi.gama.navigator.sorter">
             <parentExpression>
             <or>
                <instanceof
-                     value="ummisco.gama.ui.navigator.contents.WrappedSyntacticContent">
+                     value="gama.ui.navigator.contents.WrappedSyntacticContent">
                </instanceof>
                <instanceof
-                     value="ummisco.gama.ui.navigator.contents.WrappedFile">
+                     value="gama.ui.navigator.contents.WrappedFile">
                </instanceof>
            </or>
             </parentExpression>
          </commonSorter>
          <commonSorter
-               class="ummisco.gama.ui.navigator.FileFolderSorter">
+               class="gama.ui.navigator.FileFolderSorter">
             <parentExpression>
                <instanceof
-                     value="ummisco.gama.ui.navigator.contents.WrappedContainer">
+                     value="gama.ui.navigator.contents.WrappedContainer">
                </instanceof>
             </parentExpression>
          </commonSorter>
          <dropAssistant
-               class="ummisco.gama.ui.navigator.NavigatorDropAssistant"
+               class="gama.ui.navigator.NavigatorDropAssistant"
                id="msi.gama.application.dropAssistant1">
             <possibleDropTargets>
                <instanceof
@@ -566,20 +566,20 @@
             </possibleDropTargets>
          </dropAssistant>
          <dropAssistant
-               class="ummisco.gama.ui.navigator.NavigatorResourceDropAssistant"
+               class="gama.ui.navigator.NavigatorResourceDropAssistant"
                id="ummisco.gama.ui.navigator.dropAssistant2">
             <possibleDropTargets></possibleDropTargets>
          </dropAssistant>
       </navigatorContent>
       <commonFilter
             activeByDefault="true"
-            class="ummisco.gama.ui.navigator.NavigatorFilter"
+            class="gama.ui.navigator.NavigatorFilter"
             id="msi.gama.application.shapefile.filter"
             name="Filters Shapefile support files"
             visibleInUI="true">
       </commonFilter>
       <actionProvider
-            class="ummisco.gama.ui.navigator.actions.EditActionProvider"
+            class="gama.ui.navigator.actions.EditActionProvider"
             id="edit.actions"
             overrides="org.eclipse.ui.navigator.resources.actions.EditActions"
             priority="highest">
@@ -594,7 +594,7 @@
                            type="org.eclipse.core.resources.IResource">
                      </adapt>
                      <instanceof
-                           value="ummisco.gama.ui.navigator.contents.VirtualContent">
+                           value="gama.ui.navigator.contents.VirtualContent">
                      </instanceof>
                   </or>
                </iterate>
@@ -602,7 +602,7 @@
          </enablement>
       </actionProvider>
       <actionProvider
-            class="ummisco.gama.ui.navigator.actions.OpenCloseActionProvider"
+            class="gama.ui.navigator.actions.OpenCloseActionProvider"
             id="openclose.actions"
             priority="highest">
          <enablement>
@@ -619,7 +619,7 @@
          </enablement>
       </actionProvider>
       <actionProvider
-            class="ummisco.gama.ui.navigator.actions.RefreshActionProvider"
+            class="gama.ui.navigator.actions.RefreshActionProvider"
             id="refresh.actions">
          <enablement>
             <with
@@ -629,7 +629,7 @@
                      operator="and">
                   <or>
                      <instanceof
-                           value="ummisco.gama.ui.navigator.contents.TopLevelFolder">
+                           value="gama.ui.navigator.contents.TopLevelFolder">
                      </instanceof>
                      <adapt
                            type="org.eclipse.core.resources.IResource">
@@ -640,7 +640,7 @@
          </enablement>
       </actionProvider>
       <actionProvider
-            class="ummisco.gama.ui.navigator.actions.RefactorActionProvider"
+            class="gama.ui.navigator.actions.RefactorActionProvider"
             id="refactor.actions"
             overrides="org.eclipse.ui.internal.navigator.resources.actions.RefactorActionProvider"
             priority="highest">
@@ -658,7 +658,7 @@
          </enablement>
       </actionProvider>
       <actionProvider
-            class="ummisco.gama.ui.navigator.actions.OpenActionProvider"
+            class="gama.ui.navigator.actions.OpenActionProvider"
             id="open.actions">
          <enablement>
             <with
@@ -667,14 +667,14 @@
                      ifEmpty="false"
                      operator="and">
                   <instanceof
-                        value="ummisco.gama.ui.navigator.contents.WrappedFile">
+                        value="gama.ui.navigator.contents.WrappedFile">
                   </instanceof>
                </iterate>
             </with>
          </enablement>
       </actionProvider>
       <actionProvider
-            class="ummisco.gama.ui.navigator.actions.GamlActionProvider"
+            class="gama.ui.navigator.actions.GamlActionProvider"
             id="gaml.actions"
             priority="highest">
              <enablement>
@@ -684,7 +684,7 @@
                      ifEmpty="false"
                      operator="and">
                   <instanceof
-                        value="ummisco.gama.ui.navigator.contents.WrappedSyntacticContent">
+                        value="gama.ui.navigator.contents.WrappedSyntacticContent">
                   </instanceof>
                </iterate>
             </with>
@@ -696,7 +696,7 @@
       <view
             allowMultiple="false"
             category="msi.gama.gui.category.gama"
-            class="ummisco.gama.ui.navigator.GamaNavigator"
+            class="gama.ui.navigator.GamaNavigator"
             icon="platform:/plugin/ummisco.gama.ui.shared/icons/view.navigator2.png"
             id="msi.gama.gui.view.GamaNavigator"
             name="Models"
@@ -711,7 +711,7 @@
       </category>
       <wizard
             category="msi.gama.gui.wizards.GAMA"
-            class="ummisco.gama.ui.wizards.NewFileWizard"
+            class="gama.ui.navigator.wizards.NewFileWizard"
             hasPages="true"
             icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/new.model2.png"
             id="msi.gama.gui.wizards.NewFileWizard"
@@ -720,7 +720,7 @@
       </wizard>
        <wizard
              category="msi.gama.gui.wizards.GAMA"
-             class="ummisco.gama.ui.wizards.NewExperimentWizard"
+             class="gama.ui.navigator.wizards.NewExperimentWizard"
              hasPages="true"
              icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/new.model2.png"
              id="msi.gama.gui.wizards.NewExperimentWizard"
@@ -729,7 +729,7 @@
       </wizard>
       <wizard
             category="msi.gama.gui.wizards.GAMA"
-            class="ummisco.gama.ui.wizards.NewProjectWizard"
+            class="gama.ui.navigator.wizards.NewProjectWizard"
             hasPages="true"
             icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/new.project2.png"
             id="msi.gama.gui.wizards.newProjectWizard"
@@ -738,7 +738,7 @@
       </wizard>
       <wizard
             category="msi.gama.gui.wizards.GAMA"
-            class="ummisco.gama.ui.wizards.NewTestExperimentWizard"
+            class="gama.ui.navigator.wizards.NewTestExperimentWizard"
             hasPages="true"
             icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/new.model2.png"
             id="msi.gama.gui.wizards.NewTestExperimentWizard"
@@ -803,12 +803,12 @@
    <extension
          point="org.eclipse.ui.services">
       <serviceFactory
-            factoryClass="ummisco.gama.ui.navigator.MetaDataServiceFactory">
+            factoryClass="gama.ui.navigator.MetaDataServiceFactory">
          <service
                serviceClass="msi.gama.util.file.IFileMetaDataProvider"></service>
       </serviceFactory>
       <serviceFactory
-            factoryClass="ummisco.gama.ui.commands.RefreshServiceFactory">
+            factoryClass="gama.ui.navigator.commands.RefreshServiceFactory">
          <service
                serviceClass="ummisco.gama.ui.interfaces.IRefreshHandler">
          </service>
@@ -817,7 +817,7 @@
    <extension
 point="org.eclipse.core.expressions.propertyTesters">
 <propertyTester
-class="ummisco.gama.ui.navigator.ClipboardTester"
+class="gama.ui.navigator.ClipboardTester"
 id="ummisco.gama.clipboard.tester"
 namespace="ummisco.gama"
 properties="cbready"
@@ -828,21 +828,21 @@ type="java.lang.Object">
           point="org.eclipse.ui.importWizards">
        <wizard
              category="msi.gama.gui.wizards.GAMA"
-             class="ummisco.gama.ui.wizards.ImportProjectWizard"
+             class="gama.ui.navigator.wizards.ImportProjectWizard"
              icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/navigator.import.project2.png"
              id="ummisco.gama.ui.import.ExternalProject"
              name="GAMA Project">
        </wizard>
        <wizard
              category="msi.gama.gui.wizards.GAMA"
-             class="ummisco.gama.ui.wizards.FileImportWizard"
+             class="gama.ui.navigator.wizards.FileImportWizard"
              icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/navigator.import.disk2.png"
              id="ummisco.gama.ui.import.ExternalFile"
              name="External files from disk">
        </wizard>
        <wizard
              category="msi.gama.gui.wizards.GAMA"
-             class="ummisco.gama.ui.wizards.ZipImportWizard"
+             class="gama.ui.navigator.wizards.ZipImportWizard"
              icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/navigator.import.archive2.png"
              id="ummisco.gama.ui.import.ZipFile"
              name="External files from archive">
@@ -855,7 +855,7 @@ type="java.lang.Object">
     <extension
           point="org.eclipse.ui.navigator.linkHelper">
        <linkHelper
-             class="ummisco.gama.ui.navigator.NavigatorLinkHelper"
+             class="gama.ui.navigator.NavigatorLinkHelper"
              id="ummisco.gama.ui.navigator.linkHelper1">
           <editorInputEnablement>
              <instanceof
@@ -865,10 +865,10 @@ type="java.lang.Object">
           <selectionEnablement>
              <or>
                 <instanceof
-                      value="ummisco.gama.ui.navigator.contents.WrappedFile">
+                      value="gama.ui.navigator.contents.WrappedFile">
                 </instanceof>
                 <instanceof
-                      value="ummisco.gama.ui.navigator.contents.WrappedGamaFile">
+                      value="gama.ui.navigator.contents.WrappedGamaFile">
                 </instanceof>
                 <adapt
                       type="org.eclipse.core.resources.IFile">
@@ -880,13 +880,13 @@ type="java.lang.Object">
     <extension
           point="org.eclipse.ui.propertyPages">
        <page
-             class="ummisco.gama.ui.navigator.properties.TopLevelFolderPropertyPage"
+             class="gama.ui.navigator.properties.TopLevelFolderPropertyPage"
              id="ummisco.gama.ui.navigator.properties.samplePropertyPage"
              name="Folder"
              nameFilter="*.*">
           <enabledWhen>
              <instanceof
-                   value="ummisco.gama.ui.navigator.contents.TopLevelFolder">
+                   value="gama.ui.navigator.contents.TopLevelFolder">
              </instanceof>
           </enabledWhen>
        </page>
@@ -895,14 +895,14 @@ type="java.lang.Object">
           point="org.eclipse.ui.exportWizards">
        <wizard
              category="msi.gama.gui.wizards.GAMA"
-             class="ummisco.gama.ui.wizards.ExportProjectWizard"
+             class="gama.ui.navigator.wizards.ExportProjectWizard"
              icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/navigator.import.archive2.png"
              id="ummisco.gama.ui.export.ExternalProject"
              name="GAMA Project">
        </wizard>
        <wizard
              category="msi.gama.gui.wizards.GAMA"
-             class="ummisco.gama.ui.wizards.ZipExportWizard"
+             class="gama.ui.navigator.wizards.ZipExportWizard"
              icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/navigator.import.archive2.png"
              id="ummisco.gama.ui.export.ZipFile"
              name="External files to archive">
@@ -919,7 +919,7 @@ type="java.lang.Object">
     <extension
           point="org.eclipse.ui.handlers">
        <handler
-             class="ummisco.gama.ui.commands.RevealInWorkspace"
+             class="gama.ui.navigator.commands.RevealInWorkspace"
              commandId="ummisco.gama.navigator.reveal">
           <enabledWhen>
              <with
@@ -928,7 +928,7 @@ type="java.lang.Object">
                       ifEmpty="false"
                       operator="and">
                    <instanceof
-                         value="ummisco.gama.ui.navigator.contents.LinkedFile">
+                         value="gama.ui.navigator.contents.LinkedFile">
                    </instanceof>
                 </iterate>
              </with>

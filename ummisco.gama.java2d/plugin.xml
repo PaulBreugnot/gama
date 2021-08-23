@@ -13,7 +13,7 @@
       <view
             allowMultiple="true"
             category="msi.gama.gui.category.gama"
-            class="ummisco.gama.java2d.AWTDisplayView"
+            class="gama.display.java2d.AWTDisplayView"
             icon="platform:/plugin/ummisco.gama.ui.shared/icons/view.display2.png"
             id="msi.gama.application.view.LayeredDisplayView"
             name="Display"

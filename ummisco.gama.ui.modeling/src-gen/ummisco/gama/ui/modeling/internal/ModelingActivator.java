@@ -3,10 +3,18 @@
  */
 package ummisco.gama.ui.modeling.internal;
 
+import static org.eclipse.jface.preference.PreferenceConverter.setValue;
+import static org.eclipse.jface.resource.JFaceResources.TEXT_FONT;
+
 import java.util.Collections;
 import java.util.Map;
 
+import org.eclipse.jface.preference.PreferenceConverter;
+import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.graphics.RGB;
+import org.eclipse.ui.internal.editors.text.EditorsPlugin;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.ui.texteditor.AbstractTextEditor;
 import org.eclipse.xtext.ui.shared.SharedStateModule;
 import org.eclipse.xtext.util.Modules2;
 import org.osgi.framework.BundleContext;
@@ -15,9 +23,15 @@ import com.google.common.collect.Maps;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-import msi.gama.lang.gaml.GamlRuntimeModule;
-import msi.gama.lang.gaml.ui.GamlUiModule;
-import ummisco.gama.dev.utils.DEBUG;
+import gama.common.preferences.GamaPreferences;
+import gama.core.dev.utils.DEBUG;
+import gama.core.lang.GamlRuntimeModule;
+import gama.core.lang.ui.GamlUiModule;
+import gama.core.lang.ui.editor.GamlEditorBindings;
+import gama.core.lang.ui.reference.OperatorsReferenceMenu;
+import gama.ui.base.utils.GamlReferenceSearch;
+import gama.util.GamaColor;
+import gama.util.GamaFont;
 
 /**
  * This class was generated. Customizations should only happen in a newly introduced subclass.
@@ -83,6 +97,41 @@ public class ModelingActivator extends AbstractUIPlugin {
 
 	protected com.google.inject.Module getSharedStateModule() {
 		return new SharedStateModule();
+	}
+
+	// ==== ADDITION BEYOND THIS POINT
+
+	private static GamaColor getDefaultBackground() {
+		EditorsPlugin.getDefault().getPreferenceStore()
+				.setValue(AbstractTextEditor.PREFERENCE_COLOR_BACKGROUND_SYSTEM_DEFAULT, false);
+		final RGB rgb = PreferenceConverter.getColor(EditorsPlugin.getDefault().getPreferenceStore(),
+				AbstractTextEditor.PREFERENCE_COLOR_BACKGROUND);
+		return new GamaColor(rgb.red, rgb.green, rgb.blue);
+	}
+
+	public static GamaFont getDefaultFontData() {
+		final FontData fd = PreferenceConverter.getFontData(EditorsPlugin.getDefault().getPreferenceStore(), TEXT_FONT);
+		return new GamaFont(fd.getName(), fd.getStyle(), fd.getHeight());
+	}
+
+	public void initialize() {
+		GamaPreferences.Modeling.EDITOR_BASE_FONT.init(ModelingActivator::getDefaultFontData).onChange(font -> {
+			try {
+				final FontData newValue = new FontData(font.getName(), font.getSize(), font.getStyle());
+				setValue(EditorsPlugin.getDefault().getPreferenceStore(), TEXT_FONT, newValue);
+			} catch (final Exception e) {}
+		});
+		GamaPreferences.Modeling.EDITOR_BACKGROUND_COLOR.init(ModelingActivator::getDefaultBackground).onChange(c -> {
+			final RGB rgb = new RGB(c.getRed(), c.getGreen(), c.getBlue());
+			PreferenceConverter.setValue(EditorsPlugin.getDefault().getPreferenceStore(),
+					AbstractTextEditor.PREFERENCE_COLOR_BACKGROUND, rgb);
+			GamaPreferences.Modeling.OPERATORS_MENU_SORT
+					.onChange(newValue -> OperatorsReferenceMenu.byName = "Name".equals(newValue));
+		});
+		// GamlRuntimeModule.staticInitialize(); Done in the activator now
+		GamlEditorBindings.install();
+		GamlReferenceSearch.install();
+
 	}
 
 }

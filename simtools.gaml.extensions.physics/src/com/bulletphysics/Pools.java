@@ -1,6 +1,6 @@
 package com.bulletphysics;
 
-import static msi.gama.common.util.PoolUtils.create;
+import static gama.common.util.PoolUtils.create;
 
 import javax.vecmath.Matrix3f;
 import javax.vecmath.Quat4f;
@@ -25,7 +25,7 @@ import com.bulletphysics.extras.gimpact.PrimitiveTriangle;
 import com.bulletphysics.extras.gimpact.TriangleContact;
 import com.bulletphysics.linearmath.Transform;
 
-import msi.gama.common.util.PoolUtils.ObjectPool;
+import gama.common.util.PoolUtils.ObjectPool;
 
 public class Pools {
 

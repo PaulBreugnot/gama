@@ -12,8 +12,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import msi.gama.precompiler.doc.utils.Constants;
-import msi.gama.precompiler.doc.utils.XMLUtils;
+import gama.core.dev.documentation.utils.Constants;
+import gama.core.dev.documentation.utils.XMLUtils;
 
 
 /**

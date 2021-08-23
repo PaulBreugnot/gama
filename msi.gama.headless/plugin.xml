@@ -10,12 +10,19 @@
             thread="main"
             visible="true">
          <run
-               class="msi.gama.headless.runtime.Application">
+               class="gama.core.headless.runtime.Application">
          </run>
       </application>
    </extension>
    <extension
          point="gaml.extension">
+   </extension>
+   <extension
+         point="gama.ui.provider">
+      <implementation
+            class="msi.gama.headless.HeadlessUI"
+            keyword="headless">
+      </implementation>
    </extension>
 
 </plugin>

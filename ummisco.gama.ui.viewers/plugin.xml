@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="ummisco.gama.ui.viewers.image.ImageViewer"
+            class="gama.ui.viewers.image.ImageViewer"
             default="false"
             extensions="JPG,jpg,JPEG,jpeg,PNG,png,BMP,bmp,TIFF,tiff,TIF,tif,ICO,ico,ASC,asc,PGM,pgm"
             icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/file.image2.png"
@@ -15,7 +15,7 @@
          </contentTypeBinding>
       </editor>
         <editor
-            class="ummisco.gama.ui.viewers.csv.MultiPageCSVEditor"
+            class="gama.ui.viewers.csv.MultiPageCSVEditor"
             default="true"
             extensions="CSV,csv"
             icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/file.csv2.png"
@@ -26,7 +26,7 @@
          </contentTypeBinding>
       </editor>
       <editor
-            class="ummisco.gama.ui.viewers.html.HtmlViewer"
+            class="gama.ui.viewers.html.HtmlViewer"
             default="false"
             extensions="html, htm, HTML, HTM, svg, SVG"
             icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/file.html2.png"
@@ -37,7 +37,7 @@
          </contentTypeBinding>
       </editor>
       <editor
-            class="ummisco.gama.ui.viewers.gis.ShapeFileViewer"
+            class="gama.ui.viewers.gis.ShapeFileViewer"
             default="true"
             extensions="shp"
             icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/file.shape2.png"
@@ -48,7 +48,7 @@
          </contentTypeBinding>
       </editor>
       <editor
-            class="ummisco.gama.ui.viewers.gis.OSMFileViewer"
+            class="gama.ui.viewers.gis.OSMFileViewer"
             default="true"
             extensions="gz,osm,pbf,bz2"
             icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/file.osm2.png"

@@ -5,8 +5,8 @@ Bundle-SymbolicName: miat.gaml.extension.pedestrian;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: escape.gaml.additions
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Require-Bundle: msi.gama.core;bundle-version="1.7.0",
- msi.gama.ext;bundle-version="1.7.0"
-Export-Package: miat.gaml.extensions.operator,
- miat.gaml.extensions.skills
+Require-Bundle: gama.core.kernel;bundle-version="1.7.0",
+ gama.ext.libs;bundle-version="1.7.0"
+Export-Package: gama.ext.pedestrian.operator,
+ gama.ext.pedestrian.skills
 Bundle-ClassPath: .

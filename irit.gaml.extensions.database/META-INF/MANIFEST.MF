@@ -1,19 +1,21 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Databases
-Bundle-SymbolicName: irit.gaml.extensions.database;singleton:=true
+Bundle-SymbolicName: gama.ext.databases;singleton:=true
 Bundle-Version: 1.8.1.qualifier
-Require-Bundle: msi.gama.ext,
- msi.gama.core,
+Require-Bundle: gama.ext.libs,
+ gama.core.kernel,
  org.eclipse.osgi
-Export-Package: irit.gaml.extensions.database.skills,
- irit.gaml.extensions.database.species,
- msi.gama.database.geosql,
- msi.gama.database.mdx,
- msi.gama.database.sql
+Export-Package: gama.ext.databases,
+ gama.ext.databases.geosql,
+ gama.ext.databases.mdx,
+ gama.ext.databases.skills,
+ gama.ext.databases.species,
+ gama.ext.databases.sql
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Bundle-Activator: msi.gama.database.Activator
+Bundle-Activator: gama.ext.databases.Activator
 Automatic-Module-Name: irit.gaml.extensions.database
 Bundle-ClassPath: ., lib/olap4j 1.2.0/jars/olap4j-1.2.0.jar,
  lib/olap4j 1.2.0/jars/olap4j-xmla-1.2.0.jar
+Import-Package: gama.core.dev

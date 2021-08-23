@@ -10,6 +10,6 @@
 			<accessrule kind="accessible" pattern="*/**"/>
 		</accessrules>
 	</classpathentry>
-	<classpathentry excluding="msi/gama/gui/views/GraphstreamView.java" kind="src" path="src"/>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
