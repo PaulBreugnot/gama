@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<psf version="2.0">
+<provider id="org.eclipse.egit.core.GitProvider">
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.build.documentation"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.build.grammar"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.build.p2updatesite"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.build.parent"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.build.processor"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.build.product"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.build.release"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.core.application"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.core.dev"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.core.headless"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.core.kernel"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.core.lang"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.display.java2d"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.display.opengl"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.ext.audio"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.ext.bdi"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.ext.databases"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.ext.fipa"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.ext.genstar"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.ext.libs"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.ext.maths"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.ext.network"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.ext.pedestrian"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.ext.physics"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.ext.serialize"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.ext.stats"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.ext.traffic"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.feature.audio"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.feature.core"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.feature.dependencies"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.feature.extensions"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.feature.models"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.feature.network"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.feature.serialize"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.feature.stats"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.feature.ui.core"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.feature.ui.experiment"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.feature.ui.modeling"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.models.library"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.target.platform"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.ui.base"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.ui.experiment"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.ui.modeling"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.ui.navigator"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.ui.viewers"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,travis"/>
+<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,.github/workflows"/>
+</provider>
+<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1566437668167_5" label="=============================== BUILD" name="=============================== BUILD">
+<item elementID="=gama.build.grammar" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/workflows" type="4"/>
+<item elementID="=gama.build.processor" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.build.p2updatesite" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.build.product" type="4"/>
+<item elementID="=gama.build.documentation" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/travis" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.build.parent" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.target.platform" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.build.release" type="4"/>
+</workingSets>
+<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1566437631051_4" label="=============================== CORE" name="=============================== CORE">
+<item elementID="=gama.core.lang" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=gama.core.application" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=gama.core.dev" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=gama.core.kernel" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=gama.core.headless" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+</workingSets>
+<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1567521971489_12" label="=============================== DEPENDENCIES" name="=============================== DEPENDENCIES">
+<item elementID="=gama.ext.libs" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+</workingSets>
+<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1566437751595_7" label="=============================== FEATURES" name="=============================== FEATURES">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.feature.network" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.feature.core" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.feature.models" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.feature.ui.experiment" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.feature.ui.modeling" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.feature.extensions" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.feature.ui.core" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.feature.audio" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.feature.serialize" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.feature.stats" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.feature.dependencies" type="4"/>
+</workingSets>
+<workingSets editPageId="org.eclipse.ui.resourceWorkingSetPage" id="1566438885822_8" label="=============================== MODELS" name="=============================== MODELS">
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.models.library" type="4"/>
+</workingSets>
+<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1567497192748_9" label="=============================== UI" name="=============================== UI">
+<item elementID="=gama.display.opengl" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=gama.ui.viewers" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=gama.ui.navigator" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=gama.ui.base" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=gama.ui.experiment" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=gama.display.java2d" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=gama.ui.modeling" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+</workingSets>
+<workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1567520045893_10" label="=============================== EXTENSIONS" name="=============================== EXTENSIONS">
+<item elementID="=gama.ext.fipa" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=gama.ext.physics" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=gama.ext.audio" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=gama.ext.stats" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=gama.ext.databases" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=gama.ext.traffic" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=gama.ext.bdi" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=gama.ext.maths" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=gama.ext.network" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=gama.ext.serialize" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=gama.ext.genstar" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=gama.ext.pedestrian" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+</workingSets>
+</psf>
