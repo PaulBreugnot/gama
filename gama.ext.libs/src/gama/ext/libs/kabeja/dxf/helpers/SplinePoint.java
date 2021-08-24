@@ -1,33 +1,41 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * SplinePoint.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf.helpers;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class SplinePoint.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class SplinePoint extends Point {
+    
+    /** The Constant TYPE_CONTROLPOINT. */
     public static final int TYPE_CONTROLPOINT = 0;
+    
+    /** The Constant TYPE_FITPOINT. */
     public static final int TYPE_FITPOINT = 1;
+    
+    /** The Constant TYPE_STARTTANGENT. */
     public static final int TYPE_STARTTANGENT = 2;
+    
+    /** The Constant TYPE_ENDTANGENT. */
     public static final int TYPE_ENDTANGENT = 3;
+    
+    /** The type. */
     protected int type = 0;
 
     /**
+     * Checks if is control point.
+     *
      * @return Returns the controlPoint.
      */
     public boolean isControlPoint() {
@@ -35,6 +43,8 @@ public class SplinePoint extends Point {
     }
 
     /**
+     * Checks if is end tangent.
+     *
      * @return Returns the endTangent.
      */
     public boolean isEndTangent() {
@@ -42,6 +52,8 @@ public class SplinePoint extends Point {
     }
 
     /**
+     * Checks if is fit point.
+     *
      * @return Returns the fitPoint.
      */
     public boolean isFitPoint() {
@@ -49,6 +61,8 @@ public class SplinePoint extends Point {
     }
 
     /**
+     * Checks if is start tangent.
+     *
      * @return Returns the startTangent.
      */
     public boolean isStartTangent() {
@@ -56,16 +70,18 @@ public class SplinePoint extends Point {
     }
 
     /**
-     * Sets the type of the point
-     * @param type
+     * Sets the type of the point.
+     *
+     * @param type the new type
      */
     public void setType(int type) {
         this.type = type;
     }
 
     /**
-     * gets the type of the point
-     * @return
+     * gets the type of the point.
+     *
+     * @return the type
      */
     public int getType() {
         return this.type;

@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gaml.types.GamaFontType.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * GamaFontType.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -26,10 +26,9 @@ import gama.runtime.exceptions.GamaRuntimeException;
 import gama.util.GamaFont;
 
 /**
- * Written by drogoul Modified on 1 ao�t 2010
+ * Written by drogoul Modified on 1 ao�t 2010.
  *
  * @todo Description
- *
  */
 @SuppressWarnings ("unchecked")
 @type (
@@ -41,6 +40,7 @@ import gama.util.GamaFont;
 		concept = { IConcept.TYPE, IConcept.TEXT, IConcept.DISPLAY })
 public class GamaFontType extends GamaType<GamaFont> {
 
+	/** The default display font. */
 	public static Pref<GamaFont> DEFAULT_DISPLAY_FONT = GamaPreferences
 			.create("pref_display_default_font", "Default font to use in 'draw'",
 					() -> new GamaFont("Helvetica", Font.PLAIN, 12), IType.FONT, true)
@@ -63,6 +63,15 @@ public class GamaFontType extends GamaType<GamaFont> {
 		return staticCast(scope, obj, copy);
 	}
 
+	/**
+	 * Static cast.
+	 *
+	 * @param scope the scope
+	 * @param obj the obj
+	 * @param copy the copy
+	 * @return the gama font
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public static GamaFont staticCast(final IScope scope, final Object obj, final boolean copy)
 			throws GamaRuntimeException {
 		if (obj instanceof Number) {

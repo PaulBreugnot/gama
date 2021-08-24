@@ -1,4 +1,13 @@
-// This software is released into the Public Domain. See copying.txt for details.
+/*******************************************************************************************************
+ *
+ * BaseElementProcessor.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.osmosis;
 
 import java.util.Calendar;
@@ -9,10 +18,20 @@ import java.util.Calendar;
  * @author Brett Henderson
  */
 public abstract class BaseElementProcessor implements ElementProcessor {
+	
+	/** The parent processor. */
 	private final BaseElementProcessor parentProcessor;
+	
+	/** The dummy child processor. */
 	private ElementProcessor dummyChildProcessor;
+	
+	/** The timestamp format. */
 	private TimestampFormat timestampFormat;
+	
+	/** The dummy timestamp container. */
 	private TimestampContainer dummyTimestampContainer;
+	
+	/** The enable date parsing. */
 	private final boolean enableDateParsing;
 
 	/**

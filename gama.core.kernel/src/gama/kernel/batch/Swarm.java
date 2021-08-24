@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Swarm.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.kernel.batch;
 
 import java.util.Hashtable;
@@ -21,6 +31,9 @@ import gaml.expressions.IExpression;
 import gaml.operators.Cast;
 import gaml.types.IType;
 
+/**
+ * The Class Swarm.
+ */
 @symbol (
 		name = IKeyword.PSO,
 		kind = ISymbolKind.BATCH_METHOD,
@@ -91,23 +104,53 @@ import gaml.types.IType;
 								isExecutable = false) }) })
 public class Swarm extends ParamSpaceExploAlgorithm {
 
+    /** The Constant DEFAULT_INERTIA. */
     public static final double DEFAULT_INERTIA = 0.729844;
+    
+    /** The Constant DEFAULT_COGNITIVE. */
     public static final double DEFAULT_COGNITIVE = 1.496180; // Cognitive component.
+    
+    /** The Constant DEFAULT_SOCIAL. */
     public static final double DEFAULT_SOCIAL = 1.496180; // Social component.
 
+    /** The Constant ITER_MAX. */
     protected static final String ITER_MAX = "iter_max";
+	
+	/** The Constant NUM_PARTICLES. */
 	protected static final String NUM_PARTICLES = "num_particles";
+	
+	/** The Constant INERTIA_WEIGHT. */
 	protected static final String INERTIA_WEIGHT = "weight_inertia";
+	
+	/** The Constant COGNITIVE_WEIGHT. */
 	protected static final String COGNITIVE_WEIGHT = "weight_cognitive";
+	
+	/** The Constant SOCIAL_WEIGHT. */
 	protected static final String SOCIAL_WEIGHT = "weight_social";
 	
+	/** The stopping criterion. */
 	StoppingCriterion stoppingCriterion = null;
+	
+	/** The max it. */
 	int maxIt;
+	
+	/** The num particles. */
 	int numParticles;
+	
+	/** The weight inertia. */
 	double weightInertia;
+	
+	/** The weight cognitive. */
 	double weightCognitive;
+	
+	/** The weight social. */
 	double weightSocial;
 
+	/**
+	 * Instantiates a new swarm.
+	 *
+	 * @param species the species
+	 */
 	public Swarm(final IDescription species) {
 		super(species);
 		initParams();
@@ -182,6 +225,8 @@ public class Swarm extends ParamSpaceExploAlgorithm {
 
     /**
      * Create a set of particles, each with random starting positions.
+     *
+     * @param scope the scope
      * @return  an array of particles
      */
     private Particle[] initialize (IScope scope) {
@@ -196,7 +241,8 @@ public class Swarm extends ParamSpaceExploAlgorithm {
 
     /**
      * Update the global best solution if a the specified particle has
-     * a better solution
+     * a better solution.
+     *
      * @param particle  the particle to analyze
      */
     private void updateGlobalBest (Particle particle) {
@@ -209,7 +255,9 @@ public class Swarm extends ParamSpaceExploAlgorithm {
     }
 
     /**
-     * Update the velocity of a particle using the velocity update formula
+     * Update the velocity of a particle using the velocity update formula.
+     *
+     * @param scope the scope
      * @param particle  the particle to update
      */
     private void updateVelocity (IScope scope, Particle particle) {
@@ -241,6 +289,14 @@ public class Swarm extends ParamSpaceExploAlgorithm {
         particle.setVelocity(newVelocity);
     }
     
+    /**
+     * Mul.
+     *
+     * @param scope the scope
+     * @param set the set
+     * @param val the val
+     * @return the parameters set
+     */
     protected ParametersSet mul(IScope scope, ParametersSet set, double val) {
     	for (String key : set.keySet()) {
       		set.put(key, Cast.asFloat(scope, set.get(key))* val );
@@ -249,6 +305,14 @@ public class Swarm extends ParamSpaceExploAlgorithm {
     }
    
     
+    /**
+     * Sub.
+     *
+     * @param scope the scope
+     * @param set1 the set 1
+     * @param set2 the set 2
+     * @return the parameters set
+     */
     protected ParametersSet sub(IScope scope, ParametersSet set1,  ParametersSet set2) {
     	for (String key : set1.keySet()) {
       		set1.put(key, Cast.asFloat(scope, set1.get(key))+  Cast.asFloat(scope, set2.get(key)) );
@@ -256,6 +320,14 @@ public class Swarm extends ParamSpaceExploAlgorithm {
     	return set1;
     }
     
+    /**
+     * Adds the.
+     *
+     * @param scope the scope
+     * @param set1 the set 1
+     * @param set2 the set 2
+     * @return the parameters set
+     */
     protected ParametersSet add(IScope scope,ParametersSet set1,  ParametersSet set2) {
     	for (String key : set1.keySet()) {
       		set1.put(key, Cast.asFloat(scope, set1.get(key)) - Cast.asFloat(scope, set2.get(key)) );

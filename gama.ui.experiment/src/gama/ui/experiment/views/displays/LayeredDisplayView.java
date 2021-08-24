@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'LayeredDisplayView.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * LayeredDisplayView.java, in gama.ui.experiment, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.experiment.views.displays;
 
 import static gama.common.preferences.GamaPreferences.Displays.CORE_DISPLAY_BORDER;
@@ -47,15 +46,31 @@ import gama.ui.base.views.GamaViewPart;
 import gama.ui.base.toolbar.GamaToolbar2;
 import gama.ui.base.toolbar.IToolbarDecoratedView;
 
+/**
+ * The Class LayeredDisplayView.
+ */
 public abstract class LayeredDisplayView extends GamaViewPart
 		implements IToolbarDecoratedView.Pausable, IToolbarDecoratedView.Zoomable, IGamaView.Display {
 
+	/** The real index. */
 	protected int realIndex = -1;
+	
+	/** The form. */
 	protected SashForm form;
+	
+	/** The surface composite. */
 	public Composite surfaceComposite;
+	
+	/** The decorator. */
 	public final LayeredDisplayDecorator decorator;
+	
+	/** The synchronizer. */
 	public final LayeredDisplaySynchronizer synchronizer = new LayeredDisplaySynchronizer();
+	
+	/** The disposed. */
 	protected volatile boolean disposed = false;
+	
+	/** The in init phase. */
 	protected volatile boolean inInitPhase = true;
 
 	@Override
@@ -68,14 +83,27 @@ public abstract class LayeredDisplayView extends GamaViewPart
 		return realIndex;
 	}
 
+	/**
+	 * Instantiates a new layered display view.
+	 */
 	public LayeredDisplayView() {
 		decorator = new LayeredDisplayDecorator(this);
 	}
 
+	/**
+	 * Control to set full screen.
+	 *
+	 * @return the control
+	 */
 	public Control controlToSetFullScreen() {
 		return form;
 	}
 
+	/**
+	 * Gets the sash.
+	 *
+	 * @return the sash
+	 */
 	public SashForm getSash() {
 		return form;
 	}
@@ -109,15 +137,30 @@ public abstract class LayeredDisplayView extends GamaViewPart
 
 	}
 
+	/**
+	 * Checks if is open GL.
+	 *
+	 * @return true, if is open GL
+	 */
 	public boolean isOpenGL() {
 		if (outputs.isEmpty()) return false;
 		return getOutput().getData().isOpenGL();
 	}
 
+	/**
+	 * Gets the display manager.
+	 *
+	 * @return the display manager
+	 */
 	public ILayerManager getDisplayManager() {
 		return getDisplaySurface().getManager();
 	}
 
+	/**
+	 * Gets the surface composite.
+	 *
+	 * @return the surface composite
+	 */
 	public Composite getSurfaceComposite() {
 		return surfaceComposite;
 	}
@@ -157,6 +200,11 @@ public abstract class LayeredDisplayView extends GamaViewPart
 
 	}
 
+	/**
+	 * Empty layout.
+	 *
+	 * @return the grid layout
+	 */
 	GridLayout emptyLayout() {
 		final GridLayout gl = new GridLayout(1, true);
 		gl.horizontalSpacing = 0;
@@ -166,6 +214,11 @@ public abstract class LayeredDisplayView extends GamaViewPart
 		return gl;
 	}
 
+	/**
+	 * Full data.
+	 *
+	 * @return the grid data
+	 */
 	GridData fullData() {
 		return new GridData(SWT.FILL, SWT.FILL, true, true);
 	}
@@ -178,6 +231,12 @@ public abstract class LayeredDisplayView extends GamaViewPart
 		}
 	}
 
+	/**
+	 * Creates the surface composite.
+	 *
+	 * @param parent the parent
+	 * @return the composite
+	 */
 	protected abstract Composite createSurfaceComposite(Composite parent);
 
 	@Override
@@ -225,6 +284,11 @@ public abstract class LayeredDisplayView extends GamaViewPart
 		decorator.updateOverlay();
 	}
 
+	/**
+	 * Force overlay visibility.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean forceOverlayVisibility() {
 		return false;
 	}
@@ -270,6 +334,7 @@ public abstract class LayeredDisplayView extends GamaViewPart
 		};
 	}
 
+	/** The update thread. */
 	final Thread updateThread = new Thread(() -> {
 		final IDisplaySurface surface = getDisplaySurface();
 		synchronizer.waitForSurfaceToBeRealized();

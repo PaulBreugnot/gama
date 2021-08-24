@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.kernel.experiment.ExperimentAgent.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * ExperimentAgent.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.kernel.experiment;
 
@@ -148,24 +148,56 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 		DEBUG.OFF();
 	}
 
+	/** The Constant MODEL_PATH. */
 	public static final String MODEL_PATH = "model_path";
 
+	/** The Constant PROJECT_PATH. */
 	public static final String PROJECT_PATH = "project_path";
+	
+	/** The Constant MINIMUM_CYCLE_DURATION. */
 	public static final String MINIMUM_CYCLE_DURATION = "minimum_cycle_duration";
 
+	/** The own scope. */
 	private final IScope ownScope;
+	
+	/** The executer. */
 	final ActionExecuter executer;
+	
+	/** The extra parameters map. */
 	final IMap<String, Object> extraParametersMap = GamaMapFactory.createOrdered();
+	
+	/** The random. */
 	protected RandomUtils random;
+	
+	/** The initial minimum duration. */
 	protected Double initialMinimumDuration = null;
+	
+	/** The current minimum duration. */
 	protected Double currentMinimumDuration = 0d;
+	
+	/** The own clock. */
 	final protected ExperimentClock ownClock;
+	
+	/** The warnings as errors. */
 	protected boolean warningsAsErrors = GamaPreferences.Runtime.CORE_WARNINGS.getValue();
+	
+	/** The own model path. */
 	protected String ownModelPath;
+	
+	/** The scheduled. */
 	// protected SimulationPopulation populationOfSimulations;
 	private Boolean scheduled = false;
+	
+	/** The is on user hold. */
 	private volatile boolean isOnUserHold = false;
 
+	/**
+	 * Instantiates a new experiment agent.
+	 *
+	 * @param s the s
+	 * @param index the index
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public ExperimentAgent(final IPopulation<? extends IAgent> s, final int index) throws GamaRuntimeException {
 		super(s, index);
 		super.setGeometry(GamaGeometryType.createPoint(new GamaPoint(-1, -1)));
@@ -180,6 +212,9 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 		}
 	}
 
+	/**
+	 * Initialize.
+	 */
 	private void initialize() {
 		// We initialize the population that will host the simulation
 		createSimulationPopulation();
@@ -196,6 +231,9 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 		return ownClock;
 	}
 
+	/**
+	 * Reset.
+	 */
 	public void reset() {
 		ownClock.reset();
 		// We close any simulation that might be running
@@ -204,12 +242,22 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 		initialize();
 	}
 
+	/**
+	 * Gets the defined rng.
+	 *
+	 * @return the defined rng
+	 */
 	public String getDefinedRng() {
 		if (GamaPreferences.External.CORE_RND_EDITABLE.getValue())
 			return (String) ((ExperimentPlan) getSpecies()).parameters.get(IKeyword.RNG).value(ownScope);
 		return GamaPreferences.External.CORE_RNG.getValue();
 	}
 
+	/**
+	 * Gets the defined seed.
+	 *
+	 * @return the defined seed
+	 */
 	public Double getDefinedSeed() {
 		if (GamaPreferences.External.CORE_RND_EDITABLE.getValue()) {
 			final IParameter.Batch p = (Batch) ((ExperimentPlan) getSpecies()).parameters.get(IKeyword.SEED);
@@ -264,6 +312,11 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 		return this;
 	}
 
+	/**
+	 * Automatically create first simulation.
+	 *
+	 * @return true, if successful
+	 */
 	protected boolean automaticallyCreateFirstSimulation() {
 		// Now creates simulations by default, even for the headless experiments (see #2654)
 		return true; // !getSpecies().isHeadless() || ((GamlSpecies) this.getSpecies()).belongsToAMicroModel();
@@ -294,6 +347,13 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 		return null;
 	}
 
+	/**
+	 * Creates the simulation.
+	 *
+	 * @param parameters the parameters
+	 * @param scheduleIt the schedule it
+	 * @return the simulation agent
+	 */
 	public SimulationAgent createSimulation(final ParametersSet parameters, final boolean scheduleIt) {
 		final IPopulation<? extends IAgent> pop = getSimulationPopulation();
 		if (pop == null) return null;
@@ -305,6 +365,11 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 		return (SimulationAgent) c.get(0);
 	}
 
+	/**
+	 * Gets the parameter values.
+	 *
+	 * @return the parameter values
+	 */
 	public ParametersSet getParameterValues() {
 		final Map<String, IParameter> parameters = getSpecies().getParameters();
 		final ParametersSet ps = new ParametersSet(ownScope, parameters, false);
@@ -326,7 +391,7 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 	}
 
 	/**
-	 * Building the simulation agent and its population
+	 * Building the simulation agent and its population.
 	 */
 
 	@SuppressWarnings ("unchecked")
@@ -370,8 +435,9 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 	public void setGeometry(final IShape newGlobalGeometry) {}
 
 	/**
-	 * GAML global variables
+	 * GAML global variables.
 	 *
+	 * @return the default parameters
 	 */
 
 	public List<? extends IParameter.Batch> getDefaultParameters() {
@@ -397,6 +463,11 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 		return params;
 	}
 
+	/**
+	 * Gets the experiment parameters category.
+	 *
+	 * @return the experiment parameters category
+	 */
 	protected String getExperimentParametersCategory() {
 		return IExperimentPlan.SYSTEM_CATEGORY_PREFIX;
 	}
@@ -422,12 +493,17 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 	/**
 	 * Called normally from UI directly. Does not notify the GUI.
 	 *
-	 * @param d
+	 * @param d the new minimum duration external
 	 */
 	public void setMinimumDurationExternal(final Double d) {
 		currentMinimumDuration = d;
 	}
 
+	/**
+	 * Gets the initial minimum duration.
+	 *
+	 * @return the initial minimum duration
+	 */
 	public Double getInitialMinimumDuration() {
 		return initialMinimumDuration;
 	}
@@ -449,6 +525,11 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 		return result;
 	}
 
+	/**
+	 * Sets the working path.
+	 *
+	 * @param p the new working path
+	 */
 	@setter (ExperimentAgent.MODEL_PATH)
 	public void setWorkingPath(final String p) {
 		if (p.endsWith("/")) {
@@ -458,6 +539,11 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 		}
 	}
 
+	/**
+	 * Gets the workspace path.
+	 *
+	 * @return the workspace path
+	 */
 	@getter (
 			value = PlatformAgent.WORKSPACE_PATH,
 			initializer = true)
@@ -465,11 +551,22 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 		return GAMA.getPlatformAgent().getWorkspacePath();
 	}
 
+	/**
+	 * Gets the project path.
+	 *
+	 * @return the project path
+	 */
 	@getter (PROJECT_PATH)
 	public String getProjectPath() {
 		return getModel().getProjectPath() + "/";
 	}
 
+	/**
+	 * Update displays.
+	 *
+	 * @param scope the scope
+	 * @return the object
+	 */
 	@action (
 			name = "update_outputs",
 			doc = { @doc ("Forces all outputs to refresh, optionally recomputing their values") },
@@ -487,6 +584,12 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 		return this;
 	}
 
+	/**
+	 * Compact memory.
+	 *
+	 * @param scope the scope
+	 * @return the object
+	 */
 	@action (
 			name = "compact_memory",
 			doc = { @doc ("Forces a 'garbage collect' of the unused objects in GAMA") })
@@ -504,11 +607,21 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 		return warningsAsErrors;
 	}
 
+	/**
+	 * Sets the warnings as errors.
+	 *
+	 * @param t the new warnings as errors
+	 */
 	@setter (GAMA._WARNINGS)
 	public void setWarningsAsErrors(final boolean t) {
 		warningsAsErrors = t;
 	}
 
+	/**
+	 * Gets the seed.
+	 *
+	 * @return the seed
+	 */
 	@getter (
 			value = IKeyword.SEED,
 			initializer = true)
@@ -518,6 +631,11 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 		return seed == null ? 0d : seed;
 	}
 
+	/**
+	 * Sets the seed.
+	 *
+	 * @param s the new seed
+	 */
 	@setter (IKeyword.SEED)
 	public void setSeed(final Double s) {
 		// DEBUG.LOG("experiment agent set seed: " + s);
@@ -530,6 +648,11 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 		getRandomGenerator().setSeed(seed, true);
 	}
 
+	/**
+	 * Gets the usage.
+	 *
+	 * @return the usage
+	 */
 	@getter (
 			value = SimulationAgent.USAGE,
 			initializer = false)
@@ -538,6 +661,11 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 		return usage == null ? 0 : usage;
 	}
 
+	/**
+	 * Sets the usage.
+	 *
+	 * @param s the new usage
+	 */
 	@setter (SimulationAgent.USAGE)
 	public void setUsage(final Integer s) {
 		Integer usage = s;
@@ -545,6 +673,11 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 		getRandomGenerator().setUsage(usage);
 	}
 
+	/**
+	 * Gets the rng.
+	 *
+	 * @return the rng
+	 */
 	@getter (
 			value = IKeyword.RNG,
 			initializer = true)
@@ -552,6 +685,11 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 		return getRandomGenerator().getRngName();
 	}
 
+	/**
+	 * Sets the rng.
+	 *
+	 * @param newRng the new rng
+	 */
 	@setter (IKeyword.RNG)
 	public void setRng(final String newRng) {
 		getRandomGenerator().setGenerator(newRng, true);
@@ -564,11 +702,21 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 		return (SimulationPopulation) getMicroPopulation(getModel());
 	}
 
+	/**
+	 * Gets the simulations.
+	 *
+	 * @return the simulations
+	 */
 	@getter (IKeyword.SIMULATIONS)
 	public IList<? extends IAgent> getSimulations() {
 		return getSimulationPopulation().copy(ownScope);
 	}
 
+	/**
+	 * Sets the simulations.
+	 *
+	 * @param simulations the new simulations
+	 */
 	@setter (IKeyword.SIMULATIONS)
 	public void setSimulations(final IList<IAgent> simulations) {
 		// Forbidden
@@ -581,6 +729,11 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 		return null;
 	}
 
+	/**
+	 * Sets the simulation.
+	 *
+	 * @param sim the new simulation
+	 */
 	@setter (IKeyword.SIMULATION)
 	public void setSimulation(final IAgent sim) {}
 
@@ -628,6 +781,12 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 		}
 	}
 
+	/**
+	 * Backward.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 */
 	public boolean backward(final IScope scope) {
 		throw new NullPointerException();
 	}
@@ -645,6 +804,7 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 	 */
 	public class ExperimentAgentScope extends ExecutionScope {
 
+		/** The interrupted. */
 		volatile boolean interrupted = false;
 
 		@Override
@@ -668,12 +828,17 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 		}
 
 		/**
-		 * @param agent
+		 * Instantiates a new experiment agent scope.
 		 */
 		public ExperimentAgentScope() {
 			super(ExperimentAgent.this);
 		}
 
+		/**
+		 * Instantiates a new experiment agent scope.
+		 *
+		 * @param name the name
+		 */
 		public ExperimentAgentScope(final String name) {
 			super(ExperimentAgent.this, name);
 		}
@@ -765,7 +930,9 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 	}
 
 	/**
-	 * @return
+	 * Gets the all simulation outputs.
+	 *
+	 * @return the all simulation outputs
 	 */
 	public Iterable<IOutputManager> getAllSimulationOutputs() {
 		final SimulationPopulation pop = getSimulationPopulation();
@@ -776,7 +943,9 @@ public class ExperimentAgent extends GamlAgent implements IExperimentAgent {
 	}
 
 	/**
-	 * @return
+	 * Checks if is scheduled.
+	 *
+	 * @return true, if is scheduled
 	 */
 	public boolean isScheduled() {
 		return scheduled;

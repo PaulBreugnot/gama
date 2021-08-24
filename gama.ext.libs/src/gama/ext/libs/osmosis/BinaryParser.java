@@ -1,17 +1,13 @@
-/**
- * Copyright (c) 2010 Scott A. Crosby. <scott@sacrosby.com>
+/*******************************************************************************************************
  *
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
+ * BinaryParser.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * You should have received a copy of the GNU General Public License along with this program. If not, see
- * <http://www.gnu.org/licenses/>.
- *
- */
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.osmosis;
 
@@ -20,14 +16,32 @@ import java.util.List;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
+/**
+ * The Class BinaryParser.
+ */
 public abstract class BinaryParser implements BlockReaderAdapter {
+	
+	/** The granularity. */
 	protected int granularity;
+	
+	/** The lat offset. */
 	private long lat_offset;
+	
+	/** The lon offset. */
 	private long lon_offset;
+	
+	/** The date granularity. */
 	protected int date_granularity;
+	
+	/** The strings. */
 	private String strings[];
 
-	/** Take a Info protocol buffer containing a date and convert it into a java Date object */
+	/**
+	 *  Take a Info protocol buffer containing a date and convert it into a java Date object.
+	 *
+	 * @param info the info
+	 * @return the date
+	 */
 	protected Date getDate(final Osmformat.Info info) {
 		if (info.hasTimestamp()) {
 			return new Date(date_granularity * info.getTimestamp());
@@ -36,15 +50,16 @@ public abstract class BinaryParser implements BlockReaderAdapter {
 		}
 	}
 
+	/** The Constant NODATE. */
 	public static final Date NODATE = new Date(-1);
 
 	/**
 	 * Get a string based on the index used.
-	 *
+	 * 
 	 * Index 0 is reserved to use as a delimiter, therefore, index 1 corresponds to the first string in the table
 	 *
-	 * @param id
-	 * @return
+	 * @param id the id
+	 * @return the string by id
 	 */
 	protected String getStringById(final int id) {
 		return strings[id];
@@ -78,21 +93,33 @@ public abstract class BinaryParser implements BlockReaderAdapter {
 		return true;
 	}
 
-	/** Convert a latitude value stored in a protobuf into a double, compensating for granularity and latitude offset */
+	/**
+	 *  Convert a latitude value stored in a protobuf into a double, compensating for granularity and latitude offset.
+	 *
+	 * @param degree the degree
+	 * @return the double
+	 */
 	public double parseLat(final long degree) {
 		// Support non-zero offsets. (We don't currently generate them)
 		return (granularity * degree + lat_offset) * .000000001;
 	}
 
 	/**
-	 * Convert a longitude value stored in a protobuf into a double, compensating for granularity and longitude offset
+	 * Convert a longitude value stored in a protobuf into a double, compensating for granularity and longitude offset.
+	 *
+	 * @param degree the degree
+	 * @return the double
 	 */
 	public double parseLon(final long degree) {
 		// Support non-zero offsets. (We don't currently generate them)
 		return (granularity * degree + lon_offset) * .000000001;
 	}
 
-	/** Parse a Primitive block (containing a string table, other paramaters, and PrimitiveGroups */
+	/**
+	 *  Parse a Primitive block (containing a string table, other paramaters, and PrimitiveGroups.
+	 *
+	 * @param block the block
+	 */
 	public void parse(final Osmformat.PrimitiveBlock block) {
 		final Osmformat.StringTable stablemessage = block.getStringtable();
 		strings = new String[stablemessage.getSCount()];
@@ -117,19 +144,39 @@ public abstract class BinaryParser implements BlockReaderAdapter {
 		}
 	}
 
-	/** Parse a list of Relation protocol buffers and send the resulting relations to a sink. */
+	/**
+	 *  Parse a list of Relation protocol buffers and send the resulting relations to a sink.
+	 *
+	 * @param rels the rels
+	 */
 	protected abstract void parseRelations(List<Osmformat.Relation> rels);
 
-	/** Parse a DenseNode protocol buffer and send the resulting nodes to a sink. */
+	/**
+	 *  Parse a DenseNode protocol buffer and send the resulting nodes to a sink.
+	 *
+	 * @param nodes the nodes
+	 */
 	protected abstract void parseDense(Osmformat.DenseNodes nodes);
 
-	/** Parse a list of Node protocol buffers and send the resulting nodes to a sink. */
+	/**
+	 *  Parse a list of Node protocol buffers and send the resulting nodes to a sink.
+	 *
+	 * @param nodes the nodes
+	 */
 	protected abstract void parseNodes(List<Osmformat.Node> nodes);
 
-	/** Parse a list of Way protocol buffers and send the resulting ways to a sink. */
+	/**
+	 *  Parse a list of Way protocol buffers and send the resulting ways to a sink.
+	 *
+	 * @param ways the ways
+	 */
 	protected abstract void parseWays(List<Osmformat.Way> ways);
 
-	/** Parse a header message. */
+	/**
+	 *  Parse a header message.
+	 *
+	 * @param header the header
+	 */
 	protected abstract void parse(Osmformat.HeaderBlock header);
 
 }

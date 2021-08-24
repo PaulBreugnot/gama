@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ummisco.gama.opengl.scene.layers.FrameLayerObject.java, in plugin ummisco.gama.opengl, is part of the source code of
- * the GAMA modeling and simulation platform (v. 1.8.1)
+ * FrameLayerObject.java, in gama.display.opengl, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.display.opengl.scene.layers;
 
@@ -23,10 +23,19 @@ import gaml.statements.draw.DrawingAttributes;
 import gaml.statements.draw.ShapeDrawingAttributes;
 import gaml.types.GamaGeometryType;
 
+/**
+ * The Class FrameLayerObject.
+ */
 public class FrameLayerObject extends StaticLayerObject.World {
 
+	/** The Constant FRAME. */
 	private static final GamaColor FRAME = new GamaColor(150, 150, 150, 255);
 
+	/**
+	 * Instantiates a new frame layer object.
+	 *
+	 * @param renderer the renderer
+	 */
 	public FrameLayerObject(final IOpenGLRenderer renderer) {
 		super(renderer);
 	}

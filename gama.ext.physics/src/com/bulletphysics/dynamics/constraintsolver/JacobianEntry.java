@@ -1,20 +1,13 @@
-/*
- * Java port of Bullet (c) 2008 Martin Dvorak <jezek2@advel.cz>
+/*******************************************************************************************************
  *
- * Bullet Continuous Collision Detection and Physics Library Copyright (c) 2003-2008 Erwin Coumans
- * http://www.bulletphysics.com/
+ * JacobianEntry.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the authors be held
- * liable for any damages arising from the use of this software.
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter
- * it and redistribute it freely, subject to the following restrictions:
- *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software.
- * If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not
- * required. 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the
- * original software. 3. This notice may not be removed or altered from any source distribution.
- */
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package com.bulletphysics.dynamics.constraintsolver;
 
@@ -41,18 +34,42 @@ public class JacobianEntry {
 
 	// protected final BulletStack stack = BulletStack.get();
 
+	/** The linear joint axis. */
 	public final Vector3f linearJointAxis = new Vector3f();
+	
+	/** The a J. */
 	public final Vector3f aJ = new Vector3f();
+	
+	/** The b J. */
 	public final Vector3f bJ = new Vector3f();
+	
+	/** The m 0 minv jt. */
 	public final Vector3f m_0MinvJt = new Vector3f();
+	
+	/** The m 1 minv jt. */
 	public final Vector3f m_1MinvJt = new Vector3f();
+	
+	/** The Adiag. */
 	// Optimization: can be stored in the w/last component of one of the vectors
 	public float Adiag;
 
+	/**
+	 * Instantiates a new jacobian entry.
+	 */
 	public JacobianEntry() {}
 
 	/**
 	 * Constraint between two different rigidbodies.
+	 *
+	 * @param world2A the world 2 A
+	 * @param world2B the world 2 B
+	 * @param rel_pos1 the rel pos 1
+	 * @param rel_pos2 the rel pos 2
+	 * @param jointAxis the joint axis
+	 * @param inertiaInvA the inertia inv A
+	 * @param massInvA the mass inv A
+	 * @param inertiaInvB the inertia inv B
+	 * @param massInvB the mass inv B
 	 */
 	public void init(final Matrix3f world2A, final Matrix3f world2B, final Vector3f rel_pos1, final Vector3f rel_pos2,
 			final Vector3f jointAxis, final Vector3f inertiaInvA, final float massInvA, final Vector3f inertiaInvB,
@@ -76,6 +93,12 @@ public class JacobianEntry {
 
 	/**
 	 * Angular constraint between two different rigidbodies.
+	 *
+	 * @param jointAxis the joint axis
+	 * @param world2A the world 2 A
+	 * @param world2B the world 2 B
+	 * @param inertiaInvA the inertia inv A
+	 * @param inertiaInvB the inertia inv B
 	 */
 	public void init(final Vector3f jointAxis, final Matrix3f world2A, final Matrix3f world2B,
 			final Vector3f inertiaInvA, final Vector3f inertiaInvB) {
@@ -97,6 +120,11 @@ public class JacobianEntry {
 
 	/**
 	 * Angular constraint between two different rigidbodies.
+	 *
+	 * @param axisInA the axis in A
+	 * @param axisInB the axis in B
+	 * @param inertiaInvA the inertia inv A
+	 * @param inertiaInvB the inertia inv B
 	 */
 	public void init(final Vector3f axisInA, final Vector3f axisInB, final Vector3f inertiaInvA,
 			final Vector3f inertiaInvB) {
@@ -115,6 +143,13 @@ public class JacobianEntry {
 
 	/**
 	 * Constraint on one rigidbody.
+	 *
+	 * @param world2A the world 2 A
+	 * @param rel_pos1 the rel pos 1
+	 * @param rel_pos2 the rel pos 2
+	 * @param jointAxis the joint axis
+	 * @param inertiaInvA the inertia inv A
+	 * @param massInvA the mass inv A
 	 */
 	public void init(final Matrix3f world2A, final Vector3f rel_pos1, final Vector3f rel_pos2, final Vector3f jointAxis,
 			final Vector3f inertiaInvA, final float massInvA) {
@@ -135,12 +170,21 @@ public class JacobianEntry {
 		assert Adiag > 0f;
 	}
 
+	/**
+	 * Gets the diagonal.
+	 *
+	 * @return the diagonal
+	 */
 	public float getDiagonal() {
 		return Adiag;
 	}
 
 	/**
 	 * For two constraints on the same rigidbody (for example vehicle friction).
+	 *
+	 * @param jacB the jac B
+	 * @param massInvA the mass inv A
+	 * @return the non diagonal
 	 */
 	public float getNonDiagonal(final JacobianEntry jacB, final float massInvA) {
 		JacobianEntry jacA = this;
@@ -151,6 +195,11 @@ public class JacobianEntry {
 
 	/**
 	 * For two constraints on sharing two same rigidbodies (for example two contact points between two rigidbodies).
+	 *
+	 * @param jacB the jac B
+	 * @param massInvA the mass inv A
+	 * @param massInvB the mass inv B
+	 * @return the non diagonal
 	 */
 	public float getNonDiagonal(final JacobianEntry jacB, final float massInvA, final float massInvB) {
 		JacobianEntry jacA = this;
@@ -176,6 +225,15 @@ public class JacobianEntry {
 		return sum.x + sum.y + sum.z;
 	}
 
+	/**
+	 * Gets the relative velocity.
+	 *
+	 * @param linvelA the linvel A
+	 * @param angvelA the angvel A
+	 * @param linvelB the linvel B
+	 * @param angvelB the angvel B
+	 * @return the relative velocity
+	 */
 	public float getRelativeVelocity(final Vector3f linvelA, final Vector3f angvelA, final Vector3f linvelB,
 			final Vector3f angvelB) {
 		Vector3f linrel = VECTORS.get();

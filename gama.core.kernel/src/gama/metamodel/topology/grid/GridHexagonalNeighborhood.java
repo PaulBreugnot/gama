@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.metamodel.topology.grid.GridHexagonalNeighborhood.java, in plugin msi.gama.core, is part of the source code
- * of the GAMA modeling and simulation platform (v. 1.8.1)
+ * GridHexagonalNeighborhood.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.metamodel.topology.grid;
 
@@ -14,10 +14,15 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+/**
+ * The Class GridHexagonalNeighborhood.
+ */
 public abstract class GridHexagonalNeighborhood extends GridNeighborhood {
 
 	/**
-	 * @param gamaSpatialMatrix
+	 * Instantiates a new grid hexagonal neighborhood.
+	 *
+	 * @param matrix the matrix
 	 */
 	GridHexagonalNeighborhood(final GamaSpatialMatrix matrix) {
 		super(matrix);
@@ -40,6 +45,16 @@ public abstract class GridHexagonalNeighborhood extends GridNeighborhood {
 		return neigh2;
 	}
 
+	/**
+	 * Gets the index at.
+	 *
+	 * @param originalX the original X
+	 * @param originalY the original Y
+	 * @param xSize the x size
+	 * @param ySize the y size
+	 * @param isTorus the is torus
+	 * @return the index at
+	 */
 	final int getIndexAt(final int originalX, final int originalY, final int xSize, final int ySize,
 			final boolean isTorus) {
 		int x = originalX;
@@ -62,6 +77,16 @@ public abstract class GridHexagonalNeighborhood extends GridNeighborhood {
 		return y * xSize + x;
 	}
 
+	/**
+	 * Gets the neighbors at radius.
+	 *
+	 * @param placeIndex the place index
+	 * @param radius the radius
+	 * @param xSize the x size
+	 * @param ySize the y size
+	 * @param isTorus the is torus
+	 * @return the neighbors at radius
+	 */
 	public Set<Integer> getNeighborsAtRadius(final int placeIndex, final int radius, final int xSize, final int ySize,
 			final boolean isTorus) {
 		// TODO: verify the use of HashSet here, contradictory with the policy of GAMA to not use unordered Sets or
@@ -80,6 +105,15 @@ public abstract class GridHexagonalNeighborhood extends GridNeighborhood {
 
 	}
 
+	/**
+	 * Gets the neighbors at radius 1.
+	 *
+	 * @param placeIndex the place index
+	 * @param xSize the x size
+	 * @param ySize the y size
+	 * @param isTorus the is torus
+	 * @return the neighbors at radius 1
+	 */
 	public abstract Set<Integer> getNeighborsAtRadius1(final int placeIndex, final int xSize, final int ySize,
 			final boolean isTorus);
 

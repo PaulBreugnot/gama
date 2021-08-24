@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * LatLonBox.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -64,6 +74,8 @@ public class LatLonBox
      */
     @XmlElement(defaultValue = "0.0")
     protected double rotation;
+    
+    /** The lat lon box simple extension. */
     @XmlElement(name = "LatLonBoxSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> latLonBoxSimpleExtension;
@@ -88,37 +100,40 @@ public class LatLonBox
     @XmlElement(name = "LatLonBoxObjectExtensionGroup")
     protected List<AbstractObject> latLonBoxObjectExtension;
 
+    /**
+     * Instantiates a new lat lon box.
+     */
     public LatLonBox() {
         super();
     }
 
     /**
-     * @see rotation
-     * 
-     * @return
-     *     possible object is
+     * Gets the rotation.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see rotation
      */
     public double getRotation() {
         return rotation;
     }
 
     /**
-     * @see rotation
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the rotation.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see rotation
      */
     public void setRotation(double value) {
         this.rotation = value;
     }
 
     /**
+     * Gets the lat lon box simple extension.
+     *
+     * @return the lat lon box simple extension
      * @see latLonBoxSimpleExtension
-     * 
      */
     public List<Object> getLatLonBoxSimpleExtension() {
         if (latLonBoxSimpleExtension == null) {
@@ -128,8 +143,10 @@ public class LatLonBox
     }
 
     /**
+     * Gets the lat lon box object extension.
+     *
+     * @return the lat lon box object extension
      * @see latLonBoxObjectExtension
-     * 
      */
     public List<AbstractObject> getLatLonBoxObjectExtension() {
         if (latLonBoxObjectExtension == null) {
@@ -190,21 +207,20 @@ public class LatLonBox
     }
 
     /**
+     * Sets the lat lon box simple extension.
+     *
+     * @param latLonBoxSimpleExtension the new lat lon box simple extension
      * @see latLonBoxSimpleExtension
-     * 
-     * @param latLonBoxSimpleExtension
      */
     public void setLatLonBoxSimpleExtension(final List<Object> latLonBoxSimpleExtension) {
         this.latLonBoxSimpleExtension = latLonBoxSimpleExtension;
     }
 
     /**
-     * add a value to the latLonBoxSimpleExtension property collection
-     * 
-     * @param latLonBoxSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the latLonBoxSimpleExtension property collection.
+     *
+     * @param latLonBoxSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LatLonBox addToLatLonBoxSimpleExtension(final Object latLonBoxSimpleExtension) {
         this.getLatLonBoxSimpleExtension().add(latLonBoxSimpleExtension);
@@ -212,21 +228,20 @@ public class LatLonBox
     }
 
     /**
+     * Sets the lat lon box object extension.
+     *
+     * @param latLonBoxObjectExtension the new lat lon box object extension
      * @see latLonBoxObjectExtension
-     * 
-     * @param latLonBoxObjectExtension
      */
     public void setLatLonBoxObjectExtension(final List<AbstractObject> latLonBoxObjectExtension) {
         this.latLonBoxObjectExtension = latLonBoxObjectExtension;
     }
 
     /**
-     * add a value to the latLonBoxObjectExtension property collection
-     * 
-     * @param latLonBoxObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the latLonBoxObjectExtension property collection.
+     *
+     * @param latLonBoxObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LatLonBox addToLatLonBoxObjectExtension(final AbstractObject latLonBoxObjectExtension) {
         this.getLatLonBoxObjectExtension().add(latLonBoxObjectExtension);
@@ -285,11 +300,11 @@ public class LatLonBox
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param rotation     required parameter
+     * @return the lat lon box
      * @see #setRotation(double)
-     * 
-     * @param rotation
-     *     required parameter
      */
     public LatLonBox withRotation(final double rotation) {
         this.setRotation(rotation);
@@ -297,11 +312,11 @@ public class LatLonBox
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param latLonBoxSimpleExtension     required parameter
+     * @return the lat lon box
      * @see #setLatLonBoxSimpleExtension(List<Object>)
-     * 
-     * @param latLonBoxSimpleExtension
-     *     required parameter
      */
     public LatLonBox withLatLonBoxSimpleExtension(final List<Object> latLonBoxSimpleExtension) {
         this.setLatLonBoxSimpleExtension(latLonBoxSimpleExtension);
@@ -309,11 +324,11 @@ public class LatLonBox
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param latLonBoxObjectExtension     required parameter
+     * @return the lat lon box
      * @see #setLatLonBoxObjectExtension(List<AbstractObject>)
-     * 
-     * @param latLonBoxObjectExtension
-     *     required parameter
      */
     public LatLonBox withLatLonBoxObjectExtension(final List<AbstractObject> latLonBoxObjectExtension) {
         this.setLatLonBoxObjectExtension(latLonBoxObjectExtension);

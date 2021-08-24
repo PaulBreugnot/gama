@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * NetworkLink.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -111,11 +121,8 @@ public class NetworkLink
     @XmlElement(defaultValue = "0")
     @XmlJavaTypeAdapter(BooleanConverter.class)
     protected Boolean flyToView;
-    /**
-     * <Url>
-     * 
-     * 
-     */
+    
+    /** <Url>. */
     @XmlElement(name = "Url")
     @Deprecated
     protected gama.ext.libs.kml.Link url;
@@ -205,6 +212,8 @@ public class NetworkLink
      */
     @XmlElement(name = "Link")
     protected gama.ext.libs.kml.Link link;
+    
+    /** The network link simple extension. */
     @XmlElement(name = "NetworkLinkSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> networkLinkSimpleExtension;
@@ -229,107 +238,104 @@ public class NetworkLink
     @XmlElement(name = "NetworkLinkObjectExtensionGroup")
     protected List<AbstractObject> networkLinkObjectExtension;
 
+    /**
+     * Instantiates a new network link.
+     */
     public NetworkLink() {
         super();
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Checks if is refresh visibility.
+     *
+     * @return     possible object is
      *     {@link Boolean}
-     *     
      */
     public Boolean isRefreshVisibility() {
         return refreshVisibility;
     }
 
     /**
-     * @see refreshVisibility
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the refresh visibility.
+     *
+     * @param value     allowed object is
      *     {@link Boolean}
-     *     
+     * @see refreshVisibility
      */
     public void setRefreshVisibility(Boolean value) {
         this.refreshVisibility = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Checks if is fly to view.
+     *
+     * @return     possible object is
      *     {@link Boolean}
-     *     
      */
     public Boolean isFlyToView() {
         return flyToView;
     }
 
     /**
-     * @see flyToView
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the fly to view.
+     *
+     * @param value     allowed object is
      *     {@link Boolean}
-     *     
+     * @see flyToView
      */
     public void setFlyToView(Boolean value) {
         this.flyToView = value;
     }
 
     /**
-     * @see url
-     * 
-     * @return
-     *     possible object is
+     * Gets the url.
+     *
+     * @return     possible object is
      *     {@link gama.ext.libs.kml.Link}
-     *     
+     * @see url
      */
     public gama.ext.libs.kml.Link getUrl() {
         return url;
     }
 
     /**
-     * @see url
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the url.
+     *
+     * @param value     allowed object is
      *     {@link gama.ext.libs.kml.Link}
-     *     
+     * @see url
      */
     public void setUrl(gama.ext.libs.kml.Link value) {
         this.url = value;
     }
 
     /**
-     * @see link
-     * 
-     * @return
-     *     possible object is
+     * Gets the link.
+     *
+     * @return     possible object is
      *     {@link gama.ext.libs.kml.Link}
-     *     
+     * @see link
      */
     public gama.ext.libs.kml.Link getLink() {
         return link;
     }
 
     /**
-     * @see link
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the link.
+     *
+     * @param value     allowed object is
      *     {@link gama.ext.libs.kml.Link}
-     *     
+     * @see link
      */
     public void setLink(gama.ext.libs.kml.Link value) {
         this.link = value;
     }
 
     /**
+     * Gets the network link simple extension.
+     *
+     * @return the network link simple extension
      * @see networkLinkSimpleExtension
-     * 
      */
     public List<Object> getNetworkLinkSimpleExtension() {
         if (networkLinkSimpleExtension == null) {
@@ -339,8 +345,10 @@ public class NetworkLink
     }
 
     /**
+     * Gets the network link object extension.
+     *
+     * @return the network link object extension
      * @see networkLinkObjectExtension
-     * 
      */
     public List<AbstractObject> getNetworkLinkObjectExtension() {
         if (networkLinkObjectExtension == null) {
@@ -441,8 +449,8 @@ public class NetworkLink
      * <code>
      * Link link = new Link();
      * this.setUrl(link); </code>
-     * 
-     * 
+     *
+     * @return the gama.ext.libs.kml. link
      */
     public gama.ext.libs.kml.Link createAndSetUrl() {
         gama.ext.libs.kml.Link newValue = new gama.ext.libs.kml.Link();
@@ -457,8 +465,8 @@ public class NetworkLink
      * <code>
      * Link link = new Link();
      * this.setLink(link); </code>
-     * 
-     * 
+     *
+     * @return the gama.ext.libs.kml. link
      */
     public gama.ext.libs.kml.Link createAndSetLink() {
         gama.ext.libs.kml.Link newValue = new gama.ext.libs.kml.Link();
@@ -467,21 +475,20 @@ public class NetworkLink
     }
 
     /**
+     * Sets the network link simple extension.
+     *
+     * @param networkLinkSimpleExtension the new network link simple extension
      * @see networkLinkSimpleExtension
-     * 
-     * @param networkLinkSimpleExtension
      */
     public void setNetworkLinkSimpleExtension(final List<Object> networkLinkSimpleExtension) {
         this.networkLinkSimpleExtension = networkLinkSimpleExtension;
     }
 
     /**
-     * add a value to the networkLinkSimpleExtension property collection
-     * 
-     * @param networkLinkSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the networkLinkSimpleExtension property collection.
+     *
+     * @param networkLinkSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public NetworkLink addToNetworkLinkSimpleExtension(final Object networkLinkSimpleExtension) {
         this.getNetworkLinkSimpleExtension().add(networkLinkSimpleExtension);
@@ -489,21 +496,20 @@ public class NetworkLink
     }
 
     /**
+     * Sets the network link object extension.
+     *
+     * @param networkLinkObjectExtension the new network link object extension
      * @see networkLinkObjectExtension
-     * 
-     * @param networkLinkObjectExtension
      */
     public void setNetworkLinkObjectExtension(final List<AbstractObject> networkLinkObjectExtension) {
         this.networkLinkObjectExtension = networkLinkObjectExtension;
     }
 
     /**
-     * add a value to the networkLinkObjectExtension property collection
-     * 
-     * @param networkLinkObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the networkLinkObjectExtension property collection.
+     *
+     * @param networkLinkObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public NetworkLink addToNetworkLinkObjectExtension(final AbstractObject networkLinkObjectExtension) {
         this.getNetworkLinkObjectExtension().add(networkLinkObjectExtension);
@@ -579,11 +585,11 @@ public class NetworkLink
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param refreshVisibility     required parameter
+     * @return the network link
      * @see #setRefreshVisibility(Boolean)
-     * 
-     * @param refreshVisibility
-     *     required parameter
      */
     public NetworkLink withRefreshVisibility(final Boolean refreshVisibility) {
         this.setRefreshVisibility(refreshVisibility);
@@ -591,11 +597,11 @@ public class NetworkLink
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param flyToView     required parameter
+     * @return the network link
      * @see #setFlyToView(Boolean)
-     * 
-     * @param flyToView
-     *     required parameter
      */
     public NetworkLink withFlyToView(final Boolean flyToView) {
         this.setFlyToView(flyToView);
@@ -603,11 +609,11 @@ public class NetworkLink
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param url     required parameter
+     * @return the network link
      * @see #setUrl(Link)
-     * 
-     * @param url
-     *     required parameter
      */
     public NetworkLink withUrl(final gama.ext.libs.kml.Link url) {
         this.setUrl(url);
@@ -615,11 +621,11 @@ public class NetworkLink
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param link     required parameter
+     * @return the network link
      * @see #setLink(Link)
-     * 
-     * @param link
-     *     required parameter
      */
     public NetworkLink withLink(final gama.ext.libs.kml.Link link) {
         this.setLink(link);
@@ -627,11 +633,11 @@ public class NetworkLink
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param networkLinkSimpleExtension     required parameter
+     * @return the network link
      * @see #setNetworkLinkSimpleExtension(List<Object>)
-     * 
-     * @param networkLinkSimpleExtension
-     *     required parameter
      */
     public NetworkLink withNetworkLinkSimpleExtension(final List<Object> networkLinkSimpleExtension) {
         this.setNetworkLinkSimpleExtension(networkLinkSimpleExtension);
@@ -639,11 +645,11 @@ public class NetworkLink
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param networkLinkObjectExtension     required parameter
+     * @return the network link
      * @see #setNetworkLinkObjectExtension(List<AbstractObject>)
-     * 
-     * @param networkLinkObjectExtension
-     *     required parameter
      */
     public NetworkLink withNetworkLinkObjectExtension(final List<AbstractObject> networkLinkObjectExtension) {
         this.setNetworkLinkObjectExtension(networkLinkObjectExtension);

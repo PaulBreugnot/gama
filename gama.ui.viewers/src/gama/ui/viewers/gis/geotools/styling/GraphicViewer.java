@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GraphicViewer.java, in plugin ummisco.gama.ui.viewers, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * GraphicViewer.java, in gama.ui.viewers, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.viewers.gis.geotools.styling;
 
 import java.awt.Color;
@@ -70,14 +69,27 @@ import org.opengis.style.GraphicalSymbol;
  */
 public class GraphicViewer {
 
+	/** The enabled. */
 	boolean enabled;
+	
+	/** The type. */
 	String type;
+	
+	/** The width. */
 	double width;
 
+	/** The on. */
 	Button on;
+	
+	/** The name. */
 	Combo name;
+	
+	/** The size. */
 	Combo size;
 
+	/**
+	 * The Class Listener.
+	 */
 	class Listener implements SelectionListener, ModifyListener {
 
 		@Override
@@ -95,6 +107,11 @@ public class GraphicViewer {
 			sync(SimpleConfigurator.selectionEvent(e));
 		};
 
+		/**
+		 * Sync.
+		 *
+		 * @param selectionEvent the selection event
+		 */
 		private void sync(final SelectionEvent selectionEvent) {
 			try {
 				GraphicViewer.this.enabled = GraphicViewer.this.on.getSelection();
@@ -115,13 +132,16 @@ public class GraphicViewer {
 
 	};
 
+	/** The sync. */
 	Listener sync = new Listener();
+	
+	/** The listener. */
 	private SelectionListener listener;
 
 	/**
 	 * Accepts a listener that will be notified when content changes.
 	 *
-	 * @param listener1
+	 * @param listener1 the listener 1
 	 */
 	public void addListener(final SelectionListener listener1) {
 		this.listener = listener1;
@@ -130,7 +150,7 @@ public class GraphicViewer {
 	/**
 	 * TODO summary sentence for fire ...
 	 *
-	 * @param event
+	 * @param event the event
 	 */
 	protected void fire(final SelectionEvent event) {
 		if (this.listener == null) { return; }
@@ -140,9 +160,9 @@ public class GraphicViewer {
 	/**
 	 * TODO summary sentence for createControl ...
 	 *
-	 * @param parent
-	 * @param klisten
-	 * @param build
+	 * @param parent the parent
+	 * @param klisten the klisten
+	 * @param build the build
 	 * @return Generated composite
 	 */
 	public Composite createControl(final Composite parent, final KeyListener klisten, final StyleBuilder build) {
@@ -167,9 +187,9 @@ public class GraphicViewer {
 	/**
 	 * TODO summary sentence for getGraphic ...
 	 *
-	 * @param filll
-	 * @param stroke
-	 * @param build
+	 * @param filll the filll
+	 * @param stroke the stroke
+	 * @param build the build
 	 * @return Graphic defined by this model
 	 */
 	public Graphic getGraphic(final Fill filll, final Stroke stroke, final StyleBuilder build) {
@@ -191,9 +211,9 @@ public class GraphicViewer {
 	/**
 	 * TODO summary sentence for setGraphic ...
 	 *
-	 * @param graphic
-	 * @param mode
-	 * @param enabled
+	 * @param g the g
+	 * @param mode the mode
+	 * @param defaultColor the default color
 	 */
 	public void setGraphic(final Graphic g, final Mode mode, final Color defaultColor) {
 		Graphic graphic = g;
@@ -228,6 +248,12 @@ public class GraphicViewer {
 		this.enabled = this.enabled && enabled;
 	}
 
+	/**
+	 * Sets the mark.
+	 *
+	 * @param mark the mark
+	 * @param mode the mode
+	 */
 	private void setMark(final Mark mark, final Mode mode) {
 		listen(false);
 		try {
@@ -250,6 +276,11 @@ public class GraphicViewer {
 		}
 	}
 
+	/**
+	 * Listen.
+	 *
+	 * @param listen the listen
+	 */
 	void listen(final boolean listen) {
 		if (listen) {
 			this.on.addSelectionListener(this.sync);

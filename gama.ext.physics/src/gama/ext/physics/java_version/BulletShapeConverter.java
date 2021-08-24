@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * BulletShapeConverter.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.physics.java_version;
 
 import static com.bulletphysics.dom.HeightfieldTerrainShape.ZAXIS;
@@ -32,9 +42,15 @@ import gama.metamodel.shape.IShape;
 import gama.runtime.IScope;
 import gama.util.matrix.IField;
 
+/**
+ * The Class BulletShapeConverter.
+ */
 public class BulletShapeConverter implements IShapeConverter<CollisionShape, Vector3f>, IBulletPhysicalEntity {
 
+	/** The shapes. */
 	static Map<IShape.Type, ConvexShape> shapes = new HashMap<>();
+	
+	/** The translations. */
 	static Map<IShape.Type, Vector3f> translations = new HashMap<>();
 
 	static {

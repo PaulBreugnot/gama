@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * NewProjectWizardPage.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator.wizards;
 
 /*******************************************************************************
@@ -50,14 +60,21 @@ import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
  */
 public class NewProjectWizardPage extends WizardPage {
 
+	/** The initial project field value. */
 	// initial value stores
 	String initialProjectFieldValue;
+	
+	/** The is test. */
 	boolean isTest;
+	
+	/** The create new model. */
 	boolean createNewModel = true;
 
+	/** The project name field. */
 	// widgets
 	Text projectNameField;
 
+	/** The name modify listener. */
 	private final Listener nameModifyListener = e -> {
 		setLocationForSelection();
 		final boolean valid = validatePage();
@@ -67,6 +84,7 @@ public class NewProjectWizardPage extends WizardPage {
 
 	// private ProjectContentsLocationArea locationArea;
 
+	/** The Constant SIZING_TEXT_FIELD_WIDTH. */
 	// constants
 	private static final int SIZING_TEXT_FIELD_WIDTH = 250;
 
@@ -101,6 +119,7 @@ public class NewProjectWizardPage extends WizardPage {
 	/**
 	 * Get an error reporter for the receiver.
 	 *
+	 * @param parent the parent
 	 * @return IErrorMessageReporter
 	 */
 	// private IErrorMessageReporter getErrorReporter() {
@@ -190,10 +209,20 @@ public class NewProjectWizardPage extends WizardPage {
 	// // return new Path(locationArea.getProjectLocation());
 	// }
 
+	/**
+	 * Checks if is test.
+	 *
+	 * @return true, if is test
+	 */
 	public boolean isTest() {
 		return isTest;
 	}
 
+	/**
+	 * Creates the new model.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean createNewModel() {
 		return createNewModel;
 	}

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ItemIcon.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -79,6 +89,8 @@ public class ItemIcon
      * 
      */
     protected String href;
+    
+    /** The item icon simple extension. */
     @XmlElement(name = "ItemIconSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> itemIconSimpleExtension;
@@ -103,13 +115,18 @@ public class ItemIcon
     @XmlElement(name = "ItemIconObjectExtensionGroup")
     protected List<AbstractObject> itemIconObjectExtension;
 
+    /**
+     * Instantiates a new item icon.
+     */
     public ItemIcon() {
         super();
     }
 
     /**
+     * Gets the state.
+     *
+     * @return the state
      * @see state
-     * 
      */
     public List<ItemIconState> getState() {
         if (state == null) {
@@ -119,32 +136,32 @@ public class ItemIcon
     }
 
     /**
-     * @see href
-     * 
-     * @return
-     *     possible object is
+     * Gets the href.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see href
      */
     public String getHref() {
         return href;
     }
 
     /**
-     * @see href
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the href.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see href
      */
     public void setHref(String value) {
         this.href = value;
     }
 
     /**
+     * Gets the item icon simple extension.
+     *
+     * @return the item icon simple extension
      * @see itemIconSimpleExtension
-     * 
      */
     public List<Object> getItemIconSimpleExtension() {
         if (itemIconSimpleExtension == null) {
@@ -154,8 +171,10 @@ public class ItemIcon
     }
 
     /**
+     * Gets the item icon object extension.
+     *
+     * @return the item icon object extension
      * @see itemIconObjectExtension
-     * 
      */
     public List<AbstractObject> getItemIconObjectExtension() {
         if (itemIconObjectExtension == null) {
@@ -230,21 +249,20 @@ public class ItemIcon
     }
 
     /**
+     * Sets the state.
+     *
+     * @param state the new state
      * @see state
-     * 
-     * @param state
      */
     public void setState(final List<ItemIconState> state) {
         this.state = state;
     }
 
     /**
-     * add a value to the state property collection
-     * 
-     * @param state
-     *     Objects of the following type are allowed in the list: {@link ItemIconState}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the state property collection.
+     *
+     * @param state     Objects of the following type are allowed in the list: {@link ItemIconState}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public ItemIcon addToState(final ItemIconState state) {
         this.getState().add(state);
@@ -252,21 +270,20 @@ public class ItemIcon
     }
 
     /**
+     * Sets the item icon simple extension.
+     *
+     * @param itemIconSimpleExtension the new item icon simple extension
      * @see itemIconSimpleExtension
-     * 
-     * @param itemIconSimpleExtension
      */
     public void setItemIconSimpleExtension(final List<Object> itemIconSimpleExtension) {
         this.itemIconSimpleExtension = itemIconSimpleExtension;
     }
 
     /**
-     * add a value to the itemIconSimpleExtension property collection
-     * 
-     * @param itemIconSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the itemIconSimpleExtension property collection.
+     *
+     * @param itemIconSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public ItemIcon addToItemIconSimpleExtension(final Object itemIconSimpleExtension) {
         this.getItemIconSimpleExtension().add(itemIconSimpleExtension);
@@ -274,21 +291,20 @@ public class ItemIcon
     }
 
     /**
+     * Sets the item icon object extension.
+     *
+     * @param itemIconObjectExtension the new item icon object extension
      * @see itemIconObjectExtension
-     * 
-     * @param itemIconObjectExtension
      */
     public void setItemIconObjectExtension(final List<AbstractObject> itemIconObjectExtension) {
         this.itemIconObjectExtension = itemIconObjectExtension;
     }
 
     /**
-     * add a value to the itemIconObjectExtension property collection
-     * 
-     * @param itemIconObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the itemIconObjectExtension property collection.
+     *
+     * @param itemIconObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public ItemIcon addToItemIconObjectExtension(final AbstractObject itemIconObjectExtension) {
         this.getItemIconObjectExtension().add(itemIconObjectExtension);
@@ -313,11 +329,11 @@ public class ItemIcon
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param state     required parameter
+     * @return the item icon
      * @see #setState(List<ItemIconState>)
-     * 
-     * @param state
-     *     required parameter
      */
     public ItemIcon withState(final List<ItemIconState> state) {
         this.setState(state);
@@ -325,11 +341,11 @@ public class ItemIcon
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param href     required parameter
+     * @return the item icon
      * @see #setHref(String)
-     * 
-     * @param href
-     *     required parameter
      */
     public ItemIcon withHref(final String href) {
         this.setHref(href);
@@ -337,11 +353,11 @@ public class ItemIcon
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param itemIconSimpleExtension     required parameter
+     * @return the item icon
      * @see #setItemIconSimpleExtension(List<Object>)
-     * 
-     * @param itemIconSimpleExtension
-     *     required parameter
      */
     public ItemIcon withItemIconSimpleExtension(final List<Object> itemIconSimpleExtension) {
         this.setItemIconSimpleExtension(itemIconSimpleExtension);
@@ -349,11 +365,11 @@ public class ItemIcon
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param itemIconObjectExtension     required parameter
+     * @return the item icon
      * @see #setItemIconObjectExtension(List<AbstractObject>)
-     * 
-     * @param itemIconObjectExtension
-     *     required parameter
      */
     public ItemIcon withItemIconObjectExtension(final List<AbstractObject> itemIconObjectExtension) {
         this.setItemIconObjectExtension(itemIconObjectExtension);

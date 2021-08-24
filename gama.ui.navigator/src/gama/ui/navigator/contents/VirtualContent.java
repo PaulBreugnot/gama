@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'VirtualContent.java, in plugin ummisco.gama.ui.navigator, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * VirtualContent.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator.contents;
 
 import static gama.ui.base.resources.IGamaIcons.OVERLAY_OK;
@@ -27,14 +26,40 @@ import gama.ui.base.resources.GamaIcons;
 import gama.ui.base.resources.IGamaColors;
 import gama.ui.base.resources.GamaColors.GamaUIColor;
 
+/**
+ * The Class VirtualContent.
+ *
+ * @param <P> the generic type
+ */
 public abstract class VirtualContent<P extends VirtualContent<?>> {
 
+	/**
+	 * The Enum VirtualContentType.
+	 */
 	public enum VirtualContentType {
-		ROOT, VIRTUAL_FOLDER, PROJECT, FOLDER, FILE, FILE_REFERENCE, CATEGORY, GAML_ELEMENT
+		
+		/** The root. */
+		ROOT, 
+ /** The virtual folder. */
+ VIRTUAL_FOLDER, 
+ /** The project. */
+ PROJECT, 
+ /** The folder. */
+ FOLDER, 
+ /** The file. */
+ FILE, 
+ /** The file reference. */
+ FILE_REFERENCE, 
+ /** The category. */
+ CATEGORY, 
+ /** The gaml element. */
+ GAML_ELEMENT
 	}
 
+	/** The default label provider. */
 	public static ILabelProvider DEFAULT_LABEL_PROVIDER = WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider();
 
+	/** The Constant DESCRIPTORS. */
 	public static final Map<Integer, ImageDescriptor> DESCRIPTORS = new HashMap<>() {
 		{
 
@@ -50,96 +75,215 @@ public abstract class VirtualContent<P extends VirtualContent<?>> {
 		}
 	};
 
+	/** The Constant NO_PROBLEM. */
 	public static final int NO_PROBLEM = -1;
+	
+	/** The Constant CLOSED. */
 	public static final int CLOSED = -2;
+	
+	/** The Constant LINK_OK. */
 	public static final int LINK_OK = -3;
+	
+	/** The Constant LINK_BROKEN. */
 	public static final int LINK_BROKEN = -4;
+	
+	/** The Constant WEBLINK_OK. */
 	public static final int WEBLINK_OK = -5;
+	
+	/** The Constant WEBLINK_BROKEN. */
 	public static final int WEBLINK_BROKEN = -6;
+	
+	/** The empty. */
 	public static Object[] EMPTY = {};
 
+	/** The root. */
 	private final P root;
+	
+	/** The name. */
 	private final String name;
 
+	/**
+	 * Instantiates a new virtual content.
+	 *
+	 * @param root the root
+	 * @param name the name
+	 */
 	public VirtualContent(final P root, final String name) {
 		this.root = root;
 		this.name = name;
 	}
 
+	/**
+	 * Gets the manager.
+	 *
+	 * @return the manager
+	 */
 	public ResourceManager getManager() {
 		return NavigatorRoot.getInstance().getManager();
 	}
 
+	/**
+	 * Gets the type.
+	 *
+	 * @return the type
+	 */
 	public abstract VirtualContentType getType();
 
 	/**
 	 * Should both perform something and answer whether or not it has performed it, so that the navigator knows whether
-	 * it should handle double-clicks itself
+	 * it should handle double-clicks itself.
 	 *
-	 * @return
+	 * @return true, if successful
 	 */
 	public boolean handleDoubleClick() {
 		return false;
 	}
 
+	/**
+	 * Handle single click.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean handleSingleClick() {
 		return false;
 	}
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Gets the parent.
+	 *
+	 * @return the parent
+	 */
 	public P getParent() {
 		return root;
 	}
 
+	/**
+	 * Checks for children.
+	 *
+	 * @return true, if successful
+	 */
 	public abstract boolean hasChildren();
 
+	/**
+	 * Gets the navigator children.
+	 *
+	 * @return the navigator children
+	 */
 	public abstract Object[] getNavigatorChildren();
 
+	/**
+	 * Gets the image.
+	 *
+	 * @return the image
+	 */
 	public abstract Image getImage();
 
+	/**
+	 * Gets the color.
+	 *
+	 * @return the color
+	 */
 	public abstract Color getColor();
 
+	/**
+	 * Gets the suffix.
+	 *
+	 * @param sb the sb
+	 * @return the suffix
+	 */
 	public abstract void getSuffix(StringBuilder sb);
 
 	// public Font getFont() {
 	// return GamaFonts.getNavigFolderFont(); // by default
 	// }
 
+	/**
+	 * Find max problem severity.
+	 *
+	 * @return the int
+	 */
 	public abstract int findMaxProblemSeverity();
 
+	/**
+	 * Gets the overlay.
+	 *
+	 * @return the overlay
+	 */
 	public abstract ImageDescriptor getOverlay();
 
+	/**
+	 * Gets the top level folder.
+	 *
+	 * @return the top level folder
+	 */
 	public TopLevelFolder getTopLevelFolder() {
 		final Object p = getParent();
 		if (p instanceof VirtualContent) return ((VirtualContent<?>) p).getTopLevelFolder();
 		return null;
 	}
 
+	/**
+	 * Gets the project.
+	 *
+	 * @return the project
+	 */
 	public WrappedProject getProject() {
 		final Object p = getParent();
 		if (p instanceof VirtualContent) return ((VirtualContent<?>) p).getProject();
 		return null;
 	}
 
+	/**
+	 * Gets the status message.
+	 *
+	 * @return the status message
+	 */
 	public String getStatusMessage() {
 		return getName();
 	}
 
+	/**
+	 * Gets the status tooltip.
+	 *
+	 * @return the status tooltip
+	 */
 	public String getStatusTooltip() {
 		return null;
 	}
 
+	/**
+	 * Gets the status color.
+	 *
+	 * @return the status color
+	 */
 	public GamaUIColor getStatusColor() {
 		return IGamaColors.GRAY_LABEL;
 	}
 
+	/**
+	 * Gets the status image.
+	 *
+	 * @return the status image
+	 */
 	public Image getStatusImage() {
 		return getImage();
 	}
 
+	/**
+	 * Checks if is contained in.
+	 *
+	 * @param current the current
+	 * @return true, if is contained in
+	 */
 	public boolean isContainedIn(final VirtualContent<?> current) {
 		if (root == null) return false;
 		return root == current || root.isContainedIn(current);

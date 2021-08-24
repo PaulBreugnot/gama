@@ -1,37 +1,47 @@
-/*
- Copyright 2005 Simon Mieth
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+/*******************************************************************************************************
+ *
+ * Point.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf.helpers;
 
 import gama.ext.libs.kabeja.dxf.DXFConstants;
 
 
 /**
+ * The Class Point.
+ *
  * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
- *
- *
- *
  */
 public class Point {
+    
+    /** The x. */
     protected double x = 0.0;
+    
+    /** The y. */
     protected double y = 0.0;
+    
+    /** The z. */
     protected double z = 0.0;
 
+    /**
+     * Instantiates a new point.
+     */
     public Point() {
     }
 
+    /**
+     * Instantiates a new point.
+     *
+     * @param x the x
+     * @param y the y
+     * @param z the z
+     */
     public Point(double x, double y, double z) {
         this.x = x;
         this.y = y;
@@ -39,6 +49,8 @@ public class Point {
     }
 
     /**
+     * Gets the x.
+     *
      * @return Returns the x.
      */
     public double getX() {
@@ -46,14 +58,17 @@ public class Point {
     }
 
     /**
-     * @param x
-     *            The x to set.
+     * Sets the x.
+     *
+     * @param x            The x to set.
      */
     public void setX(double x) {
         this.x = x;
     }
 
     /**
+     * Gets the y.
+     *
      * @return Returns the y.
      */
     public double getY() {
@@ -61,14 +76,17 @@ public class Point {
     }
 
     /**
-     * @param y
-     *            The y to set.
+     * Sets the y.
+     *
+     * @param y            The y to set.
      */
     public void setY(double y) {
         this.y = y;
     }
 
     /**
+     * Gets the z.
+     *
      * @return Returns the z.
      */
     public double getZ() {
@@ -76,8 +94,9 @@ public class Point {
     }
 
     /**
-     * @param z
-     *            The z to set.
+     * Sets the z.
+     *
+     * @param z            The z to set.
      */
     public void setZ(double z) {
         this.z = z;

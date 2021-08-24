@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GamlImageHelper.java, in plugin ummisco.gama.ui.modeling, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * GamlImageHelper.java, in gama.ui.modeling, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- *
- **********************************************************************************************/
+ ********************************************************************************************************/
 package gama.ui.modeling.decorators;
 
 import java.util.Map;
@@ -34,9 +33,18 @@ import gama.ui.base.resources.GamaIcons;
 @Singleton
 public class GamlImageHelper implements IImageHelper, IImageDescriptorHelper {
 
+	/** The Constant path. */
 	private static final String path = "gaml";
+	
+	/** The registry. */
 	private final Map<ImageDescriptor, Image> registry = Maps.newHashMapWithExpectedSize(10);
 
+	/**
+	 * Exist.
+	 *
+	 * @param name the name
+	 * @return true, if successful
+	 */
 	public boolean exist(final String name) {
 		return AbstractUIPlugin.imageDescriptorFromPlugin(GamaIcons.PLUGIN_ID,
 				GamaIcons.DEFAULT_PATH + name + ".png") != null;

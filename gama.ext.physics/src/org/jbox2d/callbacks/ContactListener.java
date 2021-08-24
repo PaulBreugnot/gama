@@ -1,26 +1,13 @@
-/*******************************************************************************
- * Copyright (c) 2013, Daniel Murphy
- * All rights reserved.
+/*******************************************************************************************************
+ *
+ * ContactListener.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
- * 	* Redistributions of source code must retain the above copyright notice,
- * 	  this list of conditions and the following disclaimer.
- * 	* Redistributions in binary form must reproduce the above copyright notice,
- * 	  this list of conditions and the following disclaimer in the documentation
- * 	  and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
- * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
- * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
- * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- ******************************************************************************/
+ ********************************************************************************************************/
 package org.jbox2d.callbacks;
 
 import org.jbox2d.collision.Manifold;
@@ -36,21 +23,23 @@ import org.jbox2d.dynamics.contacts.Contact;
  * single time step.
  * You should strive to make your callbacks efficient because there may be
  * many callbacks per time step.
- * @warning You cannot create/destroy Box2D entities inside these callbacks.
- * @author Daniel Murphy
  *
+ * @author Daniel Murphy
+ * @warning You cannot create/destroy Box2D entities inside these callbacks.
  */
 public interface ContactListener {
 
 	/**
 	 * Called when two fixtures begin to touch.
-	 * @param contact
+	 *
+	 * @param contact the contact
 	 */
 	public void beginContact(Contact contact);
 	
 	/**
 	 * Called when two fixtures cease to touch.
-	 * @param contact
+	 *
+	 * @param contact the contact
 	 */
 	public void endContact(Contact contact);
 	
@@ -67,8 +56,9 @@ public interface ContactListener {
 	 * the next step.
 	 * Note: the oldManifold parameter is pooled, so it will be the same object for every callback
 	 * for each thread.
-	 * @param contact
-	 * @param oldManifold
+	 *
+	 * @param contact the contact
+	 * @param oldManifold the old manifold
 	 */
 	public void preSolve(Contact contact, Manifold oldManifold);
 	
@@ -79,7 +69,8 @@ public interface ContactListener {
 	 * arbitrarily large if the sub-step is small. Hence the impulse is provided explicitly
 	 * in a separate data structure.
 	 * Note: this is only called for contacts that are touching, solid, and awake.
-	 * @param contact
+	 *
+	 * @param contact the contact
 	 * @param impulse this is usually a pooled variable, so it will be modified after
 	 * this call
 	 */

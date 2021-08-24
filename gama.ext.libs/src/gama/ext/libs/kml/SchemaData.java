@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * SchemaData.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -97,17 +107,24 @@ public class SchemaData
      */
     @XmlElement(name = "SchemaDataExtension")
     protected List<Object> schemaDataExtension;
+    
+    /** The schema url. */
     @XmlAttribute(name = "schemaUrl")
     @XmlSchemaType(name = "anyURI")
     protected String schemaUrl;
 
+    /**
+     * Instantiates a new schema data.
+     */
     public SchemaData() {
         super();
     }
 
     /**
+     * Gets the simple data.
+     *
+     * @return the simple data
      * @see simpleData
-     * 
      */
     public List<SimpleData> getSimpleData() {
         if (simpleData == null) {
@@ -117,8 +134,10 @@ public class SchemaData
     }
 
     /**
+     * Gets the schema data extension.
+     *
+     * @return the schema data extension
      * @see schemaDataExtension
-     * 
      */
     public List<Object> getSchemaDataExtension() {
         if (schemaDataExtension == null) {
@@ -128,24 +147,22 @@ public class SchemaData
     }
 
     /**
-     * @see schemaUrl
-     * 
-     * @return
-     *     possible object is
+     * Gets the schema url.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see schemaUrl
      */
     public String getSchemaUrl() {
         return schemaUrl;
     }
 
     /**
-     * @see schemaUrl
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the schema url.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see schemaUrl
      */
     public void setSchemaUrl(String value) {
         this.schemaUrl = value;
@@ -212,10 +229,9 @@ public class SchemaData
      * <code>
      * SimpleData simpleData = new SimpleData();
      * this.getSimpleData().add(simpleData); </code>
-     * 
-     * 
-     * @param name
-     *     required parameter
+     *
+     * @param name     required parameter
+     * @return the simple data
      */
     public SimpleData createAndAddSimpleData(final String name) {
         SimpleData newValue = new SimpleData(name);
@@ -224,21 +240,20 @@ public class SchemaData
     }
 
     /**
+     * Sets the simple data.
+     *
+     * @param simpleData the new simple data
      * @see simpleData
-     * 
-     * @param simpleData
      */
     public void setSimpleData(final List<SimpleData> simpleData) {
         this.simpleData = simpleData;
     }
 
     /**
-     * add a value to the simpleData property collection
-     * 
-     * @param simpleData
-     *     Objects of the following type are allowed in the list: {@link SimpleData}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the simpleData property collection.
+     *
+     * @param simpleData     Objects of the following type are allowed in the list: {@link SimpleData}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public SchemaData addToSimpleData(final SimpleData simpleData) {
         this.getSimpleData().add(simpleData);
@@ -246,21 +261,20 @@ public class SchemaData
     }
 
     /**
+     * Sets the schema data extension.
+     *
+     * @param schemaDataExtension the new schema data extension
      * @see schemaDataExtension
-     * 
-     * @param schemaDataExtension
      */
     public void setSchemaDataExtension(final List<Object> schemaDataExtension) {
         this.schemaDataExtension = schemaDataExtension;
     }
 
     /**
-     * add a value to the schemaDataExtension property collection
-     * 
-     * @param schemaDataExtension
-     *     Objects of the following type are allowed in the list: {@code <}{@link SimpleArrayData}{@code>}{@link JAXBElement}{@code <}{@link Object}{@code>}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the schemaDataExtension property collection.
+     *
+     * @param schemaDataExtension     Objects of the following type are allowed in the list: {@code <}{@link SimpleArrayData}{@code>}{@link JAXBElement}{@code <}{@link Object}{@code>}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public SchemaData addToSchemaDataExtension(final Object schemaDataExtension) {
         this.getSchemaDataExtension().add(schemaDataExtension);
@@ -285,11 +299,11 @@ public class SchemaData
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param simpleData     required parameter
+     * @return the schema data
      * @see #setSimpleData(List<SimpleData>)
-     * 
-     * @param simpleData
-     *     required parameter
      */
     public SchemaData withSimpleData(final List<SimpleData> simpleData) {
         this.setSimpleData(simpleData);
@@ -297,11 +311,11 @@ public class SchemaData
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param schemaDataExtension     required parameter
+     * @return the schema data
      * @see #setSchemaDataExtension(List<Object>)
-     * 
-     * @param schemaDataExtension
-     *     required parameter
      */
     public SchemaData withSchemaDataExtension(final List<Object> schemaDataExtension) {
         this.setSchemaDataExtension(schemaDataExtension);
@@ -309,11 +323,11 @@ public class SchemaData
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param schemaUrl     required parameter
+     * @return the schema data
      * @see #setSchemaUrl(String)
-     * 
-     * @param schemaUrl
-     *     required parameter
      */
     public SchemaData withSchemaUrl(final String schemaUrl) {
         this.setSchemaUrl(schemaUrl);

@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gaml.types.GamaTopologyType.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * GamaTopologyType.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -48,6 +48,15 @@ import gaml.species.ISpecies;
 		doc = @doc ("Represents a topology, obtained from agents or geometries, that can be used to compute distances, neighbours, etc."))
 public class GamaTopologyType extends GamaType<ITopology> {
 
+	/**
+	 * Static cast.
+	 *
+	 * @param scope the scope
+	 * @param obj the obj
+	 * @param copy the copy
+	 * @return the i topology
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@SuppressWarnings ("rawtypes")
 	public static ITopology staticCast(final IScope scope, final Object obj, final boolean copy)
 			throws GamaRuntimeException {
@@ -74,15 +83,24 @@ public class GamaTopologyType extends GamaType<ITopology> {
 		return staticCast(scope, obj, copy);
 	}
 
+	/**
+	 * From.
+	 *
+	 * @param scope the scope
+	 * @param obj the obj
+	 * @return the i topology
+	 */
 	public static ITopology from(final IScope scope, final IShape obj) {
 		return new ContinuousTopology(scope, obj);
 	}
 
 	/**
-	 * @throws GamaRuntimeException
-	 * @param scope
-	 * @param obj
-	 * @return
+	 * From.
+	 *
+	 * @param scope the scope
+	 * @param obj the obj
+	 * @return the i topology
+	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 	private static ITopology from(final IScope scope, final IContainer<?, IShape> obj) throws GamaRuntimeException {
 		if (obj instanceof GamaSpatialGraph) {

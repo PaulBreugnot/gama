@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * DXFInsertHandler.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.parser.entities;
 
 import gama.ext.libs.kabeja.dxf.DXFConstants;
@@ -22,23 +17,44 @@ import gama.ext.libs.kabeja.parser.DXFValue;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth</a>
+ * The Class DXFInsertHandler.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth</a>
  */
 public class DXFInsertHandler extends AbstractEntityHandler {
+    
+    /** The Constant SCALE_X. */
     public static final int SCALE_X = 41;
+    
+    /** The Constant SCALE_Y. */
     public static final int SCALE_Y = 42;
+    
+    /** The Constant SCALE_Z. */
     public static final int SCALE_Z = 43;
+    
+    /** The Constant ROTATE. */
     public static final int ROTATE = 50;
+    
+    /** The Constant COLUMN_COUNT. */
     public static final int COLUMN_COUNT = 70;
+    
+    /** The Constant ROW_COUNT. */
     public static final int ROW_COUNT = 71;
+    
+    /** The Constant COLUMN_SPACING. */
     public static final int COLUMN_SPACING = 44;
+    
+    /** The Constant ROW_SPACING. */
     public static final int ROW_SPACING = 45;
+    
+    /** The Constant BLOCK_NAME. */
     public static final int BLOCK_NAME = 2;
+    
+    /** The insert. */
     private DXFInsert insert;
 
     /**
-     *
+     * Instantiates a new DXF insert handler.
      */
     public DXFInsertHandler() {
         super();

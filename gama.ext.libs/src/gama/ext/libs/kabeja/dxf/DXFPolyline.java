@@ -1,7 +1,13 @@
-/*
- * Created on Jun 29, 2004
+/*******************************************************************************************************
  *
- */
+ * DXFPolyline.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf;
 
 import java.util.ArrayList;
@@ -14,23 +20,44 @@ import gama.ext.libs.kabeja.math.MathUtils;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth </a>
+ * The Class DXFPolyline.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth </a>
  */
 public class DXFPolyline extends DXFEntity {
+    
+    /** The Constant QUARTER_CIRCLE_ANGLE. */
     protected static final double QUARTER_CIRCLE_ANGLE = Math.tan(0.39269908169872414D);
+    
+    /** The vertices. */
     protected ArrayList vertices = new ArrayList();
+    
+    /** The start width. */
     protected double startWidth = 0.0;
+    
+    /** The end width. */
     protected double endWidth = 0.0;
+    
+    /** The constant width. */
     protected boolean constantWidth = true;
+    
+    /** The sureface type. */
     protected int surefaceType = 0;
+    
+    /** The sureface density rows. */
     protected int surefaceDensityRows = 0;
+    
+    /** The sureface density columns. */
     protected int surefaceDensityColumns = 0;
+    
+    /** The rows. */
     protected int rows = 0;
+    
+    /** The columns. */
     protected int columns = 0;
 
     /**
-     *
+     * Instantiates a new DXF polyline.
      */
     public DXFPolyline() {
     }
@@ -69,6 +96,11 @@ public class DXFPolyline extends DXFEntity {
         return bounds;
     }
 
+    /**
+     * Adds the vertex.
+     *
+     * @param vertex the vertex
+     */
     public void addVertex(DXFVertex vertex) {
         vertices.add(vertex);
 
@@ -77,14 +109,29 @@ public class DXFPolyline extends DXFEntity {
         }
     }
 
+    /**
+     * Gets the vertex count.
+     *
+     * @return the vertex count
+     */
     public int getVertexCount() {
         return this.vertices.size();
     }
 
+    /**
+     * Gets the vertex iterator.
+     *
+     * @return the vertex iterator
+     */
     public Iterator getVertexIterator() {
         return this.vertices.iterator();
     }
 
+    /**
+     * Removes the vertex.
+     *
+     * @param vertex the vertex
+     */
     public void removeVertex(DXFVertex vertex) {
         // remove and check the constantwidth
         constantWidth = true;
@@ -102,6 +149,11 @@ public class DXFPolyline extends DXFEntity {
         }
     }
 
+    /**
+     * Removes the vertex.
+     *
+     * @param index the index
+     */
     public void removeVertex(int index) {
         constantWidth = true;
 
@@ -116,15 +168,21 @@ public class DXFPolyline extends DXFEntity {
         }
     }
 
+    /**
+     * Gets the vertex.
+     *
+     * @param i the i
+     * @return the vertex
+     */
     public DXFVertex getVertex(int i) {
         return (DXFVertex) vertices.get(i);
     }
 
     /**
-     * Returns the distance between 2 DXFPoints
+     * Returns the distance between 2 DXFPoints.
      *
-     * @param start
-     * @param end
+     * @param start the start
+     * @param end the end
      * @return the length between the two points
      */
     protected double getLength(DXFPoint start, DXFPoint end) {
@@ -135,12 +193,11 @@ public class DXFPolyline extends DXFEntity {
     }
 
     /**
-     * Caculate the radius of a cut circle segment between 2 DXFVertex
+     * Caculate the radius of a cut circle segment between 2 DXFVertex.
      *
-     * @param bulge
-     *            the vertex bulge
-     * @param length
-     *            the length of the circle cut
+     * @param bulge            the vertex bulge
+     * @param length            the length of the circle cut
+     * @return the radius
      */
     public double getRadius(double bulge, double length) {
         double h = (bulge * length) / 2;
@@ -159,6 +216,8 @@ public class DXFPolyline extends DXFEntity {
     }
 
     /**
+     * Gets the end width.
+     *
      * @return Returns the endWidth.
      */
     public double getEndWidth() {
@@ -166,14 +225,17 @@ public class DXFPolyline extends DXFEntity {
     }
 
     /**
-     * @param endWidth
-     *            The endWidth to set.
+     * Sets the end width.
+     *
+     * @param endWidth            The endWidth to set.
      */
     public void setEndWidth(double endWidth) {
         this.endWidth = endWidth;
     }
 
     /**
+     * Gets the start width.
+     *
      * @return Returns the startWidth.
      */
     public double getStartWidth() {
@@ -181,46 +243,92 @@ public class DXFPolyline extends DXFEntity {
     }
 
     /**
-     * @param startWidth
-     *            The startWidth to set.
+     * Sets the start width.
+     *
+     * @param startWidth            The startWidth to set.
      */
     public void setStartWidth(double startWidth) {
         this.startWidth = startWidth;
     }
 
+    /**
+     * Checks if is closed.
+     *
+     * @return true, if is closed
+     */
     public boolean isClosed() {
         // the closed Flag
         return (this.flags & 1) == 1;
     }
 
+    /**
+     * Checks if is curve fit vertices added.
+     *
+     * @return true, if is curve fit vertices added
+     */
     public boolean isCurveFitVerticesAdded() {
         return (this.flags & 2) == 2;
     }
 
+    /**
+     * Checks if is spline fit vertices added.
+     *
+     * @return true, if is spline fit vertices added
+     */
     public boolean isSplineFitVerticesAdded() {
         return (this.flags & 4) == 4;
     }
 
+    /**
+     * Checks if is 3 D polygon.
+     *
+     * @return true, if is 3 D polygon
+     */
     public boolean is3DPolygon() {
         return (this.flags & 8) == 8;
     }
 
+    /**
+     * Checks if is 3 D polygon mesh.
+     *
+     * @return true, if is 3 D polygon mesh
+     */
     public boolean is3DPolygonMesh() {
         return (this.flags & 16) == 16;
     }
 
+    /**
+     * Checks if is polyface mesh.
+     *
+     * @return true, if is polyface mesh
+     */
     public boolean isPolyfaceMesh() {
         return (this.flags & 64) == 64;
     }
 
+    /**
+     * Checks if is closed mesh N direction.
+     *
+     * @return true, if is closed mesh N direction
+     */
     public boolean isClosedMeshNDirection() {
         return (this.flags & 32) == 32;
     }
 
+    /**
+     * Checks if is closed mesh M direction.
+     *
+     * @return true, if is closed mesh M direction
+     */
     public boolean isClosedMeshMDirection() {
         return (this.flags & 1) == 1;
     }
 
+    /**
+     * Checks if is quad spline.
+     *
+     * @return true, if is quad spline
+     */
     public boolean isQuadSpline() {
         if (isSplineFitVerticesAdded()) {
             return this.surefaceType == 5;
@@ -229,6 +337,11 @@ public class DXFPolyline extends DXFEntity {
         return false;
     }
 
+    /**
+     * Checks if is cubic spline.
+     *
+     * @return true, if is cubic spline
+     */
     public boolean isCubicSpline() {
         if (isSplineFitVerticesAdded()) {
             return this.surefaceType == 6;
@@ -237,6 +350,11 @@ public class DXFPolyline extends DXFEntity {
         return false;
     }
 
+    /**
+     * Checks if is constant width.
+     *
+     * @return true, if is constant width
+     */
     public boolean isConstantWidth() {
         //TODO review to see if the 
         //property is always set correct
@@ -262,6 +380,8 @@ public class DXFPolyline extends DXFEntity {
     }
 
     /**
+     * Gets the sureface type.
+     *
      * @return Returns the surefaceType.
      */
     public int getSurefaceType() {
@@ -269,14 +389,17 @@ public class DXFPolyline extends DXFEntity {
     }
 
     /**
-     * @param surefaceType
-     *            The surefaceType to set.
+     * Sets the sureface type.
+     *
+     * @param surefaceType            The surefaceType to set.
      */
     public void setSurefaceType(int surefaceType) {
         this.surefaceType = surefaceType;
     }
 
     /**
+     * Gets the sureface density columns.
+     *
      * @return Returns the columns.
      */
     public int getSurefaceDensityColumns() {
@@ -284,14 +407,17 @@ public class DXFPolyline extends DXFEntity {
     }
 
     /**
-     * @param columns
-     *            The columns to set.
+     * Sets the sureface density columns.
+     *
+     * @param columns            The columns to set.
      */
     public void setSurefaceDensityColumns(int columns) {
         this.surefaceDensityColumns = columns;
     }
 
     /**
+     * Gets the sureface density rows.
+     *
      * @return Returns the rows.
      */
     public int getSurefaceDensityRows() {
@@ -299,13 +425,21 @@ public class DXFPolyline extends DXFEntity {
     }
 
     /**
-     * @param rows
-     *            The rows to set.
+     * Sets the sureface density rows.
+     *
+     * @param rows            The rows to set.
      */
     public void setSurefaceDensityRows(int rows) {
         this.surefaceDensityRows = rows;
     }
 
+    /**
+     * Adds the to bounds.
+     *
+     * @param start the start
+     * @param end the end
+     * @param bounds the bounds
+     */
     protected void addToBounds(DXFVertex start, DXFVertex end, Bounds bounds) {
         if (start.getBulge() != 0) {
             // calculte the height
@@ -418,6 +552,12 @@ public class DXFPolyline extends DXFEntity {
         bounds.addToBounds(end.getPoint());
     }
 
+    /**
+     * Gets the poly face mesh vertex.
+     *
+     * @param index the index
+     * @return the poly face mesh vertex
+     */
     public DXFVertex getPolyFaceMeshVertex(int index) {
         Iterator i = this.vertices.iterator();
         int count = 1;
@@ -438,6 +578,8 @@ public class DXFPolyline extends DXFEntity {
     }
 
     /**
+     * Gets the columns.
+     *
      * @return Returns the column.
      */
     public int getColumns() {
@@ -445,14 +587,17 @@ public class DXFPolyline extends DXFEntity {
     }
 
     /**
-     * @param column
-     *            The column to set.
+     * Sets the columns.
+     *
+     * @param column            The column to set.
      */
     public void setColumns(int column) {
         this.columns = column;
     }
 
     /**
+     * Gets the rows.
+     *
      * @return Returns the rows.
      */
     public int getRows() {
@@ -460,25 +605,46 @@ public class DXFPolyline extends DXFEntity {
     }
 
     /**
-     * @param rows
-     *            The rows to set.
+     * Sets the rows.
+     *
+     * @param rows            The rows to set.
      */
     public void setRows(int rows) {
         this.rows = rows;
     }
 
+    /**
+     * Checks if is simple mesh.
+     *
+     * @return true, if is simple mesh
+     */
     public boolean isSimpleMesh() {
         return (this.surefaceType == 0) && ((this.flags & 4) == 0);
     }
 
+    /**
+     * Checks if is quad sureface mesh.
+     *
+     * @return true, if is quad sureface mesh
+     */
     public boolean isQuadSurefaceMesh() {
         return (this.surefaceType == 5) && ((this.flags & 4) == 4);
     }
 
+    /**
+     * Checks if is cubic sureface mesh.
+     *
+     * @return true, if is cubic sureface mesh
+     */
     public boolean isCubicSurefaceMesh() {
         return (this.surefaceType == 6) && ((this.flags & 4) == 4);
     }
 
+    /**
+     * Checks if is bezier sureface mesh.
+     *
+     * @return true, if is bezier sureface mesh
+     */
     public boolean isBezierSurefaceMesh() {
         return (this.surefaceType == 8) && ((this.flags & 4) == 4);
     }
@@ -513,6 +679,13 @@ public class DXFPolyline extends DXFEntity {
         return length;
     }
 
+    /**
+     * Gets the segment length.
+     *
+     * @param start the start
+     * @param end the end
+     * @return the segment length
+     */
     protected double getSegmentLength(DXFVertex start, DXFVertex end) {
         double l = MathUtils.distance(start.getPoint(), end.getPoint());
 
@@ -528,6 +701,11 @@ public class DXFPolyline extends DXFEntity {
         }
     }
 
+    /**
+     * Gets the spline approximation length.
+     *
+     * @return the spline approximation length
+     */
     protected double getSplineApproximationLength() {
         double length = 0.0;
 
@@ -556,6 +734,11 @@ public class DXFPolyline extends DXFEntity {
         return length;
     }
 
+    /**
+     * Gets the polyface length.
+     *
+     * @return the polyface length
+     */
     protected double getPolyfaceLength() {
         double length = 0.0;
         Iterator i = this.vertices.iterator();
@@ -597,6 +780,11 @@ public class DXFPolyline extends DXFEntity {
         return length;
     }
 
+    /**
+     * Gets the mesh length.
+     *
+     * @return the mesh length
+     */
     protected double getMeshLength() {
         double length = 0.0;
 

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.metamodel.topology.grid.GridDiffuser.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * FieldDiffuser.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.metamodel.topology.grid;
 
@@ -26,6 +26,9 @@ import gama.kernel.simulation.SimulationAgent;
 import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 
+/**
+ * The Class FieldDiffuser.
+ */
 public class FieldDiffuser {
 
 	static {
@@ -34,6 +37,7 @@ public class FieldDiffuser {
 
 	// static ThreadLocal<FieldDiffuser> CACHE = new ThreadLocal<>();
 
+	/** The cache. */
 	static LoadingCache<SimulationAgent, FieldDiffuser> CACHE =
 			CacheBuilder.newBuilder().build(new CacheLoader<SimulationAgent, FieldDiffuser>() {
 
@@ -56,6 +60,12 @@ public class FieldDiffuser {
 	// return diffuser;
 	// });
 
+	/**
+	 * Gets the diffuser.
+	 *
+	 * @param scope the scope
+	 * @return the diffuser
+	 */
 	public static FieldDiffuser getDiffuser(final IScope scope) {
 		try {
 			return CACHE.get(scope.getSimulation());
@@ -65,23 +75,52 @@ public class FieldDiffuser {
 		return null;
 	}
 
+	/** The diffusions map. */
 	protected final ListMultimap<DiffusionContext, GridDiffusion> diffusionsMap =
 			MultimapBuilder.hashKeys(10).arrayListValues().build();
 
+	/** The context. */
 	protected DiffusionContext context;
+	
+	/** The diffusion. */
 	protected GridDiffusion diffusion;
+	
+	/** The proportion. */
 	private float proportion; // in case of "avoid_mask"
+	
+	/** The scope. */
 	final IScope scope;
+	
+	/** The output. */
 	double[] input, output;
 
+	/**
+	 * The Class DiffusionContext.
+	 */
 	// Structure of the Key for the map of diffusions.
 	private class DiffusionContext {
+		
+		/** The nb rows. */
 		int nbRows;
+		
+		/** The nb cols. */
 		int nbCols;
+		
+		/** The is torus. */
 		boolean isTorus;
+		
+		/** The target. */
 		IDiffusionTarget target;
+		
+		/** The var name. */
 		final String varName;
 
+		/**
+		 * Instantiates a new diffusion context.
+		 *
+		 * @param var_name the var name
+		 * @param pop the pop
+		 */
 		public DiffusionContext(final String var_name, final IDiffusionTarget pop) {
 			varName = var_name;
 			nbRows = pop.getRows(scope);
@@ -104,13 +143,36 @@ public class FieldDiffuser {
 		}
 	}
 
+	/**
+	 * The Class GridDiffusion.
+	 */
 	private class GridDiffusion {
+		
+		/** The use convolution. */
 		public boolean useConvolution = true;
+		
+		/** The is gradient. */
 		public boolean isGradient;
+		
+		/** The diffusion matrix. */
 		public double[][] mask, diffusionMatrix;
+		
+		/** The min value. */
 		public double minValue;
+		
+		/** The avoid mask. */
 		public boolean avoidMask;
 
+		/**
+		 * Instantiates a new grid diffusion.
+		 *
+		 * @param use_convolution the use convolution
+		 * @param is_gradient the is gradient
+		 * @param mat_diffu the mat diffu
+		 * @param mask the mask
+		 * @param min_value the min value
+		 * @param avoid_mask the avoid mask
+		 */
 		public GridDiffusion(final boolean use_convolution, final boolean is_gradient, final double[][] mat_diffu,
 				final double[][] mask, final double min_value, final boolean avoid_mask) {
 			useConvolution = use_convolution;
@@ -122,6 +184,13 @@ public class FieldDiffuser {
 		}
 	}
 
+	/**
+	 * Compare arrays.
+	 *
+	 * @param array1 the array 1
+	 * @param array2 the array 2
+	 * @return true, if successful
+	 */
 	public boolean compareArrays(final double[][] array1, final double[][] array2) {
 		if (array1 == null) return array2 == null;
 		if (array2 == null || array1.length != array2.length) return false;
@@ -131,6 +200,18 @@ public class FieldDiffuser {
 		return true;
 	}
 
+	/**
+	 * Adds the diffusion.
+	 *
+	 * @param varDiffu the var diffu
+	 * @param pop the pop
+	 * @param method_diffu the method diffu
+	 * @param isGradient the is gradient
+	 * @param matDiffu the mat diffu
+	 * @param theMask the the mask
+	 * @param minValue the min value
+	 * @param avoidMask the avoid mask
+	 */
 	public void addDiffusion(final String varDiffu, final IDiffusionTarget pop, final boolean method_diffu,
 			final boolean isGradient, final double[][] matDiffu, final double[][] theMask, final double minValue,
 			final boolean avoidMask) {
@@ -207,14 +288,30 @@ public class FieldDiffuser {
 		diffusionsMap.put(keyValue, newGridDiff);
 	}
 
+	/**
+	 * Instantiates a new field diffuser.
+	 *
+	 * @param scope the scope
+	 */
 	public FieldDiffuser(final IScope scope) {
 		this.scope = scope;
 	}
 
+	/**
+	 * Load grid properties.
+	 *
+	 * @param pairVarGrid the pair var grid
+	 */
 	public void loadGridProperties(final DiffusionContext pairVarGrid) {
 		context = pairVarGrid;
 	}
 
+	/**
+	 * Load diff properties.
+	 *
+	 * @param gridDiff the grid diff
+	 * @return true, if successful
+	 */
 	public boolean loadDiffProperties(final GridDiffusion gridDiff) {
 		diffusion = gridDiff;
 		if (gridDiff.avoidMask) {
@@ -232,6 +329,9 @@ public class FieldDiffuser {
 
 	}
 
+	/**
+	 * Diffusion with convolution.
+	 */
 	public void diffusionWithConvolution() {
 		// default method : convolution
 
@@ -310,6 +410,9 @@ public class FieldDiffuser {
 		}
 	}
 
+	/**
+	 * Diffusion with dot product.
+	 */
 	public void diffusionWithDotProduct() {
 		// dot product
 
@@ -390,6 +493,9 @@ public class FieldDiffuser {
 		}
 	}
 
+	/**
+	 * Finish diffusion.
+	 */
 	public void finishDiffusion() {
 		for (int i = 0; i < output.length; i++) {
 			double valToPut = output[i];
@@ -407,6 +513,12 @@ public class FieldDiffuser {
 		}
 	}
 
+	/**
+	 * Diffuse.
+	 *
+	 * @return the object
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public Object diffuse() throws GamaRuntimeException {
 		if (scope == null || scope.interrupted()) return false;
 		diffusionsMap.asMap().forEach((context, diffusions) -> {

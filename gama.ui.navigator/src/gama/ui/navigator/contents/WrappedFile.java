@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * WrappedFile.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator.contents;
 
 import static gama.ui.navigator.metadata.FileMetaDataProvider.SHAPEFILE_CT_ID;
@@ -23,19 +33,38 @@ import gama.ui.base.utils.PreferencesHelper;
 import gama.ui.navigator.NavigatorContentProvider;
 import gama.util.file.IGamaFileMetaData;
 
+/**
+ * The Class WrappedFile.
+ */
 public class WrappedFile extends WrappedResource<WrappedResource<?, ?>, IFile> {
 
+	/** The file parent. */
 	WrappedFile fileParent;
+	
+	/** The is shape file. */
 	boolean isShapeFile;
+	
+	/** The is shape file support. */
 	boolean isShapeFileSupport;
+	
+	/** The image. */
 	Image image;
 
+	/**
+	 * Instantiates a new wrapped file.
+	 *
+	 * @param root the root
+	 * @param wrapped the wrapped
+	 */
 	public WrappedFile(final WrappedContainer<?> root, final IFile wrapped) {
 		super(root, wrapped);
 		computeFileType();
 		computeFileParent();
 	}
 
+	/**
+	 * Compute file image.
+	 */
 	protected void computeFileImage() {
 		final IFile f = getResource();
 		if (GamaBundleLoader.HANDLED_FILE_EXTENSIONS.contains(f.getFileExtension())) {
@@ -50,12 +79,18 @@ public class WrappedFile extends WrappedResource<WrappedResource<?, ?>, IFile> {
 
 	}
 
+	/**
+	 * Compute file type.
+	 */
 	protected void computeFileType() {
 		final IFile f = getResource();
 		isShapeFile = SHAPEFILE_CT_ID.equals(getContentTypeId(f));
 		isShapeFileSupport = SHAPEFILE_SUPPORT_CT_ID.equals(getContentTypeId(f));
 	}
 
+	/**
+	 * Compute file parent.
+	 */
 	private void computeFileParent() {
 		if (isShapeFileSupport) {
 			final IResource shape = shapeFileSupportedBy(getResource());
@@ -85,6 +120,11 @@ public class WrappedFile extends WrappedResource<WrappedResource<?, ?>, IFile> {
 		return EMPTY;
 	}
 
+	/**
+	 * Gets the file children.
+	 *
+	 * @return the file children
+	 */
 	public Object[] getFileChildren() {
 		final IFile p = getResource();
 		try {
@@ -131,6 +171,11 @@ public class WrappedFile extends WrappedResource<WrappedResource<?, ?>, IFile> {
 		return 0;
 	}
 
+	/**
+	 * Checks if is gama file.
+	 *
+	 * @return true, if is gama file
+	 */
 	public boolean isGamaFile() {
 		return false;
 	}

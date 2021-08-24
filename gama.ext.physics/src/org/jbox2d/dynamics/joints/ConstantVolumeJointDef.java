@@ -1,26 +1,13 @@
-/*******************************************************************************
- * Copyright (c) 2013, Daniel Murphy
- * All rights reserved.
+/*******************************************************************************************************
+ *
+ * ConstantVolumeJointDef.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
- * 	* Redistributions of source code must retain the above copyright notice,
- * 	  this list of conditions and the following disclaimer.
- * 	* Redistributions in binary form must reproduce the above copyright notice,
- * 	  this list of conditions and the following disclaimer in the documentation
- * 	  and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
- * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
- * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
- * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- ******************************************************************************/
+ ********************************************************************************************************/
 package org.jbox2d.dynamics.joints;
 
 import java.util.ArrayList;
@@ -32,12 +19,22 @@ import org.jbox2d.dynamics.Body;
  * maintain a constant volume within them.
  */
 public class ConstantVolumeJointDef extends JointDef {
+  
+  /** The frequency hz. */
   public float frequencyHz;
+  
+  /** The damping ratio. */
   public float dampingRatio;
 
+  /** The bodies. */
   ArrayList<Body> bodies;
+  
+  /** The joints. */
   ArrayList<DistanceJoint> joints;
 
+  /**
+   * Instantiates a new constant volume joint def.
+   */
   public ConstantVolumeJointDef() {
     super(JointType.CONSTANT_VOLUME);
     bodies = new ArrayList<Body>();
@@ -48,9 +45,9 @@ public class ConstantVolumeJointDef extends JointDef {
   }
 
   /**
-   * Adds a body to the group
-   * 
-   * @param argBody
+   * Adds a body to the group.
+   *
+   * @param argBody the arg body
    */
   public void addBody(Body argBody) {
     bodies.add(argBody);
@@ -64,6 +61,9 @@ public class ConstantVolumeJointDef extends JointDef {
 
   /**
    * Adds a body and the pre-made distance joint. Should only be used for deserialization.
+   *
+   * @param argBody the arg body
+   * @param argJoint the arg joint
    */
   public void addBodyAndJoint(Body argBody, DistanceJoint argJoint) {
     addBody(argBody);

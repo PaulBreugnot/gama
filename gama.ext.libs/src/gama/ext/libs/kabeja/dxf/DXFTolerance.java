@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * DXFTolerance.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf;
 
 import gama.ext.libs.kabeja.dxf.helpers.Point;
@@ -20,13 +15,22 @@ import gama.ext.libs.kabeja.dxf.helpers.Vector;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class DXFTolerance.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class DXFTolerance extends DXFEntity {
+    
+    /** The insertion point. */
     protected Point insertionPoint = new Point();
+    
+    /** The style name ID. */
     protected String styleNameID = "";
+    
+    /** The text. */
     protected String text;
+    
+    /** The xaxis direction. */
     protected Vector xaxisDirection = new Vector();
 
     /* (non-Javadoc)
@@ -48,6 +52,8 @@ public class DXFTolerance extends DXFEntity {
     }
 
     /**
+     * Gets the insertion point.
+     *
      * @return Returns the insertionPoint.
      */
     public Point getInsertionPoint() {
@@ -55,6 +61,8 @@ public class DXFTolerance extends DXFEntity {
     }
 
     /**
+     * Sets the insertion point.
+     *
      * @param insertionPoint The insertionPoint to set.
      */
     public void setInsertionPoint(Point insertionPoint) {
@@ -62,6 +70,8 @@ public class DXFTolerance extends DXFEntity {
     }
 
     /**
+     * Gets the style ID.
+     *
      * @return Returns the styleID.
      */
     public String getStyleID() {
@@ -69,6 +79,8 @@ public class DXFTolerance extends DXFEntity {
     }
 
     /**
+     * Sets the style ID.
+     *
      * @param styleNameID The styleID to set.
      */
     public void setStyleID(String styleNameID) {
@@ -76,6 +88,8 @@ public class DXFTolerance extends DXFEntity {
     }
 
     /**
+     * Gets the text.
+     *
      * @return Returns the text.
      */
     public String getText() {
@@ -83,6 +97,8 @@ public class DXFTolerance extends DXFEntity {
     }
 
     /**
+     * Sets the text.
+     *
      * @param text The text to set.
      */
     public void setText(String text) {
@@ -90,6 +106,8 @@ public class DXFTolerance extends DXFEntity {
     }
 
     /**
+     * Gets the xaxis direction.
+     *
      * @return Returns the xaxisDirection.
      */
     public Vector getXaxisDirection() {
@@ -97,6 +115,8 @@ public class DXFTolerance extends DXFEntity {
     }
 
     /**
+     * Sets the xaxis direction.
+     *
      * @param xaxisDirection The xaxisDirection to set.
      */
     public void setXaxisDirection(Vector xaxisDirection) {

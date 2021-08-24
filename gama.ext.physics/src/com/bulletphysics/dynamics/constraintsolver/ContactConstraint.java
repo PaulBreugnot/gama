@@ -1,20 +1,13 @@
-/*
- * Java port of Bullet (c) 2008 Martin Dvorak <jezek2@advel.cz>
+/*******************************************************************************************************
  *
- * Bullet Continuous Collision Detection and Physics Library Copyright (c) 2003-2008 Erwin Coumans
- * http://www.bulletphysics.com/
+ * ContactConstraint.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the authors be held
- * liable for any damages arising from the use of this software.
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter
- * it and redistribute it freely, subject to the following restrictions:
- *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software.
- * If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not
- * required. 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the
- * original software. 3. This notice may not be removed or altered from any source distribution.
- */
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package com.bulletphysics.dynamics.constraintsolver;
 
@@ -37,6 +30,7 @@ import com.bulletphysics.dynamics.RigidBody;
  */
 public class ContactConstraint {
 
+	/** The Constant resolveSingleCollision. */
 	public static final ContactSolverFunc resolveSingleCollision = new ContactSolverFunc() {
 		@Override
 		public float resolveContact(final RigidBody body1, final RigidBody body2, final ManifoldPoint contactPoint,
@@ -45,6 +39,7 @@ public class ContactConstraint {
 		}
 	};
 
+	/** The Constant resolveSingleFriction. */
 	public static final ContactSolverFunc resolveSingleFriction = new ContactSolverFunc() {
 		@Override
 		public float resolveContact(final RigidBody body1, final RigidBody body2, final ManifoldPoint contactPoint,
@@ -53,6 +48,7 @@ public class ContactConstraint {
 		}
 	};
 
+	/** The Constant resolveSingleCollisionCombined. */
 	public static final ContactSolverFunc resolveSingleCollisionCombined = new ContactSolverFunc() {
 		@Override
 		public float resolveContact(final RigidBody body1, final RigidBody body2, final ManifoldPoint contactPoint,
@@ -63,6 +59,15 @@ public class ContactConstraint {
 
 	/**
 	 * Bilateral constraint between two dynamic objects.
+	 *
+	 * @param body1 the body 1
+	 * @param pos1 the pos 1
+	 * @param body2 the body 2
+	 * @param pos2 the pos 2
+	 * @param distance the distance
+	 * @param normal the normal
+	 * @param impulse the impulse
+	 * @param timeStep the time step
 	 */
 	public static void resolveSingleBilateral(final RigidBody body1, final Vector3f pos1, final RigidBody body2,
 			final Vector3f pos2, final float distance, final Vector3f normal, final float[] impulse,
@@ -134,6 +139,12 @@ public class ContactConstraint {
 
 	/**
 	 * Response between two dynamic objects with friction.
+	 *
+	 * @param body1 the body 1
+	 * @param body2 the body 2
+	 * @param contactPoint the contact point
+	 * @param solverInfo the solver info
+	 * @return the float
 	 */
 	public static float resolveSingleCollision(final RigidBody body1, final RigidBody body2,
 			final ManifoldPoint contactPoint, final ContactSolverInfo solverInfo) {
@@ -184,6 +195,15 @@ public class ContactConstraint {
 		return normalImpulse;
 	}
 
+	/**
+	 * Resolve single friction.
+	 *
+	 * @param body1 the body 1
+	 * @param body2 the body 2
+	 * @param contactPoint the contact point
+	 * @param solverInfo the solver info
+	 * @return the float
+	 */
 	public static float resolveSingleFriction(final RigidBody body1, final RigidBody body2,
 			final ManifoldPoint contactPoint, final ContactSolverInfo solverInfo) {
 		Vector3f tmpVec = VECTORS.get();
@@ -256,7 +276,13 @@ public class ContactConstraint {
 
 	/**
 	 * velocity + friction<br>
-	 * response between two dynamic objects with friction
+	 * response between two dynamic objects with friction.
+	 *
+	 * @param body1 the body 1
+	 * @param body2 the body 2
+	 * @param contactPoint the contact point
+	 * @param solverInfo the solver info
+	 * @return the float
 	 */
 	public static float resolveSingleCollisionCombined(final RigidBody body1, final RigidBody body2,
 			final ManifoldPoint contactPoint, final ContactSolverInfo solverInfo) {
@@ -376,6 +402,15 @@ public class ContactConstraint {
 		return normalImpulse;
 	}
 
+	/**
+	 * Resolve single friction empty.
+	 *
+	 * @param body1 the body 1
+	 * @param body2 the body 2
+	 * @param contactPoint the contact point
+	 * @param solverInfo the solver info
+	 * @return the float
+	 */
 	public static float resolveSingleFrictionEmpty(final RigidBody body1, final RigidBody body2,
 			final ManifoldPoint contactPoint, final ContactSolverInfo solverInfo) {
 		return 0f;

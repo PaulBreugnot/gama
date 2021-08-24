@@ -1,4 +1,13 @@
-// This software is released into the Public Domain. See copying.txt for details.
+/*******************************************************************************************************
+ *
+ * DateParser.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.osmosis;
 
 import java.util.Calendar;
@@ -19,8 +28,14 @@ import javax.xml.datatype.DatatypeFactory;
  * @author Brett Henderson
  */
 public class DateParser {
+	
+	/** The datatype factory. */
 	private DatatypeFactory datatypeFactory;
+	
+	/** The fallback date parser. */
 	private final FallbackDateParser fallbackDateParser;
+	
+	/** The calendar. */
 	private final Calendar calendar;
 
 	/**
@@ -40,6 +55,12 @@ public class DateParser {
 		calendar = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
 	}
 
+	/**
+	 * Checks if is date in short standard format.
+	 *
+	 * @param date the date
+	 * @return true, if is date in short standard format
+	 */
 	private boolean isDateInShortStandardFormat(final String date) {
 		char[] dateChars;
 		// We can only parse the date if it is in a very specific format.
@@ -81,6 +102,12 @@ public class DateParser {
 		return true;
 	}
 
+	/**
+	 * Checks if is date in long standard format.
+	 *
+	 * @param date the date
+	 * @return true, if is date in long standard format
+	 */
 	private boolean isDateInLongStandardFormat(final String date) {
 		char[] dateChars;
 		// We can only parse the date if it is in a very specific format.
@@ -126,6 +153,12 @@ public class DateParser {
 		return true;
 	}
 
+	/**
+	 * Parses the short standard date.
+	 *
+	 * @param date the date
+	 * @return the date
+	 */
 	private Date parseShortStandardDate(final String date) {
 		int year;
 		int month;
@@ -152,6 +185,12 @@ public class DateParser {
 		return calendar.getTime();
 	}
 
+	/**
+	 * Parses the long standard date.
+	 *
+	 * @param date the date
+	 * @return the date
+	 */
 	private Date parseLongStandardDate(final String date) {
 		int year;
 		int month;

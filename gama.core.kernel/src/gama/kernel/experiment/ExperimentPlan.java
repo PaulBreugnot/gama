@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.kernel.experiment.ExperimentPlan.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * ExperimentPlan.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.kernel.experiment;
 
@@ -180,6 +180,9 @@ import gaml.variables.IVariable;
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 
+	/**
+	 * The Class BatchValidator.
+	 */
 	public static class BatchValidator implements IDescriptionValidator {
 
 		/**
@@ -207,28 +210,66 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		}
 	}
 
+	/** The controller. */
 	protected IExperimentController controller;
 	// An original copy of the simualtion outputs (which will be eventually
+	/** The original simulation outputs. */
 	// duplicated in all the simulations)
 	protected SimulationOutputManager originalSimulationOutputs;
+	
+	/** The experiment outputs. */
 	protected ExperimentOutputManager experimentOutputs;
+	
+	/** The parameters. */
 	// private ItemList parametersEditors;
 	protected final Map<String, IParameter> parameters = GamaMapFactory.create();
+	
+	/** The explorable parameters. */
 	protected final Map<String, IParameter.Batch> explorableParameters = GamaMapFactory.create();
+	
+	/** The agent. */
 	protected ExperimentAgent agent;
+	
+	/** The my scope. */
 	protected final Scope myScope = new Scope("in ExperimentPlan");
+	
+	/** The model. */
 	protected IModel model;
+	
+	/** The exploration. */
 	protected IExploration exploration;
+	
+	/** The log. */
 	private FileOutput log;
+	
+	/** The is headless. */
 	private boolean isHeadless;
+	
+	/** The keep seed. */
 	private final boolean keepSeed;
+	
+	/** The keep simulations. */
 	private final boolean keepSimulations;
+	
+	/** The experiment type. */
 	private final String experimentType;
+	
+	/** The autorun. */
 	private final boolean autorun;
+	
+	/** The benchmarkable. */
 	private final boolean benchmarkable;
 
+	/**
+	 * The Class ExperimentPopulation.
+	 */
 	public class ExperimentPopulation extends GamaPopulation<ExperimentAgent> {
 
+		/**
+		 * Instantiates a new experiment population.
+		 *
+		 * @param expr the expr
+		 */
 		public ExperimentPopulation(final ISpecies expr) {
 			super(null, expr);
 		}
@@ -248,6 +289,14 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 			return this;
 		}
 
+		/**
+		 * Creates the variables.
+		 *
+		 * @param scope the scope
+		 * @param a the a
+		 * @param inits the inits
+		 * @throws GamaRuntimeException the gama runtime exception
+		 */
 		public void createVariables(final IScope scope, final IAgent a, final Map<String, Object> inits)
 				throws GamaRuntimeException {
 			final Set<String> names = inits.keySet();
@@ -295,6 +344,11 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		return agent;
 	}
 
+	/**
+	 * Instantiates a new experiment plan.
+	 *
+	 * @param description the description
+	 */
 	public ExperimentPlan(final IDescription description) {
 		super(description);
 		setName(description.getName());
@@ -367,6 +421,11 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		// DEBUG.LOG("ExperimentPlan.dipose END");
 	}
 
+	/**
+	 * Creates the agent.
+	 *
+	 * @param seed the seed
+	 */
 	public void createAgent(final Double seed) {
 		final ExperimentPopulation pop = new ExperimentPopulation(this);
 		final IScope scope = getExperimentScope();
@@ -417,6 +476,9 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		}
 	}
 
+	/**
+	 * Adds the default parameters.
+	 */
 	protected void addDefaultParameters() {
 		for (final IParameter.Batch p : agent.getDefaultParameters()) {
 			addParameter(p);
@@ -479,6 +541,12 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 
 	}
 
+	/**
+	 * Creates the output.
+	 *
+	 * @param output the output
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	private void createOutput(final BatchOutput output) throws GamaRuntimeException {
 		// TODO revoir tout ceci. Devrait plut�t �tre une commande
 		if (output == null) return;
@@ -488,6 +556,11 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		log = new FileOutput(output.getLiteral(IKeyword.TO), dataString, new ArrayList(parameters.keySet()), this);
 	}
 
+	/**
+	 * Open.
+	 *
+	 * @param seed the seed
+	 */
 	public synchronized void open(final Double seed) {
 
 		createAgent(seed);
@@ -561,16 +634,39 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		return myScope;
 	}
 
+	/**
+	 * Sets the parameter value.
+	 *
+	 * @param scope the scope
+	 * @param name the name
+	 * @param val the val
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	// @Override
 	public void setParameterValue(final IScope scope, final String name, final Object val) throws GamaRuntimeException {
 		checkGetParameter(name).setValue(scope, val);
 	}
 
+	/**
+	 * Sets the parameter value by title.
+	 *
+	 * @param scope the scope
+	 * @param name the name
+	 * @param val the val
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public void setParameterValueByTitle(final IScope scope, final String name, final Object val)
 			throws GamaRuntimeException {
 		checkGetParameterByTitle(name).setValue(scope, val);
 	}
 
+	/**
+	 * Gets the parameter value.
+	 *
+	 * @param parameterName the parameter name
+	 * @return the parameter value
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	// @Override
 	public Object getParameterValue(final String parameterName) throws GamaRuntimeException {
 		return checkGetParameter(parameterName).value(myScope);
@@ -582,6 +678,12 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		return getParameter(parameterName) != null;
 	}
 
+	/**
+	 * Gets the parameter by title.
+	 *
+	 * @param title the title
+	 * @return the parameter by title
+	 */
 	public IParameter.Batch getParameterByTitle(final String title) {
 		for (final IParameter p : parameters.values()) {
 			if (p.getTitle().equals(title) && p instanceof IParameter.Batch) return (IParameter.Batch) p;
@@ -589,12 +691,23 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		return null;
 	}
 
+	/**
+	 * Gets the parameter.
+	 *
+	 * @param parameterName the parameter name
+	 * @return the parameter
+	 */
 	public IParameter.Batch getParameter(final String parameterName) {
 		final IParameter p = parameters.get(parameterName);
 		if (p instanceof IParameter.Batch) return (IParameter.Batch) p;
 		return null;
 	}
 
+	/**
+	 * Adds the parameter.
+	 *
+	 * @param p the p
+	 */
 	public void addParameter(final IParameter p) {
 		final String parameterName = p.getName();
 		final IParameter already = parameters.get(parameterName);
@@ -602,6 +715,13 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		parameters.put(parameterName, p);
 	}
 
+	/**
+	 * Check get parameter by title.
+	 *
+	 * @param parameterName the parameter name
+	 * @return the i parameter. batch
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	protected IParameter.Batch checkGetParameterByTitle(final String parameterName) throws GamaRuntimeException {
 		final IParameter.Batch v = getParameterByTitle(parameterName);
 		if (v == null) throw GamaRuntimeException
@@ -609,6 +729,13 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		return v;
 	}
 
+	/**
+	 * Check get parameter.
+	 *
+	 * @param parameterName the parameter name
+	 * @return the i parameter. batch
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	protected IParameter.Batch checkGetParameter(final String parameterName) throws GamaRuntimeException {
 		final IParameter.Batch v = getParameter(parameterName);
 		if (v == null) throw GamaRuntimeException
@@ -637,6 +764,11 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 	 */
 	private class Scope extends ExecutionScope {
 
+		/**
+		 * Instantiates a new scope.
+		 *
+		 * @param additionalName the additional name
+		 */
 		public Scope(final String additionalName) {
 			super(null, additionalName);
 		}
@@ -672,6 +804,11 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		return log;
 	}
 
+	/**
+	 * Adds the explorable parameter.
+	 *
+	 * @param p the p
+	 */
 	public void addExplorableParameter(final IParameter.Batch p) {
 		p.setCategory(EXPLORABLE_CATEGORY_NAME);
 		p.setUnitLabel(null);

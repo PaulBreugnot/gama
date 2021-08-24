@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.types.GamaSpeciesType.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * GamaSpeciesType.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.types;
 
@@ -24,11 +24,10 @@ import gaml.species.ISpecies;
 
 /**
  * The type used for representing species objects (since they can be manipulated in a model)
- *
- * Written by drogoul Modified on 1 aout 2010
+ * 
+ * Written by drogoul Modified on 1 aout 2010.
  *
  * @todo Description
- *
  */
 @type (
 		name = IKeyword.SPECIES,

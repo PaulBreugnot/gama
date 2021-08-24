@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * BalloonStyle.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -157,20 +167,12 @@ public class BalloonStyle
      * 
      */
     protected String text;
-    /**
-     * DisplayMode
-     * <p>
-     * default, hide 
-     * </p>
-     * 
-     * See Also: 
-     * See <BalloonStyle>
-     * 
-     * 
-     * 
-     */
+    
+    /** DisplayMode <p> default, hide  </p>  See Also:  See <BalloonStyle>. */
     @XmlElement(defaultValue = "default")
     protected DisplayMode displayMode;
+    
+    /** The balloon style simple extension. */
     @XmlElement(name = "BalloonStyleSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> balloonStyleSimpleExtension;
@@ -195,133 +197,128 @@ public class BalloonStyle
     @XmlElement(name = "BalloonStyleObjectExtensionGroup")
     protected List<AbstractObject> balloonStyleObjectExtension;
 
+    /**
+     * Instantiates a new balloon style.
+     */
     public BalloonStyle() {
         super();
     }
 
     /**
-     * @see color
-     * 
-     * @return
-     *     possible object is
+     * Gets the color.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see color
      */
     public String getColor() {
         return color;
     }
 
     /**
-     * @see color
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the color.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see color
      */
     public void setColor(String value) {
         this.color =  value;
     }
 
     /**
-     * @see bgColor
-     * 
-     * @return
-     *     possible object is
+     * Gets the bg color.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see bgColor
      */
     public String getBgColor() {
         return bgColor;
     }
 
     /**
-     * @see bgColor
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the bg color.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see bgColor
      */
     public void setBgColor(String value) {
         this.bgColor =  value;
     }
 
     /**
-     * @see textColor
-     * 
-     * @return
-     *     possible object is
+     * Gets the text color.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see textColor
      */
     public String getTextColor() {
         return textColor;
     }
 
     /**
-     * @see textColor
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the text color.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see textColor
      */
     public void setTextColor(String value) {
         this.textColor =  value;
     }
 
     /**
-     * @see text
-     * 
-     * @return
-     *     possible object is
+     * Gets the text.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see text
      */
     public String getText() {
         return text;
     }
 
     /**
-     * @see text
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the text.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see text
      */
     public void setText(String value) {
         this.text = value;
     }
 
     /**
-     * @see displayMode
-     * 
-     * @return
-     *     possible object is
+     * Gets the display mode.
+     *
+     * @return     possible object is
      *     {@link DisplayMode}
-     *     
+     * @see displayMode
      */
     public DisplayMode getDisplayMode() {
         return displayMode;
     }
 
     /**
-     * @see displayMode
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the display mode.
+     *
+     * @param value     allowed object is
      *     {@link DisplayMode}
-     *     
+     * @see displayMode
      */
     public void setDisplayMode(DisplayMode value) {
         this.displayMode = value;
     }
 
     /**
+     * Gets the balloon style simple extension.
+     *
+     * @return the balloon style simple extension
      * @see balloonStyleSimpleExtension
-     * 
      */
     public List<Object> getBalloonStyleSimpleExtension() {
         if (balloonStyleSimpleExtension == null) {
@@ -331,8 +328,10 @@ public class BalloonStyle
     }
 
     /**
+     * Gets the balloon style object extension.
+     *
+     * @return the balloon style object extension
      * @see balloonStyleObjectExtension
-     * 
      */
     public List<AbstractObject> getBalloonStyleObjectExtension() {
         if (balloonStyleObjectExtension == null) {
@@ -437,21 +436,20 @@ public class BalloonStyle
     }
 
     /**
+     * Sets the balloon style simple extension.
+     *
+     * @param balloonStyleSimpleExtension the new balloon style simple extension
      * @see balloonStyleSimpleExtension
-     * 
-     * @param balloonStyleSimpleExtension
      */
     public void setBalloonStyleSimpleExtension(final List<Object> balloonStyleSimpleExtension) {
         this.balloonStyleSimpleExtension = balloonStyleSimpleExtension;
     }
 
     /**
-     * add a value to the balloonStyleSimpleExtension property collection
-     * 
-     * @param balloonStyleSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the balloonStyleSimpleExtension property collection.
+     *
+     * @param balloonStyleSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public BalloonStyle addToBalloonStyleSimpleExtension(final Object balloonStyleSimpleExtension) {
         this.getBalloonStyleSimpleExtension().add(balloonStyleSimpleExtension);
@@ -459,21 +457,20 @@ public class BalloonStyle
     }
 
     /**
+     * Sets the balloon style object extension.
+     *
+     * @param balloonStyleObjectExtension the new balloon style object extension
      * @see balloonStyleObjectExtension
-     * 
-     * @param balloonStyleObjectExtension
      */
     public void setBalloonStyleObjectExtension(final List<AbstractObject> balloonStyleObjectExtension) {
         this.balloonStyleObjectExtension = balloonStyleObjectExtension;
     }
 
     /**
-     * add a value to the balloonStyleObjectExtension property collection
-     * 
-     * @param balloonStyleObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the balloonStyleObjectExtension property collection.
+     *
+     * @param balloonStyleObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public BalloonStyle addToBalloonStyleObjectExtension(final AbstractObject balloonStyleObjectExtension) {
         this.getBalloonStyleObjectExtension().add(balloonStyleObjectExtension);
@@ -532,11 +529,11 @@ public class BalloonStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param color     required parameter
+     * @return the balloon style
      * @see #setColor(String)
-     * 
-     * @param color
-     *     required parameter
      */
     public BalloonStyle withColor(final String color) {
         this.setColor(color);
@@ -544,11 +541,11 @@ public class BalloonStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param bgColor     required parameter
+     * @return the balloon style
      * @see #setBgColor(String)
-     * 
-     * @param bgColor
-     *     required parameter
      */
     public BalloonStyle withBgColor(final String bgColor) {
         this.setBgColor(bgColor);
@@ -556,11 +553,11 @@ public class BalloonStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param textColor     required parameter
+     * @return the balloon style
      * @see #setTextColor(String)
-     * 
-     * @param textColor
-     *     required parameter
      */
     public BalloonStyle withTextColor(final String textColor) {
         this.setTextColor(textColor);
@@ -568,11 +565,11 @@ public class BalloonStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param text     required parameter
+     * @return the balloon style
      * @see #setText(String)
-     * 
-     * @param text
-     *     required parameter
      */
     public BalloonStyle withText(final String text) {
         this.setText(text);
@@ -580,11 +577,11 @@ public class BalloonStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param displayMode     required parameter
+     * @return the balloon style
      * @see #setDisplayMode(DisplayMode)
-     * 
-     * @param displayMode
-     *     required parameter
      */
     public BalloonStyle withDisplayMode(final DisplayMode displayMode) {
         this.setDisplayMode(displayMode);
@@ -592,11 +589,11 @@ public class BalloonStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param balloonStyleSimpleExtension     required parameter
+     * @return the balloon style
      * @see #setBalloonStyleSimpleExtension(List<Object>)
-     * 
-     * @param balloonStyleSimpleExtension
-     *     required parameter
      */
     public BalloonStyle withBalloonStyleSimpleExtension(final List<Object> balloonStyleSimpleExtension) {
         this.setBalloonStyleSimpleExtension(balloonStyleSimpleExtension);
@@ -604,11 +601,11 @@ public class BalloonStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param balloonStyleObjectExtension     required parameter
+     * @return the balloon style
      * @see #setBalloonStyleObjectExtension(List<AbstractObject>)
-     * 
-     * @param balloonStyleObjectExtension
-     *     required parameter
      */
     public BalloonStyle withBalloonStyleObjectExtension(final List<AbstractObject> balloonStyleObjectExtension) {
         this.setBalloonStyleObjectExtension(balloonStyleObjectExtension);

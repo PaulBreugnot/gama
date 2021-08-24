@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.metamodel.agent.IAgent.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * IAgent.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.metamodel.agent;
 
@@ -75,90 +75,185 @@ public interface IAgent extends /* ISkill, */ IShape, INamed, Comparable<IAgent>
 	/**
 	 * Returns the topology which manages this agent.
 	 *
-	 * @return
+	 * @return the topology
 	 */
 	ITopology getTopology();
 
+	/**
+	 * Sets the peers.
+	 *
+	 * @param peers the new peers
+	 */
 	@setter (IKeyword.PEERS)
 	void setPeers(IList<IAgent> peers);
 
 	/**
 	 * Returns agents having the same species and sharing the same direct host with this agent.
 	 *
-	 * @return
+	 * @return the peers
+	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 	@getter (IKeyword.PEERS)
 	IList<IAgent> getPeers() throws GamaRuntimeException;
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	@Override
 	@getter (
 			value = IKeyword.NAME,
 			initializer = true)
 	String getName();
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	@Override
 	@setter (IKeyword.NAME)
 	void setName(String name);
 
+	/**
+	 * Gets the location.
+	 *
+	 * @return the location
+	 */
 	@Override
 	@getter (
 			value = IKeyword.LOCATION,
 			initializer = true)
 	GamaPoint getLocation();
 
+	/**
+	 * Sets the location.
+	 *
+	 * @param l the l
+	 * @return the gama point
+	 */
 	@Override
 	@setter (IKeyword.LOCATION)
 	GamaPoint setLocation(final GamaPoint l);
 
+	/**
+	 * Gets the geometry.
+	 *
+	 * @return the geometry
+	 */
 	@Override
 	@getter (IKeyword.SHAPE)
 	IShape getGeometry();
 
+	/**
+	 * Sets the geometry.
+	 *
+	 * @param newGeometry the new geometry
+	 */
 	@Override
 	@setter (IKeyword.SHAPE)
 	void setGeometry(final IShape newGeometry);
 
+	/**
+	 * Dead.
+	 *
+	 * @return true, if successful
+	 */
 	boolean dead();
 
 	/**
 	 * Returns the agent which hosts the population of this agent.
 	 *
-	 * @return
+	 * @return the host
 	 */
 	@getter (IKeyword.HOST)
 	IMacroAgent getHost();
 
+	/**
+	 * Sets the host.
+	 *
+	 * @param macroAgent the new host
+	 */
 	@setter (IKeyword.HOST)
 	void setHost(final IMacroAgent macroAgent);
 
+	/**
+	 * Schedule.
+	 *
+	 * @param scope the scope
+	 */
 	void schedule(IScope scope);
 
 	/**
 	 * Allows to set attributes that will be accessed by the "read" or "get" operators. Used for GIS/CSV attributes
 	 *
-	 * @param map
+	 * @param map the map
 	 */
 	void setExtraAttributes(final Map<String, Object> map);
 
+	/**
+	 * Gets the index.
+	 *
+	 * @return the index
+	 */
 	int getIndex();
 
+	/**
+	 * Gets the species name.
+	 *
+	 * @return the species name
+	 */
 	String getSpeciesName();
 
+	/**
+	 * Gets the species.
+	 *
+	 * @return the species
+	 */
 	ISpecies getSpecies();
 
+	/**
+	 * Gets the population.
+	 *
+	 * @return the population
+	 */
 	IPopulation<? extends IAgent> getPopulation();
 
+	/**
+	 * Checks if is instance of.
+	 *
+	 * @param s the s
+	 * @param direct the direct
+	 * @return true, if is instance of
+	 */
 	boolean isInstanceOf(final ISpecies s, boolean direct);
 
+	/**
+	 * Gets the direct var value.
+	 *
+	 * @param scope the scope
+	 * @param s the s
+	 * @return the direct var value
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	Object getDirectVarValue(IScope scope, String s) throws GamaRuntimeException;
 
+	/**
+	 * Sets the direct var value.
+	 *
+	 * @param scope the scope
+	 * @param s the s
+	 * @param v the v
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	void setDirectVarValue(IScope scope, String s, Object v) throws GamaRuntimeException;
 
 	/**
-	 * A utility method to notify any variable listener of a value change
+	 * A utility method to notify any variable listener of a value change.
 	 *
-	 * @param varName
-	 * @param newValue
+	 * @param varName the var name
+	 * @param newValue the new value
 	 */
 	default void notifyVarValueChange(final String varName, final Object newValue) {
 		IVariable var = getSpecies().getVar(varName);
@@ -166,38 +261,60 @@ public interface IAgent extends /* ISkill, */ IShape, INamed, Comparable<IAgent>
 		var.notifyOfValueChange(getScope(), this, null, newValue);
 	}
 
+	/**
+	 * Gets the macro agents.
+	 *
+	 * @return the macro agents
+	 */
 	List<IAgent> getMacroAgents();
 
+	/**
+	 * Gets the model.
+	 *
+	 * @return the model
+	 */
 	IModel getModel();
 
+	/**
+	 * Checks if is instance of.
+	 *
+	 * @param skill the skill
+	 * @param direct the direct
+	 * @return true, if is instance of
+	 */
 	boolean isInstanceOf(String skill, boolean direct);
 
 	/**
-	 * @throws GamaRuntimeException
-	 *             Finds the corresponding population of a species from the "viewpoint" of this agent.
+	 * Gets the population for.
 	 *
+	 * @param microSpecies the micro species
+	 * @return the population for
+	 * @throws GamaRuntimeException             Finds the corresponding population of a species from the "viewpoint" of this agent.
+	 * 
 	 *             An agent can "see" the following populations: 1. populations of its species' direct micro-species; 2.
 	 *             population of its species; populations of its peer species; 3. populations of its direct&in-direct
 	 *             macro-species and of their peers.
-	 *
-	 * @param microSpecies
-	 * @return
 	 */
 	IPopulation<? extends IAgent> getPopulationFor(final ISpecies microSpecies);
 
 	/**
-	 * @throws GamaRuntimeException
-	 *             Finds the corresponding population of a species from the "viewpoint" of this agent.
+	 * Gets the population for.
 	 *
+	 * @param speciesName            the name of the species
+	 * @return the population for
+	 * @throws GamaRuntimeException             Finds the corresponding population of a species from the "viewpoint" of this agent.
+	 * 
 	 *             An agent can "see" the following populations: 1. populations of its species' direct micro-species; 2.
 	 *             population of its species; populations of its peer species; 3. populations of its direct&in-direct
 	 *             macro-species and of their peers.
-	 *
-	 * @param speciesName
-	 *            the name of the species
-	 * @return
 	 */
 	IPopulation<? extends IAgent> getPopulationFor(final String speciesName);
 
+	/**
+	 * Update with.
+	 *
+	 * @param s the s
+	 * @param sa the sa
+	 */
 	void updateWith(final IScope s, final SavedAgent sa);
 }

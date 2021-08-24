@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'WorkaroundForIssue2476.java, in plugin ummisco.gama.java2d, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * WorkaroundForIssue2476.java, in gama.display.java2d, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.display.java2d;
 
 import java.awt.Panel;
@@ -20,17 +19,33 @@ import gama.common.ui.IDisplaySurface;
 import gama.core.dev.utils.DEBUG;
 import gama.runtime.GAMA;
 
+/**
+ * The Class WorkaroundForIssue2476.
+ */
 public class WorkaroundForIssue2476 {
 
 	static {
 		DEBUG.OFF();
 	}
 
+	/**
+	 * Sets the mouse position.
+	 *
+	 * @param surface the surface
+	 * @param x the x
+	 * @param y the y
+	 */
 	private static void setMousePosition(final IDisplaySurface surface, final int x, final int y) {
 		surface.setMousePosition(x, y);
 		GAMA.getGui().setMouseLocationInModel(surface.getModelCoordinates());
 	}
 
+	/**
+	 * Install on.
+	 *
+	 * @param applet the applet
+	 * @param surface the surface
+	 */
 	public static void installOn(final Panel applet, final IDisplaySurface surface) {
 		// Install only on Linux
 		if (!gama.ui.base.utils.PlatformHelper.isLinux()) return;

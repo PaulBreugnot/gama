@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'WorkspaceModelsManager.java, in plugin msi.gama.application, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * WorkspaceModelsManager.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.workspace;
 
 import java.io.File;
@@ -71,17 +70,33 @@ import gama.runtime.GAMA;
  */
 public class WorkspaceModelsManager {
 
+	/** The Constant GAMA_NATURE. */
 	public final static String GAMA_NATURE = "gama.core.application.gamaNature";
+	
+	/** The Constant XTEXT_NATURE. */
 	public final static String XTEXT_NATURE = "org.eclipse.xtext.ui.shared.xtextNature";
+	
+	/** The Constant PLUGIN_NATURE. */
 	public final static String PLUGIN_NATURE = "gama.core.application.pluginNature";
+	
+	/** The Constant TEST_NATURE. */
 	public final static String TEST_NATURE = "gama.core.application.testNature";
+	
+	/** The Constant BUILTIN_NATURE. */
 	public final static String BUILTIN_NATURE = "gama.core.application.builtinNature";
 
+	/** The Constant BUILTIN_PROPERTY. */
 	public static final QualifiedName BUILTIN_PROPERTY = new QualifiedName("gama.builtin", "models");
 	// private static String BUILTIN_VERSION = null;
 
+	/** The Constant instance. */
 	public final static WorkspaceModelsManager instance = new WorkspaceModelsManager();
 
+	/**
+	 * Open model passed as argument.
+	 *
+	 * @param modelPath the model path
+	 */
 	public void openModelPassedAsArgument(final String modelPath) {
 		// printAllGuaranteedProperties();
 
@@ -139,8 +154,10 @@ public class WorkspaceModelsManager {
 	}
 
 	/**
-	 * @param filePath
-	 * @return
+	 * Find and load I file.
+	 *
+	 * @param filePath the file path
+	 * @return the i file
 	 */
 	private IFile findAndLoadIFile(final String filePath) {
 		// DEBUG.OUT("WorkspaceModelsManager.findAndLoadIFile " + filePath);
@@ -154,6 +171,12 @@ public class WorkspaceModelsManager {
 		return findOutsideWorkspace(path);
 	}
 
+	/**
+	 * Checks if is blank.
+	 *
+	 * @param cs the cs
+	 * @return true, if is blank
+	 */
 	private boolean isBlank(final String cs) {
 		if (cs == null || cs.isEmpty()) return true;
 		final int sz = cs.length();
@@ -164,8 +187,10 @@ public class WorkspaceModelsManager {
 	}
 
 	/**
-	 * @param filePath
-	 * @return
+	 * Find in workspace.
+	 *
+	 * @param originalPath the original path
+	 * @return the i file
 	 */
 	private IFile findInWorkspace(final IPath originalPath) {
 		// GAMA.getGui().debug("WorkspaceModelsManager.findInWorkspace " + originalPath);
@@ -182,6 +207,12 @@ public class WorkspaceModelsManager {
 		return file;
 	}
 
+	/**
+	 * Find outside workspace.
+	 *
+	 * @param originalPath the original path
+	 * @return the i file
+	 */
 	private IFile findOutsideWorkspace(final IPath originalPath) {
 		// GAMA.getGui().debug("WorkspaceModelsManager.findOutsideWorkspace " + originalPath);
 		final File modelFile = new File(originalPath.toOSString());
@@ -281,12 +312,17 @@ public class WorkspaceModelsManager {
 		return findInWorkspace(new Path(relativePathToModel));
 	}
 
-	/**
-	 *
-	 */
+	/** The unclassified models. */
 
 	public static String UNCLASSIFIED_MODELS = "Unclassified Models";
 
+	/**
+	 * Creates the unclassified models project.
+	 *
+	 * @param location the location
+	 * @return the i folder
+	 * @throws CoreException the core exception
+	 */
 	public IFolder createUnclassifiedModelsProject(final IPath location) throws CoreException {
 		// First allow to select a parent folder
 		final ContainerSelectionDialog dialog = new ContainerSelectionDialog(Display.getDefault().getActiveShell(),
@@ -318,6 +354,12 @@ public class WorkspaceModelsManager {
 		return modelFolder;
 	}
 
+	/**
+	 * Creates the unclassified models project and add.
+	 *
+	 * @param location the location
+	 * @return the i file
+	 */
 	IFile createUnclassifiedModelsProjectAndAdd(final IPath location) {
 		IFile iFile = null;
 		try {
@@ -348,9 +390,11 @@ public class WorkspaceModelsManager {
 	}
 
 	/**
-	 * @param lastSegment
-	 * @param modelFolder
-	 * @return
+	 * Creates the unique file from.
+	 *
+	 * @param originalFile the original file
+	 * @param modelFolder the model folder
+	 * @return the i file
 	 */
 	private IFile createUniqueFileFrom(final IFile originalFile, final IFolder modelFolder) {
 		IFile file = originalFile;
@@ -369,6 +413,9 @@ public class WorkspaceModelsManager {
 
 	}
 
+	/**
+	 * Link sample models to workspace.
+	 */
 	public static void linkSampleModelsToWorkspace() {
 
 		final WorkspaceJob job = new WorkspaceJob("Updating the Built-in Models Library") {
@@ -386,6 +433,9 @@ public class WorkspaceModelsManager {
 
 	}
 
+	/**
+	 * Load models library.
+	 */
 	public static void loadModelsLibrary() {
 		// while (!GamaBundleLoader.LOADED && !GamaBundleLoader.ERRORED) {
 		// try {
@@ -413,7 +463,11 @@ public class WorkspaceModelsManager {
 	}
 
 	/**
-	 * @param plugin
+	 * Link models to workspace.
+	 *
+	 * @param bundle the bundle
+	 * @param path the path
+	 * @param tests the tests
 	 */
 
 	private static void linkModelsToWorkspace(final Bundle bundle, final String path, final boolean tests) {
@@ -439,8 +493,15 @@ public class WorkspaceModelsManager {
 
 	}
 
+	/** The Constant isDotFile. */
 	private static final FilenameFilter isDotFile = (dir, name) -> ".project".equals(name);
 
+	/**
+	 * Find projects.
+	 *
+	 * @param folder the folder
+	 * @param found the found
+	 */
 	private static void findProjects(final File folder, final Map<File, IPath> found) {
 		if (folder == null) return;
 		final File[] dotFile = folder.listFiles(isDotFile);
@@ -459,10 +520,12 @@ public class WorkspaceModelsManager {
 	}
 
 	/**
-	 * @param plugin
-	 * @param core
-	 * @param workspace
-	 * @param project
+	 * Import built in projects.
+	 *
+	 * @param plugin the plugin
+	 * @param core the core
+	 * @param tests the tests
+	 * @param projects the projects
 	 */
 	private static void importBuiltInProjects(final Bundle plugin, final boolean core, final boolean tests,
 			final Map<File, IPath> projects) {
@@ -497,6 +560,12 @@ public class WorkspaceModelsManager {
 
 	}
 
+	/**
+	 * Creates the or update project.
+	 *
+	 * @param name the name
+	 * @return the i project
+	 */
 	static public IProject createOrUpdateProject(final String name) {
 		final IWorkspace ws = ResourcesPlugin.getWorkspace();
 		final IProject[] projectHandle = { null };
@@ -531,6 +600,15 @@ public class WorkspaceModelsManager {
 	// return BUILTIN_VERSION;
 	// }
 
+	/**
+	 * Sets the values project description.
+	 *
+	 * @param proj the proj
+	 * @param builtin the builtin
+	 * @param inPlugin the in plugin
+	 * @param inTests the in tests
+	 * @param bundle the bundle
+	 */
 	static public void setValuesProjectDescription(final IProject proj, final boolean builtin, final boolean inPlugin,
 			final boolean inTests, final Bundle bundle) {
 		/* Modify the project description */
@@ -576,6 +654,9 @@ public class WorkspaceModelsManager {
 	// return description;
 	// }
 
+	/**
+	 * Stamp workspace from models.
+	 */
 	public static void stampWorkspaceFromModels() {
 		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		try {
@@ -596,6 +677,13 @@ public class WorkspaceModelsManager {
 		}
 	}
 
+	/**
+	 * Checks if is gama project.
+	 *
+	 * @param f the f
+	 * @return true, if is gama project
+	 * @throws CoreException the core exception
+	 */
 	public boolean isGamaProject(final File f) throws CoreException {
 		final String[] list = f.list();
 		if (list != null) {

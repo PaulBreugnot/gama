@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.descriptions.VariableDescription.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * VariableDescription.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.descriptions;
 
@@ -36,28 +36,49 @@ import gaml.types.IType;
 import gaml.types.Types;
 
 /**
- * Written by drogoul Modified on 16 mai 2010
+ * Written by drogoul Modified on 16 mai 2010.
  *
  * @todo Description
- *
  */
 public class VariableDescription extends SymbolDescription {
 
+	/** The dependencies. */
 	private static Map<String, Collection<String>> dependencies = GamaMapFactory.createUnordered();
+	
+	/** The Constant INIT_DEPENDENCIES_FACETS. */
 	public final static Set<String> INIT_DEPENDENCIES_FACETS =
 			ImmutableSet.<String> builder().add(INIT, MIN, MAX, STEP, SIZE, AMONG).build();
+	
+	/** The Constant UPDATE_DEPENDENCIES_FACETS. */
 	public final static Set<String> UPDATE_DEPENDENCIES_FACETS =
 			ImmutableSet.<String> builder().add(UPDATE, VALUE, MIN, MAX).build();
+	
+	/** The Constant FUNCTION_DEPENDENCIES_FACETS. */
 	public final static Set<String> FUNCTION_DEPENDENCIES_FACETS =
 			ImmutableSet.<String> builder().add(FUNCTION).build();
+	
+	/** The plugin. */
 	private String plugin;
 
+	/** The is not modifiable. */
 	private final boolean _isGlobal, _isNotModifiable;
+	
+	/** The is synthetic species container. */
 	// for variables automatically added to species for containing micro-agents
 	private boolean _isSyntheticSpeciesContainer;
+	
+	/** The set. */
 	private IGamaHelper<?> get, init, set;
 	// private GamaHelper<?>[] listeners;
 
+	/**
+	 * Instantiates a new variable description.
+	 *
+	 * @param keyword the keyword
+	 * @param superDesc the super desc
+	 * @param source the source
+	 * @param facets the facets
+	 */
 	public VariableDescription(final String keyword, final IDescription superDesc, final EObject source,
 			final Facets facets) {
 		super(keyword, superDesc, source, /* null, */facets);
@@ -76,22 +97,45 @@ public class VariableDescription extends SymbolDescription {
 
 	}
 
+	/**
+	 * Checks if is experiment parameter.
+	 *
+	 * @return true, if is experiment parameter
+	 */
 	public boolean isExperimentParameter() {
 		return PARAMETER.equals(keyword);
 	}
 
+	/**
+	 * Sets the synthetic species container.
+	 */
 	public void setSyntheticSpeciesContainer() {
 		_isSyntheticSpeciesContainer = true;
 	}
 
+	/**
+	 * Checks if is synthetic species container.
+	 *
+	 * @return true, if is synthetic species container
+	 */
 	public boolean isSyntheticSpeciesContainer() {
 		return _isSyntheticSpeciesContainer;
 	}
 
+	/**
+	 * Checks if is function.
+	 *
+	 * @return true, if is function
+	 */
 	public boolean isFunction() {
 		return hasFacet(FUNCTION);
 	}
 
+	/**
+	 * Checks if is defined in experiment.
+	 *
+	 * @return true, if is defined in experiment
+	 */
 	public boolean isDefinedInExperiment() {
 		return getEnclosingDescription() instanceof ExperimentDescription;
 	}
@@ -102,6 +146,11 @@ public class VariableDescription extends SymbolDescription {
 		super.dispose();
 	}
 
+	/**
+	 * Copy from.
+	 *
+	 * @param v2 the v 2
+	 */
 	public void copyFrom(final VariableDescription v2) {
 		// Special cases for functions
 		final boolean isFunction = hasFacet(FUNCTION);
@@ -138,7 +187,7 @@ public class VariableDescription extends SymbolDescription {
 	 * A variable is said to be contextual if its type or contents type depends on the species context. For example,
 	 * 'simulation' in experiments. If so, it has to be copied in subspecies
 	 *
-	 * @return
+	 * @return true, if is contextual type
 	 */
 	public boolean isContextualType() {
 		String type = getLitteral(TYPE);
@@ -201,6 +250,14 @@ public class VariableDescription extends SymbolDescription {
 		return result;
 	}
 
+	/**
+	 * Gets the dependencies.
+	 *
+	 * @param facetsToVisit the facets to visit
+	 * @param includingThis the including this
+	 * @param includingSpecies the including species
+	 * @return the dependencies
+	 */
 	public Collection<VariableDescription> getDependencies(final Set<String> facetsToVisit, final boolean includingThis,
 			final boolean includingSpecies) {
 
@@ -231,18 +288,39 @@ public class VariableDescription extends SymbolDescription {
 		}
 	}
 
+	/**
+	 * Checks if is updatable.
+	 *
+	 * @return true, if is updatable
+	 */
 	public boolean isUpdatable() {
 		return !_isNotModifiable && (hasFacet(VALUE) || hasFacet(UPDATE));
 	}
 
+	/**
+	 * Checks if is not modifiable.
+	 *
+	 * @return true, if is not modifiable
+	 */
 	public boolean isNotModifiable() {
 		return _isNotModifiable;
 	}
 
+	/**
+	 * Checks if is parameter.
+	 *
+	 * @return true, if is parameter
+	 */
 	public boolean isParameter() {
 		return isExperimentParameter() || hasFacet(PARAMETER);
 	}
 
+	/**
+	 * Gets the var expr.
+	 *
+	 * @param asField the as field
+	 * @return the var expr
+	 */
 	// If asField is true, should not try to build a GlobalVarExpr
 	public IExpression getVarExpr(final boolean asField) {
 		final boolean asGlobal = _isGlobal && !asField;
@@ -256,6 +334,11 @@ public class VariableDescription extends SymbolDescription {
 		return getName() + " (description)";
 	}
 
+	/**
+	 * Gets the parameter name.
+	 *
+	 * @return the parameter name
+	 */
 	public String getParameterName() {
 		final String pName = getLitteral(PARAMETER);
 		if (pName == null || TRUE.equals(pName)) return getName();
@@ -279,6 +362,11 @@ public class VariableDescription extends SymbolDescription {
 		return s.append(getMeta().getFacetsDocumentation()).toString();
 	}
 
+	/**
+	 * Gets the short description.
+	 *
+	 * @return the short description
+	 */
 	public String getShortDescription() {
 		StringBuilder s = new StringBuilder(", of type ").append(getGamlType().getTitle());
 		final String doc = getBuiltInDoc();
@@ -286,12 +374,22 @@ public class VariableDescription extends SymbolDescription {
 		return s.toString();
 	}
 
+	/**
+	 * Gets the built in doc.
+	 *
+	 * @return the built in doc
+	 */
 	public String getBuiltInDoc() {
 		final VariableDescription builtIn = getBuiltInAncestor();
 		if (builtIn == null) return null;
 		return AbstractGamlAdditions.TEMPORARY_BUILT_IN_VARS_DOCUMENTATION.get(builtIn.getName());
 	}
 
+	/**
+	 * Gets the built in ancestor.
+	 *
+	 * @return the built in ancestor
+	 */
 	private VariableDescription getBuiltInAncestor() {
 		if (getEnclosingDescription() instanceof TypeDescription) {
 			final TypeDescription td = (TypeDescription) getEnclosingDescription();
@@ -302,12 +400,27 @@ public class VariableDescription extends SymbolDescription {
 		return null;
 	}
 
+	/**
+	 * Adds the helpers.
+	 *
+	 * @param get the get
+	 * @param init the init
+	 * @param set the set
+	 */
 	public void addHelpers(final IGamaHelper<?> get, final IGamaHelper<?> init, final IGamaHelper<?> set) {
 		this.get = get;
 		this.set = set;
 		this.init = init;
 	}
 
+	/**
+	 * Adds the helpers.
+	 *
+	 * @param skill the skill
+	 * @param get the get
+	 * @param init the init
+	 * @param set the set
+	 */
 	public void addHelpers(final Class<?> skill, final IGamaHelper<?> get, final IGamaHelper<?> init,
 			final IGamaHelper<?> set) {
 		addHelpers(get != null ? new GamaHelper<>(name, skill, get) : null,
@@ -323,18 +436,38 @@ public class VariableDescription extends SymbolDescription {
 	// return listeners;
 	// }
 
+	/**
+	 * Gets the getter.
+	 *
+	 * @return the getter
+	 */
 	public IGamaHelper<?> getGetter() {
 		return get;
 	}
 
+	/**
+	 * Gets the initer.
+	 *
+	 * @return the initer
+	 */
 	public IGamaHelper<?> getIniter() {
 		return init;
 	}
 
+	/**
+	 * Gets the setter.
+	 *
+	 * @return the setter
+	 */
 	public IGamaHelper<?> getSetter() {
 		return set;
 	}
 
+	/**
+	 * Checks if is global.
+	 *
+	 * @return true, if is global
+	 */
 	public boolean isGlobal() {
 		return _isGlobal;
 	}

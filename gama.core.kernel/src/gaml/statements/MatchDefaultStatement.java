@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gaml.statements.MatchDefaultStatement.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * MatchDefaultStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -20,6 +20,9 @@ import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gaml.descriptions.IDescription;
 
+/**
+ * The Class MatchDefaultStatement.
+ */
 @symbol (
 		name = { IKeyword.DEFAULT },
 		kind = ISymbolKind.SEQUENCE_STATEMENT,
@@ -33,6 +36,11 @@ import gaml.descriptions.IDescription;
 		see = { "switch", "match" })
 public class MatchDefaultStatement extends MatchStatement {
 
+	/**
+	 * Instantiates a new match default statement.
+	 *
+	 * @param desc the desc
+	 */
 	public MatchDefaultStatement(final IDescription desc) {
 		super(desc);
 	}

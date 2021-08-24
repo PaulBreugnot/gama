@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.file.GamaGraphMLFile.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * GamaGraphTsplib.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -18,6 +18,9 @@ import gama.runtime.exceptions.GamaRuntimeException;
 import gaml.species.ISpecies;
 import gaml.types.IType;
 
+/**
+ * The Class GamaGraphTsplib.
+ */
 @file (
 		name = "graphtsplib",
 		extensions = { "tsplib" },
@@ -27,14 +30,36 @@ import gaml.types.IType;
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class GamaGraphTsplib extends GamaGraphFile {
 
+	/**
+	 * Instantiates a new gama graph tsplib.
+	 *
+	 * @param scope the scope
+	 * @param pn the pn
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public GamaGraphTsplib(final IScope scope, final String pn) throws GamaRuntimeException {
 		super(scope, pn);
 	}
 
+	/**
+	 * Instantiates a new gama graph tsplib.
+	 *
+	 * @param scope the scope
+	 * @param pathName the path name
+	 * @param nodeSpecies the node species
+	 */
 	public GamaGraphTsplib(final IScope scope, final String pathName, final ISpecies nodeSpecies) {
 		super(scope, pathName, nodeSpecies);
 	}
 
+	/**
+	 * Instantiates a new gama graph tsplib.
+	 *
+	 * @param scope the scope
+	 * @param pathName the path name
+	 * @param nodeSpecies the node species
+	 * @param edgeSpecies the edge species
+	 */
 	public GamaGraphTsplib(final IScope scope, final String pathName, final ISpecies nodeSpecies, final ISpecies edgeSpecies) {
 		super(scope, pathName,nodeSpecies,edgeSpecies);
 	}

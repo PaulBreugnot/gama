@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * FileBasedGenerator.java, in gama.ext.genstar, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.genstar.generator;
 
 import java.io.IOException;
@@ -50,21 +60,30 @@ import gospl.sampler.ISampler;
 import gospl.sampler.sr.GosplBasicSampler;
 
 /**
- * 
- * Genstar translation of Gama Delegate
- * 
- * @author kevinchapuis
+ * Genstar translation of Gama Delegate.
  *
+ * @author kevinchapuis
  */
 public class FileBasedGenerator implements IGenstarGenerator {
 
+	/** The Constant INSTANCE. */
 	// SINGLETONG
 	private static final FileBasedGenerator INSTANCE = new FileBasedGenerator();
+	
+	/**
+	 * Gets the single instance of FileBasedGenerator.
+	 *
+	 * @return single instance of FileBasedGenerator
+	 */
 	public static FileBasedGenerator getInstance() {return INSTANCE;}
 	
+	/** The type. */
 	@SuppressWarnings("rawtypes")
 	final IType type;
 	
+	/**
+	 * Instantiates a new file based generator.
+	 */
 	@SuppressWarnings("unchecked")
 	private FileBasedGenerator() { this.type = Types.LIST.of(Types.FILE); }
 	
@@ -197,11 +216,11 @@ public class FileBasedGenerator implements IGenstarGenerator {
 	// SR Utils
 	
 	/**
-	 * Construct a n-dimensional matrix based on raw data
-	 * 
-	 * @param scope
-	 * @param gdb
-	 * @return
+	 * Construct a n-dimensional matrix based on raw data.
+	 *
+	 * @param scope the scope
+	 * @param gdb the gdb
+	 * @return the IN dimensional matrix< attribute<? extends I value>, I value, double>
 	 */
 	public static INDimensionalMatrix<Attribute<? extends IValue>, IValue, Double> manageRawData(IScope scope, GosplInputDataManager gdb) {
 		try {
@@ -223,10 +242,10 @@ public class FileBasedGenerator implements IGenstarGenerator {
 	
 	/**
 	 * Try to find a good fit in the data to decide the proper number of synthetic population size, i.e. in the case there is contingencies
-	 * 
-	 * @param requestedSize
-	 * @param gdb
-	 * @return
+	 *
+	 * @param requestedSize the requested size
+	 * @param gdb the gdb
+	 * @return the int
 	 */
 	public static int inferPopulationSize(int requestedSize, GosplInputDataManager gdb) {
 		// DEFINE THE POPULATION SIZE

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * LayoutTreeConverter.java, in gama.ui.experiment, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.experiment.commands;
 
 import static gama.common.interfaces.IKeyword.LAYOUT;
@@ -32,8 +42,17 @@ import gama.util.tree.GamaNode;
 import gama.util.tree.GamaTree;
 import one.util.streamex.IntStreamEx;
 
+/**
+ * The Class LayoutTreeConverter.
+ */
 public class LayoutTreeConverter {
 
+	/**
+	 * Convert.
+	 *
+	 * @param layout the layout
+	 * @return the gama tree
+	 */
 	public GamaTree<String> convert(final int layout) {
 		if (layout < 0 || layout >= GamaPreferences.Displays.LAYOUTS.size()) { return null; }
 		ArrangeDisplayViews.listDisplayViews();
@@ -56,16 +75,35 @@ public class LayoutTreeConverter {
 		return null;
 	}
 
+	/**
+	 * New layout tree.
+	 *
+	 * @return the gama tree
+	 */
 	static GamaTree<String> newLayoutTree() {
 		return withRoot(LAYOUT);
 	}
 
+	/**
+	 * Builds the stack tree.
+	 *
+	 * @param result the result
+	 * @param indices the indices
+	 * @return the gama tree
+	 */
 	GamaTree<String> buildStackTree(final GamaTree<String> result, final int[] indices) {
 		final GamaNode<String> root = result.getRoot().addChild(STACK);
 		IntStreamEx.of(indices).forEach(i -> root.addChild(valueOf(i), 5000));
 		return result;
 	}
 
+	/**
+	 * Builds the grid tree.
+	 *
+	 * @param result the result
+	 * @param indices the indices
+	 * @return the gama tree
+	 */
 	GamaTree<String> buildGridTree(final GamaTree<String> result, final int[] indices) {
 		final GamaNode<String> initialSash = result.getRoot().addChild(HORIZONTAL);
 		final List<GamaNode<String>> placeholders = new ArrayList<>();
@@ -77,6 +115,13 @@ public class LayoutTreeConverter {
 		return result;
 	}
 
+	/**
+	 * Builds the placeholders.
+	 *
+	 * @param root the root
+	 * @param list the list
+	 * @param size the size
+	 */
 	void buildPlaceholders(final GamaNode<String> root, final List<GamaNode<String>> list, final int size) {
 		if (size == 0) {
 			return;
@@ -90,6 +135,14 @@ public class LayoutTreeConverter {
 		}
 	}
 
+	/**
+	 * Builds the horizontal or vertical tree.
+	 *
+	 * @param result the result
+	 * @param indices the indices
+	 * @param horizon the horizon
+	 * @return the gama tree
+	 */
 	GamaTree<String> buildHorizontalOrVerticalTree(final GamaTree<String> result, final int[] indices,
 			final boolean horizon) {
 		final GamaNode<String> sashNode = result.getRoot().addChild(horizon ? HORIZONTAL : VERTICAL);
@@ -97,6 +150,12 @@ public class LayoutTreeConverter {
 		return result;
 	}
 
+	/**
+	 * Convert current layout.
+	 *
+	 * @param holders the holders
+	 * @return the gama tree
+	 */
 	public GamaTree<String> convertCurrentLayout(final List<MPlaceholder> holders) {
 		final MPartStack displayStack = getDisplaysPlaceholder();
 		if (displayStack == null) { return null; }
@@ -105,6 +164,12 @@ public class LayoutTreeConverter {
 		return tree;
 	}
 
+	/**
+	 * Gets the weight.
+	 *
+	 * @param element the element
+	 * @return the weight
+	 */
 	String getWeight(final MUIElement element) {
 		String data = element.getContainerData();
 		final MUIElement parent = element.getParent();
@@ -114,6 +179,14 @@ public class LayoutTreeConverter {
 		return data;
 	}
 
+	/**
+	 * Save.
+	 *
+	 * @param element the element
+	 * @param holders the holders
+	 * @param parent the parent
+	 * @param weight the weight
+	 */
 	private void save(final MUIElement element, final List<MPlaceholder> holders, final GamaNode<String> parent,
 			final String weight) {
 		final String data = weight == null ? getWeight(element) : weight;
@@ -132,11 +205,24 @@ public class LayoutTreeConverter {
 		}
 	}
 
+	/**
+	 * Prefix.
+	 *
+	 * @param container the container
+	 * @return the string
+	 */
 	String prefix(final MElementContainer<?> container) {
 		return container instanceof MPartStack ? STACK : container instanceof MPartSashContainer
 				? ((MPartSashContainer) container).isHorizontal() ? HORIZONTAL : VERTICAL : "";
 	}
 
+	/**
+	 * Checks if is empty.
+	 *
+	 * @param element the element
+	 * @param holders the holders
+	 * @return true, if is empty
+	 */
 	private boolean isEmpty(final MUIElement element, final List<MPlaceholder> holders) {
 		if (element instanceof MElementContainer) {
 			return of(((MElementContainer<?>) element).getChildren()).allMatch(e -> isEmpty(e, holders));
@@ -144,6 +230,13 @@ public class LayoutTreeConverter {
 		return !holders.contains(element);
 	}
 
+	/**
+	 * Gets the non empty children.
+	 *
+	 * @param container the container
+	 * @param holders the holders
+	 * @return the non empty children
+	 */
 	List<? extends MUIElement> getNonEmptyChildren(final MElementContainer<? extends MUIElement> container,
 			final List<MPlaceholder> holders) {
 		return of(container.getChildren()).filter(e -> !isEmpty(e, holders)).toList();

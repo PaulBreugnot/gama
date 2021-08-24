@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gaml.extensions.multi_criteria.CritereFonctionsCroyances.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
- * 
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * CritereFonctionsCroyances.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -11,22 +11,40 @@
 package gaml.extensions.multi_criteria;
 
 /**
+ * The Class CritereFonctionsCroyances.
+ *
  * @author PTaillandier
  * Crit�re destin� � la m�thode de d�cision multicrit�re bas�e sur les fonctions de croyance (voir th�se, Chap E.)
  */
 public abstract class CritereFonctionsCroyances {
 
+	/** The nom. */
 	//nom du crit�re
 	private String nom;
 
+	/**
+	 * Instantiates a new critere fonctions croyances.
+	 *
+	 * @param nom the nom
+	 */
 	protected CritereFonctionsCroyances(final String nom) {
 		this.nom = nom;
 	}
 
+	/**
+	 * Gets the nom.
+	 *
+	 * @return the nom
+	 */
 	public String getNom() {
 		return nom;
 	}
 
+	/**
+	 * Sets the nom.
+	 *
+	 * @param nom the new nom
+	 */
 	public void setNom(final String nom) {
 		this.nom = nom;
 	}
@@ -57,21 +75,24 @@ public abstract class CritereFonctionsCroyances {
 	}
 
 	/**
-	 * M�thode d'initialisation de la masse de croyance pour ce crit�re de "ce candidat est le meilleur"
+	 * M�thode d'initialisation de la masse de croyance pour ce crit�re de "ce candidat est le meilleur".
+	 *
 	 * @param a : valeur courante du crit�re
 	 * @return la valeur de la masse de croyance
 	 */
 	public abstract double masseCroyancePour(double a);
 
 	/**
-	 * M�thode d'initialisation de la masse de croyance pour ce crit�re de "ce candidat n'est pas le meilleur"
+	 * M�thode d'initialisation de la masse de croyance pour ce crit�re de "ce candidat n'est pas le meilleur".
+	 *
 	 * @param a : valeur courante du crit�re
 	 * @return la valeur de la masse de croyance
 	 */
 	public abstract double masseCroyanceContre(double a);
 
 	/**
-	 * M�thode d'initialisation de la masse de croyance pour ce crit�re de "je ne sais pas si ce candidate est le meilleur"
+	 * M�thode d'initialisation de la masse de croyance pour ce crit�re de "je ne sais pas si ce candidate est le meilleur".
+	 *
 	 * @param a : valeur courante du crit�re
 	 * @return la valeur de la masse de croyance
 	 */

@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gama.kernel.experiment.ParametersSet.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
- * 
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * ParametersSet.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -24,13 +24,29 @@ import gama.util.file.GamaFile;
 @SuppressWarnings({ "rawtypes" })
 public class ParametersSet extends HashMap<String, Object> {
 
+	/**
+	 * Instantiates a new parameters set.
+	 */
 	public ParametersSet() {
 	}
 
+	/**
+	 * Instantiates a new parameters set.
+	 *
+	 * @param solution the solution
+	 */
 	public ParametersSet(final ParametersSet solution) {
 		this.putAll(solution);
 	}
 
+	/**
+	 * Instantiates a new parameters set.
+	 *
+	 * @param scope the scope
+	 * @param variables the variables
+	 * @param reinit the reinit
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public ParametersSet(final IScope scope, final Map<String, IParameter> variables, final boolean reinit)
 			throws GamaRuntimeException {
 
@@ -44,6 +60,14 @@ public class ParametersSet extends HashMap<String, Object> {
 
 	}
 
+	/**
+	 * Instantiates a new parameters set.
+	 *
+	 * @param scope the scope
+	 * @param parameters the parameters
+	 * @param reinit the reinit
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public ParametersSet(final IScope scope, final Collection<? extends IParameter> parameters, final boolean reinit)
 			throws GamaRuntimeException {
 		for (final IParameter p : parameters) {

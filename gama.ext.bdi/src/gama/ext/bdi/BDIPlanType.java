@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * BDIPlanType.java, in gama.ext.bdi, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.bdi;
 
 import gama.core.dev.annotations.IConcept;
@@ -8,11 +18,15 @@ import gama.runtime.exceptions.GamaRuntimeException;
 import gaml.types.GamaType;
 import gaml.types.IType;
 
+/**
+ * The Class BDIPlanType.
+ */
 @SuppressWarnings("unchecked")
 @type(name = "BDIPlan", id = BDIPlanType.id, wraps = { BDIPlan.class }, concept = { IConcept.TYPE, IConcept.BDI })
 @doc("a type representing a plan for the BDI engine")
 public class BDIPlanType extends GamaType<BDIPlan> {
 
+	/** The Constant id. */
 	public final static int id = IType.AVAILABLE_TYPES + 546655;
 
 	@Override

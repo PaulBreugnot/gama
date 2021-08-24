@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'ImageDataLoader.java, in plugin ummisco.gama.ui.navigator, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * ImageDataLoader.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator.metadata;
 
 import static gama.common.util.ImageUtils.toCompatibleImage;
@@ -62,10 +61,18 @@ import it.geosolutions.imageioimpl.plugins.tiff.TIFFImageReaderSpi;
  */
 public class ImageDataLoader {
 
+	/** The Constant READER_SPI. */
 	private final static TIFFImageReaderSpi READER_SPI = new TIFFImageReaderSpi();
 
+	/** The Constant IMAGE_PGM. */
 	public static final int IMAGE_ASC = 8, IMAGE_PGM = 9;
 
+	/**
+	 * Gets the image data.
+	 *
+	 * @param file the file
+	 * @return the image data
+	 */
 	public static ImageData getImageData(final IFile file) {
 		ImageData imageData = null;
 		final String ext = file.getFileExtension();
@@ -180,6 +187,14 @@ public class ImageDataLoader {
 
 	}
 
+	/**
+	 * Creates the style.
+	 *
+	 * @param band the band
+	 * @param min the min
+	 * @param max the max
+	 * @return the style
+	 */
 	private static Style createStyle(final int band, final double min, final double max) {
 
 		FilterFactory2 ff = CommonFactoryFinder.getFilterFactory2();
@@ -202,6 +217,12 @@ public class ImageDataLoader {
 		return style;
 	}
 
+	/**
+	 * Read PGM.
+	 *
+	 * @param filename the filename
+	 * @return the image data
+	 */
 	private static ImageData readPGM(final InputStream filename) {
 		int[][] pixels;
 		try (Scanner infile = new Scanner(filename);) {
@@ -251,6 +272,12 @@ public class ImageDataLoader {
 		return result;
 	}
 
+	/**
+	 * Read ASC.
+	 *
+	 * @param filename the filename
+	 * @return the image data
+	 */
 	private static ImageData readASC(final InputStream filename) {
 		int[][] pixels;
 		try (Scanner infile = new Scanner(filename);) {
@@ -332,6 +359,12 @@ public class ImageDataLoader {
 		return result;
 	}
 
+	/**
+	 * Convert to SWT.
+	 *
+	 * @param image the image
+	 * @return the image data
+	 */
 	public static ImageData convertToSWT(final java.awt.image.BufferedImage image) {
 		if (image == null) return null;
 		if (image.getColorModel() instanceof java.awt.image.DirectColorModel) {

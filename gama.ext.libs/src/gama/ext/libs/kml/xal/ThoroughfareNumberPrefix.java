@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ThoroughfareNumberPrefix.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.xal;
 
@@ -15,7 +25,7 @@ import javax.xml.namespace.QName;
 
 
 /**
- * 
+ * The Class ThoroughfareNumberPrefix.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -25,116 +35,120 @@ import javax.xml.namespace.QName;
 public class ThoroughfareNumberPrefix implements Cloneable
 {
 
+    /** The content. */
     @XmlValue
     protected String content;
+    
+    /** The number prefix separator. */
     @XmlAttribute(name = "NumberPrefixSeparator")
     @XmlSchemaType(name = "anySimpleType")
     protected String numberPrefixSeparator;
+    
+    /** The underscore. */
     @XmlAttribute(name = "Type")
     @XmlSchemaType(name = "anySimpleType")
     protected String underscore;
+    
+    /** The code. */
     @XmlAttribute(name = "Code")
     @XmlSchemaType(name = "anySimpleType")
     protected String code;
+    
+    /** The other attributes. */
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+    /**
+     * Instantiates a new thoroughfare number prefix.
+     */
     public ThoroughfareNumberPrefix() {
         super();
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the content.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getContent() {
         return content;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the content.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setContent(String value) {
         this.content = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the number prefix separator.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getNumberPrefixSeparator() {
         return numberPrefixSeparator;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the number prefix separator.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setNumberPrefixSeparator(String value) {
         this.numberPrefixSeparator = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the underscore.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getUnderscore() {
         return underscore;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the underscore.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setUnderscore(String value) {
         this.underscore = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the code.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getCode() {
         return code;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the code.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setCode(String value) {
         this.code = value;
     }
 
     /**
-     * 
-     * @return
-     *     always non-null
+     * Gets the other attributes.
+     *
+     * @return     always non-null
      */
     public Map<QName, String> getOtherAttributes() {
         return otherAttributes;
@@ -203,11 +217,11 @@ public class ThoroughfareNumberPrefix implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param content     required parameter
+     * @return the thoroughfare number prefix
      * @see #setContent(String)
-     * 
-     * @param content
-     *     required parameter
      */
     public ThoroughfareNumberPrefix withContent(final String content) {
         this.setContent(content);
@@ -215,11 +229,11 @@ public class ThoroughfareNumberPrefix implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param numberPrefixSeparator     required parameter
+     * @return the thoroughfare number prefix
      * @see #setNumberPrefixSeparator(String)
-     * 
-     * @param numberPrefixSeparator
-     *     required parameter
      */
     public ThoroughfareNumberPrefix withNumberPrefixSeparator(final String numberPrefixSeparator) {
         this.setNumberPrefixSeparator(numberPrefixSeparator);
@@ -227,11 +241,11 @@ public class ThoroughfareNumberPrefix implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param underscore     required parameter
+     * @return the thoroughfare number prefix
      * @see #setUnderscore(String)
-     * 
-     * @param underscore
-     *     required parameter
      */
     public ThoroughfareNumberPrefix withUnderscore(final String underscore) {
         this.setUnderscore(underscore);
@@ -239,11 +253,11 @@ public class ThoroughfareNumberPrefix implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param code     required parameter
+     * @return the thoroughfare number prefix
      * @see #setCode(String)
-     * 
-     * @param code
-     *     required parameter
      */
     public ThoroughfareNumberPrefix withCode(final String code) {
         this.setCode(code);

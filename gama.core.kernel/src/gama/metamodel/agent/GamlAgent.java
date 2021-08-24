@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.metamodel.agent.GamlAgent.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * GamlAgent.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.metamodel.agent;
 
@@ -41,31 +41,46 @@ import gaml.variables.IVariable;
 public class GamlAgent extends MinimalAgent implements IMacroAgent {
 
 	// hqnghi manipulate micro-models AD put it to null to have lazy
+	/** The extern micro populations. */
 	// initialization (saves some bytes in each agent)
 	protected IMap<String, IPopulation<? extends IAgent>> externMicroPopulations;
 	// Added to optimize the traversal of "non-minimal" agents that contain
+	/** The micro populations. */
 	// micropopulations
 	protected IPopulation<? extends IAgent>[] microPopulations;
+	
+	/** The Constant NO_POP. */
 	static final IPopulation<? extends IAgent>[] NO_POP = new IPopulation[0];
 
 	// end-hqnghi
 
 	/**
-	 * @param s
-	 *            the population used to prototype the agent.
+	 * Instantiates a new gaml agent.
+	 *
+	 * @param s            the population used to prototype the agent.
+	 * @param index the index
 	 */
 	public GamlAgent(final IPopulation<? extends IAgent> s, final int index) {
 		super(s, index);
 	}
 
 	/**
-	 * @param gridPopulation
-	 * @param geometry
+	 * Instantiates a new gaml agent.
+	 *
+	 * @param gridPopulation the grid population
+	 * @param index the index
+	 * @param geometry the geometry
 	 */
 	public GamlAgent(final IPopulation<? extends IAgent> gridPopulation, final int index, final IShape geometry) {
 		super(gridPopulation, index, geometry);
 	}
 
+	/**
+	 * Checks if is population.
+	 *
+	 * @param populationName the population name
+	 * @return the boolean
+	 */
 	private Boolean isPopulation(final String populationName) {
 		final IVariable v = getSpecies().getVar(populationName);
 		if (v == null) { return false; }
@@ -225,6 +240,13 @@ public class GamlAgent extends MinimalAgent implements IMacroAgent {
 		registerMicropopulation(scope, microSpec, microPop);
 	}
 	
+	/**
+	 * Register micropopulation.
+	 *
+	 * @param scope the scope
+	 * @param microSpec the micro spec
+	 * @param microPop the micro pop
+	 */
 	protected void registerMicropopulation(IScope scope, ISpecies microSpec, IPopulation<? extends IAgent> microPop) {
 		setAttribute(microSpec.getName(), microPop);
 		microPop.initializeFor(scope);

@@ -1,41 +1,57 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * DXFInsert.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf;
 
 import gama.ext.libs.kabeja.dxf.helpers.Point;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class DXFInsert.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class DXFInsert extends DXFEntity {
+    
+    /** The insert point. */
     private Point insertPoint = new Point();
+    
+    /** The scale x. */
     private double scale_x = 1.0;
+    
+    /** The scale y. */
     private double scale_y = 1.0;
+    
+    /** The scale z. */
     private double scale_z = 1.0;
+    
+    /** The rotate. */
     private double rotate = 0;
+    
+    /** The rows. */
     private int rows = 1;
+    
+    /** The columns. */
     private int columns = 1;
+    
+    /** The row spacing. */
     private double row_spacing = 0;
+    
+    /** The column spacing. */
     private double column_spacing = 0;
+    
+    /** The block ID. */
     private String blockID = "";
 
     /**
-     *
+     * Instantiates a new DXF insert.
      */
     public DXFInsert() {
     }
@@ -111,6 +127,8 @@ public class DXFInsert extends DXFEntity {
     }
 
     /**
+     * Gets the block ID.
+     *
      * @return Returns the blockID.
      */
     public String getBlockID() {
@@ -118,14 +136,17 @@ public class DXFInsert extends DXFEntity {
     }
 
     /**
-     * @param blockID
-     *            The blockID to set.
+     * Sets the block ID.
+     *
+     * @param blockID            The blockID to set.
      */
     public void setBlockID(String blockID) {
         this.blockID = blockID;
     }
 
     /**
+     * Gets the column spacing.
+     *
      * @return Returns the column_spacing.
      */
     public double getColumnSpacing() {
@@ -133,14 +154,17 @@ public class DXFInsert extends DXFEntity {
     }
 
     /**
-     * @param column_spacing
-     *            The column_spacing to set.
+     * Sets the column spacing.
+     *
+     * @param column_spacing            The column_spacing to set.
      */
     public void setColumnSpacing(double column_spacing) {
         this.column_spacing = column_spacing;
     }
 
     /**
+     * Gets the columns.
+     *
      * @return Returns the columns.
      */
     public int getColumns() {
@@ -148,14 +172,17 @@ public class DXFInsert extends DXFEntity {
     }
 
     /**
-     * @param columns
-     *            The columns to set.
+     * Sets the columns.
+     *
+     * @param columns            The columns to set.
      */
     public void setColumns(int columns) {
         this.columns = columns;
     }
 
     /**
+     * Gets the point.
+     *
      * @return Returns the p.
      */
     public Point getPoint() {
@@ -163,14 +190,17 @@ public class DXFInsert extends DXFEntity {
     }
 
     /**
-     * @param p
-     *            The p to set.
+     * Sets the point.
+     *
+     * @param p            The p to set.
      */
     public void setPoint(Point p) {
         this.insertPoint = p;
     }
 
     /**
+     * Gets the rotate.
+     *
      * @return Returns the rotate.
      */
     public double getRotate() {
@@ -178,14 +208,17 @@ public class DXFInsert extends DXFEntity {
     }
 
     /**
-     * @param rotate
-     *            The rotate to set.
+     * Sets the rotate.
+     *
+     * @param rotate            The rotate to set.
      */
     public void setRotate(double rotate) {
         this.rotate = rotate;
     }
 
     /**
+     * Gets the row spacing.
+     *
      * @return Returns the row_spacing.
      */
     public double getRowSpacing() {
@@ -193,14 +226,17 @@ public class DXFInsert extends DXFEntity {
     }
 
     /**
-     * @param row_spacing
-     *            The row_spacing to set.
+     * Sets the row spacing.
+     *
+     * @param row_spacing            The row_spacing to set.
      */
     public void setRowSpacing(double row_spacing) {
         this.row_spacing = row_spacing;
     }
 
     /**
+     * Gets the rows.
+     *
      * @return Returns the rows.
      */
     public int getRows() {
@@ -208,14 +244,17 @@ public class DXFInsert extends DXFEntity {
     }
 
     /**
-     * @param rows
-     *            The rows to set.
+     * Sets the rows.
+     *
+     * @param rows            The rows to set.
      */
     public void setRows(int rows) {
         this.rows = rows;
     }
 
     /**
+     * Gets the scale X.
+     *
      * @return Returns the scale_x.
      */
     public double getScaleX() {
@@ -223,14 +262,17 @@ public class DXFInsert extends DXFEntity {
     }
 
     /**
-     * @param scale_x
-     *            The scale_x to set.
+     * Sets the scale X.
+     *
+     * @param scale_x            The scale_x to set.
      */
     public void setScaleX(double scale_x) {
         this.scale_x = scale_x;
     }
 
     /**
+     * Gets the scale Y.
+     *
      * @return Returns the scale_y.
      */
     public double getScaleY() {
@@ -238,14 +280,17 @@ public class DXFInsert extends DXFEntity {
     }
 
     /**
-     * @param scale_y
-     *            The scale_y to set.
+     * Sets the scale Y.
+     *
+     * @param scale_y            The scale_y to set.
      */
     public void setScaleY(double scale_y) {
         this.scale_y = scale_y;
     }
 
     /**
+     * Gets the scale Z.
+     *
      * @return Returns the scale_z.
      */
     public double getScaleZ() {
@@ -253,13 +298,21 @@ public class DXFInsert extends DXFEntity {
     }
 
     /**
-     * @param scale_z
-     *            The scale_z to set.
+     * Sets the scale Z.
+     *
+     * @param scale_z            The scale_z to set.
      */
     public void setScaleZ(double scale_z) {
         this.scale_z = scale_z;
     }
 
+    /**
+     * Rotate point.
+     *
+     * @param x the x
+     * @param y the y
+     * @return the point
+     */
     private Point rotatePoint(double x, double y) {
         double phi = Math.toRadians(rotate);
         Point point = new Point();

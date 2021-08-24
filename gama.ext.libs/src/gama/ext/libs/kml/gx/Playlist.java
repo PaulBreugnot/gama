@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Playlist.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.gx;
 
@@ -15,7 +25,7 @@ import gama.ext.libs.kml.annotations.Obvious;
 
 
 /**
- * 
+ * The Class Playlist.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "PlaylistType", propOrder = {
@@ -27,15 +37,21 @@ public class Playlist
     implements Cloneable
 {
 
+    /** The tour primitive. */
     @XmlElementRef(name = "AbstractTourPrimitiveGroup", namespace = "http://www.google.com/kml/ext/2.2", required = false)
     protected List<TourPrimitive> tourPrimitive;
 
+    /**
+     * Instantiates a new playlist.
+     */
     public Playlist() {
         super();
     }
 
     /**
-     * 
+     * Gets the tour primitive.
+     *
+     * @return the tour primitive
      */
     public List<TourPrimitive> getTourPrimitive() {
         if (tourPrimitive == null) {
@@ -85,8 +101,8 @@ public class Playlist
      * <code>
      * Wait wait = new Wait();
      * this.getTourPrimitive().add(wait); </code>
-     * 
-     * 
+     *
+     * @return the wait
      */
     public Wait createAndAddWait() {
         Wait newValue = new Wait();
@@ -100,8 +116,8 @@ public class Playlist
      * <code>
      * AnimatedUpdate animatedUpdate = new AnimatedUpdate();
      * this.getTourPrimitive().add(animatedUpdate); </code>
-     * 
-     * 
+     *
+     * @return the animated update
      */
     public AnimatedUpdate createAndAddAnimatedUpdate() {
         AnimatedUpdate newValue = new AnimatedUpdate();
@@ -115,8 +131,8 @@ public class Playlist
      * <code>
      * TourControl tourControl = new TourControl();
      * this.getTourPrimitive().add(tourControl); </code>
-     * 
-     * 
+     *
+     * @return the tour control
      */
     public TourControl createAndAddTourControl() {
         TourControl newValue = new TourControl();
@@ -130,8 +146,8 @@ public class Playlist
      * <code>
      * FlyTo flyTo = new FlyTo();
      * this.getTourPrimitive().add(flyTo); </code>
-     * 
-     * 
+     *
+     * @return the fly to
      */
     public FlyTo createAndAddFlyTo() {
         FlyTo newValue = new FlyTo();
@@ -145,8 +161,8 @@ public class Playlist
      * <code>
      * SoundCue soundCue = new SoundCue();
      * this.getTourPrimitive().add(soundCue); </code>
-     * 
-     * 
+     *
+     * @return the sound cue
      */
     public SoundCue createAndAddSoundCue() {
         SoundCue newValue = new SoundCue();
@@ -158,21 +174,18 @@ public class Playlist
      * Sets the value of the tourPrimitive property Objects of the following type(s) are allowed in the list List<TourPrimitive>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withTourPrimitive} instead.
-     * 
-     * 
-     * @param tourPrimitive
+     *
+     * @param tourPrimitive the new tour primitive
      */
     public void setTourPrimitive(final List<TourPrimitive> tourPrimitive) {
         this.tourPrimitive = tourPrimitive;
     }
 
     /**
-     * add a value to the tourPrimitive property collection
-     * 
-     * @param tourPrimitive
-     *     Objects of the following type are allowed in the list: {@code <}{@link AnimatedUpdate}{@code>}{@link JAXBElement}{@code <}{@link Wait}{@code>}{@link JAXBElement}{@code <}{@link SoundCue}{@code>}{@link JAXBElement}{@code <}{@link TourPrimitive}{@code>}{@link JAXBElement}{@code <}{@link FlyTo}{@code>}{@link JAXBElement}{@code <}{@link TourControl}{@code>}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the tourPrimitive property collection.
+     *
+     * @param tourPrimitive     Objects of the following type are allowed in the list: {@code <}{@link AnimatedUpdate}{@code>}{@link JAXBElement}{@code <}{@link Wait}{@code>}{@link JAXBElement}{@code <}{@link SoundCue}{@code>}{@link JAXBElement}{@code <}{@link TourPrimitive}{@code>}{@link JAXBElement}{@code <}{@link FlyTo}{@code>}{@link JAXBElement}{@code <}{@link TourControl}{@code>}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Playlist addToTourPrimitive(final TourPrimitive tourPrimitive) {
         this.getTourPrimitive().add(tourPrimitive);
@@ -193,11 +206,11 @@ public class Playlist
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param tourPrimitive     required parameter
+     * @return the playlist
      * @see #setTourPrimitive(List<TourPrimitive>)
-     * 
-     * @param tourPrimitive
-     *     required parameter
      */
     public Playlist withTourPrimitive(final List<TourPrimitive> tourPrimitive) {
         this.setTourPrimitive(tourPrimitive);

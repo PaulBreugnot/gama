@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'SimpleStyleConfigurator.java, in plugin ummisco.gama.ui.viewers, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * SimpleConfigurator.java, in gama.ui.viewers, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.viewers.gis.geotools.styling;
 
 import java.awt.Color;
@@ -121,26 +120,28 @@ import org.opengis.feature.simple.SimpleFeatureType;
  */
 public class SimpleConfigurator extends Dialog {
 
+	/** The build. */
 	protected StyleBuilder build = new StyleBuilder();
+	
+	/** The feature collection. */
 	protected SimpleFeatureCollection featureCollection;
+	
+	/** The style. */
 	protected Style style;
 
-	/** Viewer used to allow interaction with Stroke definition */
+	/**  Viewer used to allow interaction with Stroke definition. */
 	private final StrokeViewer line = new StrokeViewer();
 
-	/** Viewer used to allow interaction with Fill definition */
+	/**  Viewer used to allow interaction with Fill definition. */
 	private final FillViewer fill = new FillViewer();
 
-	/** Viewer used to allow interaction with Graphic definition */
+	/**  Viewer used to allow interaction with Graphic definition. */
 	private final GraphicViewer point = new GraphicViewer();
 
-	/** The current mode we are working with */
+	/**  The current mode we are working with. */
 	private Mode mode;
 
-	/**
-	 * Used to respond to any widget selection event; will call synchronize() method to extract any changes of state
-	 * from the user interface
-	 */
+	/** Used to respond to any widget selection event; will call synchronize() method to extract any changes of state from the user interface. */
 	private final SelectionListener synchronize = new SelectionListener() {
 
 		@Override
@@ -154,10 +155,15 @@ public class SimpleConfigurator extends Dialog {
 		}
 	};
 
+	/** The replace. */
 	private Button replace;
 
 	/**
 	 * Construct <code>SimpleStyleConfigurator</code>.
+	 *
+	 * @param parent the parent
+	 * @param featureCollection the feature collection
+	 * @param style the style
 	 */
 	public SimpleConfigurator(final Shell parent, final SimpleFeatureCollection featureCollection, final Style style) {
 		super(parent);
@@ -168,6 +174,11 @@ public class SimpleConfigurator extends Dialog {
 		this.point.addListener(this.synchronize);
 	}
 
+	/**
+	 * Sets the layout.
+	 *
+	 * @param parent the new layout
+	 */
 	protected void setLayout(final Composite parent) {
 		final RowLayout layout = new RowLayout();
 		layout.pack = false;
@@ -182,6 +193,11 @@ public class SimpleConfigurator extends Dialog {
 		parent.setLayout(layout);
 	}
 
+	/**
+	 * Gets the style.
+	 *
+	 * @return the style
+	 */
 	protected Style getStyle() {
 		assert featureCollection != null;
 		Style style = this.style;
@@ -249,6 +265,13 @@ public class SimpleConfigurator extends Dialog {
 		return parentPanel;
 	}
 
+	/**
+	 * Determine mode.
+	 *
+	 * @param schema the schema
+	 * @param askUser the ask user
+	 * @return the mode
+	 */
 	public Mode determineMode(final SimpleFeatureType schema, final boolean askUser) {
 		if (schema == null) {
 			return Mode.NONE;
@@ -263,6 +286,9 @@ public class SimpleConfigurator extends Dialog {
 		}
 	}
 
+	/**
+	 * Refresh.
+	 */
 	protected void refresh() {
 		final Style style = getStyle(); // grab an SLD style or bust
 
@@ -323,7 +349,9 @@ public class SimpleConfigurator extends Dialog {
 
 	}
 
-	/** Synchronize the SLD with the array of symbolizers */
+	/**
+	 *  Synchronize the SLD with the array of symbolizers.
+	 */
 	public void synchronize() {
 		final List<Symbolizer> acquire = new ArrayList<>();
 
@@ -416,6 +444,14 @@ public class SimpleConfigurator extends Dialog {
 		this.style = style;
 	}
 
+	/**
+	 * Show dialog.
+	 *
+	 * @param parent the parent
+	 * @param layer the layer
+	 * @return the style
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static Style showDialog(final Shell parent, final Layer layer) throws IOException {
 		final SimpleFeatureSource featureSource = (SimpleFeatureSource) layer.getFeatureSource();
 		final Style style = layer.getStyle();
@@ -423,6 +459,15 @@ public class SimpleConfigurator extends Dialog {
 		return null;
 	}
 
+	/**
+	 * Show dialog.
+	 *
+	 * @param parent the parent
+	 * @param featureSource the feature source
+	 * @param style the style
+	 * @return the style
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static Style showDialog(final Shell parent, final SimpleFeatureSource featureSource, final Style style)
 			throws IOException {
 		final SimpleFeatureCollection features = featureSource.getFeatures();
@@ -432,6 +477,13 @@ public class SimpleConfigurator extends Dialog {
 		return tmp.getStyle();
 	}
 
+	/**
+	 * Subpart.
+	 *
+	 * @param parent the parent
+	 * @param label the label
+	 * @return the composite
+	 */
 	public static Composite subpart(final Composite parent, final String label) {
 		final Composite subpart = new Composite(parent, SWT.NONE);
 		final RowLayout across = new RowLayout();
@@ -466,6 +518,12 @@ public class SimpleConfigurator extends Dialog {
 		return subpart;
 	}
 
+	/**
+	 * Selection event.
+	 *
+	 * @param e the e
+	 * @return the selection event
+	 */
 	public static SelectionEvent selectionEvent(final ModifyEvent e) {
 		final Event event = new Event();
 		event.widget = e.widget;

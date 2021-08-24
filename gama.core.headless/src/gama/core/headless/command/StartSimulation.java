@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * StartSimulation.java, in gama.core.headless, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.core.headless.command;
 
 import java.io.File;
@@ -21,6 +31,9 @@ import gaml.operators.Cast;
 import gaml.statements.AbstractStatement;
 import gaml.types.IType;
 
+/**
+ * The Class StartSimulation.
+ */
 @symbol (
 		name = IKeywords.STARTSIMULATION,
 		kind = ISymbolKind.SEQUENCE_STATEMENT,
@@ -48,11 +61,23 @@ import gaml.types.IType;
 		omissible = IKeywords.EXPERIMENT)
 public class StartSimulation extends AbstractStatement {
 
+	/**
+	 * Instantiates a new start simulation.
+	 *
+	 * @param desc the desc
+	 */
 	public StartSimulation(final IDescription desc) {
 		super(desc);
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Retrieve model file absolute path.
+	 *
+	 * @param scope the scope
+	 * @param filename the filename
+	 * @return the string
+	 */
 	private String retrieveModelFileAbsolutePath(final IScope scope, final String filename) {
 		if (filename.charAt(0) == '/') return filename;
 		return new File(scope.getModel().getFilePath()).getParentFile().getAbsolutePath() + "/" + filename;

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.types.Types.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and simulation
- * platform (v. 1.8.1)
+ * Types.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.types;
 
@@ -34,32 +34,61 @@ import gaml.expressions.data.MapExpression;
 import gaml.factories.DescriptionFactory;
 
 /**
- * Written by drogoul Modified on 9 juin 2010
+ * Written by drogoul Modified on 9 juin 2010.
  *
  * @todo Description
- *
  */
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class Types {
 
+	/** The Constant builtInTypes. */
 	public final static ITypesManager builtInTypes = new TypesManager(null);
 
+	/** The Constant NO_TYPE. */
 	public final static IType NO_TYPE = new GamaNoType();
 
+	/** The type. */
 	public static IType AGENT, PATH, FONT, SKILL, DATE, MATERIAL, ACTION, TYPE;
+	
+	/** The int. */
 	public static GamaIntegerType INT;
+	
+	/** The float. */
 	public static GamaFloatType FLOAT;
+	
+	/** The color. */
 	public static GamaColorType COLOR;
+	
+	/** The bool. */
 	public static GamaBoolType BOOL;
+	
+	/** The string. */
 	public static GamaStringType STRING;
+	
+	/** The point. */
 	public static GamaPointType POINT;
+	
+	/** The geometry. */
 	public static GamaGeometryType GEOMETRY;
+	
+	/** The topology. */
 	public static GamaTopologyType TOPOLOGY;
+	
+	/** The field. */
 	public static GamaFieldType FIELD;
+	
+	/** The species. */
 	public static IContainerType LIST, MATRIX, MAP, GRAPH, FILE, PAIR, CONTAINER, SPECIES;
 
+	/** The Constant CLASSES_TYPES_CORRESPONDANCE. */
 	public static final IMap<Class, String> CLASSES_TYPES_CORRESPONDANCE = GamaMapFactory.createUnordered();
 
+	/**
+	 * Cache.
+	 *
+	 * @param id the id
+	 * @param instance the instance
+	 */
 	public static void cache(final int id, final IType instance) {
 		switch (id) {
 			case IType.INT:
@@ -140,6 +169,12 @@ public class Types {
 		}
 	}
 
+	/**
+	 * Gets the.
+	 *
+	 * @param type the type
+	 * @return the i type
+	 */
 	public static IType get(final int type) {
 		// use cache first
 		switch (type) {
@@ -193,15 +228,35 @@ public class Types {
 		return builtInTypes.get(String.valueOf(type));
 	}
 
+	/**
+	 * Gets the.
+	 *
+	 * @param type the type
+	 * @return the i type
+	 */
 	public static IType get(final String type) {
 		return builtInTypes.get(type);
 	}
 
+	/**
+	 * Gets the.
+	 *
+	 * @param <T> the generic type
+	 * @param type the type
+	 * @return the i type
+	 */
 	public static <T> IType<T> get(final Class<T> type) {
 		final IType<T> t = internalGet(type);
 		return t == null ? Types.NO_TYPE : t;
 	}
 
+	/**
+	 * Internal get.
+	 *
+	 * @param <T> the generic type
+	 * @param type the type
+	 * @return the i type
+	 */
 	private static <T> IType<T> internalGet(final Class<T> type) {
 		final IType<T>[] t = new IType[] { builtInTypes.get(Types.CLASSES_TYPES_CORRESPONDANCE.get(type)) };
 		boolean newEntry = false;
@@ -221,10 +276,18 @@ public class Types {
 		return t[0];
 	}
 
+	/**
+	 * Gets the type names.
+	 *
+	 * @return the type names
+	 */
 	public static Iterable<String> getTypeNames() {
 		return Iterables.transform(builtInTypes.getAllTypes(), each -> each.getName());
 	}
 
+	/**
+	 * Inits the.
+	 */
 	public static void init() {
 		final GamaTree<IType> hierarchy = buildHierarchy();
 		for (final GamaNode<IType> node : hierarchy.list(Order.PRE_ORDER)) {
@@ -237,6 +300,11 @@ public class Types {
 		// DEBUG.LOG("Hierarchy" + hierarchy.toStringWithDepth());
 	}
 
+	/**
+	 * Builds the hierarchy.
+	 *
+	 * @return the gama tree
+	 */
 	private static GamaTree<IType> buildHierarchy() {
 		final GamaNode<IType> root = new GamaNode(NO_TYPE);
 		final GamaTree<IType> hierarchy = new GamaTree();
@@ -251,6 +319,11 @@ public class Types {
 		return hierarchy;
 	}
 
+	/**
+	 * Types with depths.
+	 *
+	 * @return the list[]
+	 */
 	private static List<IType>[] typesWithDepths() {
 		final List<IType>[] depths = new ArrayList[10];
 		for (int i = 0; i < 10; i++) {
@@ -273,6 +346,12 @@ public class Types {
 		return depths;
 	}
 
+	/**
+	 * Place.
+	 *
+	 * @param t the t
+	 * @param hierarchy the hierarchy
+	 */
 	private static void place(final IType t, final GamaTree<IType> hierarchy) {
 		final Map<GamaNode<IType>, Integer> map = hierarchy.mapByDepth(Order.PRE_ORDER);
 		int max = 0;
@@ -286,8 +365,14 @@ public class Types {
 		parent.addChild(t);
 	}
 
+	/** The built in species. */
 	private static List<SpeciesDescription> builtInSpecies;
 
+	/**
+	 * Gets the built in species.
+	 *
+	 * @return the built in species
+	 */
 	public static Collection<? extends SpeciesDescription> getBuiltInSpecies() {
 		if (builtInSpecies != null) return builtInSpecies;
 		final ModelDescription root = ModelDescription.ROOT;
@@ -299,21 +384,22 @@ public class Types {
 	}
 
 	/**
-	 * @param matchType
-	 * @param switchType
-	 * @return
+	 * Int float case.
+	 *
+	 * @param t1 the t 1
+	 * @param t2 the t 2
+	 * @return true, if successful
 	 */
 	public static boolean intFloatCase(final IType t1, final IType t2) {
 		return t1 == FLOAT && t2 == INT || t2 == FLOAT && t1 == INT;
 	}
 
 	/**
-	 * Tests whether constant list expressions can still be compatible with a receiver even if their actual types differ
+	 * Tests whether constant list expressions can still be compatible with a receiver even if their actual types differ.
 	 *
-	 * @param receiverType
-	 * @param assignedType
-	 * @param expr2
-	 * @return
+	 * @param receiverType the receiver type
+	 * @param expr2 the expr 2
+	 * @return true, if is empty container case
 	 */
 	public static boolean isEmptyContainerCase(final IType receiverType, final IExpression expr2) {
 		final IType receiver = receiverType.getGamlType();
@@ -332,6 +418,12 @@ public class Types {
 
 	}
 
+	/**
+	 * Checks if is empty.
+	 *
+	 * @param expr2 the expr 2
+	 * @return true, if is empty
+	 */
 	public static boolean isEmpty(final IExpression expr2) {
 		switch (expr2.getGamlType().getGamlType().id()) {
 			case IType.LIST:
@@ -347,6 +439,11 @@ public class Types {
 		return false;
 	}
 
+	/**
+	 * Gets the all fields.
+	 *
+	 * @return the all fields
+	 */
 	public static Iterable<OperatorProto> getAllFields() {
 		return Iterables
 				.concat(Iterables.transform(builtInTypes.getAllTypes(), (each) -> each.getFieldGetters().values()));

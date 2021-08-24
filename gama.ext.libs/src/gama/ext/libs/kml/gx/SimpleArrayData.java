@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * SimpleArrayData.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.gx;
 
@@ -15,7 +25,7 @@ import gama.ext.libs.kml.annotations.Obvious;
 
 
 /**
- * 
+ * The Class SimpleArrayData.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SimpleArrayDataType", propOrder = {
@@ -28,18 +38,28 @@ public class SimpleArrayData
     implements Cloneable
 {
 
+    /** The value. */
     protected List<String> value;
+    
+    /** The simple array data extension. */
     @XmlElement(name = "SimpleArrayDataExtension")
     protected List<Object> simpleArrayDataExtension;
+    
+    /** The name. */
     @XmlAttribute(name = "name")
     protected String name;
 
+    /**
+     * Instantiates a new simple array data.
+     */
     public SimpleArrayData() {
         super();
     }
 
     /**
-     * 
+     * Gets the value.
+     *
+     * @return the value
      */
     public List<String> getValue() {
         if (value == null) {
@@ -49,7 +69,9 @@ public class SimpleArrayData
     }
 
     /**
-     * 
+     * Gets the simple array data extension.
+     *
+     * @return the simple array data extension
      */
     public List<Object> getSimpleArrayDataExtension() {
         if (simpleArrayDataExtension == null) {
@@ -59,22 +81,20 @@ public class SimpleArrayData
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the name.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getName() {
         return name;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the name.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setName(String value) {
         this.name = value;
@@ -139,21 +159,18 @@ public class SimpleArrayData
      * Sets the value of the value property Objects of the following type(s) are allowed in the list List<String>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withValue} instead.
-     * 
-     * 
-     * @param value
+     *
+     * @param value the new value
      */
     public void setValue(final List<String> value) {
         this.value = value;
     }
 
     /**
-     * add a value to the value property collection
-     * 
-     * @param value
-     *     Objects of the following type are allowed in the list: {@link String}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the value property collection.
+     *
+     * @param value     Objects of the following type are allowed in the list: {@link String}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public SimpleArrayData addToValue(final String value) {
         this.getValue().add(value);
@@ -164,21 +181,18 @@ public class SimpleArrayData
      * Sets the value of the simpleArrayDataExtension property Objects of the following type(s) are allowed in the list List<Object>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withSimpleArrayDataExtension} instead.
-     * 
-     * 
-     * @param simpleArrayDataExtension
+     *
+     * @param simpleArrayDataExtension the new simple array data extension
      */
     public void setSimpleArrayDataExtension(final List<Object> simpleArrayDataExtension) {
         this.simpleArrayDataExtension = simpleArrayDataExtension;
     }
 
     /**
-     * add a value to the simpleArrayDataExtension property collection
-     * 
-     * @param simpleArrayDataExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the simpleArrayDataExtension property collection.
+     *
+     * @param simpleArrayDataExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public SimpleArrayData addToSimpleArrayDataExtension(final Object simpleArrayDataExtension) {
         this.getSimpleArrayDataExtension().add(simpleArrayDataExtension);
@@ -199,11 +213,11 @@ public class SimpleArrayData
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param value     required parameter
+     * @return the simple array data
      * @see #setValue(List<String>)
-     * 
-     * @param value
-     *     required parameter
      */
     public SimpleArrayData withValue(final List<String> value) {
         this.setValue(value);
@@ -211,11 +225,11 @@ public class SimpleArrayData
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param simpleArrayDataExtension     required parameter
+     * @return the simple array data
      * @see #setSimpleArrayDataExtension(List<Object>)
-     * 
-     * @param simpleArrayDataExtension
-     *     required parameter
      */
     public SimpleArrayData withSimpleArrayDataExtension(final List<Object> simpleArrayDataExtension) {
         this.setSimpleArrayDataExtension(simpleArrayDataExtension);
@@ -223,11 +237,11 @@ public class SimpleArrayData
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param name     required parameter
+     * @return the simple array data
      * @see #setName(String)
-     * 
-     * @param name
-     *     required parameter
      */
     public SimpleArrayData withName(final String name) {
         this.setName(name);

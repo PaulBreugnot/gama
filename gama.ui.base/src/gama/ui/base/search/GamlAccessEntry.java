@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GamlAccessEntry.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * GamlAccessEntry.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ui.base.search;
 
@@ -26,12 +25,27 @@ import gama.ui.base.utils.ThemeHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 import gaml.compilation.GamlIdiomsProvider;
 
+/**
+ * The Class GamlAccessEntry.
+ */
 public class GamlAccessEntry {
+	
+	/** The first in category. */
 	boolean firstInCategory;
+	
+	/** The last in category. */
 	boolean lastInCategory;
+	
+	/** The element. */
 	IGamlDescription element;
+	
+	/** The provider. */
 	GamlIdiomsProvider<?> provider;
+	
+	/** The element match regions. */
 	int[][] elementMatchRegions;
+	
+	/** The provider match regions. */
 	int[][] providerMatchRegions;
 
 	/**
@@ -42,7 +56,7 @@ public class GamlAccessEntry {
 	private final int matchQuality;
 
 	/**
-	 * Indicates the filter string was a perfect match to the label or there is no filter applied
+	 * Indicates the filter string was a perfect match to the label or there is no filter applied.
 	 *
 	 * @see #getMatchQuality()
 	 */
@@ -111,10 +125,21 @@ public class GamlAccessEntry {
 	// return image;
 	// }
 
+	/**
+	 * Gets the search category.
+	 *
+	 * @return the search category
+	 */
 	public String getSearchCategory() {
 		return provider.getSearchCategory();
 	}
 
+	/**
+	 * Measure.
+	 *
+	 * @param event the event
+	 * @param textLayout the text layout
+	 */
 	public void measure(final Event event, final TextLayout textLayout) {
 		// final Table table = ((TableItem) event.item).getParent();
 
@@ -148,6 +173,12 @@ public class GamlAccessEntry {
 		event.height = Math.max(event.height, rect.height + 2);
 	}
 
+	/**
+	 * Paint.
+	 *
+	 * @param event the event
+	 * @param textLayout the text layout
+	 */
 	public void paint(final Event event, final TextLayout textLayout) {
 		final Table table = ((TableItem) event.item).getParent();
 		textLayout.setFont(table.getFont());
@@ -197,7 +228,9 @@ public class GamlAccessEntry {
 	}
 
 	/**
-	 * @param event
+	 * Erase.
+	 *
+	 * @param event the event
 	 */
 	public void erase(final Event event) {
 		// We are only custom drawing the foreground.

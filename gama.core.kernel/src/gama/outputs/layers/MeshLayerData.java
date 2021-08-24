@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.layers.GridLayerData.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * MeshLayerData.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -26,25 +26,65 @@ import gaml.operators.Cast;
 import gaml.types.GamaFieldType;
 import gaml.types.Types;
 
+/**
+ * The Class MeshLayerData.
+ */
 public class MeshLayerData extends LayerData {
 
+	/** The default line color. */
 	static GamaColor defaultLineColor = GamaColor.getInt(Color.black.getRGB());
+	
+	/** The should compute values. */
 	boolean shouldComputeValues = true;
+	
+	/** The values. */
 	IField values;
+	
+	/** The line. */
 	Attribute<GamaColor> line;
+	
+	/** The texture. */
 	Attribute<GamaImageFile> texture;
+	
+	/** The smooth. */
 	Attribute<Integer> smooth;
+	
+	/** The elevation. */
 	Attribute<IField> elevation;
+	
+	/** The triangulation. */
 	Attribute<Boolean> triangulation;
+	
+	/** The grayscale. */
 	Attribute<Boolean> grayscale;
+	
+	/** The text. */
 	Attribute<Boolean> text;
+	
+	/** The wireframe. */
 	Attribute<Boolean> wireframe;
+	
+	/** The no data. */
 	Attribute<Double> noData;
+	
+	/** The color. */
 	Attribute<Object> color;
+	
+	/** The scale. */
 	Attribute<Double> scale;
+	
+	/** The cell size. */
 	private GamaPoint cellSize;
+	
+	/** The dim. */
 	private final GamaPoint dim = new GamaPoint();
 
+	/**
+	 * Instantiates a new mesh layer data.
+	 *
+	 * @param def the def
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@SuppressWarnings ("unchecked")
 	public MeshLayerData(final ILayerStatement def) throws GamaRuntimeException {
 		super(def);
@@ -97,6 +137,13 @@ public class MeshLayerData extends LayerData {
 		cellSize = new GamaPoint(width / dim.x, height / dim.y);
 	}
 
+	/**
+	 * Builds the values.
+	 *
+	 * @param scope the scope
+	 * @param from the from
+	 * @return the i field
+	 */
 	private IField buildValues(final IScope scope, final Object from) {
 		if (values == null || shouldComputeValues) {
 			values = GamaFieldType.buildField(scope, from);
@@ -105,59 +152,130 @@ public class MeshLayerData extends LayerData {
 		return values;
 	}
 
+	/**
+	 * Checks if is triangulated.
+	 *
+	 * @return the boolean
+	 */
 	public Boolean isTriangulated() {
 		return triangulation.get();
 	}
 
+	/**
+	 * Checks if is gray scaled.
+	 *
+	 * @return the boolean
+	 */
 	public Boolean isGrayScaled() {
 		return grayscale.get();
 	}
 
+	/**
+	 * Checks if is wireframe.
+	 *
+	 * @return the boolean
+	 */
 	public Boolean isWireframe() {
 		return wireframe.get();
 	}
 
+	/**
+	 * Checks if is show text.
+	 *
+	 * @return the boolean
+	 */
 	public Boolean isShowText() {
 		return text.get();
 	}
 
+	/**
+	 * Texture file.
+	 *
+	 * @return the gama image file
+	 */
 	public GamaImageFile textureFile() {
 		return texture.get();
 	}
 
+	/**
+	 * Gets the line color.
+	 *
+	 * @return the line color
+	 */
 	public GamaColor getLineColor() {
 		return line.get() == null && wireframe.get() ? defaultLineColor : line.get();
 	}
 
+	/**
+	 * Draw lines.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean drawLines() {
 		return line.get() != null || wireframe.get();
 	}
 
+	/**
+	 * Gets the cell size.
+	 *
+	 * @return the cell size
+	 */
 	public GamaPoint getCellSize() {
 		return cellSize;
 	}
 
+	/**
+	 * Gets the dimension.
+	 *
+	 * @return the dimension
+	 */
 	public GamaPoint getDimension() {
 		return dim;
 	}
 
+	/**
+	 * Gets the elevation matrix.
+	 *
+	 * @param scope the scope
+	 * @return the elevation matrix
+	 */
 	public IField getElevationMatrix(final IScope scope) {
 		return elevation.get();
 	}
 
+	/**
+	 * Gets the color.
+	 *
+	 * @return the color
+	 */
 	public Object getColor() {
 		// Should be a bit more complex in the future when color scales / palettes are introduced
 		return color.get();
 	}
 
+	/**
+	 * Gets the smooth.
+	 *
+	 * @return the smooth
+	 */
 	public Integer getSmooth() {
 		return smooth.get();
 	}
 
+	/**
+	 * Gets the scale.
+	 *
+	 * @return the scale
+	 */
 	public Double getScale() {
 		return scale.get();
 	}
 
+	/**
+	 * Gets the no data value.
+	 *
+	 * @return the no data value
+	 */
 	public double getNoDataValue() {
 		return noData.get();
 	}

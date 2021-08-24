@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * GroundOverlay.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -112,18 +122,8 @@ public class GroundOverlay
      */
     @XmlElement(defaultValue = "0.0")
     protected double altitude;
-    /**
-     * AltitudeMode
-     * <p>
-     * clampToGround, relativeToGround, absolute 
-     * </p>
-     * 
-     * See Also: 
-     * See <LookAt> and <Region>
-     * 
-     * 
-     * 
-     */
+    
+    /** AltitudeMode <p> clampToGround, relativeToGround, absolute  </p>  See Also:  See <LookAt> and <Region>. */
     @XmlElement(defaultValue = "clampToGround")
     protected AltitudeMode altitudeMode;
     /**
@@ -149,6 +149,8 @@ public class GroundOverlay
      */
     @XmlElement(name = "LatLonBox")
     protected LatLonBox latLonBox;
+    
+    /** The ground overlay simple extension. */
     @XmlElement(name = "GroundOverlaySimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> groundOverlaySimpleExtension;
@@ -173,89 +175,88 @@ public class GroundOverlay
     @XmlElementRef(name = "GroundOverlayObjectExtensionGroup", namespace = "http://www.opengis.net/kml/2.2", required = false)
     protected List<AbstractObject> groundOverlayObjectExtension;
 
+    /**
+     * Instantiates a new ground overlay.
+     */
     public GroundOverlay() {
         super();
     }
 
     /**
-     * @see altitude
-     * 
-     * @return
-     *     possible object is
+     * Gets the altitude.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see altitude
      */
     public double getAltitude() {
         return altitude;
     }
 
     /**
-     * @see altitude
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the altitude.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see altitude
      */
     public void setAltitude(double value) {
         this.altitude = value;
     }
 
     /**
-     * @see altitudeMode
-     * 
-     * @return
-     *     possible object is
+     * Gets the altitude mode.
+     *
+     * @return     possible object is
      *     {@code <}{@link Object}{@code>}
      *     {@code <}{@link gama.ext.libs.kml.AltitudeMode}{@code>}
      *     {@code <}{@link msi.gama.ext.kml.gx.AltitudeMode}{@code>}
-     *     
+     * @see altitudeMode
      */
     public AltitudeMode getAltitudeMode() {
         return altitudeMode;
     }
 
     /**
-     * @see altitudeMode
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the altitude mode.
+     *
+     * @param value     allowed object is
      *     {@code <}{@link Object}{@code>}
      *     {@code <}{@link gama.ext.libs.kml.AltitudeMode}{@code>}
      *     {@code <}{@link msi.gama.ext.kml.gx.AltitudeMode}{@code>}
-     *     
+     * @see altitudeMode
      */
     public void setAltitudeMode(AltitudeMode value) {
         this.altitudeMode = value;
     }
 
     /**
-     * @see latLonBox
-     * 
-     * @return
-     *     possible object is
+     * Gets the lat lon box.
+     *
+     * @return     possible object is
      *     {@link LatLonBox}
-     *     
+     * @see latLonBox
      */
     public LatLonBox getLatLonBox() {
         return latLonBox;
     }
 
     /**
-     * @see latLonBox
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the lat lon box.
+     *
+     * @param value     allowed object is
      *     {@link LatLonBox}
-     *     
+     * @see latLonBox
      */
     public void setLatLonBox(LatLonBox value) {
         this.latLonBox = value;
     }
 
     /**
+     * Gets the ground overlay simple extension.
+     *
+     * @return the ground overlay simple extension
      * @see groundOverlaySimpleExtension
-     * 
      */
     public List<Object> getGroundOverlaySimpleExtension() {
         if (groundOverlaySimpleExtension == null) {
@@ -265,8 +266,10 @@ public class GroundOverlay
     }
 
     /**
+     * Gets the ground overlay object extension.
+     *
+     * @return the ground overlay object extension
      * @see groundOverlayObjectExtension
-     * 
      */
     public List<AbstractObject> getGroundOverlayObjectExtension() {
         if (groundOverlayObjectExtension == null) {
@@ -353,8 +356,8 @@ public class GroundOverlay
      * <code>
      * LatLonBox latLonBox = new LatLonBox();
      * this.setLatLonBox(latLonBox); </code>
-     * 
-     * 
+     *
+     * @return the lat lon box
      */
     public LatLonBox createAndSetLatLonBox() {
         LatLonBox newValue = new LatLonBox();
@@ -363,21 +366,20 @@ public class GroundOverlay
     }
 
     /**
+     * Sets the ground overlay simple extension.
+     *
+     * @param groundOverlaySimpleExtension the new ground overlay simple extension
      * @see groundOverlaySimpleExtension
-     * 
-     * @param groundOverlaySimpleExtension
      */
     public void setGroundOverlaySimpleExtension(final List<Object> groundOverlaySimpleExtension) {
         this.groundOverlaySimpleExtension = groundOverlaySimpleExtension;
     }
 
     /**
-     * add a value to the groundOverlaySimpleExtension property collection
-     * 
-     * @param groundOverlaySimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the groundOverlaySimpleExtension property collection.
+     *
+     * @param groundOverlaySimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public GroundOverlay addToGroundOverlaySimpleExtension(final Object groundOverlaySimpleExtension) {
         this.getGroundOverlaySimpleExtension().add(groundOverlaySimpleExtension);
@@ -385,21 +387,20 @@ public class GroundOverlay
     }
 
     /**
+     * Sets the ground overlay object extension.
+     *
+     * @param groundOverlayObjectExtension the new ground overlay object extension
      * @see groundOverlayObjectExtension
-     * 
-     * @param groundOverlayObjectExtension
      */
     public void setGroundOverlayObjectExtension(final List<AbstractObject> groundOverlayObjectExtension) {
         this.groundOverlayObjectExtension = groundOverlayObjectExtension;
     }
 
     /**
-     * add a value to the groundOverlayObjectExtension property collection
-     * 
-     * @param groundOverlayObjectExtension
-     *     Objects of the following type are allowed in the list: {@code <}{@link LatLonQuad}{@code>}{@link JAXBElement}{@code <}{@link AbstractObject}{@code>}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the groundOverlayObjectExtension property collection.
+     *
+     * @param groundOverlayObjectExtension     Objects of the following type are allowed in the list: {@code <}{@link LatLonQuad}{@code>}{@link JAXBElement}{@code <}{@link AbstractObject}{@code>}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public GroundOverlay addToGroundOverlayObjectExtension(final AbstractObject groundOverlayObjectExtension) {
         this.getGroundOverlayObjectExtension().add(groundOverlayObjectExtension);
@@ -509,11 +510,11 @@ public class GroundOverlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param altitude     required parameter
+     * @return the ground overlay
      * @see #setAltitude(double)
-     * 
-     * @param altitude
-     *     required parameter
      */
     public GroundOverlay withAltitude(final double altitude) {
         this.setAltitude(altitude);
@@ -521,11 +522,11 @@ public class GroundOverlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param altitudeMode     required parameter
+     * @return the ground overlay
      * @see #setAltitudeMode(Object)
-     * 
-     * @param altitudeMode
-     *     required parameter
      */
     public GroundOverlay withAltitudeMode(final  AltitudeMode altitudeMode) {
         this.setAltitudeMode(altitudeMode);
@@ -533,11 +534,11 @@ public class GroundOverlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param latLonBox     required parameter
+     * @return the ground overlay
      * @see #setLatLonBox(LatLonBox)
-     * 
-     * @param latLonBox
-     *     required parameter
      */
     public GroundOverlay withLatLonBox(final LatLonBox latLonBox) {
         this.setLatLonBox(latLonBox);
@@ -545,11 +546,11 @@ public class GroundOverlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param groundOverlaySimpleExtension     required parameter
+     * @return the ground overlay
      * @see #setGroundOverlaySimpleExtension(List<Object>)
-     * 
-     * @param groundOverlaySimpleExtension
-     *     required parameter
      */
     public GroundOverlay withGroundOverlaySimpleExtension(final List<Object> groundOverlaySimpleExtension) {
         this.setGroundOverlaySimpleExtension(groundOverlaySimpleExtension);
@@ -557,11 +558,11 @@ public class GroundOverlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param groundOverlayObjectExtension     required parameter
+     * @return the ground overlay
      * @see #setGroundOverlayObjectExtension(List<AbstractObject>)
-     * 
-     * @param groundOverlayObjectExtension
-     *     required parameter
      */
     public GroundOverlay withGroundOverlayObjectExtension(final List<AbstractObject> groundOverlayObjectExtension) {
         this.setGroundOverlayObjectExtension(groundOverlayObjectExtension);

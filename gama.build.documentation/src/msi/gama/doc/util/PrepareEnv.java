@@ -1,15 +1,13 @@
-/*********************************************************************************************
- * 
+/*******************************************************************************************************
  *
- * 'PrepareEnv.java', in plugin 'msi.gama.documentation', is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * PrepareEnv.java, in gama.build.documentation, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- * 
- * 
- **********************************************************************************************/
+ ********************************************************************************************************/
 package msi.gama.doc.util;
 
 import java.io.File;
@@ -20,12 +18,15 @@ import java.nio.file.StandardCopyOption;
 
 import msi.gama.doc.Constants;
 
+/**
+ * The Class PrepareEnv.
+ */
 public class PrepareEnv {
 
 	/**
-	 * 
-	 * @param pluginFolder
-	 *            the plugin folder in which tests will be created
+	 * Prepare unit test generator.
+	 *
+	 * @param pluginFolder            the plugin folder in which tests will be created
 	 */
 	public static void prepareUnitTestGenerator(final File pluginFolder) {
 		final File testsFolder = new File(pluginFolder + File.separator + Constants.TEST_PLUGIN_FOLDER);
@@ -54,6 +55,11 @@ public class PrepareEnv {
 		testsModelsFolder.mkdir();
 	}
 
+	/**
+	 * Prepare documentation.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void prepareDocumentation() throws IOException {
 		// - Deletes every generated folders
 		// - Creates every folders when they do not exist
@@ -78,6 +84,12 @@ public class PrepareEnv {
 		new File(Constants.CATALOG_GEN_FOLDER).mkdir();
 	}
 
+	/**
+	 * Delete directory.
+	 *
+	 * @param path the path
+	 * @return true, if successful
+	 */
 	static public boolean deleteDirectory(final File path) {
 		if (path.exists()) {
 			final File[] files = path.listFiles();
@@ -93,8 +105,10 @@ public class PrepareEnv {
 	}
 
 	/**
-	 * @param args
-	 * @throws IOException
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static void main(final String[] args) throws IOException {
 		prepareDocumentation();

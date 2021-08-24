@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'Application.java, in plugin msi.gama.application, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * Application.java, in gama.core.application, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.core.application;
 
 import java.util.Map;
@@ -34,7 +33,10 @@ import gaml.operators.Dates;
  */
 public class Application implements IApplication {
 
+	/** The Constant UI. */
 	private static final String UI = "ui";
+	
+	/** The Constant HEADLESS. */
 	private static final String HEADLESS = "headless";
 	{
 		DEBUG.ON();
@@ -57,9 +59,8 @@ public class Application implements IApplication {
 	/**
 	 * Loads one of the UI extensions defined in the framework depending on the argument passed to the application.
 	 *
-	 * @param args
-	 * @return
-	 * @throws CoreException
+	 * @return the i application control
+	 * @throws CoreException the core exception
 	 */
 	private IApplicationControl loadHeadlessOrUIControl() throws CoreException {
 		String[] args = Platform.getApplicationArgs();
@@ -75,6 +76,9 @@ public class Application implements IApplication {
 		return provider.get();
 	}
 
+	/**
+	 * Load gama core.
+	 */
 	private void loadGamaCore() {
 		try {
 			GamaBundleLoader.preBuildContributions();

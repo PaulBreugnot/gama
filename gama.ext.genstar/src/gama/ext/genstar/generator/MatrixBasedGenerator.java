@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * MatrixBasedGenerator.java, in gama.ext.genstar, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.genstar.generator;
 
 import static gama.ext.genstar.utils.GenStarConstant.EPSILON;
@@ -26,19 +36,29 @@ import gaml.types.IType;
 import gaml.types.Types;
 
 /**
- * A generator that uses a gama matrix to register a distribution over two attributes
- * @author kevinchapuis
+ * A generator that uses a gama matrix to register a distribution over two attributes.
  *
+ * @author kevinchapuis
  */
 public class MatrixBasedGenerator implements IGenstarGenerator {
 
+	/** The instance. */
 	private static MatrixBasedGenerator INSTANCE = new MatrixBasedGenerator();
 	
+	/** The type. */
 	@SuppressWarnings("rawtypes")
 	IType type;
 	
+	/**
+	 * Instantiates a new matrix based generator.
+	 */
 	private MatrixBasedGenerator() { type = Types.MATRIX; }
 	
+	/**
+	 * Gets the single instance of MatrixBasedGenerator.
+	 *
+	 * @return single instance of MatrixBasedGenerator
+	 */
 	public static MatrixBasedGenerator getInstance() { return INSTANCE;}
 	
 	@SuppressWarnings("rawtypes")
@@ -81,6 +101,14 @@ public class MatrixBasedGenerator implements IGenstarGenerator {
 
 	}
 
+	/**
+	 * Gets the distribution from matrix.
+	 *
+	 * @param scope the scope
+	 * @param mat the mat
+	 * @param atts the atts
+	 * @return the distribution from matrix
+	 */
 	@SuppressWarnings("unchecked")
 	private IMap<List<String>, Double> getDistributionFromMatrix(IScope scope, GamaFloatMatrix mat,
 			IMap<String, IList<String>> atts) {
@@ -106,6 +134,12 @@ public class MatrixBasedGenerator implements IGenstarGenerator {
 		return distr;
 	}
 
+	/**
+	 * Infer generate number.
+	 *
+	 * @param mat the mat
+	 * @return the int
+	 */
 	private int inferGenerateNumber(GamaFloatMatrix mat) {
 		double s = Arrays.stream(mat.getMatrix()).sum(); 
 		return Math.abs(s - 1.0)<EPSILON  ?  1 : Maths.round(s);

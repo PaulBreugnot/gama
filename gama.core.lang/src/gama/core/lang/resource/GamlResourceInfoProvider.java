@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GamlResourceInfoProvider.java, in plugin msi.gama.lang.gaml, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * GamlResourceInfoProvider.java, in gama.core.lang, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.core.lang.resource;
 
 import static java.util.Arrays.asList;
@@ -47,14 +46,27 @@ import gama.util.file.GamlFileInfo;
 import gama.util.file.IGamlResourceInfoProvider;
 import gaml.compilation.ast.ISyntacticElement;
 
+/**
+ * The Class GamlResourceInfoProvider.
+ */
 @Singleton
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class GamlResourceInfoProvider implements IGamlResourceInfoProvider {
 
+	/** The instance. */
 	public static GamlResourceInfoProvider INSTANCE = new GamlResourceInfoProvider();
 
+	/** The resource set. */
 	private XtextResourceSet resourceSet;
 
+	/**
+	 * Gets the info.
+	 *
+	 * @param originalURI the original URI
+	 * @param r the r
+	 * @param stamp the stamp
+	 * @return the info
+	 */
 	public GamlFileInfo getInfo(final URI originalURI, final GamlResource r, final long stamp) {
 
 		Set<String> imports = null;
@@ -159,6 +171,11 @@ public class GamlResourceInfoProvider implements IGamlResourceInfoProvider {
 		}
 	}
 
+	/**
+	 * Clear resource set.
+	 *
+	 * @param resourceSet the resource set
+	 */
 	protected void clearResourceSet(final ResourceSet resourceSet) {
 		final boolean wasDeliver = resourceSet.eDeliver();
 		try {
@@ -171,6 +188,11 @@ public class GamlResourceInfoProvider implements IGamlResourceInfoProvider {
 		}
 	}
 
+	/**
+	 * Gets the resource set.
+	 *
+	 * @return the resource set
+	 */
 	private XtextResourceSet getResourceSet() {
 		if (resourceSet == null) {
 			resourceSet = new SynchronizedXtextResourceSet();

@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'CSVRow.java, in plugin ummisco.gama.ui.viewers, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * CSVRow.java, in gama.ui.viewers, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.viewers.csv.model;
 
 import java.util.ArrayList;
@@ -17,29 +16,29 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Represents a row made of String elements
+ * Represents a row made of String elements.
  *
  * @author fhenri
- *
  */
 public class CSVRow {
 
-	/** Splitted line */
+	/**  Splitted line. */
 	private final ArrayList<String> entries;
 
-	/** Row changes listener */
+	/**  Row changes listener. */
 	private final IRowChangesListener listener;
 
-	/** track of commented line */
+	/**  track of commented line. */
 	private boolean isCommentLine;
 
+	/** The is header. */
 	private boolean isHeader;
 
 	/**
-	 * Constructor
+	 * Constructor.
 	 *
-	 * @param line
-	 * @param listener
+	 * @param line the line
+	 * @param listener the listener
 	 */
 	public CSVRow(final List<String> line, final IRowChangesListener listener) {
 		entries = new ArrayList<>(line);
@@ -47,22 +46,21 @@ public class CSVRow {
 	}
 
 	/**
-	 * Constructor
+	 * Constructor.
 	 *
-	 * @param lineElements
-	 * @param listener
+	 * @param lineElements the line elements
+	 * @param listener the listener
 	 */
 	public CSVRow(final String[] lineElements, final IRowChangesListener listener) {
 		this(Arrays.asList(lineElements), listener);
 	}
 
 	/**
-	 * Create an empty row
+	 * Create an empty row.
 	 *
-	 * @param nbOfColumns
-	 * @param delimiter
-	 * @param listener
-	 * @return
+	 * @param nbOfColumns the nb of columns
+	 * @param listener the listener
+	 * @return the CSV row
 	 */
 	public static CSVRow createEmptyLine(final int nbOfColumns, final IRowChangesListener listener) {
 		final List<String> line = new LinkedList<>();
@@ -73,22 +71,28 @@ public class CSVRow {
 	}
 
 	/**
-	 * @return
+	 * Gets the entries.
+	 *
+	 * @return the entries
 	 */
 	public ArrayList<String> getEntries() {
 		return entries;
 	}
 
 	/**
-	 * @return
+	 * Gets the entries as array.
+	 *
+	 * @return the entries as array
 	 */
 	public String[] getEntriesAsArray() {
 		return entries.toArray(new String[entries.size()]);
 	}
 
 	/**
-	 * @param elementIndex
-	 * @param elementString
+	 * Sets the row entry.
+	 *
+	 * @param elementIndex the element index
+	 * @param elementString the element string
 	 */
 	public void setRowEntry(final int elementIndex, final String elementString) {
 		if (entries.get(elementIndex).compareTo(elementString) != 0) {
@@ -101,7 +105,7 @@ public class CSVRow {
 	 * return the element at a given index. This method makes sure that if the current line does not have as many
 	 * elements as the header, it will not break and return an empty string
 	 *
-	 * @param index
+	 * @param index the index
 	 * @return the element at a given index
 	 */
 	public String getElementAt(final int index) {
@@ -110,7 +114,7 @@ public class CSVRow {
 	}
 
 	/**
-	 * Return the number of elements in this row
+	 * Return the number of elements in this row.
 	 *
 	 * @return number of elements in this row
 	 */
@@ -119,37 +123,64 @@ public class CSVRow {
 	}
 
 	/**
-	 * @param element
+	 * Adds the element.
+	 *
+	 * @param element the element
 	 */
 	public void addElement(final String element) {
 		entries.add(element);
 	}
 
 	/**
-	 * Remove an element of the row represented by its index
+	 * Remove an element of the row represented by its index.
 	 *
-	 * @param index
+	 * @param index the index
 	 */
 	public void removeElementAt(final int index) {
 		entries.remove(index);
 	}
 
+	/**
+	 * Sets the comment line.
+	 *
+	 * @param comment the new comment line
+	 */
 	public void setCommentLine(final boolean comment) {
 		isCommentLine = comment;
 	}
 
+	/**
+	 * Checks if is comment line.
+	 *
+	 * @return true, if is comment line
+	 */
 	public boolean isCommentLine() {
 		return isCommentLine;
 	}
 
+	/**
+	 * Sets the header.
+	 *
+	 * @param header the new header
+	 */
 	public void setHeader(final boolean header) {
 		isHeader = header;
 	}
 
+	/**
+	 * Checks if is header.
+	 *
+	 * @return true, if is header
+	 */
 	public boolean isHeader() {
 		return isHeader;
 	}
 
+	/**
+	 * Gets the comment.
+	 *
+	 * @return the comment
+	 */
 	public String getComment() {
 		return entries.get(0).substring(1);
 	}

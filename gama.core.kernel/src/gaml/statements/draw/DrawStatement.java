@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.statements.draw.DrawStatement.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * DrawStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.statements.draw;
 
@@ -56,6 +56,9 @@ import gaml.types.Types;
 
 // A command that is used to draw shapes, figures, text on the display
 
+/**
+ * The Class DrawStatement.
+ */
 @symbol (
 		name = DRAW,
 		kind = ISymbolKind.SINGLE_STATEMENT,
@@ -240,6 +243,9 @@ import gaml.types.Types;
 @validator (DrawValidator.class)
 public class DrawStatement extends AbstractStatementSequence {
 
+	/**
+	 * The Class DrawValidator.
+	 */
 	public static class DrawValidator implements IDescriptionValidator<StatementDescription> {
 
 		/**
@@ -298,6 +304,12 @@ public class DrawStatement extends AbstractStatementSequence {
 
 		}
 
+		/**
+		 * Can draw.
+		 *
+		 * @param exp the exp
+		 * @return true, if successful
+		 */
 		private boolean canDraw(final IExpression exp) {
 			IType<?> type = exp.getGamlType();
 			if (type.isDrawable()) return true;
@@ -308,13 +320,24 @@ public class DrawStatement extends AbstractStatementSequence {
 
 	}
 
+	/** The Constant END_ARROW. */
 	public static final String END_ARROW = "end_arrow";
+	
+	/** The Constant BEGIN_ARROW. */
 	public static final String BEGIN_ARROW = "begin_arrow";
 
+	/** The executer. */
 	private final DrawExecuter executer;
 
+	/** The data. */
 	private final ThreadLocal<DrawingData> data;
 
+	/**
+	 * Instantiates a new draw statement.
+	 *
+	 * @param desc the desc
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public DrawStatement(final IDescription desc) throws GamaRuntimeException {
 		super(desc);
 		final IExpression item = getFacet(IKeyword.GEOMETRY);

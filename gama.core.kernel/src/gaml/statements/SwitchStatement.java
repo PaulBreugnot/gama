@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.statements.SwitchStatement.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * SwitchStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.statements;
 
@@ -221,6 +221,9 @@ import gaml.types.Types;
 @SuppressWarnings ({ "rawtypes" })
 public class SwitchStatement extends AbstractStatementSequence implements Breakable {
 
+	/**
+	 * The Class SwitchValidator.
+	 */
 	public static class SwitchValidator implements IDescriptionValidator {
 
 		/**
@@ -263,15 +266,19 @@ public class SwitchStatement extends AbstractStatementSequence implements Breaka
 
 	}
 
+	/** The matches. */
 	public MatchStatement[] matches;
+	
+	/** The default match. */
 	public MatchStatement defaultMatch;
+	
+	/** The value. */
 	final IExpression value;
 
 	/**
 	 * The Constructor.
 	 *
-	 * @param sim
-	 *            the sim
+	 * @param desc the desc
 	 */
 	public SwitchStatement(final IDescription desc) {
 		super(desc);

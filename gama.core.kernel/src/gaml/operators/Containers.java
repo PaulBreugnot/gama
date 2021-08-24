@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.operators.Containers.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * Containers.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.operators;
 
@@ -93,10 +93,20 @@ import one.util.streamex.StreamEx;
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class Containers {
 
+	/**
+	 * The Class InterleavingIterator.
+	 */
 	private static class InterleavingIterator extends AbstractIterator {
 
+		/** The queue. */
 		private final Queue<Iterator> queue = new ArrayDeque<>();
 
+		/**
+		 * Instantiates a new interleaving iterator.
+		 *
+		 * @param scope the scope
+		 * @param objects the objects
+		 */
 		public InterleavingIterator(final IScope scope, final Object... objects) {
 			for (final Object object : objects) {
 				if (object instanceof IContainer) {
@@ -125,6 +135,14 @@ public class Containers {
 		}
 	}
 
+	/**
+	 * With.
+	 *
+	 * @param <T> the generic type
+	 * @param scope the scope
+	 * @param filter the filter
+	 * @return the function
+	 */
 	public static <T> Function<Object, T> with(final IScope scope, final IExpression filter) {
 		return t -> {
 			scope.setEach(t);
@@ -132,6 +150,14 @@ public class Containers {
 		};
 	}
 
+	/**
+	 * By.
+	 *
+	 * @param <T> the generic type
+	 * @param scope the scope
+	 * @param filter the filter
+	 * @return the predicate
+	 */
 	public static <T> Predicate<T> by(final IScope scope, final IExpression filter) {
 		return (final T t) -> {
 			scope.setEach(t);
@@ -139,36 +165,88 @@ public class Containers {
 		};
 	}
 
+	/**
+	 * In container.
+	 *
+	 * @param <T> the generic type
+	 * @param scope the scope
+	 * @param l the l
+	 * @return the predicate
+	 */
 	public static <T> Predicate<T> inContainer(final IScope scope, final IContainer l) {
 		final IContainer c = GAML.notNull(scope, l);
 		return t -> c.contains(scope, t);
 	}
 
+	/** The to lists. */
 	private static Function<Object, IList<?>> toLists =
 			a -> a instanceof IList ? (IList) a : GamaListFactory.wrap(Types.NO_TYPE, a);
 
+	/**
+	 * Stream.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @return the stream ex
+	 */
 	private static StreamEx stream(final IScope scope, final IContainer c) {
 		return notNull(scope, c).stream(scope);
 	}
 
+	/**
+	 * List of.
+	 *
+	 * @param t the t
+	 * @return the gama list supplier
+	 */
 	public static GamaListSupplier listOf(final IType t) {
 		return new GamaListSupplier(t);
 	}
 
+	/**
+	 * List like.
+	 *
+	 * @param c the c
+	 * @return the supplier
+	 */
 	public static Supplier<IList> listLike(final IContainer c) {
 		return new GamaListSupplier(c == null ? Types.NO_TYPE : c.getGamlType().getContentType());
 	}
 
+	/**
+	 * List like.
+	 *
+	 * @param c the c
+	 * @param c1 the c 1
+	 * @return the supplier
+	 */
 	public static Supplier<IList> listLike(final IContainer c, final IContainer c1) {
 		return listOf(c.getGamlType().getContentType().findCommonSupertypeWith(c1.getGamlType().getContentType()));
 	}
 
+	/**
+	 * As map of.
+	 *
+	 * @param k the k
+	 * @param v the v
+	 * @return the gama map supplier
+	 */
 	public static GamaMapSupplier asMapOf(final IType k, final IType v) {
 		return new GamaMapSupplier(k, v);
 	}
 
+	/**
+	 * The Class Range.
+	 */
 	public static abstract class Range {
 
+		/**
+		 * Range.
+		 *
+		 * @param scope the scope
+		 * @param end the end
+		 * @return the i list
+		 */
 		@operator (
 				value = "range",
 				content_type = IType.INT,
@@ -184,6 +262,14 @@ public class Containers {
 			return range(scope, 0, end);
 		}
 
+		/**
+		 * Range.
+		 *
+		 * @param scope the scope
+		 * @param start the start
+		 * @param end the end
+		 * @return the i list
+		 */
 		@operator (
 				value = { "range", "to" },
 				content_type = IType.INT,
@@ -203,6 +289,15 @@ public class Containers {
 			return range(scope, start, end, step);
 		}
 
+		/**
+		 * Range.
+		 *
+		 * @param scope the scope
+		 * @param start the start
+		 * @param end the end
+		 * @param step the step
+		 * @return the i list
+		 */
 		@operator (
 				value = "range",
 				content_type = IType.INT,
@@ -227,6 +322,14 @@ public class Containers {
 
 		}
 
+		/**
+		 * Every.
+		 *
+		 * @param scope the scope
+		 * @param source the source
+		 * @param step the step
+		 * @return the i list
+		 */
 		@operator (
 				value = "every",
 				content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -242,6 +345,15 @@ public class Containers {
 					.toCollection(listLike(source));
 		}
 
+		/**
+		 * Copy between.
+		 *
+		 * @param scope the scope
+		 * @param l1 the l 1
+		 * @param begin the begin
+		 * @param end the end
+		 * @return the i list
+		 */
 		@operator (
 				value = { "copy_between", "between" /* , "copy" */ },
 				can_be_const = true,
@@ -266,6 +378,14 @@ public class Containers {
 			return result;
 		}
 
+		/**
+		 * Copy between.
+		 *
+		 * @param scope the scope
+		 * @param l1 the l 1
+		 * @param p the p
+		 * @return the i list
+		 */
 		@operator (
 				internal = true,
 				value = { "internal_between" },
@@ -282,6 +402,14 @@ public class Containers {
 
 	}
 
+	/**
+	 * Internal list.
+	 *
+	 * @param scope the scope
+	 * @param i the i
+	 * @param j the j
+	 * @return the i list
+	 */
 	@operator (
 			internal = true,
 			value = { "internal_list" },
@@ -296,6 +424,15 @@ public class Containers {
 		return GamaListFactory.create(scope, Types.INT, i, j);
 	}
 
+	/**
+	 * Internal at.
+	 *
+	 * @param scope the scope
+	 * @param shape the shape
+	 * @param indices the indices
+	 * @return the object
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			internal = true,
 			value = { "internal_at" },
@@ -317,6 +454,15 @@ public class Containers {
 		// return map.getFromIndicesList(scope, indices);
 	}
 
+	/**
+	 * Internal at.
+	 *
+	 * @param scope the scope
+	 * @param agent the agent
+	 * @param indices the indices
+	 * @return the object
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			internal = true,
 			value = { "internal_at" },
@@ -331,6 +477,15 @@ public class Containers {
 		return agent.getFromIndicesList(scope, indices);
 	}
 
+	/**
+	 * Internal at.
+	 *
+	 * @param scope the scope
+	 * @param container the container
+	 * @param indices the indices
+	 * @return the object
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			internal = true,
 			value = { "internal_at" },
@@ -349,6 +504,14 @@ public class Containers {
 		throw GamaRuntimeException.error("" + container + " cannot be accessed using " + indices, scope);
 	}
 
+	/**
+	 * At.
+	 *
+	 * @param scope the scope
+	 * @param container the container
+	 * @param key the key
+	 * @return the object
+	 */
 	@operator (
 			value = { IKeyword.AT, "@" },
 			can_be_const = true,
@@ -383,6 +546,9 @@ public class Containers {
 		throw GamaRuntimeException.error("" + container + " cannot be accessed using " + key, scope);
 	}
 
+	/**
+	 * The Class AtValidator.
+	 */
 	public static class AtValidator implements IOperatorValidator {
 
 		@Override
@@ -402,6 +568,9 @@ public class Containers {
 
 	}
 
+	/**
+	 * The Class InternalAtValidator.
+	 */
 	public static class InternalAtValidator implements IOperatorValidator {
 
 		@Override
@@ -425,6 +594,14 @@ public class Containers {
 
 	}
 
+	/**
+	 * At.
+	 *
+	 * @param scope the scope
+	 * @param container the container
+	 * @param key the key
+	 * @return the object
+	 */
 	@operator (
 			value = { IKeyword.AT, "@" },
 			can_be_const = true,
@@ -437,6 +614,14 @@ public class Containers {
 		return container.get(scope, key);
 	}
 
+	/**
+	 * At.
+	 *
+	 * @param scope the scope
+	 * @param container the container
+	 * @param key the key
+	 * @return the object
+	 */
 	@operator (
 			value = { IKeyword.AT, "@" },
 			can_be_const = true,
@@ -449,6 +634,14 @@ public class Containers {
 		return container.get(scope, key);
 	}
 
+	/**
+	 * At.
+	 *
+	 * @param scope the scope
+	 * @param species the species
+	 * @param key the key
+	 * @return the i agent
+	 */
 	@operator (
 			value = { IKeyword.AT, "@" },
 			can_be_const = true,
@@ -461,6 +654,15 @@ public class Containers {
 		return species.get(scope, key);
 	}
 
+	/**
+	 * Grid at.
+	 *
+	 * @param scope the scope
+	 * @param s the s
+	 * @param val the val
+	 * @return the i agent
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = { "grid_at" },
 			type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -486,6 +688,13 @@ public class Containers {
 		return null;
 	}
 
+	/**
+	 * Removes the duplicates.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @return the i list
+	 */
 	@operator (
 			value = { "remove_duplicates", "distinct" },
 			can_be_const = true,
@@ -521,6 +730,14 @@ public class Containers {
 		return (IList) stream(scope, c).distinct().toCollection(listLike(c));
 	}
 
+	/**
+	 * Contains all.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param c2 the c 2
+	 * @return the boolean
+	 */
 	@operator (
 			value = "contains_all",
 			can_be_const = true,
@@ -550,6 +767,14 @@ public class Containers {
 		return stream(scope, c2).allMatch(inContainer(scope, c));
 	}
 
+	/**
+	 * Contains any.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param c1 the c 1
+	 * @return the boolean
+	 */
 	@operator (
 			value = "contains_any",
 			can_be_const = true,
@@ -579,6 +804,14 @@ public class Containers {
 		return stream(scope, c1).anyMatch(inContainer(scope, c));
 	}
 
+	/**
+	 * First.
+	 *
+	 * @param scope the scope
+	 * @param number the number
+	 * @param c the c
+	 * @return the i list
+	 */
 	@operator (
 			value = { "first", "first_of" },
 			can_be_const = true,
@@ -595,6 +828,14 @@ public class Containers {
 		return (IList) stream(scope, c).limit(number < 0 ? 0 : number).toCollection(listLike(c));
 	}
 
+	/**
+	 * Last.
+	 *
+	 * @param scope the scope
+	 * @param number the number
+	 * @param c the c
+	 * @return the i list
+	 */
 	@operator (
 			value = { "last", "last_of" },
 			can_be_const = true,
@@ -613,6 +854,15 @@ public class Containers {
 		return result;
 	}
 
+	/**
+	 * In.
+	 *
+	 * @param scope the scope
+	 * @param o the o
+	 * @param c the c
+	 * @return the boolean
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = "in",
 			can_be_const = true,
@@ -641,6 +891,14 @@ public class Containers {
 		return notNull(scope, c).contains(scope, o);
 	}
 
+	/**
+	 * Index of.
+	 *
+	 * @param scope the scope
+	 * @param s the s
+	 * @param o the o
+	 * @return the integer
+	 */
 	@operator (
 			value = "index_of",
 			can_be_const = true,
@@ -656,6 +914,14 @@ public class Containers {
 		return ((IAgent) o).getIndex();
 	}
 
+	/**
+	 * Index of.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param o the o
+	 * @return the integer
+	 */
 	@operator (
 			value = "index_of",
 			can_be_const = true,
@@ -679,6 +945,14 @@ public class Containers {
 		return notNull(scope, c).indexOf(o);
 	}
 
+	/**
+	 * Index of.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param o the o
+	 * @return the object
+	 */
 	@operator (
 			value = "index_of",
 			can_be_const = true,
@@ -697,6 +971,14 @@ public class Containers {
 		return null;
 	}
 
+	/**
+	 * Index of.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param o the o
+	 * @return the gama point
+	 */
 	@operator (
 			value = "index_of",
 			can_be_const = true,
@@ -718,6 +1000,14 @@ public class Containers {
 		return null;
 	}
 
+	/**
+	 * All indexes of 2.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param o the o
+	 * @return the i list
+	 */
 	@operator (
 			value = "all_indexes_of",
 			can_be_const = true,
@@ -749,6 +1039,14 @@ public class Containers {
 		// o).boxed().collect(Collectors.toList());
 	}
 
+	/**
+	 * Last index of.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param o the o
+	 * @return the integer
+	 */
 	@operator (
 			value = "last_index_of",
 			can_be_const = true,
@@ -763,6 +1061,14 @@ public class Containers {
 		return index_of(scope, notNull(scope, c), o);
 	}
 
+	/**
+	 * Last index of.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param o the o
+	 * @return the integer
+	 */
 	@operator (
 			value = "last_index_of",
 			can_be_const = true,
@@ -786,6 +1092,14 @@ public class Containers {
 		return notNull(scope, c).lastIndexOf(o);
 	}
 
+	/**
+	 * Last index of.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param o the o
+	 * @return the gama point
+	 */
 	@operator (
 			value = "last_index_of",
 			can_be_const = true,
@@ -808,6 +1122,14 @@ public class Containers {
 		return null;
 	}
 
+	/**
+	 * Last index of.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param o the o
+	 * @return the object
+	 */
 	@operator (
 			value = "last_index_of",
 			can_be_const = true,
@@ -829,6 +1151,14 @@ public class Containers {
 		return null;
 	}
 
+	/**
+	 * Inter.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param c1 the c 1
+	 * @return the i list
+	 */
 	@operator (
 			value = "inter",
 			can_be_const = true,
@@ -865,6 +1195,14 @@ public class Containers {
 		return (IList) stream(scope, c).filter(inContainer(scope, c1)).distinct().toCollection(listLike(c, c1));
 	}
 
+	/**
+	 * Minus.
+	 *
+	 * @param scope the scope
+	 * @param source the source
+	 * @param l the l
+	 * @return the i list
+	 */
 	@operator (
 			value = IKeyword.MINUS,
 			can_be_const = true,
@@ -896,6 +1234,14 @@ public class Containers {
 		return result;
 	}
 
+	/**
+	 * Minus.
+	 *
+	 * @param scope the scope
+	 * @param l1 the l 1
+	 * @param object the object
+	 * @return the i list
+	 */
 	@operator (
 			value = IKeyword.MINUS,
 			can_be_const = true,
@@ -922,6 +1268,14 @@ public class Containers {
 		return result;
 	}
 
+	/**
+	 * Minus.
+	 *
+	 * @param scope the scope
+	 * @param l1 the l 1
+	 * @param object the object
+	 * @return the i list
+	 */
 	@operator (
 			value = IKeyword.MINUS,
 			can_be_const = true,
@@ -938,6 +1292,14 @@ public class Containers {
 		return minus(scope, l1.listValue(scope, scope.getType(l1.getName()), false), object);
 	}
 
+	/**
+	 * Of generic species.
+	 *
+	 * @param scope the scope
+	 * @param agents the agents
+	 * @param s the s
+	 * @return the i list
+	 */
 	@operator (
 			value = "of_generic_species",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 2,
@@ -971,6 +1333,14 @@ public class Containers {
 		return of_species(scope, notNull(scope, agents), notNull(scope, s), true);
 	}
 
+	/**
+	 * Of species.
+	 *
+	 * @param scope the scope
+	 * @param agents the agents
+	 * @param s the s
+	 * @return the i list
+	 */
 	@operator (
 			value = "of_species",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 2,
@@ -997,6 +1367,15 @@ public class Containers {
 		return of_species(scope, notNull(scope, agents), notNull(scope, s), false);
 	}
 
+	/**
+	 * Of species.
+	 *
+	 * @param scope the scope
+	 * @param agents the agents
+	 * @param s the s
+	 * @param generic the generic
+	 * @return the i list
+	 */
 	private static IList of_species(final IScope scope, final IContainer agents, final ISpecies s,
 			final boolean generic) {
 		return (IList) agents.stream(scope)
@@ -1004,6 +1383,14 @@ public class Containers {
 				.toCollection(listOf(scope.getType(s.getName())));
 	}
 
+	/**
+	 * Pair.
+	 *
+	 * @param scope the scope
+	 * @param a the a
+	 * @param b the b
+	 * @return the gama pair
+	 */
 	@operator (
 			value = { "::" },
 			can_be_const = true,
@@ -1021,6 +1408,14 @@ public class Containers {
 		return new GamaPair(notNull(scope, v1), v2, a.getGamlType(), b.getGamlType());
 	}
 
+	/**
+	 * Plus.
+	 *
+	 * @param scope the scope
+	 * @param c1 the c 1
+	 * @param c2 the c 2
+	 * @return the i container
+	 */
 	@operator (
 			value = IKeyword.PLUS,
 			can_be_const = true,
@@ -1058,6 +1453,14 @@ public class Containers {
 		return (IContainer) stream(scope, c1).append(stream(scope, c2)).toCollection(listLike(c1, c2));
 	}
 
+	/**
+	 * Plus.
+	 *
+	 * @param scope the scope
+	 * @param l1 the l 1
+	 * @param l the l
+	 * @return the i list
+	 */
 	@operator (
 			value = IKeyword.PLUS,
 			can_be_const = true,
@@ -1083,6 +1486,14 @@ public class Containers {
 		return result;
 	}
 
+	/**
+	 * Union.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param c1 the c 1
+	 * @return the i list
+	 */
 	@operator (
 			value = "union",
 			can_be_const = true,
@@ -1110,6 +1521,14 @@ public class Containers {
 
 	// ITERATORS
 
+	/**
+	 * Group by.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param e the e
+	 * @return the i map
+	 */
 	@operator (
 			value = { "group_by" },
 			iterator = true,
@@ -1147,6 +1566,14 @@ public class Containers {
 				listOf(ct));
 	}
 
+	/**
+	 * Last with.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param filter the filter
+	 * @return the object
+	 */
 	@operator (
 			value = { "last_with" },
 			type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1187,6 +1614,14 @@ public class Containers {
 		return stream(scope, c).filter(by(scope, filter)).reduce((a, b) -> b).orElse(null);
 	}
 
+	/**
+	 * First with.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param filter the filter
+	 * @return the object
+	 */
 	@operator (
 			value = { "first_with" },
 			type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1229,6 +1664,14 @@ public class Containers {
 		return stream(scope, c).findFirst(by(scope, filter)).orElse(null);
 	}
 
+	/**
+	 * Max of.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param filter the filter
+	 * @return the object
+	 */
 	@operator (
 			value = { "max_of" },
 			type = ITypeProvider.TYPE_AT_INDEX + 2,
@@ -1265,6 +1708,13 @@ public class Containers {
 		return stream(scope, c).map(with(scope, filter)).maxBy(Function.identity()).orElse(null);
 	}
 
+	/**
+	 * Sum.
+	 *
+	 * @param scope the scope
+	 * @param l the l
+	 * @return the object
+	 */
 	@operator (
 			value = "sum",
 			can_be_const = true,
@@ -1308,6 +1758,13 @@ public class Containers {
 		return sum_of(scope, l, null);
 	}
 
+	/**
+	 * Sum.
+	 *
+	 * @param scope the scope
+	 * @param g the g
+	 * @return the double
+	 */
 	@operator (
 			value = "sum",
 			can_be_const = true,
@@ -1320,6 +1777,13 @@ public class Containers {
 		return g.computeTotalWeight();
 	}
 
+	/**
+	 * Cart prod.
+	 *
+	 * @param scope the scope
+	 * @param list the list
+	 * @return the object
+	 */
 	@operator (
 			value = "cartesian_product",
 			// can_be_const = true,
@@ -1344,6 +1808,14 @@ public class Containers {
 		return res;
 	}
 
+	/**
+	 * Sum of.
+	 *
+	 * @param scope the scope
+	 * @param container the container
+	 * @param filter the filter
+	 * @return the object
+	 */
 	@operator (
 			value = { "sum_of" },
 			type = ITypeProvider.TYPE_AT_INDEX + 2,
@@ -1390,6 +1862,14 @@ public class Containers {
 		}
 	}
 
+	/**
+	 * Mean.
+	 *
+	 * @param scope the scope
+	 * @param l the l
+	 * @return the object
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = "mean",
 			can_be_const = true,
@@ -1418,6 +1898,14 @@ public class Containers {
 		return Cast.asFloat(scope, s) / size;
 	}
 
+	/**
+	 * Mean of.
+	 *
+	 * @param scope the scope
+	 * @param container the container
+	 * @param filter the filter
+	 * @return the object
+	 */
 	@operator (
 			value = { "mean_of" },
 			type = ITypeProvider.TYPE_AT_INDEX + 2 + ITypeProvider.FLOAT_IN_CASE_OF_INT,
@@ -1443,6 +1931,14 @@ public class Containers {
 		return mean(scope, collect(scope, container, filter));
 	}
 
+	/**
+	 * Min of.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param filter the filter
+	 * @return the object
+	 */
 	@operator (
 			value = { "min_of" },
 			type = ITypeProvider.TYPE_AT_INDEX + 2,
@@ -1478,6 +1974,15 @@ public class Containers {
 		return stream(scope, c).map(with(scope, filter)).minBy(Function.identity()).orElse(null);
 	}
 
+	/**
+	 * Among.
+	 *
+	 * @param scope the scope
+	 * @param number the number
+	 * @param c the c
+	 * @return the i list
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = "among",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 2,
@@ -1532,6 +2037,9 @@ public class Containers {
 		return result;
 	}
 
+	/**
+	 * The Class ComparableValidator.
+	 */
 	public static class ComparableValidator implements IOperatorValidator {
 
 		@Override
@@ -1548,6 +2056,14 @@ public class Containers {
 
 	}
 
+	/**
+	 * Sort.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param filter the filter
+	 * @return the i list
+	 */
 	@operator (
 			value = { "sort_by", "sort" },
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1583,6 +2099,14 @@ public class Containers {
 		return (IList) stream(scope, c).sortedBy(with(scope, filter)).toCollection(listLike(c));
 	}
 
+	/**
+	 * Where.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param filter the filter
+	 * @return the i list
+	 */
 	@operator (
 			value = { "where", "select" },
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1621,6 +2145,14 @@ public class Containers {
 		return (IList) stream(scope, c).filter(by(scope, filter)).toCollection(listLike(c));
 	}
 
+	/**
+	 * Where.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param filter the filter
+	 * @return the i list
+	 */
 	@operator (
 			value = { "where", "select" },
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1643,6 +2175,15 @@ public class Containers {
 		return where(scope, c.iterable(scope), c.getGamlType().getContentType(), filter);
 	}
 
+	/**
+	 * Where.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param contentType the content type
+	 * @param filter the filter
+	 * @return the i list
+	 */
 	private static IList where(final IScope scope, final Iterable c, final IType contentType,
 			final IExpression filter) {
 		final IList result = GamaListFactory.create(contentType);
@@ -1654,6 +2195,14 @@ public class Containers {
 		return result;
 	}
 
+	/**
+	 * Where.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param filter the filter
+	 * @return the i list
+	 */
 	@operator (
 			value = { "where", "select" },
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1676,6 +2225,14 @@ public class Containers {
 		return where(scope, c.iterable(scope), c.getGamlType().getContentType(), filter);
 	}
 
+	/**
+	 * With max of.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param filter the filter
+	 * @return the object
+	 */
 	@operator (
 			value = { "with_max_of" },
 			type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1711,6 +2268,14 @@ public class Containers {
 		return stream(scope, c).maxBy(with(scope, filter)).orElse(null);
 	}
 
+	/**
+	 * With min of.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param filter the filter
+	 * @return the object
+	 */
 	@operator (
 			value = { "with_min_of" },
 			type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1746,6 +2311,14 @@ public class Containers {
 		return stream(scope, c).minBy(with(scope, filter)).orElse(null);
 	}
 
+	/**
+	 * Accumulate.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param filter the filter
+	 * @return the i list
+	 */
 	@operator (
 			value = { "accumulate" },
 			content_type = ITypeProvider.SECOND_CONTENT_TYPE_OR_TYPE,
@@ -1780,6 +2353,14 @@ public class Containers {
 
 	}
 
+	/**
+	 * Collect.
+	 *
+	 * @param scope the scope
+	 * @param c the c
+	 * @param filter the filter
+	 * @return the i list
+	 */
 	@operator (
 			value = { "collect" },
 			content_type = ITypeProvider.TYPE_AT_INDEX + 2,
@@ -1811,6 +2392,13 @@ public class Containers {
 		return (IList) stream(scope, c).map(with(scope, filter)).toCollection(listOf(filter.getGamlType()));
 	}
 
+	/**
+	 * Interleave.
+	 *
+	 * @param scope the scope
+	 * @param cc the cc
+	 * @return the i list
+	 */
 	@operator (
 			value = { "interleave" },
 			content_type = ITypeProvider.FIRST_ELEMENT_CONTENT_TYPE,
@@ -1833,6 +2421,14 @@ public class Containers {
 		return GamaListFactory.create(scope, type, it);
 	}
 
+	/**
+	 * Count.
+	 *
+	 * @param scope the scope
+	 * @param original the original
+	 * @param filter the filter
+	 * @return the integer
+	 */
 	@operator (
 			value = { "count" },
 			iterator = true,
@@ -1867,6 +2463,14 @@ public class Containers {
 		return (int) notNull(scope, original).stream(scope).filter(by(scope, filter)).count();
 	}
 
+	/**
+	 * One matches.
+	 *
+	 * @param scope the scope
+	 * @param original the original
+	 * @param filter the filter
+	 * @return the boolean
+	 */
 	@operator (
 			value = { "one_matches", "one_verifies" },
 			iterator = true,
@@ -1888,6 +2492,14 @@ public class Containers {
 		return notNull(scope, original).stream(scope).anyMatch(by(scope, filter));
 	}
 
+	/**
+	 * None matches.
+	 *
+	 * @param scope the scope
+	 * @param original the original
+	 * @param filter the filter
+	 * @return the boolean
+	 */
 	@operator (
 			value = { "none_matches", "none_verifies" },
 			iterator = true,
@@ -1910,6 +2522,14 @@ public class Containers {
 		return notNull(scope, original).stream(scope).noneMatch(by(scope, filter));
 	}
 
+	/**
+	 * All match.
+	 *
+	 * @param scope the scope
+	 * @param original the original
+	 * @param filter the filter
+	 * @return the boolean
+	 */
 	@operator (
 			value = { "all_match", "all_verify" },
 			iterator = true,
@@ -1931,6 +2551,14 @@ public class Containers {
 		return notNull(scope, original).stream(scope).allMatch(by(scope, filter));
 	}
 
+	/**
+	 * Index by.
+	 *
+	 * @param scope the scope
+	 * @param original the original
+	 * @param keyProvider the key provider
+	 * @return the i map
+	 */
 	@operator (
 			value = { "index_by" },
 			iterator = true,
@@ -1954,6 +2582,14 @@ public class Containers {
 				asMapOf(keyProvider.getGamlType(), contentsType)));
 	}
 
+	/**
+	 * As map.
+	 *
+	 * @param scope the scope
+	 * @param original the original
+	 * @param filter the filter
+	 * @return the i map
+	 */
 	@operator (
 			value = { "as_map" },
 			iterator = true,
@@ -1987,6 +2623,14 @@ public class Containers {
 				(a, b) -> a, asMapOf(key.getGamlType(), value.getGamlType())));
 	}
 
+	/**
+	 * Creates the map.
+	 *
+	 * @param scope the scope
+	 * @param keys the keys
+	 * @param values the values
+	 * @return the i map
+	 */
 	@operator (
 			value = { "create_map" },
 			iterator = true,
@@ -2023,6 +2667,14 @@ public class Containers {
 		return GamaMapFactory.create(scope, keys.getGamlType(), values.getGamlType(), keys, values);
 	}
 
+	/**
+	 * Plus.
+	 *
+	 * @param scope the scope
+	 * @param m1 the m 1
+	 * @param m2 the m 2
+	 * @return the i map
+	 */
 	@operator (
 			value = IKeyword.PLUS,
 			can_be_const = true,
@@ -2046,6 +2698,14 @@ public class Containers {
 		return res;
 	}
 
+	/**
+	 * Plus.
+	 *
+	 * @param scope the scope
+	 * @param m1 the m 1
+	 * @param m2 the m 2
+	 * @return the i map
+	 */
 	@operator (
 			value = IKeyword.PLUS,
 			can_be_const = true,
@@ -2069,6 +2729,14 @@ public class Containers {
 		return res;
 	}
 
+	/**
+	 * Minus.
+	 *
+	 * @param scope the scope
+	 * @param m1 the m 1
+	 * @param m2 the m 2
+	 * @return the i map
+	 */
 	@operator (
 			value = IKeyword.MINUS,
 			can_be_const = true,
@@ -2091,6 +2759,14 @@ public class Containers {
 		return res;
 	}
 
+	/**
+	 * Minus.
+	 *
+	 * @param scope the scope
+	 * @param m1 the m 1
+	 * @param m2 the m 2
+	 * @return the i map
+	 */
 	@operator (
 			value = IKeyword.MINUS,
 			can_be_const = true,

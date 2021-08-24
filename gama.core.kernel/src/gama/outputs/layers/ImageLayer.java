@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.layers.ImageLayer.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * ImageLayer.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -34,13 +34,28 @@ import gaml.types.Types;
  */
 public class ImageLayer extends AbstractLayer {
 
+	/** The env. */
 	// Cache a copy of both to avoid reloading them each time.
 	Envelope3D env;
+	
+	/** The cached file. */
 	GamaImageFile cachedFile;
+	
+	/** The file. */
 	IExpression file;
+	
+	/** The is potentially variable. */
 	boolean isPotentiallyVariable;
+	
+	/** The is file. */
 	boolean isFile;
 
+	/**
+	 * Instantiates a new image layer.
+	 *
+	 * @param scope the scope
+	 * @param layer the layer
+	 */
 	public ImageLayer(final IScope scope, final ILayerStatement layer) {
 		super(layer);
 		file = ((ImageLayerStatement) definition).file;
@@ -65,16 +80,36 @@ public class ImageLayer extends AbstractLayer {
 		return new ImageLayerData(definition);
 	}
 
+	/**
+	 * Creates the file from file expression.
+	 *
+	 * @param scope the scope
+	 * @return the gama image file
+	 */
 	private GamaImageFile createFileFromFileExpression(final IScope scope) {
 		final GamaFile<?, ?> result = (GamaFile<?, ?>) file.value(scope);
 		return verifyFile(scope, result);
 	}
 
+	/**
+	 * Creates the file from string.
+	 *
+	 * @param scope the scope
+	 * @param imageFileName the image file name
+	 * @return the gama image file
+	 */
 	private GamaImageFile createFileFromString(final IScope scope, final String imageFileName) {
 		final GamaImageFile result = GamaFileType.createImageFile(scope, imageFileName, null);
 		return verifyFile(scope, result);
 	}
 
+	/**
+	 * Verify file.
+	 *
+	 * @param scope the scope
+	 * @param input the input
+	 * @return the gama image file
+	 */
 	private GamaImageFile verifyFile(final IScope scope, final GamaFile<?, ?> input) {
 		if (input == cachedFile) { return cachedFile; }
 		if (input == null) { throw error("Not a file: " + file.serialize(false), scope); }
@@ -92,10 +127,23 @@ public class ImageLayer extends AbstractLayer {
 		return result;
 	}
 
+	/**
+	 * Compute envelope.
+	 *
+	 * @param scope the scope
+	 * @param file the file
+	 * @return the envelope 3 D
+	 */
 	private Envelope3D computeEnvelope(final IScope scope, final GamaImageFile file) {
 		return file.getGeoDataFile(scope) != null ? file.computeEnvelope(scope) : scope.getSimulation().getEnvelope();
 	}
 
+	/**
+	 * Builds the image.
+	 *
+	 * @param scope the scope
+	 * @return the gama image file
+	 */
 	protected GamaImageFile buildImage(final IScope scope) {
 		if (!isPotentiallyVariable) { return cachedFile; }
 		return isFile ? createFileFromFileExpression(scope)
@@ -134,7 +182,10 @@ public class ImageLayer extends AbstractLayer {
 	}
 
 	/**
-	 * @param newValue
+	 * Sets the image file name.
+	 *
+	 * @param scope the scope
+	 * @param newValue the new value
 	 */
 	public void setImageFileName(final IScope scope, final String newValue) {
 		createFileFromString(scope, newValue);
@@ -142,6 +193,12 @@ public class ImageLayer extends AbstractLayer {
 		isPotentiallyVariable = false;
 	}
 
+	/**
+	 * Gets the image file name.
+	 *
+	 * @param scope the scope
+	 * @return the image file name
+	 */
 	public String getImageFileName(final IScope scope) {
 		if (cachedFile != null && !isPotentiallyVariable) { return cachedFile.getPath(scope); }
 		return "Unknown";

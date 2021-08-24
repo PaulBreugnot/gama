@@ -1,4 +1,13 @@
-// This software is released into the Public Domain. See copying.txt for details.
+/*******************************************************************************************************
+ *
+ * Bound.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.osmosis;
 
 import java.util.Collection;
@@ -13,15 +22,31 @@ import java.util.LinkedList;
  */
 public class Bound extends Entity implements Comparable<Bound> {
 
+	/** The Constant MIN_LATITUDE. */
 	private static final double MIN_LATITUDE = -90.0;
+	
+	/** The Constant MAX_LATITUDE. */
 	private static final double MAX_LATITUDE = 90.0;
+	
+	/** The Constant MIN_LONGITUDE. */
 	private static final double MIN_LONGITUDE = -180.0;
+	
+	/** The Constant MAX_LONGITUDE. */
 	private static final double MAX_LONGITUDE = 180.0;
 
+	/** The right. */
 	private final double right;
+	
+	/** The left. */
 	private final double left;
+	
+	/** The top. */
 	private final double top;
+	
+	/** The bottom. */
 	private final double bottom;
+	
+	/** The origin. */
 	private final String origin;
 
 	/**
@@ -108,6 +133,8 @@ public class Bound extends Entity implements Comparable<Bound> {
 	}
 
 	/**
+	 * Gets the right.
+	 *
 	 * @return The right (East) bound longitude
 	 */
 	public double getRight() {
@@ -115,6 +142,8 @@ public class Bound extends Entity implements Comparable<Bound> {
 	}
 
 	/**
+	 * Gets the left.
+	 *
 	 * @return The left (West) bound longitude
 	 */
 	public double getLeft() {
@@ -122,6 +151,8 @@ public class Bound extends Entity implements Comparable<Bound> {
 	}
 
 	/**
+	 * Gets the top.
+	 *
 	 * @return The top (North) bound latitude
 	 */
 	public double getTop() {
@@ -129,6 +160,8 @@ public class Bound extends Entity implements Comparable<Bound> {
 	}
 
 	/**
+	 * Gets the bottom.
+	 *
 	 * @return The bottom (South) bound latitude
 	 */
 	public double getBottom() {
@@ -136,6 +169,8 @@ public class Bound extends Entity implements Comparable<Bound> {
 	}
 
 	/**
+	 * Gets the origin.
+	 *
 	 * @return the origin
 	 */
 	public String getOrigin() {

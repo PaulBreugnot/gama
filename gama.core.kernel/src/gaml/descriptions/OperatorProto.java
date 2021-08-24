@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.descriptions.OperatorProto.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * OperatorProto.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.descriptions;
 
@@ -56,25 +56,57 @@ import gaml.types.Types;
 @SuppressWarnings ({ "rawtypes" })
 public class OperatorProto extends AbstractProto implements IVarDescriptionUser {
 
+	/** The as. */
 	public static OperatorProto AS;
+	
+	/** The no mandatory parenthesis. */
 	public static Set<String> noMandatoryParenthesis = ImmutableSet.copyOf(Arrays.<String> asList("-", "!"));
+	
+	/** The binaries. */
 	public static Set<String> binaries = ImmutableSet.copyOf(Arrays.<String> asList("=", "+", "-", "/", "*", "^", "<",
 			">", "<=", ">=", "?", "!=", ":", ".", "where", "select", "collect", "first_with", "last_with",
 			"overlapping", "at_distance", "in", "inside", "among", "contains", "contains_any", "contains_all", "min_of",
 			"max_of", "with_max_of", "with_min_of", "of_species", "of_generic_species", "sort_by", "accumulate", "or",
 			"and", "at", "is", "group_by", "index_of", "last_index_of", "index_by", "count", "sort", "::", "as_map"));
 
+	/** The iterator. */
 	public final boolean isVarOrField, canBeConst, iterator;
+	
+	/** The semantic validator. */
 	public final IValidator semanticValidator;
+	
+	/** The return type. */
 	public final IType returnType;
+	
+	/** The helper. */
 	public final GamaGetter helper;
+	
+	/** The signature. */
 	public final Signature signature;
+	
+	/** The lazy. */
 	public final boolean[] lazy;
+	
+	/** The key type provider. */
 	public final int typeProvider, contentTypeProvider, keyTypeProvider;
+	
+	/** The expected content type. */
 	public final int[] expectedContentType;
+	
+	/** The content type content type provider. */
 	public final int contentTypeContentTypeProvider;
+	
+	/** The depends on. */
 	public final String[] depends_on;
 
+	/**
+	 * Creates the.
+	 *
+	 * @param context the context
+	 * @param currentEObject the current E object
+	 * @param exprs the exprs
+	 * @return the i expression
+	 */
 	public IExpression create(final IDescription context, final EObject currentEObject, final IExpression... exprs) {
 		try {
 			if (semanticValidator != null) {
@@ -112,6 +144,24 @@ public class OperatorProto extends AbstractProto implements IVarDescriptionUser 
 		}
 	}
 
+	/**
+	 * Instantiates a new operator proto.
+	 *
+	 * @param name the name
+	 * @param method the method
+	 * @param helper the helper
+	 * @param canBeConst the can be const
+	 * @param isVarOrField the is var or field
+	 * @param returnType the return type
+	 * @param signature the signature
+	 * @param lazy the lazy
+	 * @param typeProvider the type provider
+	 * @param contentTypeProvider the content type provider
+	 * @param keyTypeProvider the key type provider
+	 * @param contentTypeContentTypeProvider the content type content type provider
+	 * @param expectedContentType the expected content type
+	 * @param plugin the plugin
+	 */
 	public OperatorProto(final String name, final AnnotatedElement method, final GamaGetter helper,
 			final boolean canBeConst, final boolean isVarOrField, final IType returnType, final Signature signature,
 			final boolean lazy, final int typeProvider, final int contentTypeProvider, final int keyTypeProvider,
@@ -147,6 +197,12 @@ public class OperatorProto extends AbstractProto implements IVarDescriptionUser 
 		this.contentTypeContentTypeProvider = contentTypeContentTypeProvider;
 	}
 
+	/**
+	 * Compute lazyness.
+	 *
+	 * @param method the method
+	 * @return the boolean[]
+	 */
 	private boolean[] computeLazyness(final AnnotatedElement method) {
 		final boolean[] result = new boolean[signature.size()];
 		if (result.length == 0) return result;
@@ -163,6 +219,23 @@ public class OperatorProto extends AbstractProto implements IVarDescriptionUser 
 		return result;
 	}
 
+	/**
+	 * Instantiates a new operator proto.
+	 *
+	 * @param name the name
+	 * @param method the method
+	 * @param helper the helper
+	 * @param canBeConst the can be const
+	 * @param isVarOrField the is var or field
+	 * @param returnType the return type
+	 * @param signature the signature
+	 * @param lazy the lazy
+	 * @param typeProvider the type provider
+	 * @param contentTypeProvider the content type provider
+	 * @param keyTypeProvider the key type provider
+	 * @param expectedContentType the expected content type
+	 * @param plugin the plugin
+	 */
 	public OperatorProto(final String name, final AnnotatedElement method, final GamaGetter helper,
 			final boolean canBeConst, final boolean isVarOrField, /* final int doc, */final int returnType,
 			final Class signature, final boolean lazy, final int typeProvider, final int contentTypeProvider,
@@ -172,6 +245,12 @@ public class OperatorProto extends AbstractProto implements IVarDescriptionUser 
 				expectedContentType, plugin);
 	}
 
+	/**
+	 * Instantiates a new operator proto.
+	 *
+	 * @param op the op
+	 * @param gamaType the gama type
+	 */
 	private OperatorProto(final OperatorProto op, final IType gamaType) {
 		this(op.name, op.support, op.helper, op.canBeConst, op.isVarOrField, op.returnType, new Signature(gamaType),
 				true, op.typeProvider, op.contentTypeProvider, op.keyTypeProvider, op.contentTypeContentTypeProvider,
@@ -201,6 +280,12 @@ public class OperatorProto extends AbstractProto implements IVarDescriptionUser 
 		return getTitle();
 	}
 
+	/**
+	 * Verify expected types.
+	 *
+	 * @param context the context
+	 * @param rightType the right type
+	 */
 	public void verifyExpectedTypes(final IDescription context, final IType<?> rightType) {
 		if (expectedContentType == null || expectedContentType.length == 0 || context == null) return;
 		if (expectedContentType.length == 1 && iterator) {
@@ -222,6 +307,11 @@ public class OperatorProto extends AbstractProto implements IVarDescriptionUser 
 		return getName() + "(" + signature.toString() + ")";
 	}
 
+	/**
+	 * Gets the category.
+	 *
+	 * @return the category
+	 */
 	public String getCategory() {
 		if (support == null) return "Other";
 		final operator op = support.getAnnotation(operator.class);
@@ -244,7 +334,10 @@ public class OperatorProto extends AbstractProto implements IVarDescriptionUser 
 	}
 
 	/**
-	 * @return
+	 * Gets the pattern.
+	 *
+	 * @param withVariables the with variables
+	 * @return the pattern
 	 */
 	public String getPattern(final boolean withVariables) {
 		final int size = signature.size();
@@ -267,6 +360,12 @@ public class OperatorProto extends AbstractProto implements IVarDescriptionUser 
 	// meta.put(GamlProperties.OPERATORS, name);
 	// }
 
+	/**
+	 * Copy with signature.
+	 *
+	 * @param gamaType the gama type
+	 * @return the operator proto
+	 */
 	public OperatorProto copyWithSignature(final IType gamaType) {
 		return new OperatorProto(this, gamaType);
 	}

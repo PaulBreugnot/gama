@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ClientService.java, in gama.ext.network, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.network.tcp;
 
 import java.io.BufferedReader;
@@ -15,15 +25,37 @@ import gama.core.dev.utils.DEBUG;
 import gama.ext.network.common.IConnector;
 import gama.ext.network.common.socket.SocketService;
 
+/**
+ * The Class ClientService.
+ */
 public abstract class ClientService extends Thread implements SocketService {
+	
+	/** The socket. */
 	private Socket socket;
+	
+	/** The server. */
 	private final String server;
+	
+	/** The port. */
 	private final int port;
+	
+	/** The receiver. */
 	private BufferedReader receiver;
+	
+	/** The sender. */
 	private PrintWriter sender;
+	
+	/** The is alive. */
 	private boolean isAlive;
 	// private IConnector modelConnector;
 
+	/**
+	 * Instantiates a new client service.
+	 *
+	 * @param server the server
+	 * @param port the port
+	 * @param connector the connector
+	 */
 	public ClientService(final String server, final int port, final IConnector connector) {
 		// this.modelConnector = connector;
 		this.port = port;

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * GamaListCollectionWrapper.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.util;
 
 import java.util.ArrayList;
@@ -19,14 +29,22 @@ import gaml.types.Types;
  * particular) and some are really costly (listIterators).
  *
  * @author drogoul
- *
- * @param <E>
+ * @param <E> the element type
  */
 public class GamaListCollectionWrapper<E> extends ForwardingCollection<E> implements IList<E> {
 
+	/** The wrapped. */
 	final Collection<E> wrapped;
+	
+	/** The type. */
 	final IContainerType type;
 
+	/**
+	 * Instantiates a new gama list collection wrapper.
+	 *
+	 * @param wrapped the wrapped
+	 * @param contents the contents
+	 */
 	GamaListCollectionWrapper(final Collection<E> wrapped, final IType contents) {
 		this.type = Types.LIST.of(contents);
 		this.wrapped = wrapped;

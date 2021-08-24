@@ -1,26 +1,13 @@
-/*******************************************************************************
- * Copyright (c) 2013, Daniel Murphy
- * All rights reserved.
+/*******************************************************************************************************
+ *
+ * MathUtils.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
- * 	* Redistributions of source code must retain the above copyright notice,
- * 	  this list of conditions and the following disclaimer.
- * 	* Redistributions in binary form must reproduce the above copyright notice,
- * 	  this list of conditions and the following disclaimer in the documentation
- * 	  and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
- * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
- * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
- * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- ******************************************************************************/
+ ********************************************************************************************************/
 /*
  * JBox2D - A Java Port of Erin Catto's Box2D
  * 
@@ -52,23 +39,32 @@ import java.util.Random;
  * A few math methods that don't fit very well anywhere else.
  */
 public class MathUtils extends PlatformMathUtils {
+  
+  /** The Constant PI. */
   public static final float PI = (float) Math.PI;
+  
+  /** The Constant TWOPI. */
   public static final float TWOPI = (float) (Math.PI * 2);
+  
+  /** The Constant INV_PI. */
   public static final float INV_PI = 1f / PI;
+  
+  /** The Constant HALF_PI. */
   public static final float HALF_PI = PI / 2;
+  
+  /** The Constant QUARTER_PI. */
   public static final float QUARTER_PI = PI / 4;
+  
+  /** The Constant THREE_HALVES_PI. */
   public static final float THREE_HALVES_PI = TWOPI - HALF_PI;
 
-  /**
-   * Degrees to radians conversion factor
-   */
+  /** Degrees to radians conversion factor. */
   public static final float DEG2RAD = PI / 180;
 
-  /**
-   * Radians to degrees conversion factor
-   */
+  /** Radians to degrees conversion factor. */
   public static final float RAD2DEG = 180 / PI;
 
+  /** The Constant sinLUT. */
   public static final float[] sinLUT = new float[Settings.SINCOS_LUT_LENGTH];
 
   static {
@@ -77,6 +73,12 @@ public class MathUtils extends PlatformMathUtils {
     }
   }
 
+  /**
+   * Sin.
+   *
+   * @param x the x
+   * @return the float
+   */
   public static final float sin(float x) {
     if (Settings.SINCOS_LUT_ENABLED) {
       return sinLUT(x);
@@ -85,6 +87,12 @@ public class MathUtils extends PlatformMathUtils {
     }
   }
 
+  /**
+   * Sin LUT.
+   *
+   * @param x the x
+   * @return the float
+   */
   public static final float sinLUT(float x) {
     x %= TWOPI;
 
@@ -114,6 +122,12 @@ public class MathUtils extends PlatformMathUtils {
     }
   }
 
+  /**
+   * Cos.
+   *
+   * @param x the x
+   * @return the float
+   */
   public static final float cos(float x) {
     if (Settings.SINCOS_LUT_ENABLED) {
       return sinLUT(HALF_PI - x);
@@ -122,6 +136,12 @@ public class MathUtils extends PlatformMathUtils {
     }
   }
 
+  /**
+   * Abs.
+   *
+   * @param x the x
+   * @return the float
+   */
   public static final float abs(final float x) {
     if (Settings.FAST_ABS) {
       return x > 0 ? x : -x;
@@ -130,15 +150,33 @@ public class MathUtils extends PlatformMathUtils {
     }
   }
 
+  /**
+   * Fast abs.
+   *
+   * @param x the x
+   * @return the float
+   */
   public static final float fastAbs(final float x) {
     return x > 0 ? x : -x;
   }
 
+  /**
+   * Abs.
+   *
+   * @param x the x
+   * @return the int
+   */
   public static final int abs(int x) {
     int y = x >> 31;
     return (x ^ y) - y;
   }
 
+  /**
+   * Floor.
+   *
+   * @param x the x
+   * @return the int
+   */
   public static final int floor(final float x) {
     if (Settings.FAST_FLOOR) {
       return fastFloor(x);
@@ -147,6 +185,12 @@ public class MathUtils extends PlatformMathUtils {
     }
   }
 
+  /**
+   * Fast floor.
+   *
+   * @param x the x
+   * @return the int
+   */
   public static final int fastFloor(final float x) {
     int y = (int) x;
     if (x < y) {
@@ -155,6 +199,12 @@ public class MathUtils extends PlatformMathUtils {
     return y;
   }
 
+  /**
+   * Ceil.
+   *
+   * @param x the x
+   * @return the int
+   */
   public static final int ceil(final float x) {
     if (Settings.FAST_CEIL) {
       return fastCeil(x);
@@ -163,6 +213,12 @@ public class MathUtils extends PlatformMathUtils {
     }
   }
 
+  /**
+   * Fast ceil.
+   *
+   * @param x the x
+   * @return the int
+   */
   public static final int fastCeil(final float x) {
     int y = (int) x;
     if (x > y) {
@@ -171,6 +227,12 @@ public class MathUtils extends PlatformMathUtils {
     return y;
   }
 
+  /**
+   * Round.
+   *
+   * @param x the x
+   * @return the int
+   */
   public static final int round(final float x) {
     if (Settings.FAST_ROUND) {
       return floor(x + .5f);
@@ -181,8 +243,8 @@ public class MathUtils extends PlatformMathUtils {
 
   /**
    * Rounds up the value to the nearest higher power^2 value.
-   * 
-   * @param x
+   *
+   * @param x the x
    * @return power^2 value
    */
   public static final int ceilPowerOf2(int x) {
@@ -193,22 +255,60 @@ public class MathUtils extends PlatformMathUtils {
     return pow2;
   }
 
+  /**
+   * Max.
+   *
+   * @param a the a
+   * @param b the b
+   * @return the float
+   */
   public final static float max(final float a, final float b) {
     return a > b ? a : b;
   }
 
+  /**
+   * Max.
+   *
+   * @param a the a
+   * @param b the b
+   * @return the int
+   */
   public final static int max(final int a, final int b) {
     return a > b ? a : b;
   }
 
+  /**
+   * Min.
+   *
+   * @param a the a
+   * @param b the b
+   * @return the float
+   */
   public final static float min(final float a, final float b) {
     return a < b ? a : b;
   }
 
+  /**
+   * Min.
+   *
+   * @param a the a
+   * @param b the b
+   * @return the int
+   */
   public final static int min(final int a, final int b) {
     return a < b ? a : b;
   }
 
+  /**
+   * Map.
+   *
+   * @param val the val
+   * @param fromMin the from min
+   * @param fromMax the from max
+   * @param toMin the to min
+   * @param toMax the to max
+   * @return the float
+   */
   public final static float map(final float val, final float fromMin, final float fromMax,
       final float toMin, final float toMax) {
     final float mult = (val - fromMin) / (fromMax - fromMin);
@@ -216,11 +316,26 @@ public class MathUtils extends PlatformMathUtils {
     return res;
   }
 
-  /** Returns the closest value to 'a' that is in between 'low' and 'high' */
+  /**
+   *  Returns the closest value to 'a' that is in between 'low' and 'high'.
+   *
+   * @param a the a
+   * @param low the low
+   * @param high the high
+   * @return the float
+   */
   public final static float clamp(final float a, final float low, final float high) {
     return max(low, min(a, high));
   }
 
+  /**
+   * Clamp.
+   *
+   * @param a the a
+   * @param low the low
+   * @param high the high
+   * @return the vec 2
+   */
   public final static Vec2 clamp(final Vec2 a, final Vec2 low, final Vec2 high) {
     final Vec2 min = new Vec2();
     min.x = a.x < high.x ? a.x : high.x;
@@ -230,6 +345,14 @@ public class MathUtils extends PlatformMathUtils {
     return min;
   }
 
+  /**
+   * Clamp to out.
+   *
+   * @param a the a
+   * @param low the low
+   * @param high the high
+   * @param dest the dest
+   */
   public final static void clampToOut(final Vec2 a, final Vec2 low, final Vec2 high, final Vec2 dest) {
     dest.x = a.x < high.x ? a.x : high.x;
     dest.y = a.y < high.y ? a.y : high.y;
@@ -242,6 +365,9 @@ public class MathUtils extends PlatformMathUtils {
    * computed by a SWAR algorithm that recursively "folds" the upper bits into the lower bits. This
    * process yields a bit vector with the same most significant 1 as x, but all 1's below it. Adding
    * 1 to that value yields the next largest power of 2.
+   *
+   * @param x the x
+   * @return the int
    */
   public final static int nextPowerOfTwo(int x) {
     x |= x >> 1;
@@ -252,10 +378,23 @@ public class MathUtils extends PlatformMathUtils {
     return x + 1;
   }
 
+  /**
+   * Checks if is power of two.
+   *
+   * @param x the x
+   * @return true, if is power of two
+   */
   public final static boolean isPowerOfTwo(final int x) {
     return x > 0 && (x & x - 1) == 0;
   }
 
+  /**
+   * Pow.
+   *
+   * @param a the a
+   * @param b the b
+   * @return the float
+   */
   public static final float pow(float a, float b) {
     if (Settings.FAST_POW) {
       return fastPow(a, b);
@@ -264,6 +403,13 @@ public class MathUtils extends PlatformMathUtils {
     }
   }
 
+  /**
+   * Atan 2.
+   *
+   * @param y the y
+   * @param x the x
+   * @return the float
+   */
   public static final float atan2(final float y, final float x) {
     if (Settings.FAST_ATAN2) {
       return fastAtan2(y, x);
@@ -272,6 +418,13 @@ public class MathUtils extends PlatformMathUtils {
     }
   }
 
+  /**
+   * Fast atan 2.
+   *
+   * @param y the y
+   * @param x the x
+   * @return the float
+   */
   public static final float fastAtan2(float y, float x) {
     if (x == 0.0f) {
       if (y > 0.0f) return HALF_PI;
@@ -293,6 +446,12 @@ public class MathUtils extends PlatformMathUtils {
     return atan;
   }
 
+  /**
+   * Reduce angle.
+   *
+   * @param theta the theta
+   * @return the float
+   */
   public static final float reduceAngle(float theta) {
     theta %= TWOPI;
     if (abs(theta) > PI) {
@@ -304,24 +463,59 @@ public class MathUtils extends PlatformMathUtils {
     return theta;
   }
 
+  /**
+   * Random float.
+   *
+   * @param argLow the arg low
+   * @param argHigh the arg high
+   * @return the float
+   */
   public static final float randomFloat(float argLow, float argHigh) {
     return (float) Math.random() * (argHigh - argLow) + argLow;
   }
 
+  /**
+   * Random float.
+   *
+   * @param r the r
+   * @param argLow the arg low
+   * @param argHigh the arg high
+   * @return the float
+   */
   public static final float randomFloat(Random r, float argLow, float argHigh) {
     return r.nextFloat() * (argHigh - argLow) + argLow;
   }
 
+  /**
+   * Sqrt.
+   *
+   * @param x the x
+   * @return the float
+   */
   public static final float sqrt(float x) {
     return (float) StrictMath.sqrt(x);
   }
 
+  /**
+   * Distance squared.
+   *
+   * @param v1 the v 1
+   * @param v2 the v 2
+   * @return the float
+   */
   public final static float distanceSquared(Vec2 v1, Vec2 v2) {
     float dx = (v1.x - v2.x);
     float dy = (v1.y - v2.y);
     return dx * dx + dy * dy;
   }
 
+  /**
+   * Distance.
+   *
+   * @param v1 the v 1
+   * @param v2 the v 2
+   * @return the float
+   */
   public final static float distance(Vec2 v1, Vec2 v2) {
     return sqrt(distanceSquared(v1, v2));
   }

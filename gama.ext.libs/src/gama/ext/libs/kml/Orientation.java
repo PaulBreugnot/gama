@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Orientation.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -116,6 +126,8 @@ public class Orientation
      */
     @XmlElement(defaultValue = "0.0")
     protected double roll;
+    
+    /** The orientation simple extension. */
     @XmlElement(name = "OrientationSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> orientationSimpleExtension;
@@ -140,85 +152,84 @@ public class Orientation
     @XmlElement(name = "OrientationObjectExtensionGroup")
     protected List<AbstractObject> orientationObjectExtension;
 
+    /**
+     * Instantiates a new orientation.
+     */
     public Orientation() {
         super();
     }
 
     /**
-     * @see heading
-     * 
-     * @return
-     *     possible object is
+     * Gets the heading.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see heading
      */
     public double getHeading() {
         return heading;
     }
 
     /**
-     * @see heading
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the heading.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see heading
      */
     public void setHeading(double value) {
         this.heading = value;
     }
 
     /**
-     * @see tilt
-     * 
-     * @return
-     *     possible object is
+     * Gets the tilt.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see tilt
      */
     public double getTilt() {
         return tilt;
     }
 
     /**
-     * @see tilt
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the tilt.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see tilt
      */
     public void setTilt(double value) {
         this.tilt = value;
     }
 
     /**
-     * @see roll
-     * 
-     * @return
-     *     possible object is
+     * Gets the roll.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see roll
      */
     public double getRoll() {
         return roll;
     }
 
     /**
-     * @see roll
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the roll.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see roll
      */
     public void setRoll(double value) {
         this.roll = value;
     }
 
     /**
+     * Gets the orientation simple extension.
+     *
+     * @return the orientation simple extension
      * @see orientationSimpleExtension
-     * 
      */
     public List<Object> getOrientationSimpleExtension() {
         if (orientationSimpleExtension == null) {
@@ -228,8 +239,10 @@ public class Orientation
     }
 
     /**
+     * Gets the orientation object extension.
+     *
+     * @return the orientation object extension
      * @see orientationObjectExtension
-     * 
      */
     public List<AbstractObject> getOrientationObjectExtension() {
         if (orientationObjectExtension == null) {
@@ -300,21 +313,20 @@ public class Orientation
     }
 
     /**
+     * Sets the orientation simple extension.
+     *
+     * @param orientationSimpleExtension the new orientation simple extension
      * @see orientationSimpleExtension
-     * 
-     * @param orientationSimpleExtension
      */
     public void setOrientationSimpleExtension(final List<Object> orientationSimpleExtension) {
         this.orientationSimpleExtension = orientationSimpleExtension;
     }
 
     /**
-     * add a value to the orientationSimpleExtension property collection
-     * 
-     * @param orientationSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the orientationSimpleExtension property collection.
+     *
+     * @param orientationSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Orientation addToOrientationSimpleExtension(final Object orientationSimpleExtension) {
         this.getOrientationSimpleExtension().add(orientationSimpleExtension);
@@ -322,21 +334,20 @@ public class Orientation
     }
 
     /**
+     * Sets the orientation object extension.
+     *
+     * @param orientationObjectExtension the new orientation object extension
      * @see orientationObjectExtension
-     * 
-     * @param orientationObjectExtension
      */
     public void setOrientationObjectExtension(final List<AbstractObject> orientationObjectExtension) {
         this.orientationObjectExtension = orientationObjectExtension;
     }
 
     /**
-     * add a value to the orientationObjectExtension property collection
-     * 
-     * @param orientationObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the orientationObjectExtension property collection.
+     *
+     * @param orientationObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Orientation addToOrientationObjectExtension(final AbstractObject orientationObjectExtension) {
         this.getOrientationObjectExtension().add(orientationObjectExtension);
@@ -361,11 +372,11 @@ public class Orientation
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param heading     required parameter
+     * @return the orientation
      * @see #setHeading(double)
-     * 
-     * @param heading
-     *     required parameter
      */
     public Orientation withHeading(final double heading) {
         this.setHeading(heading);
@@ -373,11 +384,11 @@ public class Orientation
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param tilt     required parameter
+     * @return the orientation
      * @see #setTilt(double)
-     * 
-     * @param tilt
-     *     required parameter
      */
     public Orientation withTilt(final double tilt) {
         this.setTilt(tilt);
@@ -385,11 +396,11 @@ public class Orientation
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param roll     required parameter
+     * @return the orientation
      * @see #setRoll(double)
-     * 
-     * @param roll
-     *     required parameter
      */
     public Orientation withRoll(final double roll) {
         this.setRoll(roll);
@@ -397,11 +408,11 @@ public class Orientation
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param orientationSimpleExtension     required parameter
+     * @return the orientation
      * @see #setOrientationSimpleExtension(List<Object>)
-     * 
-     * @param orientationSimpleExtension
-     *     required parameter
      */
     public Orientation withOrientationSimpleExtension(final List<Object> orientationSimpleExtension) {
         this.setOrientationSimpleExtension(orientationSimpleExtension);
@@ -409,11 +420,11 @@ public class Orientation
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param orientationObjectExtension     required parameter
+     * @return the orientation
      * @see #setOrientationObjectExtension(List<AbstractObject>)
-     * 
-     * @param orientationObjectExtension
-     *     required parameter
      */
     public Orientation withOrientationObjectExtension(final List<AbstractObject> orientationObjectExtension) {
         this.setOrientationObjectExtension(orientationObjectExtension);

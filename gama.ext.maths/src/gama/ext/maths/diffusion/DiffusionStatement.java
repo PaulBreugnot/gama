@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'DiffusionStatement.java, in plugin ummisco.gaml.extensions.maths, is part of the source code of the GAMA modeling
- * and simulation platform. (v. 1.8.1)
+ * DiffusionStatement.java, in gama.ext.maths, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.maths.diffusion;
 
 import java.util.Arrays;
@@ -44,6 +43,9 @@ import gaml.species.ISpecies;
 import gaml.statements.AbstractStatement;
 import gaml.types.IType;
 
+/**
+ * The Class DiffusionStatement.
+ */
 @facets (
 		value = { @facet (
 				name = IKeyword.VAR,
@@ -143,6 +145,9 @@ import gaml.types.IType;
 								isExecutable = false) }) })
 public class DiffusionStatement extends AbstractStatement {
 
+	/**
+	 * The Class DiffusionValidator.
+	 */
 	public static class DiffusionValidator implements IDescriptionValidator<StatementDescription> {
 
 		@Override
@@ -192,13 +197,31 @@ public class DiffusionStatement extends AbstractStatement {
 		}
 	}
 
+	/**
+	 * The Class DiffusionData.
+	 */
 	private class DiffusionData {
+		
+		/** The terrain. */
 		IDiffusionTarget terrain;
+		
+		/** The variable name. */
 		String variableName;
+		
+		/** The min value. */
 		double minValue;
+		
+		/** The avoid mask. */
 		boolean initialized, useConvolution, isGradient, avoidMask;
+		
+		/** The nb neighbors. */
 		int cycleLength, nbNeighbors;
 
+		/**
+		 * Instantiates a new diffusion data.
+		 *
+		 * @param scope the scope
+		 */
 		private DiffusionData(final IScope scope) {
 			if (initialized) return;
 			initialized = true;
@@ -224,8 +247,14 @@ public class DiffusionStatement extends AbstractStatement {
 		}
 	}
 
+	/** The data supplier. */
 	SimulationLocal<DiffusionData> dataSupplier = SimulationLocal.withInitial(DiffusionData::new);
 
+	/**
+	 * Instantiates a new diffusion statement.
+	 *
+	 * @param desc the desc
+	 */
 	public DiffusionStatement(final IDescription desc) {
 		super(desc);
 	}
@@ -258,6 +287,13 @@ public class DiffusionStatement extends AbstractStatement {
 		return null;
 	}
 
+	/**
+	 * Translate matrix.
+	 *
+	 * @param scope the scope
+	 * @param mm the mm
+	 * @return the double[][]
+	 */
 	public double[][] translateMatrix(final IScope scope, final IMatrix<?> mm) {
 		if (mm == null) return null;
 		final int rows = mm.getRows(scope);
@@ -271,6 +307,14 @@ public class DiffusionStatement extends AbstractStatement {
 		return res;
 	}
 
+	/**
+	 * Compute matrix.
+	 *
+	 * @param basicMatrix the basic matrix
+	 * @param numberOfIteration the number of iteration
+	 * @param is_gradient the is gradient
+	 * @return the double[][]
+	 */
 	private double[][] computeMatrix(final double[][] basicMatrix, final int numberOfIteration,
 			final boolean is_gradient) {
 		double[][] input_mat_diffu = basicMatrix;
@@ -300,6 +344,13 @@ public class DiffusionStatement extends AbstractStatement {
 		return input_mat_diffu;
 	}
 
+	/**
+	 * Compute mask.
+	 *
+	 * @param scope the scope
+	 * @param mm the mm
+	 * @return the double[][]
+	 */
 	private double[][] computeMask(final IScope scope, final IMatrix<?> mm) {
 		double[][] mask = null;
 
@@ -342,6 +393,12 @@ public class DiffusionStatement extends AbstractStatement {
 		return mask;
 	}
 
+	/**
+	 * Compute diffusion matrix.
+	 *
+	 * @param scope the scope
+	 * @return the double[][]
+	 */
 	public double[][] computeDiffusionMatrix(final IScope scope) {
 		double[][] mat_diffu;
 		double proportion = Cast.asFloat(scope, getFacetValue(scope, IKeyword.PROPORTION));

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Vec2.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -15,10 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  * </p>
  * 
  * See Also: 
- * See <hotSpot> in <IconStyle>, <ScreenOverlay>
- * 
- * 
- * 
+ * See <hotSpot> in <IconStyle>, <ScreenOverlay>.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "vec2Type")
@@ -37,80 +44,72 @@ public class Vec2 implements Cloneable
      */
     @XmlAttribute(name = "x")
     protected double x;
+    
+    /** The y. */
     @XmlAttribute(name = "y")
     protected double y;
-    /**
-     * Units
-     * <p>
-     * fraction, pixels, insetPixels 
-     * </p>
-     * 
-     * See Also: 
-     * See <hotSpot> in <IconStyle>, <ScreenOverlay>
-     * 
-     * 
-     * 
-     */
+    
+    /** Units <p> fraction, pixels, insetPixels  </p>  See Also:  See <hotSpot> in <IconStyle>, <ScreenOverlay>. */
     @XmlAttribute(name = "xunits")
     protected Units xunits;
-    /**
-     * Units
-     * <p>
-     * fraction, pixels, insetPixels 
-     * </p>
-     * 
-     * See Also: 
-     * See <hotSpot> in <IconStyle>, <ScreenOverlay>
-     * 
-     * 
-     * 
-     */
+    
+    /** Units <p> fraction, pixels, insetPixels  </p>  See Also:  See <hotSpot> in <IconStyle>, <ScreenOverlay>. */
     @XmlAttribute(name = "yunits")
     protected Units yunits;
 
+    /**
+     * Instantiates a new vec 2.
+     */
     public Vec2() {
         super();
     }
 
     /**
+     * Gets the x.
+     *
+     * @return the x
      * @see x
-     * 
      */
     public double getX() {
         return x;
     }
 
     /**
+     * Sets the x.
+     *
+     * @param value the new x
      * @see x
-     * 
      */
     public void setX(double value) {
         this.x = value;
     }
 
     /**
+     * Gets the y.
+     *
+     * @return the y
      * @see y
-     * 
      */
     public double getY() {
         return y;
     }
 
     /**
+     * Sets the y.
+     *
+     * @param value the new y
      * @see y
-     * 
      */
     public void setY(double value) {
         this.y = value;
     }
 
     /**
-     * @see xunits
-     * 
-     * @return
-     *     possible object is
+     * Gets the xunits.
+     *
+     * @return     possible object is
      *     {@link Units}
-     *     
+     * @see xunits
      */
     public Units getXunits() {
         if (xunits == null) {
@@ -121,24 +120,22 @@ public class Vec2 implements Cloneable
     }
 
     /**
-     * @see xunits
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the xunits.
+     *
+     * @param value     allowed object is
      *     {@link Units}
-     *     
+     * @see xunits
      */
     public void setXunits(Units value) {
         this.xunits = value;
     }
 
     /**
-     * @see yunits
-     * 
-     * @return
-     *     possible object is
+     * Gets the yunits.
+     *
+     * @return     possible object is
      *     {@link Units}
-     *     
+     * @see yunits
      */
     public Units getYunits() {
         if (yunits == null) {
@@ -149,12 +146,11 @@ public class Vec2 implements Cloneable
     }
 
     /**
-     * @see yunits
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the yunits.
+     *
+     * @param value     allowed object is
      *     {@link Units}
-     *     
+     * @see yunits
      */
     public void setYunits(Units value) {
         this.yunits = value;
@@ -214,11 +210,11 @@ public class Vec2 implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param x     required parameter
+     * @return the vec 2
      * @see #setX(double)
-     * 
-     * @param x
-     *     required parameter
      */
     public Vec2 withX(final double x) {
         this.setX(x);
@@ -226,11 +222,11 @@ public class Vec2 implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param y     required parameter
+     * @return the vec 2
      * @see #setY(double)
-     * 
-     * @param y
-     *     required parameter
      */
     public Vec2 withY(final double y) {
         this.setY(y);
@@ -238,11 +234,11 @@ public class Vec2 implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param xunits     required parameter
+     * @return the vec 2
      * @see #setXunits(Units)
-     * 
-     * @param xunits
-     *     required parameter
      */
     public Vec2 withXunits(final Units xunits) {
         this.setXunits(xunits);
@@ -250,11 +246,11 @@ public class Vec2 implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param yunits     required parameter
+     * @return the vec 2
      * @see #setYunits(Units)
-     * 
-     * @param yunits
-     *     required parameter
      */
     public Vec2 withYunits(final Units yunits) {
         this.setYunits(yunits);

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.types.GamaFileType.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * GamaFileType.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.types;
 
@@ -50,20 +50,29 @@ import gaml.operators.Cast;
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class GamaFileType extends GamaContainerType<IGamaFile> {
 
+	/** The extensions to full type. */
 	public static Map<String, ParametricFileType> extensionsToFullType = GamaMapFactory.createUnordered();
+	
+	/** The aliases to full type. */
 	static Map<String, ParametricFileType> aliasesToFullType = GamaMapFactory.createUnordered();
+	
+	/** The aliases to extensions. */
 	static Multimap<String, String> aliasesToExtensions = HashMultimap.<String, String> create();
+	
+	/** The current file type index. */
 	static int currentFileTypeIndex = 1000;
 
 	/**
 	 * Adds a new file type definition.
 	 *
-	 * @param string
-	 *            a string representing the type of the file in GAML
-	 * @param clazz
-	 *            the class that supports this file type
-	 * @param s
-	 *            an array of allowed extensions for files of this type
+	 * @param alias the alias
+	 * @param bufferType the buffer type
+	 * @param keyType the key type
+	 * @param contentType the content type
+	 * @param clazz            the class that supports this file type
+	 * @param builder the builder
+	 * @param extensions the extensions
+	 * @param plugin the plugin
 	 */
 	public static void addFileTypeDefinition(final String alias, final IType<?> bufferType, final IType<?> keyType,
 			final IType<?> contentType, final Class clazz, final GamaGetter.Unary<IGamaFile<?, ?>> builder,
@@ -92,12 +101,24 @@ public class GamaFileType extends GamaContainerType<IGamaFile> {
 
 	}
 
+	/**
+	 * Gets the type from alias.
+	 *
+	 * @param alias the alias
+	 * @return the type from alias
+	 */
 	public static ParametricFileType getTypeFromAlias(final String alias) {
 		final ParametricFileType ft = aliasesToFullType.get(alias);
 		if (ft == null) { return ParametricFileType.getGenericInstance(); }
 		return ft;
 	}
 
+	/**
+	 * Gets the type from file name.
+	 *
+	 * @param fileName the file name
+	 * @return the type from file name
+	 */
 	public static ParametricFileType getTypeFromFileName(final String fileName) {
 		final IPath p = new Path(fileName);
 		final String ext = p.getFileExtension();
@@ -111,10 +132,8 @@ public class GamaFileType extends GamaContainerType<IGamaFile> {
 	/**
 	 * Verifies if the path has the correct extension with respect to the type of the file.
 	 *
-	 * @param type
-	 *            a string representing the type of the file
-	 * @param path
-	 *            an absolute or relative file path
+	 * @param alias the alias
+	 * @param path            an absolute or relative file path
 	 * @return true if the extension of the path belongs to the extensions of the file type, false if the type is
 	 *         unknown or if the extension does not belong to its extensions
 	 */
@@ -125,12 +144,28 @@ public class GamaFileType extends GamaContainerType<IGamaFile> {
 		return ft.equals(ft2);
 	}
 
+	/**
+	 * Creates the file.
+	 *
+	 * @param scope the scope
+	 * @param path the path
+	 * @param contents the contents
+	 * @return the i gama file
+	 */
 	public static IGamaFile createFile(final IScope scope, final String path, final IModifiableContainer contents) {
 		if (new File(path).isDirectory()) { return new GamaFolderFile(scope, path); }
 		final ParametricFileType ft = getTypeFromFileName(path);
 		return ft.createFile(scope, path, contents);
 	}
 
+	/**
+	 * Creates the image file.
+	 *
+	 * @param scope the scope
+	 * @param path the path
+	 * @param contents the contents
+	 * @return the gama image file
+	 */
 	public static GamaImageFile createImageFile(final IScope scope, final String path,
 			final IModifiableContainer contents) {
 		if (new File(path).isDirectory()) { return null; }

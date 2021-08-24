@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'SwitchButton.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * SwitchButton.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.controls;
 
 import static gama.ui.base.resources.GamaColors.get;
@@ -44,54 +43,34 @@ import gama.ui.base.resources.IGamaColors;
  */
 public class SwitchButton extends Canvas {
 
-	/**
-	 * Selection
-	 */
+	/** Selection. */
 	boolean selection;
 
-	/**
-	 * Text displayed for the selected value (default = "True")
-	 */
+	/** Text displayed for the selected value (default = "True"). */
 	private String trueText;
 
-	/**
-	 * Text displayed for the unselected value (default = "False")
-	 */
+	/** Text displayed for the unselected value (default = "False"). */
 	private String falseText;
 
-	/**
-	 * Text corresponding to the button (default is "")
-	 */
+	/** Text corresponding to the button (default is ""). */
 	private String text;
 
-	/**
-	 * Colors when the button is selected
-	 */
+	/** Colors when the button is selected. */
 	private final Color trueBackgroundColor;
 
-	/**
-	 * Colors when the button is not selected
-	 */
+	/** Colors when the button is not selected. */
 	private final Color falseBackgroundColor;
 
-	/**
-	 * Gap between the button and the text (default value is 5)
-	 */
+	/** Gap between the button and the text (default value is 5). */
 	private final int gap;
 
-	/**
-	 * Margin inside the button
-	 */
+	/** Margin inside the button. */
 	private static final int INSIDE_BUTTON_MARGIN = 3;
 
-	/**
-	 * Graphical context for this button
-	 */
+	/** Graphical context for this button. */
 	private GC gc;
 
-	/**
-	 * List of selection listeners
-	 */
+	/** List of selection listeners. */
 	private final Set<SelectionListener> listOfSelectionListeners;
 
 	/**
@@ -104,10 +83,11 @@ public class SwitchButton extends Canvas {
 	 * the style constants that are applicable to the class. Style bits are also inherited from superclasses.
 	 * </p>
 	 *
-	 * @param parent
-	 *            a composite control which will be the parent of the new instance (cannot be null)
-	 * @param style
-	 *            the style of control to construct
+	 * @param parent            a composite control which will be the parent of the new instance (cannot be null)
+	 * @param style            the style of control to construct
+	 * @param trueText the true text
+	 * @param falseText the false text
+	 * @param text the text
 	 */
 	public SwitchButton(final Composite parent, final int style, final String trueText, final String falseText,
 			final String text) {
@@ -117,6 +97,14 @@ public class SwitchButton extends Canvas {
 		this.text = text;
 	}
 
+	/**
+	 * Instantiates a new switch button.
+	 *
+	 * @param parent the parent
+	 * @param style the style
+	 * @param selectedBackgroundColor the selected background color
+	 * @param unselectedBackgroundColor the unselected background color
+	 */
 	public SwitchButton(final Composite parent, final int style, final Color selectedBackgroundColor,
 			final Color unselectedBackgroundColor) {
 		super(parent, style | SWT.DOUBLE_BUFFERED);
@@ -148,10 +136,9 @@ public class SwitchButton extends Canvas {
 	}
 
 	/**
-	 * Paint the widget
+	 * Paint the widget.
 	 *
-	 * @param event
-	 *            paint event
+	 * @param event            paint event
 	 */
 	private void onPaint(final PaintEvent event) {
 		final var rect = this.getClientArea();
@@ -169,10 +156,9 @@ public class SwitchButton extends Canvas {
 	}
 
 	/**
-	 * Draw the switch button
+	 * Draw the switch button.
 	 *
-	 * @param buttonSize
-	 *            size of the button
+	 * @param buttonSize            size of the button
 	 */
 	private void drawSwitchButton(final Point buttonSize) {
 		Color backgroundColor = getParent().getBackground();
@@ -190,6 +176,8 @@ public class SwitchButton extends Canvas {
 	}
 
 	/**
+	 * Compute button size.
+	 *
 	 * @return the button size
 	 */
 	Point computeButtonSize() {
@@ -205,10 +193,9 @@ public class SwitchButton extends Canvas {
 	}
 
 	/**
-	 * Draws the text besides the button
+	 * Draws the text besides the button.
 	 *
-	 * @param buttonSize
-	 *            whole size of the button
+	 * @param buttonSize            whole size of the button
 	 */
 	void drawText(final Point buttonSize) {
 		this.gc.setForeground(this.selection ? this.trueBackgroundColor : this.falseBackgroundColor);
@@ -220,10 +207,9 @@ public class SwitchButton extends Canvas {
 	}
 
 	/**
-	 * Fire the selection listeners
+	 * Fire the selection listeners.
 	 *
-	 * @param mouseEvent
-	 *            mouse event
+	 * @param mouseEvent            mouse event
 	 * @return true if the selection could be changed, false otherwise
 	 */
 	boolean fireSelectionListeners(final MouseEvent mouseEvent) {
@@ -290,6 +276,8 @@ public class SwitchButton extends Canvas {
 	}
 
 	/**
+	 * Gets the selection.
+	 *
 	 * @return the selection state of the button
 	 */
 	public boolean getSelection() {
@@ -297,14 +285,20 @@ public class SwitchButton extends Canvas {
 	}
 
 	/**
-	 * @param selection
-	 *            the selection state of the button
+	 * Sets the selection.
+	 *
+	 * @param selection            the selection state of the button
 	 */
 	public void setSelection(final boolean selection) {
 		this.selection = selection;
 		redraw();
 	}
 
+	/**
+	 * Gets the text.
+	 *
+	 * @return the text
+	 */
 	public String getText() {
 		return this.text;
 	}

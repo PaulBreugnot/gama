@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.layers.SpeciesLayer.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * SpeciesLayer.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -27,13 +27,19 @@ import gaml.statements.AspectStatement;
 import gaml.statements.IExecutable;
 
 /**
- * Written by drogoul Modified on 23 août 2008
+ * Written by drogoul Modified on 23 août 2008.
  */
 
 public class SpeciesLayer extends AgentLayer {
 
+	/** The has micro species layers. */
 	final boolean hasMicroSpeciesLayers;
 
+	/**
+	 * Instantiates a new species layer.
+	 *
+	 * @param layer the layer
+	 */
 	public SpeciesLayer(final ILayerStatement layer) {
 		super(layer);
 		hasMicroSpeciesLayers = getDefinition().getMicroSpeciesLayers() != null;
@@ -73,6 +79,15 @@ public class SpeciesLayer extends AgentLayer {
 		}
 	}
 
+	/**
+	 * Draw population.
+	 *
+	 * @param scope the scope
+	 * @param g the g
+	 * @param aspect the aspect
+	 * @param population the population
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	private void drawPopulation(final IScope scope, final IGraphics g, final IExecutable aspect,
 			final IPopulation<? extends IAgent> population) throws GamaRuntimeException {
 

@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'BuiltinGlobalScopeProvider.java, in plugin msi.gama.lang.gaml, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * BuiltinGlobalScopeProvider.java, in gama.core.lang, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 // (c) Vincent Simonet, 2011
 package gama.core.lang.scoping;
 
@@ -83,19 +82,40 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 		DEBUG.ON();
 	}
 
+	/** The Constant EMPTY_MAP. */
 	static final IMap EMPTY_MAP = GamaMapFactory.createUnordered();
+	
+	/** The global scopes. */
 	private static IMap<EClass, TerminalMapBasedScope> GLOBAL_SCOPES = GamaMapFactory.createUnordered();
+	
+	/** The all names. */
 	private static Set<QualifiedName> allNames;
+	
+	/** The resources. */
 	private static IMap<EClass, Resource> resources;
+	
+	/** The descriptions. */
 	private static IMap<EClass, IMap<QualifiedName, IEObjectDescription>> descriptions = null;
+	
+	/** The e equation. */
 	private static EClass eType, eVar, eSkill, eAction, eUnit, eEquation;
 
+	/** The rs. */
 	static XtextResourceSet rs = new XtextResourceSet();
 
+	/**
+	 * The Class ImmutableMap.
+	 */
 	public static class ImmutableMap implements Map<String, String> {
 
+		/** The contents. */
 		private final String[] contents;
 
+		/**
+		 * Instantiates a new immutable map.
+		 *
+		 * @param strings the strings
+		 */
 		public ImmutableMap(final String... strings) {
 			contents = strings == null ? new String[0] : strings;
 		}
@@ -277,12 +297,21 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 
 	}
 
+	/**
+	 * Creates the resource.
+	 *
+	 * @param uri the uri
+	 * @return the resource
+	 */
 	static Resource createResource(final String uri) {
 		Resource r = rs.getResource(URI.createURI(uri, false), false);
 		if (r == null) { r = rs.createResource(URI.createURI(uri, false)); }
 		return r;
 	}
 
+	/**
+	 * Inits the resources.
+	 */
 	static void initResources() {
 		eType = GamlPackage.eINSTANCE.getTypeDefinition();
 		eVar = GamlPackage.eINSTANCE.getVarDefinition();
@@ -307,10 +336,23 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 		allNames = new HashSet<>();
 	}
 
+	/**
+	 * Contains.
+	 *
+	 * @param name the name
+	 * @return true, if successful
+	 */
 	public boolean contains(final QualifiedName name) {
 		return allNames.contains(name);
 	}
 
+	/**
+	 * Adds the.
+	 *
+	 * @param eClass the e class
+	 * @param t the t
+	 * @return the gaml definition
+	 */
 	static GamlDefinition add(final EClass eClass, final String t) {
 		final GamlDefinition stub = (GamlDefinition) EGaml.getInstance().getFactory().create(eClass);
 		stub.setName(t);
@@ -321,6 +363,13 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 		return stub;
 	}
 
+	/**
+	 * Adds the.
+	 *
+	 * @param eClass the e class
+	 * @param t the t
+	 * @param o the o
+	 */
 	static void add(final EClass eClass, final String t, final OperatorProto o) {
 		final GamlDefinition stub = (GamlDefinition) EGaml.getInstance().getFactory().create(eClass);
 		stub.setName(t);
@@ -340,6 +389,13 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 
 	}
 
+	/**
+	 * Adds the var.
+	 *
+	 * @param t the t
+	 * @param o the o
+	 * @param keyword the keyword
+	 */
 	public static void addVar(final String t, final IGamlDescription o, final String keyword) {
 		final GamlDefinition stub = (GamlDefinition) EGaml.getInstance().getFactory().create(eVar);
 		// TODO Add the fields definition here
@@ -359,6 +415,13 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 
 	}
 
+	/**
+	 * Adds the action.
+	 *
+	 * @param eClass the e class
+	 * @param t the t
+	 * @param o the o
+	 */
 	static void addAction(final EClass eClass, final String t, final IGamlDescription o) {
 		final GamlDefinition stub = (GamlDefinition) EGaml.getInstance().getFactory().create(eClass);
 		// TODO Add the fields definition here
@@ -379,6 +442,12 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 
 	}
 
+	/**
+	 * Adds the unit.
+	 *
+	 * @param eClass the e class
+	 * @param t the t
+	 */
 	static void addUnit(final EClass eClass, final String t) {
 		final GamlDefinition stub = (GamlDefinition) EGaml.getInstance().getFactory().create(eClass);
 		stub.setName(t);
@@ -391,6 +460,13 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 
 	}
 
+	/**
+	 * Adds the type.
+	 *
+	 * @param eClass the e class
+	 * @param t the t
+	 * @param type the type
+	 */
 	static void addType(final EClass eClass, final String t, final IType type) {
 		final GamlDefinition stub = (GamlDefinition) EGaml.getInstance().getFactory().create(eClass);
 		// TODO Add the fields definition here
@@ -405,12 +481,21 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 
 	/**
 	 * Get the object descriptions for the built-in types.
+	 *
+	 * @param eClass the e class
+	 * @return the e object descriptions
 	 */
 	public IMap<QualifiedName, IEObjectDescription> getEObjectDescriptions(final EClass eClass) {
 		createDescriptions();
 		return descriptions.get(eClass);
 	}
 
+	/**
+	 * Gets the global scope.
+	 *
+	 * @param eClass the e class
+	 * @return the global scope
+	 */
 	public TerminalMapBasedScope getGlobalScope(final EClass eClass) {
 		if (GLOBAL_SCOPES.containsKey(eClass)) return GLOBAL_SCOPES.get(eClass);
 		IMap<QualifiedName, IEObjectDescription> descriptions = getEObjectDescriptions(eClass);
@@ -420,6 +505,9 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 		return result;
 	}
 
+	/**
+	 * Creates the descriptions.
+	 */
 	public static void createDescriptions() {
 		if (descriptions == null) {
 			initResources();
@@ -466,6 +554,13 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 		}
 	}
 
+	/**
+	 * Gets the all imported UR is.
+	 *
+	 * @param resource the resource
+	 * @param set the set
+	 * @return the all imported UR is
+	 */
 	public Map<URI, String> getAllImportedURIs(final Resource resource, final ResourceSet set) {
 		return GamlResourceIndexer.allLabeledImportsOf((GamlResource) resource);
 	}
@@ -491,6 +586,12 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 		return scope;
 	}
 
+	/**
+	 * Gets the var.
+	 *
+	 * @param name the name
+	 * @return the var
+	 */
 	public static IEObjectDescription getVar(final String name) {
 		if (name == null) return null;
 		return descriptions.get(eVar).get(QualifiedName.create(name));

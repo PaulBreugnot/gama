@@ -1,4 +1,13 @@
-// This software is released into the Public Domain. See copying.txt for details.
+/*******************************************************************************************************
+ *
+ * BoundsElementProcessor.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.osmosis;
 
 import org.xml.sax.Attributes;
@@ -11,7 +20,10 @@ import org.xml.sax.Attributes;
  */
 public class BoundsElementProcessor extends SourceElementProcessor {
 
+	/** The bound. */
 	private Bound bound;
+	
+	/** The default origin. */
 	private final String defaultOrigin;
 
 	/**
@@ -50,6 +62,13 @@ public class BoundsElementProcessor extends SourceElementProcessor {
 		bound = new Bound(right, left, top, bottom, origin);
 	}
 
+	/**
+	 * Gets the required double value.
+	 *
+	 * @param attributes the attributes
+	 * @param attributeName the attribute name
+	 * @return the required double value
+	 */
 	private double getRequiredDoubleValue(final Attributes attributes, final String attributeName) {
 		final String valueString = attributes.getValue(attributeName);
 

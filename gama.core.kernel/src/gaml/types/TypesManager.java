@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.types.TypesManager.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * TypesManager.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.types;
 
@@ -21,13 +21,26 @@ import gaml.descriptions.ModelDescription;
 import gaml.descriptions.SpeciesDescription;
 import gaml.descriptions.TypeDescription;
 
+/**
+ * The Class TypesManager.
+ */
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class TypesManager implements IDescription.DescriptionVisitor<SpeciesDescription>, ITypesManager {
 
+	/** The current index. */
 	public static int CURRENT_INDEX = IType.SPECIES_TYPES;
+	
+	/** The parent. */
 	private TypesManager parent;
+	
+	/** The types. */
 	private final ConcurrentHashMap<String, IType<?>> types = new ConcurrentHashMap(5, 0.75f);
 
+	/**
+	 * Instantiates a new types manager.
+	 *
+	 * @param types2 the types 2
+	 */
 	public TypesManager(final ITypesManager types2) {
 		setParent(types2);
 	}
@@ -91,6 +104,13 @@ public class TypesManager implements IDescription.DescriptionVisitor<SpeciesDesc
 		return addType(typeInstance, support);
 	}
 
+	/**
+	 * Adds the species type.
+	 *
+	 * @param t the t
+	 * @param clazz the clazz
+	 * @return the i type<? extends I agent>
+	 */
 	private IType<? extends IAgent> addSpeciesType(final IType<? extends IAgent> t,
 			final Class<? extends IAgent> clazz) {
 		final int i = t.id();
@@ -104,6 +124,13 @@ public class TypesManager implements IDescription.DescriptionVisitor<SpeciesDesc
 		return t;
 	}
 
+	/**
+	 * Adds the type.
+	 *
+	 * @param t the t
+	 * @param support the support
+	 * @return the i type
+	 */
 	private IType addType(final IType t, final Class support) {
 		final int i = t.id();
 		final String name = t.toString();

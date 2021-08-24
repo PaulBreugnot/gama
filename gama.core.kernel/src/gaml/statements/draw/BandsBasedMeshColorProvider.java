@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * BandsBasedMeshColorProvider.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gaml.statements.draw;
 
 import java.util.List;
@@ -15,9 +25,17 @@ import gama.util.matrix.IField;
  */
 public class BandsBasedMeshColorProvider implements IMeshColorProvider {
 
+	/** The components. */
 	private final double[] components;
+	
+	/** The size. */
 	private final int size;
 
+	/**
+	 * Instantiates a new bands based mesh color provider.
+	 *
+	 * @param bands the bands
+	 */
 	public BandsBasedMeshColorProvider(final List<IField> bands) {
 		if (bands.size() < 4)
 			throw GamaRuntimeException.error("Number of bands should be at least 3 ", GAMA.getRuntimeScope());

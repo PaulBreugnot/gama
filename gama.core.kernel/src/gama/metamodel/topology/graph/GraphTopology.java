@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.metamodel.topology.graph.GraphTopology.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * GraphTopology.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.metamodel.topology.graph;
 
@@ -53,15 +53,23 @@ import gaml.types.Types;
 public class GraphTopology extends AbstractTopology {
 
 	/**
-	 * @param scope
-	 * @param env
-	 * @param torus
+	 * Instantiates a new graph topology.
+	 *
+	 * @param scope the scope
+	 * @param env the env
+	 * @param graph the graph
 	 */
 	public GraphTopology(final IScope scope, final IShape env, final GamaSpatialGraph graph) {
 		super(scope, env, null);
 		places = graph;
 	}
 
+	/**
+	 * Instantiates a new graph topology.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 */
 	// The default topologies for graphs.
 	public GraphTopology(final IScope scope, final GamaSpatialGraph graph) {
 		this(scope, scope.getSimulation().getGeometry(), graph);
@@ -77,6 +85,13 @@ public class GraphTopology extends AbstractTopology {
 		return false;
 	}
 
+	/**
+	 * Optimized closest to.
+	 *
+	 * @param source the source
+	 * @param candidates the candidates
+	 * @return the i shape
+	 */
 	private IShape optimizedClosestTo(final IShape source, final List<IShape> candidates) {
 		IShape result = null;
 		final GamaPoint loc = source.getLocation();
@@ -268,6 +283,13 @@ public class GraphTopology extends AbstractTopology {
 		return pathBetweenCommon(scope, graph, edgeS, edgeT, sourceN, targetN, sourceNode, targetNode);
 	}
 
+	/**
+	 * Gets the path edge.
+	 *
+	 * @param scope the scope
+	 * @param ref the ref
+	 * @return the path edge
+	 */
 	public IShape getPathEdge(final IScope scope, final IShape ref) {
 		if (ref.getAgent() != null) {
 			final IShape edge = (IShape) ref.getAgent().getAttribute("current_edge");
@@ -288,6 +310,19 @@ public class GraphTopology extends AbstractTopology {
 		return null;
 	}
 
+	/**
+	 * Path between common.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param edgeS the edge S
+	 * @param edgeT the edge T
+	 * @param source the source
+	 * @param target the target
+	 * @param sourceNode the source node
+	 * @param targetNode the target node
+	 * @return the gama spatial path
+	 */
 	public GamaSpatialPath pathBetweenCommon(final IScope scope, final GamaSpatialGraph graph, final IShape edgeS,
 			final IShape edgeT, final IShape source, final IShape target, final boolean sourceNode,
 			final boolean targetNode) {
@@ -532,6 +567,23 @@ public class GraphTopology extends AbstractTopology {
 		return PathFactory.newInstance(scope, this, source, target, edges);
 	}
 
+	/**
+	 * Path from edges undirected.
+	 *
+	 * @param scope the scope
+	 * @param listOfEdges the list of edges
+	 * @param edgeS the edge S
+	 * @param edgeT the edge T
+	 * @param source the source
+	 * @param target the target
+	 * @param sourceNode the source node
+	 * @param targetNode the target node
+	 * @param nodeS the node S
+	 * @param nodeSbis the node sbis
+	 * @param nodeT the node T
+	 * @param computeOther the compute other
+	 * @return the gama spatial path
+	 */
 	GamaSpatialPath pathFromEdgesUndirected(final IScope scope, final IList<IShape> listOfEdges, final IShape edgeS,
 			final IShape edgeT, final IShape source, final IShape target, final boolean sourceNode,
 			final boolean targetNode, final IShape nodeS, final IShape nodeSbis, final IShape nodeT,
@@ -576,6 +628,12 @@ public class GraphTopology extends AbstractTopology {
 		return PathFactory.newInstance(scope, this, source, target, edges);
 	}
 
+	/**
+	 * Pathlength edges.
+	 *
+	 * @param edges the edges
+	 * @return the double
+	 */
 	public double pathlengthEdges(final IList<IShape> edges) {
 		double length = 0;
 		for (final IShape sp : edges) {
@@ -584,12 +642,33 @@ public class GraphTopology extends AbstractTopology {
 		return length;
 	}
 
+	/**
+	 * Length edge.
+	 *
+	 * @param edge the edge
+	 * @param location the location
+	 * @param source the source
+	 * @param target the target
+	 * @return the double
+	 */
 	public double lengthEdge(final IShape edge, final IShape location, final IShape source, final IShape target) {
 		final double dist = source.getLocation().euclidianDistanceTo(target.getLocation());
 		return dist == 0 ? 0
 				: getPlaces().getWeightOf(edge) * location.euclidianDistanceTo(target.getLocation()) / dist;
 	}
 
+	/**
+	 * Path between common directed.
+	 *
+	 * @param scope the scope
+	 * @param edgeS the edge S
+	 * @param edgeT the edge T
+	 * @param source the source
+	 * @param target the target
+	 * @param sourceNode the source node
+	 * @param targetNode the target node
+	 * @return the gama spatial path
+	 */
 	public GamaSpatialPath pathBetweenCommonDirected(final IScope scope, final List<IShape> edgeS,
 			final List<IShape> edgeT, final IShape source, final IShape target, final boolean sourceNode,
 			final boolean targetNode) {
@@ -616,6 +695,18 @@ public class GraphTopology extends AbstractTopology {
 
 	}
 
+	/**
+	 * Path between common directed.
+	 *
+	 * @param scope the scope
+	 * @param edgeS the edge S
+	 * @param edgeT the edge T
+	 * @param source the source
+	 * @param target the target
+	 * @param sourceNode the source node
+	 * @param targetNode the target node
+	 * @return the gama spatial path
+	 */
 	public GamaSpatialPath pathBetweenCommonDirected(final IScope scope, final IShape edgeS, final IShape edgeT,
 			final IShape source, final IShape target, final boolean sourceNode, final boolean targetNode) {
 		IList<IShape> edges;
@@ -655,6 +746,15 @@ public class GraphTopology extends AbstractTopology {
 		return PathFactory.newInstance(scope, this, source, target, edges);
 	}
 
+	/**
+	 * Path between.
+	 *
+	 * @param scope the scope
+	 * @param source the source
+	 * @param target the target
+	 * @param existingEdge the existing edge
+	 * @return the gama spatial path
+	 */
 	public GamaSpatialPath pathBetween(final IScope scope, final IShape source, final IShape target,
 			final IShape existingEdge) {
 		IList<IShape> edges;
@@ -858,6 +958,13 @@ public class GraphTopology extends AbstractTopology {
 		return KpathsBetweenCommon(scope, edgeS, edgeT, source, target, sourceNode, targetNode, k);
 	}
 
+	/**
+	 * Shape closest.
+	 *
+	 * @param shapes the shapes
+	 * @param geom the geom
+	 * @return the i shape
+	 */
 	public IShape shapeClosest(final List<IShape> shapes, final IShape geom) {
 		IShape cp = null;
 		double distMin = Double.MAX_VALUE;
@@ -877,6 +984,19 @@ public class GraphTopology extends AbstractTopology {
 		return KpathsBetween(scope, source.getGeometry(), target.getGeometry(), k);
 	}
 
+	/**
+	 * Kpaths between common.
+	 *
+	 * @param scope the scope
+	 * @param edgeS the edge S
+	 * @param edgeT the edge T
+	 * @param source the source
+	 * @param target the target
+	 * @param sourceNode the source node
+	 * @param targetNode the target node
+	 * @param k the k
+	 * @return the i list
+	 */
 	public IList KpathsBetweenCommon(final IScope scope, final IShape edgeS, final IShape edgeT, final IShape source,
 			final IShape target, final boolean sourceNode, final boolean targetNode, final int k) {
 		IShape nodeS = source;
@@ -923,6 +1043,19 @@ public class GraphTopology extends AbstractTopology {
 		return results;
 	}
 
+	/**
+	 * Kpaths between common directed.
+	 *
+	 * @param scope the scope
+	 * @param edgeS the edge S
+	 * @param edgeT the edge T
+	 * @param source the source
+	 * @param target the target
+	 * @param sourceNode the source node
+	 * @param targetNode the target node
+	 * @param k the k
+	 * @return the i list
+	 */
 	public IList KpathsBetweenCommonDirected(final IScope scope, final IShape edgeS, final IShape edgeT,
 			final IShape source, final IShape target, final boolean sourceNode, final boolean targetNode, final int k) {
 		final IList results = GamaListFactory.create(Types.PATH);
@@ -1053,6 +1186,18 @@ public class GraphTopology extends AbstractTopology {
 
 	}
 
+	/**
+	 * Gets the neighbors of rec.
+	 *
+	 * @param scope the scope
+	 * @param currentSource the current source
+	 * @param edge the edge
+	 * @param currentDist the current dist
+	 * @param graph the graph
+	 * @param alr the alr
+	 * @return the neighbors of rec
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public Set<IShape> getNeighborsOfRec(final IScope scope, final IShape currentSource, final boolean edge,
 			final double currentDist, final ISpatialGraph graph, final Set<IShape> alr) throws GamaRuntimeException {
 		try (Collector.AsSet<IShape> edges = Collector.getSet()) {

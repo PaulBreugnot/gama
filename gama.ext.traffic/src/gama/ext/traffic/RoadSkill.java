@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * simtools.gaml.extensions.traffic.RoadSkill.java, in plugin simtools.gaml.extensions.traffic, is part of the source
- * code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * RoadSkill.java, in gama.ext.traffic, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.ext.traffic;
 
@@ -47,6 +47,9 @@ import gaml.skills.Skill;
 import gaml.types.IType;
 import gaml.types.Types;
 
+/**
+ * The Class RoadSkill.
+ */
 @vars({
 	@variable(
 		name = RoadSkill.AGENTS_ON,
@@ -112,32 +115,73 @@ import gaml.types.Types;
 )
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class RoadSkill extends Skill {
+	
+	/** The Constant SKILL_ROAD. */
 	public static final String SKILL_ROAD = "skill_road";
 
+	/** The Constant ALL_AGENTS. */
 	// TODO: rename these two lists?
 	public static final String ALL_AGENTS = "all_agents";
+	
+	/** The Constant AGENTS_ON. */
 	public static final String AGENTS_ON = "agents_on";
+	
+	/** The Constant SOURCE_NODE. */
 	public static final String SOURCE_NODE = "source_node";
+	
+	/** The Constant TARGET_NODE. */
 	public static final String TARGET_NODE = "target_node";
+	
+	/** The Constant MAXSPEED. */
 	// TODO: rename to speed_limit
 	public static final String MAXSPEED = "maxspeed";
+	
+	/** The Constant LINKED_ROAD. */
 	public static final String LINKED_ROAD = "linked_road";
+	
+	/** The Constant LANES. */
 	@Deprecated public static final String LANES = "lanes";
+	
+	/** The Constant NUM_LANES. */
 	public static final String NUM_LANES = "num_lanes";
+	
+	/** The Constant NUM_SEGMENTS. */
 	public static final String NUM_SEGMENTS = "num_segments";
+	
+	/** The Constant SEGMENT_LENGTHS. */
 	public static final String SEGMENT_LENGTHS = "segment_lengths";
+	
+	/** The Constant VEHICLE_ORDERING. */
 	public static final String VEHICLE_ORDERING = "vehicle_ordering";
 
+	/**
+	 * Gets the agents on.
+	 *
+	 * @param agent the agent
+	 * @return the agents on
+	 */
 	@getter(AGENTS_ON)
 	public static List getAgentsOn(final IAgent agent) {
 		return (List) agent.getAttribute(AGENTS_ON);
 	}
 
+	/**
+	 * Sets the agents on.
+	 *
+	 * @param agent the agent
+	 * @param agents the agents
+	 */
 	@setter(AGENTS_ON)
 	public static void setAgentsOn(final IAgent agent, final List agents) {
 		agent.setAttribute(AGENTS_ON, agents);
 	}
 
+	/**
+	 * Gets the agents.
+	 *
+	 * @param agent the agent
+	 * @return the agents
+	 */
 	@getter(ALL_AGENTS)
 	public static IList<IAgent> getAgents(final IAgent agent) {
 		IList<IAgent> res = GamaListFactory.create(Types.AGENT);
@@ -147,36 +191,78 @@ public class RoadSkill extends Skill {
 		return Containers.remove_duplicates(GAMA.getRuntimeScope(), res);
 	}
 
+	/**
+	 * Sets the agents.
+	 *
+	 * @param agent the agent
+	 * @param agents the agents
+	 */
 	@setter(ALL_AGENTS)
 	public static void setAgents(final IAgent agent, final List agents) {
 		// read-only
 	}
 
+	/**
+	 * Gets the source node.
+	 *
+	 * @param agent the agent
+	 * @return the source node
+	 */
 	@getter(SOURCE_NODE)
 	public static IAgent getSourceNode(final IAgent agent) {
 		return (IAgent) agent.getAttribute(SOURCE_NODE);
 	}
 
+	/**
+	 * Sets the source node.
+	 *
+	 * @param agent the agent
+	 * @param nd the nd
+	 */
 	@setter(SOURCE_NODE)
 	public static void setSourceNode(final IAgent agent, final IAgent nd) {
 		agent.setAttribute(SOURCE_NODE, nd);
 	}
 
+	/**
+	 * Gets the target node.
+	 *
+	 * @param agent the agent
+	 * @return the target node
+	 */
 	@getter(TARGET_NODE)
 	public static IAgent getTargetNode(final IAgent agent) {
 		return (IAgent) agent.getAttribute(TARGET_NODE);
 	}
 
+	/**
+	 * Sets the target node.
+	 *
+	 * @param agent the agent
+	 * @param nd the nd
+	 */
 	@setter(TARGET_NODE)
 	public void setTargetNode(final IAgent agent, final IAgent nd) {
 		agent.setAttribute(TARGET_NODE, nd);
 	}
 
+	/**
+	 * Gets the num lanes.
+	 *
+	 * @param agent the agent
+	 * @return the num lanes
+	 */
 	@getter(NUM_LANES)
 	public static int getNumLanes(final IAgent agent) {
 		return (int) agent.getAttribute(NUM_LANES);
 	}
 
+	/**
+	 * Sets the num lanes.
+	 *
+	 * @param agent the agent
+	 * @param numLanes the num lanes
+	 */
 	@setter(NUM_LANES)
 	public static void setNumLanes(final IAgent agent, final int numLanes) {
 		if (numLanes == 0) {
@@ -186,42 +272,90 @@ public class RoadSkill extends Skill {
 		agent.setAttribute(NUM_LANES, numLanes);
 	}
 	
+	/**
+	 * Gets the num lanes total.
+	 *
+	 * @param road the road
+	 * @return the num lanes total
+	 */
 	public static int getNumLanesTotal(final IAgent road) {
 		IAgent linkedRoad = getLinkedRoad(road);
 		int numLanesLinked = linkedRoad != null ? getNumLanes(linkedRoad) : 0;
 		return getNumLanes(road) + numLanesLinked;
 	}
 
+	/**
+	 * Gets the max speed.
+	 *
+	 * @param agent the agent
+	 * @return the max speed
+	 */
 	@getter(MAXSPEED)
 	public static Double getMaxSpeed(final IAgent agent) {
 		return (Double) agent.getAttribute(MAXSPEED);
 	}
 
+	/**
+	 * Sets the max speed.
+	 *
+	 * @param agent the agent
+	 * @param sp the sp
+	 */
 	@setter(MAXSPEED)
 	public static void setMaxSpeed(final IAgent agent, final Double sp) {
 		agent.setAttribute(MAXSPEED, sp);
 	}
 
+	/**
+	 * Gets the linked road.
+	 *
+	 * @param agent the agent
+	 * @return the linked road
+	 */
 	@getter(LINKED_ROAD)
 	public static IAgent getLinkedRoad(final IAgent agent) {
 		return (IAgent) agent.getAttribute(LINKED_ROAD);
 	}
 
+	/**
+	 * Sets the linked road.
+	 *
+	 * @param agent the agent
+	 * @param rd the rd
+	 */
 	@setter(LINKED_ROAD)
 	public static void setLinkedRoad(final IAgent agent, final IAgent rd) {
 		agent.setAttribute(LINKED_ROAD, rd);
 	}
 
+	/**
+	 * Gets the num segments.
+	 *
+	 * @param road the road
+	 * @return the num segments
+	 */
 	@getter(NUM_SEGMENTS)
 	public static int getNumSegments(final IAgent road) {
 		return GeometryUtils.getPointsOf(road).length - 1;
 	}
 
+	/**
+	 * Sets the num segments.
+	 *
+	 * @param road the road
+	 * @param numSegments the num segments
+	 */
 	@setter(NUM_SEGMENTS)
 	public static void setNumSegments(final IAgent road, final int numSegments) {
 		// read-only
 	}
 
+	/**
+	 * Gets the segment lengths.
+	 *
+	 * @param road the road
+	 * @return the segment lengths
+	 */
 	@getter(value = SEGMENT_LENGTHS)
 	public static List<Double> getSegmentLengths(final IAgent road) {
 		List<Double> res = (List<Double>) road.getAttribute(SEGMENT_LENGTHS);
@@ -240,11 +374,23 @@ public class RoadSkill extends Skill {
 		return res;
 	}
 	
+	/**
+	 * Gets the total length.
+	 *
+	 * @param road the road
+	 * @return the total length
+	 */
 	public static double getTotalLength(final IAgent road) {
 		List<Double> lengths = getSegmentLengths(road);
 		return lengths.stream().reduce(0.0, Double::sum);
 	}
 
+	/**
+	 * Gets the vehicle ordering.
+	 *
+	 * @param road the road
+	 * @return the vehicle ordering
+	 */
 	@getter(VEHICLE_ORDERING)
 	public static List<OrderedBidiMap<IAgent, Double>> getVehicleOrdering(final IAgent road) {
 		List<OrderedBidiMap<IAgent, Double>> res =
@@ -269,15 +415,21 @@ public class RoadSkill extends Skill {
 		return res;
 	}
 
+	/**
+	 * Sets the vehicle ordering.
+	 *
+	 * @param road the road
+	 * @param list the list
+	 */
 	@setter(VEHICLE_ORDERING)
 	public static void setVehicleOrdering(final IAgent road, List<OrderedBidiMap<IAgent, Double>> list) {
 		road.setAttribute(VEHICLE_ORDERING, list);
 	}
 
 	/**
-	 * Helper method that allows access to the ordered maps of vehicles' longitudinal positions
-	 * 
-	 * @param scope
+	 * Helper method that allows access to the ordered maps of vehicles' longitudinal positions.
+	 *
+	 * @param scope the scope
 	 * @param correctRoad the road where the vehicle is supposed to be
 	 * @param lane the lane index
 	 * @return the ordered tree map that corresponds to a lane on a certain road
@@ -310,6 +462,12 @@ public class RoadSkill extends Skill {
 		return getVehicleOrdering(actualRoad).get(actualLane);
 	}
 
+	/**
+	 * Prim register.
+	 *
+	 * @param scope the scope
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@action(
 		name = "register",
 		args = {
@@ -342,12 +500,11 @@ public class RoadSkill extends Skill {
 	/**
 	 * Registers the driver on the specified road and starting lane.
 	 *
-	 * @param scope
+	 * @param scope the scope
 	 * @param vehicle the agent to register
 	 * @param road the new road
 	 * @param lowestLane the new starting lane
-	 *
-	 * @throws GamaRuntimeException
+	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 	public static void register(IScope scope, IAgent vehicle, IAgent road, int lowestLane)
 			throws GamaRuntimeException {
@@ -378,6 +535,12 @@ public class RoadSkill extends Skill {
 		DrivingSkill.setSegmentIndex(vehicle, segmentIdx);
 	}
 
+	/**
+	 * Prim unregister.
+	 *
+	 * @param scope the scope
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@action(
 		name = "unregister",
 		args = {

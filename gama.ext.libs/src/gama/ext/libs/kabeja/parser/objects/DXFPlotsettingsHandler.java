@@ -1,18 +1,13 @@
-/*
-   Copyright 2007 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * DXFPlotsettingsHandler.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.parser.objects;
 
 import gama.ext.libs.kabeja.dxf.DXFConstants;
@@ -21,30 +16,81 @@ import gama.ext.libs.kabeja.dxf.objects.DXFPlotSettings;
 import gama.ext.libs.kabeja.parser.DXFValue;
 
 
+/**
+ * The Class DXFPlotsettingsHandler.
+ */
 public class DXFPlotsettingsHandler extends AbstractDXFObjectHandler {
+    
+    /** The Constant GROUPCODE_NAME. */
     public final static int GROUPCODE_NAME = 1;
+    
+    /** The Constant GROUPCODE_PLOT_CONFIGURATION_FILE. */
     public final static int GROUPCODE_PLOT_CONFIGURATION_FILE = 2;
+    
+    /** The Constant GROUPCODE_PAPER_SIZE. */
     public final static int GROUPCODE_PAPER_SIZE = 4;
+    
+    /** The Constant GROUPCODE_PLOT_VIEW_NAME. */
     public final static int GROUPCODE_PLOT_VIEW_NAME = 6;
+    
+    /** The Constant GROUPCODE_MARGIN_LEFT. */
     public final static int GROUPCODE_MARGIN_LEFT = 40;
+    
+    /** The Constant GROUPCODE_MARGIN_BOTTOM. */
     public final static int GROUPCODE_MARGIN_BOTTOM = 41;
+    
+    /** The Constant GROUPCODE_MARGIN_RIGHT. */
     public final static int GROUPCODE_MARGIN_RIGHT = 42;
+    
+    /** The Constant GROUPCODE_MARGIN_TOP. */
     public final static int GROUPCODE_MARGIN_TOP = 43;
+    
+    /** The Constant GROUPCODE_PLOT_PAPER_WIDTH. */
     public final static int GROUPCODE_PLOT_PAPER_WIDTH = 44;
+    
+    /** The Constant GROUPCODE_PLOT_PAPER_HEIGHT. */
     public final static int GROUPCODE_PLOT_PAPER_HEIGHT = 45;
+    
+    /** The Constant GROUPCODE_ORIGIN_X. */
     public final static int GROUPCODE_ORIGIN_X = 46;
+    
+    /** The Constant GROUPCODE_ORIGIN_Y. */
     public final static int GROUPCODE_ORIGIN_Y = 47;
+    
+    /** The Constant GROUPCODE_PLOT_WINDOW_MIN_X. */
     public final static int GROUPCODE_PLOT_WINDOW_MIN_X = 48;
+    
+    /** The Constant GROUPCODE_PLOT_WINDOWS_MIN_Y. */
     public final static int GROUPCODE_PLOT_WINDOWS_MIN_Y = 49;
+    
+    /** The Constant GROUPCODE_PLOT_WINDOW_MAX_X. */
     public final static int GROUPCODE_PLOT_WINDOW_MAX_X = 140;
+    
+    /** The Constant GROUPCODE_PLOT_WINDOWS_MAX_Y. */
     public final static int GROUPCODE_PLOT_WINDOWS_MAX_Y = 141;
+    
+    /** The Constant GROUPCODE_CUSTOM_SCALE_NUMERATOR. */
     public final static int GROUPCODE_CUSTOM_SCALE_NUMERATOR = 142;
+    
+    /** The Constant GROUPCODE_CUSTOM_SCALE_DEOMINATOR. */
     public final static int GROUPCODE_CUSTOM_SCALE_DEOMINATOR = 143;
+    
+    /** The Constant GROUPCODE_PAPER_UNITS. */
     public final static int GROUPCODE_PAPER_UNITS = 72;
+    
+    /** The Constant GROUPCODE_PLOT_ROTATION. */
     public final static int GROUPCODE_PLOT_ROTATION = 73;
+    
+    /** The Constant GROUPCODE_PLOT_TYPE. */
     public final static int GROUPCODE_PLOT_TYPE = 74;
+    
+    /** The Constant GROUPCODE_CURRENT_STYLESHEET. */
     public final static int GROUPCODE_CURRENT_STYLESHEET = 7;
+    
+    /** The Constant GROUPCODE_STANDARD_SCALE_TYPE. */
     public final static int GROUPCODE_STANDARD_SCALE_TYPE = 75;
+    
+    /** The plot settings. */
     protected DXFPlotSettings plotSettings;
 
     public void endObject() {

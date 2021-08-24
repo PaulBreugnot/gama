@@ -1,23 +1,33 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'CompositeGamaMessage.java, in plugin ummisco.gama.network, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * CompositeGamaMessage.java, in gama.ext.network, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.network.common;
 
 import gama.ext.serialize.factory.StreamConverter;
 import gama.runtime.IScope;
 import gaml.extensions.messaging.GamaMessage;
 
+/**
+ * The Class CompositeGamaMessage.
+ */
 public class CompositeGamaMessage extends GamaMessage {
+	
+	/** The deserialize content. */
 	protected Object deserializeContent;
 
+	/**
+	 * Instantiates a new composite gama message.
+	 *
+	 * @param scope the scope
+	 * @param message the message
+	 */
 	public CompositeGamaMessage(final IScope scope, final GamaMessage message) {
 		super(scope, message.getSender(), message.getReceivers(), message.getContents(scope));
 		this.contents = StreamConverter.convertNetworkObjectToStream(scope, message.getContents(scope));
@@ -26,6 +36,16 @@ public class CompositeGamaMessage extends GamaMessage {
 		deserializeContent = null;
 	}
 
+	/**
+	 * Instantiates a new composite gama message.
+	 *
+	 * @param scope the scope
+	 * @param sender the sender
+	 * @param receivers the receivers
+	 * @param content the content
+	 * @param deserializeContent the deserialize content
+	 * @param timeStamp the time stamp
+	 */
 	private CompositeGamaMessage(final IScope scope, final Object sender, final Object receivers, final Object content,
 			final Object deserializeContent, final int timeStamp) {
 		super(scope, sender, receivers, content);

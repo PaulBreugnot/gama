@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * LatLonAltBox.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -61,20 +71,12 @@ public class LatLonAltBox
      */
     @XmlElement(defaultValue = "0.0")
     protected double maxAltitude;
-    /**
-     * AltitudeMode
-     * <p>
-     * clampToGround, relativeToGround, absolute 
-     * </p>
-     * 
-     * See Also: 
-     * See <LookAt> and <Region>
-     * 
-     * 
-     * 
-     */
+    
+    /** AltitudeMode <p> clampToGround, relativeToGround, absolute  </p>  See Also:  See <LookAt> and <Region>. */
     @XmlElement(defaultValue = "clampToGround")
     protected AltitudeMode altitudeMode;
+    
+    /** The lat lon alt box simple extension. */
     @XmlElement(name = "LatLonAltBoxSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> latLonAltBoxSimpleExtension;
@@ -99,89 +101,88 @@ public class LatLonAltBox
     @XmlElement(name = "LatLonAltBoxObjectExtensionGroup")
     protected List<AbstractObject> latLonAltBoxObjectExtension;
 
+    /**
+     * Instantiates a new lat lon alt box.
+     */
     public LatLonAltBox() {
         super();
     }
 
     /**
-     * @see minAltitude
-     * 
-     * @return
-     *     possible object is
+     * Gets the min altitude.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see minAltitude
      */
     public double getMinAltitude() {
         return minAltitude;
     }
 
     /**
-     * @see minAltitude
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the min altitude.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see minAltitude
      */
     public void setMinAltitude(double value) {
         this.minAltitude = value;
     }
 
     /**
-     * @see maxAltitude
-     * 
-     * @return
-     *     possible object is
+     * Gets the max altitude.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see maxAltitude
      */
     public double getMaxAltitude() {
         return maxAltitude;
     }
 
     /**
-     * @see maxAltitude
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the max altitude.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see maxAltitude
      */
     public void setMaxAltitude(double value) {
         this.maxAltitude = value;
     }
 
     /**
-     * @see altitudeMode
-     * 
-     * @return
-     *     possible object is
+     * Gets the altitude mode.
+     *
+     * @return     possible object is
      *     {@code <}{@link Object}{@code>}
      *     {@code <}{@link gama.ext.libs.kml.AltitudeMode}{@code>}
      *     {@code <}{@link msi.gama.ext.kml.gx.AltitudeMode}{@code>}
-     *     
+     * @see altitudeMode
      */
     public AltitudeMode getAltitudeMode() {
         return altitudeMode;
     }
 
     /**
-     * @see altitudeMode
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the altitude mode.
+     *
+     * @param value     allowed object is
      *     {@code <}{@link Object}{@code>}
      *     {@code <}{@link gama.ext.libs.kml.AltitudeMode}{@code>}
      *     {@code <}{@link msi.gama.ext.kml.gx.AltitudeMode}{@code>}
-     *     
+     * @see altitudeMode
      */
     public void setAltitudeMode(AltitudeMode value) {
         this.altitudeMode = value;
     }
 
     /**
+     * Gets the lat lon alt box simple extension.
+     *
+     * @return the lat lon alt box simple extension
      * @see latLonAltBoxSimpleExtension
-     * 
      */
     public List<Object> getLatLonAltBoxSimpleExtension() {
         if (latLonAltBoxSimpleExtension == null) {
@@ -191,8 +192,10 @@ public class LatLonAltBox
     }
 
     /**
+     * Gets the lat lon alt box object extension.
+     *
+     * @return the lat lon alt box object extension
      * @see latLonAltBoxObjectExtension
-     * 
      */
     public List<AbstractObject> getLatLonAltBoxObjectExtension() {
         if (latLonAltBoxObjectExtension == null) {
@@ -268,21 +271,20 @@ public class LatLonAltBox
     }
 
     /**
+     * Sets the lat lon alt box simple extension.
+     *
+     * @param latLonAltBoxSimpleExtension the new lat lon alt box simple extension
      * @see latLonAltBoxSimpleExtension
-     * 
-     * @param latLonAltBoxSimpleExtension
      */
     public void setLatLonAltBoxSimpleExtension(final List<Object> latLonAltBoxSimpleExtension) {
         this.latLonAltBoxSimpleExtension = latLonAltBoxSimpleExtension;
     }
 
     /**
-     * add a value to the latLonAltBoxSimpleExtension property collection
-     * 
-     * @param latLonAltBoxSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the latLonAltBoxSimpleExtension property collection.
+     *
+     * @param latLonAltBoxSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LatLonAltBox addToLatLonAltBoxSimpleExtension(final Object latLonAltBoxSimpleExtension) {
         this.getLatLonAltBoxSimpleExtension().add(latLonAltBoxSimpleExtension);
@@ -290,21 +292,20 @@ public class LatLonAltBox
     }
 
     /**
+     * Sets the lat lon alt box object extension.
+     *
+     * @param latLonAltBoxObjectExtension the new lat lon alt box object extension
      * @see latLonAltBoxObjectExtension
-     * 
-     * @param latLonAltBoxObjectExtension
      */
     public void setLatLonAltBoxObjectExtension(final List<AbstractObject> latLonAltBoxObjectExtension) {
         this.latLonAltBoxObjectExtension = latLonAltBoxObjectExtension;
     }
 
     /**
-     * add a value to the latLonAltBoxObjectExtension property collection
-     * 
-     * @param latLonAltBoxObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the latLonAltBoxObjectExtension property collection.
+     *
+     * @param latLonAltBoxObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LatLonAltBox addToLatLonAltBoxObjectExtension(final AbstractObject latLonAltBoxObjectExtension) {
         this.getLatLonAltBoxObjectExtension().add(latLonAltBoxObjectExtension);
@@ -363,11 +364,11 @@ public class LatLonAltBox
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param minAltitude     required parameter
+     * @return the lat lon alt box
      * @see #setMinAltitude(double)
-     * 
-     * @param minAltitude
-     *     required parameter
      */
     public LatLonAltBox withMinAltitude(final double minAltitude) {
         this.setMinAltitude(minAltitude);
@@ -375,11 +376,11 @@ public class LatLonAltBox
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param maxAltitude     required parameter
+     * @return the lat lon alt box
      * @see #setMaxAltitude(double)
-     * 
-     * @param maxAltitude
-     *     required parameter
      */
     public LatLonAltBox withMaxAltitude(final double maxAltitude) {
         this.setMaxAltitude(maxAltitude);
@@ -387,11 +388,11 @@ public class LatLonAltBox
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param altitudeMode     required parameter
+     * @return the lat lon alt box
      * @see #setAltitudeMode(Object)
-     * 
-     * @param altitudeMode
-     *     required parameter
      */
     public LatLonAltBox withAltitudeMode(final  AltitudeMode altitudeMode) {
         this.setAltitudeMode(altitudeMode);
@@ -399,11 +400,11 @@ public class LatLonAltBox
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param latLonAltBoxSimpleExtension     required parameter
+     * @return the lat lon alt box
      * @see #setLatLonAltBoxSimpleExtension(List<Object>)
-     * 
-     * @param latLonAltBoxSimpleExtension
-     *     required parameter
      */
     public LatLonAltBox withLatLonAltBoxSimpleExtension(final List<Object> latLonAltBoxSimpleExtension) {
         this.setLatLonAltBoxSimpleExtension(latLonAltBoxSimpleExtension);
@@ -411,11 +412,11 @@ public class LatLonAltBox
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param latLonAltBoxObjectExtension     required parameter
+     * @return the lat lon alt box
      * @see #setLatLonAltBoxObjectExtension(List<AbstractObject>)
-     * 
-     * @param latLonAltBoxObjectExtension
-     *     required parameter
      */
     public LatLonAltBox withLatLonAltBoxObjectExtension(final List<AbstractObject> latLonAltBoxObjectExtension) {
         this.setLatLonAltBoxObjectExtension(latLonAltBoxObjectExtension);

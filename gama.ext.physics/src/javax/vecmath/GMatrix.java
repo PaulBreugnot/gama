@@ -1,22 +1,13 @@
-/*
- * Copyright 1997-2008 Sun Microsystems, Inc. All Rights Reserved. DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE
- * HEADER.
+/*******************************************************************************************************
  *
- * This code is free software; you can redistribute it and/or modify it under the terms of the GNU General Public
- * License version 2 only, as published by the Free Software Foundation. Sun designates this particular file as subject
- * to the "Classpath" exception as provided by Sun in the LICENSE file that accompanied this code.
+ * GMatrix.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License version 2 for
- * more details (a copy is included in the LICENSE file that accompanied this code).
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * You should have received a copy of the GNU General Public License version 2 along with this work; if not, write to
- * the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
- *
- * Please contact Sun Microsystems, Inc., 4150 Network Circle, Santa Clara, CA 95054 USA or visit www.sun.com if you
- * need additional information or have any questions.
- *
- */
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package javax.vecmath;
 
@@ -27,16 +18,24 @@ package javax.vecmath;
 
 public class GMatrix implements java.io.Serializable, Cloneable {
 
+	/** The Constant serialVersionUID. */
 	// Compatible with 1.1
 	static final long serialVersionUID = 2777097312029690941L;
+	
+	/** The Constant debug. */
 	private static final boolean debug = false;
 
+	/** The n row. */
 	int nRow;
+	
+	/** The n col. */
 	int nCol;
 
+	/** The values. */
 	// double dereference is slow
 	double[][] values;
 
+	/** The Constant EPS. */
 	private static final double EPS = 1.0E-10;
 
 	/**
@@ -708,10 +707,9 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 	/**
 	 * Places the values of the specified row into the array parameter.
 	 *
-	 * @param row
-	 *            the target row number
-	 * @param array
-	 *            the array into which the row values will be placed
+	 * @param row            the target row number
+	 * @param array            the array into which the row values will be placed
+	 * @return the row
 	 */
 	public final void getRow(final int row, final double[] array) {
 		for (int i = 0; i < nCol; i++) {
@@ -722,10 +720,9 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 	/**
 	 * Places the values of the specified row into the vector parameter.
 	 *
-	 * @param row
-	 *            the target row number
-	 * @param vector
-	 *            the vector into which the row values will be placed
+	 * @param row            the target row number
+	 * @param vector            the vector into which the row values will be placed
+	 * @return the row
 	 */
 	public final void getRow(final int row, final GVector vector) {
 		if (vector.getSize() < nCol) { vector.setSize(nCol); }
@@ -738,10 +735,9 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 	/**
 	 * Places the values of the specified column into the array parameter.
 	 *
-	 * @param col
-	 *            the target column number
-	 * @param array
-	 *            the array into which the column values will be placed
+	 * @param col            the target column number
+	 * @param array            the array into which the column values will be placed
+	 * @return the column
 	 */
 	public final void getColumn(final int col, final double[] array) {
 		for (int i = 0; i < nRow; i++) {
@@ -753,10 +749,9 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 	/**
 	 * Places the values of the specified column into the vector parameter.
 	 *
-	 * @param col
-	 *            the target column number
-	 * @param vector
-	 *            the vector into which the column values will be placed
+	 * @param col            the target column number
+	 * @param vector            the vector into which the column values will be placed
+	 * @return the column
 	 */
 	public final void getColumn(final int col, final GVector vector) {
 		if (vector.getSize() < nRow) { vector.setSize(nRow); }
@@ -1378,6 +1373,11 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 	}
 
 	/**
+	 * Epsilon equals.
+	 *
+	 * @param m1 the m 1
+	 * @param epsilon the epsilon
+	 * @return true, if successful
 	 * @deprecated Use epsilonEquals(GMatrix, double) instead
 	 */
 	@Deprecated
@@ -1390,10 +1390,9 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 	 * parameter, otherwise returns false. The L-infinite distance is equal to MAX[i=0,1,2, . . .n ; j=0,1,2, . . .n ;
 	 * abs(this.m(i,j) - m1.m(i,j)]
 	 *
-	 * @param m1
-	 *            The matrix to be compared to this matrix
-	 * @param epsilon
-	 *            the threshold value
+	 * @param m1            The matrix to be compared to this matrix
+	 * @param epsilon            the threshold value
+	 * @return true, if successful
 	 */
 	public boolean epsilonEquals(final GMatrix m1, final double epsilon) {
 		int i, j;
@@ -1570,8 +1569,10 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 	/**
 	 * General invert routine. Inverts m1 and places the result in "this". Note that this routine handles both the
 	 * "this" version and the non-"this" version.
-	 *
+	 * 
 	 * Also note that since this routine is slow anyway, we won't worry about allocating a little bit of garbage.
+	 *
+	 * @param m1 the m 1
 	 */
 	final void invertGeneral(final GMatrix m1) {
 		int size = m1.nRow * m1.nCol;
@@ -1622,6 +1623,10 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 	 * output parameter "even_row_xchg" is 1 when the number of row exchanges is even, or -1 otherwise. Assumes data
 	 * type is always double.
 	 *
+	 * @param dim the dim
+	 * @param matrix0 the matrix 0
+	 * @param row_perm the row perm
+	 * @param even_row_xchg the even row xchg
 	 * @return true if the matrix is nonsingular, or false otherwise.
 	 */
 	//
@@ -1753,9 +1758,14 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 	 * not change here. The parameter "matrix2" is a set of column vectors assembled into a nxn matrix of floating-point
 	 * values. The procedure takes each column of "matrix2" in turn and treats it as the right-hand side of the matrix
 	 * equation Ax = LUx = b. The solution vector replaces the original column of the matrix.
-	 *
+	 * 
 	 * If "matrix2" is the identity matrix, the procedure replaces its contents with the inverse of the matrix from
 	 * which "matrix1" was originally derived.
+	 *
+	 * @param dim the dim
+	 * @param matrix1 the matrix 1
+	 * @param row_perm the row perm
+	 * @param matrix2 the matrix 2
 	 */
 	//
 	// Reference: Press, Flannery, Teukolsky, Vetterling,
@@ -1809,6 +1819,15 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 		}
 	}
 
+	/**
+	 * Compute SVD.
+	 *
+	 * @param mat the mat
+	 * @param U the u
+	 * @param W the w
+	 * @param V the v
+	 * @return the int
+	 */
 	static int computeSVD(final GMatrix mat, final GMatrix U, final GMatrix W, final GMatrix V) {
 		int i, j, k;
 		int nr, nc, si;
@@ -2083,6 +2102,16 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 		return single_values.length;
 	}
 
+	/**
+	 * Compute qr.
+	 *
+	 * @param start the start
+	 * @param end the end
+	 * @param s the s
+	 * @param e the e
+	 * @param u the u
+	 * @param v the v
+	 */
 	static void compute_qr(final int start, int end, final double[] s, final double[] e, final GMatrix u,
 			final GMatrix v) {
 
@@ -2235,6 +2264,14 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 		}
 	}
 
+	/**
+	 * Update v.
+	 *
+	 * @param index the index
+	 * @param v the v
+	 * @param cosr the cosr
+	 * @param sinr the sinr
+	 */
 	private static void update_v(final int index, final GMatrix v, final double[] cosr, final double[] sinr) {
 		int j;
 		double vtemp;
@@ -2246,6 +2283,14 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 		}
 	}
 
+	/**
+	 * Update u.
+	 *
+	 * @param index the index
+	 * @param u the u
+	 * @param cosl the cosl
+	 * @param sinl the sinl
+	 */
 	private static void update_u(final int index, final GMatrix u, final double[] cosl, final double[] sinl) {
 		int j;
 		double utemp;
@@ -2257,6 +2302,13 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 		}
 	}
 
+	/**
+	 * Prints the m.
+	 *
+	 * @param m the m
+	 * @param u the u
+	 * @param v the v
+	 */
 	private static void print_m(final GMatrix m, final GMatrix u, final GMatrix v) {
 		GMatrix mtmp = new GMatrix(m.nCol, m.nRow);
 
@@ -2266,6 +2318,12 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 
 	}
 
+	/**
+	 * To string.
+	 *
+	 * @param m the m
+	 * @return the string
+	 */
 	private static String toString(final GMatrix m) {
 		StringBuffer buffer = new StringBuffer(m.nRow * m.nCol * 8);
 		int i, j;
@@ -2283,6 +2341,14 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 		return buffer.toString();
 	}
 
+	/**
+	 * Prints the svd.
+	 *
+	 * @param s the s
+	 * @param e the e
+	 * @param u the u
+	 * @param v the v
+	 */
 	private static void print_svd(final double[] s, final double[] e, final GMatrix u, final GMatrix v) {
 		int i;
 		GMatrix mtmp = new GMatrix(u.nCol, v.nRow);
@@ -2315,6 +2381,13 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 		System.out.println(" \n u.transpose*m*v.transpose  = \n" + mtmp.toString());
 	}
 
+	/**
+	 * Max.
+	 *
+	 * @param a the a
+	 * @param b the b
+	 * @return the double
+	 */
 	static double max(final double a, final double b) {
 		if (a > b)
 			return a;
@@ -2322,6 +2395,13 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 			return b;
 	}
 
+	/**
+	 * Min.
+	 *
+	 * @param a the a
+	 * @param b the b
+	 * @return the double
+	 */
 	static double min(final double a, final double b) {
 		if (a < b)
 			return a;
@@ -2329,6 +2409,14 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 			return b;
 	}
 
+	/**
+	 * Compute shift.
+	 *
+	 * @param f the f
+	 * @param g the g
+	 * @param h the h
+	 * @return the double
+	 */
 	static double compute_shift(final double f, final double g, final double h) {
 		double d__1, d__2;
 		double fhmn, fhmx, c, fa, ga, ha, as, at, au;
@@ -2370,6 +2458,20 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 		return ssmin;
 	}
 
+	/**
+	 * Compute 2 X 2.
+	 *
+	 * @param f the f
+	 * @param g the g
+	 * @param h the h
+	 * @param single_values the single values
+	 * @param snl the snl
+	 * @param csl the csl
+	 * @param snr the snr
+	 * @param csr the csr
+	 * @param index the index
+	 * @return the int
+	 */
 	static int compute_2X2(final double f, final double g, final double h, final double[] single_values,
 			final double[] snl, final double[] csl, final double[] snr, final double[] csr, final int index) {
 
@@ -2549,6 +2651,15 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 		return 0;
 	}
 
+	/**
+	 * Compute rot.
+	 *
+	 * @param f the f
+	 * @param g the g
+	 * @param sin the sin
+	 * @param cos the cos
+	 * @return the double
+	 */
 	static double compute_rot(final double f, final double g, final double[] sin, final double[] cos) {
 		double cs, sn;
 		int i;
@@ -2615,6 +2726,13 @@ public class GMatrix implements java.io.Serializable, Cloneable {
 		return r;
 	}
 
+	/**
+	 * D sign.
+	 *
+	 * @param a the a
+	 * @param b the b
+	 * @return the double
+	 */
 	static double d_sign(final double a, final double b) {
 		double x;
 		x = a >= 0 ? a : -a;

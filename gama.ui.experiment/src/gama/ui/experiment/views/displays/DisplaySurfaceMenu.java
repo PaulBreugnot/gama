@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ummisco.gama.ui.views.displays.DisplaySurfaceMenu.java, in plugin ummisco.gama.ui.experiment, is part of the source
- * code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * DisplaySurfaceMenu.java, in gama.ui.experiment, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.ui.experiment.views.displays;
 
@@ -50,8 +50,12 @@ import gama.ui.base.utils.PlatformHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.experiment.menus.AgentsMenu;
 
+/**
+ * The Class DisplaySurfaceMenu.
+ */
 public class DisplaySurfaceMenu {
 
+	/** The layer images. */
 	public static Map<Class<? extends ILayer>, Image> layer_images = new LinkedHashMap<>();
 
 	static {
@@ -63,15 +67,31 @@ public class DisplaySurfaceMenu {
 		layer_images.put(GraphicLayer.class, GamaIcons.create(IGamaIcons.LAYER_GRAPHICS).image());
 	}
 
+	/** The menu. */
 	Menu menu;
+	
+	/** The surface. */
 	private final IDisplaySurface surface;
+	
+	/** The swt control. */
 	private final Control swtControl;
+	
+	/** The presentation menu. */
 	private final MenuManager presentationMenu;
 
+	/**
+	 * The Class FocusOnSelection.
+	 */
 	private static class FocusOnSelection extends SelectionAdapter {
 
+		/** The surface. */
 		IDisplaySurface surface;
 
+		/**
+		 * Instantiates a new focus on selection.
+		 *
+		 * @param surface the surface
+		 */
 		FocusOnSelection(final IDisplaySurface surface) {
 			this.surface = surface;
 		}
@@ -90,6 +110,13 @@ public class DisplaySurfaceMenu {
 		}
 	}
 
+	/**
+	 * Instantiates a new display surface menu.
+	 *
+	 * @param s the s
+	 * @param c the c
+	 * @param viewMenu the view menu
+	 */
 	public DisplaySurfaceMenu(final IDisplaySurface s, final Control c, final MenuManager viewMenu) {
 		surface = s;
 		swtControl = c;
@@ -99,6 +126,14 @@ public class DisplaySurfaceMenu {
 		this.presentationMenu = viewMenu;
 	}
 
+	/**
+	 * Prepare new menu.
+	 *
+	 * @param c the c
+	 * @param x the x
+	 * @param y the y
+	 * @param withPresentation the with presentation
+	 */
 	public void prepareNewMenu(final Control c, final int x, final int y, final boolean withPresentation) {
 		disposeMenu();
 		menu = new Menu(c);
@@ -109,6 +144,15 @@ public class DisplaySurfaceMenu {
 		}
 	}
 
+	/**
+	 * Builds the menu.
+	 *
+	 * @param mousex the mousex
+	 * @param mousey the mousey
+	 * @param x the x
+	 * @param y the y
+	 * @param displays the displays
+	 */
 	public void buildMenu(final int mousex, final int mousey, final int x, final int y, final List<ILayer> displays) {
 		if (displays.isEmpty()) { return; }
 		final Set<IAgent> all = new LinkedHashSet<>();
@@ -124,6 +168,15 @@ public class DisplaySurfaceMenu {
 		buildMenu(true, mousex, mousey, all, null);
 	}
 
+	/**
+	 * Builds the menu.
+	 *
+	 * @param mousex the mousex
+	 * @param mousey the mousey
+	 * @param agent the agent
+	 * @param cleanup the cleanup
+	 * @param actions the actions
+	 */
 	public void buildMenu(final int mousex, final int mousey, final IAgent agent, final Runnable cleanup,
 			final MenuAction... actions) {
 		// cleanup is an optional runnable to do whatever is necessary after the
@@ -132,6 +185,16 @@ public class DisplaySurfaceMenu {
 				actions);
 	}
 
+	/**
+	 * Builds the menu.
+	 *
+	 * @param byLayer the by layer
+	 * @param mousex the mousex
+	 * @param mousey the mousey
+	 * @param agents the agents
+	 * @param cleanup the cleanup
+	 * @param actions the actions
+	 */
 	private void buildMenu(final boolean byLayer, final int mousex, final int mousey, final Collection<IAgent> agents,
 			final Runnable cleanup, final MenuAction... actions) {
 		WorkbenchHelper.asyncRun(() -> {
@@ -162,6 +225,12 @@ public class DisplaySurfaceMenu {
 		});
 	}
 
+	/**
+	 * Builds the toolbar menu.
+	 *
+	 * @param trigger the trigger
+	 * @param t the t
+	 */
 	public void buildToolbarMenu(final SelectionEvent trigger, final ToolItem t) {
 		prepareNewMenu(t.getParent(), t.getBounds().x + t.getBounds().width, t.getBounds().y + t.getBounds().height,
 				false);
@@ -169,8 +238,15 @@ public class DisplaySurfaceMenu {
 		menu.setVisible(true);
 	}
 
+	/** The max retries. */
 	static int MAX_RETRIES = 10;
 
+	/**
+	 * Retry visible.
+	 *
+	 * @param menu the menu
+	 * @param retriesRemaining the retries remaining
+	 */
 	private void retryVisible(final Menu menu, final int retriesRemaining) {
 		if (!PlatformHelper.isLinux()) { return; }
 		WorkbenchHelper.asyncRun(() -> {
@@ -194,6 +270,16 @@ public class DisplaySurfaceMenu {
 		});
 	}
 
+	/**
+	 * Fill.
+	 *
+	 * @param menu the menu
+	 * @param index the index
+	 * @param withWorld the with world
+	 * @param byLayer the by layer
+	 * @param filteredList the filtered list
+	 * @param actions the actions
+	 */
 	private void fill(final Menu menu, final int index, final boolean withWorld, final boolean byLayer,
 			final Collection<IAgent> filteredList, final MenuAction... actions) {
 		if (withWorld) {
@@ -258,6 +344,16 @@ public class DisplaySurfaceMenu {
 		}
 	}
 
+	/**
+	 * Builds the ROI menu.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param agents the agents
+	 * @param actions the actions
+	 * @param images the images
+	 * @return the menu
+	 */
 	@SuppressWarnings ("unused")
 	public Menu buildROIMenu(final int x, final int y, final Collection<IAgent> agents,
 			final Map<String, Runnable> actions, final Map<String, Image> images) {
@@ -287,6 +383,9 @@ public class DisplaySurfaceMenu {
 		return menu;
 	}
 
+	/**
+	 * Dispose menu.
+	 */
 	public void disposeMenu() {
 		if (menu != null && !menu.isDisposed()) {
 			menu.dispose();

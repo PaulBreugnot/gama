@@ -1,7 +1,13 @@
-/**
- * Created by drogoul, 30 nov. 2020
+/*******************************************************************************************************
  *
- */
+ * GamlTextAttributeProvider.java, in gama.ui.modeling, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.modeling.highlight;
 
 import static org.eclipse.xtext.ui.editor.utils.EditorUtils.colorFromRGB;
@@ -36,14 +42,21 @@ import gama.ui.base.utils.ThemeHelper;
 import gama.util.GamaFont;
 
 /**
+ * The Class GamlTextAttributeProvider.
+ *
  * @author Sebastian Zarnekow - Initial contribution and API
  */
 @Singleton
 public class GamlTextAttributeProvider implements ITextAttributeProvider, IHighlightingConfigurationAcceptor {
 
+	/** The attributes. */
 	// private final PreferenceStoreAccessor preferencesAccessor;
 	private final HashMap<String, TextAttribute> attributes;
+	
+	/** The highlighting config. */
 	private final GamlHighlightingConfiguration highlightingConfig;
+	
+	/** The language name. */
 	private @Inject @Named (Constants.LANGUAGE_NAME) String languageName;
 
 	// public static GamaFont getDefaultFont() {
@@ -52,6 +65,12 @@ public class GamlTextAttributeProvider implements ITextAttributeProvider, IHighl
 	// return new GamaFont(fd.getName(), fd.getStyle(), fd.getHeight());
 	// }
 
+	/**
+	 * Gets the font.
+	 *
+	 * @param ts the ts
+	 * @return the font
+	 */
 	public static GamaFont getFont(final TextStyle ts) {
 		final var fds = ts.getFontData();
 		// if (fds == null)
@@ -61,6 +80,13 @@ public class GamlTextAttributeProvider implements ITextAttributeProvider, IHighl
 		return new GamaFont(fd.getName(), fd.getStyle(), fd.getHeight());
 	}
 
+	/**
+	 * Instantiates a new gaml text attribute provider.
+	 *
+	 * @param c the c
+	 * @param preferenceStoreAccess the preference store access
+	 * @param prefStoreAccessor the pref store accessor
+	 */
 	@Inject
 	public GamlTextAttributeProvider(final IHighlightingConfiguration c,
 			final IPreferenceStoreAccess preferenceStoreAccess, final PreferenceStoreAccessor prefStoreAccessor) {
@@ -76,6 +102,9 @@ public class GamlTextAttributeProvider implements ITextAttributeProvider, IHighl
 		});
 	}
 
+	/**
+	 * Initialize.
+	 */
 	private void initialize() {
 
 		// WorkbenchHelper.asyncRun(() -> {
@@ -119,6 +148,13 @@ public class GamlTextAttributeProvider implements ITextAttributeProvider, IHighl
 		return result;
 	}
 
+	/**
+	 * Merge.
+	 *
+	 * @param first the first
+	 * @param second the second
+	 * @return the text attribute
+	 */
 	private TextAttribute merge(final TextAttribute first, final TextAttribute second) {
 		if (first == null) return second;
 		if (second == null) return first;
@@ -132,6 +168,12 @@ public class GamlTextAttributeProvider implements ITextAttributeProvider, IHighl
 		return new TextAttribute(fgColor, bgColor, style, font);
 	}
 
+	/**
+	 * Gets the merged ids.
+	 *
+	 * @param ids the ids
+	 * @return the merged ids
+	 */
 	public String getMergedIds(final String[] ids) {
 		return "$$$Merged:" + Strings.concat("/", Arrays.asList(ids)) + "$$$";
 	}
@@ -141,6 +183,13 @@ public class GamlTextAttributeProvider implements ITextAttributeProvider, IHighl
 		this.attributes.put(id, createTextAttribute(id, style));
 	}
 
+	/**
+	 * Creates the text attribute.
+	 *
+	 * @param id the id
+	 * @param textStyle the text style
+	 * @return the text attribute
+	 */
 	protected TextAttribute createTextAttribute(final String id, final TextStyle textStyle) {
 		return new TextAttribute(colorFromRGB(textStyle.getColor()), colorFromRGB(textStyle.getBackgroundColor()),
 				textStyle.getStyle(), fontFromFontData(textStyle.getFontData()));

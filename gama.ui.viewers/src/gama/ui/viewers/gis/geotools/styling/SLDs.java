@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'SLDs.java, in plugin ummisco.gama.ui.viewers, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * SLDs.java, in gama.ui.viewers, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.viewers.gis.geotools.styling;
 
 import java.awt.Color;
@@ -68,20 +67,45 @@ import org.locationtech.jts.geom.Polygon;
  * @source $URL$
  */
 public class SLDs extends SLD {
+	
+	/** The ff. */
 	private static FilterFactory ff = CommonFactoryFinder.getFilterFactory(null);
 
+	/** The Constant ALIGN_LEFT. */
 	public static final double ALIGN_LEFT = 1.0;
+	
+	/** The Constant ALIGN_CENTER. */
 	public static final double ALIGN_CENTER = 0.5;
+	
+	/** The Constant ALIGN_RIGHT. */
 	public static final double ALIGN_RIGHT = 0.0;
+	
+	/** The Constant ALIGN_BOTTOM. */
 	public static final double ALIGN_BOTTOM = 1.0;
+	
+	/** The Constant ALIGN_MIDDLE. */
 	public static final double ALIGN_MIDDLE = 0.5;
+	
+	/** The Constant ALIGN_TOP. */
 	public static final double ALIGN_TOP = 0.0;
 
+	/**
+	 * Size.
+	 *
+	 * @param graphic the graphic
+	 * @return the int
+	 */
 	public static int size(final Graphic graphic) {
 		if (graphic == null) { return NOTFOUND; }
 		return Filters.asInt(graphic.getSize());
 	}
 
+	/**
+	 * Poly fill.
+	 *
+	 * @param symbolizer the symbolizer
+	 * @return the color
+	 */
 	public static Color polyFill(final PolygonSymbolizer symbolizer) {
 		if (symbolizer == null) { return null; }
 
@@ -93,6 +117,12 @@ public class SLDs extends SLD {
 		return color(color);
 	}
 
+	/**
+	 * Color.
+	 *
+	 * @param expr the expr
+	 * @return the color
+	 */
 	public static Color color(final Expression expr) {
 		if (expr == null) { return null; }
 		try {
@@ -195,6 +225,13 @@ public class SLDs extends SLD {
 		return null;
 	}
 
+	/**
+	 * Checks if is semantic type match.
+	 *
+	 * @param fts the fts
+	 * @param regex the regex
+	 * @return true, if is semantic type match
+	 */
 	public static boolean isSemanticTypeMatch(final FeatureTypeStyle fts, final String regex) {
 		final Set<SemanticType> identifiers = fts.semanticTypeIdentifiers();
 		for (final SemanticType semanticType : identifiers) {
@@ -204,7 +241,10 @@ public class SLDs extends SLD {
 	}
 
 	/**
-	 * Returns the min scale of the default rule, or 0 if none is set
+	 * Returns the min scale of the default rule, or 0 if none is set.
+	 *
+	 * @param fts the fts
+	 * @return the double
 	 */
 	public static double minScale(final FeatureTypeStyle fts) {
 		if (fts == null || fts.rules().size() == 0) { return 0.0; }
@@ -214,7 +254,10 @@ public class SLDs extends SLD {
 	}
 
 	/**
-	 * Returns the max scale of the default rule, or Double#NaN if none is set
+	 * Returns the max scale of the default rule, or Double#NaN if none is set.
+	 *
+	 * @param fts the fts
+	 * @return the double
 	 */
 	public static double maxScale(final FeatureTypeStyle fts) {
 		if (fts == null || fts.rules().size() == 0) { return Double.NaN; }
@@ -228,6 +271,12 @@ public class SLDs extends SLD {
 	 */
 	public static final String GENERIC_FEATURE_TYPENAME = "Feature";
 
+	/**
+	 * Checks if is polygon.
+	 *
+	 * @param featureType the feature type
+	 * @return true, if is polygon
+	 */
 	public static final boolean isPolygon(final SimpleFeatureType featureType) {
 		if (featureType == null) { return false; }
 		final GeometryDescriptor geometryType = featureType.getGeometryDescriptor();
@@ -236,6 +285,12 @@ public class SLDs extends SLD {
 		return Polygon.class.isAssignableFrom(type) || MultiPolygon.class.isAssignableFrom(type);
 	}
 
+	/**
+	 * Checks if is line.
+	 *
+	 * @param featureType the feature type
+	 * @return true, if is line
+	 */
 	public static final boolean isLine(final SimpleFeatureType featureType) {
 		if (featureType == null) { return false; }
 		final GeometryDescriptor geometryType = featureType.getGeometryDescriptor();
@@ -244,6 +299,12 @@ public class SLDs extends SLD {
 		return LineString.class.isAssignableFrom(type) || MultiLineString.class.isAssignableFrom(type);
 	}
 
+	/**
+	 * Checks if is point.
+	 *
+	 * @param featureType the feature type
+	 * @return true, if is point
+	 */
 	public static final boolean isPoint(final SimpleFeatureType featureType) {
 		if (featureType == null) { return false; }
 		final GeometryDescriptor geometryType = featureType.getGeometryDescriptor();

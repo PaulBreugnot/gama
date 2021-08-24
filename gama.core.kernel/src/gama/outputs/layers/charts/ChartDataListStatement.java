@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.layers.charts.ChartDataListStatement.java, in plugin msi.gama.core, is part of the source code of
- * the GAMA modeling and simulation platform (v. 1.8.1)
+ * ChartDataListStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs.layers.charts;
 
@@ -26,6 +26,9 @@ import gaml.operators.Cast;
 import gaml.statements.AbstractStatement;
 import gaml.types.IType;
 
+/**
+ * The Class ChartDataListStatement.
+ */
 @symbol (
 		name = "datalist",
 		kind = ISymbolKind.SINGLE_STATEMENT,
@@ -124,13 +127,22 @@ import gaml.types.IType;
 		omissible = IKeyword.LEGEND)
 public class ChartDataListStatement extends AbstractStatement {
 
+	/**
+	 * Instantiates a new chart data list statement.
+	 *
+	 * @param desc the desc
+	 */
 	public ChartDataListStatement(final IDescription desc) {
 		super(desc);
 	}
 
 	/**
-	 * @throws GamaRuntimeException
-	 * @param scope
+	 * Creates the data source.
+	 *
+	 * @param scope the scope
+	 * @param graphdataset the graphdataset
+	 * @return the chart data source list
+	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 
 	public ChartDataSourceList createDataSource(final IScope scope, final ChartDataSet graphdataset)

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ServerService.java, in gama.ext.network, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.network.tcp;
 
 import java.io.BufferedReader;
@@ -15,15 +25,37 @@ import java.net.UnknownHostException;
 import gama.core.dev.utils.DEBUG;
 import gama.ext.network.common.socket.SocketService;
 
+/**
+ * The Class ServerService.
+ */
 public abstract class ServerService extends Thread implements SocketService {
+	
+	/** The server socket. */
 	private ServerSocket serverSocket;
+	
+	/** The port. */
 	private final int port;
+	
+	/** The is alive. */
 	private boolean isAlive;
+	
+	/** The is online. */
 	private boolean isOnline;
+	
+	/** The sender. */
 	private PrintWriter sender;
+	
+	/** The current socket. */
 	private Socket currentSocket;
+	
+	/** The receiver. */
 	BufferedReader receiver = null;
 
+	/**
+	 * Instantiates a new server service.
+	 *
+	 * @param port the port
+	 */
 	public ServerService(final int port) {
 		this.port = port;
 		this.isAlive = false;

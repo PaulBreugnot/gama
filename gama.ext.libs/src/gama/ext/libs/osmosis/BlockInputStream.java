@@ -1,17 +1,13 @@
-/**
- * Copyright (c) 2010 Scott A. Crosby. <scott@sacrosby.com>
+/*******************************************************************************************************
+ *
+ * BlockInputStream.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- * 
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License along with this program. If not, see
- * <http://www.gnu.org/licenses/>.
- * 
- */
+ ********************************************************************************************************/
 
 package gama.ext.libs.osmosis;
 
@@ -19,13 +15,28 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * The Class BlockInputStream.
+ */
 public class BlockInputStream {
+	
+	/**
+	 * Instantiates a new block input stream.
+	 *
+	 * @param input the input
+	 * @param adaptor the adaptor
+	 */
 	// TODO: Should be seekable input stream!
 	public BlockInputStream(final InputStream input, final BlockReaderAdapter adaptor) {
 		this.input = input;
 		this.adaptor = adaptor;
 	}
 
+	/**
+	 * Process.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void process() throws IOException {
 		try {
 			while (true) {
@@ -36,10 +47,18 @@ public class BlockInputStream {
 		}
 	}
 
+	/**
+	 * Close.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void close() throws IOException {
 		input.close();
 	}
 
+	/** The input. */
 	InputStream input;
+	
+	/** The adaptor. */
 	BlockReaderAdapter adaptor;
 }

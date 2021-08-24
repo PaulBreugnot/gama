@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.common.geometry.UniqueCoordinateSequence.java, in plugin msi.gama.core, is part of the source code of the
- * GAMA modeling and simulation platform (v. 1.8.1)
+ * UniqueCoordinateSequence.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.common.geometry;
 
@@ -27,14 +27,30 @@ import gama.metamodel.shape.GamaPoint;
  */
 public class UniqueCoordinateSequence implements ICoordinates {
 
+	/** The point. */
 	final GamaPoint point;
+	
+	/** The dimension. */
 	final int dimension;
 
+	/**
+	 * Instantiates a new unique coordinate sequence.
+	 *
+	 * @param dimension the dimension
+	 * @param coord the coord
+	 */
 	public UniqueCoordinateSequence(final int dimension, final Coordinate coord) {
 		this.dimension = dimension;
 		point = new GamaPoint(coord);
 	}
 
+	/**
+	 * Instantiates a new unique coordinate sequence.
+	 *
+	 * @param dimension the dimension
+	 * @param copy the copy
+	 * @param gamaPoint the gama point
+	 */
 	public UniqueCoordinateSequence(final int dimension, final boolean copy, final GamaPoint gamaPoint) {
 		this.dimension = dimension;
 		point = gamaPoint;

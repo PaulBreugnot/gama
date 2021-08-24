@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * SimpleData.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -79,10 +89,9 @@ public class SimpleData implements Cloneable
     protected String name;
 
     /**
-     * Value constructor with only mandatory fields
-     * 
-     * @param name
-     *     required parameter
+     * Value constructor with only mandatory fields.
+     *
+     * @param name     required parameter
      */
     public SimpleData(final String name) {
         super();
@@ -99,48 +108,44 @@ public class SimpleData implements Cloneable
     }
 
     /**
-     * @see value
-     * 
-     * @return
-     *     possible object is
+     * Gets the value.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see value
      */
     public String getValue() {
         return value;
     }
 
     /**
-     * @see value
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the value.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see value
      */
     public void setValue(String value) {
         this.value = value;
     }
 
     /**
-     * @see name
-     * 
-     * @return
-     *     possible object is
+     * Gets the name.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @see name
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the name.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see name
      */
     public void setName(String value) {
         this.name = value;
@@ -189,11 +194,11 @@ public class SimpleData implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param value     required parameter
+     * @return the simple data
      * @see #setValue(String)
-     * 
-     * @param value
-     *     required parameter
      */
     public SimpleData withValue(final String value) {
         this.setValue(value);

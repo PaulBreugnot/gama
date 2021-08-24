@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.GamaMap.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and simulation
- * platform (v. 1.8.1)
+ * GamaMap.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.util;
 
@@ -19,17 +19,33 @@ import gaml.types.Types;
 
 /**
  * The Class GamaMap. Use GamaMapFactory to create GamaMaps
+ *
+ * @param <K> the key type
+ * @param <V> the value type
  */
 
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class GamaMap<K, V> extends LinkedHashMap<K, V> implements IMap<K, V> {
 
+	/** The Constant KEYS. */
 	public static final String KEYS = "keys";
+	
+	/** The Constant VALUES. */
 	public static final String VALUES = "values";
+	
+	/** The Constant PAIRS. */
 	public static final String PAIRS = "pairs";
 
+	/** The type. */
 	IContainerType type;
 
+	/**
+	 * Instantiates a new gama map.
+	 *
+	 * @param capacity the capacity
+	 * @param key the key
+	 * @param content the content
+	 */
 	protected GamaMap(final int capacity, final IType key, final IType content) {
 		super(capacity);
 		type = Types.MAP.of(key, content);
@@ -54,6 +70,13 @@ public class GamaMap<K, V> extends LinkedHashMap<K, V> implements IMap<K, V> {
 		return map;
 	}
 
+	/**
+	 * Builds the indexes.
+	 *
+	 * @param scope the scope
+	 * @param value the value
+	 * @return the i container
+	 */
 	protected IContainer<?, K> buildIndexes(final IScope scope, final IContainer value) {
 		final IList<K> result = GamaListFactory.create(getGamlType().getContentType());
 		for (final Object o : value.iterable(scope)) {

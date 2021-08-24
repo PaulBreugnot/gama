@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * GamaPreferenceStore.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.common.preferences;
 
 import static gama.common.util.StringUtils.toJavaString;
@@ -40,8 +50,7 @@ import gaml.types.IType;
  * "-Dpref_use_pooling=true"), enabling different instances to set different values even if the store used is global
  *
  * @author drogoul
- *
- * @param <T>
+ * @param <T> the generic type
  */
 @SuppressWarnings ({ "restriction", "unchecked", "rawtypes" })
 public abstract class GamaPreferenceStore<T> {
@@ -50,10 +59,20 @@ public abstract class GamaPreferenceStore<T> {
 		// DEBUG.ON();
 	}
 
+	/** The store. */
 	private static GamaPreferenceStore STORE;
+	
+	/** The Constant NODE_NAME. */
 	private static final String NODE_NAME = "gama";
+	
+	/** The Constant DEFAULT_FONT. */
 	private static final String DEFAULT_FONT = "Default";
 
+	/**
+	 * Gets the store.
+	 *
+	 * @return the store
+	 */
 	public static GamaPreferenceStore getStore() {
 		if (STORE == null) {
 			STORE = FLAGS.USE_GLOBAL_PREFERENCE_STORE ? new JRE(userRoot().node(NODE_NAME))
@@ -63,11 +82,15 @@ public abstract class GamaPreferenceStore<T> {
 	}
 
 	/**
-	 * A store for all the instances of GAMA (shared across versions and applications)
-	 *
+	 * A store for all the instances of GAMA (shared across versions and applications).
 	 */
 	static class JRE extends GamaPreferenceStore<Preferences> {
 
+		/**
+		 * Instantiates a new jre.
+		 *
+		 * @param store the store
+		 */
 		JRE(final Preferences store) {
 			super(store);
 		}
@@ -163,13 +186,16 @@ public abstract class GamaPreferenceStore<T> {
 	}
 
 	/**
-	 *
-	 * A store for each instance of GAMA (shared across workspaces of this instance)
-	 *
+	 * A store for each instance of GAMA (shared across workspaces of this instance).
 	 */
 
 	static class Configuration extends GamaPreferenceStore<IEclipsePreferences> {
 
+		/**
+		 * Instantiates a new configuration.
+		 *
+		 * @param store the store
+		 */
 		Configuration(final IEclipsePreferences store) {
 			super(store);
 		}
@@ -265,51 +291,100 @@ public abstract class GamaPreferenceStore<T> {
 
 	}
 
+	/** The store. */
 	T store;
+	
+	/** The keys. */
 	private final List<String> keys;
 
+	/**
+	 * Instantiates a new gama preference store.
+	 *
+	 * @param store the store
+	 */
 	GamaPreferenceStore(final T store) {
 		this.store = store;
 		keys = computeKeys();
 		flush();
 	}
 
+	/**
+	 * Gets the keys.
+	 *
+	 * @return the keys
+	 */
 	public List<String> getKeys() {
 		return keys;
 	}
 
+	/**
+	 * Compute keys.
+	 *
+	 * @return the list
+	 */
 	protected abstract List<String> computeKeys();
 
+	/**
+	 * Put.
+	 *
+	 * @param key the key
+	 * @param value the value
+	 */
 	public abstract void put(final String key, final String value);
 
+	/**
+	 * Put int.
+	 *
+	 * @param key the key
+	 * @param value the value
+	 */
 	public abstract void putInt(final String key, final int value);
 
+	/**
+	 * Put double.
+	 *
+	 * @param key the key
+	 * @param value the value
+	 */
 	public abstract void putDouble(final String key, final Double value);
 
+	/**
+	 * Put boolean.
+	 *
+	 * @param key the key
+	 * @param value the value
+	 */
 	public abstract void putBoolean(final String key, final Boolean value);
 
 	/**
 	 * First searches if the preference is overriden in the system/VM properties/arguments, then looks into the store if
-	 * not
+	 * not.
 	 *
-	 * @param key
-	 * @param def
-	 * @return
+	 * @param key the key
+	 * @param def the def
+	 * @return the string
 	 */
 	public final String get(final String key, final String def) {
 		String result = System.getProperty(key);
 		return result == null ? getStringPreference(key, def) : result;
 	}
 
+	/**
+	 * Gets the string preference.
+	 *
+	 * @param key the key
+	 * @param def the def
+	 * @return the string preference
+	 */
 	protected abstract String getStringPreference(String key, String def);
 
 	/**
 	 * First searches if the preference is overriden in the system/VM properties/arguments, then looks into the store if
-	 * not
+	 * not.
 	 *
-	 * @param key
-	 * @param def
-	 * @return
+	 * @param key the key
+	 * @param def the def
+	 * @return the int
 	 */
 	public final Integer getInt(final String key, final Integer def) {
 		String result = System.getProperty(key);
@@ -321,15 +396,22 @@ public abstract class GamaPreferenceStore<T> {
 		}
 	}
 
+	/**
+	 * Gets the int preference.
+	 *
+	 * @param key the key
+	 * @param def the def
+	 * @return the int preference
+	 */
 	protected abstract Integer getIntPreference(String key, Integer def);
 
 	/**
 	 * First searches if the preference is overriden in the system/VM properties/arguments, then looks into the store if
-	 * not
+	 * not.
 	 *
-	 * @param key
-	 * @param def
-	 * @return
+	 * @param key the key
+	 * @param def the def
+	 * @return the double
 	 */
 	public final Double getDouble(final String key, final Double def) {
 		String result = System.getProperty(key);
@@ -341,49 +423,68 @@ public abstract class GamaPreferenceStore<T> {
 		}
 	}
 
+	/**
+	 * Gets the double preference.
+	 *
+	 * @param key the key
+	 * @param def the def
+	 * @return the double preference
+	 */
 	protected abstract Double getDoublePreference(String key, Double def);
 
 	/**
 	 * First searches if the preference is overriden in the system/VM properties/arguments, then looks into the store if
-	 * not
+	 * not.
 	 *
-	 * @param key
-	 * @param def
-	 * @return
+	 * @param key the key
+	 * @param def the def
+	 * @return the boolean
 	 */
 	public final Boolean getBoolean(final String key, final Boolean def) {
 		String result = System.getProperty(key);
 		return result == null ? getBooleanPreference(key, def) : Boolean.valueOf(result);
 	}
 
+	/**
+	 * Gets the boolean preference.
+	 *
+	 * @param key the key
+	 * @param def the def
+	 * @return the boolean preference
+	 */
 	protected abstract Boolean getBooleanPreference(String key, Boolean def);
 
 	/**
-	 * Makes sure preferences are kept in sync between GAMA runtime and the backend file
+	 * Makes sure preferences are kept in sync between GAMA runtime and the backend file.
 	 */
 
 	public abstract void flush();
 
 	/**
-	 * Destroys the preferences node (all preferences are removed and replaced by defaults
+	 * Destroys the preferences node (all preferences are removed and replaced by defaults.
 	 */
 	public abstract void clear();
 
 	/**
 	 * Exports the contents of the preferences as a properties (key = value) file, which can then be reloaded in another
-	 * instance of GAMA
+	 * instance of GAMA.
 	 *
-	 * @param path
+	 * @param path the path
 	 */
 	public abstract void saveToProperties(final String path);
 
 	/**
-	 * Reads a properties file and sets the contents of the preferences to the values registered in the file
+	 * Reads a properties file and sets the contents of the preferences to the values registered in the file.
 	 *
-	 * @param path
+	 * @param path the path
 	 */
 	public abstract void loadFromProperties(final String path);
 
+	/**
+	 * Write.
+	 *
+	 * @param gp the gp
+	 */
 	public void write(final Pref gp) {
 		final var key = gp.key;
 		final var value = gp.value;
@@ -421,6 +522,11 @@ public abstract class GamaPreferenceStore<T> {
 		flush();
 	}
 
+	/**
+	 * Register.
+	 *
+	 * @param gp the gp
+	 */
 	public void register(final Pref<?> gp) {
 		final IScope scope = null;
 		final var key = gp.key;

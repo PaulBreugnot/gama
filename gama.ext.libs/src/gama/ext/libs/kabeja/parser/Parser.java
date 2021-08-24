@@ -1,18 +1,13 @@
-/*
-   Copyright 2006 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * Parser.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.parser;
 
 import java.io.InputStream;
@@ -38,17 +33,19 @@ public interface Parser extends Handler {
 	
 	/**
 	 * Parse the given file.
+	 *
 	 * @param file the file to parse
-	 * @throws ParseException
+	 * @throws ParseException the parse exception
 	 */
 	
     public abstract void parse(String file) throws ParseException;
 
     /**
      * Parse the given file with the specific encoding.
-     * @param file
-     * @param encoding
-     * @throws ParseException
+     *
+     * @param file the file
+     * @param encoding the encoding
+     * @throws ParseException the parse exception
      */
     
     
@@ -58,10 +55,11 @@ public interface Parser extends Handler {
     
     
     /**
-     * Parse the given inputstream
-     * @param input
-     * @param encoding
-     * @throws ParseException
+     * Parse the given inputstream.
+     *
+     * @param input the input
+     * @param encoding the encoding
+     * @throws ParseException the parse exception
      */
     public abstract void parse(InputStream input, String encoding)
         throws ParseException;
@@ -74,16 +72,18 @@ public interface Parser extends Handler {
     public abstract DXFDocument getDocument();
     
     /**
-     * 
-     * @param extension
-     * @return
+     * Supported extension.
+     *
+     * @param extension the extension
+     * @return true, if successful
      */
 
     public abstract boolean supportedExtension(String extension);
 
     /**
      * Gets the name of the parser.
-     * @return
+     *
+     * @return the name
      */
     public abstract String getName();
 }

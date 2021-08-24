@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'SWTChartEditor.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * SWTChartEditor.java, in gama.ui.experiment, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ui.experiment.views.displays;
 
@@ -65,10 +64,10 @@ import gama.ui.base.utils.WorkbenchHelper;
  */
 public class SWTChartEditor implements ChartEditor {
 
-	/** The shell */
+	/**  The shell. */
 	final Shell shell;
 
-	/** The chart which the properties have to be edited */
+	/**  The chart which the properties have to be edited. */
 	final JFreeChart chart;
 
 	/** A composite for displaying/editing the properties of the title. */
@@ -80,7 +79,13 @@ public class SWTChartEditor implements ChartEditor {
 	/** A composite for displaying/editing the other properties of the chart. */
 	final SWTOtherEditor otherEditor;
 
-	/** The resourceBundle for the localization. */
+	/**
+	 *  The resourceBundle for the localization.
+	 *
+	 * @param display the display
+	 * @param chart2edit the chart 2 edit
+	 * @param position the position
+	 */
 	// protected static ResourceBundle localizationResources =
 	// ResourceBundleWrapper
 	// .getBundle("org.jfree.chart.editor.LocalizationBundle");
@@ -178,6 +183,9 @@ public class SWTChartEditor implements ChartEditor {
 		this.otherEditor.updateChartProperties(chart);
 	}
 
+	/**
+	 * The Class SWTTitleEditor.
+	 */
 	class SWTTitleEditor extends Composite {
 
 		/** Whether or not to display the title on the chart. */
@@ -368,6 +376,9 @@ public class SWTChartEditor implements ChartEditor {
 		}
 	}
 
+	/**
+	 * The Class SWTPlotEditor.
+	 */
 	class SWTPlotEditor extends Composite {
 
 		/**
@@ -380,9 +391,16 @@ public class SWTChartEditor implements ChartEditor {
 		 */
 		private final SWTAxisEditor rangeAxisPropertyPanel;
 
+		/** The plot appearance. */
 		private final SWTPlotAppearanceEditor plotAppearance;
 
-		/** The resourceBundle for the localization. */
+		/**
+		 *  The resourceBundle for the localization.
+		 *
+		 * @param parent the parent
+		 * @param style the style
+		 * @param plot the plot
+		 */
 		// protected static ResourceBundle localizationResources =
 		// ResourceBundleWrapper
 		// .getBundle("org.jfree.chart.editor.LocalizationBundle");
@@ -520,6 +538,9 @@ public class SWTChartEditor implements ChartEditor {
 		}
 	}
 
+	/**
+	 * The Class SWTOtherEditor.
+	 */
 	class SWTOtherEditor extends Composite {
 
 		/**
@@ -530,7 +551,13 @@ public class SWTChartEditor implements ChartEditor {
 		/** The chart background color. */
 		final SWTPaintCanvas backgroundPaintCanvas;
 
-		/** The resourceBundle for the localization. */
+		/**
+		 *  The resourceBundle for the localization.
+		 *
+		 * @param parent the parent
+		 * @param style the style
+		 * @param chart the chart
+		 */
 		// protected static ResourceBundle localizationResources =
 		// ResourceBundleWrapper
 		// .getBundle("org.jfree.chart.editor.LocalizationBundle");
@@ -599,6 +626,9 @@ public class SWTChartEditor implements ChartEditor {
 
 	}
 
+	/**
+	 * The Class SWTAxisEditor.
+	 */
 	public static class SWTAxisEditor extends Composite {
 
 		/** The axis label. */
@@ -876,8 +906,12 @@ public class SWTChartEditor implements ChartEditor {
 		}
 	}
 
+	/**
+	 * The Class SWTPaintCanvas.
+	 */
 	public static class SWTPaintCanvas extends Canvas {
 
+		/** The my color. */
 		private Color myColor;
 
 		/**
@@ -968,8 +1002,12 @@ public class SWTChartEditor implements ChartEditor {
 		}
 	}
 
+	/**
+	 * The Class SWTPlotAppearanceEditor.
+	 */
 	static class SWTPlotAppearanceEditor extends Composite {
 
+		/** The select stroke. */
 		final Spinner selectStroke;
 
 		/** The stroke (pen) used to draw the outline of the plot. */
@@ -984,14 +1022,25 @@ public class SWTChartEditor implements ChartEditor {
 		/** The orientation for the plot. */
 		PlotOrientation plotOrientation;
 
+		/** The orientation. */
 		Combo orientation;
 
 		/** Orientation constants. */
 		final static String[] orientationNames = { "Vertical", "Horizontal" };
+		
+		/** The Constant ORIENTATION_VERTICAL. */
 		final static int ORIENTATION_VERTICAL = 0;
+		
+		/** The Constant ORIENTATION_HORIZONTAL. */
 		final static int ORIENTATION_HORIZONTAL = 1;
 
-		/** The resourceBundle for the localization. */
+		/**
+		 *  The resourceBundle for the localization.
+		 *
+		 * @param parent the parent
+		 * @param style the style
+		 * @param plot the plot
+		 */
 		// protected static ResourceBundle localizationResources =
 		// ResourceBundleWrapper
 		// .getBundle("org.jfree.chart.editor.LocalizationBundle");
@@ -1143,6 +1192,9 @@ public class SWTChartEditor implements ChartEditor {
 		}
 	}
 
+	/**
+	 * The Class SWTNumberAxisEditor.
+	 */
 	static class SWTNumberAxisEditor extends SWTAxisEditor implements FocusListener {
 
 		/**
@@ -1255,11 +1307,9 @@ public class SWTChartEditor implements ChartEditor {
 		}
 
 		/**
-		 * Revalidate the range maximum: it should be greater than the current minimum
+		 * Revalidate the range maximum: it should be greater than the current minimum.
 		 *
-		 * @param candidate
-		 *            the maximum value
-		 *
+		 * @param candidate            the maximum value
 		 * @return A boolean.
 		 */
 		public boolean validateMaximum(final String candidate) {
@@ -1325,6 +1375,9 @@ public class SWTChartEditor implements ChartEditor {
 		}
 	}
 
+	/**
+	 * The Class SWTStrokeCanvas.
+	 */
 	static class SWTStrokeCanvas extends Canvas {
 
 		/**

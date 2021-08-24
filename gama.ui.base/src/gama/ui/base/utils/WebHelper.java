@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'WebHelper.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and simulation platform. (v.
- * 1.8.1)
+ * WebHelper.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.utils;
 
 import static gama.ui.base.utils.ThemeHelper.isDark;
@@ -32,20 +31,39 @@ import gama.common.preferences.GamaPreferences;
 import gama.common.ui.IGamaView.Html;
 import gama.ui.base.interfaces.IWebHelper;
 
+/**
+ * The Class WebHelper.
+ */
 public class WebHelper implements IWebHelper {
 
+	/** The Constant VIEWER_ID. */
 	private final static String VIEWER_ID = "gama.viewer.browser";
 
+	/** The instance. */
 	private static WebHelper instance = new WebHelper();
 
+	/**
+	 * Gets the single instance of WebHelper.
+	 *
+	 * @return single instance of WebHelper
+	 */
 	public static WebHelper getInstance() {
 		return instance;
 	}
 
+	/**
+	 * Instantiates a new web helper.
+	 */
 	private WebHelper() {}
 
+	/** The home url. */
 	private static URL HOME_URL;
 
+	/**
+	 * Gets the welcome page URL.
+	 *
+	 * @return the welcome page URL
+	 */
 	public static URL getWelcomePageURL() {
 		if (HOME_URL == null) {
 			try {
@@ -58,6 +76,11 @@ public class WebHelper implements IWebHelper {
 		return HOME_URL;
 	}
 
+	/**
+	 * Open welcome page.
+	 *
+	 * @param ifEmpty the if empty
+	 */
 	public static void openWelcomePage(final boolean ifEmpty) {
 		if (ifEmpty && WorkbenchHelper.getPage().getActiveEditor() != null
 				|| ifEmpty && !GamaPreferences.Interface.CORE_SHOW_PAGE.getValue())
@@ -88,6 +111,11 @@ public class WebHelper implements IWebHelper {
 		}
 	}
 
+	/**
+	 * Show web 2 editor.
+	 *
+	 * @param url the url
+	 */
 	public static void showWeb2Editor(final URL url) {
 
 		// get the workspace
@@ -117,6 +145,11 @@ public class WebHelper implements IWebHelper {
 
 	}
 
+	/**
+	 * Open page.
+	 *
+	 * @param string the string
+	 */
 	public static void openPage(final String string) {
 		try {
 			final var view = (Html) WorkbenchHelper.getPage().openEditor(new NullEditorInput(), VIEWER_ID);

@@ -1,18 +1,13 @@
-/*
- Copyright 2005 Simon Mieth
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+/*******************************************************************************************************
+ *
+ * SAXProcessingManagerBuilder.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.tools;
 
 import java.io.IOException;
@@ -42,44 +37,115 @@ import gama.ext.libs.kabeja.xml.SAXGenerator;
 import gama.ext.libs.kabeja.xml.SAXSerializer;
 
 /**
+ * The Class SAXProcessingManagerBuilder.
+ *
  * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth</a>
- * 
  */
 public class SAXProcessingManagerBuilder implements ContentHandler {
+	
+	/** The xmlns kabeja processing. */
 	public static String XMLNS_KABEJA_PROCESSING = "http://kabeja.org/processing/1.0";
+	
+	/** The Constant ELEMENT_CONFIGURATION. */
 	public static final String ELEMENT_CONFIGURATION = "configuration";
+	
+	/** The Constant ELEMENT_PARSER. */
 	public static final String ELEMENT_PARSER = "parser";
+	
+	/** The Constant ELEMENT_PARSERS. */
 	public static final String ELEMENT_PARSERS = "parsers";
+	
+	/** The Constant ELEMENT_SAXSERIALIZER. */
 	public static final String ELEMENT_SAXSERIALIZER = "serializer";
+	
+	/** The Constant ELEMENT_SAXSERIALIZERS. */
 	public static final String ELEMENT_SAXSERIALIZERS = "serializers";
+	
+	/** The Constant ELEMENT_SAXFILTER. */
 	public static final String ELEMENT_SAXFILTER = "filter";
+	
+	/** The Constant ELEMENT_FILTER. */
 	public static final String ELEMENT_FILTER = "filter";
+	
+	/** The Constant ELEMENT_SAXFILTERS. */
 	public static final String ELEMENT_SAXFILTERS = "filters";
+	
+	/** The Constant ELEMENT_PIPELINE. */
 	public static final String ELEMENT_PIPELINE = "pipeline";
+	
+	/** The Constant ELEMENT_PIPELINES. */
 	public static final String ELEMENT_PIPELINES = "pipelines";
+	
+	/** The Constant ELEMENT_SERIALIZE. */
 	public static final String ELEMENT_SERIALIZE = "serialize";
+	
+	/** The Constant ELEMENT_PROPERTY. */
 	public static final String ELEMENT_PROPERTY = "property";
+	
+	/** The Constant ELEMENT_POSTPROCESSOR. */
 	public static final String ELEMENT_POSTPROCESSOR = "postprocessor";
+	
+	/** The Constant ELEMENT_POSTPROCESS. */
 	public static final String ELEMENT_POSTPROCESS = "postprocess";
+	
+	/** The Constant ELEMENT_AGGREGATE. */
 	public static final String ELEMENT_AGGREGATE = "aggregate";
+	
+	/** The Constant ELEMENT_SAXGENERATOR. */
 	public static final String ELEMENT_SAXGENERATOR = "generator";
+	
+	/** The Constant ELEMENT_GENERATE. */
 	public static final String ELEMENT_GENERATE = "generate";
+	
+	/** The Constant ATTRIBUTE_NAME. */
 	public static final String ATTRIBUTE_NAME = "name";
+	
+	/** The Constant ATTRIBUTE_CLASS. */
 	public static final String ATTRIBUTE_CLASS = "class";
+	
+	/** The Constant ATTRIBUTE_VALUE. */
 	public static final String ATTRIBUTE_VALUE = "value";
+	
+	/** The Constant ATTRIBUTE_DESCRIPTION. */
 	public static final String ATTRIBUTE_DESCRIPTION = "description";
+	
+	/** The manager. */
 	private ProcessingManager manager;
+	
+	/** The saxfilter. */
 	private SAXFilter saxfilter;
+	
+	/** The saxserializer. */
 	private SAXSerializer saxserializer;
+	
+	/** The postprocessor. */
 	private PostProcessor postprocessor;
+	
+	/** The saxgenerator. */
 	private SAXGenerator saxgenerator;
+	
+	/** The aggregator. */
 	private AggregatorGenerator aggregator;
+	
+	/** The properties. */
 	private Map properties;
+	
+	/** The buf. */
 	private StringBuffer buf = new StringBuffer();
+	
+	/** The name. */
 	private String name;
+	
+	/** The pipeline. */
 	private ProcessPipeline pipeline;
+	
+	/** The config. */
 	private boolean config = false;
+	
+	/** The aggregate. */
 	private boolean aggregate = false;
+	
+	/** The parser builder. */
 	protected SAXParserBuilder parserBuilder;
 
 	/*
@@ -296,10 +362,21 @@ public class SAXProcessingManagerBuilder implements ContentHandler {
 			throws SAXException {
 	}
 
+	/**
+	 * Gets the manager.
+	 *
+	 * @return the manager
+	 */
 	public ProcessingManager getManager() {
 		return this.manager;
 	}
 
+	/**
+	 * Creates the instance.
+	 *
+	 * @param clazz the clazz
+	 * @return the object
+	 */
 	protected Object createInstance(String clazz) {
 		try {
 			Class cl = this.getClass().getClassLoader().loadClass(clazz);
@@ -318,9 +395,9 @@ public class SAXProcessingManagerBuilder implements ContentHandler {
 	}
 
 	/**
-	 * 
-	 * @param in
-	 *            the InputStream
+	 * Builds the from stream.
+	 *
+	 * @param in            the InputStream
 	 * @return The ProcessingManager build from the XML description
 	 */
 	public static ProcessingManager buildFromStream(InputStream in) {

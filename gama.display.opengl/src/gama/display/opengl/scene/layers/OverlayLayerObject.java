@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * OverlayLayerObject.java, in gama.display.opengl, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.display.opengl.scene.layers;
 
 import com.jogamp.opengl.GL;
@@ -15,12 +25,21 @@ import gama.runtime.IScope;
 import gaml.expressions.IExpression;
 import gaml.operators.Cast;
 
+/**
+ * The Class OverlayLayerObject.
+ */
 public class OverlayLayerObject extends LayerObject {
 
 	static {
 		DEBUG.OFF();
 	}
 
+	/**
+	 * Instantiates a new overlay layer object.
+	 *
+	 * @param renderer the renderer
+	 * @param layer the layer
+	 */
 	public OverlayLayerObject(final IOpenGLRenderer renderer, final ILayer layer) {
 		super(renderer, layer);
 	}
@@ -30,6 +49,11 @@ public class OverlayLayerObject extends LayerObject {
 		scale.setLocation(0.9, 0.9, 1);
 	}
 
+	/**
+	 * Adds the frame.
+	 *
+	 * @param gl the gl
+	 */
 	protected void addFrame(final OpenGL gl) {
 		GamaPoint size = new GamaPoint(renderer.getEnvWidth(), renderer.getEnvHeight());
 		final IScope scope = renderer.getSurface().getScope();

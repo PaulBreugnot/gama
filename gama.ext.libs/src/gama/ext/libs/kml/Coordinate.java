@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Coordinate.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -9,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * 
+ * The Class Coordinate.
  */
 
 
@@ -18,10 +28,13 @@ public class Coordinate implements Cloneable
 {
 
 
+    /** The longitude. */
     protected double longitude;
 
+    /** The latitude. */
     protected double latitude;
 
+    /** The altitude. */
     protected double altitude;
 
     /**
@@ -32,17 +45,35 @@ public class Coordinate implements Cloneable
     private Coordinate() {
     }
 
+    /**
+     * Instantiates a new coordinate.
+     *
+     * @param longitude the longitude
+     * @param latitude the latitude
+     */
     public Coordinate(final double longitude, final double latitude) {
         this.longitude = longitude;
         this.latitude = latitude;
     }
 
+    /**
+     * Instantiates a new coordinate.
+     *
+     * @param longitude the longitude
+     * @param latitude the latitude
+     * @param altitude the altitude
+     */
     public Coordinate(final double longitude, final double latitude, final double altitude) {
         this.longitude = longitude;
         this.latitude = latitude;
         this.altitude = altitude;
     }
 
+    /**
+     * Instantiates a new coordinate.
+     *
+     * @param coordinates the coordinates
+     */
     public Coordinate(final String coordinates) {
         String[] coords = coordinates.replaceAll(",\\s+", ",").trim().split(",");
         if ((coords.length< 1)&&(coords.length > 3)) {
@@ -72,14 +103,19 @@ public class Coordinate implements Cloneable
     }
 
     /**
-     * 
+     * Gets the longitude.
+     *
+     * @return the longitude
      */
     public double getLongitude() {
         return longitude;
     }
 
     /**
-     * 
+     * Sets the longitude.
+     *
+     * @param longitude the longitude
+     * @return the coordinate
      */
     public Coordinate setLongitude(final double longitude) {
         this.longitude = longitude;
@@ -87,14 +123,19 @@ public class Coordinate implements Cloneable
     }
 
     /**
-     * 
+     * Gets the latitude.
+     *
+     * @return the latitude
      */
     public double getLatitude() {
         return latitude;
     }
 
     /**
-     * 
+     * Sets the latitude.
+     *
+     * @param latitude the latitude
+     * @return the coordinate
      */
     public Coordinate setLatitude(final double latitude) {
         this.latitude = latitude;
@@ -102,14 +143,19 @@ public class Coordinate implements Cloneable
     }
 
     /**
-     * 
+     * Gets the altitude.
+     *
+     * @return the altitude
      */
     public double getAltitude() {
         return altitude;
     }
 
     /**
-     * 
+     * Sets the altitude.
+     *
+     * @param altitude the altitude
+     * @return the coordinate
      */
     public Coordinate setAltitude(final double altitude) {
         this.altitude = altitude;
@@ -155,11 +201,11 @@ public class Coordinate implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param longitude     required parameter
+     * @return the coordinate
      * @see #setLongitude(double)
-     * 
-     * @param longitude
-     *     required parameter
      */
     public Coordinate withLongitude(final double longitude) {
         this.setLongitude(longitude);
@@ -167,11 +213,11 @@ public class Coordinate implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param latitude     required parameter
+     * @return the coordinate
      * @see #setLatitude(double)
-     * 
-     * @param latitude
-     *     required parameter
      */
     public Coordinate withLatitude(final double latitude) {
         this.setLatitude(latitude);
@@ -179,11 +225,11 @@ public class Coordinate implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param altitude     required parameter
+     * @return the coordinate
      * @see #setAltitude(double)
-     * 
-     * @param altitude
-     *     required parameter
      */
     public Coordinate withAltitude(final double altitude) {
         this.setAltitude(altitude);

@@ -1,15 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
+ * Activator.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * 'Activator.java', in plugin 'msi.gama.headless', is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
- *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs;
 
 import javax.imageio.ImageIO;
@@ -25,10 +23,19 @@ import org.osgi.framework.BundleContext;
 import it.geosolutions.jaiext.ConcurrentOperationRegistry;
 import one.util.streamex.StreamEx;
 
+/**
+ * The Class Activator.
+ */
 public class Activator implements BundleActivator {
 
+	/** The context. */
 	private static BundleContext context;
 
+	/**
+	 * Gets the context.
+	 *
+	 * @return the context
+	 */
 	static BundleContext getContext() {
 		return context;
 	}
@@ -75,6 +82,14 @@ public class Activator implements BundleActivator {
 		Activator.context = null;
 	}
 
+	/**
+	 * Pad.
+	 *
+	 * @param string the string
+	 * @param minLength the min length
+	 * @param pad the pad
+	 * @return the string
+	 */
 	// See DEBUG.java
 	public static String PAD(final String string, final int minLength, final char pad) {
 		if (string.length() >= minLength) return string;

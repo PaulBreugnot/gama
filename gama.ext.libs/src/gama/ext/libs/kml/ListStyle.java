@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ListStyle.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -133,8 +143,12 @@ public class ListStyle
      */
     @XmlElement(name = "ItemIcon")
     protected List<ItemIcon> itemIcon;
+    
+    /** The max snippet lines. */
     @XmlElement(defaultValue = "2")
     protected int maxSnippetLines;
+    
+    /** The list style simple extension. */
     @XmlElement(name = "ListStyleSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> listStyleSimpleExtension;
@@ -159,61 +173,62 @@ public class ListStyle
     @XmlElement(name = "ListStyleObjectExtensionGroup")
     protected List<AbstractObject> listStyleObjectExtension;
 
+    /**
+     * Instantiates a new list style.
+     */
     public ListStyle() {
         super();
     }
 
     /**
-     * @see listItemType
-     * 
-     * @return
-     *     possible object is
+     * Gets the list item type.
+     *
+     * @return     possible object is
      *     {@link ListItemType}
-     *     
+     * @see listItemType
      */
     public ListItemType getListItemType() {
         return listItemType;
     }
 
     /**
-     * @see listItemType
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the list item type.
+     *
+     * @param value     allowed object is
      *     {@link ListItemType}
-     *     
+     * @see listItemType
      */
     public void setListItemType(ListItemType value) {
         this.listItemType = value;
     }
 
     /**
-     * @see bgColor
-     * 
-     * @return
-     *     possible object is
+     * Gets the bg color.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see bgColor
      */
     public String getBgColor() {
         return bgColor;
     }
 
     /**
-     * @see bgColor
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the bg color.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see bgColor
      */
     public void setBgColor(String value) {
         this.bgColor =  value;
     }
 
     /**
+     * Gets the item icon.
+     *
+     * @return the item icon
      * @see itemIcon
-     * 
      */
     public List<ItemIcon> getItemIcon() {
         if (itemIcon == null) {
@@ -223,32 +238,32 @@ public class ListStyle
     }
 
     /**
-     * @see maxSnippetLines
-     * 
-     * @return
-     *     possible object is
+     * Gets the max snippet lines.
+     *
+     * @return     possible object is
      *     {@link Integer}
-     *     
+     * @see maxSnippetLines
      */
     public int getMaxSnippetLines() {
         return maxSnippetLines;
     }
 
     /**
-     * @see maxSnippetLines
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the max snippet lines.
+     *
+     * @param value     allowed object is
      *     {@link Integer}
-     *     
+     * @see maxSnippetLines
      */
     public void setMaxSnippetLines(int value) {
         this.maxSnippetLines = value;
     }
 
     /**
+     * Gets the list style simple extension.
+     *
+     * @return the list style simple extension
      * @see listStyleSimpleExtension
-     * 
      */
     public List<Object> getListStyleSimpleExtension() {
         if (listStyleSimpleExtension == null) {
@@ -258,8 +273,10 @@ public class ListStyle
     }
 
     /**
+     * Gets the list style object extension.
+     *
+     * @return the list style object extension
      * @see listStyleObjectExtension
-     * 
      */
     public List<AbstractObject> getListStyleObjectExtension() {
         if (listStyleObjectExtension == null) {
@@ -353,8 +370,8 @@ public class ListStyle
      * <code>
      * ItemIcon itemIcon = new ItemIcon();
      * this.getItemIcon().add(itemIcon); </code>
-     * 
-     * 
+     *
+     * @return the item icon
      */
     public ItemIcon createAndAddItemIcon() {
         ItemIcon newValue = new ItemIcon();
@@ -363,21 +380,20 @@ public class ListStyle
     }
 
     /**
+     * Sets the item icon.
+     *
+     * @param itemIcon the new item icon
      * @see itemIcon
-     * 
-     * @param itemIcon
      */
     public void setItemIcon(final List<ItemIcon> itemIcon) {
         this.itemIcon = itemIcon;
     }
 
     /**
-     * add a value to the itemIcon property collection
-     * 
-     * @param itemIcon
-     *     Objects of the following type are allowed in the list: {@link ItemIcon}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the itemIcon property collection.
+     *
+     * @param itemIcon     Objects of the following type are allowed in the list: {@link ItemIcon}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public ListStyle addToItemIcon(final ItemIcon itemIcon) {
         this.getItemIcon().add(itemIcon);
@@ -385,21 +401,20 @@ public class ListStyle
     }
 
     /**
+     * Sets the list style simple extension.
+     *
+     * @param listStyleSimpleExtension the new list style simple extension
      * @see listStyleSimpleExtension
-     * 
-     * @param listStyleSimpleExtension
      */
     public void setListStyleSimpleExtension(final List<Object> listStyleSimpleExtension) {
         this.listStyleSimpleExtension = listStyleSimpleExtension;
     }
 
     /**
-     * add a value to the listStyleSimpleExtension property collection
-     * 
-     * @param listStyleSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the listStyleSimpleExtension property collection.
+     *
+     * @param listStyleSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public ListStyle addToListStyleSimpleExtension(final Object listStyleSimpleExtension) {
         this.getListStyleSimpleExtension().add(listStyleSimpleExtension);
@@ -407,21 +422,20 @@ public class ListStyle
     }
 
     /**
+     * Sets the list style object extension.
+     *
+     * @param listStyleObjectExtension the new list style object extension
      * @see listStyleObjectExtension
-     * 
-     * @param listStyleObjectExtension
      */
     public void setListStyleObjectExtension(final List<AbstractObject> listStyleObjectExtension) {
         this.listStyleObjectExtension = listStyleObjectExtension;
     }
 
     /**
-     * add a value to the listStyleObjectExtension property collection
-     * 
-     * @param listStyleObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the listStyleObjectExtension property collection.
+     *
+     * @param listStyleObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public ListStyle addToListStyleObjectExtension(final AbstractObject listStyleObjectExtension) {
         this.getListStyleObjectExtension().add(listStyleObjectExtension);
@@ -480,11 +494,11 @@ public class ListStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param listItemType     required parameter
+     * @return the list style
      * @see #setListItemType(ListItemType)
-     * 
-     * @param listItemType
-     *     required parameter
      */
     public ListStyle withListItemType(final ListItemType listItemType) {
         this.setListItemType(listItemType);
@@ -492,11 +506,11 @@ public class ListStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param bgColor     required parameter
+     * @return the list style
      * @see #setBgColor(String)
-     * 
-     * @param bgColor
-     *     required parameter
      */
     public ListStyle withBgColor(final String bgColor) {
         this.setBgColor(bgColor);
@@ -504,11 +518,11 @@ public class ListStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param itemIcon     required parameter
+     * @return the list style
      * @see #setItemIcon(List<ItemIcon>)
-     * 
-     * @param itemIcon
-     *     required parameter
      */
     public ListStyle withItemIcon(final List<ItemIcon> itemIcon) {
         this.setItemIcon(itemIcon);
@@ -516,11 +530,11 @@ public class ListStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param maxSnippetLines     required parameter
+     * @return the list style
      * @see #setMaxSnippetLines(int)
-     * 
-     * @param maxSnippetLines
-     *     required parameter
      */
     public ListStyle withMaxSnippetLines(final int maxSnippetLines) {
         this.setMaxSnippetLines(maxSnippetLines);
@@ -528,11 +542,11 @@ public class ListStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param listStyleSimpleExtension     required parameter
+     * @return the list style
      * @see #setListStyleSimpleExtension(List<Object>)
-     * 
-     * @param listStyleSimpleExtension
-     *     required parameter
      */
     public ListStyle withListStyleSimpleExtension(final List<Object> listStyleSimpleExtension) {
         this.setListStyleSimpleExtension(listStyleSimpleExtension);
@@ -540,11 +554,11 @@ public class ListStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param listStyleObjectExtension     required parameter
+     * @return the list style
      * @see #setListStyleObjectExtension(List<AbstractObject>)
-     * 
-     * @param listStyleObjectExtension
-     *     required parameter
      */
     public ListStyle withListStyleObjectExtension(final List<AbstractObject> listStyleObjectExtension) {
         this.setListStyleObjectExtension(listStyleObjectExtension);

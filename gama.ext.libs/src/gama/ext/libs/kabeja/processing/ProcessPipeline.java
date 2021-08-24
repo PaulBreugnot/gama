@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
- */
+/*******************************************************************************************************
+ *
+ * ProcessPipeline.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.processing;
 
 import java.io.OutputStream;
@@ -33,20 +28,47 @@ import gama.ext.libs.kabeja.xml.SAXGenerator;
 import gama.ext.libs.kabeja.xml.SAXSerializer;
 
 /**
+ * The Class ProcessPipeline.
+ *
  * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth</a>
- * 
  */
 public class ProcessPipeline {
+	
+	/** The manager. */
 	private ProcessingManager manager;
+	
+	/** The post processor configs. */
 	private List postProcessorConfigs = new ArrayList();
+	
+	/** The sax filter configs. */
 	private List saxFilterConfigs = new ArrayList();
+	
+	/** The generator. */
 	private SAXGenerator generator;
+	
+	/** The serializer properties. */
 	private Map serializerProperties = new HashMap();
+	
+	/** The generator properties. */
 	private Map generatorProperties = new HashMap();
+	
+	/** The serializer. */
 	private SAXSerializer serializer;
+	
+	/** The name. */
 	private String name;
+	
+	/** The description. */
 	private String description = "";
 
+	/**
+	 * Process.
+	 *
+	 * @param doc the doc
+	 * @param context the context
+	 * @param out the out
+	 * @throws ProcessorException the processor exception
+	 */
 	public void process(DXFDocument doc, Map context, OutputStream out)
 			throws ProcessorException {
 		ContentHandler handler = null;
@@ -126,6 +148,8 @@ public class ProcessPipeline {
 	}
 
 	/**
+	 * Gets the SAX serializer.
+	 *
 	 * @return Returns the serializer.
 	 */
 	public SAXSerializer getSAXSerializer() {
@@ -133,14 +157,17 @@ public class ProcessPipeline {
 	}
 
 	/**
-	 * @param serializer
-	 *            The serializer to set.
+	 * Sets the SAX serializer.
+	 *
+	 * @param serializer            The serializer to set.
 	 */
 	public void setSAXSerializer(SAXSerializer serializer) {
 		this.serializer = serializer;
 	}
 
 	/**
+	 * Gets the processor manager.
+	 *
 	 * @return Returns the manager.
 	 */
 	public ProcessingManager getProcessorManager() {
@@ -148,14 +175,17 @@ public class ProcessPipeline {
 	}
 
 	/**
-	 * @param manager
-	 *            The manager to set.
+	 * Sets the processor manager.
+	 *
+	 * @param manager            The manager to set.
 	 */
 	public void setProcessorManager(ProcessingManager manager) {
 		this.manager = manager;
 	}
 
 	/**
+	 * Gets the name.
+	 *
 	 * @return Returns the name.
 	 */
 	public String getName() {
@@ -163,29 +193,50 @@ public class ProcessPipeline {
 	}
 
 	/**
-	 * @param name
-	 *            The name to set.
+	 * Sets the name.
+	 *
+	 * @param name            The name to set.
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Prepare.
+	 */
 	public void prepare() {
 	}
 
+	/**
+	 * Gets the post processor configs.
+	 *
+	 * @return the post processor configs
+	 */
 	public List getPostProcessorConfigs() {
 		return this.postProcessorConfigs;
 	}
 
+	/**
+	 * Adds the SAX filter config.
+	 *
+	 * @param config the config
+	 */
 	public void addSAXFilterConfig(SAXFilterConfig config) {
 		this.saxFilterConfigs.add(config);
 	}
 
+	/**
+	 * Adds the post processor config.
+	 *
+	 * @param config the config
+	 */
 	public void addPostProcessorConfig(PostProcessorConfig config) {
 		this.postProcessorConfigs.add(config);
 	}
 
 	/**
+	 * Gets the serializer properties.
+	 *
 	 * @return Returns the serializerProperties.
 	 */
 	public Map getSerializerProperties() {
@@ -193,33 +244,65 @@ public class ProcessPipeline {
 	}
 
 	/**
-	 * @param serializerProperties
-	 *            The serializerProperties to set.
+	 * Sets the SAX serializer properties.
+	 *
+	 * @param serializerProperties            The serializerProperties to set.
 	 */
 	public void setSAXSerializerProperties(Map serializerProperties) {
 		this.serializerProperties = serializerProperties;
 	}
 
+	/**
+	 * Sets the SAX generator properties.
+	 *
+	 * @param generatorProperties the new SAX generator properties
+	 */
 	public void setSAXGeneratorProperties(Map generatorProperties) {
 		this.generatorProperties = generatorProperties;
 	}
 
+	/**
+	 * Gets the SAX generator properties.
+	 *
+	 * @param generatorProperties the generator properties
+	 * @return the SAX generator properties
+	 */
 	public Map getSAXGeneratorProperties(Map generatorProperties) {
 		return this.generatorProperties;
 	}
 
+	/**
+	 * Sets the SAX generator.
+	 *
+	 * @param generator the new SAX generator
+	 */
 	public void setSAXGenerator(SAXGenerator generator) {
 		this.generator = generator;
 	}
 
+	/**
+	 * Gets the SAX generator.
+	 *
+	 * @return the SAX generator
+	 */
 	public SAXGenerator getSAXGenerator() {
 		return this.generator;
 	}
 
+	/**
+	 * Gets the description.
+	 *
+	 * @return the description
+	 */
 	public String getDescription() {
 		return this.description;
 	}
 
+	/**
+	 * Sets the description.
+	 *
+	 * @param description the new description
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ListItemType.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -28,24 +38,49 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum ListItemType {
 
+    /** The radio folder. */
     @XmlEnumValue("radioFolder")
     RADIO_FOLDER("radioFolder"),
+    
+    /** The check. */
     @XmlEnumValue("check")
     CHECK("check"),
+    
+    /** The check hide children. */
     @XmlEnumValue("checkHideChildren")
     CHECK_HIDE_CHILDREN("checkHideChildren"),
+    
+    /** The check off only. */
     @XmlEnumValue("checkOffOnly")
     CHECK_OFF_ONLY("checkOffOnly");
+    
+    /** The value. */
     private final String value;
 
+    /**
+     * Instantiates a new list item type.
+     *
+     * @param v the v
+     */
     ListItemType(String v) {
         value = v;
     }
 
+    /**
+     * Value.
+     *
+     * @return the string
+     */
     public String value() {
         return value;
     }
 
+    /**
+     * From value.
+     *
+     * @param v the v
+     * @return the list item type
+     */
     public static ListItemType fromValue(String v) {
         for (ListItemType c: ListItemType.values()) {
             if (c.value.equals(v)) {

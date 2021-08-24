@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="ummisco.gama.feature.dependencies"
+      id="gama.feature.dependencies"
       label="Dependencies of GAMA"
-      version="1.8.1.qualifier"
+      version="2.0.0.qualifier"
       provider-name="UMMISCO">
 
    <description url="http://www.example.com/description">
@@ -18,7 +18,7 @@
    </license>
 
    <url>
-      <update label="GAMA 1.7.x Update Site" url="http://updates.gama-platform.org"/>
+      <update label="GAMA Update Site" url="http://updates.gama-platform.org/2.0"/>
    </url>
 
    <plugin
@@ -382,13 +382,6 @@
 
    <plugin
          id="org.eclipse.core.expressions"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.equinox.ds"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -889,7 +882,7 @@
          unpack="false"/>
 
    <plugin
-         id="msi.gama.ext"
+         id="gama.ext.libs"
          download-size="0"
          install-size="0"
          version="0.0.0"/>

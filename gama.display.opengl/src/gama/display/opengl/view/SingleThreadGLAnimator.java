@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'SWTGLAnimator.java, in plugin ummisco.gama.opengl, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * SingleThreadGLAnimator.java, in gama.display.opengl, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.display.opengl.view;
 
 import java.io.PrintStream;
@@ -21,7 +20,7 @@ import gama.common.preferences.GamaPreferences;
 import gama.core.dev.utils.DEBUG;
 
 /**
- * Simple Animator (with target FPS)
+ * Simple Animator (with target FPS).
  *
  * @author AqD (aqd@5star.com.tw)
  */
@@ -31,19 +30,41 @@ public class SingleThreadGLAnimator implements Runnable, GLAnimatorControl, GLAn
 		// DEBUG.ON();
 	}
 
+	/** The cap FPS. */
 	protected boolean capFPS = GamaPreferences.Displays.OPENGL_CAP_FPS.getValue();
+	
+	/** The target FPS. */
 	protected int targetFPS = GamaPreferences.Displays.OPENGL_FPS.getValue();
+	
+	/** The animator thread. */
 	protected final Thread animatorThread;
+	
+	/** The drawable. */
 	protected final GLAutoDrawable drawable;
 
+	/** The stop requested. */
 	protected volatile boolean stopRequested = false;
+	
+	/** The pause requested. */
 	protected volatile boolean pauseRequested = false;
+	
+	/** The animating. */
 	protected volatile boolean animating = false;
+	
+	/** The fps period. */
 	protected volatile long startingTime, lastUpdateTime, fpsPeriod;
+	
+	/** The pause. */
 	Semaphore pause = new Semaphore(0);
 
+	/** The frames. */
 	protected int frames = 0;
 
+	/**
+	 * Instantiates a new single thread GL animator.
+	 *
+	 * @param drawable the drawable
+	 */
 	public SingleThreadGLAnimator(final GLAutoDrawable drawable) {
 		GamaPreferences.Displays.OPENGL_FPS.onChange(newValue -> targetFPS = newValue);
 		this.drawable = drawable;
@@ -187,6 +208,9 @@ public class SingleThreadGLAnimator implements Runnable, GLAnimatorControl, GLAn
 		}
 	}
 
+	/**
+	 * Display GL.
+	 */
 	protected void displayGL() {
 		this.animating = true;
 		try {

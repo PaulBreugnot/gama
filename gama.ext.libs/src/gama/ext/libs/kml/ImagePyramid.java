@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ImagePyramid.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -85,20 +95,12 @@ public class ImagePyramid
      */
     @XmlElement(defaultValue = "0")
     protected int maxHeight;
-    /**
-     * GridOrigin
-     * <p>
-     * lowerLeft, upperLeft 
-     * </p>
-     * 
-     * See Also: 
-     * See <PhotoOverlay>
-     * 
-     * 
-     * 
-     */
+    
+    /** GridOrigin <p> lowerLeft, upperLeft  </p>  See Also:  See <PhotoOverlay>. */
     @XmlElement(defaultValue = "lowerLeft")
     protected GridOrigin gridOrigin;
+    
+    /** The image pyramid simple extension. */
     @XmlElement(name = "ImagePyramidSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> imagePyramidSimpleExtension;
@@ -123,109 +125,106 @@ public class ImagePyramid
     @XmlElement(name = "ImagePyramidObjectExtensionGroup")
     protected List<AbstractObject> imagePyramidObjectExtension;
 
+    /**
+     * Instantiates a new image pyramid.
+     */
     public ImagePyramid() {
         super();
     }
 
     /**
-     * @see tileSize
-     * 
-     * @return
-     *     possible object is
+     * Gets the tile size.
+     *
+     * @return     possible object is
      *     {@link Integer}
-     *     
+     * @see tileSize
      */
     public int getTileSize() {
         return tileSize;
     }
 
     /**
-     * @see tileSize
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the tile size.
+     *
+     * @param value     allowed object is
      *     {@link Integer}
-     *     
+     * @see tileSize
      */
     public void setTileSize(int value) {
         this.tileSize = value;
     }
 
     /**
-     * @see maxWidth
-     * 
-     * @return
-     *     possible object is
+     * Gets the max width.
+     *
+     * @return     possible object is
      *     {@link Integer}
-     *     
+     * @see maxWidth
      */
     public int getMaxWidth() {
         return maxWidth;
     }
 
     /**
-     * @see maxWidth
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the max width.
+     *
+     * @param value     allowed object is
      *     {@link Integer}
-     *     
+     * @see maxWidth
      */
     public void setMaxWidth(int value) {
         this.maxWidth = value;
     }
 
     /**
-     * @see maxHeight
-     * 
-     * @return
-     *     possible object is
+     * Gets the max height.
+     *
+     * @return     possible object is
      *     {@link Integer}
-     *     
+     * @see maxHeight
      */
     public int getMaxHeight() {
         return maxHeight;
     }
 
     /**
-     * @see maxHeight
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the max height.
+     *
+     * @param value     allowed object is
      *     {@link Integer}
-     *     
+     * @see maxHeight
      */
     public void setMaxHeight(int value) {
         this.maxHeight = value;
     }
 
     /**
-     * @see gridOrigin
-     * 
-     * @return
-     *     possible object is
+     * Gets the grid origin.
+     *
+     * @return     possible object is
      *     {@link GridOrigin}
-     *     
+     * @see gridOrigin
      */
     public GridOrigin getGridOrigin() {
         return gridOrigin;
     }
 
     /**
-     * @see gridOrigin
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the grid origin.
+     *
+     * @param value     allowed object is
      *     {@link GridOrigin}
-     *     
+     * @see gridOrigin
      */
     public void setGridOrigin(GridOrigin value) {
         this.gridOrigin = value;
     }
 
     /**
+     * Gets the image pyramid simple extension.
+     *
+     * @return the image pyramid simple extension
      * @see imagePyramidSimpleExtension
-     * 
      */
     public List<Object> getImagePyramidSimpleExtension() {
         if (imagePyramidSimpleExtension == null) {
@@ -235,8 +234,10 @@ public class ImagePyramid
     }
 
     /**
+     * Gets the image pyramid object extension.
+     *
+     * @return the image pyramid object extension
      * @see imagePyramidObjectExtension
-     * 
      */
     public List<AbstractObject> getImagePyramidObjectExtension() {
         if (imagePyramidObjectExtension == null) {
@@ -313,21 +314,20 @@ public class ImagePyramid
     }
 
     /**
+     * Sets the image pyramid simple extension.
+     *
+     * @param imagePyramidSimpleExtension the new image pyramid simple extension
      * @see imagePyramidSimpleExtension
-     * 
-     * @param imagePyramidSimpleExtension
      */
     public void setImagePyramidSimpleExtension(final List<Object> imagePyramidSimpleExtension) {
         this.imagePyramidSimpleExtension = imagePyramidSimpleExtension;
     }
 
     /**
-     * add a value to the imagePyramidSimpleExtension property collection
-     * 
-     * @param imagePyramidSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the imagePyramidSimpleExtension property collection.
+     *
+     * @param imagePyramidSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public ImagePyramid addToImagePyramidSimpleExtension(final Object imagePyramidSimpleExtension) {
         this.getImagePyramidSimpleExtension().add(imagePyramidSimpleExtension);
@@ -335,21 +335,20 @@ public class ImagePyramid
     }
 
     /**
+     * Sets the image pyramid object extension.
+     *
+     * @param imagePyramidObjectExtension the new image pyramid object extension
      * @see imagePyramidObjectExtension
-     * 
-     * @param imagePyramidObjectExtension
      */
     public void setImagePyramidObjectExtension(final List<AbstractObject> imagePyramidObjectExtension) {
         this.imagePyramidObjectExtension = imagePyramidObjectExtension;
     }
 
     /**
-     * add a value to the imagePyramidObjectExtension property collection
-     * 
-     * @param imagePyramidObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the imagePyramidObjectExtension property collection.
+     *
+     * @param imagePyramidObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public ImagePyramid addToImagePyramidObjectExtension(final AbstractObject imagePyramidObjectExtension) {
         this.getImagePyramidObjectExtension().add(imagePyramidObjectExtension);
@@ -374,11 +373,11 @@ public class ImagePyramid
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param tileSize     required parameter
+     * @return the image pyramid
      * @see #setTileSize(int)
-     * 
-     * @param tileSize
-     *     required parameter
      */
     public ImagePyramid withTileSize(final int tileSize) {
         this.setTileSize(tileSize);
@@ -386,11 +385,11 @@ public class ImagePyramid
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param maxWidth     required parameter
+     * @return the image pyramid
      * @see #setMaxWidth(int)
-     * 
-     * @param maxWidth
-     *     required parameter
      */
     public ImagePyramid withMaxWidth(final int maxWidth) {
         this.setMaxWidth(maxWidth);
@@ -398,11 +397,11 @@ public class ImagePyramid
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param maxHeight     required parameter
+     * @return the image pyramid
      * @see #setMaxHeight(int)
-     * 
-     * @param maxHeight
-     *     required parameter
      */
     public ImagePyramid withMaxHeight(final int maxHeight) {
         this.setMaxHeight(maxHeight);
@@ -410,11 +409,11 @@ public class ImagePyramid
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param gridOrigin     required parameter
+     * @return the image pyramid
      * @see #setGridOrigin(GridOrigin)
-     * 
-     * @param gridOrigin
-     *     required parameter
      */
     public ImagePyramid withGridOrigin(final GridOrigin gridOrigin) {
         this.setGridOrigin(gridOrigin);
@@ -422,11 +421,11 @@ public class ImagePyramid
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param imagePyramidSimpleExtension     required parameter
+     * @return the image pyramid
      * @see #setImagePyramidSimpleExtension(List<Object>)
-     * 
-     * @param imagePyramidSimpleExtension
-     *     required parameter
      */
     public ImagePyramid withImagePyramidSimpleExtension(final List<Object> imagePyramidSimpleExtension) {
         this.setImagePyramidSimpleExtension(imagePyramidSimpleExtension);
@@ -434,11 +433,11 @@ public class ImagePyramid
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param imagePyramidObjectExtension     required parameter
+     * @return the image pyramid
      * @see #setImagePyramidObjectExtension(List<AbstractObject>)
-     * 
-     * @param imagePyramidObjectExtension
-     *     required parameter
      */
     public ImagePyramid withImagePyramidObjectExtension(final List<AbstractObject> imagePyramidObjectExtension) {
         this.setImagePyramidObjectExtension(imagePyramidObjectExtension);

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.common.geometry.GamaCoordinateSequence.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * GamaCoordinateSequence.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.common.geometry;
 
@@ -34,6 +34,7 @@ import gama.metamodel.shape.GamaPoint;
 
 public class GamaCoordinateSequence implements ICoordinates {
 
+	/** The dimension. */
 	final int dimension;
 
 	/**
@@ -46,8 +47,8 @@ public class GamaCoordinateSequence implements ICoordinates {
 	 * effects). The order of the points will not necessarily remain the same if the sequence is a ring (as this class
 	 * enforces a clockwise direction of the sequence)
 	 *
-	 * @param points2
-	 *            an array of points
+	 * @param dimension the dimension
+	 * @param points2            an array of points
 	 */
 	GamaCoordinateSequence(final int dimension, final Coordinate... points2) {
 		this(dimension, true, points2);
@@ -58,10 +59,9 @@ public class GamaCoordinateSequence implements ICoordinates {
 	 * sequence (to prevent side effects, for instance). The sequence will be modified to enforce a clockwise direction
 	 * if the array represents a ring
 	 *
-	 * @param copy
-	 *            whether or not to copy the points or to add them directly
-	 * @param points2
-	 *            an array of points
+	 * @param dimension the dimension
+	 * @param copy            whether or not to copy the points or to add them directly
+	 * @param points2            an array of points
 	 */
 	GamaCoordinateSequence(final int dimension, final boolean copy, final Coordinate... points2) {
 		this.dimension = dimension;
@@ -78,10 +78,10 @@ public class GamaCoordinateSequence implements ICoordinates {
 	}
 
 	/**
-	 * Creates a sequence of points with a given size (that may be altered after)
+	 * Creates a sequence of points with a given size (that may be altered after).
 	 *
-	 * @param size
-	 *            an int > 0 (negative sizes will be treated as 0)
+	 * @param dimension the dimension
+	 * @param size            an int > 0 (negative sizes will be treated as 0)
 	 */
 	GamaCoordinateSequence(final int dimension, final int size) {
 		this.dimension = dimension;
@@ -275,6 +275,12 @@ public class GamaCoordinateSequence implements ICoordinates {
 		}
 	}
 
+	/**
+	 * Visit.
+	 *
+	 * @param v the v
+	 * @param max the max
+	 */
 	private void visit(final IndexedVisitor v, final int max) {
 		for (int i = 0; i < max; i++) {
 			final GamaPoint p = points[i];
@@ -282,6 +288,12 @@ public class GamaCoordinateSequence implements ICoordinates {
 		}
 	}
 
+	/**
+	 * Reverse visit.
+	 *
+	 * @param v the v
+	 * @param max the max
+	 */
 	private void reverseVisit(final IndexedVisitor v, final int max) {
 		for (int i = max - 1, j = 0; i >= 0; i--, j++) {
 			final GamaPoint p = points[i];

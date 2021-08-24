@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'BoxProviderRegistry.java, in plugin ummisco.gama.ui.modeling, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * BoxProviderRegistry.java, in gama.ui.modeling, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.modeling.editbox;
 
 import java.util.ArrayList;
@@ -21,31 +20,59 @@ import java.util.Map;
 
 import ummisco.gama.ui.modeling.internal.ModelingActivator;
 
+/**
+ * The Class BoxProviderRegistry.
+ */
 @SuppressWarnings ({ "rawtypes" })
 public class BoxProviderRegistry {
 
+	/** The Constant PROVIDERS. */
 	private static final String PROVIDERS = "proivders";
+	
+	/** The Constant PROVIDER_ID_. */
 	private static final String PROVIDER_ID_ = "editbox.provider.";
 
+	/** The providers. */
 	protected Collection<IBoxProvider> providers;
 
+	/** The instance. */
 	private static BoxProviderRegistry INSTANCE;
 
+	/**
+	 * Gets the single instance of BoxProviderRegistry.
+	 *
+	 * @return single instance of BoxProviderRegistry
+	 */
 	public static BoxProviderRegistry getInstance() {
 		if (INSTANCE == null) { INSTANCE = new BoxProviderRegistry(); }
 		return INSTANCE;
 	}
 
+	/**
+	 * Gets the gaml provider.
+	 *
+	 * @return the gaml provider
+	 */
 	public IBoxProvider getGamlProvider() {
 		return getInstance().providerForName("GAML");
 	}
 
+	/**
+	 * Gets the box providers.
+	 *
+	 * @return the box providers
+	 */
 	public Collection<IBoxProvider> getBoxProviders() {
 		if (providers == null) { providers = loadProviders(); }
 		if (providers == null) { providers = defaultProviders(); }
 		return providers;
 	}
 
+	/**
+	 * Load providers.
+	 *
+	 * @return the collection
+	 */
 	protected Collection<IBoxProvider> loadProviders() {
 		List<IBoxProvider> result = null;
 		final String pSetting = ModelingActivator.getInstance().getPreferenceStore().getString(PROVIDERS);
@@ -62,10 +89,18 @@ public class BoxProviderRegistry {
 		return result;
 	}
 
+	/**
+	 * Sets the providers.
+	 *
+	 * @param newProviders the new providers
+	 */
 	public void setProviders(final Collection<IBoxProvider> newProviders) {
 		providers = newProviders;
 	}
 
+	/**
+	 * Store providers.
+	 */
 	public void storeProviders() {
 		if (providers != null) {
 			final StringBuilder sb = new StringBuilder();
@@ -77,6 +112,11 @@ public class BoxProviderRegistry {
 		}
 	}
 
+	/**
+	 * Default providers.
+	 *
+	 * @return the collection
+	 */
 	protected Collection<IBoxProvider> defaultProviders() {
 		final List<IBoxProvider> result = new ArrayList<>();
 		// order important (see supports())
@@ -85,6 +125,12 @@ public class BoxProviderRegistry {
 		return result;
 	}
 
+	/**
+	 * Creates the provider.
+	 *
+	 * @param name the name
+	 * @return the box provider impl
+	 */
 	protected BoxProviderImpl createProvider(final String name) {
 		final BoxProviderImpl provider = new BoxProviderImpl();
 		provider.setId(PROVIDER_ID_ + name);
@@ -94,6 +140,11 @@ public class BoxProviderRegistry {
 		return provider;
 	}
 
+	/**
+	 * Gaml provider.
+	 *
+	 * @return the box provider impl
+	 */
 	protected BoxProviderImpl gamlProvider() {
 		final BoxProviderImpl provider = createProvider("GAML");
 		provider.setDefaultSettingsCatalog(Arrays.asList("GAML", "Default", "OnClick", "GreyGradient", "Classic"));
@@ -103,6 +154,11 @@ public class BoxProviderRegistry {
 		return provider;
 	}
 
+	/**
+	 * Text provider.
+	 *
+	 * @return the box provider impl
+	 */
 	protected BoxProviderImpl textProvider() {
 		final BoxProviderImpl provider = createProvider("Text");
 		provider.setDefaultSettingsCatalog(Arrays.asList("Default", "Whitebox"));
@@ -112,6 +168,11 @@ public class BoxProviderRegistry {
 		return provider;
 	}
 
+	/**
+	 * Default builders.
+	 *
+	 * @return the map
+	 */
 	protected Map<String, Class> defaultBuilders() {
 		final Map<String, Class> result = new HashMap<>();
 		result.put("Text", BoxBuilderImpl.class);
@@ -121,6 +182,12 @@ public class BoxProviderRegistry {
 		return result;
 	}
 
+	/**
+	 * Provider for name.
+	 *
+	 * @param name the name
+	 * @return the i box provider
+	 */
 	public IBoxProvider providerForName(final String name) {
 		final Collection<IBoxProvider> providers = getBoxProviders();
 		for (final IBoxProvider provider : providers) {
@@ -131,6 +198,11 @@ public class BoxProviderRegistry {
 		return provider;
 	}
 
+	/**
+	 * Removes the provider.
+	 *
+	 * @param name the name
+	 */
 	public void removeProvider(final String name) {
 		for (final Iterator<IBoxProvider> it = getBoxProviders().iterator(); it.hasNext();) {
 			if (it.next().getName().equals(name)) { it.remove(); }

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * GenStarGamaSurveyUtils.java, in gama.ext.genstar, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.genstar.utils;
 
 import java.io.FileNotFoundException;
@@ -19,31 +29,55 @@ import gama.util.file.csv.CsvReader.Stats;
 import gaml.types.IType;
 import gaml.types.Types;
 
+/**
+ * The Class GenStarGamaSurveyUtils.
+ */
 /*
  * Encapsulation (more a copy/past) of CsvReader utilities to explore csv files 
  */
 public class GenStarGamaSurveyUtils {
 
+	/**
+	 * Instantiates a new gen star gama survey utils.
+	 *
+	 * @param scope the scope
+	 * @param survey the survey
+	 * @param atts the atts
+	 * @throws FileNotFoundException the file not found exception
+	 */
 	public GenStarGamaSurveyUtils(IScope scope, GamaCSVFile survey, List<Attribute<? extends IValue>> atts) throws FileNotFoundException {
 		this.path =  Paths.get(FileUtils.constructAbsoluteFilePath(scope, survey.getPath(scope), false));
 		this.stats =  CsvReader.getStats(this.path.toString(),null);
 		this.atts = atts;
 	}
 	
+	/** The stats. */
 	private final Stats stats;
+	
+	/** The path. */
 	private final Path path;
+	
+	/** The atts. */
 	private final List<Attribute<? extends IValue>> atts;
 	
+	/** The row header number. */
 	// All is here
 	private int[] rowHeaderNumber = new int[] {-1,-1};
+	
+	/** The column header number. */
 	private int[] columnHeaderNumber = new int[] {-1,-1};
+	
+	/** The infered type. */
 	@SuppressWarnings("rawtypes")
 	private IType inferedType = null;
+	
+	/** The total. */
 	private Double total = null;
 	
 	/**
-	 * TODO : find the number of row headers
-	 * @return
+	 * TODO : find the number of row headers.
+	 *
+	 * @return the int
 	 */
 	public int inferRowHeaders() {
 		if (rowHeaderNumber[0]==-1) {
@@ -79,8 +113,9 @@ public class GenStarGamaSurveyUtils {
 	}
 	
 	/**
-	 * TODO : find the number of column headers
-	 * @return
+	 * TODO : find the number of column headers.
+	 *
+	 * @return the int
 	 */
 	public int inferColumnHeaders() { 
 		if (columnHeaderNumber[0]==-1) {
@@ -125,8 +160,9 @@ public class GenStarGamaSurveyUtils {
 	}
 	
 	/**
-	 * Infer the type of data contains in the csv file
-	 * @return
+	 * Infer the type of data contains in the csv file.
+	 *
+	 * @return the i type
 	 */
 	@SuppressWarnings("rawtypes")
 	public IType inferDataType() {
@@ -150,8 +186,9 @@ public class GenStarGamaSurveyUtils {
 	}
 	
 	/**
-	 * Compute the sum of data contained in the csv file: if there is non numerical data, then 
-	 * @return
+	 * Compute the sum of data contained in the csv file: if there is non numerical data, then .
+	 *
+	 * @return the total data
 	 */
 	public Double getTotalData() {
 		if (total!=null) {return total;}
@@ -180,11 +217,22 @@ public class GenStarGamaSurveyUtils {
 		return total;
 	}
 	
+	/**
+	 * The Class StringAnalysis.
+	 */
 	private class StringAnalysis {
 
+		/** The is float. */
 		boolean isFloat = true;
+		
+		/** The is int. */
 		boolean isInt = true;
 
+		/**
+		 * Instantiates a new string analysis.
+		 *
+		 * @param s the s
+		 */
 		StringAnalysis(final String s) {
 
 			for (final char c : s.toCharArray()) {
@@ -210,6 +258,12 @@ public class GenStarGamaSurveyUtils {
 
 	}
 	
+	/**
+	 * Process record type.
+	 *
+	 * @param values the values
+	 * @return the i type
+	 */
 	@SuppressWarnings("rawtypes")
 	protected IType processRecordType(final String[] values) {
 		IType temp = null;
@@ -235,7 +289,18 @@ public class GenStarGamaSurveyUtils {
 		return temp;
 	}
 	
+	/**
+	 * Gets the path.
+	 *
+	 * @return the path
+	 */
 	public Path getPath() { return path; }
+	
+	/**
+	 * Gets the delimiter.
+	 *
+	 * @return the delimiter
+	 */
 	public Character getDelimiter() { return stats.delimiter; }
 	
 }

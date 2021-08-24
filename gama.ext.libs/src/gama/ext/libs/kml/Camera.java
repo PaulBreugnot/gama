@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Camera.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -238,20 +248,12 @@ public class Camera
      */
     @XmlElement(defaultValue = "0.0")
     protected double roll;
-    /**
-     * AltitudeMode
-     * <p>
-     * clampToGround, relativeToGround, absolute 
-     * </p>
-     * 
-     * See Also: 
-     * See <LookAt> and <Region>
-     * 
-     * 
-     * 
-     */
+    
+    /** AltitudeMode <p> clampToGround, relativeToGround, absolute  </p>  See Also:  See <LookAt> and <Region>. */
     @XmlElement(defaultValue = "clampToGround")
     protected AltitudeMode altitudeMode;
+    
+    /** The camera simple extension. */
     @XmlElement(name = "CameraSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> cameraSimpleExtension;
@@ -276,185 +278,176 @@ public class Camera
     @XmlElement(name = "CameraObjectExtensionGroup")
     protected List<AbstractObject> cameraObjectExtension;
 
+    /**
+     * Instantiates a new camera.
+     */
     public Camera() {
         super();
     }
 
     /**
-     * @see longitude
-     * 
-     * @return
-     *     possible object is
+     * Gets the longitude.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see longitude
      */
     public double getLongitude() {
         return longitude;
     }
 
     /**
-     * @see longitude
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the longitude.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see longitude
      */
     public void setLongitude(double value) {
         this.longitude = value;
     }
 
     /**
-     * @see latitude
-     * 
-     * @return
-     *     possible object is
+     * Gets the latitude.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see latitude
      */
     public double getLatitude() {
         return latitude;
     }
 
     /**
-     * @see latitude
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the latitude.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see latitude
      */
     public void setLatitude(double value) {
         this.latitude = value;
     }
 
     /**
-     * @see altitude
-     * 
-     * @return
-     *     possible object is
+     * Gets the altitude.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see altitude
      */
     public double getAltitude() {
         return altitude;
     }
 
     /**
-     * @see altitude
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the altitude.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see altitude
      */
     public void setAltitude(double value) {
         this.altitude = value;
     }
 
     /**
-     * @see heading
-     * 
-     * @return
-     *     possible object is
+     * Gets the heading.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see heading
      */
     public double getHeading() {
         return heading;
     }
 
     /**
-     * @see heading
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the heading.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see heading
      */
     public void setHeading(double value) {
         this.heading = value;
     }
 
     /**
-     * @see tilt
-     * 
-     * @return
-     *     possible object is
+     * Gets the tilt.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see tilt
      */
     public double getTilt() {
         return tilt;
     }
 
     /**
-     * @see tilt
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the tilt.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see tilt
      */
     public void setTilt(double value) {
         this.tilt = value;
     }
 
     /**
-     * @see roll
-     * 
-     * @return
-     *     possible object is
+     * Gets the roll.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see roll
      */
     public double getRoll() {
         return roll;
     }
 
     /**
-     * @see roll
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the roll.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see roll
      */
     public void setRoll(double value) {
         this.roll = value;
     }
 
     /**
-     * @see altitudeMode
-     * 
-     * @return
-     *     possible object is
+     * Gets the altitude mode.
+     *
+     * @return     possible object is
      *     {@code <}{@link Object}{@code>}
      *     {@code <}{@link gama.ext.libs.kml.AltitudeMode}{@code>}
      *     {@code <}{@link msi.gama.ext.kml.gx.AltitudeMode}{@code>}
-     *     
+     * @see altitudeMode
      */
     public AltitudeMode getAltitudeMode() {
         return altitudeMode;
     }
 
     /**
-     * @see altitudeMode
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the altitude mode.
+     *
+     * @param value     allowed object is
      *     {@code <}{@link Object}{@code>}
      *     {@code <}{@link gama.ext.libs.kml.AltitudeMode}{@code>}
      *     {@code <}{@link msi.gama.ext.kml.gx.AltitudeMode}{@code>}
-     *     
+     * @see altitudeMode
      */
     public void setAltitudeMode(AltitudeMode value) {
         this.altitudeMode = value;
     }
 
     /**
+     * Gets the camera simple extension.
+     *
+     * @return the camera simple extension
      * @see cameraSimpleExtension
-     * 
      */
     public List<Object> getCameraSimpleExtension() {
         if (cameraSimpleExtension == null) {
@@ -464,8 +457,10 @@ public class Camera
     }
 
     /**
+     * Gets the camera object extension.
+     *
+     * @return the camera object extension
      * @see cameraObjectExtension
-     * 
      */
     public List<AbstractObject> getCameraObjectExtension() {
         if (cameraObjectExtension == null) {
@@ -561,21 +556,20 @@ public class Camera
     }
 
     /**
+     * Sets the camera simple extension.
+     *
+     * @param cameraSimpleExtension the new camera simple extension
      * @see cameraSimpleExtension
-     * 
-     * @param cameraSimpleExtension
      */
     public void setCameraSimpleExtension(final List<Object> cameraSimpleExtension) {
         this.cameraSimpleExtension = cameraSimpleExtension;
     }
 
     /**
-     * add a value to the cameraSimpleExtension property collection
-     * 
-     * @param cameraSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the cameraSimpleExtension property collection.
+     *
+     * @param cameraSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Camera addToCameraSimpleExtension(final Object cameraSimpleExtension) {
         this.getCameraSimpleExtension().add(cameraSimpleExtension);
@@ -583,21 +577,20 @@ public class Camera
     }
 
     /**
+     * Sets the camera object extension.
+     *
+     * @param cameraObjectExtension the new camera object extension
      * @see cameraObjectExtension
-     * 
-     * @param cameraObjectExtension
      */
     public void setCameraObjectExtension(final List<AbstractObject> cameraObjectExtension) {
         this.cameraObjectExtension = cameraObjectExtension;
     }
 
     /**
-     * add a value to the cameraObjectExtension property collection
-     * 
-     * @param cameraObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the cameraObjectExtension property collection.
+     *
+     * @param cameraObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Camera addToCameraObjectExtension(final AbstractObject cameraObjectExtension) {
         this.getCameraObjectExtension().add(cameraObjectExtension);
@@ -656,11 +649,11 @@ public class Camera
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param longitude     required parameter
+     * @return the camera
      * @see #setLongitude(double)
-     * 
-     * @param longitude
-     *     required parameter
      */
     public Camera withLongitude(final double longitude) {
         this.setLongitude(longitude);
@@ -668,11 +661,11 @@ public class Camera
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param latitude     required parameter
+     * @return the camera
      * @see #setLatitude(double)
-     * 
-     * @param latitude
-     *     required parameter
      */
     public Camera withLatitude(final double latitude) {
         this.setLatitude(latitude);
@@ -680,11 +673,11 @@ public class Camera
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param altitude     required parameter
+     * @return the camera
      * @see #setAltitude(double)
-     * 
-     * @param altitude
-     *     required parameter
      */
     public Camera withAltitude(final double altitude) {
         this.setAltitude(altitude);
@@ -692,11 +685,11 @@ public class Camera
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param heading     required parameter
+     * @return the camera
      * @see #setHeading(double)
-     * 
-     * @param heading
-     *     required parameter
      */
     public Camera withHeading(final double heading) {
         this.setHeading(heading);
@@ -704,11 +697,11 @@ public class Camera
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param tilt     required parameter
+     * @return the camera
      * @see #setTilt(double)
-     * 
-     * @param tilt
-     *     required parameter
      */
     public Camera withTilt(final double tilt) {
         this.setTilt(tilt);
@@ -716,11 +709,11 @@ public class Camera
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param roll     required parameter
+     * @return the camera
      * @see #setRoll(double)
-     * 
-     * @param roll
-     *     required parameter
      */
     public Camera withRoll(final double roll) {
         this.setRoll(roll);
@@ -728,11 +721,11 @@ public class Camera
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param altitudeMode     required parameter
+     * @return the camera
      * @see #setAltitudeMode(Object)
-     * 
-     * @param altitudeMode
-     *     required parameter
      */
     public Camera withAltitudeMode(final  AltitudeMode altitudeMode) {
         this.setAltitudeMode(altitudeMode);
@@ -740,11 +733,11 @@ public class Camera
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param cameraSimpleExtension     required parameter
+     * @return the camera
      * @see #setCameraSimpleExtension(List<Object>)
-     * 
-     * @param cameraSimpleExtension
-     *     required parameter
      */
     public Camera withCameraSimpleExtension(final List<Object> cameraSimpleExtension) {
         this.setCameraSimpleExtension(cameraSimpleExtension);
@@ -752,11 +745,11 @@ public class Camera
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param cameraObjectExtension     required parameter
+     * @return the camera
      * @see #setCameraObjectExtension(List<AbstractObject>)
-     * 
-     * @param cameraObjectExtension
-     *     required parameter
      */
     public Camera withCameraObjectExtension(final List<AbstractObject> cameraObjectExtension) {
         this.setCameraObjectExtension(cameraObjectExtension);

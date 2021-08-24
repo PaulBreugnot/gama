@@ -1,18 +1,13 @@
-/*
- Copyright 2005 Simon Mieth
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+/*******************************************************************************************************
+ *
+ * DXFParser.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.parser;
 
 import java.io.BufferedInputStream;
@@ -34,31 +29,67 @@ import gama.ext.libs.kabeja.tools.CodePageParser;
 
 
 /**
+ * The Class DXFParser.
+ *
  * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
- *
- *
  */
 public class DXFParser implements HandlerManager, Handler, Parser, DXFHandler {
+    
+    /** The Constant PARSER_NAME. */
     public final static String PARSER_NAME = "DXFParser";
+    
+    /** The Constant EXTENSION. */
     public final static String EXTENSION = "dxf";
+    
+    /** The Constant SECTION_START. */
     private final static String SECTION_START = "SECTION";
+    
+    /** The Constant SECTION_END. */
     private final static String SECTION_END = "ENDSEC";
+    
+    /** The Constant END_STREAM. */
     private final static String END_STREAM = "EOF";
+    
+    /** The Constant COMMAND_CODE. */
     private final static int COMMAND_CODE = 0;
+    
+    /** The Constant DEFAULT_ENCODING. */
     public static final String DEFAULT_ENCODING = "";
+    
+    /** The doc. */
     protected DXFDocument doc;
+    
+    /** The handlers. */
     protected Hashtable handlers = new Hashtable();
+    
+    /** The current handler. */
     protected DXFSectionHandler currentHandler;
+    
+    /** The line. */
     private String line;
+    
+    /** The stream filters. */
     protected List streamFilters = new ArrayList();
+    
+    /** The filter. */
     protected DXFHandler filter;
 
+    /** The key. */
     // some parse flags
     private boolean key = false;
+    
+    /** The sectionstarts. */
     private boolean sectionstarts = false;
+    
+    /** The linecount. */
     private int linecount;
+    
+    /** The parse. */
     private boolean parse = false;
 
+    /**
+     * Instantiates a new DXF parser.
+     */
     public DXFParser() {
     }
 
@@ -216,6 +247,11 @@ public class DXFParser implements HandlerManager, Handler, Parser, DXFHandler {
         return doc;
     }
 
+    /**
+     * Adds the DXF section handler.
+     *
+     * @param handler the handler
+     */
     public void addDXFSectionHandler(DXFSectionHandler handler) {
         handler.setDXFDocument(doc);
         handlers.put(handler.getSectionKey(), handler);
@@ -266,14 +302,27 @@ public class DXFParser implements HandlerManager, Handler, Parser, DXFHandler {
         return extension.toLowerCase().equals(EXTENSION);
     }
 
+    /**
+     * Adds the DXF stream filter.
+     *
+     * @param filter the filter
+     */
     public void addDXFStreamFilter(DXFStreamFilter filter) {
         this.streamFilters.add(filter);
     }
 
+    /**
+     * Removes the DXF stream filter.
+     *
+     * @param filter the filter
+     */
     public void removeDXFStreamFilter(DXFStreamFilter filter) {
         this.streamFilters.remove(filter);
     }
 
+    /**
+     * Builds the filter chain.
+     */
     protected void buildFilterChain() {
         // build the chain from end to start
         // the parser itself is the last element

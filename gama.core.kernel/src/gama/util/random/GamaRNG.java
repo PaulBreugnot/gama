@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.random.GamaRNG.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * GamaRNG.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.util.random;
 
@@ -23,32 +23,50 @@ import java.util.Random;
 public abstract class GamaRNG extends Random {
 
 	// Mask for casting a byte to an int, bit-by-bit (with
+	/** The Constant BITWISE_BYTE_TO_INT. */
 	// bitwise AND) with no special consideration for the sign bit.
 	public static final int BITWISE_BYTE_TO_INT = 0x000000FF;
 
 	/**
+	 * Gets the seed.
+	 *
 	 * @return The seed data used to initialise this pseudo-random number generator.
 	 */
 	abstract byte[] getSeed();
 
-	/** number of times the generator has been asked to draw a random number */
+	/**  number of times the generator has been asked to draw a random number. */
 	int usage = 0;
 
 	/**
-	 * @param createLongSeed
+	 * Instantiates a new gama RNG.
+	 *
+	 * @param seed the seed
 	 */
 	public GamaRNG(final long seed) {
 		super(seed);
 	}
 
+	/**
+	 * Instantiates a new gama RNG.
+	 */
 	public GamaRNG() {
 		super();
 	}
 
+	/**
+	 * Gets the usage.
+	 *
+	 * @return the usage
+	 */
 	public int getUsage() {
 		return usage;
 	}
 
+	/**
+	 * Sets the usage.
+	 *
+	 * @param usage the new usage
+	 */
 	public void setUsage(final int usage) {
 		for (long i = 0; i < usage; i++) {
 			next(32);

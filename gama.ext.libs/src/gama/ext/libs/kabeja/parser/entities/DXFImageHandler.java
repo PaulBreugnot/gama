@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * DXFImageHandler.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.parser.entities;
 
 import gama.ext.libs.kabeja.dxf.DXFConstants;
@@ -23,29 +18,70 @@ import gama.ext.libs.kabeja.parser.DXFValue;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth</a>
+ * The Class DXFImageHandler.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth</a>
  */
 public class DXFImageHandler extends AbstractEntityHandler {
+    
+    /** The Constant GROUPCODE_IMAGEDEF_HARDREFERENCE. */
     public final static int GROUPCODE_IMAGEDEF_HARDREFERENCE = 340;
+    
+    /** The Constant GROUPCODE_VECTOR_U_X. */
     public final static int GROUPCODE_VECTOR_U_X = 11;
+    
+    /** The Constant GROUPCODE_VECTOR_U_Y. */
     public final static int GROUPCODE_VECTOR_U_Y = 21;
+    
+    /** The Constant GROUPCODE_VECTOR_U_Z. */
     public final static int GROUPCODE_VECTOR_U_Z = 31;
+    
+    /** The Constant GROUPCODE_VECTOR_V_X. */
     public final static int GROUPCODE_VECTOR_V_X = 12;
+    
+    /** The Constant GROUPCODE_VECTOR_V_Y. */
     public final static int GROUPCODE_VECTOR_V_Y = 22;
+    
+    /** The Constant GROUPCODE_VECTOR_V_Z. */
     public final static int GROUPCODE_VECTOR_V_Z = 32;
+    
+    /** The Constant GROUPCODE_IAMGESIZE_U. */
     public final static int GROUPCODE_IAMGESIZE_U = 13;
+    
+    /** The Constant GROUPCODE_IAMGESIZE_V. */
     public final static int GROUPCODE_IAMGESIZE_V = 23;
+    
+    /** The Constant GROUPCODE_DISPLAY_PROPERTY. */
     public final static int GROUPCODE_DISPLAY_PROPERTY = 70;
+    
+    /** The Constant GROUPCODE_BRIGHTNESS. */
     public final static int GROUPCODE_BRIGHTNESS = 281;
+    
+    /** The Constant GROUPCODE_CONTRAST. */
     public final static int GROUPCODE_CONTRAST = 282;
+    
+    /** The Constant GROUPCODE_FADE. */
     public final static int GROUPCODE_FADE = 283;
+    
+    /** The Constant GROUPCODE_NUMBER_CLIP_BOUNDARY. */
     public final static int GROUPCODE_NUMBER_CLIP_BOUNDARY = 91;
+    
+    /** The Constant GROUPCODE_CLIP_BOUNDARY_X. */
     public final static int GROUPCODE_CLIP_BOUNDARY_X = 14;
+    
+    /** The Constant GROUPCODE_CLIP_BOUNDARY_Y. */
     public final static int GROUPCODE_CLIP_BOUNDARY_Y = 24;
+    
+    /** The Constant GROUPCODE_CLIP_BOUNDARY_TYPE. */
     public final static int GROUPCODE_CLIP_BOUNDARY_TYPE = 71;
+    
+    /** The Constant GROUPCODE_CLIPPING_STATE. */
     public final static int GROUPCODE_CLIPPING_STATE = 280;
+    
+    /** The image. */
     protected DXFImage image;
+    
+    /** The clipping point. */
     protected Point clippingPoint;
 
     /*

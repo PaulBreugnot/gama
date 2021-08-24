@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * PostBox.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.xal;
 
@@ -19,7 +29,7 @@ import javax.xml.namespace.QName;
 
 
 /**
- * 
+ * The Class PostBox.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -36,36 +46,56 @@ import javax.xml.namespace.QName;
 public class PostBox implements Cloneable
 {
 
+    /** The address line. */
     @XmlElement(name = "AddressLine")
     protected List<AddressLine> addressLine;
+    
+    /** The post box number. */
     @XmlElement(name = "PostBoxNumber", required = true)
     protected PostBox.PostBoxNumber postBoxNumber;
+    
+    /** The post box number prefix. */
     @XmlElement(name = "PostBoxNumberPrefix")
     protected PostBox.PostBoxNumberPrefix postBoxNumberPrefix;
+    
+    /** The post box number suffix. */
     @XmlElement(name = "PostBoxNumberSuffix")
     protected PostBox.PostBoxNumberSuffix postBoxNumberSuffix;
+    
+    /** The post box number extension. */
     @XmlElement(name = "PostBoxNumberExtension")
     protected PostBox.PostBoxNumberExtension postBoxNumberExtension;
+    
+    /** The firm. */
     @XmlElement(name = "Firm")
     protected Firm firm;
+    
+    /** The postal code. */
     @XmlElement(name = "PostalCode")
     protected PostalCode postalCode;
+    
+    /** The any. */
     @XmlAnyElement(lax = true)
     protected List<Object> any;
+    
+    /** The underscore. */
     @XmlAttribute(name = "Type")
     @XmlSchemaType(name = "anySimpleType")
     protected String underscore;
+    
+    /** The indicator. */
     @XmlAttribute(name = "Indicator")
     @XmlSchemaType(name = "anySimpleType")
     protected String indicator;
+    
+    /** The other attributes. */
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
-     * Value constructor with only mandatory fields
-     * 
-     * @param postBoxNumber
-     *     required parameter
+     * Value constructor with only mandatory fields.
+     *
+     * @param postBoxNumber     required parameter
      */
     public PostBox(final PostBox.PostBoxNumber postBoxNumber) {
         super();
@@ -82,7 +112,9 @@ public class PostBox implements Cloneable
     }
 
     /**
-     * 
+     * Gets the address line.
+     *
+     * @return the address line
      */
     public List<AddressLine> getAddressLine() {
         if (addressLine == null) {
@@ -92,139 +124,129 @@ public class PostBox implements Cloneable
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the post box number.
+     *
+     * @return     possible object is
      *     {@link PostBox.PostBoxNumber}
-     *     
      */
     public PostBox.PostBoxNumber getPostBoxNumber() {
         return postBoxNumber;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the post box number.
+     *
+     * @param value     allowed object is
      *     {@link PostBox.PostBoxNumber}
-     *     
      */
     public void setPostBoxNumber(PostBox.PostBoxNumber value) {
         this.postBoxNumber = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the post box number prefix.
+     *
+     * @return     possible object is
      *     {@link PostBox.PostBoxNumberPrefix}
-     *     
      */
     public PostBox.PostBoxNumberPrefix getPostBoxNumberPrefix() {
         return postBoxNumberPrefix;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the post box number prefix.
+     *
+     * @param value     allowed object is
      *     {@link PostBox.PostBoxNumberPrefix}
-     *     
      */
     public void setPostBoxNumberPrefix(PostBox.PostBoxNumberPrefix value) {
         this.postBoxNumberPrefix = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the post box number suffix.
+     *
+     * @return     possible object is
      *     {@link PostBox.PostBoxNumberSuffix}
-     *     
      */
     public PostBox.PostBoxNumberSuffix getPostBoxNumberSuffix() {
         return postBoxNumberSuffix;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the post box number suffix.
+     *
+     * @param value     allowed object is
      *     {@link PostBox.PostBoxNumberSuffix}
-     *     
      */
     public void setPostBoxNumberSuffix(PostBox.PostBoxNumberSuffix value) {
         this.postBoxNumberSuffix = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the post box number extension.
+     *
+     * @return     possible object is
      *     {@link PostBox.PostBoxNumberExtension}
-     *     
      */
     public PostBox.PostBoxNumberExtension getPostBoxNumberExtension() {
         return postBoxNumberExtension;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the post box number extension.
+     *
+     * @param value     allowed object is
      *     {@link PostBox.PostBoxNumberExtension}
-     *     
      */
     public void setPostBoxNumberExtension(PostBox.PostBoxNumberExtension value) {
         this.postBoxNumberExtension = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the firm.
+     *
+     * @return     possible object is
      *     {@link Firm}
-     *     
      */
     public Firm getFirm() {
         return firm;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the firm.
+     *
+     * @param value     allowed object is
      *     {@link Firm}
-     *     
      */
     public void setFirm(Firm value) {
         this.firm = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the postal code.
+     *
+     * @return     possible object is
      *     {@link PostalCode}
-     *     
      */
     public PostalCode getPostalCode() {
         return postalCode;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the postal code.
+     *
+     * @param value     allowed object is
      *     {@link PostalCode}
-     *     
      */
     public void setPostalCode(PostalCode value) {
         this.postalCode = value;
     }
 
     /**
-     * 
+     * Gets the any.
+     *
+     * @return the any
      */
     public List<Object> getAny() {
         if (any == null) {
@@ -234,53 +256,49 @@ public class PostBox implements Cloneable
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the underscore.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getUnderscore() {
         return underscore;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the underscore.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setUnderscore(String value) {
         this.underscore = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the indicator.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getIndicator() {
         return indicator;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the indicator.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setIndicator(String value) {
         this.indicator = value;
     }
 
     /**
-     * 
-     * @return
-     *     always non-null
+     * Gets the other attributes.
+     *
+     * @return     always non-null
      */
     public Map<QName, String> getOtherAttributes() {
         return otherAttributes;
@@ -414,8 +432,8 @@ public class PostBox implements Cloneable
      * <code>
      * AddressLine addressLine = new AddressLine();
      * this.getAddressLine().add(addressLine); </code>
-     * 
-     * 
+     *
+     * @return the address line
      */
     public AddressLine createAndAddAddressLine() {
         AddressLine newValue = new AddressLine();
@@ -430,8 +448,8 @@ public class PostBox implements Cloneable
      * <code>
      * PostBoxNumber postBoxNumber = new PostBoxNumber();
      * this.setPostBoxNumber(postBoxNumber); </code>
-     * 
-     * 
+     *
+     * @return the post box. post box number
      */
     public PostBox.PostBoxNumber createAndSetPostBoxNumber() {
         PostBox.PostBoxNumber newValue = new PostBox.PostBoxNumber();
@@ -446,8 +464,8 @@ public class PostBox implements Cloneable
      * <code>
      * PostBoxNumberPrefix postBoxNumberPrefix = new PostBoxNumberPrefix();
      * this.setPostBoxNumberPrefix(postBoxNumberPrefix); </code>
-     * 
-     * 
+     *
+     * @return the post box. post box number prefix
      */
     public PostBox.PostBoxNumberPrefix createAndSetPostBoxNumberPrefix() {
         PostBox.PostBoxNumberPrefix newValue = new PostBox.PostBoxNumberPrefix();
@@ -462,8 +480,8 @@ public class PostBox implements Cloneable
      * <code>
      * PostBoxNumberSuffix postBoxNumberSuffix = new PostBoxNumberSuffix();
      * this.setPostBoxNumberSuffix(postBoxNumberSuffix); </code>
-     * 
-     * 
+     *
+     * @return the post box. post box number suffix
      */
     public PostBox.PostBoxNumberSuffix createAndSetPostBoxNumberSuffix() {
         PostBox.PostBoxNumberSuffix newValue = new PostBox.PostBoxNumberSuffix();
@@ -478,8 +496,8 @@ public class PostBox implements Cloneable
      * <code>
      * PostBoxNumberExtension postBoxNumberExtension = new PostBoxNumberExtension();
      * this.setPostBoxNumberExtension(postBoxNumberExtension); </code>
-     * 
-     * 
+     *
+     * @return the post box. post box number extension
      */
     public PostBox.PostBoxNumberExtension createAndSetPostBoxNumberExtension() {
         PostBox.PostBoxNumberExtension newValue = new PostBox.PostBoxNumberExtension();
@@ -494,8 +512,8 @@ public class PostBox implements Cloneable
      * <code>
      * Firm firm = new Firm();
      * this.setFirm(firm); </code>
-     * 
-     * 
+     *
+     * @return the firm
      */
     public Firm createAndSetFirm() {
         Firm newValue = new Firm();
@@ -510,8 +528,8 @@ public class PostBox implements Cloneable
      * <code>
      * PostalCode postalCode = new PostalCode();
      * this.setPostalCode(postalCode); </code>
-     * 
-     * 
+     *
+     * @return the postal code
      */
     public PostalCode createAndSetPostalCode() {
         PostalCode newValue = new PostalCode();
@@ -523,21 +541,18 @@ public class PostBox implements Cloneable
      * Sets the value of the addressLine property Objects of the following type(s) are allowed in the list List<AddressLine>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAddressLine} instead.
-     * 
-     * 
-     * @param addressLine
+     *
+     * @param addressLine the new address line
      */
     public void setAddressLine(final List<AddressLine> addressLine) {
         this.addressLine = addressLine;
     }
 
     /**
-     * add a value to the addressLine property collection
-     * 
-     * @param addressLine
-     *     Objects of the following type are allowed in the list: {@link AddressLine}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the addressLine property collection.
+     *
+     * @param addressLine     Objects of the following type are allowed in the list: {@link AddressLine}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public PostBox addToAddressLine(final AddressLine addressLine) {
         this.getAddressLine().add(addressLine);
@@ -548,21 +563,18 @@ public class PostBox implements Cloneable
      * Sets the value of the any property Objects of the following type(s) are allowed in the list List<Object>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAny} instead.
-     * 
-     * 
-     * @param any
+     *
+     * @param any the new any
      */
     public void setAny(final List<Object> any) {
         this.any = any;
     }
 
     /**
-     * add a value to the any property collection
-     * 
-     * @param any
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the any property collection.
+     *
+     * @param any     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public PostBox addToAny(final Object any) {
         this.getAny().add(any);
@@ -570,11 +582,11 @@ public class PostBox implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param addressLine     required parameter
+     * @return the post box
      * @see #setAddressLine(List<AddressLine>)
-     * 
-     * @param addressLine
-     *     required parameter
      */
     public PostBox withAddressLine(final List<AddressLine> addressLine) {
         this.setAddressLine(addressLine);
@@ -582,11 +594,11 @@ public class PostBox implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param postBoxNumberPrefix     required parameter
+     * @return the post box
      * @see #setPostBoxNumberPrefix(PostBoxNumberPrefix)
-     * 
-     * @param postBoxNumberPrefix
-     *     required parameter
      */
     public PostBox withPostBoxNumberPrefix(final PostBox.PostBoxNumberPrefix postBoxNumberPrefix) {
         this.setPostBoxNumberPrefix(postBoxNumberPrefix);
@@ -594,11 +606,11 @@ public class PostBox implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param postBoxNumberSuffix     required parameter
+     * @return the post box
      * @see #setPostBoxNumberSuffix(PostBoxNumberSuffix)
-     * 
-     * @param postBoxNumberSuffix
-     *     required parameter
      */
     public PostBox withPostBoxNumberSuffix(final PostBox.PostBoxNumberSuffix postBoxNumberSuffix) {
         this.setPostBoxNumberSuffix(postBoxNumberSuffix);
@@ -606,11 +618,11 @@ public class PostBox implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param postBoxNumberExtension     required parameter
+     * @return the post box
      * @see #setPostBoxNumberExtension(PostBoxNumberExtension)
-     * 
-     * @param postBoxNumberExtension
-     *     required parameter
      */
     public PostBox withPostBoxNumberExtension(final PostBox.PostBoxNumberExtension postBoxNumberExtension) {
         this.setPostBoxNumberExtension(postBoxNumberExtension);
@@ -618,11 +630,11 @@ public class PostBox implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param firm     required parameter
+     * @return the post box
      * @see #setFirm(Firm)
-     * 
-     * @param firm
-     *     required parameter
      */
     public PostBox withFirm(final Firm firm) {
         this.setFirm(firm);
@@ -630,11 +642,11 @@ public class PostBox implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param postalCode     required parameter
+     * @return the post box
      * @see #setPostalCode(PostalCode)
-     * 
-     * @param postalCode
-     *     required parameter
      */
     public PostBox withPostalCode(final PostalCode postalCode) {
         this.setPostalCode(postalCode);
@@ -642,11 +654,11 @@ public class PostBox implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param any     required parameter
+     * @return the post box
      * @see #setAny(List<Object>)
-     * 
-     * @param any
-     *     required parameter
      */
     public PostBox withAny(final List<Object> any) {
         this.setAny(any);
@@ -654,11 +666,11 @@ public class PostBox implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param underscore     required parameter
+     * @return the post box
      * @see #setUnderscore(String)
-     * 
-     * @param underscore
-     *     required parameter
      */
     public PostBox withUnderscore(final String underscore) {
         this.setUnderscore(underscore);
@@ -666,11 +678,11 @@ public class PostBox implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param indicator     required parameter
+     * @return the post box
      * @see #setIndicator(String)
-     * 
-     * @param indicator
-     *     required parameter
      */
     public PostBox withIndicator(final String indicator) {
         this.setIndicator(indicator);
@@ -704,7 +716,7 @@ public class PostBox implements Cloneable
 
 
     /**
-     * 
+     * The Class PostBoxNumber.
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -714,66 +726,70 @@ public class PostBox implements Cloneable
     public static class PostBoxNumber implements Cloneable
     {
 
+        /** The content. */
         @XmlValue
         protected String content;
+        
+        /** The code. */
         @XmlAttribute(name = "Code")
         @XmlSchemaType(name = "anySimpleType")
         protected String code;
+        
+        /** The other attributes. */
         @XmlAnyAttribute
         private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+        /**
+         * Instantiates a new post box number.
+         */
         public PostBoxNumber() {
             super();
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the content.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getContent() {
             return content;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the content.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setContent(String value) {
             this.content = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the code.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getCode() {
             return code;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the code.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setCode(String value) {
             this.code = value;
         }
 
         /**
-         * 
-         * @return
-         *     always non-null
+         * Gets the other attributes.
+         *
+         * @return     always non-null
          */
         public Map<QName, String> getOtherAttributes() {
             return otherAttributes;
@@ -822,11 +838,11 @@ public class PostBox implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param content     required parameter
+         * @return the post box. post box number
          * @see #setContent(String)
-         * 
-         * @param content
-         *     required parameter
          */
         public PostBox.PostBoxNumber withContent(final String content) {
             this.setContent(content);
@@ -834,11 +850,11 @@ public class PostBox implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param code     required parameter
+         * @return the post box. post box number
          * @see #setCode(String)
-         * 
-         * @param code
-         *     required parameter
          */
         public PostBox.PostBoxNumber withCode(final String code) {
             this.setCode(code);
@@ -860,7 +876,7 @@ public class PostBox implements Cloneable
 
 
     /**
-     * 
+     * The Class PostBoxNumberExtension.
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -870,66 +886,70 @@ public class PostBox implements Cloneable
     public static class PostBoxNumberExtension implements Cloneable
     {
 
+        /** The content. */
         @XmlValue
         protected String content;
+        
+        /** The number extension separator. */
         @XmlAttribute(name = "NumberExtensionSeparator")
         @XmlSchemaType(name = "anySimpleType")
         protected String numberExtensionSeparator;
+        
+        /** The other attributes. */
         @XmlAnyAttribute
         private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+        /**
+         * Instantiates a new post box number extension.
+         */
         public PostBoxNumberExtension() {
             super();
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the content.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getContent() {
             return content;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the content.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setContent(String value) {
             this.content = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the number extension separator.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getNumberExtensionSeparator() {
             return numberExtensionSeparator;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the number extension separator.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setNumberExtensionSeparator(String value) {
             this.numberExtensionSeparator = value;
         }
 
         /**
-         * 
-         * @return
-         *     always non-null
+         * Gets the other attributes.
+         *
+         * @return     always non-null
          */
         public Map<QName, String> getOtherAttributes() {
             return otherAttributes;
@@ -978,11 +998,11 @@ public class PostBox implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param content     required parameter
+         * @return the post box. post box number extension
          * @see #setContent(String)
-         * 
-         * @param content
-         *     required parameter
          */
         public PostBox.PostBoxNumberExtension withContent(final String content) {
             this.setContent(content);
@@ -990,11 +1010,11 @@ public class PostBox implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param numberExtensionSeparator     required parameter
+         * @return the post box. post box number extension
          * @see #setNumberExtensionSeparator(String)
-         * 
-         * @param numberExtensionSeparator
-         *     required parameter
          */
         public PostBox.PostBoxNumberExtension withNumberExtensionSeparator(final String numberExtensionSeparator) {
             this.setNumberExtensionSeparator(numberExtensionSeparator);
@@ -1016,7 +1036,7 @@ public class PostBox implements Cloneable
 
 
     /**
-     * 
+     * The Class PostBoxNumberPrefix.
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -1026,91 +1046,95 @@ public class PostBox implements Cloneable
     public static class PostBoxNumberPrefix implements Cloneable
     {
 
+        /** The content. */
         @XmlValue
         protected String content;
+        
+        /** The number prefix separator. */
         @XmlAttribute(name = "NumberPrefixSeparator")
         @XmlSchemaType(name = "anySimpleType")
         protected String numberPrefixSeparator;
+        
+        /** The code. */
         @XmlAttribute(name = "Code")
         @XmlSchemaType(name = "anySimpleType")
         protected String code;
+        
+        /** The other attributes. */
         @XmlAnyAttribute
         private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+        /**
+         * Instantiates a new post box number prefix.
+         */
         public PostBoxNumberPrefix() {
             super();
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the content.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getContent() {
             return content;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the content.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setContent(String value) {
             this.content = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the number prefix separator.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getNumberPrefixSeparator() {
             return numberPrefixSeparator;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the number prefix separator.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setNumberPrefixSeparator(String value) {
             this.numberPrefixSeparator = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the code.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getCode() {
             return code;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the code.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setCode(String value) {
             this.code = value;
         }
 
         /**
-         * 
-         * @return
-         *     always non-null
+         * Gets the other attributes.
+         *
+         * @return     always non-null
          */
         public Map<QName, String> getOtherAttributes() {
             return otherAttributes;
@@ -1169,11 +1193,11 @@ public class PostBox implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param content     required parameter
+         * @return the post box. post box number prefix
          * @see #setContent(String)
-         * 
-         * @param content
-         *     required parameter
          */
         public PostBox.PostBoxNumberPrefix withContent(final String content) {
             this.setContent(content);
@@ -1181,11 +1205,11 @@ public class PostBox implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param numberPrefixSeparator     required parameter
+         * @return the post box. post box number prefix
          * @see #setNumberPrefixSeparator(String)
-         * 
-         * @param numberPrefixSeparator
-         *     required parameter
          */
         public PostBox.PostBoxNumberPrefix withNumberPrefixSeparator(final String numberPrefixSeparator) {
             this.setNumberPrefixSeparator(numberPrefixSeparator);
@@ -1193,11 +1217,11 @@ public class PostBox implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param code     required parameter
+         * @return the post box. post box number prefix
          * @see #setCode(String)
-         * 
-         * @param code
-         *     required parameter
          */
         public PostBox.PostBoxNumberPrefix withCode(final String code) {
             this.setCode(code);
@@ -1219,7 +1243,7 @@ public class PostBox implements Cloneable
 
 
     /**
-     * 
+     * The Class PostBoxNumberSuffix.
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -1229,91 +1253,95 @@ public class PostBox implements Cloneable
     public static class PostBoxNumberSuffix implements Cloneable
     {
 
+        /** The content. */
         @XmlValue
         protected String content;
+        
+        /** The number suffix separator. */
         @XmlAttribute(name = "NumberSuffixSeparator")
         @XmlSchemaType(name = "anySimpleType")
         protected String numberSuffixSeparator;
+        
+        /** The code. */
         @XmlAttribute(name = "Code")
         @XmlSchemaType(name = "anySimpleType")
         protected String code;
+        
+        /** The other attributes. */
         @XmlAnyAttribute
         private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+        /**
+         * Instantiates a new post box number suffix.
+         */
         public PostBoxNumberSuffix() {
             super();
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the content.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getContent() {
             return content;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the content.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setContent(String value) {
             this.content = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the number suffix separator.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getNumberSuffixSeparator() {
             return numberSuffixSeparator;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the number suffix separator.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setNumberSuffixSeparator(String value) {
             this.numberSuffixSeparator = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the code.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getCode() {
             return code;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the code.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setCode(String value) {
             this.code = value;
         }
 
         /**
-         * 
-         * @return
-         *     always non-null
+         * Gets the other attributes.
+         *
+         * @return     always non-null
          */
         public Map<QName, String> getOtherAttributes() {
             return otherAttributes;
@@ -1372,11 +1400,11 @@ public class PostBox implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param content     required parameter
+         * @return the post box. post box number suffix
          * @see #setContent(String)
-         * 
-         * @param content
-         *     required parameter
          */
         public PostBox.PostBoxNumberSuffix withContent(final String content) {
             this.setContent(content);
@@ -1384,11 +1412,11 @@ public class PostBox implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param numberSuffixSeparator     required parameter
+         * @return the post box. post box number suffix
          * @see #setNumberSuffixSeparator(String)
-         * 
-         * @param numberSuffixSeparator
-         *     required parameter
          */
         public PostBox.PostBoxNumberSuffix withNumberSuffixSeparator(final String numberSuffixSeparator) {
             this.setNumberSuffixSeparator(numberSuffixSeparator);
@@ -1396,11 +1424,11 @@ public class PostBox implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param code     required parameter
+         * @return the post box. post box number suffix
          * @see #setCode(String)
-         * 
-         * @param code
-         *     required parameter
          */
         public PostBox.PostBoxNumberSuffix withCode(final String code) {
             this.setCode(code);

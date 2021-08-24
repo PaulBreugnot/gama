@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Create.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -82,13 +92,18 @@ public class Create implements Cloneable
     @XmlElementRef(name = "AbstractContainerGroup", namespace = "http://www.opengis.net/kml/2.2", required = false)
     protected List<Container> container;
 
+    /**
+     * Instantiates a new creates the.
+     */
     public Create() {
         super();
     }
 
     /**
+     * Gets the container.
+     *
+     * @return the container
      * @see container
-     * 
      */
     public List<Container> getContainer() {
         if (container == null) {
@@ -135,8 +150,8 @@ public class Create implements Cloneable
      * <code>
      * Folder folder = new Folder();
      * this.getContainer().add(folder); </code>
-     * 
-     * 
+     *
+     * @return the folder
      */
     public Folder createAndAddFolder() {
         Folder newValue = new Folder();
@@ -150,8 +165,8 @@ public class Create implements Cloneable
      * <code>
      * Document document = new Document();
      * this.getContainer().add(document); </code>
-     * 
-     * 
+     *
+     * @return the document
      */
     public Document createAndAddDocument() {
         Document newValue = new Document();
@@ -160,21 +175,20 @@ public class Create implements Cloneable
     }
 
     /**
+     * Sets the container.
+     *
+     * @param container the new container
      * @see container
-     * 
-     * @param container
      */
     public void setContainer(final List<Container> container) {
         this.container = container;
     }
 
     /**
-     * add a value to the container property collection
-     * 
-     * @param container
-     *     Objects of the following type are allowed in the list: {@code <}{@link Container}{@code>}{@link JAXBElement}{@code <}{@link Folder}{@code>}{@link JAXBElement}{@code <}{@link Document}{@code>}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the container property collection.
+     *
+     * @param container     Objects of the following type are allowed in the list: {@code <}{@link Container}{@code>}{@link JAXBElement}{@code <}{@link Folder}{@code>}{@link JAXBElement}{@code <}{@link Document}{@code>}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Create addToContainer(final Container container) {
         this.getContainer().add(container);
@@ -182,11 +196,11 @@ public class Create implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param container     required parameter
+     * @return the creates the
      * @see #setContainer(List<Container>)
-     * 
-     * @param container
-     *     required parameter
      */
     public Create withContainer(final List<Container> container) {
         this.setContainer(container);

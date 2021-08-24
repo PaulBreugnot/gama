@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.factories.SpeciesFactory.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * SpeciesFactory.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.factories;
 
@@ -35,6 +35,11 @@ import gaml.statements.Facets;
 @SuppressWarnings ({ "rawtypes" })
 public class SpeciesFactory extends SymbolFactory {
 
+	/**
+	 * Instantiates a new species factory.
+	 *
+	 * @param handles the handles
+	 */
 	public SpeciesFactory(final int... handles) {
 		super(handles);
 	}
@@ -45,6 +50,19 @@ public class SpeciesFactory extends SymbolFactory {
 		return new SpeciesDescription(keyword, null, (SpeciesDescription) sd, null, children, element, facets);
 	}
 
+	/**
+	 * Creates a new Species object.
+	 *
+	 * @param name the name
+	 * @param clazz the clazz
+	 * @param superDesc the super desc
+	 * @param parent the parent
+	 * @param helper the helper
+	 * @param skills the skills
+	 * @param userSkills the user skills
+	 * @param plugin the plugin
+	 * @return the species description
+	 */
 	public SpeciesDescription createBuiltInSpeciesDescription(final String name, final Class clazz,
 			final SpeciesDescription superDesc, final SpeciesDescription parent, final IAgentConstructor helper,
 			final Set<String> skills, final Facets userSkills, final String plugin) {

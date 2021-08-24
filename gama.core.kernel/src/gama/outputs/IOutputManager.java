@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.IOutputManager.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * IOutputManager.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs;
 
@@ -44,35 +44,32 @@ public interface IOutputManager extends IStepable, Iterable<IOutput> {
 	void remove(IOutput output);
 
 	/**
-	 * Removes all outputs from this IOutputManager
+	 * Removes all outputs from this IOutputManager.
 	 */
 	void clear();
 
 	/**
 	 * Adds all the outputs passed in parameter to this IOutputManager, replacing existing outputs with the same id if
-	 * any
+	 * any.
 	 *
-	 * @param outputs
-	 *            a map of <String, IOutput> (cannot be null) where the keys represent the output's id. See
+	 * @param outputs            a map of <String, IOutput> (cannot be null) where the keys represent the output's id. See
 	 *            {@link IOutput#getId()}
 	 */
 
 	void putAll(Map<String, IOutput> outputs);
 
 	/**
-	 * Returns the output with the given id, or null if none can be found
+	 * Returns the output with the given id, or null if none can be found.
 	 *
-	 * @param id
-	 *            the unique identifier of the output
+	 * @param id            the unique identifier of the output
 	 * @return an instance of IOutput or null
 	 */
 	IOutput getOutputWithId(String id);
 
 	/**
-	 * Returns the output with the given original name, or null if none can be found
+	 * Returns the output with the given original name, or null if none can be found.
 	 *
-	 * @param id
-	 *            the original name of the output (i.e. the one provided in the model)
+	 * @param name the name
 	 * @return an instance of IOutput or null
 	 */
 	IOutput getOutputWithOriginalName(final String name);
@@ -86,15 +83,14 @@ public interface IOutputManager extends IStepable, Iterable<IOutput> {
 	Map<String, ? extends IOutput> getOutputs();
 
 	/**
-	 * Forces all the outputs to update themselves whatever their refreshable state (see {@link IOutput#update()}
+	 * Forces all the outputs to update themselves whatever their refreshable state (see {@link IOutput#update()}.
 	 */
 	void forceUpdateOutputs();
 
 	/**
-	 * Disposes of this output manager and associated resources (invoked when the experiment or simulation closes)
+	 * Disposes of this output manager and associated resources (invoked when the experiment or simulation closes).
 	 *
-	 * @param scope
-	 *            the scope in which this manager should be disposed
+	 * @return the display outputs
 	 */
 
 	// void dispose(IScope scope);
@@ -132,7 +128,7 @@ public interface IOutputManager extends IStepable, Iterable<IOutput> {
 	void unSynchronize();
 
 	/**
-	 * Asks this manager to close all of its outputs (see {@link IOutput#close()}
+	 * Asks this manager to close all of its outputs (see {@link IOutput#close()}.
 	 */
 	void close();
 

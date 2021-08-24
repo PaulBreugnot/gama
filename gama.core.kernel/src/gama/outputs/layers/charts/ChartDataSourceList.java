@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.layers.charts.ChartDataSourceList.java, in plugin msi.gama.core, is part of the source code of the
- * GAMA modeling and simulation platform (v. 1.8.1)
+ * ChartDataSourceList.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs.layers.charts;
 
@@ -19,9 +19,15 @@ import gama.util.IList;
 import gaml.expressions.IExpression;
 import gaml.operators.Cast;
 
+/**
+ * The Class ChartDataSourceList.
+ */
 public class ChartDataSourceList extends ChartDataSource {
 
+	/** The currentseries. */
 	ArrayList<String> currentseries;
+	
+	/** The name exp. */
 	IExpression nameExp;
 
 	@Override
@@ -40,15 +46,29 @@ public class ChartDataSourceList extends ChartDataSource {
 		return res;
 	}
 
+	/**
+	 * Instantiates a new chart data source list.
+	 */
 	public ChartDataSourceList() {
 		// TODO Auto-generated constructor stub
 		super();
 	}
 
+	/**
+	 * Gets the name exp.
+	 *
+	 * @return the name exp
+	 */
 	public IExpression getNameExp() {
 		return nameExp;
 	}
 
+	/**
+	 * Sets the name exp.
+	 *
+	 * @param scope the scope
+	 * @param expval the expval
+	 */
 	public void setNameExp(final IScope scope, final IExpression expval) {
 		nameExp = expval;
 	}
@@ -107,6 +127,12 @@ public class ChartDataSourceList extends ChartDataSource {
 
 	}
 
+	/**
+	 * Updateserielist.
+	 *
+	 * @param scope the scope
+	 * @param chartCycle the chart cycle
+	 */
 	private void updateserielist(final IScope scope, final int chartCycle) {
 		final Object oname = getNameExp().value(scope);
 		final Object o = getValue().value(scope);
@@ -170,12 +196,24 @@ public class ChartDataSourceList extends ChartDataSource {
 		}
 	}
 
+	/**
+	 * Removeserie.
+	 *
+	 * @param scope the scope
+	 * @param string the string
+	 */
 	private void removeserie(final IScope scope, final String string) {
 		// TODO Auto-generated method stub
 		this.getDataset().removeserie(scope, string);
 
 	}
 
+	/**
+	 * Newserie.
+	 *
+	 * @param scope the scope
+	 * @param myname the myname
+	 */
 	private void newserie(final IScope scope, final String myname) {
 		// TODO Auto-generated method stub
 		if (this.getDataset().getDataSeriesIds(scope).contains(myname)) {
@@ -227,6 +265,11 @@ public class ChartDataSourceList extends ChartDataSource {
 	//
 	// }
 
+	/**
+	 * Infer dataset properties.
+	 *
+	 * @param scope the scope
+	 */
 	public void inferDatasetProperties(final IScope scope) {
 		Object o = null;
 		int type_val = ChartDataSource.DATA_TYPE_NULL;

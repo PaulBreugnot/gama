@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'ExperimentsParametersList.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the GAMA
- * modeling and simulation platform. (v. 1.8.1)
+ * ExperimentsParametersList.java, in gama.ui.experiment, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.experiment.parameters;
 
 import java.util.Collection;
@@ -30,12 +29,24 @@ import gaml.operators.Cast;
 import gaml.statements.UserCommandStatement;
 import gaml.types.Types;
 
+/**
+ * The Class ExperimentsParametersList.
+ */
 @SuppressWarnings ({ "rawtypes" })
 public class ExperimentsParametersList extends EditorsList<String> {
 
+	/** The scope. */
 	final IScope scope;
+	
+	/** The activations. */
 	final Map<String, Boolean> activations = new HashMap<>();
 
+	/**
+	 * Instantiates a new experiments parameters list.
+	 *
+	 * @param scope the scope
+	 * @param paramsAndCommands the params and commands
+	 */
 	public ExperimentsParametersList(final IScope scope,
 			final Collection<? extends IExperimentDisplayable> paramsAndCommands) {
 		this.scope = scope;
@@ -60,6 +71,12 @@ public class ExperimentsParametersList extends EditorsList<String> {
 		return null;
 	}
 
+	/**
+	 * Gets the editor for var.
+	 *
+	 * @param var the var
+	 * @return the editor for var
+	 */
 	public IParameterEditor getEditorForVar(final String var) {
 		for (final Map<String, IParameterEditor<?>> m : categories.values()) {
 			for (final IParameterEditor<?> ed : m.values()) {

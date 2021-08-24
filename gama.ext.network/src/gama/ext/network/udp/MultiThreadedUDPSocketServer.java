@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * MultiThreadedUDPSocketServer.java, in gama.ext.network, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.network.udp;
 
 import java.net.DatagramPacket;
@@ -12,18 +22,30 @@ import gama.metamodel.agent.IAgent;
 import gama.util.GamaListFactory;
 import gama.util.IList;
 
+/**
+ * The Class MultiThreadedUDPSocketServer.
+ */
 public class MultiThreadedUDPSocketServer extends Thread {
 
 	static {
 		DEBUG.ON();
 	}
 
+	/** The my agent. */
 	private final IAgent myAgent;
+	
+	/** The closed. */
 	private volatile boolean closed = false;
+	
+	/** The my UDP server socket. */
 	private DatagramSocket myUDPServerSocket;
+	
+	/** The nb bits. */
 	private int nbBits ;
 
 	/**
+	 * Gets the my server socket.
+	 *
 	 * @return the myServerSocket
 	 */
 	public DatagramSocket getMyServerSocket() {
@@ -31,13 +53,21 @@ public class MultiThreadedUDPSocketServer extends Thread {
 	}
 
 	/**
-	 * @param myServerSocket
-	 *            the myServerSocket to set
+	 * Sets the my server socket.
+	 *
+	 * @param u the new my server socket
 	 */
 	public void setMyServerSocket(final DatagramSocket u) {
 		this.myUDPServerSocket = u;
 	}
 
+	/**
+	 * Instantiates a new multi threaded UDP socket server.
+	 *
+	 * @param a the a
+	 * @param ss the ss
+	 * @param maxSizePackage the max size package
+	 */
 	public MultiThreadedUDPSocketServer(final IAgent a, final DatagramSocket ss, final String maxSizePackage) {
 		myAgent = a;
 		myUDPServerSocket = ss;

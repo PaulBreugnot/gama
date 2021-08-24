@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Operators.java, in gama.ext.pedestrian, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.pedestrian.operator;
 
 import gama.core.dev.annotations.IConcept;
@@ -11,8 +21,29 @@ import gama.runtime.IScope;
 import gama.util.IContainer;
 import gama.util.IList;
 
+/**
+ * The Class Operators.
+ */
 public class Operators {
 
+	/**
+	 * Generate network.
+	 *
+	 * @param scope the scope
+	 * @param obst the obst
+	 * @param bounds the bounds
+	 * @param openArea the open area
+	 * @param randomDist the random dist
+	 * @param valDistForOpenArea the val dist for open area
+	 * @param valDensityOpenArea the val density open area
+	 * @param cleanNetwork the clean network
+	 * @param toleranceClip the tolerance clip
+	 * @param toleranceTriang the tolerance triang
+	 * @param minDistPath the min dist path
+	 * @param simplificationDist the simplification dist
+	 * @param SizeSquares the size squares
+	 * @return the i list
+	 */
 	@operator(value = "generate_pedestrian_network", category = { "Pedestrian" } , concept = { IConcept.NETWORK })
 	@doc (
 			value = "generateNetwork(obstacles (list of lists of geometries/agents), bounds (list of geometries/agents), add point to open areas (boolean),\n" + 
@@ -31,6 +62,23 @@ public class Operators {
 				valDensityOpenArea, cleanNetwork, toleranceClip, toleranceTriang, minDistPath, simplificationDist, SizeSquares);
 	}
 
+	/**
+	 * Generate network.
+	 *
+	 * @param scope the scope
+	 * @param obst the obst
+	 * @param bounds the bounds
+	 * @param openArea the open area
+	 * @param randomDist the random dist
+	 * @param valDistForOpenArea the val dist for open area
+	 * @param valDensityOpenArea the val density open area
+	 * @param cleanNetwork the clean network
+	 * @param toleranceClip the tolerance clip
+	 * @param toleranceTriang the tolerance triang
+	 * @param minDistPath the min dist path
+	 * @param simplificationDist the simplification dist
+	 * @return the i list
+	 */
 	@operator(value = "generate_pedestrian_network", category = { "Pedestrian" } , concept = { IConcept.NETWORK })
 	@doc (
 			usages = { @usage (
@@ -58,6 +106,25 @@ public class Operators {
 				valDensityOpenArea, cleanNetwork, toleranceClip, toleranceTriang, minDistPath, simplificationDist, 0);
 	}
 
+	/**
+	 * Generate network.
+	 *
+	 * @param scope the scope
+	 * @param obst the obst
+	 * @param bounds the bounds
+	 * @param regular_network the regular network
+	 * @param openArea the open area
+	 * @param randomDist the random dist
+	 * @param valDistForOpenArea the val dist for open area
+	 * @param valDensityOpenArea the val density open area
+	 * @param cleanNetwork the clean network
+	 * @param toleranceClip the tolerance clip
+	 * @param toleranceTriang the tolerance triang
+	 * @param minDistPath the min dist path
+	 * @param simplificationDist the simplification dist
+	 * @param sizeSquareOpti the size square opti
+	 * @return the i list
+	 */
 	@operator(value = "generate_pedestrian_network", category = { "Pedestrian" } , concept = { IConcept.NETWORK })
 	@doc (
 			usages = { @usage (
@@ -86,6 +153,24 @@ public class Operators {
 				valDensityOpenArea, cleanNetwork, toleranceClip, toleranceTriang, minDistPath, simplificationDist, sizeSquareOpti);
 	}
 	
+	/**
+	 * Generate network.
+	 *
+	 * @param scope the scope
+	 * @param obst the obst
+	 * @param bounds the bounds
+	 * @param regular_network the regular network
+	 * @param openArea the open area
+	 * @param randomDist the random dist
+	 * @param valDistForOpenArea the val dist for open area
+	 * @param valDensityOpenArea the val density open area
+	 * @param cleanNetwork the clean network
+	 * @param toleranceClip the tolerance clip
+	 * @param toleranceTriang the tolerance triang
+	 * @param simplificationDist the simplification dist
+	 * @param minDistPath the min dist path
+	 * @return the i list
+	 */
 	@operator(value = "generate_pedestrian_network", category = { "Pedestrian" } , concept = { IConcept.NETWORK })
 	@doc (
 			usages = { @usage (

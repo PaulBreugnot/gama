@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.statements.CaptureStatement.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * CaptureStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.statements;
 
@@ -45,6 +45,9 @@ import gaml.statements.CaptureStatement.CaptureValidator;
 import gaml.types.IType;
 import gaml.types.Types;
 
+/**
+ * The Class CaptureStatement.
+ */
 @symbol (
 		name = { IKeyword.CAPTURE },
 		kind = ISymbolKind.SEQUENCE_STATEMENT,
@@ -121,6 +124,9 @@ import gaml.types.Types;
 @validator (CaptureValidator.class)
 public class CaptureStatement extends AbstractStatementSequence {
 
+	/**
+	 * The Class CaptureValidator.
+	 */
 	public static class CaptureValidator implements IDescriptionValidator<StatementDescription> {
 
 		/**
@@ -143,12 +149,23 @@ public class CaptureStatement extends AbstractStatementSequence {
 		}
 	}
 
+	/** The target. */
 	private IExpression target;
+	
+	/** The return string. */
 	private final String returnString;
+	
+	/** The micro species name. */
 	private String microSpeciesName = null;
 
+	/** The sequence. */
 	private RemoteSequence sequence = null;
 
+	/**
+	 * Instantiates a new capture statement.
+	 *
+	 * @param desc the desc
+	 */
 	public CaptureStatement(final IDescription desc) {
 		super(desc);
 		target = getFacet(IKeyword.TARGET);

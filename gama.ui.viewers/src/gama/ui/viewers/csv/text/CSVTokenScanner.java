@@ -1,15 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'CSVTokenScanner.java, in plugin ummisco.gama.ui.viewers, is part of the source code of the
- * GAMA modeling and simulation platform.
- * (v. 1.8.1)
+ * CSVTokenScanner.java, in gama.ui.viewers, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- *
- **********************************************************************************************/
+ ********************************************************************************************************/
 package gama.ui.viewers.csv.text;
 
 import org.eclipse.jface.text.BadLocationException;
@@ -21,37 +19,39 @@ import org.eclipse.jface.text.rules.Token;
 
 import gama.ui.viewers.csv.text.CSVToken.CSVTokenType;
 
+/**
+ * The Class CSVTokenScanner.
+ */
 public class CSVTokenScanner implements ITokenScanner {
 
-    /** Delimiter */
+    /**  Delimiter. */
     private final char m_delimiter;
 
-    /** Document */
+    /**  Document. */
     private IDocument m_document;
 
-    /** Document initial offset */
+    /**  Document initial offset. */
     private int m_docOffset;
 
-    /** Document range */
+    /**  Document range. */
     private int m_docLength;
 
-    /** Current offset */
+    /**  Current offset. */
     private int m_currentOffset;
 
-    /** Current column */
+    /**  Current column. */
     private int m_currentColumn;
 
-    /** Current token offset*/
+    /**  Current token offset. */
     private int m_tokenOffset;
 
-    /** Current token length */
+    /**  Current token length. */
     private int m_tokenLength;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param separator
-     *            the separator to use for scanning tokens
+     * @param separator            the separator to use for scanning tokens
      */
     public CSVTokenScanner(char separator) {
         m_delimiter = separator;

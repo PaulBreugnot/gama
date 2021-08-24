@@ -1,23 +1,13 @@
-/*
- * Java port of Bullet (c) 2008 Martin Dvorak <jezek2@advel.cz>
+/*******************************************************************************************************
  *
- * This source file is part of GIMPACT Library.
+ * PrimitiveTriangle.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * For the latest info, see http://gimpact.sourceforge.net/
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Copyright (c) 2007 Francisco Leon Najera. C.C. 80087371. email: projectileman@yahoo.com
- *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the authors be held
- * liable for any damages arising from the use of this software.
- *
- * Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter
- * it and redistribute it freely, subject to the following restrictions:
- *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software.
- * If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not
- * required. 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the
- * original software. 3. This notice may not be removed or altered from any source distribution.
- */
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package com.bulletphysics.extras.gimpact;
 
@@ -32,13 +22,19 @@ import com.bulletphysics.linearmath.Transform;
 import java.util.ArrayList;
 
 /**
+ * The Class PrimitiveTriangle.
  *
  * @author jezek2
  */
 public class PrimitiveTriangle {
 
+	/** The tmp vec list 1. */
 	private final ArrayList<Vector3f> tmpVecList1 = new ArrayList<>(TriangleContact.MAX_TRI_CLIPPING);
+	
+	/** The tmp vec list 2. */
 	private final ArrayList<Vector3f> tmpVecList2 = new ArrayList<>(TriangleContact.MAX_TRI_CLIPPING);
+	
+	/** The tmp vec list 3. */
 	private final ArrayList<Vector3f> tmpVecList3 = new ArrayList<>(TriangleContact.MAX_TRI_CLIPPING);
 
 	{
@@ -49,20 +45,36 @@ public class PrimitiveTriangle {
 		}
 	}
 
+	/** The vertices. */
 	public final Vector3f[] vertices = new Vector3f[3];
+	
+	/** The plane. */
 	public final Vector4f plane = new Vector4f();
+	
+	/** The margin. */
 	public float margin = 0.01f;
 
+	/**
+	 * Instantiates a new primitive triangle.
+	 */
 	public PrimitiveTriangle() {
 		for (int i = 0; i < vertices.length; i++) {
 			vertices[i] = new Vector3f();
 		}
 	}
 
+	/**
+	 * Sets the.
+	 *
+	 * @param tri the tri
+	 */
 	public void set(final PrimitiveTriangle tri) {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Builds the tri plane.
+	 */
 	public void buildTriPlane() {
 		Vector3f tmp1 = VECTORS.get();
 		Vector3f tmp2 = VECTORS.get();
@@ -79,6 +91,9 @@ public class PrimitiveTriangle {
 
 	/**
 	 * Test if triangles could collide.
+	 *
+	 * @param other the other
+	 * @return true, if successful
 	 */
 	public boolean overlap_test_conservative(final PrimitiveTriangle other) {
 		float total_margin = margin + other.margin;
@@ -104,6 +119,10 @@ public class PrimitiveTriangle {
 	/**
 	 * Calcs the plane which is paralele to the edge and perpendicular to the triangle plane. This triangle must have
 	 * its plane calculated.
+	 *
+	 * @param edge_index the edge index
+	 * @param plane the plane
+	 * @return the edge plane
 	 */
 	public void get_edge_plane(final int edge_index, final Vector4f plane) {
 		Vector3f e0 = vertices[edge_index];
@@ -116,6 +135,11 @@ public class PrimitiveTriangle {
 		VECTORS.release(tmp);
 	}
 
+	/**
+	 * Apply transform.
+	 *
+	 * @param t the t
+	 */
 	public void applyTransform(final Transform t) {
 		t.transform(vertices[0]);
 		t.transform(vertices[1]);
@@ -125,8 +149,8 @@ public class PrimitiveTriangle {
 	/**
 	 * Clips the triangle against this.
 	 *
-	 * @param clipped_points
-	 *            must have MAX_TRI_CLIPPING size, and this triangle must have its plane calculated.
+	 * @param other the other
+	 * @param clipped_points            must have MAX_TRI_CLIPPING size, and this triangle must have its plane calculated.
 	 * @return the number of clipped points
 	 */
 	public int clip_triangle(final PrimitiveTriangle other, final ArrayList<Vector3f> clipped_points) {
@@ -158,6 +182,10 @@ public class PrimitiveTriangle {
 
 	/**
 	 * Find collision using the clipping method. This triangle and other must have their triangles calculated.
+	 *
+	 * @param other the other
+	 * @param contacts the contacts
+	 * @return true, if successful
 	 */
 	public boolean find_triangle_collision_clip_method(final PrimitiveTriangle other, final TriangleContact contacts) {
 		float margin = this.margin + other.margin;

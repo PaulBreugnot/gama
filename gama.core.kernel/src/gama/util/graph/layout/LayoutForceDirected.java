@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * LayoutForceDirected.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.util.graph.layout;
 
 import java.util.IdentityHashMap;
@@ -14,32 +24,63 @@ import gaml.operators.Points;
 import gaml.operators.Spatial.Punctal;
 import gaml.types.Types;
 
+/**
+ * The Class LayoutForceDirected.
+ */
 public class LayoutForceDirected {
 
+	/** The graph. */
 	private final Graph<IShape, IShape> graph;
+	
+	/** The equi. */
 	private final boolean equi;
+	
+	/** The criterion. */
 	private final double criterion;
+	
+	/** The cooling rate. */
 	private final double coolingRate;
+	
+	/** The maxit. */
 	private final int maxit;
+	
+	/** The coeff force. */
 	private final double coeffForce;
+	
+	/** The bounds. */
 	IShape bounds;
 
+	/** The iteration. */
 	private int iteration = 0;
 
+	/** The area. */
 	private double area;
+	
+	/** The k. */
 	private double k;
+	
+	/** The t. */
 	private double t;
 
+	/** The equilibrium reached. */
 	private boolean equilibriumReached = false;
+	
+	/** The disp. */
 	private final Map<IShape, GamaPoint> disp;
+	
+	/** The loc. */
 	private final Map<IShape, GamaPoint> loc;
 
 	/**
 	 * Creates a new Simulation.
 	 *
-	 * @param graph
-	 * @param p
-	 * @throws ParseException
+	 * @param graph the graph
+	 * @param bounds the bounds
+	 * @param coeffForce the coeff force
+	 * @param coolingRate the cooling rate
+	 * @param maxit the maxit
+	 * @param isEquilibriumCriterion the is equilibrium criterion
+	 * @param criterion the criterion
 	 */
 	public LayoutForceDirected(final Graph<IShape, IShape> graph, final IShape bounds, final double coeffForce,
 			final double coolingRate, final int maxit, final boolean isEquilibriumCriterion, final double criterion) {
@@ -58,6 +99,7 @@ public class LayoutForceDirected {
 	/**
 	 * Starts the simulation.
 	 *
+	 * @param scope the scope
 	 * @return number of iterations used until criterion is met
 	 */
 	public int startSimulation(final IScope scope) {
@@ -93,6 +135,8 @@ public class LayoutForceDirected {
 
 	/**
 	 * Simulates a single step.
+	 *
+	 * @param scope the scope
 	 */
 	private void simulateStep(final IScope scope) {
 		final double toleranceCenter = Math.sqrt(area) / 10.0;
@@ -195,9 +239,8 @@ public class LayoutForceDirected {
 	/**
 	 * Calculates the amount of the attractive force between vertices using the expression entered by the user.
 	 *
-	 * @param d
-	 *            the distance between the two vertices
-	 * @param k
+	 * @param d            the distance between the two vertices
+	 * @param k the k
 	 * @return amount of force
 	 */
 	private double forceAttractive(final double d, final double k) {
@@ -207,9 +250,8 @@ public class LayoutForceDirected {
 	/**
 	 * Calculates the amount of the repulsive force between vertices using the expression entered by the user.
 	 *
-	 * @param d
-	 *            the distance between the two vertices
-	 * @param k
+	 * @param d            the distance between the two vertices
+	 * @param k the k
 	 * @return amount of force
 	 */
 	private double forceRepulsive(final double d, final double k) {

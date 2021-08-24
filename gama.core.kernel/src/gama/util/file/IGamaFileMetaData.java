@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.file.IGamaFileMetaData.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * IGamaFileMetaData.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -21,35 +21,49 @@ package gama.util.file;
  */
 public interface IGamaFileMetaData {
 
-	/**
-	 * A delimiter character for separating attributes in the property string
-	 */
+	/** A delimiter character for separating attributes in the property string. */
 	final static public String DELIMITER = "_!_";
+	
+	/** The Constant SUB_DELIMITER. */
 	final static public String SUB_DELIMITER = "@%@";
+	
+	/** The Constant FAILED. */
 	public final static String FAILED = "failed";
+	
+	/** The Constant SUFFIX_DEL. */
 	public final static String SUFFIX_DEL = " | ";
 
+	/**
+	 * Gets the modification stamp.
+	 *
+	 * @return the modification stamp
+	 */
 	long getModificationStamp();
 
 	/**
-	 * Indicates a failure in the computation of metadata
-	 * 
-	 * @return
+	 * Indicates a failure in the computation of metadata.
+	 *
+	 * @return true, if successful
 	 */
 	boolean hasFailed();
 
 	/**
-	 * Never returns null
-	 * 
+	 * Never returns null.
+	 *
 	 * @return the suffix to use for decorating files in the navigator
 	 */
 	String getSuffix();
 
+	/**
+	 * Append suffix.
+	 *
+	 * @param sb the sb
+	 */
 	void appendSuffix(StringBuilder sb);
 
 	/**
-	 * Returns a thumbnail (imageDescriptor or anything else) or null if no image are provided
-	 * 
+	 * Returns a thumbnail (imageDescriptor or anything else) or null if no image are provided.
+	 *
 	 * @return an image (ImageDescriptor, BufferedImage, ...) or null
 	 */
 	public Object getThumbnail();
@@ -63,14 +77,16 @@ public interface IGamaFileMetaData {
 	public String toPropertyString();
 
 	/**
-	 * Returns a string that can be displayed in hover info
-	 * 
-	 * @return
+	 * Returns a string that can be displayed in hover info.
+	 *
+	 * @return the documentation
 	 */
 	public String getDocumentation();
 
 	/**
-	 * @param modificationStamp
+	 * Sets the modification stamp.
+	 *
+	 * @param modificationStamp the new modification stamp
 	 */
 	void setModificationStamp(long modificationStamp);
 

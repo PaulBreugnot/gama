@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * DXFView.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf;
 
 import gama.ext.libs.kabeja.dxf.helpers.Point;
@@ -20,29 +15,66 @@ import gama.ext.libs.kabeja.dxf.helpers.Vector;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class DXFView.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class DXFView {
+    
+    /** The center point. */
     private Point centerPoint = new Point();
+    
+    /** The height. */
     private double height = 0.0;
+    
+    /** The width. */
     private double width = 0.0;
+    
+    /** The name. */
     private String name = "";
+    
+    /** The view direction. */
     private Vector viewDirection = new Vector();
+    
+    /** The target. */
     private Point target = new Point();
+    
+    /** The lens length. */
     private double lensLength = 0.0;
+    
+    /** The front clipping. */
     private double frontClipping = 0.0;
+    
+    /** The back clipping. */
     private double backClipping = 0.0;
+    
+    /** The twist angle. */
     private double twistAngle = 0.0;
+    
+    /** The render mode. */
     private int renderMode = 0;
+    
+    /** The ucs origin. */
     private Vector ucsOrigin = new Vector();
+    
+    /** The ucs X axis. */
     private Vector ucsXAxis = new Vector();
+    
+    /** The ucs Y axis. */
     private Vector ucsYAxis = new Vector();
+    
+    /** The ucs type. */
     private int ucsType = 0;
+    
+    /** The ucs elevation. */
     private double ucsElevation = 0.0;
+    
+    /** The use UCS. */
     private boolean useUCS = false;
 
     /**
+     * Gets the back clipping.
+     *
      * @return Returns the backClipping.
      */
     public double getBackClipping() {
@@ -50,14 +82,17 @@ public class DXFView {
     }
 
     /**
-     * @param backClipping
-     *            The backClipping to set.
+     * Sets the back clipping.
+     *
+     * @param backClipping            The backClipping to set.
      */
     public void setBackClipping(double backClipping) {
         this.backClipping = backClipping;
     }
 
     /**
+     * Gets the center point.
+     *
      * @return Returns the centerPoint.
      */
     public Point getCenterPoint() {
@@ -65,14 +100,17 @@ public class DXFView {
     }
 
     /**
-     * @param centerPoint
-     *            The centerPoint to set.
+     * Sets the center point.
+     *
+     * @param centerPoint            The centerPoint to set.
      */
     public void setCenterPoint(Point centerPoint) {
         this.centerPoint = centerPoint;
     }
 
     /**
+     * Gets the front clipping.
+     *
      * @return Returns the frontClipping.
      */
     public double getFrontClipping() {
@@ -80,14 +118,17 @@ public class DXFView {
     }
 
     /**
-     * @param frontClipping
-     *            The frontClipping to set.
+     * Sets the front clipping.
+     *
+     * @param frontClipping            The frontClipping to set.
      */
     public void setFrontClipping(double frontClipping) {
         this.frontClipping = frontClipping;
     }
 
     /**
+     * Gets the height.
+     *
      * @return Returns the height.
      */
     public double getHeight() {
@@ -95,14 +136,17 @@ public class DXFView {
     }
 
     /**
-     * @param height
-     *            The height to set.
+     * Sets the height.
+     *
+     * @param height            The height to set.
      */
     public void setHeight(double height) {
         this.height = height;
     }
 
     /**
+     * Gets the lens length.
+     *
      * @return Returns the lensLength.
      */
     public double getLensLength() {
@@ -110,14 +154,17 @@ public class DXFView {
     }
 
     /**
-     * @param lensLength
-     *            The lensLength to set.
+     * Sets the lens length.
+     *
+     * @param lensLength            The lensLength to set.
      */
     public void setLensLength(double lensLength) {
         this.lensLength = lensLength;
     }
 
     /**
+     * Gets the name.
+     *
      * @return Returns the name.
      */
     public String getName() {
@@ -125,14 +172,17 @@ public class DXFView {
     }
 
     /**
-     * @param name
-     *            The name to set.
+     * Sets the name.
+     *
+     * @param name            The name to set.
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
+     * Gets the render mode.
+     *
      * @return Returns the renderMode.
      */
     public int getRenderMode() {
@@ -140,14 +190,17 @@ public class DXFView {
     }
 
     /**
-     * @param renderMode
-     *            The renderMode to set.
+     * Sets the render mode.
+     *
+     * @param renderMode            The renderMode to set.
      */
     public void setRenderMode(int renderMode) {
         this.renderMode = renderMode;
     }
 
     /**
+     * Gets the target.
+     *
      * @return Returns the target.
      */
     public Point getTarget() {
@@ -155,14 +208,17 @@ public class DXFView {
     }
 
     /**
-     * @param target
-     *            The target to set.
+     * Sets the target.
+     *
+     * @param target            The target to set.
      */
     public void setTarget(Point target) {
         this.target = target;
     }
 
     /**
+     * Gets the twist angle.
+     *
      * @return Returns the twistAngle.
      */
     public double getTwistAngle() {
@@ -170,14 +226,17 @@ public class DXFView {
     }
 
     /**
-     * @param twistAngle
-     *            The twistAngle to set.
+     * Sets the twist angle.
+     *
+     * @param twistAngle            The twistAngle to set.
      */
     public void setTwistAngle(double twistAngle) {
         this.twistAngle = twistAngle;
     }
 
     /**
+     * Gets the ucs elevation.
+     *
      * @return Returns the ucsElevation.
      */
     public double getUcsElevation() {
@@ -185,14 +244,17 @@ public class DXFView {
     }
 
     /**
-     * @param ucsElevation
-     *            The ucsElevation to set.
+     * Sets the ucs elevation.
+     *
+     * @param ucsElevation            The ucsElevation to set.
      */
     public void setUcsElevation(double ucsElevation) {
         this.ucsElevation = ucsElevation;
     }
 
     /**
+     * Gets the ucs origin.
+     *
      * @return Returns the ucsOrigin.
      */
     public Vector getUcsOrigin() {
@@ -200,14 +262,17 @@ public class DXFView {
     }
 
     /**
-     * @param ucsOrigin
-     *            The ucsOrigin to set.
+     * Sets the ucs origin.
+     *
+     * @param ucsOrigin            The ucsOrigin to set.
      */
     public void setUcsOrigin(Vector ucsOrigin) {
         this.ucsOrigin = ucsOrigin;
     }
 
     /**
+     * Gets the ucs type.
+     *
      * @return Returns the ucsType.
      */
     public int getUcsType() {
@@ -215,14 +280,17 @@ public class DXFView {
     }
 
     /**
-     * @param ucsType
-     *            The ucsType to set.
+     * Sets the ucs type.
+     *
+     * @param ucsType            The ucsType to set.
      */
     public void setUcsType(int ucsType) {
         this.ucsType = ucsType;
     }
 
     /**
+     * Gets the ucs X axis.
+     *
      * @return Returns the ucsXAxis.
      */
     public Vector getUcsXAxis() {
@@ -230,14 +298,17 @@ public class DXFView {
     }
 
     /**
-     * @param ucsXAxis
-     *            The ucsXAxis to set.
+     * Sets the ucs X axis.
+     *
+     * @param ucsXAxis            The ucsXAxis to set.
      */
     public void setUcsXAxis(Vector ucsXAxis) {
         this.ucsXAxis = ucsXAxis;
     }
 
     /**
+     * Gets the ucs Y axis.
+     *
      * @return Returns the ucsYAxis.
      */
     public Vector getUcsYAxis() {
@@ -245,14 +316,17 @@ public class DXFView {
     }
 
     /**
-     * @param ucsYAxis
-     *            The ucsYAxis to set.
+     * Sets the ucs Y axis.
+     *
+     * @param ucsYAxis            The ucsYAxis to set.
      */
     public void setUcsYAxis(Vector ucsYAxis) {
         this.ucsYAxis = ucsYAxis;
     }
 
     /**
+     * Gets the view direction.
+     *
      * @return Returns the viewDirection.
      */
     public Vector getViewDirection() {
@@ -260,14 +334,17 @@ public class DXFView {
     }
 
     /**
-     * @param viewDirection
-     *            The viewDirection to set.
+     * Sets the view direction.
+     *
+     * @param viewDirection            The viewDirection to set.
      */
     public void setViewDirection(Vector viewDirection) {
         this.viewDirection = viewDirection;
     }
 
     /**
+     * Gets the width.
+     *
      * @return Returns the width.
      */
     public double getWidth() {
@@ -275,14 +352,17 @@ public class DXFView {
     }
 
     /**
-     * @param width
-     *            The width to set.
+     * Sets the width.
+     *
+     * @param width            The width to set.
      */
     public void setWidth(double width) {
         this.width = width;
     }
 
     /**
+     * Checks if is use UCS.
+     *
      * @return Returns the useUCS.
      */
     public boolean isUseUCS() {
@@ -290,6 +370,8 @@ public class DXFView {
     }
 
     /**
+     * Sets the use UCS.
+     *
      * @param useUCS The useUCS to set.
      */
     public void setUseUCS(boolean useUCS) {

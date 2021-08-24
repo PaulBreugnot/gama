@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'AgentEditor.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * AgentEditor.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.parameters;
 
 import org.eclipse.swt.events.SelectionAdapter;
@@ -30,11 +29,23 @@ import gama.ui.base.resources.IGamaIcons;
 import gama.ui.base.utils.WorkbenchHelper;
 import gaml.types.IType;
 
+/**
+ * The Class AgentEditor.
+ */
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class AgentEditor extends ExpressionBasedEditor {
 
+	/** The species. */
 	String species;
 
+	/**
+	 * Instantiates a new agent editor.
+	 *
+	 * @param scope the scope
+	 * @param agent the agent
+	 * @param param the param
+	 * @param l the l
+	 */
 	AgentEditor(final IScope scope, final IAgent agent, final IParameter param, final EditorListener l) {
 		super(scope, agent, param, l);
 		species = param.getType().toString();

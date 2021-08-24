@@ -1,17 +1,13 @@
-/**
- * Copyright (c) 2010 Scott A. Crosby. <scott@sacrosby.com>
+/*******************************************************************************************************
+ *
+ * BlockOutputStream.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- * 
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License along with this program. If not, see
- * <http://www.gnu.org/licenses/>.
- * 
- */
+ ********************************************************************************************************/
 
 package gama.ext.libs.osmosis;
 
@@ -25,17 +21,35 @@ enum CompressFlags {
 	NONE, DEFLATE
 }
 
+/**
+ * The Class BlockOutputStream.
+ */
 public class BlockOutputStream {
 
+	/**
+	 * Instantiates a new block output stream.
+	 *
+	 * @param output the output
+	 */
 	public BlockOutputStream(final OutputStream output) {
 		this.outwrite = new DataOutputStream(output);
 		this.compression = CompressFlags.DEFLATE;
 	}
 
+	/**
+	 * Sets the compress.
+	 *
+	 * @param flag the new compress
+	 */
 	public void setCompress(final CompressFlags flag) {
 		compression = flag;
 	}
 
+	/**
+	 * Sets the compress.
+	 *
+	 * @param s the new compress
+	 */
 	public void setCompress(final String s) {
 		if (s.equals("none")) {
 			compression = CompressFlags.NONE;
@@ -46,27 +60,53 @@ public class BlockOutputStream {
 		}
 	}
 
-	/** Write a block with the stream's default compression flag */
+	/**
+	 *  Write a block with the stream's default compression flag.
+	 *
+	 * @param block the block
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void write(final FileBlock block) throws IOException {
 		this.write(block, compression);
 	}
 
-	/** Write a specific block with a specific compression flags */
+	/**
+	 *  Write a specific block with a specific compression flags.
+	 *
+	 * @param block the block
+	 * @param compression the compression
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void write(final FileBlock block, final CompressFlags compression) throws IOException {
 		final FileBlockPosition ref = block.writeTo(outwrite, compression);
 		writtenblocks.add(ref);
 	}
 
+	/**
+	 * Flush.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void flush() throws IOException {
 		outwrite.flush();
 	}
 
+	/**
+	 * Close.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void close() throws IOException {
 		outwrite.flush();
 		outwrite.close();
 	}
 
+	/** The outwrite. */
 	OutputStream outwrite;
+	
+	/** The writtenblocks. */
 	List<FileBlockPosition> writtenblocks = new ArrayList<>();
+	
+	/** The compression. */
 	CompressFlags compression;
 }

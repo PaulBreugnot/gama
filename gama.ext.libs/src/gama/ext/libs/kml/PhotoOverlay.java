@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * PhotoOverlay.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -165,20 +175,12 @@ public class PhotoOverlay
      */
     @XmlElement(name = "Point")
     protected Point point;
-    /**
-     * Shape
-     * <p>
-     * rectangle, cylinder, sphere 
-     * </p>
-     * 
-     * See Also: 
-     * See <PhotoOverlay>
-     * 
-     * 
-     * 
-     */
+    
+    /** Shape <p> rectangle, cylinder, sphere  </p>  See Also:  See <PhotoOverlay>. */
     @XmlElement(defaultValue = "rectangle")
     protected Shape shape;
+    
+    /** The photo overlay simple extension. */
     @XmlElement(name = "PhotoOverlaySimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> photoOverlaySimpleExtension;
@@ -203,133 +205,128 @@ public class PhotoOverlay
     @XmlElement(name = "PhotoOverlayObjectExtensionGroup")
     protected List<AbstractObject> photoOverlayObjectExtension;
 
+    /**
+     * Instantiates a new photo overlay.
+     */
     public PhotoOverlay() {
         super();
     }
 
     /**
-     * @see rotation
-     * 
-     * @return
-     *     possible object is
+     * Gets the rotation.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see rotation
      */
     public double getRotation() {
         return rotation;
     }
 
     /**
-     * @see rotation
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the rotation.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see rotation
      */
     public void setRotation(double value) {
         this.rotation = value;
     }
 
     /**
-     * @see viewVolume
-     * 
-     * @return
-     *     possible object is
+     * Gets the view volume.
+     *
+     * @return     possible object is
      *     {@link ViewVolume}
-     *     
+     * @see viewVolume
      */
     public ViewVolume getViewVolume() {
         return viewVolume;
     }
 
     /**
-     * @see viewVolume
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the view volume.
+     *
+     * @param value     allowed object is
      *     {@link ViewVolume}
-     *     
+     * @see viewVolume
      */
     public void setViewVolume(ViewVolume value) {
         this.viewVolume = value;
     }
 
     /**
-     * @see imagePyramid
-     * 
-     * @return
-     *     possible object is
+     * Gets the image pyramid.
+     *
+     * @return     possible object is
      *     {@link ImagePyramid}
-     *     
+     * @see imagePyramid
      */
     public ImagePyramid getImagePyramid() {
         return imagePyramid;
     }
 
     /**
-     * @see imagePyramid
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the image pyramid.
+     *
+     * @param value     allowed object is
      *     {@link ImagePyramid}
-     *     
+     * @see imagePyramid
      */
     public void setImagePyramid(ImagePyramid value) {
         this.imagePyramid = value;
     }
 
     /**
-     * @see point
-     * 
-     * @return
-     *     possible object is
+     * Gets the point.
+     *
+     * @return     possible object is
      *     {@link Point}
-     *     
+     * @see point
      */
     public Point getPoint() {
         return point;
     }
 
     /**
-     * @see point
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the point.
+     *
+     * @param value     allowed object is
      *     {@link Point}
-     *     
+     * @see point
      */
     public void setPoint(Point value) {
         this.point = value;
     }
 
     /**
-     * @see shape
-     * 
-     * @return
-     *     possible object is
+     * Gets the shape.
+     *
+     * @return     possible object is
      *     {@link Shape}
-     *     
+     * @see shape
      */
     public Shape getShape() {
         return shape;
     }
 
     /**
-     * @see shape
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the shape.
+     *
+     * @param value     allowed object is
      *     {@link Shape}
-     *     
+     * @see shape
      */
     public void setShape(Shape value) {
         this.shape = value;
     }
 
     /**
+     * Gets the photo overlay simple extension.
+     *
+     * @return the photo overlay simple extension
      * @see photoOverlaySimpleExtension
-     * 
      */
     public List<Object> getPhotoOverlaySimpleExtension() {
         if (photoOverlaySimpleExtension == null) {
@@ -339,8 +336,10 @@ public class PhotoOverlay
     }
 
     /**
+     * Gets the photo overlay object extension.
+     *
+     * @return the photo overlay object extension
      * @see photoOverlayObjectExtension
-     * 
      */
     public List<AbstractObject> getPhotoOverlayObjectExtension() {
         if (photoOverlayObjectExtension == null) {
@@ -447,8 +446,8 @@ public class PhotoOverlay
      * <code>
      * ViewVolume viewVolume = new ViewVolume();
      * this.setViewVolume(viewVolume); </code>
-     * 
-     * 
+     *
+     * @return the view volume
      */
     public ViewVolume createAndSetViewVolume() {
         ViewVolume newValue = new ViewVolume();
@@ -463,8 +462,8 @@ public class PhotoOverlay
      * <code>
      * ImagePyramid imagePyramid = new ImagePyramid();
      * this.setImagePyramid(imagePyramid); </code>
-     * 
-     * 
+     *
+     * @return the image pyramid
      */
     public ImagePyramid createAndSetImagePyramid() {
         ImagePyramid newValue = new ImagePyramid();
@@ -479,8 +478,8 @@ public class PhotoOverlay
      * <code>
      * Point point = new Point();
      * this.setPoint(point); </code>
-     * 
-     * 
+     *
+     * @return the point
      */
     public Point createAndSetPoint() {
         Point newValue = new Point();
@@ -489,21 +488,20 @@ public class PhotoOverlay
     }
 
     /**
+     * Sets the photo overlay simple extension.
+     *
+     * @param photoOverlaySimpleExtension the new photo overlay simple extension
      * @see photoOverlaySimpleExtension
-     * 
-     * @param photoOverlaySimpleExtension
      */
     public void setPhotoOverlaySimpleExtension(final List<Object> photoOverlaySimpleExtension) {
         this.photoOverlaySimpleExtension = photoOverlaySimpleExtension;
     }
 
     /**
-     * add a value to the photoOverlaySimpleExtension property collection
-     * 
-     * @param photoOverlaySimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the photoOverlaySimpleExtension property collection.
+     *
+     * @param photoOverlaySimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public PhotoOverlay addToPhotoOverlaySimpleExtension(final Object photoOverlaySimpleExtension) {
         this.getPhotoOverlaySimpleExtension().add(photoOverlaySimpleExtension);
@@ -511,21 +509,20 @@ public class PhotoOverlay
     }
 
     /**
+     * Sets the photo overlay object extension.
+     *
+     * @param photoOverlayObjectExtension the new photo overlay object extension
      * @see photoOverlayObjectExtension
-     * 
-     * @param photoOverlayObjectExtension
      */
     public void setPhotoOverlayObjectExtension(final List<AbstractObject> photoOverlayObjectExtension) {
         this.photoOverlayObjectExtension = photoOverlayObjectExtension;
     }
 
     /**
-     * add a value to the photoOverlayObjectExtension property collection
-     * 
-     * @param photoOverlayObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the photoOverlayObjectExtension property collection.
+     *
+     * @param photoOverlayObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public PhotoOverlay addToPhotoOverlayObjectExtension(final AbstractObject photoOverlayObjectExtension) {
         this.getPhotoOverlayObjectExtension().add(photoOverlayObjectExtension);
@@ -635,11 +632,11 @@ public class PhotoOverlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param rotation     required parameter
+     * @return the photo overlay
      * @see #setRotation(double)
-     * 
-     * @param rotation
-     *     required parameter
      */
     public PhotoOverlay withRotation(final double rotation) {
         this.setRotation(rotation);
@@ -647,11 +644,11 @@ public class PhotoOverlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param viewVolume     required parameter
+     * @return the photo overlay
      * @see #setViewVolume(ViewVolume)
-     * 
-     * @param viewVolume
-     *     required parameter
      */
     public PhotoOverlay withViewVolume(final ViewVolume viewVolume) {
         this.setViewVolume(viewVolume);
@@ -659,11 +656,11 @@ public class PhotoOverlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param imagePyramid     required parameter
+     * @return the photo overlay
      * @see #setImagePyramid(ImagePyramid)
-     * 
-     * @param imagePyramid
-     *     required parameter
      */
     public PhotoOverlay withImagePyramid(final ImagePyramid imagePyramid) {
         this.setImagePyramid(imagePyramid);
@@ -671,11 +668,11 @@ public class PhotoOverlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param point     required parameter
+     * @return the photo overlay
      * @see #setPoint(Point)
-     * 
-     * @param point
-     *     required parameter
      */
     public PhotoOverlay withPoint(final Point point) {
         this.setPoint(point);
@@ -683,11 +680,11 @@ public class PhotoOverlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param shape     required parameter
+     * @return the photo overlay
      * @see #setShape(Shape)
-     * 
-     * @param shape
-     *     required parameter
      */
     public PhotoOverlay withShape(final Shape shape) {
         this.setShape(shape);
@@ -695,11 +692,11 @@ public class PhotoOverlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param photoOverlaySimpleExtension     required parameter
+     * @return the photo overlay
      * @see #setPhotoOverlaySimpleExtension(List<Object>)
-     * 
-     * @param photoOverlaySimpleExtension
-     *     required parameter
      */
     public PhotoOverlay withPhotoOverlaySimpleExtension(final List<Object> photoOverlaySimpleExtension) {
         this.setPhotoOverlaySimpleExtension(photoOverlaySimpleExtension);
@@ -707,11 +704,11 @@ public class PhotoOverlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param photoOverlayObjectExtension     required parameter
+     * @return the photo overlay
      * @see #setPhotoOverlayObjectExtension(List<AbstractObject>)
-     * 
-     * @param photoOverlayObjectExtension
-     *     required parameter
      */
     public PhotoOverlay withPhotoOverlayObjectExtension(final List<AbstractObject> photoOverlayObjectExtension) {
         this.setPhotoOverlayObjectExtension(photoOverlayObjectExtension);

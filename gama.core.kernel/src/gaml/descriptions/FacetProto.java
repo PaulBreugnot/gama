@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.descriptions.FacetProto.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * FacetProto.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.descriptions;
 
@@ -21,25 +21,71 @@ import gama.core.dev.annotations.GamlAnnotations.facets;
 import gaml.types.IType;
 import gaml.types.Types;
 
+/**
+ * The Class FacetProto.
+ */
 public class FacetProto implements IGamlDescription, Comparable<FacetProto> {
 
+	/** The name. */
 	public final String name;
+	
+	/** The deprecated. */
 	public String deprecated = null;
+	
+	/** The types. */
 	public final IType<?>[] types;
+	
+	/** The types describers. */
 	public final int[] typesDescribers;
+	
+	/** The content type. */
 	public final IType<?> contentType;
+	
+	/** The key type. */
 	public final IType<?> keyType;
+	
+	/** The optional. */
 	public final boolean optional;
+	
+	/** The internal. */
 	public final boolean internal;
+	
+	/** The is label. */
 	private final boolean isLabel;
+	
+	/** The is id. */
 	private final boolean isId;
+	
+	/** The is remote. */
 	final boolean isRemote;
+	
+	/** The is new temp. */
 	final boolean isNewTemp;
+	
+	/** The is type. */
 	public final boolean isType;
+	
+	/** The values. */
 	public final Set<String> values;
+	
+	/** The doc. */
 	public String doc = "No documentation yet";
+	
+	/** The owner. */
 	public String owner;
 
+	/**
+	 * Instantiates a new facet proto.
+	 *
+	 * @param name the name
+	 * @param types the types
+	 * @param ct the ct
+	 * @param kt the kt
+	 * @param values the values
+	 * @param optional the optional
+	 * @param internal the internal
+	 * @param isRemote the is remote
+	 */
 	public FacetProto(final String name, final int[] types, final int ct, final int kt, final String[] values,
 			final boolean optional, final boolean internal, final boolean isRemote) {
 		this.name = name;
@@ -70,10 +116,20 @@ public class FacetProto implements IGamlDescription, Comparable<FacetProto> {
 		// }
 	}
 
+	/**
+	 * Checks if is label.
+	 *
+	 * @return true, if is label
+	 */
 	boolean isLabel() {
 		return isLabel;
 	}
 
+	/**
+	 * Sets the owner.
+	 *
+	 * @param s the new owner
+	 */
 	public void setOwner(final String s) {
 		owner = s;
 	}
@@ -85,6 +141,11 @@ public class FacetProto implements IGamlDescription, Comparable<FacetProto> {
 		return null;
 	}
 
+	/**
+	 * Checks if is id.
+	 *
+	 * @return true, if is id
+	 */
 	public boolean isId() {
 		return isId;
 	}
@@ -100,6 +161,11 @@ public class FacetProto implements IGamlDescription, Comparable<FacetProto> {
 		return "Facet " + name + p;
 	}
 
+	/**
+	 * Types to string.
+	 *
+	 * @return the string
+	 */
 	public String typesToString() {
 		final StringBuilder s = new StringBuilder(30);
 		s.append(types.length < 2 ? " " : " any type in [");
@@ -200,8 +266,9 @@ public class FacetProto implements IGamlDescription, Comparable<FacetProto> {
 	}
 
 	/**
-	 * Method collectPlugins()
+	 * Method collectPlugins().
 	 *
+	 * @param c the c
 	 * @see gama.common.interfaces.IGamlDescription#collectPlugins(java.util.Set)
 	 */
 	// @Override

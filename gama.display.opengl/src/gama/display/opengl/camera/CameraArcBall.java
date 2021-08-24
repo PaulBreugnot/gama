@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'CameraArcBall.java, in plugin ummisco.gama.opengl, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * CameraArcBall.java, in gama.display.opengl, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.display.opengl.camera;
 
 import org.eclipse.swt.SWT;
@@ -22,10 +21,19 @@ import gama.ui.base.bindings.GamaKeyBindings;
 import gama.ui.base.utils.PlatformHelper;
 import gaml.operators.Maths;
 
+/**
+ * The Class CameraArcBall.
+ */
 public class CameraArcBall extends AbstractCamera {
 
+	/** The distance. */
 	private double distance;
 
+	/**
+	 * Instantiates a new camera arc ball.
+	 *
+	 * @param renderer the renderer
+	 */
 	public CameraArcBall(final IOpenGLRenderer renderer) {
 		super(renderer);
 	}
@@ -68,6 +76,12 @@ public class CameraArcBall extends AbstractCamera {
 		phi = Maths.toDeg * Math.acos(p.z / getDistance());
 	}
 
+	/**
+	 * Translate camera from screen plan.
+	 *
+	 * @param x_translation_in_screen the x translation in screen
+	 * @param y_translation_in_screen the y translation in screen
+	 */
 	private void translateCameraFromScreenPlan(final double x_translation_in_screen,
 			final double y_translation_in_screen) {
 

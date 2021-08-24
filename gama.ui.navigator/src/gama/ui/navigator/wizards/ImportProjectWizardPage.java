@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ImportProjectWizardPage.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator.wizards;
 
 /*******************************************************************************
@@ -110,8 +120,9 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 	ILeveledImportStructureProvider structureProvider;
 
 	/**
-	 * @since 3.5
+	 * The Class ProjectLabelProvider.
 	 *
+	 * @since 3.5
 	 */
 	final class ProjectLabelProvider extends LabelProvider implements IColorProvider {
 
@@ -140,26 +151,35 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 	 *
 	 */
 	public class ProjectRecord {
+		
+		/** The project system file. */
 		File projectSystemFile;
 
+		/** The project archive file. */
 		Object projectArchiveFile;
 
+		/** The project name. */
 		String projectName;
 
+		/** The parent. */
 		Object parent;
 
+		/** The level. */
 		int level;
 
+		/** The has conflicts. */
 		boolean hasConflicts;
 
+		/** The is invalid. */
 		boolean isInvalid = false;
 
+		/** The description. */
 		IProjectDescription description;
 
 		/**
 		 * Create a record for a project based on the info in the file.
 		 *
-		 * @param file
+		 * @param file the file
 		 */
 		ProjectRecord(final File file) {
 			projectSystemFile = file;
@@ -167,12 +187,11 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 		}
 
 		/**
-		 * @param file
-		 *            The Object representing the .project file
-		 * @param parent
-		 *            The parent folder of the .project file
-		 * @param level
-		 *            The number of levels deep in the provider the file is
+		 * Instantiates a new project record.
+		 *
+		 * @param file            The Object representing the .project file
+		 * @param parent            The parent folder of the .project file
+		 * @param level            The number of levels deep in the provider the file is
 		 */
 		ProjectRecord(final Object file, final Object parent, final int level) {
 			this.projectArchiveFile = file;
@@ -232,10 +251,9 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 		}
 
 		/**
-		 * Returns whether the given project description file path is in the default location for a project
+		 * Returns whether the given project description file path is in the default location for a project.
 		 *
-		 * @param path
-		 *            The path to examine
+		 * @param path            The path to examine
 		 * @return Whether the given path is the default location for a project
 		 */
 		private boolean isDefaultLocation(final IPath path) {
@@ -246,7 +264,7 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 		}
 
 		/**
-		 * Get the name of the project
+		 * Get the name of the project.
 		 *
 		 * @return String
 		 */
@@ -255,7 +273,7 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 		}
 
 		/**
-		 * Returns whether the given project description file was invalid
+		 * Returns whether the given project description file was invalid.
 		 *
 		 * @return boolean
 		 */
@@ -279,7 +297,7 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 	}
 
 	/**
-	 * A filter to remove conflicting projects
+	 * A filter to remove conflicting projects.
 	 */
 	class ConflictingProjectFilter extends ViewerFilter {
 
@@ -290,61 +308,86 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 
 	}
 
+	/** The Constant STORE_DIRECTORIES. */
 	// dialog store id constants
 	private final static String STORE_DIRECTORIES = "WizardProjectsImportPage.STORE_DIRECTORIES";//$NON-NLS-1$
+	
+	/** The Constant STORE_ARCHIVES. */
 	private final static String STORE_ARCHIVES = "WizardProjectsImportPage.STORE_ARCHIVES";//$NON-NLS-1$
 
+	/** The Constant STORE_NESTED_PROJECTS. */
 	private final static String STORE_NESTED_PROJECTS = "WizardProjectsImportPage.STORE_NESTED_PROJECTS"; //$NON-NLS-1$
 
+	/** The Constant STORE_COPY_PROJECT_ID. */
 	private final static String STORE_COPY_PROJECT_ID = "WizardProjectsImportPage.STORE_COPY_PROJECT_ID"; //$NON-NLS-1$
 
+	/** The Constant STORE_ARCHIVE_SELECTED. */
 	private final static String STORE_ARCHIVE_SELECTED = "WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"; //$NON-NLS-1$
 
+	/** The directory path field. */
 	Combo directoryPathField;
 
+	/** The projects list. */
 	CheckboxTreeViewer projectsList;
 
+	/** The nested projects checkbox. */
 	Button nestedProjectsCheckbox;
 
+	/** The nested projects. */
 	boolean nestedProjects = false;
 
+	/** The copy checkbox. */
 	Button copyCheckbox;
 
+	/** The copy files. */
 	boolean copyFiles = false;
 
+	/** The selected projects. */
 	ProjectRecord[] selectedProjects = new ProjectRecord[0];
 
 	// Keep track of the directory that we browsed to last time
+	/** The previously browsed directory. */
 	// the wizard was invoked.
 	static String previouslyBrowsedDirectory = ""; //$NON-NLS-1$
 
 	// Keep track of the archive that we browsed to last time
+	/** The previously browsed archive. */
 	// the wizard was invoked.
 	static String previouslyBrowsedArchive = ""; //$NON-NLS-1$
 
+	/** The project from directory radio. */
 	Button projectFromDirectoryRadio;
 
+	/** The project from archive radio. */
 	Button projectFromArchiveRadio;
 
+	/** The archive path field. */
 	Combo archivePathField;
 
+	/** The browse directories button. */
 	Button browseDirectoriesButton;
 
+	/** The browse archives button. */
 	Button browseArchivesButton;
 
+	/** The last path. */
 	// The last selected path; to minimize searches
 	String lastPath;
 
+	/** The Constant FILE_IMPORT_MASK. */
 	// constant from WizardArchiveFileResourceImportPage1
 	static final String[] FILE_IMPORT_MASK = { "*.jar;*.zip;*.tar;*.tar.gz;*.tgz", "*.*" }; //$NON-NLS-1$ //$NON-NLS-2$
 
+	/** The initial path. */
 	// The initial path to set
 	final String initialPath;
 
 	// private final IStructuredSelection currentSelection;
 
+	/** The hide conflicting projects. */
 	Button hideConflictingProjects;
 
+	/** The conflicting projects filter. */
 	final ConflictingProjectFilter conflictingProjectsFilter = new ConflictingProjectFilter();
 
 	/**
@@ -358,7 +401,7 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 	/**
 	 * Create a new instance of the receiver.
 	 *
-	 * @param pageName
+	 * @param pageName the page name
 	 */
 	public ImportProjectWizardPage(final String pageName) { // NO_UCD (unused code)
 		this(pageName, null, null);
@@ -367,9 +410,9 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 	/**
 	 * More (many more) parameters.
 	 *
-	 * @param pageName
-	 * @param initialPath
-	 * @param currentSelection
+	 * @param pageName the page name
+	 * @param initialPath the initial path
+	 * @param currentSelection the current selection
 	 * @since 3.5
 	 */
 	public ImportProjectWizardPage(final String pageName, final String initialPath,
@@ -450,7 +493,7 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 	/**
 	 * Create the checkbox list for the found projects.
 	 *
-	 * @param workArea
+	 * @param workArea the work area
 	 */
 	private void createProjectsList(final Composite workArea) {
 
@@ -522,7 +565,7 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 	/**
 	 * Create the selection buttons in the listComposite.
 	 *
-	 * @param listComposite
+	 * @param listComposite the list composite
 	 */
 	private void createSelectionButtons(final Composite listComposite) {
 		final Composite buttonsComposite = new Composite(listComposite, SWT.NONE);
@@ -705,6 +748,9 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 		});
 	}
 
+	/**
+	 * Archive radio selected.
+	 */
 	void archiveRadioSelected() {
 		if (projectFromArchiveRadio.getSelection()) {
 			directoryPathField.setEnabled(false);
@@ -720,6 +766,9 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 		}
 	}
 
+	/**
+	 * Directory radio selected.
+	 */
 	void directoryRadioSelected() {
 		if (projectFromDirectoryRadio.getSelection()) {
 			directoryPathField.setEnabled(true);
@@ -749,12 +798,18 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 	/**
 	 * Update the list of projects based on path. Method declared public only for test suite.
 	 *
-	 * @param path
+	 * @param path the path
 	 */
 	public void updateProjectsList(final String path) {
 		updateProjectsList(path, false);
 	}
 
+	/**
+	 * Update projects list.
+	 *
+	 * @param path the path
+	 * @param forceUpdate the force update
+	 */
 	void updateProjectsList(final String path, final boolean forceUpdate) {
 		// on an empty path empty selectedProjects
 		if (path == null || path.length() == 0) {
@@ -844,6 +899,9 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 		updateProjectsStatus();
 	}
 
+	/**
+	 * Update projects status.
+	 */
 	private void updateProjectsStatus() {
 		projectsList.refresh(true);
 		final ProjectRecord[] projects = getProjectRecords();
@@ -879,6 +937,9 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 	/**
 	 * Answer a handle to the zip file currently specified as being the source. Return null if this file does not exist
 	 * or is not of valid format.
+	 *
+	 * @param fileName the file name
+	 * @return the specified zip source file
 	 */
 	private ZipFile getSpecifiedZipSourceFile(final String fileName) {
 		if (fileName.length() == 0) { return null; }
@@ -898,6 +959,9 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 	/**
 	 * Answer a handle to the zip file currently specified as being the source. Return null if this file does not exist
 	 * or is not of valid format.
+	 *
+	 * @param fileName the file name
+	 * @return the specified tar source file
 	 */
 	private TarFile getSpecifiedTarSourceFile(final String fileName) {
 		if (fileName.length() == 0) { return null; }
@@ -917,12 +981,10 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 	/**
 	 * Collect the list of .project files that are under directory into files.
 	 *
-	 * @param files
-	 * @param directory
-	 * @param directoriesVisited
-	 *            Set of canonical paths of directories, used as recursion guard
-	 * @param monitor
-	 *            The monitor to report to
+	 * @param files the files
+	 * @param directory the directory
+	 * @param visited the visited
+	 * @param monitor            The monitor to report to
 	 * @return boolean <code>true</code> if the operation was completed.
 	 */
 	@SuppressWarnings ({ "rawtypes", "unchecked" })
@@ -983,9 +1045,10 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 	/**
 	 * Collect the list of .project files that are under directory into files.
 	 *
-	 * @param files
-	 * @param monitor
-	 *            The monitor to report to
+	 * @param files the files
+	 * @param entry the entry
+	 * @param level the level
+	 * @param monitor            The monitor to report to
 	 * @return boolean <code>true</code> if the operation was completed.
 	 */
 	private boolean collectProjectFilesFromProvider(final Collection<ProjectRecord> files, final Object entry,
@@ -1076,7 +1139,7 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 	}
 
 	/**
-	 * Create the selected projects
+	 * Create the selected projects.
 	 *
 	 * @return boolean <code>true</code> if all project creations were successful.
 	 */
@@ -1131,10 +1194,11 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 		return true;
 	}
 
+	/** The created projects. */
 	List<IProject> createdProjects;
 
 	/**
-	 * Performs clean-up if the user cancels the wizard without doing anything
+	 * Performs clean-up if the user cancels the wizard without doing anything.
 	 */
 	public void performCancel() {
 		ArchiveFileManipulations.closeStructureProvider(structureProvider, getShell());
@@ -1143,9 +1207,10 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 	/**
 	 * Create the project described in record.
 	 *
-	 * @param record
+	 * @param record the record
+	 * @param monitor the monitor
 	 * @return status of the creation
-	 * @throws InterruptedException
+	 * @throws InterruptedException the interrupted exception
 	 */
 	IStatus createExistingProject(final ProjectRecord record, final IProgressMonitor monitor)
 			throws InterruptedException {
@@ -1380,6 +1445,13 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 		}
 	}
 
+	/**
+	 * Restore from history.
+	 *
+	 * @param settings the settings
+	 * @param key the key
+	 * @param combo the combo
+	 */
 	private void restoreFromHistory(final IDialogSettings settings, final String key, final Combo combo) {
 		final String[] sourceNames = settings.getArray(key);
 		if (sourceNames == null) {
@@ -1412,6 +1484,13 @@ public class ImportProjectWizardPage extends WizardDataTransferPage {
 		}
 	}
 
+	/**
+	 * Save in history.
+	 *
+	 * @param settings the settings
+	 * @param key the key
+	 * @param value the value
+	 */
 	private void saveInHistory(final IDialogSettings settings, final String key, final String value) {
 		String[] sourceNames = settings.getArray(key);
 		if (sourceNames == null) {

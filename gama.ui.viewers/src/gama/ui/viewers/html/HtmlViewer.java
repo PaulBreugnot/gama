@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'HtmlViewer.java, in plugin ummisco.gama.ui.viewers, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * HtmlViewer.java, in gama.ui.viewers, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.viewers.html;
 
 import java.net.MalformedURLException;
@@ -43,9 +42,15 @@ import gama.ui.base.toolbar.IToolbarDecoratedView;
  */
 public class HtmlViewer extends EditorPart implements IToolbarDecoratedView, IGamaView.Html {
 
+	/** The browser. */
 	Browser browser;
+	
+	/** The home. */
 	ToolItem back, forward, home;
 
+	/**
+	 * Instantiates a new html viewer.
+	 */
 	public HtmlViewer() {}
 
 	@Override
@@ -61,6 +66,9 @@ public class HtmlViewer extends EditorPart implements IToolbarDecoratedView, IGa
 		openInput();
 	}
 
+	/**
+	 * Open input.
+	 */
 	private void openInput() {
 		if (browser == null) { return; }
 		if (getEditorInput() instanceof FileEditorInput) {
@@ -117,7 +125,7 @@ public class HtmlViewer extends EditorPart implements IToolbarDecoratedView, IGa
 	}
 
 	/**
-	 *
+	 * Check buttons.
 	 */
 	void checkButtons() {
 		back.setEnabled(browser.isBackEnabled());
@@ -129,6 +137,11 @@ public class HtmlViewer extends EditorPart implements IToolbarDecoratedView, IGa
 		browser.setFocus();
 	}
 
+	/**
+	 * Gets the sizable font control.
+	 *
+	 * @return the sizable font control
+	 */
 	public Control getSizableFontControl() {
 		return browser;
 	}

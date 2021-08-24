@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * PolylineQueue.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.processing.helper;
 
 import java.util.ArrayList;
@@ -30,12 +25,31 @@ import gama.ext.libs.kabeja.dxf.helpers.DXFUtils;
 import gama.ext.libs.kabeja.dxf.helpers.Point;
 
 
+/**
+ * The Class PolylineQueue.
+ */
 public class PolylineQueue {
+    
+    /** The elements. */
     private List elements = new ArrayList();
+    
+    /** The start point. */
     private Point startPoint;
+    
+    /** The end point. */
     private Point endPoint;
+    
+    /** The radius. */
     private double radius = DXFConstants.POINT_CONNECTION_RADIUS;
 
+    /**
+     * Instantiates a new polyline queue.
+     *
+     * @param e the e
+     * @param start the start
+     * @param end the end
+     * @param radius the radius
+     */
     public PolylineQueue(DXFEntity e, Point start, Point end, double radius) {
         this.elements.add(e);
         this.startPoint = start;
@@ -43,6 +57,11 @@ public class PolylineQueue {
         this.radius = radius;
     }
 
+    /**
+     * Size.
+     *
+     * @return the int
+     */
     public int size() {
         return this.elements.size();
     }
@@ -50,9 +69,9 @@ public class PolylineQueue {
     /**
      * connect a DXF entity if possible.
      *
-     * @param e
-     * @param start
-     * @param end
+     * @param e the e
+     * @param start the start
+     * @param end the end
      * @return true if the entity could be connected, otherwise false
      */
     public boolean connectDXFEntity(DXFEntity e, Point start, Point end) {
@@ -85,18 +104,39 @@ public class PolylineQueue {
         return false;
     }
 
+    /**
+     * Gets the start point.
+     *
+     * @return the start point
+     */
     public Point getStartPoint() {
         return this.startPoint;
     }
 
+    /**
+     * Gets the end point.
+     *
+     * @return the end point
+     */
     public Point getEndPoint() {
         return this.endPoint;
     }
 
+    /**
+     * Gets the element iterator.
+     *
+     * @return the element iterator
+     */
     public Iterator getElementIterator() {
         return this.elements.iterator();
     }
 
+    /**
+     * Connect.
+     *
+     * @param queue the queue
+     * @return true, if successful
+     */
     public boolean connect(PolylineQueue queue) {
         if (DXFUtils.equals(queue.getStartPoint(), this.endPoint, radius)) {
             // add to the end
@@ -124,6 +164,11 @@ public class PolylineQueue {
         return false;
     }
 
+    /**
+     * Creates the DXF polyline.
+     *
+     * @param layer the layer
+     */
     public void createDXFPolyline(DXFLayer layer) {
         // create the polyline and remove the entity
         DXFPolyline pline = new DXFPolyline();
@@ -188,6 +233,11 @@ public class PolylineQueue {
         layer.addDXFEntity(pline);
     }
 
+    /**
+     * Reverse.
+     *
+     * @param entity the entity
+     */
     protected void reverse(DXFEntity entity) {
         if (DXFConstants.ENTITY_TYPE_LINE.equals(entity.getType())) {
             DXFUtils.reverseDXFLine((DXFLine) entity);
@@ -199,6 +249,9 @@ public class PolylineQueue {
         }
     }
 
+    /**
+     * Reverse.
+     */
     protected void reverse() {
         Point p = this.endPoint;
         this.endPoint = this.startPoint;
@@ -223,7 +276,7 @@ public class PolylineQueue {
     /**
      * Insert the PolylineQueue before the first element.
      *
-     * @param queue
+     * @param queue the queue
      */
     public void insertBefore(PolylineQueue queue) {
         this.startPoint = queue.getStartPoint();
@@ -241,7 +294,7 @@ public class PolylineQueue {
     /**
      * Adds the queue to the end.
      *
-     * @param queue
+     * @param queue the queue
      */
     public void add(PolylineQueue queue) {
         this.endPoint = queue.getEndPoint();

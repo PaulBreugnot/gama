@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ummisco.gama.opengl.scene.layers.AxesLayerObject.java, in plugin ummisco.gama.opengl, is part of the source code of
- * the GAMA modeling and simulation platform (v. 1.8.1)
+ * AxesLayerObject.java, in gama.display.opengl, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.display.opengl.scene.layers;
 
@@ -34,19 +34,46 @@ import gama.util.GamaColor;
 import gama.util.GamaFont;
 import gaml.statements.draw.TextDrawingAttributes;
 
+/**
+ * The Class AxesLayerObject.
+ */
 public class AxesLayerObject extends StaticLayerObject.World {
 
+	/** The Constant LABELS. */
 	public final static String[] LABELS = { "X", "Y", "Z" };
+	
+	/** The Constant ANCHORS. */
 	public final static GamaPoint[] ANCHORS = { left_center, top_center, bottom_center };
+	
+	/** The Constant ROTATIONS. */
 	public final static AxisAngle[] ROTATIONS = { new AxisAngle(PLUS_J, 90), new AxisAngle(MINUS_I, 90), null };
+	
+	/** The Constant COLORS. */
 	public final static GamaColor[] COLORS = { getNamed("gamared"), getNamed("gamaorange"), getNamed("gamablue") };
+	
+	/** The Constant DEFAULT_SCALE. */
 	protected final static GamaPoint DEFAULT_SCALE = new GamaPoint(.15, .15, .15);
+	
+	/** The Constant ORIGIN. */
 	protected final static GamaPoint ORIGIN = new GamaPoint(0, 0, 0);
+	
+	/** The Constant AXES_FONT. */
 	protected final static GamaFont AXES_FONT = new GamaFont("Helvetica", 0, 18);
+	
+	/** The arrow. */
 	final GamaShape arrow;
+	
+	/** The dirs. */
 	final GamaPoint[] dirs;
+	
+	/** The axes. */
 	final GamaShape[] axes = new GamaShape[3];
 
+	/**
+	 * Instantiates a new axes layer object.
+	 *
+	 * @param renderer the renderer
+	 */
 	public AxesLayerObject(final IOpenGLRenderer renderer) {
 		super(renderer);
 		// Addition to fix #2227

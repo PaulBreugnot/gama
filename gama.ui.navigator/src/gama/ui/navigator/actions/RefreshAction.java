@@ -1,11 +1,13 @@
-/*******************************************************************************
- * Copyright (c) 2000, 2015 IBM Corporation and others. All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is
- * available at http://www.eclipse.org/legal/epl-v10.html
+/*******************************************************************************************************
  *
- * Contributors: IBM Corporation - initial API and implementation Andrey Loskutov <loskutov@gmx.de> - generified
- * interface, bug 462760
- *******************************************************************************/
+ * RefreshAction.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator.actions;
 
 import static gama.common.ui.IGui.NAVIGATOR_VIEW_ID;
@@ -68,8 +70,14 @@ import gama.ui.navigator.metadata.FileMetaDataProvider;
  */
 public class RefreshAction extends WorkspaceAction {
 
+	/** The navigator. */
 	GamaNavigator navigator;
 
+	/**
+	 * Gets the navigator.
+	 *
+	 * @return the navigator
+	 */
 	private GamaNavigator getNavigator() {
 		if (navigator == null) {
 			final IWorkbenchPage page = WorkbenchHelper.getPage();
@@ -85,6 +93,7 @@ public class RefreshAction extends WorkspaceAction {
 	 */
 	public static final String ID = PLUGIN_ID + ".RefreshAction";//$NON-NLS-1$
 
+	/** The resources. */
 	public List<? extends IResource> resources;
 
 	/**
@@ -111,6 +120,9 @@ public class RefreshAction extends WorkspaceAction {
 	/**
 	 * Checks whether the given project's location has been deleted. If so, prompts the user with whether to delete the
 	 * project or not.
+	 *
+	 * @param project the project
+	 * @throws CoreException the core exception
 	 */
 	void checkLocationDeleted(final IProject project) throws CoreException {
 		if (!project.exists()) { return; }

@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gaml.statements.test.AssertStatement.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * AssertStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -31,6 +31,9 @@ import gaml.operators.Cast;
 import gaml.statements.AbstractStatement;
 import gaml.types.IType;
 
+/**
+ * The Class AssertStatement.
+ */
 @symbol (
 		name = { "assert" },
 		kind = ISymbolKind.SINGLE_STATEMENT,
@@ -64,9 +67,17 @@ import gaml.types.IType;
 		see = { "test", "setup", "is_error", "is_warning" })
 public class AssertStatement extends AbstractStatement implements WithTestSummary<AssertionSummary> {
 
+	/** The warn. */
 	final IExpression value, warn;
+	
+	/** The summary. */
 	final AssertionSummary summary;
 
+	/**
+	 * Instantiates a new assert statement.
+	 *
+	 * @param desc the desc
+	 */
 	public AssertStatement(final IDescription desc) {
 		super(desc);
 		value = getFacet(IKeyword.VALUE);
@@ -95,6 +106,12 @@ public class AssertStatement extends AbstractStatement implements WithTestSummar
 		return result;
 	}
 
+	/**
+	 * Checks if is warning.
+	 *
+	 * @param scope the scope
+	 * @return true, if is warning
+	 */
 	public boolean isWarning(final IScope scope) {
 		return warn != null && Cast.asBool(scope, warn.value(scope));
 	}

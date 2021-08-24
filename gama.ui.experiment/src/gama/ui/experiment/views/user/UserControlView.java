@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'UserControlView.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * UserControlView.java, in gama.ui.experiment, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.experiment.views.user;
 
 import java.util.List;
@@ -48,13 +47,24 @@ import gaml.architecture.user.UserPanelStatement;
 import gaml.statements.IStatement;
 import gaml.statements.UserCommandStatement;
 
+/**
+ * The Class UserControlView.
+ */
 public class UserControlView extends GamaViewPart implements IGamaView.User {
 
+	/** The id. */
 	public static String ID = IGui.USER_CONTROL_VIEW_ID;
 
+	/** The scope. */
 	IScope scope;
+	
+	/** The panel. */
 	UserPanelStatement panel;
+	
+	/** The body. */
 	private Composite body;
+	
+	/** The continue item. */
 	ToolItem inspectItem, continueItem;
 
 	@Override
@@ -71,6 +81,11 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 		getParentComposite().layout();
 	}
 
+	/**
+	 * Deactivate.
+	 *
+	 * @param parent the parent
+	 */
 	private void deactivate(final Composite parent) {
 		for (final Control c : parent.getChildren()) {
 			if (c instanceof Composite) {
@@ -139,6 +154,9 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 
 	}
 
+	/**
+	 * Do continue.
+	 */
 	protected void doContinue() {
 		scope.setOnUserHold(false);
 		deactivate(getParentComposite());

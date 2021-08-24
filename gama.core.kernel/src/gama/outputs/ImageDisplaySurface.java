@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.ImageDisplaySurface.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * ImageDisplaySurface.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs;
 
@@ -45,20 +45,45 @@ import gama.util.GamaListFactory;
 import gama.util.IList;
 import gaml.operators.Files;
 
+/**
+ * The Class ImageDisplaySurface.
+ */
 @display ("image")
 public class ImageDisplaySurface implements IDisplaySurface {
 
+	/** The output. */
 	private final LayeredDisplayOutput output;
+	
+	/** The buff image. */
 	// private final boolean needsUpdate = true;
 	private BufferedImage buffImage = null;
+	
+	/** The g 2. */
 	private Graphics2D g2 = null;
+	
+	/** The height. */
 	private int width = 500, height = 500;
+	
+	/** The display graphics. */
 	private IGraphics displayGraphics;
+	
+	/** The manager. */
 	ILayerManager manager;
+	
+	/** The snapshot folder. */
 	public static String snapshotFolder = "/tmp/";
+	
+	/** The scope. */
 	protected IScope scope;
+	
+	/** The data. */
 	private final LayeredDisplayData data;
 
+	/**
+	 * Instantiates a new image display surface.
+	 *
+	 * @param args the args
+	 */
 	public ImageDisplaySurface(final Object... args) {
 		output = (LayeredDisplayOutput) args[0];
 		data = output.getData();
@@ -86,10 +111,9 @@ public class ImageDisplaySurface implements IDisplaySurface {
 	}
 
 	/**
-	 * Save this surface into an image passed as a parameter
+	 * Save this surface into an image passed as a parameter.
 	 *
-	 * @param actionScope
-	 * @param image
+	 * @param image the image
 	 */
 	public void save(final RenderedImage image) {
 		try {
@@ -118,6 +142,14 @@ public class ImageDisplaySurface implements IDisplaySurface {
 		return manager;
 	}
 
+	/**
+	 * Resize image.
+	 *
+	 * @param newWidth the new width
+	 * @param newHeight the new height
+	 * @param force the force
+	 * @return true, if successful
+	 */
 	public boolean resizeImage(final int newWidth, final int newHeight, final boolean force) {
 		if (!force && width == newWidth && height == newHeight) return false;
 		this.width = newWidth;
@@ -140,12 +172,18 @@ public class ImageDisplaySurface implements IDisplaySurface {
 		// }
 	}
 
+	/**
+	 * Draw all displays.
+	 */
 	private void drawAllDisplays() {
 		if (displayGraphics == null) return;
 		displayGraphics.fillBackground(data.getBackgroundColor());
 		manager.drawLayersOn(displayGraphics);
 	}
 
+	/**
+	 * Creates the buff image.
+	 */
 	private void createBuffImage() {
 		buffImage = ImageUtils.createCompatibleImage(width, height, false);
 		g2 = (Graphics2D) buffImage.getGraphics();
@@ -155,6 +193,9 @@ public class ImageDisplaySurface implements IDisplaySurface {
 		displayGraphics.setDisplaySurface(this);
 	}
 
+	/**
+	 * Paint.
+	 */
 	private void paint() {
 		if (buffImage == null) { createBuffImage(); }
 		drawAllDisplays();

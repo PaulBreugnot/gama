@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GamlProposalProvider.java, in plugin ummisco.gama.ui.modeling, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * GamlProposalProvider.java, in gama.ui.modeling, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.modeling.contentassist;
 
 import java.util.ArrayList;
@@ -54,10 +53,15 @@ public class GamlProposalProvider extends AbstractGamlProposalProvider {
 	// private static Image facetImage =
 	// ImageDescriptor.createFromFile(GamlProposalProvider.class,
 	// "/icons/_facet.png")
+	/** The type image. */
 	// .createImage();
 	static Image typeImage =
 			ImageDescriptor.createFromFile(GamlProposalProvider.class, "/icons/_type.png").createImage();
+	
+	/** The var image. */
 	static Image varImage = ImageDescriptor.createFromFile(GamlProposalProvider.class, "/icons/_var.png").createImage();
+	
+	/** The action image. */
 	static Image actionImage =
 			ImageDescriptor.createFromFile(GamlProposalProvider.class, "/icons/_action.png").createImage();
 
@@ -66,14 +70,20 @@ public class GamlProposalProvider extends AbstractGamlProposalProvider {
 	// "/icons/_skills.png")
 	// .createImage();
 
+	/**
+	 * The Class GamlProposalCreator.
+	 */
 	class GamlProposalCreator extends DefaultProposalCreator {
 
+		/** The context. */
 		ContentAssistContext context;
 
 		/**
-		 * @param contentAssistContext
-		 * @param ruleName
-		 * @param qualifiedNameConverter
+		 * Instantiates a new gaml proposal creator.
+		 *
+		 * @param contentAssistContext the content assist context
+		 * @param ruleName the rule name
+		 * @param qualifiedNameConverter the qualified name converter
 		 */
 		public GamlProposalCreator(final ContentAssistContext contentAssistContext, final String ruleName,
 				final IQualifiedNameConverter qualifiedNameConverter) {
@@ -129,17 +139,22 @@ public class GamlProposalProvider extends AbstractGamlProposalProvider {
 
 	}
 
+	/**
+	 * The Class GamlCompletionProposal.
+	 */
 	static class GamlCompletionProposal extends ConfigurableCompletionProposal {
 
 		/**
-		 * @param replacementString
-		 * @param replacementOffset
-		 * @param replacementLength
-		 * @param cursorPosition
-		 * @param image
-		 * @param displayString
-		 * @param contextInformation
-		 * @param additionalProposalInfo
+		 * Instantiates a new gaml completion proposal.
+		 *
+		 * @param replacementString the replacement string
+		 * @param replacementOffset the replacement offset
+		 * @param replacementLength the replacement length
+		 * @param cursorPosition the cursor position
+		 * @param image the image
+		 * @param displayString the display string
+		 * @param contextInformation the context information
+		 * @param additionalProposalInfo the additional proposal info
 		 */
 		public GamlCompletionProposal(final String replacementString, final int replacementOffset,
 				final int replacementLength, final int cursorPosition, final Image image,
@@ -161,13 +176,30 @@ public class GamlProposalProvider extends AbstractGamlProposalProvider {
 
 	// private DefaultProposalCreator creator;
 
+	/**
+	 * The Class BuiltInProposal.
+	 */
 	static class BuiltInProposal {
 
+		/** The name. */
 		String name;
+		
+		/** The title. */
 		StyledString title;
+		
+		/** The image. */
 		Image image;
+		
+		/** The documentation. */
 		String documentation;
 
+		/**
+		 * Instantiates a new built in proposal.
+		 *
+		 * @param name the name
+		 * @param title the title
+		 * @param image the image
+		 */
 		public BuiltInProposal(final String name, final StyledString title, final Image image) {
 			this.name = name;
 			this.title = title;
@@ -175,7 +207,9 @@ public class GamlProposalProvider extends AbstractGamlProposalProvider {
 		}
 
 		/**
-		 * @param documentation
+		 * Sets the doc.
+		 *
+		 * @param documentation the new doc
 		 */
 		public void setDoc(final String documentation) {
 			this.documentation = documentation;
@@ -193,11 +227,15 @@ public class GamlProposalProvider extends AbstractGamlProposalProvider {
 		return qualifiedNameAsString;
 	}
 
+	/** The Constant proposals. */
 	static final List<BuiltInProposal> proposals = new ArrayList<>();
+	
+	/** The Constant facets. */
 	static final Set<String> fields = new HashSet(), vars = new HashSet(), actions = new HashSet(),
 			types = new HashSet(), skills = new HashSet(), constants = new HashSet(), units = new HashSet(),
 			statements = new HashSet(), facets = new HashSet();
 
+	/** The provider. */
 	@Inject GamlLabelProvider provider;
 
 	// @Inject
@@ -206,6 +244,7 @@ public class GamlProposalProvider extends AbstractGamlProposalProvider {
 	// @Inject
 	// private GamlJavaValidator validator;
 
+	/** The ga. */
 	@Inject private GamlGrammarAccess ga;
 
 	@Override
@@ -231,10 +270,10 @@ public class GamlProposalProvider extends AbstractGamlProposalProvider {
 	}
 
 	/**
-	 * @param context
-	 * @param acceptor
+	 * Adds the built in elements.
 	 *
-	 *            TODO Filter the proposals (passing an argument ?) depending on the context in the dispatcher (see
+	 * @param context the context
+	 * @param acceptor            TODO Filter the proposals (passing an argument ?) depending on the context in the dispatcher (see
 	 *            commented methods below). TODO Build this list at once instead of recomputing it everytime (might be
 	 *            done in a dedicated data structure somewhere) and separate it by types (vars, units, etc.)
 	 */

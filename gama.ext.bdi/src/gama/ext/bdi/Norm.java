@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Norm.java, in gama.ext.bdi, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.bdi;
 
 import gama.common.interfaces.IValue;
@@ -10,6 +20,9 @@ import gama.runtime.exceptions.GamaRuntimeException;
 import gaml.types.IType;
 import gaml.types.Types;
 
+/**
+ * The Class Norm.
+ */
 @vars ({ @variable (
 		name = "name",
 		type = IType.STRING,
@@ -39,28 +52,61 @@ import gaml.types.Types;
 //Classe qui permet de définir les normes comme type, contenant le norm statement, sur l'exemple des plans
 public class Norm implements IValue{
 
+	/** The norm statement. */
 	private NormStatement normStatement;
+	
+	/** The is violated. */
 	private Boolean isViolated;
+	
+	/** The lifetime violation. */
 	private Integer lifetimeViolation;
+	
+	/** The no lifetime. */
 	private Boolean noLifetime;
+	
+	/** The is applied. */
 	private Boolean isApplied;
+	
+	/** The is sanctioned. */
 	private Boolean isSanctioned;
 	
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	@getter ("name")
 	public String getName() {
 		return this.normStatement.getName();
 	}
 	
+	/**
+	 * Gets the lifetime.
+	 *
+	 * @param scope the scope
+	 * @return the lifetime
+	 */
 	@getter (NormStatement.LIFETIME)
 	public Integer getLifetime(final IScope scope) {
 		return this.lifetimeViolation;
 	}
 	
+	/**
+	 * Gets the when.
+	 *
+	 * @return the when
+	 */
 	@getter ("when")
 	public String getWhen() {
 		return this.normStatement._when.serialize(true);
 	}
 	
+	/**
+	 * Gets the intention.
+	 *
+	 * @param scope the scope
+	 * @return the intention
+	 */
 	@getter (NormStatement.INTENTION)
 	public Predicate getIntention(final IScope scope) {
 		if(this.normStatement!=null && this.normStatement._intention!=null){
@@ -70,6 +116,12 @@ public class Norm implements IValue{
 		}
 	}
 	
+	/**
+	 * Gets the obligation.
+	 *
+	 * @param scope the scope
+	 * @return the obligation
+	 */
 	@getter (NormStatement.OBLIGATION)
 	public Predicate getObligation(final IScope scope) {
 		if(this.normStatement!=null && this.normStatement._obligation!=null){
@@ -79,6 +131,11 @@ public class Norm implements IValue{
 		}
 	}
 	
+	/**
+	 * Gets the finished when.
+	 *
+	 * @return the finished when
+	 */
 	@getter (SimpleBdiArchitecture.FINISHEDWHEN)
 	public String getFinishedWhen() {
 		if(this.normStatement!=null && this.normStatement._executedwhen!=null){
@@ -88,6 +145,11 @@ public class Norm implements IValue{
 		}
 	}
 	
+	/**
+	 * Gets the instantaneous.
+	 *
+	 * @return the instantaneous
+	 */
 	@getter (SimpleBdiArchitecture.INSTANTANEAOUS)
 	public String getInstantaneous() {
 		if(this.normStatement!=null && this.normStatement._instantaneous!=null){
@@ -97,22 +159,45 @@ public class Norm implements IValue{
 		}
 	}
 	
+	/**
+	 * Gets the norm statement.
+	 *
+	 * @return the norm statement
+	 */
 	public NormStatement getNormStatement() {
 		return this.normStatement;
 	}
 	
+	/**
+	 * Gets the violated.
+	 *
+	 * @return the violated
+	 */
 	public Boolean getViolated(){
 		return this.isViolated;
 	}
 	
+	/**
+	 * Gets the applied.
+	 *
+	 * @return the applied
+	 */
 	public Boolean getApplied(){
 		return this.isApplied;
 	}
 	
+	/**
+	 * Gets the sanctioned.
+	 *
+	 * @return the sanctioned
+	 */
 	public Boolean getSanctioned(){
 		return this.isSanctioned;
 	}
 	
+	/**
+	 * Instantiates a new norm.
+	 */
 	public Norm(){
 		super();
 		this.isViolated = false;
@@ -122,6 +207,11 @@ public class Norm implements IValue{
 		this.isSanctioned = false;
 	}
 	
+	/**
+	 * Instantiates a new norm.
+	 *
+	 * @param statement the statement
+	 */
 	public Norm(final NormStatement statement) {
 		super();
 		this.normStatement = statement;
@@ -132,6 +222,12 @@ public class Norm implements IValue{
 		this.isSanctioned = false;
 	}
 	
+	/**
+	 * Instantiates a new norm.
+	 *
+	 * @param statement the statement
+	 * @param scope the scope
+	 */
 	public Norm(final NormStatement statement, final IScope scope) {
 		super();
 		this.normStatement = statement;
@@ -147,19 +243,37 @@ public class Norm implements IValue{
 		}
 	}
 	
+	/**
+	 * Sets the violation.
+	 *
+	 * @param violation the new violation
+	 */
 	public void setViolation(final Boolean violation){
 		this.isViolated = violation;
 		this.isApplied = !violation;
 	}
 	
+	/**
+	 * Sets the sanctioned.
+	 *
+	 * @param sanction the new sanctioned
+	 */
 	public void setSanctioned(final Boolean sanction){
 		this.isSanctioned = sanction;
 	}
 	
+	/**
+	 * Sanctioned.
+	 */
 	public void sanctioned(){
 		this.isSanctioned = true;
 	}
 	
+	/**
+	 * Violated.
+	 *
+	 * @param scope the scope
+	 */
 	public void violated(final IScope scope){
 		this.isViolated = true;
 		this.isApplied = false;
@@ -171,6 +285,11 @@ public class Norm implements IValue{
 		this.noLifetime=false;
 	}
 	
+	/**
+	 * Applied.
+	 *
+	 * @param scope the scope
+	 */
 	public void applied(final IScope scope){
 		this.isApplied = true;
 		this.isViolated = false;
@@ -178,6 +297,9 @@ public class Norm implements IValue{
 		this.noLifetime=false;
 	}
 	
+	/**
+	 * Update lifeime.
+	 */
 	public void updateLifeime(){
 		if(!noLifetime && isViolated){
 			this.lifetimeViolation --;

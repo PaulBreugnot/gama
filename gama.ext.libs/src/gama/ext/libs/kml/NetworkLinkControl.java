@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * NetworkLinkControl.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -221,6 +231,8 @@ public class NetworkLinkControl implements Cloneable
      */
     @XmlElementRef(name = "AbstractViewGroup", namespace = "http://www.opengis.net/kml/2.2", required = false)
     protected AbstractView abstractView;
+    
+    /** The network link control simple extension. */
     @XmlElement(name = "NetworkLinkControlSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> networkLinkControlSimpleExtension;
@@ -245,257 +257,242 @@ public class NetworkLinkControl implements Cloneable
     @XmlElement(name = "NetworkLinkControlObjectExtensionGroup")
     protected List<AbstractObject> networkLinkControlObjectExtension;
 
+    /**
+     * Instantiates a new network link control.
+     */
     public NetworkLinkControl() {
         super();
     }
 
     /**
-     * @see minRefreshPeriod
-     * 
-     * @return
-     *     possible object is
+     * Gets the min refresh period.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see minRefreshPeriod
      */
     public double getMinRefreshPeriod() {
         return minRefreshPeriod;
     }
 
     /**
-     * @see minRefreshPeriod
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the min refresh period.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see minRefreshPeriod
      */
     public void setMinRefreshPeriod(double value) {
         this.minRefreshPeriod = value;
     }
 
     /**
-     * @see maxSessionLength
-     * 
-     * @return
-     *     possible object is
+     * Gets the max session length.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see maxSessionLength
      */
     public double getMaxSessionLength() {
         return maxSessionLength;
     }
 
     /**
-     * @see maxSessionLength
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the max session length.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see maxSessionLength
      */
     public void setMaxSessionLength(double value) {
         this.maxSessionLength = value;
     }
 
     /**
-     * @see cookie
-     * 
-     * @return
-     *     possible object is
+     * Gets the cookie.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see cookie
      */
     public String getCookie() {
         return cookie;
     }
 
     /**
-     * @see cookie
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the cookie.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see cookie
      */
     public void setCookie(String value) {
         this.cookie = value;
     }
 
     /**
-     * @see message
-     * 
-     * @return
-     *     possible object is
+     * Gets the message.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see message
      */
     public String getMessage() {
         return message;
     }
 
     /**
-     * @see message
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the message.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see message
      */
     public void setMessage(String value) {
         this.message = value;
     }
 
     /**
-     * @see linkName
-     * 
-     * @return
-     *     possible object is
+     * Gets the link name.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see linkName
      */
     public String getLinkName() {
         return linkName;
     }
 
     /**
-     * @see linkName
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the link name.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see linkName
      */
     public void setLinkName(String value) {
         this.linkName = value;
     }
 
     /**
-     * @see linkDescription
-     * 
-     * @return
-     *     possible object is
+     * Gets the link description.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see linkDescription
      */
     public String getLinkDescription() {
         return linkDescription;
     }
 
     /**
-     * @see linkDescription
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the link description.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see linkDescription
      */
     public void setLinkDescription(String value) {
         this.linkDescription = value;
     }
 
     /**
-     * @see linkSnippet
-     * 
-     * @return
-     *     possible object is
+     * Gets the link snippet.
+     *
+     * @return     possible object is
      *     {@link Snippet}
-     *     
+     * @see linkSnippet
      */
     public Snippet getLinkSnippet() {
         return linkSnippet;
     }
 
     /**
-     * @see linkSnippet
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the link snippet.
+     *
+     * @param value     allowed object is
      *     {@link Snippet}
-     *     
+     * @see linkSnippet
      */
     public void setLinkSnippet(Snippet value) {
         this.linkSnippet = value;
     }
 
     /**
-     * @see expires
-     * 
-     * @return
-     *     possible object is
+     * Gets the expires.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see expires
      */
     public String getExpires() {
         return expires;
     }
 
     /**
-     * @see expires
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the expires.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see expires
      */
     public void setExpires(String value) {
         this.expires = value;
     }
 
     /**
-     * @see update
-     * 
-     * @return
-     *     possible object is
+     * Gets the update.
+     *
+     * @return     possible object is
      *     {@link Update}
-     *     
+     * @see update
      */
     public Update getUpdate() {
         return update;
     }
 
     /**
-     * @see update
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the update.
+     *
+     * @param value     allowed object is
      *     {@link Update}
-     *     
+     * @see update
      */
     public void setUpdate(Update value) {
         this.update = value;
     }
 
     /**
-     * @see abstractView
-     * 
-     * @return
-     *     possible object is
+     * Gets the abstract view.
+     *
+     * @return     possible object is
      *     {@code <}{@link AbstractView}{@code>}
      *     {@code <}{@link LookAt}{@code>}
      *     {@code <}{@link Camera}{@code>}
-     *     
+     * @see abstractView
      */
     public AbstractView getAbstractView() {
         return abstractView;
     }
 
     /**
-     * @see abstractView
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the abstract view.
+     *
+     * @param value     allowed object is
      *     {@code <}{@link AbstractView}{@code>}
      *     {@code <}{@link LookAt}{@code>}
      *     {@code <}{@link Camera}{@code>}
-     *     
+     * @see abstractView
      */
     public void setAbstractView(AbstractView value) {
         this.abstractView = (value);
     }
 
     /**
+     * Gets the network link control simple extension.
+     *
+     * @return the network link control simple extension
      * @see networkLinkControlSimpleExtension
-     * 
      */
     public List<Object> getNetworkLinkControlSimpleExtension() {
         if (networkLinkControlSimpleExtension == null) {
@@ -505,8 +502,10 @@ public class NetworkLinkControl implements Cloneable
     }
 
     /**
+     * Gets the network link control object extension.
+     *
+     * @return the network link control object extension
      * @see networkLinkControlObjectExtension
-     * 
      */
     public List<AbstractObject> getNetworkLinkControlObjectExtension() {
         if (networkLinkControlObjectExtension == null) {
@@ -655,8 +654,8 @@ public class NetworkLinkControl implements Cloneable
      * <code>
      * Snippet snippet = new Snippet();
      * this.setLinkSnippet(snippet); </code>
-     * 
-     * 
+     *
+     * @return the snippet
      */
     public Snippet createAndSetLinkSnippet() {
         Snippet newValue = new Snippet();
@@ -671,12 +670,10 @@ public class NetworkLinkControl implements Cloneable
      * <code>
      * Update update = new Update();
      * this.setUpdate(update); </code>
-     * 
-     * 
-     * @param createOrDeleteOrChange
-     *     required parameter
-     * @param targetHref
-     *     required parameter
+     *
+     * @param targetHref     required parameter
+     * @param createOrDeleteOrChange     required parameter
+     * @return the update
      */
     public Update createAndSetUpdate(final String targetHref, final List<Object> createOrDeleteOrChange) {
         Update newValue = new Update(targetHref, createOrDeleteOrChange);
@@ -691,8 +688,8 @@ public class NetworkLinkControl implements Cloneable
      * <code>
      * LookAt lookAt = new LookAt();
      * this.setAbstractView(lookAt); </code>
-     * 
-     * 
+     *
+     * @return the look at
      */
     public LookAt createAndSetLookAt() {
         LookAt newValue = new LookAt();
@@ -707,8 +704,8 @@ public class NetworkLinkControl implements Cloneable
      * <code>
      * Camera camera = new Camera();
      * this.setAbstractView(camera); </code>
-     * 
-     * 
+     *
+     * @return the camera
      */
     public Camera createAndSetCamera() {
         Camera newValue = new Camera();
@@ -717,21 +714,20 @@ public class NetworkLinkControl implements Cloneable
     }
 
     /**
+     * Sets the network link control simple extension.
+     *
+     * @param networkLinkControlSimpleExtension the new network link control simple extension
      * @see networkLinkControlSimpleExtension
-     * 
-     * @param networkLinkControlSimpleExtension
      */
     public void setNetworkLinkControlSimpleExtension(final List<Object> networkLinkControlSimpleExtension) {
         this.networkLinkControlSimpleExtension = networkLinkControlSimpleExtension;
     }
 
     /**
-     * add a value to the networkLinkControlSimpleExtension property collection
-     * 
-     * @param networkLinkControlSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the networkLinkControlSimpleExtension property collection.
+     *
+     * @param networkLinkControlSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public NetworkLinkControl addToNetworkLinkControlSimpleExtension(final Object networkLinkControlSimpleExtension) {
         this.getNetworkLinkControlSimpleExtension().add(networkLinkControlSimpleExtension);
@@ -739,21 +735,20 @@ public class NetworkLinkControl implements Cloneable
     }
 
     /**
+     * Sets the network link control object extension.
+     *
+     * @param networkLinkControlObjectExtension the new network link control object extension
      * @see networkLinkControlObjectExtension
-     * 
-     * @param networkLinkControlObjectExtension
      */
     public void setNetworkLinkControlObjectExtension(final List<AbstractObject> networkLinkControlObjectExtension) {
         this.networkLinkControlObjectExtension = networkLinkControlObjectExtension;
     }
 
     /**
-     * add a value to the networkLinkControlObjectExtension property collection
-     * 
-     * @param networkLinkControlObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the networkLinkControlObjectExtension property collection.
+     *
+     * @param networkLinkControlObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public NetworkLinkControl addToNetworkLinkControlObjectExtension(final AbstractObject networkLinkControlObjectExtension) {
         this.getNetworkLinkControlObjectExtension().add(networkLinkControlObjectExtension);
@@ -761,11 +756,11 @@ public class NetworkLinkControl implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param minRefreshPeriod     required parameter
+     * @return the network link control
      * @see #setMinRefreshPeriod(double)
-     * 
-     * @param minRefreshPeriod
-     *     required parameter
      */
     public NetworkLinkControl withMinRefreshPeriod(final double minRefreshPeriod) {
         this.setMinRefreshPeriod(minRefreshPeriod);
@@ -773,11 +768,11 @@ public class NetworkLinkControl implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param maxSessionLength     required parameter
+     * @return the network link control
      * @see #setMaxSessionLength(double)
-     * 
-     * @param maxSessionLength
-     *     required parameter
      */
     public NetworkLinkControl withMaxSessionLength(final double maxSessionLength) {
         this.setMaxSessionLength(maxSessionLength);
@@ -785,11 +780,11 @@ public class NetworkLinkControl implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param cookie     required parameter
+     * @return the network link control
      * @see #setCookie(String)
-     * 
-     * @param cookie
-     *     required parameter
      */
     public NetworkLinkControl withCookie(final String cookie) {
         this.setCookie(cookie);
@@ -797,11 +792,11 @@ public class NetworkLinkControl implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param message     required parameter
+     * @return the network link control
      * @see #setMessage(String)
-     * 
-     * @param message
-     *     required parameter
      */
     public NetworkLinkControl withMessage(final String message) {
         this.setMessage(message);
@@ -809,11 +804,11 @@ public class NetworkLinkControl implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param linkName     required parameter
+     * @return the network link control
      * @see #setLinkName(String)
-     * 
-     * @param linkName
-     *     required parameter
      */
     public NetworkLinkControl withLinkName(final String linkName) {
         this.setLinkName(linkName);
@@ -821,11 +816,11 @@ public class NetworkLinkControl implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param linkDescription     required parameter
+     * @return the network link control
      * @see #setLinkDescription(String)
-     * 
-     * @param linkDescription
-     *     required parameter
      */
     public NetworkLinkControl withLinkDescription(final String linkDescription) {
         this.setLinkDescription(linkDescription);
@@ -833,11 +828,11 @@ public class NetworkLinkControl implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param linkSnippet     required parameter
+     * @return the network link control
      * @see #setLinkSnippet(Snippet)
-     * 
-     * @param linkSnippet
-     *     required parameter
      */
     public NetworkLinkControl withLinkSnippet(final Snippet linkSnippet) {
         this.setLinkSnippet(linkSnippet);
@@ -845,11 +840,11 @@ public class NetworkLinkControl implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param expires     required parameter
+     * @return the network link control
      * @see #setExpires(String)
-     * 
-     * @param expires
-     *     required parameter
      */
     public NetworkLinkControl withExpires(final String expires) {
         this.setExpires(expires);
@@ -857,11 +852,11 @@ public class NetworkLinkControl implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param update     required parameter
+     * @return the network link control
      * @see #setUpdate(Update)
-     * 
-     * @param update
-     *     required parameter
      */
     public NetworkLinkControl withUpdate(final Update update) {
         this.setUpdate(update);
@@ -869,11 +864,11 @@ public class NetworkLinkControl implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param abstractView     required parameter
+     * @return the network link control
      * @see #setAbstractView(AbstractView)
-     * 
-     * @param abstractView
-     *     required parameter
      */
     public NetworkLinkControl withAbstractView(final AbstractView abstractView) {
         this.setAbstractView(abstractView);
@@ -881,11 +876,11 @@ public class NetworkLinkControl implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param networkLinkControlSimpleExtension     required parameter
+     * @return the network link control
      * @see #setNetworkLinkControlSimpleExtension(List<Object>)
-     * 
-     * @param networkLinkControlSimpleExtension
-     *     required parameter
      */
     public NetworkLinkControl withNetworkLinkControlSimpleExtension(final List<Object> networkLinkControlSimpleExtension) {
         this.setNetworkLinkControlSimpleExtension(networkLinkControlSimpleExtension);
@@ -893,11 +888,11 @@ public class NetworkLinkControl implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param networkLinkControlObjectExtension     required parameter
+     * @return the network link control
      * @see #setNetworkLinkControlObjectExtension(List<AbstractObject>)
-     * 
-     * @param networkLinkControlObjectExtension
-     *     required parameter
      */
     public NetworkLinkControl withNetworkLinkControlObjectExtension(final List<AbstractObject> networkLinkControlObjectExtension) {
         this.setNetworkLinkControlObjectExtension(networkLinkControlObjectExtension);

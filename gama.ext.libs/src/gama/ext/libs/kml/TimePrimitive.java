@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * TimePrimitive.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -53,6 +63,7 @@ public abstract class TimePrimitive
     implements Cloneable
 {
 
+    /** The time primitive simple extension. */
     @XmlElement(name = "AbstractTimePrimitiveSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> timePrimitiveSimpleExtension;
@@ -77,13 +88,18 @@ public abstract class TimePrimitive
     @XmlElement(name = "AbstractTimePrimitiveObjectExtensionGroup")
     protected List<AbstractObject> timePrimitiveObjectExtension;
 
+    /**
+     * Instantiates a new time primitive.
+     */
     public TimePrimitive() {
         super();
     }
 
     /**
+     * Gets the time primitive simple extension.
+     *
+     * @return the time primitive simple extension
      * @see timePrimitiveSimpleExtension
-     * 
      */
     public List<Object> getTimePrimitiveSimpleExtension() {
         if (timePrimitiveSimpleExtension == null) {
@@ -93,8 +109,10 @@ public abstract class TimePrimitive
     }
 
     /**
+     * Gets the time primitive object extension.
+     *
+     * @return the time primitive object extension
      * @see timePrimitiveObjectExtension
-     * 
      */
     public List<AbstractObject> getTimePrimitiveObjectExtension() {
         if (timePrimitiveObjectExtension == null) {
@@ -149,21 +167,20 @@ public abstract class TimePrimitive
     }
 
     /**
+     * Sets the time primitive simple extension.
+     *
+     * @param timePrimitiveSimpleExtension the new time primitive simple extension
      * @see timePrimitiveSimpleExtension
-     * 
-     * @param timePrimitiveSimpleExtension
      */
     public void setTimePrimitiveSimpleExtension(final List<Object> timePrimitiveSimpleExtension) {
         this.timePrimitiveSimpleExtension = timePrimitiveSimpleExtension;
     }
 
     /**
-     * add a value to the timePrimitiveSimpleExtension property collection
-     * 
-     * @param timePrimitiveSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the timePrimitiveSimpleExtension property collection.
+     *
+     * @param timePrimitiveSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public TimePrimitive addToTimePrimitiveSimpleExtension(final Object timePrimitiveSimpleExtension) {
         this.getTimePrimitiveSimpleExtension().add(timePrimitiveSimpleExtension);
@@ -171,21 +188,20 @@ public abstract class TimePrimitive
     }
 
     /**
+     * Sets the time primitive object extension.
+     *
+     * @param timePrimitiveObjectExtension the new time primitive object extension
      * @see timePrimitiveObjectExtension
-     * 
-     * @param timePrimitiveObjectExtension
      */
     public void setTimePrimitiveObjectExtension(final List<AbstractObject> timePrimitiveObjectExtension) {
         this.timePrimitiveObjectExtension = timePrimitiveObjectExtension;
     }
 
     /**
-     * add a value to the timePrimitiveObjectExtension property collection
-     * 
-     * @param timePrimitiveObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the timePrimitiveObjectExtension property collection.
+     *
+     * @param timePrimitiveObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public TimePrimitive addToTimePrimitiveObjectExtension(final AbstractObject timePrimitiveObjectExtension) {
         this.getTimePrimitiveObjectExtension().add(timePrimitiveObjectExtension);
@@ -210,11 +226,11 @@ public abstract class TimePrimitive
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param timePrimitiveSimpleExtension     required parameter
+     * @return the time primitive
      * @see #setTimePrimitiveSimpleExtension(List<Object>)
-     * 
-     * @param timePrimitiveSimpleExtension
-     *     required parameter
      */
     public TimePrimitive withTimePrimitiveSimpleExtension(final List<Object> timePrimitiveSimpleExtension) {
         this.setTimePrimitiveSimpleExtension(timePrimitiveSimpleExtension);
@@ -222,11 +238,11 @@ public abstract class TimePrimitive
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param timePrimitiveObjectExtension     required parameter
+     * @return the time primitive
      * @see #setTimePrimitiveObjectExtension(List<AbstractObject>)
-     * 
-     * @param timePrimitiveObjectExtension
-     *     required parameter
      */
     public TimePrimitive withTimePrimitiveObjectExtension(final List<AbstractObject> timePrimitiveObjectExtension) {
         this.setTimePrimitiveObjectExtension(timePrimitiveObjectExtension);

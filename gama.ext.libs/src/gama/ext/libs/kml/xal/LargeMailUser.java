@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * LargeMailUser.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.xal;
 
@@ -19,7 +29,7 @@ import javax.xml.namespace.QName;
 
 
 /**
- * 
+ * The Class LargeMailUser.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "LargeMailUserType", propOrder = {
@@ -37,35 +47,61 @@ import javax.xml.namespace.QName;
 public class LargeMailUser implements Cloneable
 {
 
+    /** The address line. */
     @XmlElement(name = "AddressLine")
     protected List<AddressLine> addressLine;
+    
+    /** The large mail user name. */
     @XmlElement(name = "LargeMailUserName")
     protected List<LargeMailUser.LargeMailUserName> largeMailUserName;
+    
+    /** The large mail user identifier. */
     @XmlElement(name = "LargeMailUserIdentifier")
     protected LargeMailUser.LargeMailUserIdentifier largeMailUserIdentifier;
+    
+    /** The building name. */
     @XmlElement(name = "BuildingName")
     protected List<BuildingName> buildingName;
+    
+    /** The department. */
     @XmlElement(name = "Department")
     protected Department department;
+    
+    /** The post box. */
     @XmlElement(name = "PostBox")
     protected PostBox postBox;
+    
+    /** The thoroughfare. */
     @XmlElement(name = "Thoroughfare")
     protected Thoroughfare thoroughfare;
+    
+    /** The postal code. */
     @XmlElement(name = "PostalCode")
     protected PostalCode postalCode;
+    
+    /** The any. */
     @XmlAnyElement(lax = true)
     protected List<Object> any;
+    
+    /** The underscore. */
     @XmlAttribute(name = "Type")
     protected String underscore;
+    
+    /** The other attributes. */
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+    /**
+     * Instantiates a new large mail user.
+     */
     public LargeMailUser() {
         super();
     }
 
     /**
-     * 
+     * Gets the address line.
+     *
+     * @return the address line
      */
     public List<AddressLine> getAddressLine() {
         if (addressLine == null) {
@@ -75,7 +111,9 @@ public class LargeMailUser implements Cloneable
     }
 
     /**
-     * 
+     * Gets the large mail user name.
+     *
+     * @return the large mail user name
      */
     public List<LargeMailUser.LargeMailUserName> getLargeMailUserName() {
         if (largeMailUserName == null) {
@@ -85,29 +123,29 @@ public class LargeMailUser implements Cloneable
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the large mail user identifier.
+     *
+     * @return     possible object is
      *     {@link LargeMailUser.LargeMailUserIdentifier}
-     *     
      */
     public LargeMailUser.LargeMailUserIdentifier getLargeMailUserIdentifier() {
         return largeMailUserIdentifier;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the large mail user identifier.
+     *
+     * @param value     allowed object is
      *     {@link LargeMailUser.LargeMailUserIdentifier}
-     *     
      */
     public void setLargeMailUserIdentifier(LargeMailUser.LargeMailUserIdentifier value) {
         this.largeMailUserIdentifier = value;
     }
 
     /**
-     * 
+     * Gets the building name.
+     *
+     * @return the building name
      */
     public List<BuildingName> getBuildingName() {
         if (buildingName == null) {
@@ -117,95 +155,89 @@ public class LargeMailUser implements Cloneable
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the department.
+     *
+     * @return     possible object is
      *     {@link Department}
-     *     
      */
     public Department getDepartment() {
         return department;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the department.
+     *
+     * @param value     allowed object is
      *     {@link Department}
-     *     
      */
     public void setDepartment(Department value) {
         this.department = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the post box.
+     *
+     * @return     possible object is
      *     {@link PostBox}
-     *     
      */
     public PostBox getPostBox() {
         return postBox;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the post box.
+     *
+     * @param value     allowed object is
      *     {@link PostBox}
-     *     
      */
     public void setPostBox(PostBox value) {
         this.postBox = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the thoroughfare.
+     *
+     * @return     possible object is
      *     {@link Thoroughfare}
-     *     
      */
     public Thoroughfare getThoroughfare() {
         return thoroughfare;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the thoroughfare.
+     *
+     * @param value     allowed object is
      *     {@link Thoroughfare}
-     *     
      */
     public void setThoroughfare(Thoroughfare value) {
         this.thoroughfare = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the postal code.
+     *
+     * @return     possible object is
      *     {@link PostalCode}
-     *     
      */
     public PostalCode getPostalCode() {
         return postalCode;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the postal code.
+     *
+     * @param value     allowed object is
      *     {@link PostalCode}
-     *     
      */
     public void setPostalCode(PostalCode value) {
         this.postalCode = value;
     }
 
     /**
-     * 
+     * Gets the any.
+     *
+     * @return the any
      */
     public List<Object> getAny() {
         if (any == null) {
@@ -215,31 +247,29 @@ public class LargeMailUser implements Cloneable
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the underscore.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getUnderscore() {
         return underscore;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the underscore.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setUnderscore(String value) {
         this.underscore = value;
     }
 
     /**
-     * 
-     * @return
-     *     always non-null
+     * Gets the other attributes.
+     *
+     * @return     always non-null
      */
     public Map<QName, String> getOtherAttributes() {
         return otherAttributes;
@@ -373,8 +403,8 @@ public class LargeMailUser implements Cloneable
      * <code>
      * AddressLine addressLine = new AddressLine();
      * this.getAddressLine().add(addressLine); </code>
-     * 
-     * 
+     *
+     * @return the address line
      */
     public AddressLine createAndAddAddressLine() {
         AddressLine newValue = new AddressLine();
@@ -388,8 +418,8 @@ public class LargeMailUser implements Cloneable
      * <code>
      * LargeMailUserName largeMailUserName = new LargeMailUserName();
      * this.getLargeMailUserName().add(largeMailUserName); </code>
-     * 
-     * 
+     *
+     * @return the large mail user. large mail user name
      */
     public LargeMailUser.LargeMailUserName createAndAddLargeMailUserName() {
         LargeMailUser.LargeMailUserName newValue = new LargeMailUser.LargeMailUserName();
@@ -404,8 +434,8 @@ public class LargeMailUser implements Cloneable
      * <code>
      * LargeMailUserIdentifier largeMailUserIdentifier = new LargeMailUserIdentifier();
      * this.setLargeMailUserIdentifier(largeMailUserIdentifier); </code>
-     * 
-     * 
+     *
+     * @return the large mail user. large mail user identifier
      */
     public LargeMailUser.LargeMailUserIdentifier createAndSetLargeMailUserIdentifier() {
         LargeMailUser.LargeMailUserIdentifier newValue = new LargeMailUser.LargeMailUserIdentifier();
@@ -419,8 +449,8 @@ public class LargeMailUser implements Cloneable
      * <code>
      * BuildingName buildingName = new BuildingName();
      * this.getBuildingName().add(buildingName); </code>
-     * 
-     * 
+     *
+     * @return the building name
      */
     public BuildingName createAndAddBuildingName() {
         BuildingName newValue = new BuildingName();
@@ -435,8 +465,8 @@ public class LargeMailUser implements Cloneable
      * <code>
      * Department department = new Department();
      * this.setDepartment(department); </code>
-     * 
-     * 
+     *
+     * @return the department
      */
     public Department createAndSetDepartment() {
         Department newValue = new Department();
@@ -451,10 +481,9 @@ public class LargeMailUser implements Cloneable
      * <code>
      * PostBox postBox = new PostBox();
      * this.setPostBox(postBox); </code>
-     * 
-     * 
-     * @param postBoxNumber
-     *     required parameter
+     *
+     * @param postBoxNumber     required parameter
+     * @return the post box
      */
     public PostBox createAndSetPostBox(final PostBox.PostBoxNumber postBoxNumber) {
         PostBox newValue = new PostBox(postBoxNumber);
@@ -469,16 +498,12 @@ public class LargeMailUser implements Cloneable
      * <code>
      * Thoroughfare thoroughfare = new Thoroughfare();
      * this.setThoroughfare(thoroughfare); </code>
-     * 
-     * 
-     * @param postalCode
-     *     required parameter
-     * @param premise
-     *     required parameter
-     * @param firm
-     *     required parameter
-     * @param dependentLocality
-     *     required parameter
+     *
+     * @param dependentLocality     required parameter
+     * @param premise     required parameter
+     * @param firm     required parameter
+     * @param postalCode     required parameter
+     * @return the thoroughfare
      */
     public Thoroughfare createAndSetThoroughfare(final DependentLocality dependentLocality, final Premise premise, final Firm firm, final PostalCode postalCode) {
         Thoroughfare newValue = new Thoroughfare(dependentLocality, premise, firm, postalCode);
@@ -493,8 +518,8 @@ public class LargeMailUser implements Cloneable
      * <code>
      * PostalCode postalCode = new PostalCode();
      * this.setPostalCode(postalCode); </code>
-     * 
-     * 
+     *
+     * @return the postal code
      */
     public PostalCode createAndSetPostalCode() {
         PostalCode newValue = new PostalCode();
@@ -506,21 +531,18 @@ public class LargeMailUser implements Cloneable
      * Sets the value of the addressLine property Objects of the following type(s) are allowed in the list List<AddressLine>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAddressLine} instead.
-     * 
-     * 
-     * @param addressLine
+     *
+     * @param addressLine the new address line
      */
     public void setAddressLine(final List<AddressLine> addressLine) {
         this.addressLine = addressLine;
     }
 
     /**
-     * add a value to the addressLine property collection
-     * 
-     * @param addressLine
-     *     Objects of the following type are allowed in the list: {@link AddressLine}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the addressLine property collection.
+     *
+     * @param addressLine     Objects of the following type are allowed in the list: {@link AddressLine}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LargeMailUser addToAddressLine(final AddressLine addressLine) {
         this.getAddressLine().add(addressLine);
@@ -531,21 +553,18 @@ public class LargeMailUser implements Cloneable
      * Sets the value of the largeMailUserName property Objects of the following type(s) are allowed in the list List<LargeMailUserName>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withLargeMailUserName} instead.
-     * 
-     * 
-     * @param largeMailUserName
+     *
+     * @param largeMailUserName the new large mail user name
      */
     public void setLargeMailUserName(final List<LargeMailUser.LargeMailUserName> largeMailUserName) {
         this.largeMailUserName = largeMailUserName;
     }
 
     /**
-     * add a value to the largeMailUserName property collection
-     * 
-     * @param largeMailUserName
-     *     Objects of the following type are allowed in the list: {@link LargeMailUser.LargeMailUserName}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the largeMailUserName property collection.
+     *
+     * @param largeMailUserName     Objects of the following type are allowed in the list: {@link LargeMailUser.LargeMailUserName}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LargeMailUser addToLargeMailUserName(final LargeMailUser.LargeMailUserName largeMailUserName) {
         this.getLargeMailUserName().add(largeMailUserName);
@@ -556,21 +575,18 @@ public class LargeMailUser implements Cloneable
      * Sets the value of the buildingName property Objects of the following type(s) are allowed in the list List<BuildingName>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withBuildingName} instead.
-     * 
-     * 
-     * @param buildingName
+     *
+     * @param buildingName the new building name
      */
     public void setBuildingName(final List<BuildingName> buildingName) {
         this.buildingName = buildingName;
     }
 
     /**
-     * add a value to the buildingName property collection
-     * 
-     * @param buildingName
-     *     Objects of the following type are allowed in the list: {@link BuildingName}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the buildingName property collection.
+     *
+     * @param buildingName     Objects of the following type are allowed in the list: {@link BuildingName}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LargeMailUser addToBuildingName(final BuildingName buildingName) {
         this.getBuildingName().add(buildingName);
@@ -581,21 +597,18 @@ public class LargeMailUser implements Cloneable
      * Sets the value of the any property Objects of the following type(s) are allowed in the list List<Object>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAny} instead.
-     * 
-     * 
-     * @param any
+     *
+     * @param any the new any
      */
     public void setAny(final List<Object> any) {
         this.any = any;
     }
 
     /**
-     * add a value to the any property collection
-     * 
-     * @param any
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the any property collection.
+     *
+     * @param any     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LargeMailUser addToAny(final Object any) {
         this.getAny().add(any);
@@ -603,11 +616,11 @@ public class LargeMailUser implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param addressLine     required parameter
+     * @return the large mail user
      * @see #setAddressLine(List<AddressLine>)
-     * 
-     * @param addressLine
-     *     required parameter
      */
     public LargeMailUser withAddressLine(final List<AddressLine> addressLine) {
         this.setAddressLine(addressLine);
@@ -615,11 +628,11 @@ public class LargeMailUser implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param largeMailUserName     required parameter
+     * @return the large mail user
      * @see #setLargeMailUserName(List<LargeMailUserName>)
-     * 
-     * @param largeMailUserName
-     *     required parameter
      */
     public LargeMailUser withLargeMailUserName(final List<LargeMailUser.LargeMailUserName> largeMailUserName) {
         this.setLargeMailUserName(largeMailUserName);
@@ -627,11 +640,11 @@ public class LargeMailUser implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param largeMailUserIdentifier     required parameter
+     * @return the large mail user
      * @see #setLargeMailUserIdentifier(LargeMailUserIdentifier)
-     * 
-     * @param largeMailUserIdentifier
-     *     required parameter
      */
     public LargeMailUser withLargeMailUserIdentifier(final LargeMailUser.LargeMailUserIdentifier largeMailUserIdentifier) {
         this.setLargeMailUserIdentifier(largeMailUserIdentifier);
@@ -639,11 +652,11 @@ public class LargeMailUser implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param buildingName     required parameter
+     * @return the large mail user
      * @see #setBuildingName(List<BuildingName>)
-     * 
-     * @param buildingName
-     *     required parameter
      */
     public LargeMailUser withBuildingName(final List<BuildingName> buildingName) {
         this.setBuildingName(buildingName);
@@ -651,11 +664,11 @@ public class LargeMailUser implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param department     required parameter
+     * @return the large mail user
      * @see #setDepartment(Department)
-     * 
-     * @param department
-     *     required parameter
      */
     public LargeMailUser withDepartment(final Department department) {
         this.setDepartment(department);
@@ -663,11 +676,11 @@ public class LargeMailUser implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param postBox     required parameter
+     * @return the large mail user
      * @see #setPostBox(PostBox)
-     * 
-     * @param postBox
-     *     required parameter
      */
     public LargeMailUser withPostBox(final PostBox postBox) {
         this.setPostBox(postBox);
@@ -675,11 +688,11 @@ public class LargeMailUser implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param thoroughfare     required parameter
+     * @return the large mail user
      * @see #setThoroughfare(Thoroughfare)
-     * 
-     * @param thoroughfare
-     *     required parameter
      */
     public LargeMailUser withThoroughfare(final Thoroughfare thoroughfare) {
         this.setThoroughfare(thoroughfare);
@@ -687,11 +700,11 @@ public class LargeMailUser implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param postalCode     required parameter
+     * @return the large mail user
      * @see #setPostalCode(PostalCode)
-     * 
-     * @param postalCode
-     *     required parameter
      */
     public LargeMailUser withPostalCode(final PostalCode postalCode) {
         this.setPostalCode(postalCode);
@@ -699,11 +712,11 @@ public class LargeMailUser implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param any     required parameter
+     * @return the large mail user
      * @see #setAny(List<Object>)
-     * 
-     * @param any
-     *     required parameter
      */
     public LargeMailUser withAny(final List<Object> any) {
         this.setAny(any);
@@ -711,11 +724,11 @@ public class LargeMailUser implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param underscore     required parameter
+     * @return the large mail user
      * @see #setUnderscore(String)
-     * 
-     * @param underscore
-     *     required parameter
      */
     public LargeMailUser withUnderscore(final String underscore) {
         this.setUnderscore(underscore);
@@ -756,7 +769,7 @@ public class LargeMailUser implements Cloneable
 
 
     /**
-     * 
+     * The Class LargeMailUserIdentifier.
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -766,115 +779,119 @@ public class LargeMailUser implements Cloneable
     public static class LargeMailUserIdentifier implements Cloneable
     {
 
+        /** The content. */
         @XmlValue
         protected String content;
+        
+        /** The underscore. */
         @XmlAttribute(name = "Type")
         protected String underscore;
+        
+        /** The indicator. */
         @XmlAttribute(name = "Indicator")
         @XmlSchemaType(name = "anySimpleType")
         protected String indicator;
+        
+        /** The code. */
         @XmlAttribute(name = "Code")
         @XmlSchemaType(name = "anySimpleType")
         protected String code;
+        
+        /** The other attributes. */
         @XmlAnyAttribute
         private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+        /**
+         * Instantiates a new large mail user identifier.
+         */
         public LargeMailUserIdentifier() {
             super();
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the content.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getContent() {
             return content;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the content.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setContent(String value) {
             this.content = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the underscore.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getUnderscore() {
             return underscore;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the underscore.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setUnderscore(String value) {
             this.underscore = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the indicator.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getIndicator() {
             return indicator;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the indicator.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setIndicator(String value) {
             this.indicator = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the code.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getCode() {
             return code;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the code.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setCode(String value) {
             this.code = value;
         }
 
         /**
-         * 
-         * @return
-         *     always non-null
+         * Gets the other attributes.
+         *
+         * @return     always non-null
          */
         public Map<QName, String> getOtherAttributes() {
             return otherAttributes;
@@ -943,11 +960,11 @@ public class LargeMailUser implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param content     required parameter
+         * @return the large mail user. large mail user identifier
          * @see #setContent(String)
-         * 
-         * @param content
-         *     required parameter
          */
         public LargeMailUser.LargeMailUserIdentifier withContent(final String content) {
             this.setContent(content);
@@ -955,11 +972,11 @@ public class LargeMailUser implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param underscore     required parameter
+         * @return the large mail user. large mail user identifier
          * @see #setUnderscore(String)
-         * 
-         * @param underscore
-         *     required parameter
          */
         public LargeMailUser.LargeMailUserIdentifier withUnderscore(final String underscore) {
             this.setUnderscore(underscore);
@@ -967,11 +984,11 @@ public class LargeMailUser implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param indicator     required parameter
+         * @return the large mail user. large mail user identifier
          * @see #setIndicator(String)
-         * 
-         * @param indicator
-         *     required parameter
          */
         public LargeMailUser.LargeMailUserIdentifier withIndicator(final String indicator) {
             this.setIndicator(indicator);
@@ -979,11 +996,11 @@ public class LargeMailUser implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param code     required parameter
+         * @return the large mail user. large mail user identifier
          * @see #setCode(String)
-         * 
-         * @param code
-         *     required parameter
          */
         public LargeMailUser.LargeMailUserIdentifier withCode(final String code) {
             this.setCode(code);
@@ -1005,7 +1022,7 @@ public class LargeMailUser implements Cloneable
 
 
     /**
-     * 
+     * The Class LargeMailUserName.
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -1015,89 +1032,93 @@ public class LargeMailUser implements Cloneable
     public static class LargeMailUserName implements Cloneable
     {
 
+        /** The content. */
         @XmlValue
         protected String content;
+        
+        /** The underscore. */
         @XmlAttribute(name = "Type")
         protected String underscore;
+        
+        /** The code. */
         @XmlAttribute(name = "Code")
         protected String code;
+        
+        /** The other attributes. */
         @XmlAnyAttribute
         private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+        /**
+         * Instantiates a new large mail user name.
+         */
         public LargeMailUserName() {
             super();
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the content.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getContent() {
             return content;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the content.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setContent(String value) {
             this.content = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the underscore.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getUnderscore() {
             return underscore;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the underscore.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setUnderscore(String value) {
             this.underscore = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the code.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getCode() {
             return code;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the code.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setCode(String value) {
             this.code = value;
         }
 
         /**
-         * 
-         * @return
-         *     always non-null
+         * Gets the other attributes.
+         *
+         * @return     always non-null
          */
         public Map<QName, String> getOtherAttributes() {
             return otherAttributes;
@@ -1156,11 +1177,11 @@ public class LargeMailUser implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param content     required parameter
+         * @return the large mail user. large mail user name
          * @see #setContent(String)
-         * 
-         * @param content
-         *     required parameter
          */
         public LargeMailUser.LargeMailUserName withContent(final String content) {
             this.setContent(content);
@@ -1168,11 +1189,11 @@ public class LargeMailUser implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param underscore     required parameter
+         * @return the large mail user. large mail user name
          * @see #setUnderscore(String)
-         * 
-         * @param underscore
-         *     required parameter
          */
         public LargeMailUser.LargeMailUserName withUnderscore(final String underscore) {
             this.setUnderscore(underscore);
@@ -1180,11 +1201,11 @@ public class LargeMailUser implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param code     required parameter
+         * @return the large mail user. large mail user name
          * @see #setCode(String)
-         * 
-         * @param code
-         *     required parameter
          */
         public LargeMailUser.LargeMailUserName withCode(final String code) {
             this.setCode(code);

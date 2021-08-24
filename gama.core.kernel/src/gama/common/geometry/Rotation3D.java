@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.common.geometry.Rotation3D.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * Rotation3D.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 
 package gama.common.geometry;
@@ -33,10 +33,20 @@ import gama.metamodel.shape.GamaPoint;
 
 public class Rotation3D implements Serializable, Transformation3D {
 
+	/**
+	 * The Class CenteredOn.
+	 */
 	public static class CenteredOn extends Rotation3D {
 
+		/** The center. */
 		final GamaPoint center;
 
+		/**
+		 * Instantiates a new centered on.
+		 *
+		 * @param description the description
+		 * @param center the center
+		 */
 		public CenteredOn(final AxisAngle description, final GamaPoint center) {
 			super(description);
 			this.center = center;
@@ -55,9 +65,16 @@ public class Rotation3D implements Serializable, Transformation3D {
 
 	}
 
+	/** The Constant PLUS_I. */
 	public static final GamaPoint PLUS_I = new GamaPoint(1, 0, 0);
+	
+	/** The Constant MINUS_I. */
 	public static final GamaPoint MINUS_I = new GamaPoint(-1, 0, 0);
+	
+	/** The Constant PLUS_J. */
 	public static final GamaPoint PLUS_J = new GamaPoint(0, 1, 0);
+	
+	/** The Constant PLUS_K. */
 	// public static final GamaPoint MINUS_J = new GamaPoint(0, -1, 0);
 	public static final GamaPoint PLUS_K = new GamaPoint(0, 0, 1);
 	// public static final GamaPoint MINUS_K = new GamaPoint(0, 0, -1);
@@ -80,6 +97,12 @@ public class Rotation3D implements Serializable, Transformation3D {
 	/**
 	 * Build a rotation from the quaternion coordinates.
 	 * <p>
+	 *
+	 * @param quat0 the quat 0
+	 * @param quat1 the quat 1
+	 * @param quat2 the quat 2
+	 * @param quat3 the quat 3
+	 * @param needsNormalization the needs normalization
 	 */
 	private Rotation3D(final double quat0, final double quat1, final double quat2, final double quat3,
 			final boolean needsNormalization) {
@@ -97,6 +120,9 @@ public class Rotation3D implements Serializable, Transformation3D {
 		}
 	}
 
+	/**
+	 * Sets the to identity.
+	 */
 	public void setToIdentity() {
 		// 1.0, 0.0, 0.0, 0.0
 		q0 = 1;
@@ -106,10 +132,9 @@ public class Rotation3D implements Serializable, Transformation3D {
 	}
 
 	/**
-	 * Sets this rotation to a rotation between the given vector u and the PLUS_I vector
+	 * Sets this rotation to a rotation between the given vector u and the PLUS_I vector.
 	 *
-	 * @param u
-	 *            an arbitrary 3D vector
+	 * @param u            an arbitrary 3D vector
 	 */
 	public void alignToHorizontal(final GamaPoint u) {
 		final double normProduct = u.norm();
@@ -135,10 +160,8 @@ public class Rotation3D implements Serializable, Transformation3D {
 	/**
 	 * Build a rotation from an axis and an angle.
 	 *
-	 * @param axis
-	 *            axis around which to rotate
-	 * @param angle
-	 *            rotation angle in radians
+	 * @param rotationAxis the rotation axis
+	 * @param angle            rotation angle in radians
 	 */
 	public Rotation3D(final GamaPoint rotationAxis, final double angle) {
 		GamaPoint axis = rotationAxis;
@@ -158,18 +181,21 @@ public class Rotation3D implements Serializable, Transformation3D {
 	}
 
 	/**
+	 * Instantiates a new rotation 3 D.
 	 *
-	 * @param description
+	 * @param description the description
 	 */
 	public Rotation3D(final AxisAngle description) {
 		this(description.axis, Math.toRadians(description.angle));
 	}
 
 	/**
-	 * By default around the Z axis (PLUS_K)
+	 * By default around the Z axis (PLUS_K).
 	 *
-	 * @param angle
-	 *            rotation angle in radians
+	 * @param u1 the u 1
+	 * @param u2 the u 2
+	 * @param clockwise the clockwise
+	 * @return the rotation 3 D
 	 */
 	// public Rotation3D(final double angle) {
 	// final double halfAngle = -0.5 * angle;
@@ -321,7 +347,7 @@ public class Rotation3D implements Serializable, Transformation3D {
 
 	/**
 	 * Build one of the rotations that transform one vector into another one.
-	 *
+	 * 
 	 * <p>
 	 * Except for a possible scale factor, if the instance were applied to the vector u it will produce the vector v.
 	 * There is an infinite number of such rotations, this constructor choose the one with the smallest associated angle
@@ -329,10 +355,7 @@ public class Rotation3D implements Serializable, Transformation3D {
 	 * is chosen.
 	 * </p>
 	 *
-	 * @param u
-	 *            origin vector
-	 * @param v
-	 *            desired image of u by the rotation
+	 * @return the rotation 3 D
 	 */
 	// public Rotation3D(final GamaPoint u, final GamaPoint v) {
 	// setToRotationBetween(u, v);
@@ -422,7 +445,7 @@ public class Rotation3D implements Serializable, Transformation3D {
 	}
 
 	/**
-	 * Get the angle of the rotation in radians
+	 * Get the angle of the rotation in radians.
 	 *
 	 * @return angle of the rotation (between 0 and &pi;)
 	 * @see #Rotation(GamaPoint, double)
@@ -455,6 +478,11 @@ public class Rotation3D implements Serializable, Transformation3D {
 
 	}
 
+	/**
+	 * Apply to.
+	 *
+	 * @param u the u
+	 */
 	public void applyTo(final Coordinate u) {
 
 		final double x = u.x;
@@ -472,8 +500,8 @@ public class Rotation3D implements Serializable, Transformation3D {
 	/**
 	 * Apply the rotation to a vector stored in an array.
 	 *
-	 * @param in
-	 *            an array with three items which stores the vector to rotate
+	 * @param r the r
+	 * @return the rotation 3 D
 	 */
 	// public void applyTo(final double[] in) {
 	//
@@ -551,11 +579,9 @@ public class Rotation3D implements Serializable, Transformation3D {
 	/**
 	 * Apply the inverse of the instance to another rotation.
 	 * <p>
-	 *
+	 * 
 	 * </p>
 	 *
-	 * @param r
-	 *            rotation to apply the rotation to
 	 * @return a new rotation which is the composition of r by the inverse of the instance
 	 */
 	// public Rotation3D applyInverseTo(final Rotation3D r) {

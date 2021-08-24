@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * DXFShape.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf;
 
 import java.util.Map;
@@ -25,17 +20,39 @@ import gama.ext.libs.kabeja.math.TransformContext;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class DXFShape.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class DXFShape extends DXFEntity {
+    
+    /** The insert point. */
     protected Point insertPoint = new Point();
+    
+    /** The rotation. */
     protected double rotation = 0.0;
+    
+    /** The height. */
     protected double height = 0.0;
+    
+    /** The scale factor. */
     protected double scaleFactor = 1.0;
+    
+    /** The oblique angle. */
     protected double obliqueAngle = 0.0;
+    
+    /** The name. */
     protected String name = "";
 
+    /**
+     * To SAX.
+     *
+     * @param handler the handler
+     * @param svgContext the svg context
+     * @param entity the entity
+     * @param transformContext the transform context
+     * @throws SAXException the SAX exception
+     */
     /* (non-Javadoc)
      * @see org.kabeja.dxf.DXFEntity#toSAX(org.xml.sax.ContentHandler, java.util.Map)
      */
@@ -61,6 +78,8 @@ public class DXFShape extends DXFEntity {
     }
 
     /**
+     * Gets the height.
+     *
      * @return Returns the height.
      */
     public double getHeight() {
@@ -68,6 +87,8 @@ public class DXFShape extends DXFEntity {
     }
 
     /**
+     * Sets the height.
+     *
      * @param height The height to set.
      */
     public void setHeight(double height) {
@@ -75,6 +96,8 @@ public class DXFShape extends DXFEntity {
     }
 
     /**
+     * Gets the insert point.
+     *
      * @return Returns the insertPoint.
      */
     public Point getInsertPoint() {
@@ -82,6 +105,8 @@ public class DXFShape extends DXFEntity {
     }
 
     /**
+     * Sets the insert point.
+     *
      * @param insertPoint The insertPoint to set.
      */
     public void setInsertPoint(Point insertPoint) {
@@ -89,6 +114,8 @@ public class DXFShape extends DXFEntity {
     }
 
     /**
+     * Gets the name.
+     *
      * @return Returns the name.
      */
     public String getName() {
@@ -96,6 +123,8 @@ public class DXFShape extends DXFEntity {
     }
 
     /**
+     * Sets the name.
+     *
      * @param name The name to set.
      */
     public void setName(String name) {
@@ -103,6 +132,8 @@ public class DXFShape extends DXFEntity {
     }
 
     /**
+     * Gets the oblique angle.
+     *
      * @return Returns the obliqueAngle.
      */
     public double getObliqueAngle() {
@@ -110,6 +141,8 @@ public class DXFShape extends DXFEntity {
     }
 
     /**
+     * Sets the oblique angle.
+     *
      * @param obliqueAngle The obliqueAngle to set.
      */
     public void setObliqueAngle(double obliqueAngle) {
@@ -117,6 +150,8 @@ public class DXFShape extends DXFEntity {
     }
 
     /**
+     * Gets the rotation.
+     *
      * @return Returns the rotation.
      */
     public double getRotation() {
@@ -124,6 +159,8 @@ public class DXFShape extends DXFEntity {
     }
 
     /**
+     * Sets the rotation.
+     *
      * @param rotation The rotation to set.
      */
     public void setRotation(double rotation) {
@@ -131,6 +168,8 @@ public class DXFShape extends DXFEntity {
     }
 
     /**
+     * Gets the scale factor.
+     *
      * @return Returns the scaleFactor.
      */
     public double getScaleFactor() {
@@ -138,6 +177,8 @@ public class DXFShape extends DXFEntity {
     }
 
     /**
+     * Sets the scale factor.
+     *
      * @param scaleFactor The scaleFactor to set.
      */
     public void setScaleFactor(double scaleFactor) {

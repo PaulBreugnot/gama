@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * HatchBoundaryLoop.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf.helpers;
 
 import java.util.ArrayList;
@@ -24,14 +19,21 @@ import gama.ext.libs.kabeja.dxf.DXFEntity;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class HatchBoundaryLoop.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class HatchBoundaryLoop {
+    
+    /** The edges. */
     private List edges = new ArrayList();
+    
+    /** The outermost. */
     private boolean outermost = true;
 
     /**
+     * Checks if is outermost.
+     *
      * @return Returns the outermost.
      */
     public boolean isOutermost() {
@@ -39,21 +41,37 @@ public class HatchBoundaryLoop {
     }
 
     /**
-     * @param outermost
-     *            The outermost to set.
+     * Sets the outermost.
+     *
+     * @param outermost            The outermost to set.
      */
     public void setOutermost(boolean outermost) {
         this.outermost = outermost;
     }
 
+    /**
+     * Gets the boundary edges iterator.
+     *
+     * @return the boundary edges iterator
+     */
     public Iterator getBoundaryEdgesIterator() {
         return edges.iterator();
     }
 
+    /**
+     * Adds the boundary edge.
+     *
+     * @param edge the edge
+     */
     public void addBoundaryEdge(DXFEntity edge) {
         edges.add(edge);
     }
 
+    /**
+     * Gets the bounds.
+     *
+     * @return the bounds
+     */
     public Bounds getBounds() {
         Bounds bounds = new Bounds();
 
@@ -78,6 +96,11 @@ public class HatchBoundaryLoop {
         }
     }
 
+    /**
+     * Gets the edge count.
+     *
+     * @return the edge count
+     */
     public int getEdgeCount() {
         return this.edges.size();
     }

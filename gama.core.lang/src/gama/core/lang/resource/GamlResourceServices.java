@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GamlResourceServices.java, in plugin msi.gama.lang.gaml, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * GamlResourceServices.java, in gama.core.lang, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.core.lang.resource;
 
 import java.io.File;
@@ -50,6 +49,9 @@ import gaml.descriptions.IDescription;
 import gaml.descriptions.ModelDescription;
 import gaml.descriptions.ValidationContext;
 
+/**
+ * The Class GamlResourceServices.
+ */
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class GamlResourceServices {
 
@@ -57,12 +59,25 @@ public class GamlResourceServices {
 		DEBUG.OFF();
 	}
 
+	/** The resource count. */
 	private static int resourceCount = 0;
+	
+	/** The documenter. */
 	private static IDocManager documenter = new GamlResourceDocumenter();
+	
+	/** The converter. */
 	private static GamlSyntacticConverter converter = new GamlSyntacticConverter();
+	
+	/** The Constant resourceListeners. */
 	private static final Map<URI, IGamlBuilderListener> resourceListeners = GamaMapFactory.createUnordered();
+	
+	/** The Constant resourceErrors. */
 	private static final Map<URI, ValidationContext> resourceErrors = GamaMapFactory.createUnordered();
+	
+	/** The pool set. */
 	private static volatile XtextResourceSet poolSet;
+	
+	/** The Constant documentationCache. */
 	private static final LoadingCache<URI, IMap<EObject, IGamlDescription>> documentationCache =
 			CacheBuilder.newBuilder().build(new CacheLoader<URI, IMap<EObject, IGamlDescription>>() {
 
@@ -72,6 +87,12 @@ public class GamlResourceServices {
 				}
 			});
 
+	/**
+	 * Gets the documentation cache.
+	 *
+	 * @param r the r
+	 * @return the documentation cache
+	 */
 	public static IMap<EObject, IGamlDescription> getDocumentationCache(final Resource r) {
 		return documentationCache.getUnchecked(properlyEncodedURI(r.getURI()));
 	}
@@ -81,7 +102,7 @@ public class GamlResourceServices {
 	 * "resource:" scheme, it is first converted into a file URI so that headless operations that do not use a workspace
 	 * can still perform correctly
 	 *
-	 * @param uri
+	 * @param uri the uri
 	 * @return null if the parameter is null or does not represent neither a file or a resource, otherwise a properly
 	 *         encoded version of the parameter.
 	 */
@@ -105,14 +126,34 @@ public class GamlResourceServices {
 		return URI.createURI(pre_properlyEncodedURI.toString(), true);
 	}
 
+	/**
+	 * Checks if is edited.
+	 *
+	 * @param uri the uri
+	 * @return true, if is edited
+	 */
 	public static boolean isEdited(final URI uri) {
 		return resourceListeners.containsKey(properlyEncodedURI(uri));
 	}
 
+	/**
+	 * Checks if is edited.
+	 *
+	 * @param r the r
+	 * @return true, if is edited
+	 */
 	public static boolean isEdited(final Resource r) {
 		return isEdited(r.getURI());
 	}
 
+	/**
+	 * Update state.
+	 *
+	 * @param uri the uri
+	 * @param model the model
+	 * @param newState the new state
+	 * @param status the status
+	 */
 	public static void updateState(final URI uri, final ModelDescription model, final boolean newState,
 			final ValidationContext status) {
 		// DEBUG.LOG("Beginning updating the state of editor in
@@ -128,11 +169,22 @@ public class GamlResourceServices {
 		listener.validationEnded(exps, status);
 	}
 
+	/**
+	 * Adds the resource listener.
+	 *
+	 * @param uri the uri
+	 * @param listener the listener
+	 */
 	public static void addResourceListener(final URI uri, final IGamlBuilderListener listener) {
 		final URI newURI = properlyEncodedURI(uri);
 		resourceListeners.put(newURI, listener);
 	}
 
+	/**
+	 * Removes the resource listener.
+	 *
+	 * @param listener the listener
+	 */
 	public static void removeResourceListener(final IGamlBuilderListener listener) {
 		// URI toRemove = null;
 		final Iterator<Map.Entry<URI, IGamlBuilderListener>> it = resourceListeners.entrySet().iterator();
@@ -155,6 +207,12 @@ public class GamlResourceServices {
 
 	}
 
+	/**
+	 * Gets the validation context.
+	 *
+	 * @param r the r
+	 * @return the validation context
+	 */
 	public static ValidationContext getValidationContext(final GamlResource r) {
 		final URI newURI = properlyEncodedURI(r.getURI());
 		if (!resourceErrors.containsKey(newURI)) {
@@ -165,13 +223,19 @@ public class GamlResourceServices {
 		return result;
 	}
 
+	/**
+	 * Discard validation context.
+	 *
+	 * @param r the r
+	 */
 	public static void discardValidationContext(final Resource r) {
 		resourceErrors.remove(properlyEncodedURI(r.getURI()));
 	}
 
 	/**
-	 * Returns the path from the root of the workspace
+	 * Returns the path from the root of the workspace.
 	 *
+	 * @param r the r
 	 * @return an IPath. Never null.
 	 */
 	public static IPath getPathOf(final Resource r) {
@@ -193,6 +257,12 @@ public class GamlResourceServices {
 
 	}
 
+	/**
+	 * Gets the model path of.
+	 *
+	 * @param r the r
+	 * @return the model path of
+	 */
 	public static String getModelPathOf(final Resource r) {
 		// Likely in a headless scenario (w/o workspace)
 		if (r.getURI().isFile())
@@ -205,6 +275,12 @@ public class GamlResourceServices {
 		}
 	}
 
+	/**
+	 * Checks if is project.
+	 *
+	 * @param f the f
+	 * @return true, if is project
+	 */
 	private static boolean isProject(final File f) {
 		final String[] files = f.list();
 		if (files != null) {
@@ -215,6 +291,12 @@ public class GamlResourceServices {
 		return false;
 	}
 
+	/**
+	 * Gets the project path of.
+	 *
+	 * @param r the r
+	 * @return the project path of
+	 */
 	public static String getProjectPathOf(final Resource r) {
 		if (r == null) return "";
 		final URI uri = r.getURI();
@@ -235,6 +317,12 @@ public class GamlResourceServices {
 	}
 
 	// AD The removal of synchronized solves an issue where threads at startup would end up waiting for
+	/**
+	 * Gets the temporary resource.
+	 *
+	 * @param existing the existing
+	 * @return the temporary resource
+	 */
 	// GamlResourceServices to become free
 	public/* synchronized */ static GamlResource getTemporaryResource(final IDescription existing) {
 		ResourceSet rs = null;
@@ -264,6 +352,11 @@ public class GamlResourceServices {
 		return result;
 	}
 
+	/**
+	 * Discard temporary resource.
+	 *
+	 * @param temp the temp
+	 */
 	public static void discardTemporaryResource(final GamlResource temp) {
 		try {
 			temp.delete(null);
@@ -272,14 +365,30 @@ public class GamlResourceServices {
 		}
 	}
 
+	/**
+	 * Gets the resource documenter.
+	 *
+	 * @return the resource documenter
+	 */
 	public static IDocManager getResourceDocumenter() {
 		return documenter;
 	}
 
+	/**
+	 * Builds the syntactic contents.
+	 *
+	 * @param r the r
+	 * @return the i syntactic element
+	 */
 	public static ISyntacticElement buildSyntacticContents(final GamlResource r) {
 		return converter.buildSyntacticContents(r.getParseResult().getRootASTElement(), null);
 	}
 
+	/**
+	 * Gets the pool set.
+	 *
+	 * @return the pool set
+	 */
 	private static XtextResourceSet getPoolSet() {
 		if (poolSet == null) {
 			poolSet = new XtextResourceSet() {

@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gama.common.interfaces.ICreateDelegate.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * ICreateDelegate.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -30,12 +30,10 @@ public interface ICreateDelegate {
 
 	/**
 	 * Returns whether or not this delegate accepts to create agents from this source.
-	 * 
-	 * @param scope
-	 *            TODO
-	 * @param source
-	 * 
-	 * @return
+	 *
+	 * @param scope            TODO
+	 * @param source the source
+	 * @return true, if successful
 	 */
 
 	boolean acceptSource(IScope scope, Object source);
@@ -43,13 +41,14 @@ public interface ICreateDelegate {
 	/**
 	 * Fills the list of maps with the initial values read from the source. Returns true if all the inits have been
 	 * correctly filled
-	 * 
-	 * @param scope
-	 * @param inits
-	 * @param max
-	 *            can be null (in that case, the maximum number of agents to create is ignored)
-	 * @param source
-	 * @return
+	 *
+	 * @param scope the scope
+	 * @param inits the inits
+	 * @param max            can be null (in that case, the maximum number of agents to create is ignored)
+	 * @param source the source
+	 * @param init the init
+	 * @param statement the statement
+	 * @return true, if successful
 	 */
 
 	boolean createFrom(IScope scope, List<Map<String, Object>> inits, Integer max, Object source, Arguments init,

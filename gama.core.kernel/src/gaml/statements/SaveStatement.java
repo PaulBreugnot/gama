@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.statements.SaveStatement.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * SaveStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.statements;
 
@@ -122,6 +122,9 @@ import gaml.types.GamaKmlExport;
 import gaml.types.IType;
 import gaml.types.Types;
 
+/**
+ * The Class SaveStatement.
+ */
 @symbol (
 		name = IKeyword.SAVE,
 		kind = ISymbolKind.SINGLE_STATEMENT,
@@ -220,6 +223,9 @@ import gaml.types.Types;
 @SuppressWarnings ({ "rawtypes" })
 public class SaveStatement extends AbstractStatementSequence implements IStatement.WithArgs {
 
+	/**
+	 * The Class SaveValidator.
+	 */
 	public static class SaveValidator implements IDescriptionValidator<StatementDescription> {
 
 		/**
@@ -292,10 +298,20 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 
 	}
 
+	/** The with facet. */
 	private Arguments withFacet;
+	
+	/** The attributes facet. */
 	private final IExpression attributesFacet;
+	
+	/** The header. */
 	private final IExpression crsCode, item, file, rewriteExpr, header;
 
+	/**
+	 * Instantiates a new save statement.
+	 *
+	 * @param desc the desc
+	 */
 	public SaveStatement(final IDescription desc) {
 		super(desc);
 		crsCode = desc.getFacetExpr("crs");
@@ -306,6 +322,12 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 		attributesFacet = getFacet(IKeyword.ATTRIBUTES);
 	}
 
+	/**
+	 * Should overwrite.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 */
 	private boolean shouldOverwrite(final IScope scope) {
 		if (rewriteExpr == null) return true;
 		return Cast.asBool(scope, rewriteExpr.value(scope));
@@ -429,12 +451,24 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 		return Cast.asString(scope, file.value(scope));
 	}
 
+	/**
+	 * Creates the parents.
+	 *
+	 * @param outputFile the output file
+	 */
 	private static void createParents(final File outputFile) {
 		final File parent = outputFile.getParentFile();
 		if (!parent.exists()) { parent.mkdirs(); }
 
 	}
 
+	/**
+	 * Save asc.
+	 *
+	 * @param field the field
+	 * @param f the f
+	 * @param scope the scope
+	 */
 	public void saveAsc(final GamaField field, final File f, final IScope scope) {
 		if (field == null || field.isEmpty(scope)) return;
 		if (f.exists()) { f.delete(); }
@@ -475,6 +509,13 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 		} catch (final IOException e) {}
 	}
 
+	/**
+	 * Save asc.
+	 *
+	 * @param species the species
+	 * @param f the f
+	 * @param scope the scope
+	 */
 	public void saveAsc(final ISpecies species, final File f, final IScope scope) {
 		if (f.exists()) { f.delete(); }
 
@@ -517,6 +558,14 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 
 	}
 
+	/**
+	 * Save raster image.
+	 *
+	 * @param species the species
+	 * @param p the p
+	 * @param scope the scope
+	 * @param toGeotiff the to geotiff
+	 */
 	public void saveRasterImage(final ISpecies species, final String p, final IScope scope, final boolean toGeotiff) {
 
 		String path = p;
@@ -596,6 +645,13 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 		}
 	}
 
+	/**
+	 * Save prj.
+	 *
+	 * @param scope the scope
+	 * @param path the path
+	 * @return the coordinate reference system
+	 */
 	CoordinateReferenceSystem savePrj(final IScope scope, final String path) {
 		CoordinateReferenceSystem crs = null;
 		final boolean nullProjection = scope.getSimulation().getProjectionFactory().getWorld() == null;
@@ -617,6 +673,14 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 
 	}
 
+	/**
+	 * Save raster image.
+	 *
+	 * @param field the field
+	 * @param p the p
+	 * @param scope the scope
+	 * @param toGeotiff the to geotiff
+	 */
 	public void saveRasterImage(final GamaField field, final String p, final IScope scope, final boolean toGeotiff) {
 		if (field == null || field.isEmpty(scope)) return;
 
@@ -706,6 +770,14 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 
 	// Inspired by the code of public GridCoverage2D create(final CharSequence name, final float[][] matrix, final
 	// Envelope envelope)
+	/**
+	 * Creates the coverage byte from float.
+	 *
+	 * @param name the name
+	 * @param matrix the matrix
+	 * @param envelope the envelope
+	 * @return the grid coverage 2 D
+	 */
 	// from org.geotools.coverage.grid.GridCoverageFactory
 	public static GridCoverage2D createCoverageByteFromFloat(final CharSequence name, final float[][] matrix,
 			final Envelope envelope) {
@@ -735,6 +807,12 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 		return new GridCoverageFactory().create(name, raster, envelope);
 	}
 
+	/**
+	 * Gets the geometry type.
+	 *
+	 * @param agents the agents
+	 * @return the geometry type
+	 */
 	public static String getGeometryType(final List<? extends IShape> agents) {
 		String geomType = "";
 		for (final IShape be : agents) {
@@ -757,11 +835,28 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 		return geomType;
 	}
 
+	/**
+	 * Save graph.
+	 *
+	 * @param g the g
+	 * @param f the f
+	 * @param type the type
+	 * @param scope the scope
+	 */
 	public void saveGraph(final IGraph g, final File f, final String type, final IScope scope) {
 		GraphExporter exp = GraphExporters.getGraphWriter(type);
 		if (exp != null) { exp.exportGraph(g, f.getAbsoluteFile()); }
 	}
 
+	/**
+	 * Save shape.
+	 *
+	 * @param agents the agents
+	 * @param f the f
+	 * @param scope the scope
+	 * @param geoJson the geo json
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public void saveShape(final IList<? extends IShape> agents, final File f, final IScope scope, final boolean geoJson)
 			throws GamaRuntimeException {
 		final StringBuilder specs = new StringBuilder(agents.size() * 20);
@@ -800,6 +895,13 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 
 	}
 
+	/**
+	 * Define projection.
+	 *
+	 * @param scope the scope
+	 * @param f the f
+	 * @return the i projection
+	 */
 	public IProjection defineProjection(final IScope scope, final File f) {
 		String code = null;
 		if (crsCode != null) {
@@ -863,6 +965,15 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 		return gis;
 	}
 
+	/**
+	 * Save text.
+	 *
+	 * @param type the type
+	 * @param fileTxt the file txt
+	 * @param header the header
+	 * @param scope the scope
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public void saveText(final String type, final File fileTxt, final boolean header, final IScope scope)
 			throws GamaRuntimeException {
 		try (FileWriter fw = new FileWriter(fileTxt, true)) {
@@ -941,6 +1052,12 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 
 	}
 
+	/**
+	 * To clean string.
+	 *
+	 * @param o the o
+	 * @return the string
+	 */
 	public String toCleanString(final Object o) {
 		String val = Cast.toGaml(o).replace(';', ',');
 		if (val.startsWith("'") && val.endsWith("'") || val.startsWith("\"") && val.endsWith("\"")) {
@@ -955,6 +1072,12 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 		return val;
 	}
 
+	/**
+	 * Type.
+	 *
+	 * @param var the var
+	 * @return the string
+	 */
 	public String type(final ITyped var) {
 		switch (var.getGamlType().id()) {
 			case IType.BOOL:
@@ -968,9 +1091,19 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 		}
 	}
 
+	/** The Constant NON_SAVEABLE_ATTRIBUTE_NAMES. */
 	private static final Set<String> NON_SAVEABLE_ATTRIBUTE_NAMES = new HashSet<>(Arrays.asList(IKeyword.PEERS,
 			IKeyword.LOCATION, IKeyword.HOST, IKeyword.AGENTS, IKeyword.MEMBERS, IKeyword.SHAPE));
 
+	/**
+	 * Compute inits from with facet.
+	 *
+	 * @param scope the scope
+	 * @param withFacet the with facet
+	 * @param values the values
+	 * @param species the species
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	private void computeInitsFromWithFacet(final IScope scope, final Arguments withFacet,
 			final Map<String, IExpression> values, final SpeciesDescription species) throws GamaRuntimeException {
 		if (species == null) return;
@@ -986,6 +1119,14 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 		}
 	}
 
+	/**
+	 * Compute inits from attributes facet.
+	 *
+	 * @param scope the scope
+	 * @param values the values
+	 * @param species the species
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	private void computeInitsFromAttributesFacet(final IScope scope, final Map<String, IExpression> values,
 			final SpeciesDescription species) throws GamaRuntimeException {
 		if (attributesFacet instanceof MapExpression) {
@@ -1007,6 +1148,12 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 		}
 	}
 
+	/**
+	 * Fixes polygon CWS.
+	 *
+	 * @param g the g
+	 * @return the geometry
+	 */
 	private static Geometry fixesPolygonCWS(final Geometry g) {
 		if (g instanceof Polygon) {
 			final Polygon p = (Polygon) g;
@@ -1048,6 +1195,16 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 		return g;
 	}
 
+	/**
+	 * Builds the feature.
+	 *
+	 * @param scope the scope
+	 * @param ff the ff
+	 * @param ag the ag
+	 * @param gis the gis
+	 * @param attributeValues the attribute values
+	 * @return true, if successful
+	 */
 	public static boolean buildFeature(final IScope scope, final SimpleFeature ff, final IShape ag,
 			final IProjection gis, final Collection<IExpression> attributeValues) {
 		final List<Object> values = new ArrayList<>();
@@ -1097,6 +1254,19 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 		return true;
 	}
 
+	/**
+	 * Save geo J son file.
+	 *
+	 * @param scope the scope
+	 * @param f the f
+	 * @param agents the agents
+	 * @param specs the specs
+	 * @param attributes the attributes
+	 * @param gis the gis
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws SchemaException the schema exception
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	// AD 2/1/16 Replace IAgent by IShape so as to be able to save geometries
 	public static void saveGeoJSonFile(final IScope scope, final File f, final List<? extends IShape> agents,
 			/* final String featureTypeName, */final String specs, final Map<String, IExpression> attributes,
@@ -1127,6 +1297,19 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 
 	}
 
+	/**
+	 * Save shape file.
+	 *
+	 * @param scope the scope
+	 * @param f the f
+	 * @param agents the agents
+	 * @param specs the specs
+	 * @param attributes the attributes
+	 * @param gis the gis
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws SchemaException the schema exception
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	// AD 2/1/16 Replace IAgent by IShape so as to be able to save geometries
 	public static void saveShapeFile(final IScope scope, final File f, final List<? extends IShape> agents,
 			/* final String featureTypeName, */final String specs, final Map<String, IExpression> attributes,
@@ -1175,6 +1358,12 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 		}
 	}
 
+	/**
+	 * Geometry collection management.
+	 *
+	 * @param gg the gg
+	 * @return the geometry
+	 */
 	private static Geometry geometryCollectionManagement(final Geometry gg) {
 		if (gg instanceof GeometryCollection) {
 			boolean isMultiPolygon = true;

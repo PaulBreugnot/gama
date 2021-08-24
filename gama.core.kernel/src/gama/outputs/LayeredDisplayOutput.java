@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.LayeredDisplayOutput.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * LayeredDisplayOutput.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs;
 
@@ -301,15 +301,25 @@ import gaml.types.IType;
 										isExecutable = false) }) })
 public class LayeredDisplayOutput extends AbstractDisplayOutput {
 
+	/** The layers. */
 	private final List<AbstractLayerStatement> layers;
+	
+	/** The surface. */
 	protected IDisplaySurface surface;
+	
+	/** The index. */
 	private int index;
 
+	/** The data. */
 	private final LayeredDisplayData data = new LayeredDisplayData();
 	// private final ThreadLocal<LayeredDisplayData> data = ThreadLocal.withInitial(LayeredDisplayData::new);
+	/** The overlay info. */
 	// Specific to overlays
 	OverlayStatement overlayInfo;
 
+	/**
+	 * The Class DisplaySerializer.
+	 */
 	public static class DisplaySerializer extends SymbolSerializer<SymbolDescription> {
 
 		/**
@@ -336,6 +346,9 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 
 	}
 
+	/**
+	 * The Class InfoValidator.
+	 */
 	public static class InfoValidator implements IDescriptionValidator<IDescription> {
 
 		/**
@@ -399,6 +412,12 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 			d.removeFacets("camera_pos", "camera_look_pos", "camera_up_vector");
 		}
 
+		/**
+		 * Handle inheritance.
+		 *
+		 * @param d the d
+		 * @param string the string
+		 */
 		private void handleInheritance(final IDescription d, final String string) {
 			final IDescription output = d.getEnclosingDescription();
 			for (final IDescription display : output.getChildrenWithKeyword(DISPLAY)) {
@@ -410,6 +429,12 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 			d.error("No parent display named '" + string + "' found");
 		}
 
+		/**
+		 * Handle inheritance.
+		 *
+		 * @param child the child
+		 * @param parent the parent
+		 */
 		private void handleInheritance(final IDescription child, final IDescription parent) {
 			final Facets childFacets = child.getFacets();
 			final boolean hasVirtual = childFacets.containsKey(VIRTUAL);
@@ -422,6 +447,11 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 
 	}
 
+	/**
+	 * Instantiates a new layered display output.
+	 *
+	 * @param desc the desc
+	 */
 	public LayeredDisplayOutput(final IDescription desc) {
 		super(desc);
 
@@ -429,6 +459,11 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 		layers = new ArrayList<>();
 	}
 
+	/**
+	 * Gets the overlay provider.
+	 *
+	 * @return the overlay provider
+	 */
 	public IOverlayProvider<OverlayInfo> getOverlayProvider() {
 		return overlayInfo;
 	}
@@ -488,6 +523,11 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 		getData().dispose();
 	}
 
+	/**
+	 * Creates the surface.
+	 *
+	 * @param scope the scope
+	 */
 	protected void createSurface(final IScope scope) {
 		if (surface != null) {
 			surface.outputReloaded();
@@ -509,6 +549,11 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 		return IGui.LAYER_VIEW_ID;
 	}
 
+	/**
+	 * Gets the surface.
+	 *
+	 * @return the surface
+	 */
 	public IDisplaySurface getSurface() {
 		return surface;
 	}
@@ -532,24 +577,51 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 
 	}
 
+	/**
+	 * Sets the surface.
+	 *
+	 * @param surface the new surface
+	 */
 	public void setSurface(final IDisplaySurface surface) {
 		this.surface = surface;
 		if (surface == null) { view = null; }
 	}
 
+	/**
+	 * Gets the image.
+	 *
+	 * @return the image
+	 */
 	public BufferedImage getImage() {
 		return surface == null ? null : surface.getImage(surface.getWidth(), surface.getHeight());
 	}
 
+	/**
+	 * Gets the image.
+	 *
+	 * @param w the w
+	 * @param h the h
+	 * @return the image
+	 */
 	public BufferedImage getImage(final int w, final int h) {
 		return surface == null ? null : surface.getImage(w, h);
 	}
 
+	/**
+	 * Sets the layers.
+	 *
+	 * @param layers the new layers
+	 */
 	public void setLayers(final List<AbstractLayerStatement> layers) {
 		this.layers.clear();
 		this.layers.addAll(layers);
 	}
 
+	/**
+	 * Gets the layers.
+	 *
+	 * @return the layers
+	 */
 	public List<AbstractLayerStatement> getLayers() {
 		return layers;
 	}
@@ -563,6 +635,11 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 		if (wasPaused && !paused) { surface.updateDisplay(false); }
 	}
 
+	/**
+	 * Gets the data.
+	 *
+	 * @return the data
+	 */
 	public LayeredDisplayData getData() {
 		return data; // .get();
 	}
@@ -583,10 +660,20 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 		return super.isSynchronized() && getData().isSynchronized();
 	}
 
+	/**
+	 * Gets the index.
+	 *
+	 * @return the index
+	 */
 	public int getIndex() {
 		return index;
 	}
 
+	/**
+	 * Sets the index.
+	 *
+	 * @param index the new index
+	 */
 	public void setIndex(final int index) {
 		this.index = index;
 	}
@@ -598,6 +685,11 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 		return true;
 	}
 
+	/**
+	 * Zoom.
+	 *
+	 * @param mode the mode
+	 */
 	public void zoom(final int mode) {
 		if (mode < 0) {
 			surface.zoomOut();

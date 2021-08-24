@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Model.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -89,18 +99,7 @@ public class Model
     implements Cloneable
 {
 
-    /**
-     * AltitudeMode
-     * <p>
-     * clampToGround, relativeToGround, absolute 
-     * </p>
-     * 
-     * See Also: 
-     * See <LookAt> and <Region>
-     * 
-     * 
-     * 
-     */
+    /** AltitudeMode <p> clampToGround, relativeToGround, absolute  </p>  See Also:  See <LookAt> and <Region>. */
     @XmlElement(defaultValue = "clampToGround")
     protected AltitudeMode altitudeMode;
     /**
@@ -235,13 +234,12 @@ public class Model
      */
     @XmlElement(name = "Link")
     protected Link link;
-    /**
-     * <resourcemap>
-     * 
-     * 
-     */
+    
+    /** <resourcemap>. */
     @XmlElement(name = "ResourceMap")
     protected ResourceMap resourceMap;
+    
+    /** The model simple extension. */
     @XmlElement(name = "ModelSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> modelSimpleExtension;
@@ -266,161 +264,154 @@ public class Model
     @XmlElement(name = "ModelObjectExtensionGroup")
     protected List<AbstractObject> modelObjectExtension;
 
+    /**
+     * Instantiates a new model.
+     */
     public Model() {
         super();
     }
 
     /**
-     * @see altitudeMode
-     * 
-     * @return
-     *     possible object is
+     * Gets the altitude mode.
+     *
+     * @return     possible object is
      *     {@code <}{@link Object}{@code>}
      *     {@code <}{@link gama.ext.libs.kml.AltitudeMode}{@code>}
      *     {@code <}{@link msi.gama.ext.kml.gx.AltitudeMode}{@code>}
-     *     
+     * @see altitudeMode
      */
     public AltitudeMode getAltitudeMode() {
         return altitudeMode;
     }
 
     /**
-     * @see altitudeMode
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the altitude mode.
+     *
+     * @param value     allowed object is
      *     {@code <}{@link Object}{@code>}
      *     {@code <}{@link gama.ext.libs.kml.AltitudeMode}{@code>}
      *     {@code <}{@link msi.gama.ext.kml.gx.AltitudeMode}{@code>}
-     *     
+     * @see altitudeMode
      */
     public void setAltitudeMode(AltitudeMode value) {
         this.altitudeMode = value;
     }
 
     /**
-     * @see location
-     * 
-     * @return
-     *     possible object is
+     * Gets the location.
+     *
+     * @return     possible object is
      *     {@link Location}
-     *     
+     * @see location
      */
     public Location getLocation() {
         return location;
     }
 
     /**
-     * @see location
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the location.
+     *
+     * @param value     allowed object is
      *     {@link Location}
-     *     
+     * @see location
      */
     public void setLocation(Location value) {
         this.location = value;
     }
 
     /**
-     * @see orientation
-     * 
-     * @return
-     *     possible object is
+     * Gets the orientation.
+     *
+     * @return     possible object is
      *     {@link Orientation}
-     *     
+     * @see orientation
      */
     public Orientation getOrientation() {
         return orientation;
     }
 
     /**
-     * @see orientation
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the orientation.
+     *
+     * @param value     allowed object is
      *     {@link Orientation}
-     *     
+     * @see orientation
      */
     public void setOrientation(Orientation value) {
         this.orientation = value;
     }
 
     /**
-     * @see scale
-     * 
-     * @return
-     *     possible object is
+     * Gets the scale.
+     *
+     * @return     possible object is
      *     {@link Scale}
-     *     
+     * @see scale
      */
     public Scale getScale() {
         return scale;
     }
 
     /**
-     * @see scale
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the scale.
+     *
+     * @param value     allowed object is
      *     {@link Scale}
-     *     
+     * @see scale
      */
     public void setScale(Scale value) {
         this.scale = value;
     }
 
     /**
-     * @see link
-     * 
-     * @return
-     *     possible object is
+     * Gets the link.
+     *
+     * @return     possible object is
      *     {@link Link}
-     *     
+     * @see link
      */
     public Link getLink() {
         return link;
     }
 
     /**
-     * @see link
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the link.
+     *
+     * @param value     allowed object is
      *     {@link Link}
-     *     
+     * @see link
      */
     public void setLink(Link value) {
         this.link = value;
     }
 
     /**
-     * @see resourceMap
-     * 
-     * @return
-     *     possible object is
+     * Gets the resource map.
+     *
+     * @return     possible object is
      *     {@link ResourceMap}
-     *     
+     * @see resourceMap
      */
     public ResourceMap getResourceMap() {
         return resourceMap;
     }
 
     /**
-     * @see resourceMap
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the resource map.
+     *
+     * @param value     allowed object is
      *     {@link ResourceMap}
-     *     
+     * @see resourceMap
      */
     public void setResourceMap(ResourceMap value) {
         this.resourceMap = value;
     }
 
     /**
+     * Gets the model simple extension.
+     *
+     * @return the model simple extension
      * @see modelSimpleExtension
-     * 
      */
     public List<Object> getModelSimpleExtension() {
         if (modelSimpleExtension == null) {
@@ -430,8 +421,10 @@ public class Model
     }
 
     /**
+     * Gets the model object extension.
+     *
+     * @return the model object extension
      * @see modelObjectExtension
-     * 
      */
     public List<AbstractObject> getModelObjectExtension() {
         if (modelObjectExtension == null) {
@@ -552,8 +545,8 @@ public class Model
      * <code>
      * Location location = new Location();
      * this.setLocation(location); </code>
-     * 
-     * 
+     *
+     * @return the location
      */
     public Location createAndSetLocation() {
         Location newValue = new Location();
@@ -568,8 +561,8 @@ public class Model
      * <code>
      * Orientation orientation = new Orientation();
      * this.setOrientation(orientation); </code>
-     * 
-     * 
+     *
+     * @return the orientation
      */
     public Orientation createAndSetOrientation() {
         Orientation newValue = new Orientation();
@@ -584,8 +577,8 @@ public class Model
      * <code>
      * Scale scale = new Scale();
      * this.setScale(scale); </code>
-     * 
-     * 
+     *
+     * @return the scale
      */
     public Scale createAndSetScale() {
         Scale newValue = new Scale();
@@ -600,8 +593,8 @@ public class Model
      * <code>
      * Link link = new Link();
      * this.setLink(link); </code>
-     * 
-     * 
+     *
+     * @return the link
      */
     public Link createAndSetLink() {
         Link newValue = new Link();
@@ -616,8 +609,8 @@ public class Model
      * <code>
      * ResourceMap resourceMap = new ResourceMap();
      * this.setResourceMap(resourceMap); </code>
-     * 
-     * 
+     *
+     * @return the resource map
      */
     public ResourceMap createAndSetResourceMap() {
         ResourceMap newValue = new ResourceMap();
@@ -626,21 +619,20 @@ public class Model
     }
 
     /**
+     * Sets the model simple extension.
+     *
+     * @param modelSimpleExtension the new model simple extension
      * @see modelSimpleExtension
-     * 
-     * @param modelSimpleExtension
      */
     public void setModelSimpleExtension(final List<Object> modelSimpleExtension) {
         this.modelSimpleExtension = modelSimpleExtension;
     }
 
     /**
-     * add a value to the modelSimpleExtension property collection
-     * 
-     * @param modelSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the modelSimpleExtension property collection.
+     *
+     * @param modelSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Model addToModelSimpleExtension(final Object modelSimpleExtension) {
         this.getModelSimpleExtension().add(modelSimpleExtension);
@@ -648,21 +640,20 @@ public class Model
     }
 
     /**
+     * Sets the model object extension.
+     *
+     * @param modelObjectExtension the new model object extension
      * @see modelObjectExtension
-     * 
-     * @param modelObjectExtension
      */
     public void setModelObjectExtension(final List<AbstractObject> modelObjectExtension) {
         this.modelObjectExtension = modelObjectExtension;
     }
 
     /**
-     * add a value to the modelObjectExtension property collection
-     * 
-     * @param modelObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the modelObjectExtension property collection.
+     *
+     * @param modelObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Model addToModelObjectExtension(final AbstractObject modelObjectExtension) {
         this.getModelObjectExtension().add(modelObjectExtension);
@@ -721,11 +712,11 @@ public class Model
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param altitudeMode     required parameter
+     * @return the model
      * @see #setAltitudeMode(Object)
-     * 
-     * @param altitudeMode
-     *     required parameter
      */
     public Model withAltitudeMode(final  AltitudeMode altitudeMode) {
         this.setAltitudeMode(altitudeMode);
@@ -733,11 +724,11 @@ public class Model
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param location     required parameter
+     * @return the model
      * @see #setLocation(Location)
-     * 
-     * @param location
-     *     required parameter
      */
     public Model withLocation(final Location location) {
         this.setLocation(location);
@@ -745,11 +736,11 @@ public class Model
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param orientation     required parameter
+     * @return the model
      * @see #setOrientation(Orientation)
-     * 
-     * @param orientation
-     *     required parameter
      */
     public Model withOrientation(final Orientation orientation) {
         this.setOrientation(orientation);
@@ -757,11 +748,11 @@ public class Model
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param scale     required parameter
+     * @return the model
      * @see #setScale(Scale)
-     * 
-     * @param scale
-     *     required parameter
      */
     public Model withScale(final Scale scale) {
         this.setScale(scale);
@@ -769,11 +760,11 @@ public class Model
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param link     required parameter
+     * @return the model
      * @see #setLink(Link)
-     * 
-     * @param link
-     *     required parameter
      */
     public Model withLink(final Link link) {
         this.setLink(link);
@@ -781,11 +772,11 @@ public class Model
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param resourceMap     required parameter
+     * @return the model
      * @see #setResourceMap(ResourceMap)
-     * 
-     * @param resourceMap
-     *     required parameter
      */
     public Model withResourceMap(final ResourceMap resourceMap) {
         this.setResourceMap(resourceMap);
@@ -793,11 +784,11 @@ public class Model
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param modelSimpleExtension     required parameter
+     * @return the model
      * @see #setModelSimpleExtension(List<Object>)
-     * 
-     * @param modelSimpleExtension
-     *     required parameter
      */
     public Model withModelSimpleExtension(final List<Object> modelSimpleExtension) {
         this.setModelSimpleExtension(modelSimpleExtension);
@@ -805,11 +796,11 @@ public class Model
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param modelObjectExtension     required parameter
+     * @return the model
      * @see #setModelObjectExtension(List<AbstractObject>)
-     * 
-     * @param modelObjectExtension
-     *     required parameter
      */
     public Model withModelObjectExtension(final List<AbstractObject> modelObjectExtension) {
         this.setModelObjectExtension(modelObjectExtension);

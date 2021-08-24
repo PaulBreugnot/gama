@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.display.AbstractDisplayGraphics.java, in plugin msi.gama.core, is part of the source code of the
- * GAMA modeling and simulation platform (v. 1.8.1)
+ * AbstractDisplayGraphics.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs.display;
 
@@ -21,15 +21,30 @@ import gama.metamodel.shape.GamaPoint;
 import gama.outputs.LayeredDisplayData;
 import gama.outputs.layers.OverlayLayer;
 
+/**
+ * The Class AbstractDisplayGraphics.
+ */
 public abstract class AbstractDisplayGraphics implements IGraphics {
 
+	/** The rect. */
 	protected final Rectangle2D rect = new Rectangle2D.Double(0, 0, 1, 1);
+	
+	/** The Constant origin. */
 	protected static final GamaPoint origin = new GamaPoint(0, 0);
+	
+	/** The current layer alpha. */
 	protected double currentLayerAlpha = 1;
+	
+	/** The data. */
 	public LayeredDisplayData data;
+	
+	/** The surface. */
 	protected IDisplaySurface surface;
+	
+	/** The highlight. */
 	public boolean highlight = false;
 
+	/** The current layer. */
 	protected ILayer currentLayer;
 
 	@Override
@@ -64,18 +79,42 @@ public abstract class AbstractDisplayGraphics implements IGraphics {
 		currentLayerAlpha = alpha;
 	}
 
+	/**
+	 * X from model units to pixels.
+	 *
+	 * @param mu the mu
+	 * @return the double
+	 */
 	protected final double xFromModelUnitsToPixels(final double mu) {
 		return getXOffsetInPixels() + getxRatioBetweenPixelsAndModelUnits() * mu /* + 0.5 */;
 	}
 
+	/**
+	 * Y from model units to pixels.
+	 *
+	 * @param mu the mu
+	 * @return the double
+	 */
 	protected final double yFromModelUnitsToPixels(final double mu) {
 		return getYOffsetInPixels() + getyRatioBetweenPixelsAndModelUnits() * mu;
 	}
 
+	/**
+	 * W from model units to pixels.
+	 *
+	 * @param mu the mu
+	 * @return the double
+	 */
 	protected final double wFromModelUnitsToPixels(final double mu) {
 		return getxRatioBetweenPixelsAndModelUnits() * mu;
 	}
 
+	/**
+	 * H from model units to pixels.
+	 *
+	 * @param mu the mu
+	 * @return the double
+	 */
 	protected final double hFromModelUnitsToPixels(final double mu) {
 		return getyRatioBetweenPixelsAndModelUnits() * mu;
 	}
@@ -161,10 +200,20 @@ public abstract class AbstractDisplayGraphics implements IGraphics {
 		return (int) surface.getDisplayHeight();
 	}
 
+	/**
+	 * Gets the layer width.
+	 *
+	 * @return the layer width
+	 */
 	public int getLayerWidth() {
 		return currentLayer == null ? getDisplayWidth() : currentLayer.getData().getSizeInPixels().x;
 	}
 
+	/**
+	 * Gets the layer height.
+	 *
+	 * @return the layer height
+	 */
 	public int getLayerHeight() {
 		return currentLayer == null ? getDisplayHeight() : currentLayer.getData().getSizeInPixels().y;
 	}

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="ummisco.gama.feature.models"
-      label="Models"
-      version="1.8.1.qualifier"
+      id="gama.feature.models"
+      label="Sample models provided with GAMA"
+      version="2.0.0.qualifier"
       provider-name="UMMISCO"
       colocation-affinity="ummisco.gama.feature.core">
 
@@ -19,11 +19,11 @@
    </license>
 
    <url>
-      <update label="Gama 1.7.x Update Site" url="http://updates.gama-platform.org"/>
+      <update label="Gama Update Site" url="http://updates.gama-platform.org/2.0"/>
    </url>
 
    <plugin
-         id="msi.gama.models"
+         id="gama.models.library"
          download-size="0"
          install-size="0"
          version="0.0.0"/>

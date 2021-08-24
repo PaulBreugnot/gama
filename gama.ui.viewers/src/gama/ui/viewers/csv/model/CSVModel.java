@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'CSVModel.java, in plugin ummisco.gama.ui.viewers, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * CSVModel.java, in gama.ui.viewers, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.viewers.csv.model;
 
 import java.io.Reader;
@@ -32,20 +31,31 @@ import gama.util.file.csv.CsvWriter;
 import gama.util.file.csv.CsvWriter.Letters;
 
 /**
+ * The Class CSVModel.
  *
  * @author fhenri
- *
  */
 public class CSVModel implements IRowChangesListener {
 
+	/** The display first line. */
 	private final boolean displayFirstLine;
+	
+	/** The rows. */
 	private final ArrayList<CSVRow> rows;
+	
+	/** The listeners. */
 	private final ArrayList<ICsvFileModelListener> listeners;
+	
+	/** The file. */
 	private final IFile file;
+	
+	/** The current info. */
 	private CSVInfo currentInfo;
 
 	/**
-	 * Default constructor
+	 * Default constructor.
+	 *
+	 * @param file the file
 	 */
 	public CSVModel(final IFile file) {
 		this.file = file;
@@ -55,7 +65,7 @@ public class CSVModel implements IRowChangesListener {
 	}
 
 	/**
-	 * Check if first line in the file will be considered as the file header
+	 * Check if first line in the file will be considered as the file header.
 	 *
 	 * @return true if the first line in the file represents the header
 	 */
@@ -63,6 +73,11 @@ public class CSVModel implements IRowChangesListener {
 		return getInfo().header;
 	}
 
+	/**
+	 * Sets the first line header.
+	 *
+	 * @param header the new first line header
+	 */
 	public void setFirstLineHeader(final boolean header) {
 		final CSVInfo info = getInfo();
 		if (info.header != header) {
@@ -73,7 +88,7 @@ public class CSVModel implements IRowChangesListener {
 	}
 
 	/**
-	 * Get custom delimiter to use as a separator
+	 * Get custom delimiter to use as a separator.
 	 *
 	 * @return the delimiter
 	 */
@@ -81,6 +96,11 @@ public class CSVModel implements IRowChangesListener {
 		return getInfo().delimiter;
 	}
 
+	/**
+	 * Sets the custom delimiter.
+	 *
+	 * @param c the new custom delimiter
+	 */
 	public void setCustomDelimiter(final char c) {
 		final CSVInfo info = getInfo();
 		if (c == info.delimiter) { return; }
@@ -89,11 +109,10 @@ public class CSVModel implements IRowChangesListener {
 	}
 
 	/**
-	 * Get the character that defines comment lines
+	 * Get the character that defines comment lines.
 	 *
 	 * @return the comment line starting character. If no comments are allowed in this file, then Character.UNASSIGNED
 	 *         constant must be returned;
-	 *
 	 */
 	public char getCommentChar() {
 		final char result = Character.UNASSIGNED;
@@ -101,7 +120,7 @@ public class CSVModel implements IRowChangesListener {
 	}
 
 	/**
-	 * Get custom text qualifier to use as a text qualifier in the data
+	 * Get custom text qualifier to use as a text qualifier in the data.
 	 *
 	 * @return the text qualifier character to use as a text qualifier in the data
 	 */
@@ -111,7 +130,7 @@ public class CSVModel implements IRowChangesListener {
 	}
 
 	/**
-	 * check if the text qualifier has to be use for all fields or not
+	 * check if the text qualifier has to be use for all fields or not.
 	 *
 	 * @return true if the text qualifier is to be used for all data fields
 	 */
@@ -120,15 +139,19 @@ public class CSVModel implements IRowChangesListener {
 	}
 
 	/**
-	 * @param text
+	 * Sets the input.
+	 *
+	 * @param text the new input
 	 */
 	public void setInput(final String text) {
 		readLines(text);
 	}
 
 	/**
-	 * @param reader
-	 * @return
+	 * Initialize reader.
+	 *
+	 * @param reader the reader
+	 * @return the csv reader
 	 */
 	protected CsvReader initializeReader(final Reader reader) {
 		final CsvReader csvReader = new CsvReader(reader);
@@ -149,12 +172,19 @@ public class CSVModel implements IRowChangesListener {
 		return csvReader;
 	}
 
+	/**
+	 * Read lines.
+	 *
+	 * @param fileText the file text
+	 */
 	protected void readLines(final String fileText) {
 		readLines(new StringReader(fileText));
 	}
 
 	/**
-	 * @param fileText
+	 * Read lines.
+	 *
+	 * @param reader the reader
 	 */
 	protected void readLines(final Reader reader) {
 		rows.clear();
@@ -205,14 +235,18 @@ public class CSVModel implements IRowChangesListener {
 	}
 
 	/**
-	 * @return
+	 * Gets the header.
+	 *
+	 * @return the header
 	 */
 	public List<String> getHeader() {
 		return Arrays.asList(getInfo().headers);
 	}
 
 	/**
-	 * @return
+	 * Gets the array header.
+	 *
+	 * @return the array header
 	 */
 	public String[] getArrayHeader() {
 		return getInfo().headers;
@@ -223,7 +257,7 @@ public class CSVModel implements IRowChangesListener {
 	// ----------------------------------
 
 	/**
-	 * @param row
+	 * Adds the row.
 	 */
 	// public void duplicateRow(final CSVRow row) {
 	// CSVRow newRow = new CSVRow(row, this);
@@ -247,7 +281,9 @@ public class CSVModel implements IRowChangesListener {
 	}
 
 	/**
-	 * @param row
+	 * Adds the row.
+	 *
+	 * @param row the row
 	 */
 	public void addRow(final CSVRow row) {
 		rows.add(row);
@@ -258,7 +294,9 @@ public class CSVModel implements IRowChangesListener {
 	}
 
 	/**
-	 * @param row
+	 * Adds the row after element.
+	 *
+	 * @param row the row
 	 */
 	public void addRowAfterElement(final CSVRow row) {
 		final CSVInfo info = getInfo();
@@ -275,8 +313,10 @@ public class CSVModel implements IRowChangesListener {
 	}
 
 	/**
-	 * @param row
-	 * @return
+	 * Find row.
+	 *
+	 * @param findRow the find row
+	 * @return the int
 	 */
 	public int findRow(final CSVRow findRow) {
 		for (int i = 0; i <= getArrayRows(true).length; i++) {
@@ -287,14 +327,19 @@ public class CSVModel implements IRowChangesListener {
 	}
 
 	/**
-	 * @return
+	 * Gets the rows.
+	 *
+	 * @return the rows
 	 */
 	public List<CSVRow> getRows() {
 		return rows;
 	}
 
 	/**
-	 * @return
+	 * Gets the array rows.
+	 *
+	 * @param includeCommentLine the include comment line
+	 * @return the array rows
 	 */
 	public Object[] getArrayRows(final boolean includeCommentLine) {
 		// filter header and comment rows
@@ -315,8 +360,10 @@ public class CSVModel implements IRowChangesListener {
 	}
 
 	/**
-	 * @param index
-	 * @return
+	 * Gets the row at.
+	 *
+	 * @param index the index
+	 * @return the row at
 	 */
 	public CSVRow getRowAt(final int index) {
 		return rows.get(index);
@@ -334,7 +381,9 @@ public class CSVModel implements IRowChangesListener {
 	}
 
 	/**
+	 * Removes the row.
 	 *
+	 * @param row the row
 	 */
 	public void removeRow(final CSVRow row) {
 		if (!rows.remove(row)) {
@@ -351,7 +400,9 @@ public class CSVModel implements IRowChangesListener {
 	// ----------------------------------
 
 	/**
-	 * @param colName
+	 * Adds the column.
+	 *
+	 * @param colName the col name
 	 */
 	public void addColumn(final String colName) {
 		final CSVInfo info = getInfo();
@@ -366,16 +417,18 @@ public class CSVModel implements IRowChangesListener {
 	}
 
 	/**
-	 * @return
+	 * Gets the column count.
+	 *
+	 * @return the column count
 	 */
 	public int getColumnCount() {
 		return getInfo().cols;
 	}
 
 	/**
-	 * Remove the column represented by the index
+	 * Remove the column represented by the index.
 	 *
-	 * @param colIndex
+	 * @param colIndex the col index
 	 */
 	public void removeColumn(final int colIndex) {
 		final CSVInfo info = getInfo();
@@ -396,9 +449,9 @@ public class CSVModel implements IRowChangesListener {
 	}
 
 	/**
-	 * Remove the column represented by its name
+	 * Remove the column represented by its name.
 	 *
-	 * @param colIndex
+	 * @param columnName the column name
 	 */
 	public void removeColumn(final String columnName) {
 		if (columnName == null) { return; }
@@ -408,14 +461,18 @@ public class CSVModel implements IRowChangesListener {
 	}
 
 	/**
-	 * @param csvFileListener
+	 * Removes the model listener.
+	 *
+	 * @param csvFileListener the csv file listener
 	 */
 	public void removeModelListener(final ICsvFileModelListener csvFileListener) {
 		listeners.remove(csvFileListener);
 	}
 
 	/**
-	 * @param csvFileListener
+	 * Adds the model listener.
+	 *
+	 * @param csvFileListener the csv file listener
 	 */
 	public void addModelListener(final ICsvFileModelListener csvFileListener) {
 		if (!listeners.contains(csvFileListener)) {
@@ -424,10 +481,10 @@ public class CSVModel implements IRowChangesListener {
 	}
 
 	/**
-	 * Initialize the CsvWriter
+	 * Initialize the CsvWriter.
 	 *
-	 * @param writer
-	 * @return
+	 * @param writer the writer
+	 * @return the csv writer
 	 */
 	protected CsvWriter initializeWriter(final Writer writer) {
 		final char delimiter = getCustomDelimiter();
@@ -439,7 +496,9 @@ public class CSVModel implements IRowChangesListener {
 	}
 
 	/**
-	 * @return
+	 * Gets the text representation.
+	 *
+	 * @return the text representation
 	 */
 	public String getTextRepresentation() {
 
@@ -461,7 +520,7 @@ public class CSVModel implements IRowChangesListener {
 	}
 
 	/**
-	 *
+	 * Save meta data.
 	 */
 	public void saveMetaData() {
 		final IRefreshHandler refresh = WorkbenchHelper.getService(IRefreshHandler.class);
@@ -471,6 +530,8 @@ public class CSVModel implements IRowChangesListener {
 	}
 
 	/**
+	 * Gets the info.
+	 *
 	 * @return the info
 	 */
 	public CSVInfo getInfo() {

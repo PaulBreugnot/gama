@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ApplicationControl.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.shared;
 
 import org.eclipse.equinox.app.IApplication;
@@ -9,17 +19,31 @@ import gama.common.ui.IGui;
 import gama.ui.base.workbench.GamaWorkbenchAdvisor;
 
 // @Component (
+/**
+ * The Class ApplicationControl.
+ */
 // immediate = true)
 public class ApplicationControl implements IApplicationControl {
+	
+	/** The instance. */
 	private static ApplicationControl INSTANCE;
 
+	/**
+	 * Gets the single instance of ApplicationControl.
+	 *
+	 * @return single instance of ApplicationControl
+	 */
 	public static IApplicationControl getInstance() {
 		if (INSTANCE == null) { INSTANCE = new ApplicationControl(); }
 		return INSTANCE;
 	}
 
+	/** The display. */
 	final Display display;
 
+	/**
+	 * Instantiates a new application control.
+	 */
 	public ApplicationControl() {
 		Display.setAppName("Gama Platform");
 		Display.setAppVersion("1.8.2");

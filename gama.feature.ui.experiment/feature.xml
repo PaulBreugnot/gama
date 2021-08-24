@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="ummisco.gama.feature.experiment.ui"
+      id="gama.feature.ui.experiment"
       label="UI Components for running experiments in  GAMA"
-      version="1.8.1.qualifier"
+      version="2.0.0.qualifier"
       provider-name="UMMISCO">
 
    <description url="http://gama-platform.org">
@@ -18,29 +18,29 @@
    </license>
 
    <url>
-      <update label="Gama 1.7.x Update Site" url="http://updates.gama-platform.org"/>
+      <update label="Gama Update Site" url="http://updates.gama-platform.org/2.0"/>
    </url>
 
    <requires>
-      <import feature="ummisco.gama.feature.core.ui" version="1.8.1.qualifier"/>
+      <import feature="gama.feature.ui.core" version="2.0.0.qualifier"/>
    </requires>
 
    <plugin
-         id="ummisco.gama.java2d"
+         id="gama.display.java2d"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="ummisco.gama.ui.experiment"
+         id="gama.display.opengl"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="ummisco.gama.opengl"
+         id="gama.ui.experiment"
          download-size="0"
          install-size="0"
          version="0.0.0"

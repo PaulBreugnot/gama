@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.random.JavaRNG.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * JavaRNG.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -42,12 +42,16 @@ import gama.common.util.RandomUtils;
  */
 public class JavaRNG extends GamaRNG {
 
+	/** The Constant SEED_SIZE_BYTES. */
 	private static final int SEED_SIZE_BYTES = 8;
 
+	/** The seed. */
 	private final byte[] seed;
 
 	/**
 	 * Creates a new RNG and seeds it using the default seeding strategy.
+	 *
+	 * @param seedGenerator the seed generator
 	 */
 	// public JavaRNG() {
 	// this(DefaultSeedGenerator.getInstance().generateSeed(SEED_SIZE_BYTES));
@@ -86,6 +90,9 @@ public class JavaRNG extends GamaRNG {
 	/**
 	 * Helper method to convert seed bytes into the long value required by the
 	 * super class.
+	 *
+	 * @param seed the seed
+	 * @return the long
 	 */
 	private static long createLongSeed(final byte[] seed) {
 		if (seed == null || seed.length != SEED_SIZE_BYTES) {

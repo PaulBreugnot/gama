@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GamaSourceViewer.java, in plugin ummisco.gama.ui.modeling, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * GamaSourceViewer.java, in gama.ui.modeling, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- *
- **********************************************************************************************/
+ ********************************************************************************************************/
 package gama.ui.modeling.editor;
 
 import org.eclipse.jface.text.source.IOverviewRuler;
@@ -25,14 +24,17 @@ import org.eclipse.xtext.ui.editor.XtextSourceViewer;
  */
 public class GamaSourceViewer extends XtextSourceViewer {
 
+	/** The is overview visible. */
 	private boolean isOverviewVisible;
 
 	/**
-	 * @param parent
-	 * @param ruler
-	 * @param overviewRuler
-	 * @param showsAnnotationOverview
-	 * @param styles
+	 * Instantiates a new gama source viewer.
+	 *
+	 * @param parent the parent
+	 * @param ruler the ruler
+	 * @param overviewRuler the overview ruler
+	 * @param showsAnnotationOverview the shows annotation overview
+	 * @param styles the styles
 	 */
 	public GamaSourceViewer(final Composite parent, final IVerticalRuler ruler, final IOverviewRuler overviewRuler,
 			final boolean showsAnnotationOverview, final int styles) {
@@ -46,6 +48,11 @@ public class GamaSourceViewer extends XtextSourceViewer {
 		isOverviewVisible = show;
 	}
 
+	/**
+	 * Checks if is overview visible.
+	 *
+	 * @return true, if is overview visible
+	 */
 	public boolean isOverviewVisible() {
 		return isOverviewVisible;
 	}

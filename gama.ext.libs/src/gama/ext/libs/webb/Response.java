@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.file.http.Response.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * Response.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.ext.libs.webb;
 
@@ -16,20 +16,42 @@ import java.net.HttpURLConnection;
  * Holds data about the response message returning from HTTP request.
  *
  * @author hgoebl
+ * @param <T> the generic type
  */
 public class Response<T> {
+	
+	/** The request. */
 	final Request request;
 
+	/** The status code. */
 	int statusCode;
+	
+	/** The response message. */
 	String responseMessage;
+	
+	/** The body. */
 	T body;
+	
+	/** The error body. */
 	Object errorBody;
+	
+	/** The connection. */
 	HttpURLConnection connection;
 
+	/**
+	 * Instantiates a new response.
+	 *
+	 * @param request the request
+	 */
 	Response(final Request request) {
 		this.request = request;
 	}
 
+	/**
+	 * Sets the body.
+	 *
+	 * @param body the new body
+	 */
 	@SuppressWarnings ("unchecked")
 	void setBody(final Object body) {
 		this.body = (T) body;
@@ -91,7 +113,7 @@ public class Response<T> {
 	}
 
 	/**
-	 * Was the request successful (returning a 2xx status code)?
+	 * Was the request successful (returning a 2xx status code)?.
 	 *
 	 * @return <code>true</code> when status code is between 200 and 299, else <code>false</code>
 	 */

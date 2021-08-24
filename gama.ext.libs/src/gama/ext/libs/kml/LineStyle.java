@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * LineStyle.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -105,37 +115,40 @@ public class LineStyle
     @XmlElement(name = "LineStyleObjectExtensionGroup")
     protected List<AbstractObject> lineStyleObjectExtension;
 
+    /**
+     * Instantiates a new line style.
+     */
     public LineStyle() {
         super();
     }
 
     /**
-     * @see width
-     * 
-     * @return
-     *     possible object is
+     * Gets the width.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see width
      */
     public double getWidth() {
         return width;
     }
 
     /**
-     * @see width
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the width.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see width
      */
     public void setWidth(double value) {
         this.width = value;
     }
 
     /**
+     * Gets the line style simple extension.
+     *
+     * @return the line style simple extension
      * @see lineStyleSimpleExtension
-     * 
      */
     public List<Object> getLineStyleSimpleExtension() {
         if (lineStyleSimpleExtension == null) {
@@ -145,8 +158,10 @@ public class LineStyle
     }
 
     /**
+     * Gets the line style object extension.
+     *
+     * @return the line style object extension
      * @see lineStyleObjectExtension
-     * 
      */
     public List<AbstractObject> getLineStyleObjectExtension() {
         if (lineStyleObjectExtension == null) {
@@ -207,21 +222,20 @@ public class LineStyle
     }
 
     /**
+     * Sets the line style simple extension.
+     *
+     * @param lineStyleSimpleExtension the new line style simple extension
      * @see lineStyleSimpleExtension
-     * 
-     * @param lineStyleSimpleExtension
      */
     public void setLineStyleSimpleExtension(final List<Object> lineStyleSimpleExtension) {
         this.lineStyleSimpleExtension = lineStyleSimpleExtension;
     }
 
     /**
-     * add a value to the lineStyleSimpleExtension property collection
-     * 
-     * @param lineStyleSimpleExtension
-     *     Objects of the following type are allowed in the list: {@code <}{@link Object}{@code>}{@link JAXBElement}{@code <}{@link byte[]}{@code >}{@link JAXBElement}{@code <}{@link Float}{@code>}{@link JAXBElement}{@code <}{@link Float}{@code>}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the lineStyleSimpleExtension property collection.
+     *
+     * @param lineStyleSimpleExtension     Objects of the following type are allowed in the list: {@code <}{@link Object}{@code>}{@link JAXBElement}{@code <}{@link byte[]}{@code >}{@link JAXBElement}{@code <}{@link Float}{@code>}{@link JAXBElement}{@code <}{@link Float}{@code>}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LineStyle addToLineStyleSimpleExtension(final Object lineStyleSimpleExtension) {
         this.getLineStyleSimpleExtension().add(lineStyleSimpleExtension);
@@ -229,21 +243,20 @@ public class LineStyle
     }
 
     /**
+     * Sets the line style object extension.
+     *
+     * @param lineStyleObjectExtension the new line style object extension
      * @see lineStyleObjectExtension
-     * 
-     * @param lineStyleObjectExtension
      */
     public void setLineStyleObjectExtension(final List<AbstractObject> lineStyleObjectExtension) {
         this.lineStyleObjectExtension = lineStyleObjectExtension;
     }
 
     /**
-     * add a value to the lineStyleObjectExtension property collection
-     * 
-     * @param lineStyleObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the lineStyleObjectExtension property collection.
+     *
+     * @param lineStyleObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LineStyle addToLineStyleObjectExtension(final AbstractObject lineStyleObjectExtension) {
         this.getLineStyleObjectExtension().add(lineStyleObjectExtension);
@@ -336,11 +349,11 @@ public class LineStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param width     required parameter
+     * @return the line style
      * @see #setWidth(double)
-     * 
-     * @param width
-     *     required parameter
      */
     public LineStyle withWidth(final double width) {
         this.setWidth(width);
@@ -348,11 +361,11 @@ public class LineStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param lineStyleSimpleExtension     required parameter
+     * @return the line style
      * @see #setLineStyleSimpleExtension(List<Object>)
-     * 
-     * @param lineStyleSimpleExtension
-     *     required parameter
      */
     public LineStyle withLineStyleSimpleExtension(final List<Object> lineStyleSimpleExtension) {
         this.setLineStyleSimpleExtension(lineStyleSimpleExtension);
@@ -360,11 +373,11 @@ public class LineStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param lineStyleObjectExtension     required parameter
+     * @return the line style
      * @see #setLineStyleObjectExtension(List<AbstractObject>)
-     * 
-     * @param lineStyleObjectExtension
-     *     required parameter
      */
     public LineStyle withLineStyleObjectExtension(final List<AbstractObject> lineStyleObjectExtension) {
         this.setLineStyleObjectExtension(lineStyleObjectExtension);

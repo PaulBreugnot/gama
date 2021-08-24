@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GamaIcon.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * GamaIcon.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.resources;
 
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -20,48 +19,52 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import gama.core.dev.utils.DEBUG;
 import gama.ui.base.utils.WorkbenchHelper;
 
+/**
+ * The Class GamaIcon.
+ */
 public class GamaIcon {
 
 	static {
 		DEBUG.ON();
 	}
 
+	/** The code. */
 	final String code;
+	
+	/** The path. */
 	final String path;
+	
+	/** The plugin. */
 	final String plugin;
+	
+	/** The descriptor. */
 	ImageDescriptor descriptor;
 
 	/**
-	 * Constructor for dynamic icons
+	 * Constructor for dynamic icons.
 	 *
-	 * @param c
-	 *            the code
+	 * @param c            the code
 	 */
 	GamaIcon(final String c) {
 		this(c, c);
 	}
 
 	/**
-	 * Constructor for images loaded from the main application plugin
+	 * Constructor for images loaded from the main application plugin.
 	 *
-	 * @param c
-	 *            the code
-	 * @param p
-	 *            the path (in the 'icons' folder)
+	 * @param c            the code
+	 * @param p            the path (in the 'icons' folder)
 	 */
 	GamaIcon(final String c, final String p) {
 		this(c, p, GamaIcons.PLUGIN_ID);
 	}
 
 	/**
-	 * Constructor for images loaded from a plugin
+	 * Constructor for images loaded from a plugin.
 	 *
-	 * @param c
-	 *            the code
-	 * @param p
-	 *            the path (in the 'icons' folder)
-	 * @param plugin
-	 *            the id of the plugin in which the 'icons' folder resides
+	 * @param c            the code
+	 * @param p            the path (in the 'icons' folder)
+	 * @param plugin            the id of the plugin in which the 'icons' folder resides
 	 */
 	GamaIcon(final String c, final String p, final String plugin) {
 		code = c;
@@ -69,6 +72,11 @@ public class GamaIcon {
 		this.plugin = plugin;
 	}
 
+	/**
+	 * Descriptor.
+	 *
+	 * @return the image descriptor
+	 */
 	public ImageDescriptor descriptor() {
 		if (descriptor == null) {
 			final Image image = GamaIcons.getInstance().getImageInCache(code);
@@ -86,6 +94,11 @@ public class GamaIcon {
 		return descriptor;
 	}
 
+	/**
+	 * Image.
+	 *
+	 * @return the image
+	 */
 	public Image image() {
 		final Image[] image = { GamaIcons.getInstance().getImageInCache(code) };
 		if (image[0] == null) {
@@ -95,6 +108,11 @@ public class GamaIcon {
 		return image[0];
 	}
 
+	/**
+	 * Disabled.
+	 *
+	 * @return the image
+	 */
 	public Image disabled() {
 		final Image[] image = { GamaIcons.getInstance().getImageInCache(code + "_disabled") };
 		if (image[0] == null) {
@@ -104,6 +122,12 @@ public class GamaIcon {
 		return image[0];
 	}
 
+	/**
+	 * Disabled version of.
+	 *
+	 * @param im the im
+	 * @return the image
+	 */
 	Image disabledVersionOf(final Image im) {
 		Rectangle bounds = im.getBounds();
 		ImageData srcData = im.getImageData();
@@ -119,6 +143,11 @@ public class GamaIcon {
 		return new Image(im.getDevice(), dstData);
 	}
 
+	/**
+	 * Gets the code.
+	 *
+	 * @return the code
+	 */
 	public String getCode() {
 		return code;
 	}

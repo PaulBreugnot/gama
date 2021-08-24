@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.expressions.ListExpression.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * ListExpression.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.expressions.data;
 
@@ -38,6 +38,12 @@ import gaml.types.Types;
 @SuppressWarnings ({ "rawtypes" })
 public class ListExpression extends AbstractExpression implements IOperator {
 
+	/**
+	 * Creates the.
+	 *
+	 * @param elements the elements
+	 * @return the i expression
+	 */
 	public static IExpression create(final Iterable<? extends IExpression> elements) {
 
 		// if (u.isConst() && GamaPreferences.CONSTANT_OPTIMIZATION.getValue())
@@ -52,29 +58,57 @@ public class ListExpression extends AbstractExpression implements IOperator {
 		return new ListExpression(elements);
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param elements the elements
+	 * @return the i expression
+	 */
 	public static IExpression create(final IExpression... elements) {
 		return new ListExpression(elements);
 	}
 
+	/** The elements. */
 	final IExpression[] elements;
 
 	// private final Object[] values;
 	// private boolean isConst;
 	// private boolean computed;
 
+	/**
+	 * Instantiates a new list expression.
+	 *
+	 * @param elements the elements
+	 */
 	ListExpression(final IExpression... elements) {
 		this.elements = elements;
 		type = Types.LIST.of(GamaType.findCommonType(this.elements, GamaType.TYPE));
 	}
 
+	/**
+	 * Instantiates a new list expression.
+	 *
+	 * @param elements the elements
+	 */
 	ListExpression(final Iterable<? extends IExpression> elements) {
 		this(Iterables.toArray(elements, IExpression.class));
 	}
 
+	/**
+	 * Gets the elements.
+	 *
+	 * @return the elements
+	 */
 	public IExpression[] getElements() {
 		return elements;
 	}
 
+	/**
+	 * Contains value.
+	 *
+	 * @param o the o
+	 * @return true, if successful
+	 */
 	public boolean containsValue(final Object o) {
 		if (o == null) return false;
 		for (final IExpression exp : elements) {
@@ -158,7 +192,9 @@ public class ListExpression extends AbstractExpression implements IOperator {
 	}
 
 	/**
-	 * @return
+	 * Checks if is empty.
+	 *
+	 * @return true, if is empty
 	 */
 	public boolean isEmpty() {
 		return elements.length == 0;

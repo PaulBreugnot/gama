@@ -1,22 +1,30 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'AbstractBoxBuilder.java, in plugin ummisco.gama.ui.modeling, is part of the source code of the
- * GAMA modeling and simulation platform.
- * (v. 1.8.1)
+ * AbstractBoxBuilder.java, in gama.ui.modeling, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- *
- **********************************************************************************************/
+ ********************************************************************************************************/
 package gama.ui.modeling.editbox;
 
+/**
+ * The Class AbstractBoxBuilder.
+ */
 public abstract class AbstractBoxBuilder implements IBoxBuilder {
 
+	/** The name. */
 	protected String name;
+	
+	/** The tab size. */
 	protected int tabSize = 1;
+	
+	/** The text. */
 	protected StringBuilder text;
+	
+	/** The caret offset. */
 	protected int caretOffset = -1;
 	
 	public String getName() {

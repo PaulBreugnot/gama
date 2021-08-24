@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * NavigatorResourceDropAssistant.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator;
 
 import java.lang.reflect.InvocationTargetException;
@@ -54,11 +64,18 @@ import org.eclipse.ui.part.ResourceTransfer;
 import gama.ui.navigator.contents.ResourceManager;
 import gama.ui.navigator.contents.TopLevelFolder;
 
+/**
+ * The Class NavigatorResourceDropAssistant.
+ */
 public class NavigatorResourceDropAssistant extends ResourceDropAdapterAssistant {
 
+	/** The Constant NO_RESOURCES. */
 	private static final IResource[] NO_RESOURCES = {};
 
+	/** The refactoring status. */
 	private RefactoringStatus refactoringStatus;
+	
+	/** The return status. */
 	private IStatus returnStatus;
 
 	@Override
@@ -126,6 +143,12 @@ public class NavigatorResourceDropAssistant extends ResourceDropAdapterAssistant
 		return Status.OK_STATUS;
 	}
 
+	/**
+	 * All projects.
+	 *
+	 * @param res the res
+	 * @return true, if successful
+	 */
 	private boolean allProjects(final IResource[] res) {
 		if (res == null || res.length == 0) return false;
 		for (final IResource re : res) {
@@ -134,6 +157,12 @@ public class NavigatorResourceDropAssistant extends ResourceDropAdapterAssistant
 		return true;
 	}
 
+	/**
+	 * Any projects.
+	 *
+	 * @param res the res
+	 * @return true, if successful
+	 */
 	private boolean anyProjects(final IResource[] res) {
 		if (res == null || res.length == 0) return false;
 		for (final IResource re : res) {
@@ -183,6 +212,14 @@ public class NavigatorResourceDropAssistant extends ResourceDropAdapterAssistant
 		return status;
 	}
 
+	/**
+	 * Perform project copy.
+	 *
+	 * @param aDropAdapter the a drop adapter
+	 * @param shell the shell
+	 * @param resources the resources
+	 * @return the i status
+	 */
 	private IStatus performProjectCopy(final CommonDropAdapter aDropAdapter, final Shell shell,
 			final IResource[] resources) {
 		ResourceManager.setSelectedFolder(aDropAdapter.getCurrentTarget());
@@ -240,6 +277,9 @@ public class NavigatorResourceDropAssistant extends ResourceDropAdapterAssistant
 	 * Returns the actual target of the drop, given the resource under the mouse. If the mouse target is a file, then
 	 * the drop actually occurs in its parent. If the drop location is before or after the mouse target and feedback is
 	 * enabled, the target is also the parent.
+	 *
+	 * @param mouseTarget the mouse target
+	 * @return the actual target
 	 */
 	private IContainer getActualTarget(final IResource mouseTarget) {
 		if (mouseTarget == null) return null;
@@ -264,6 +304,7 @@ public class NavigatorResourceDropAssistant extends ResourceDropAdapterAssistant
 	/**
 	 * Returns the resource selection from the LocalSelectionTransfer.
 	 *
+	 * @param selection the selection
 	 * @return the resource selection from the LocalSelectionTransfer
 	 */
 	private IResource[] getSelectedResources(final IStructuredSelection selection) {
@@ -277,7 +318,12 @@ public class NavigatorResourceDropAssistant extends ResourceDropAdapterAssistant
 	}
 
 	/**
-	 * Performs a resource copy
+	 * Performs a resource copy.
+	 *
+	 * @param dropAdapter the drop adapter
+	 * @param shell the shell
+	 * @param sources the sources
+	 * @return the i status
 	 */
 	private IStatus performResourceCopy(final CommonDropAdapter dropAdapter, final Shell shell,
 			final IResource[] sources) {
@@ -342,7 +388,11 @@ public class NavigatorResourceDropAssistant extends ResourceDropAdapterAssistant
 	}
 
 	/**
-	 * Performs a resource move
+	 * Performs a resource move.
+	 *
+	 * @param dropAdapter the drop adapter
+	 * @param src the src
+	 * @return the i status
 	 */
 	private IStatus performResourceMove(final CommonDropAdapter dropAdapter, final IResource[] src) {
 		IResource[] sources = src;
@@ -444,6 +494,10 @@ public class NavigatorResourceDropAssistant extends ResourceDropAdapterAssistant
 
 	/**
 	 * Performs a drop using the FileTransfer transfer type.
+	 *
+	 * @param anAdapter the an adapter
+	 * @param data the data
+	 * @return the i status
 	 */
 	private IStatus performFileDrop(final CommonDropAdapter anAdapter, final Object data) {
 		final int currentOperation = anAdapter.getCurrentOperation();
@@ -465,7 +519,12 @@ public class NavigatorResourceDropAssistant extends ResourceDropAdapterAssistant
 	}
 
 	/**
-	 * Ensures that the drop target meets certain criteria
+	 * Ensures that the drop target meets certain criteria.
+	 *
+	 * @param target the target
+	 * @param transferType the transfer type
+	 * @param dropOperation the drop operation
+	 * @return the i status
 	 */
 	private IStatus validateTarget(final Object target, final TransferData transferType, final int dropOperation) {
 		if (!ResourceManager.isResource(target)) return WorkbenchNavigatorPlugin
@@ -514,6 +573,9 @@ public class NavigatorResourceDropAssistant extends ResourceDropAdapterAssistant
 	/**
 	 * Adds the given status to the list of problems. Discards OK statuses. If the status is a multi-status, only its
 	 * children are added.
+	 *
+	 * @param status the status
+	 * @param toMerge the to merge
 	 */
 	private void mergeStatus(final MultiStatus status, final IStatus toMerge) {
 		if (!toMerge.isOK()) { status.merge(toMerge); }
@@ -521,6 +583,8 @@ public class NavigatorResourceDropAssistant extends ResourceDropAdapterAssistant
 
 	/**
 	 * Opens an error dialog if necessary. Takes care of complex rules necessary for making the error dialog look nice.
+	 *
+	 * @param status the status
 	 */
 	private void openError(final IStatus status) {
 		if (status == null) return;

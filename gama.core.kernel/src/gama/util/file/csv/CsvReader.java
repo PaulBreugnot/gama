@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.file.CsvReader.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * CsvReader.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.util.file.csv;
 
@@ -33,54 +33,73 @@ import gaml.types.Types;
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class CsvReader {
 
+	/** The file name. */
 	private String fileName = null;
 
+	/** The user settings. */
 	// this holds all the values for switches that the user is allowed to set
 	private final UserSettings userSettings = new UserSettings();
 
+	/** The charset. */
 	private Charset charset = null;
 
+	/** The use custom record delimiter. */
 	private boolean useCustomRecordDelimiter = false;
 
+	/** The input stream. */
 	private Reader inputStream = null;
 
 	// this will be our working buffer to hold data chunks
 	// read in from the data file
 
+	/** The data buffer. */
 	private final DataBuffer dataBuffer = new DataBuffer();
 
+	/** The column buffer. */
 	private final ColumnBuffer columnBuffer = new ColumnBuffer();
 
 	// private final RawRecordBuffer rawBuffer = new RawRecordBuffer();
 
+	/** The is qualified. */
 	private boolean[] isQualified = null;
 
 	// private String rawRecord = "";
 
+	/** The headers holder. */
 	final HeadersHolder headersHolder = new HeadersHolder();
 
 	// these are all more or less global loop variables
 	// to keep from needing to pass them all into various
 	// methods during parsing
 
+	/** The started column. */
 	boolean startedColumn = false;
 
+	/** The started with qualifier. */
 	boolean startedWithQualifier = false;
 
+	/** The has more data. */
 	boolean hasMoreData = true;
 
+	/** The last letter. */
 	char lastLetter = '\0';
 
+	/** The has read next line. */
 	boolean hasReadNextLine = false;
 
+	/** The columns count. */
 	int columnsCount = 0;
 
+	/** The current record. */
 	long currentRecord = 0;
 
+	/** The values. */
 	String[] values = new String[StaticSettings.INITIAL_COLUMN_COUNT];
 
+	/** The initialized. */
 	boolean initialized = false;
 
+	/** The closed. */
 	boolean closed = false;
 
 	/**
@@ -96,12 +115,10 @@ public class CsvReader {
 	/**
 	 * Creates a {@link msi.gama.util.file.csv.csvreader.CsvReader CsvReader} object using a file as the data source.
 	 *
-	 * @param fileName
-	 *            The path to the file to use as the data source.
-	 * @param delimiter
-	 *            The character to use as the column delimiter.
-	 * @param charset
-	 *            The {@link java.nio.charset.Charset Charset} to use while parsing the data.
+	 * @param fileName            The path to the file to use as the data source.
+	 * @param delimiter            The character to use as the column delimiter.
+	 * @param charset            The {@link java.nio.charset.Charset Charset} to use while parsing the data.
+	 * @throws FileNotFoundException the file not found exception
 	 */
 	public CsvReader(final String fileName, final char delimiter, final Charset charset) throws FileNotFoundException {
 		if (fileName == null) { throw new IllegalArgumentException("Parameter fileName can not be null."); }
@@ -121,10 +138,9 @@ public class CsvReader {
 	 * Creates a {@link msi.gama.util.file.csv.csvreader.CsvReader CsvReader} object using a file as the data
 	 * source.&nbsp;Uses ISO-8859-1 as the {@link java.nio.charset.Charset Charset}.
 	 *
-	 * @param fileName
-	 *            The path to the file to use as the data source.
-	 * @param delimiter
-	 *            The character to use as the column delimiter.
+	 * @param fileName            The path to the file to use as the data source.
+	 * @param delimiter            The character to use as the column delimiter.
+	 * @throws FileNotFoundException the file not found exception
 	 */
 	public CsvReader(final String fileName, final char delimiter) throws FileNotFoundException {
 		this(fileName, delimiter, Charset.forName("UTF-8"));
@@ -134,8 +150,8 @@ public class CsvReader {
 	 * Creates a {@link msi.gama.util.file.csv.csvreader.CsvReader CsvReader} object using a file as the data
 	 * source.&nbsp;Uses a comma as the column delimiter and ISO-8859-1 as the {@link java.nio.charset.Charset Charset}.
 	 *
-	 * @param fileName
-	 *            The path to the file to use as the data source.
+	 * @param fileName            The path to the file to use as the data source.
+	 * @throws FileNotFoundException the file not found exception
 	 */
 	public CsvReader(final String fileName) throws FileNotFoundException {
 		this(fileName, Letters.COMMA);
@@ -225,6 +241,11 @@ public class CsvReader {
 		userSettings.Delimiter = delimiter;
 	}
 
+	/**
+	 * Gets the record delimiter.
+	 *
+	 * @return the record delimiter
+	 */
 	public char getRecordDelimiter() {
 		return userSettings.RecordDelimiter;
 	}
@@ -342,10 +363,20 @@ public class CsvReader {
 		userSettings.EscapeMode = escapeMode;
 	}
 
+	/**
+	 * Gets the skip empty records.
+	 *
+	 * @return the skip empty records
+	 */
 	public boolean getSkipEmptyRecords() {
 		return userSettings.SkipEmptyRecords;
 	}
 
+	/**
+	 * Sets the skip empty records.
+	 *
+	 * @param skipEmptyRecords the new skip empty records
+	 */
 	public void setSkipEmptyRecords(final boolean skipEmptyRecords) {
 		userSettings.SkipEmptyRecords = skipEmptyRecords;
 	}
@@ -368,7 +399,7 @@ public class CsvReader {
 	 * format is known and tested. With the switch off, the max column lengths and max column count per record supported
 	 * by the parser will greatly increase. Default is true.
 	 *
-	 * @param safetySwitch
+	 * @param safetySwitch the new safety switch
 	 */
 	public void setSafetySwitch(final boolean safetySwitch) {
 		userSettings.SafetySwitch = safetySwitch;
@@ -422,6 +453,11 @@ public class CsvReader {
 		return clone;
 	}
 
+	/**
+	 * Sets the headers.
+	 *
+	 * @param headers the new headers
+	 */
 	public void setHeaders(final String[] headers) {
 		headersHolder.Headers = headers;
 
@@ -438,6 +474,12 @@ public class CsvReader {
 
 	}
 
+	/**
+	 * Gets the values.
+	 *
+	 * @return the values
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public String[] getValues() throws IOException {
 		checkClosed();
 
@@ -464,19 +506,44 @@ public class CsvReader {
 		return "";
 	}
 
+	/**
+	 * The Class Stats.
+	 */
 	public static class Stats {
 
+		/** The delimiter. */
 		public Character delimiter;
+		
+		/** The header. */
 		public boolean header;
+		
+		/** The rows. */
 		public int rows;
+		
+		/** The cols. */
 		public int cols;
+		
+		/** The type. */
 		public IType type = Types.NO_TYPE;
+		
+		/** The headers. */
 		public String[] headers = null;
+		
+		/** The qualifier. */
 		public Character qualifier;
 
+		/** The first line type. */
 		private IType firstLineType = Types.NO_TYPE;
+		
+		/** The at least one number. */
 		private boolean atLeastOneNumber;
 
+		/**
+		 * Instantiates a new stats.
+		 *
+		 * @param reader the reader
+		 * @param CSVsep the CS vsep
+		 */
 		Stats(final CsvReader reader, final String CSVsep) {
 			boolean firstLineHasNumber = false;
 			String[] possibleHeaders = null;
@@ -518,6 +585,13 @@ public class CsvReader {
 			// log();
 		}
 
+		/**
+		 * Process first line.
+		 *
+		 * @param line the line
+		 * @param CSVsep the CS vsep
+		 * @return the string[]
+		 */
 		private String[] processFirstLine(final String line, final String CSVsep) {
 			if (CSVsep != null && !CSVsep.isEmpty()) {
 				delimiter = CSVsep.charAt(0);
@@ -556,12 +630,25 @@ public class CsvReader {
 			return s2;
 		}
 
+		/**
+		 * The Class StringAnalysis.
+		 */
 		private class StringAnalysis {
 
+			/** The is float. */
 			boolean isFloat = true;
+			
+			/** The is int. */
 			boolean isInt = true;
+			
+			/** The is number sequence. */
 			boolean isNumberSequence = true;
 
+			/**
+			 * Instantiates a new string analysis.
+			 *
+			 * @param s the s
+			 */
 			StringAnalysis(final String s) {
 
 				for (final char c : s.toCharArray()) {
@@ -588,6 +675,12 @@ public class CsvReader {
 
 		}
 
+		/**
+		 * Process record.
+		 *
+		 * @param values the values
+		 * @return the i type
+		 */
 		private IType processRecord(final String[] values) {
 			cols = values.length;
 			IType temp = null;
@@ -621,6 +714,13 @@ public class CsvReader {
 		// }
 	}
 
+	/**
+	 * Gets the stats.
+	 *
+	 * @param initial the initial
+	 * @param CSVsep the CS vsep
+	 * @return the stats
+	 */
 	public static Stats getStats(final String initial, final String CSVsep) {
 		try {
 			final Stats stats = new Stats(new CsvReader(initial), CSVsep);
@@ -1188,8 +1288,9 @@ public class CsvReader {
 	}
 
 	/**
-	 * @exception IOException
-	 *                Thrown if an error occurs while reading data from the source stream.
+	 * Check data length.
+	 *
+	 * @exception IOException                Thrown if an error occurs while reading data from the source stream.
 	 */
 	private void checkDataLength() throws IOException {
 		if (!initialized) {
@@ -1282,8 +1383,9 @@ public class CsvReader {
 	}
 
 	/**
-	 * @exception IOException
-	 *                Thrown if a very rare extreme exception occurs during parsing, normally resulting from improper
+	 * End column.
+	 *
+	 * @exception IOException                Thrown if a very rare extreme exception occurs during parsing, normally resulting from improper
 	 *                data format.
 	 */
 	private void endColumn() throws IOException {
@@ -1364,6 +1466,11 @@ public class CsvReader {
 		columnsCount++;
 	}
 
+	/**
+	 * Append letter.
+	 *
+	 * @param letter the letter
+	 */
 	private void appendLetter(final char letter) {
 		if (columnBuffer.Position == columnBuffer.Buffer.length) {
 			final int newLength = columnBuffer.Buffer.length * 2;
@@ -1378,6 +1485,9 @@ public class CsvReader {
 		dataBuffer.ColumnStart = dataBuffer.Position + 1;
 	}
 
+	/**
+	 * Update current value.
+	 */
 	private void updateCurrentValue() {
 		if (startedColumn && dataBuffer.ColumnStart < dataBuffer.Position) {
 			if (columnBuffer.Buffer.length - columnBuffer.Position < dataBuffer.Position - dataBuffer.ColumnStart) {
@@ -1401,8 +1511,9 @@ public class CsvReader {
 	}
 
 	/**
-	 * @exception IOException
-	 *                Thrown if an error occurs while reading data from the source stream.
+	 * End record.
+	 *
+	 * @exception IOException                Thrown if an error occurs while reading data from the source stream.
 	 */
 	private void endRecord() throws IOException {
 		// this flag is used as a loop exit condition
@@ -1501,7 +1612,9 @@ public class CsvReader {
 	}
 
 	/**
+	 * Close.
 	 *
+	 * @param closing the closing
 	 */
 	private void close(final boolean closing) {
 		if (!closed) {
@@ -1529,8 +1642,9 @@ public class CsvReader {
 	}
 
 	/**
-	 * @exception IOException
-	 *                Thrown if this object has already been closed.
+	 * Check closed.
+	 *
+	 * @exception IOException                Thrown if this object has already been closed.
 	 */
 	private void checkClosed() throws IOException {
 		if (closed) { throw new IOException("This instance of the CsvReader class has already been closed."); }
@@ -1544,17 +1658,30 @@ public class CsvReader {
 		close(false);
 	}
 
+	/**
+	 * The Class ComplexEscape.
+	 */
 	private class ComplexEscape {
 
+		/** The Constant UNICODE. */
 		private static final int UNICODE = 1;
 
+		/** The Constant OCTAL. */
 		private static final int OCTAL = 2;
 
+		/** The Constant DECIMAL. */
 		private static final int DECIMAL = 3;
 
+		/** The Constant HEX. */
 		private static final int HEX = 4;
 	}
 
+	/**
+	 * Hex to dec.
+	 *
+	 * @param hex the hex
+	 * @return the char
+	 */
 	private static char hexToDec(final char hex) {
 		char result;
 
@@ -1569,15 +1696,21 @@ public class CsvReader {
 		return result;
 	}
 
+	/**
+	 * The Class DataBuffer.
+	 */
 	private class DataBuffer {
 
+		/** The Buffer. */
 		public char[] Buffer;
 
+		/** The Position. */
 		public int Position;
 
 		// / <summary>
 		// / How much usable data has been read into the stream,
 		// / which will not always be as long as Buffer.Length.
+		/** The Count. */
 		// / </summary>
 		public int Count;
 
@@ -1585,11 +1718,15 @@ public class CsvReader {
 		// / The position of the cursor in the buffer when the
 		// / current column was started or the last time data
 		// / was moved out to the column buffer.
+		/** The Column start. */
 		// / </summary>
 		public int ColumnStart;
 
 		// public int LineStart;
 
+		/**
+		 * Instantiates a new data buffer.
+		 */
 		public DataBuffer() {
 			Buffer = new char[StaticSettings.MAX_BUFFER_SIZE];
 			Position = 0;
@@ -1599,79 +1736,121 @@ public class CsvReader {
 		}
 	}
 
+	/**
+	 * The Class ColumnBuffer.
+	 */
 	private class ColumnBuffer {
 
+		/** The Buffer. */
 		public char[] Buffer;
 
+		/** The Position. */
 		public int Position;
 
+		/**
+		 * Instantiates a new column buffer.
+		 */
 		public ColumnBuffer() {
 			Buffer = new char[StaticSettings.INITIAL_COLUMN_BUFFER_SIZE];
 			Position = 0;
 		}
 	}
 
+	/**
+	 * The Class Letters.
+	 */
 	private class Letters {
 
+		/** The Constant LF. */
 		public static final char LF = '\n';
 
+		/** The Constant CR. */
 		public static final char CR = '\r';
 
+		/** The Constant QUOTE. */
 		public static final char QUOTE = '"';
 
+		/** The Constant COMMA. */
 		public static final char COMMA = ',';
 
+		/** The Constant SPACE. */
 		public static final char SPACE = ' ';
 
+		/** The Constant TAB. */
 		public static final char TAB = '\t';
 
+		/** The Constant POUND. */
 		public static final char POUND = '#';
 
+		/** The Constant BACKSLASH. */
 		public static final char BACKSLASH = '\\';
 
+		/** The Constant NULL. */
 		public static final char NULL = '\0';
 
+		/** The Constant BACKSPACE. */
 		public static final char BACKSPACE = '\b';
 
+		/** The Constant FORM_FEED. */
 		public static final char FORM_FEED = '\f';
 
+		/** The Constant ESCAPE. */
 		public static final char ESCAPE = '\u001B'; // ASCII/ANSI escape
 
+		/** The Constant VERTICAL_TAB. */
 		public static final char VERTICAL_TAB = '\u000B';
 
+		/** The Constant ALERT. */
 		public static final char ALERT = '\u0007';
 
+		/** The Constant PIPE. */
 		public static final char PIPE = '|';
 	}
 
+	/**
+	 * The Class UserSettings.
+	 */
 	private class UserSettings {
 
 		// having these as publicly accessible members will prevent
 		// the overhead of the method call that exists on properties
 		// public boolean CaseSensitive;
 
+		/** The Text qualifier. */
 		public Character TextQualifier;
 
+		/** The Trim whitespace. */
 		public boolean TrimWhitespace;
 
+		/** The Use text qualifier. */
 		public boolean UseTextQualifier;
 
+		/** The Delimiter. */
 		public char Delimiter;
 
+		/** The Record delimiter. */
 		public char RecordDelimiter;
 
+		/** The Comment. */
 		public char Comment;
 
+		/** The Use comments. */
 		public boolean UseComments;
 
+		/** The Escape mode. */
 		public int EscapeMode;
 
+		/** The Safety switch. */
 		public boolean SafetySwitch;
 
+		/** The Skip empty records. */
 		public boolean SkipEmptyRecords;
 
 		// public boolean CaptureRawRecord;
 
+		/**
+		 * Instantiates a new user settings.
+		 */
 		public UserSettings() {
 			// CaseSensitive = true;
 			TextQualifier = null;
@@ -1688,14 +1867,23 @@ public class CsvReader {
 		}
 	}
 
+	/**
+	 * The Class HeadersHolder.
+	 */
 	private class HeadersHolder {
 
+		/** The Headers. */
 		public String[] Headers;
 
+		/** The Length. */
 		public int Length;
 
+		/** The Index by name. */
 		public HashMap IndexByName;
 
+		/**
+		 * Instantiates a new headers holder.
+		 */
 		public HeadersHolder() {
 			Headers = null;
 			Length = 0;
@@ -1703,17 +1891,24 @@ public class CsvReader {
 		}
 	}
 
+	/**
+	 * The Class StaticSettings.
+	 */
 	private class StaticSettings {
 
 		// these are static instead of final so they can be changed in unit test
 		// isn't visible outside this class and is only accessed once during
+		/** The Constant MAX_BUFFER_SIZE. */
 		// CsvReader construction
 		public static final int MAX_BUFFER_SIZE = 1024;
 
+		/** The Constant MAX_FILE_BUFFER_SIZE. */
 		public static final int MAX_FILE_BUFFER_SIZE = 4 * 1024;
 
+		/** The Constant INITIAL_COLUMN_COUNT. */
 		public static final int INITIAL_COLUMN_COUNT = 10;
 
+		/** The Constant INITIAL_COLUMN_BUFFER_SIZE. */
 		public static final int INITIAL_COLUMN_BUFFER_SIZE = 50;
 	}
 }

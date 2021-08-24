@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.runtime.HeadlessListener.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * HeadlessListener.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.runtime;
 
@@ -51,6 +51,17 @@ import gaml.descriptions.ActionDescription;
 import gaml.statements.test.CompoundSummary;
 import gaml.statements.test.TestExperimentSummary;
 
+/**
+ * The listener interface for receiving headless events.
+ * The class that is interested in processing a headless
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addHeadlessListener<code> method. When
+ * the headless event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see HeadlessEvent
+ */
 public class HeadlessListener implements IGui {
 
 	// See #2996: simplification of the logging done in this class
@@ -71,6 +82,11 @@ public class HeadlessListener implements IGui {
 		GAMA.setHeadlessGui(new HeadlessListener());
 	}
 
+	/**
+	 * Log.
+	 *
+	 * @param s the s
+	 */
 	private static void log(final String s) {
 		DEBUG.LOG(s);
 	}
@@ -308,6 +324,7 @@ public class HeadlessListener implements IGui {
 	@Override
 	public void updateDecorator(final String string) {}
 
+	/** The status. */
 	IStatusDisplayer status = new IStatusDisplayer() {
 
 		@Override
@@ -345,6 +362,7 @@ public class HeadlessListener implements IGui {
 
 	};
 
+	/** The console. */
 	IConsoleDisplayer console = new IConsoleDisplayer() {
 
 		@Override

@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GamlResourceDocumenter.java, in plugin msi.gama.lang.gaml, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * GamlResourceDocumenter.java, in gama.core.lang, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.core.lang.documentation;
 
 import java.io.IOException;
@@ -40,8 +39,13 @@ import gaml.descriptions.IDescription.DescriptionVisitor;
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class GamlResourceDocumenter implements IDocManager {
 
+	/** The cleanup tasks. */
 	final ConcurrentLinkedQueue<ModelDescription> cleanupTasks = new ConcurrentLinkedQueue();
+	
+	/** The documentation queue. */
 	final ConcurrentLinkedQueue<DocumentationTask> documentationQueue = new ConcurrentLinkedQueue();
+	
+	/** The documentation job. */
 	final Job documentationJob = new Job("Documentation") {
 		{
 			setUser(false);
@@ -64,6 +68,7 @@ public class GamlResourceDocumenter implements IDocManager {
 		}
 	};
 
+	/** The documenting visitor. */
 	final DescriptionVisitor<IDescription> documentingVisitor = desc -> {
 		document(desc);
 		return true;
@@ -83,6 +88,12 @@ public class GamlResourceDocumenter implements IDocManager {
 		documentationJob.schedule(50);
 	}
 
+	/**
+	 * Gets the documentation cache.
+	 *
+	 * @param resource the resource
+	 * @return the documentation cache
+	 */
 	IMap<EObject, IGamlDescription> getDocumentationCache(final Resource resource) {
 		if (resource == null) { return null; }
 		return GamlResourceServices.getDocumentationCache(resource);
@@ -118,6 +129,12 @@ public class GamlResourceDocumenter implements IDocManager {
 		return map.get(object);
 	}
 
+	/**
+	 * Should document.
+	 *
+	 * @param object the object
+	 * @return true, if successful
+	 */
 	private static boolean shouldDocument(final EObject object) {
 		if (object == null) { return false; }
 		final Resource r = object.eResource();

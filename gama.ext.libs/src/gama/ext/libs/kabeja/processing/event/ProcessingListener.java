@@ -1,27 +1,49 @@
-/*
-   Copyright 2008 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * ProcessingListener.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.processing.event;
 
 import gama.ext.libs.kabeja.processing.ProcessingManager;
 
 
+/**
+ * The listener interface for receiving processing events.
+ * The class that is interested in processing a processing
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addProcessingListener<code> method. When
+ * the processing event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see ProcessingEvent
+ */
 public interface ProcessingListener {
+    
+    /**
+     * Start processig.
+     *
+     * @param e the e
+     */
     public void startProcessig(ProcessingEvent e);
 
+    /**
+     * End processing.
+     *
+     * @param e the e
+     */
     public void endProcessing(ProcessingEvent e);
 
+    /**
+     * Configuration changed.
+     *
+     * @param mangager the mangager
+     */
     public void configurationChanged(ProcessingManager mangager);
 }

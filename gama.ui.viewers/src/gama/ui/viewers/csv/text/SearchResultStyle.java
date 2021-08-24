@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'SearchResultStyle.java, in plugin ummisco.gama.ui.viewers, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * SearchResultStyle.java, in gama.ui.viewers, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- *
- **********************************************************************************************/
+ ********************************************************************************************************/
 package gama.ui.viewers.csv.text;
 
 import java.util.ArrayList;
@@ -21,16 +20,18 @@ import org.eclipse.swt.widgets.Display;
 import gama.ui.base.utils.WorkbenchHelper;
 
 /**
+ * The Class SearchResultStyle.
  *
  * @author fhenri
- *
  */
 public class SearchResultStyle {
 
 	/**
-	 * @param searchTerm
-	 * @param content
-	 * @return
+	 * Gets the search term occurrences.
+	 *
+	 * @param searchTerm the search term
+	 * @param content the content
+	 * @return the search term occurrences
 	 */
 	public static int[] getSearchTermOccurrences(final String searchTerm, final String content) {
 		List<StyleRange> styleRange;

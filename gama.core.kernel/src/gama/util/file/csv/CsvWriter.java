@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.file.CsvWriter.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * CsvWriter.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.util.file.csv;
 
@@ -26,23 +26,32 @@ import java.util.Map;
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class CsvWriter implements Closeable {
 
+	/** The output stream. */
 	private Writer outputStream = null;
 
+	/** The file name. */
 	private String fileName = null;
 
+	/** The first column. */
 	private boolean firstColumn = true;
 
+	/** The use custom record delimiter. */
 	private boolean useCustomRecordDelimiter = false;
 
+	/** The charset. */
 	private Charset charset = null;
 
+	/** The user settings. */
 	// this holds all the values for switches that the user is allowed to set
 	private final UserSettings userSettings = new UserSettings();
 
+	/** The initialized. */
 	private boolean initialized = false;
 
+	/** The closed. */
 	private boolean closed = false;
 
+	/** The system record delimiter. */
 	private final String systemRecordDelimiter = System.getProperty("line.separator");
 
 	/**
@@ -121,6 +130,11 @@ public class CsvWriter implements Closeable {
 		userSettings.Delimiter = delimiter;
 	}
 
+	/**
+	 * Gets the record delimiter.
+	 *
+	 * @return the record delimiter
+	 */
 	public char getRecordDelimiter() {
 		return userSettings.RecordDelimiter;
 	}
@@ -175,18 +189,38 @@ public class CsvWriter implements Closeable {
 		userSettings.UseTextQualifier = useTextQualifier;
 	}
 
+	/**
+	 * Gets the escape mode.
+	 *
+	 * @return the escape mode
+	 */
 	public int getEscapeMode() {
 		return userSettings.EscapeMode;
 	}
 
+	/**
+	 * Sets the escape mode.
+	 *
+	 * @param escapeMode the new escape mode
+	 */
 	public void setEscapeMode(final int escapeMode) {
 		userSettings.EscapeMode = escapeMode;
 	}
 
+	/**
+	 * Sets the comment.
+	 *
+	 * @param comment the new comment
+	 */
 	public void setComment(final char comment) {
 		userSettings.Comment = comment;
 	}
 
+	/**
+	 * Gets the comment.
+	 *
+	 * @return the comment
+	 */
 	public char getComment() {
 		return userSettings.Comment;
 	}
@@ -212,6 +246,7 @@ public class CsvWriter implements Closeable {
 		userSettings.ForceQualifier = forceQualifier;
 	}
 
+	/** The replacements. */
 	private static Map<Character, Character> REPLACEMENTS = new HashMap() {
 
 		{
@@ -227,12 +262,9 @@ public class CsvWriter implements Closeable {
 	/**
 	 * Writes another column of data to this record.
 	 *
-	 * @param content
-	 *            The data for the new column.
-	 * @param changeDelimiter
-	 *            Whether to change the delimiter to another character if it happens to be in the string
-	 * @exception IOException
-	 *                Thrown if an error occurs while writing data to the destination stream.
+	 * @param c the c
+	 * @param changeDelimiter            Whether to change the delimiter to another character if it happens to be in the string
+	 * @exception IOException                Thrown if an error occurs while writing data to the destination stream.
 	 */
 	public void write(final String c, final boolean changeDelimiter) throws IOException {
 		String content = c;
@@ -323,6 +355,12 @@ public class CsvWriter implements Closeable {
 		firstColumn = false;
 	}
 
+	/**
+	 * Write comment.
+	 *
+	 * @param commentText the comment text
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void writeComment(final String commentText) throws IOException {
 		checkClosed();
 
@@ -397,7 +435,9 @@ public class CsvWriter implements Closeable {
 	}
 
 	/**
+	 * Check init.
 	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	private void checkInit() throws IOException {
 		if (!initialized) {
@@ -422,7 +462,9 @@ public class CsvWriter implements Closeable {
 	}
 
 	/**
+	 * Close.
 	 *
+	 * @param closing the closing
 	 */
 	private void close(final boolean closing) {
 		if (!closed) {
@@ -445,7 +487,9 @@ public class CsvWriter implements Closeable {
 	}
 
 	/**
+	 * Check closed.
 	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	private void checkClosed() throws IOException {
 		if (closed) { throw new IOException("This instance of the CsvWriter class has already been closed."); }
@@ -459,45 +503,70 @@ public class CsvWriter implements Closeable {
 		close(false);
 	}
 
+	/**
+	 * The Class Letters.
+	 */
 	public static class Letters {
 
+		/** The Constant LF. */
 		public static final char LF = '\n';
 
+		/** The Constant CR. */
 		public static final char CR = '\r';
 
+		/** The Constant QUOTE. */
 		public static final char QUOTE = '"';
 
+		/** The Constant COMMA. */
 		public static final char COMMA = ',';
 
+		/** The Constant SPACE. */
 		public static final char SPACE = ' ';
 
+		/** The Constant TAB. */
 		public static final char TAB = '\t';
 
+		/** The Constant POUND. */
 		public static final char POUND = '#';
 
+		/** The Constant BACKSLASH. */
 		public static final char BACKSLASH = '\\';
 
+		/** The Constant NULL. */
 		public static final char NULL = '\0';
 	}
 
+	/**
+	 * The Class UserSettings.
+	 */
 	private class UserSettings {
 
 		// having these as publicly accessible members will prevent
+		/** The Text qualifier. */
 		// the overhead of the method call that exists on properties
 		public char TextQualifier;
 
+		/** The Use text qualifier. */
 		public boolean UseTextQualifier;
 
+		/** The Delimiter. */
 		public char Delimiter;
 
+		/** The Record delimiter. */
 		public char RecordDelimiter;
 
+		/** The Comment. */
 		public char Comment;
 
+		/** The Escape mode. */
 		public int EscapeMode;
 
+		/** The Force qualifier. */
 		public boolean ForceQualifier;
 
+		/**
+		 * Instantiates a new user settings.
+		 */
 		public UserSettings() {
 			TextQualifier = Letters.QUOTE;
 			UseTextQualifier = false; /* was true */
@@ -509,6 +578,14 @@ public class CsvWriter implements Closeable {
 		}
 	}
 
+	/**
+	 * Replace.
+	 *
+	 * @param original the original
+	 * @param pattern the pattern
+	 * @param replace the replace
+	 * @return the string
+	 */
 	public static String replace(final String original, final String pattern, final String replace) {
 		final int len = pattern.length();
 		int found = original.indexOf(pattern);

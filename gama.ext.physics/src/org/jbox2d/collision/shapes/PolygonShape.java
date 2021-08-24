@@ -1,26 +1,13 @@
-/*******************************************************************************
- * Copyright (c) 2013, Daniel Murphy
- * All rights reserved.
+/*******************************************************************************************************
+ *
+ * PolygonShape.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
- * 	* Redistributions of source code must retain the above copyright notice,
- * 	  this list of conditions and the following disclaimer.
- * 	* Redistributions in binary form must reproduce the above copyright notice,
- * 	  this list of conditions and the following disclaimer in the documentation
- * 	  and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
- * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
- * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
- * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- ******************************************************************************/
+ ********************************************************************************************************/
 package org.jbox2d.collision.shapes;
 
 import org.jbox2d.collision.AABB;
@@ -64,13 +51,25 @@ public class PolygonShape extends Shape {
    */
   public int m_count;
 
+  /** The pool 1. */
   // pooling
   private final Vec2 pool1 = new Vec2();
+  
+  /** The pool 2. */
   private final Vec2 pool2 = new Vec2();
+  
+  /** The pool 3. */
   private final Vec2 pool3 = new Vec2();
+  
+  /** The pool 4. */
   private final Vec2 pool4 = new Vec2();
+  
+  /** The poolt 1. */
   private Transform poolt1 = new Transform();
 
+  /**
+   * Instantiates a new polygon shape.
+   */
   public PolygonShape() {
     super(ShapeType.POLYGON);
 
@@ -102,7 +101,9 @@ public class PolygonShape extends Shape {
   /**
    * Create a convex hull from the given array of points. The count must be in the range [3,
    * Settings.maxPolygonVertices].
-   * 
+   *
+   * @param vertices the vertices
+   * @param count the count
    * @warning the points may be re-ordered, even if they form a convex polygon.
    * @warning collinear points are removed.
    */
@@ -113,7 +114,11 @@ public class PolygonShape extends Shape {
   /**
    * Create a convex hull from the given array of points. The count must be in the range [3,
    * Settings.maxPolygonVertices]. This method takes an arraypool for pooling.
-   * 
+   *
+   * @param verts the verts
+   * @param num the num
+   * @param vecPool the vec pool
+   * @param intPool the int pool
    * @warning the points may be re-ordered, even if they form a convex polygon.
    * @warning collinear points are removed.
    */
@@ -355,8 +360,8 @@ public class PolygonShape extends Shape {
 
   /**
    * Get the vertex count.
-   * 
-   * @return
+   *
+   * @return the vertex count
    */
   public final int getVertexCount() {
     return m_count;
@@ -364,9 +369,9 @@ public class PolygonShape extends Shape {
 
   /**
    * Get a vertex by index.
-   * 
-   * @param index
-   * @return
+   *
+   * @param index the index
+   * @return the vertex
    */
   public final Vec2 getVertex(final int index) {
     assert (0 <= index && index < m_count);
@@ -506,6 +511,13 @@ public class PolygonShape extends Shape {
     return false;
   }
 
+  /**
+   * Compute centroid to out.
+   *
+   * @param vs the vs
+   * @param count the count
+   * @param out the out
+   */
   public final void computeCentroidToOut(final Vec2[] vs, final int count, final Vec2 out) {
     assert (count >= 3);
 
@@ -633,8 +645,8 @@ public class PolygonShape extends Shape {
 
   /**
    * Validate convexity. This is a very time consuming operation.
-   * 
-   * @return
+   *
+   * @return true, if successful
    */
   public boolean validate() {
     for (int i = 0; i < m_count; ++i) {
@@ -659,22 +671,41 @@ public class PolygonShape extends Shape {
     return true;
   }
 
-  /** Get the vertices in local coordinates. */
+  /**
+   *  Get the vertices in local coordinates.
+   *
+   * @return the vertices
+   */
   public Vec2[] getVertices() {
     return m_vertices;
   }
 
-  /** Get the edge normal vectors. There is one for each vertex. */
+  /**
+   *  Get the edge normal vectors. There is one for each vertex.
+   *
+   * @return the normals
+   */
   public Vec2[] getNormals() {
     return m_normals;
   }
 
-  /** Get the centroid and apply the supplied transform. */
+  /**
+   *  Get the centroid and apply the supplied transform.
+   *
+   * @param xf the xf
+   * @return the vec 2
+   */
   public Vec2 centroid(final Transform xf) {
     return Transform.mul(xf, m_centroid);
   }
 
-  /** Get the centroid and apply the supplied transform. */
+  /**
+   *  Get the centroid and apply the supplied transform.
+   *
+   * @param xf the xf
+   * @param out the out
+   * @return the vec 2
+   */
   public Vec2 centroidToOut(final Transform xf, final Vec2 out) {
     Transform.mulToOutUnsafe(xf, m_centroid, out);
     return out;

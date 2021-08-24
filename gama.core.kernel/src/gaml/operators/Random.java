@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.operators.Random.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * Random.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.operators;
 
@@ -44,12 +44,25 @@ import gaml.types.Types;
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class Random {
 
+	/**
+	 * Random.
+	 *
+	 * @param scope the scope
+	 * @return the random utils
+	 */
 	public static RandomUtils RANDOM(final IScope scope) {
 		RandomUtils r = scope.getRandom();
 		if (r == null) { r = new RandomUtils(); }
 		return r;
 	}
 
+	/**
+	 * Op T gauss.
+	 *
+	 * @param scope the scope
+	 * @param p the p
+	 * @return the double
+	 */
 	@operator (
 			value = { "truncated_gauss", "TGauss" },
 			category = { IOperatorCategory.RANDOM },
@@ -69,6 +82,13 @@ public class Random {
 		return opTGauss(scope, GamaListFactory.wrap(Types.FLOAT, p.x, p.y));
 	}
 
+	/**
+	 * Op T gauss.
+	 *
+	 * @param scope the scope
+	 * @param list the list
+	 * @return the double
+	 */
 	@operator (
 			value = { "truncated_gauss", "TGauss" },
 			category = { IOperatorCategory.RANDOM },
@@ -108,6 +128,13 @@ public class Random {
 
 	}
 
+	/**
+	 * Op gauss.
+	 *
+	 * @param scope the scope
+	 * @param point the point
+	 * @return the double
+	 */
 	@operator (
 			value = { "gauss", "gauss_rnd" },
 			category = { IOperatorCategory.RANDOM },
@@ -129,6 +156,14 @@ public class Random {
 		return RANDOM(scope).createGaussian(mean, sd);
 	}
 
+	/**
+	 * Op gauss.
+	 *
+	 * @param scope the scope
+	 * @param mean the mean
+	 * @param sd the sd
+	 * @return the double
+	 */
 	@operator (
 			value = { "gauss", "gauss_rnd" },
 			category = { IOperatorCategory.RANDOM },
@@ -148,6 +183,16 @@ public class Random {
 		return RANDOM(scope).createGaussian(mean, sd);
 	}
 
+	/**
+	 * Op gauss.
+	 *
+	 * @param scope the scope
+	 * @param min the min
+	 * @param max the max
+	 * @param skew the skew
+	 * @param bias the bias
+	 * @return the double
+	 */
 	@operator (
 			value = "skew_gauss",
 			category = { IOperatorCategory.RANDOM },
@@ -171,6 +216,13 @@ public class Random {
 		return mid + range * (biasFactor / (biasFactor + Math.exp(-unitGaussian / skew)) - 0.5);
 	}
 
+	/**
+	 * Op poisson.
+	 *
+	 * @param scope the scope
+	 * @param mean the mean
+	 * @return the integer
+	 */
 	@operator (
 			value = "poisson",
 			category = { IOperatorCategory.RANDOM },
@@ -189,6 +241,14 @@ public class Random {
 		return RANDOM(scope).createPoisson(mean);
 	}
 
+	/**
+	 * Op binomial.
+	 *
+	 * @param scope the scope
+	 * @param n the n
+	 * @param p the p
+	 * @return the integer
+	 */
 	@operator (
 			value = "binomial",
 			category = { IOperatorCategory.RANDOM },
@@ -207,6 +267,13 @@ public class Random {
 		return RANDOM(scope).createBinomial(n, p);
 	}
 
+	/**
+	 * Op shuffle.
+	 *
+	 * @param scope the scope
+	 * @param target the target
+	 * @return the i list
+	 */
 	@operator (
 			value = "shuffle",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -240,6 +307,14 @@ public class Random {
 	// scope.getAgentScope().getPopulationFor(target).getAgentsList());
 	// }
 
+	/**
+	 * Op shuffle.
+	 *
+	 * @param scope the scope
+	 * @param target the target
+	 * @return the i matrix
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = "shuffle",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -257,6 +332,13 @@ public class Random {
 		return matrix2;
 	}
 
+	/**
+	 * Op shuffle.
+	 *
+	 * @param scope the scope
+	 * @param target the target
+	 * @return the string
+	 */
 	@operator (
 			value = "shuffle",
 			content_type = IType.STRING,
@@ -273,6 +355,13 @@ public class Random {
 		return RANDOM(scope).shuffle(target);
 	}
 
+	/**
+	 * Op rnd.
+	 *
+	 * @param scope the scope
+	 * @param max the max
+	 * @return the integer
+	 */
 	@operator (
 			value = "rnd",
 			category = { IOperatorCategory.RANDOM },
@@ -293,6 +382,14 @@ public class Random {
 		return opRnd(scope, 0, max);
 	}
 
+	/**
+	 * Op rnd.
+	 *
+	 * @param scope the scope
+	 * @param min the min
+	 * @param max the max
+	 * @return the integer
+	 */
 	@operator (
 			value = "rnd",
 			category = { IOperatorCategory.RANDOM },
@@ -311,6 +408,15 @@ public class Random {
 		return r.between(min, max);
 	}
 
+	/**
+	 * Op rnd.
+	 *
+	 * @param scope the scope
+	 * @param min the min
+	 * @param max the max
+	 * @param step the step
+	 * @return the integer
+	 */
 	@operator (
 			value = "rnd",
 			category = { IOperatorCategory.RANDOM },
@@ -329,6 +435,14 @@ public class Random {
 		return r.between(min, max, step);
 	}
 
+	/**
+	 * Op rnd.
+	 *
+	 * @param scope the scope
+	 * @param min the min
+	 * @param max the max
+	 * @return the double
+	 */
 	@operator (
 			value = "rnd",
 			category = { IOperatorCategory.RANDOM },
@@ -347,6 +461,15 @@ public class Random {
 		return r.between(min, max);
 	}
 
+	/**
+	 * Op rnd.
+	 *
+	 * @param scope the scope
+	 * @param min the min
+	 * @param max the max
+	 * @param step the step
+	 * @return the double
+	 */
 	@operator (
 			value = "rnd",
 			category = { IOperatorCategory.RANDOM },
@@ -365,6 +488,14 @@ public class Random {
 		return r.between(min, max, step);
 	}
 
+	/**
+	 * Op rnd.
+	 *
+	 * @param scope the scope
+	 * @param min the min
+	 * @param max the max
+	 * @return the gama point
+	 */
 	@operator (
 			value = "rnd",
 			category = { IOperatorCategory.RANDOM },
@@ -385,6 +516,15 @@ public class Random {
 		return new GamaPoint(x, y, z);
 	}
 
+	/**
+	 * Op rnd.
+	 *
+	 * @param scope the scope
+	 * @param min the min
+	 * @param max the max
+	 * @param step the step
+	 * @return the gama point
+	 */
 	@operator (
 			value = "rnd",
 			category = { IOperatorCategory.RANDOM },
@@ -405,8 +545,16 @@ public class Random {
 		return new GamaPoint(x, y, z);
 	}
 
+	/** The null point. */
 	static GamaPoint NULL_POINT = new GamaPoint(0, 0, 0);
 
+	/**
+	 * Op rnd.
+	 *
+	 * @param scope the scope
+	 * @param max the max
+	 * @return the gama point
+	 */
 	@operator (
 			value = "rnd",
 			category = { IOperatorCategory.RANDOM },
@@ -425,6 +573,13 @@ public class Random {
 		return opRnd(scope, NULL_POINT, max);
 	}
 
+	/**
+	 * Op rnd.
+	 *
+	 * @param scope the scope
+	 * @param max the max
+	 * @return the double
+	 */
 	@operator (
 			value = "rnd",
 			category = { IOperatorCategory.RANDOM },
@@ -443,6 +598,13 @@ public class Random {
 		return opRnd(scope, 0.0, max);
 	}
 
+	/**
+	 * Op flip.
+	 *
+	 * @param scope the scope
+	 * @param probability the probability
+	 * @return the boolean
+	 */
 	@operator (
 			value = "flip",
 			category = { IOperatorCategory.RANDOM },
@@ -461,6 +623,13 @@ public class Random {
 		return probability > RANDOM(scope).between(0., 1.);
 	}
 
+	/**
+	 * Op rnd choice.
+	 *
+	 * @param scope the scope
+	 * @param distribution the distribution
+	 * @return the integer
+	 */
 	@operator (
 			value = "rnd_choice",
 			concept = { IConcept.RANDOM })
@@ -500,6 +669,14 @@ public class Random {
 		return -1;
 	}
 
+	/**
+	 * Op rnd coice.
+	 *
+	 * @param <T> the generic type
+	 * @param scope the scope
+	 * @param distribution the distribution
+	 * @return the t
+	 */
 	@operator (
 			value = "rnd_choice",
 			concept = { IConcept.RANDOM },
@@ -542,6 +719,15 @@ public class Random {
 		throw GamaRuntimeException.create(new RuntimeException("Malformed distribution"), scope);
 	}
 
+	/**
+	 * Op sample.
+	 *
+	 * @param scope the scope
+	 * @param x the x
+	 * @param nb the nb
+	 * @param replacement the replacement
+	 * @return the i list
+	 */
 	@operator (
 			value = "sample",
 			type = ITypeProvider.TYPE_AT_INDEX + 1,
@@ -571,6 +757,16 @@ public class Random {
 		return result;
 	}
 
+	/**
+	 * Op sample.
+	 *
+	 * @param scope the scope
+	 * @param x the x
+	 * @param nb the nb
+	 * @param replacement the replacement
+	 * @param weights the weights
+	 * @return the i list
+	 */
 	@operator (
 			value = "sample",
 			type = ITypeProvider.TYPE_AT_INDEX + 1,
@@ -623,6 +819,18 @@ public class Random {
 	// return SimplexNoise.noise(x, y, biais);
 	// }
 
+	/**
+	 * Generate terrain.
+	 *
+	 * @param scope the scope
+	 * @param seed the seed
+	 * @param width the width
+	 * @param height the height
+	 * @param details the details
+	 * @param smoothness the smoothness
+	 * @param scattering the scattering
+	 * @return the i field
+	 */
 	@operator (
 			value = "generate_terrain")
 	@doc ("This operator allows to generate a pseudo-terrain using a simplex noise generator. Its usage is kept simple: it takes first a seed (random or not), then the dimensions "

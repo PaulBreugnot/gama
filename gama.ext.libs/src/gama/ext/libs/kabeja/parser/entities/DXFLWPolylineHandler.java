@@ -1,7 +1,13 @@
-/*
- * Created on 13.04.2005
+/*******************************************************************************************************
  *
- */
+ * DXFLWPolylineHandler.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.parser.entities;
 
 import gama.ext.libs.kabeja.dxf.DXFEntity;
@@ -11,22 +17,41 @@ import gama.ext.libs.kabeja.parser.DXFValue;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth</a>
+ * The Class DXFLWPolylineHandler.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth</a>
  */
 public class DXFLWPolylineHandler extends AbstractEntityHandler {
+    
+    /** The Constant ENTITY_NAME. */
     public static final String ENTITY_NAME = "LWPOLYLINE";
+    
+    /** The Constant VERTEX_BULGE. */
     public static final int VERTEX_BULGE = 42;
+    
+    /** The Constant START_WIDTH. */
     public static final int START_WIDTH = 40;
+    
+    /** The Constant END_WIDTH. */
     public static final int END_WIDTH = 41;
+    
+    /** The Constant CONSTANT_WIDTH. */
     public static final int CONSTANT_WIDTH = 43;
+    
+    /** The Constant ELEVATION. */
     public static final int ELEVATION = 38;
+    
+    /** The Constant THICKNESS. */
     public static final int THICKNESS = 39;
+    
+    /** The vertex. */
     private DXFVertex vertex;
+    
+    /** The lwpolyline. */
     private DXFLWPolyline lwpolyline;
 
     /**
-     *
+     * Instantiates a new DXFLW polyline handler.
      */
     public DXFLWPolylineHandler() {
         super();
@@ -138,6 +163,9 @@ public class DXFLWPolylineHandler extends AbstractEntityHandler {
         lwpolyline = new DXFLWPolyline();
     }
 
+    /**
+     * Creates the vertex.
+     */
     private void createVertex() {
         vertex = new DXFVertex();
         vertex.setDXFDocument(doc);

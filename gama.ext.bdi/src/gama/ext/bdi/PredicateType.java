@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * PredicateType.java, in gama.ext.bdi, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.bdi;
 
 import java.util.Map;
@@ -10,11 +20,15 @@ import gama.runtime.exceptions.GamaRuntimeException;
 import gaml.types.GamaType;
 import gaml.types.IType;
 
+/**
+ * The Class PredicateType.
+ */
 @SuppressWarnings("unchecked")
 @type(name = "predicate", id = PredicateType.id, wraps = { Predicate.class }, concept = { IConcept.TYPE, IConcept.BDI })
 @doc("represents a predicate")
 public class PredicateType extends GamaType<Predicate> {
 
+	/** The Constant id. */
 	public final static int id = IType.AVAILABLE_TYPES + 546654;
 
 	@Override

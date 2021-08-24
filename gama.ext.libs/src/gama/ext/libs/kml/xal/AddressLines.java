@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * AddressLines.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.xal;
 
@@ -16,7 +26,7 @@ import javax.xml.namespace.QName;
 
 
 /**
- * 
+ * The Class AddressLines.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AddressLinesType", propOrder = {
@@ -27,18 +37,22 @@ import javax.xml.namespace.QName;
 public class AddressLines implements Cloneable
 {
 
+    /** The address line. */
     @XmlElement(name = "AddressLine", required = true)
     protected List<AddressLine> addressLine;
+    
+    /** The any. */
     @XmlAnyElement(lax = true)
     protected List<Object> any;
+    
+    /** The other attributes. */
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
-     * Value constructor with only mandatory fields
-     * 
-     * @param addressLine
-     *     required parameter
+     * Value constructor with only mandatory fields.
+     *
+     * @param addressLine     required parameter
      */
     public AddressLines(final List<AddressLine> addressLine) {
         super();
@@ -55,7 +69,9 @@ public class AddressLines implements Cloneable
     }
 
     /**
-     * 
+     * Gets the address line.
+     *
+     * @return the address line
      */
     public List<AddressLine> getAddressLine() {
         if (addressLine == null) {
@@ -65,7 +81,9 @@ public class AddressLines implements Cloneable
     }
 
     /**
-     * 
+     * Gets the any.
+     *
+     * @return the any
      */
     public List<Object> getAny() {
         if (any == null) {
@@ -75,9 +93,9 @@ public class AddressLines implements Cloneable
     }
 
     /**
-     * 
-     * @return
-     *     always non-null
+     * Gets the other attributes.
+     *
+     * @return     always non-null
      */
     public Map<QName, String> getOtherAttributes() {
         return otherAttributes;
@@ -131,8 +149,8 @@ public class AddressLines implements Cloneable
      * <code>
      * AddressLine addressLine = new AddressLine();
      * this.getAddressLine().add(addressLine); </code>
-     * 
-     * 
+     *
+     * @return the address line
      */
     public AddressLine createAndAddAddressLine() {
         AddressLine newValue = new AddressLine();
@@ -144,21 +162,18 @@ public class AddressLines implements Cloneable
      * Sets the value of the addressLine property Objects of the following type(s) are allowed in the list List<AddressLine>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAddressLine} instead.
-     * 
-     * 
-     * @param addressLine
+     *
+     * @param addressLine the new address line
      */
     public void setAddressLine(final List<AddressLine> addressLine) {
         this.addressLine = addressLine;
     }
 
     /**
-     * add a value to the addressLine property collection
-     * 
-     * @param addressLine
-     *     Objects of the following type are allowed in the list: {@link AddressLine}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the addressLine property collection.
+     *
+     * @param addressLine     Objects of the following type are allowed in the list: {@link AddressLine}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public AddressLines addToAddressLine(final AddressLine addressLine) {
         this.getAddressLine().add(addressLine);
@@ -169,21 +184,18 @@ public class AddressLines implements Cloneable
      * Sets the value of the any property Objects of the following type(s) are allowed in the list List<Object>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAny} instead.
-     * 
-     * 
-     * @param any
+     *
+     * @param any the new any
      */
     public void setAny(final List<Object> any) {
         this.any = any;
     }
 
     /**
-     * add a value to the any property collection
-     * 
-     * @param any
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the any property collection.
+     *
+     * @param any     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public AddressLines addToAny(final Object any) {
         this.getAny().add(any);
@@ -191,11 +203,11 @@ public class AddressLines implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param any     required parameter
+     * @return the address lines
      * @see #setAny(List<Object>)
-     * 
-     * @param any
-     *     required parameter
      */
     public AddressLines withAny(final List<Object> any) {
         this.setAny(any);

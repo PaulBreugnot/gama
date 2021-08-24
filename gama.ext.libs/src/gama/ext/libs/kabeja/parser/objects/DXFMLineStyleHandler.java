@@ -1,18 +1,13 @@
-/*
-   Copyright 2008 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * DXFMLineStyleHandler.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.parser.objects;
 
 import gama.ext.libs.kabeja.dxf.DXFConstants;
@@ -22,19 +17,48 @@ import gama.ext.libs.kabeja.dxf.objects.DXFObject;
 import gama.ext.libs.kabeja.parser.DXFValue;
 
 
+/**
+ * The Class DXFMLineStyleHandler.
+ */
 public class DXFMLineStyleHandler extends AbstractDXFObjectHandler {
+    
+    /** The Constant GROUPCODE_MLINE_STYLE_NAME. */
     public static final int GROUPCODE_MLINE_STYLE_NAME = 2;
+    
+    /** The Constant GROUPCODE_MLINE_STYLE_FLAGS. */
     public static final int GROUPCODE_MLINE_STYLE_FLAGS = 70;
+    
+    /** The Constant GROUPCODE_MLINE_STYLE_DESCRIPTION. */
     public static final int GROUPCODE_MLINE_STYLE_DESCRIPTION = 3;
+    
+    /** The Constant GROUPCODE_MLINE_STYLE_FILL_COLOR. */
     public static final int GROUPCODE_MLINE_STYLE_FILL_COLOR = 62;
+    
+    /** The Constant GROUPCODE_MLINE_STYLE_START_ANGLE. */
     public static final int GROUPCODE_MLINE_STYLE_START_ANGLE = 51;
+    
+    /** The Constant GROUPCODE_MLINE_STYLE_END_ANGLE. */
     public static final int GROUPCODE_MLINE_STYLE_END_ANGLE = 52;
+    
+    /** The Constant GROUPCODE_MLINE_STYLE_ELEMENT_COUNT. */
     public static final int GROUPCODE_MLINE_STYLE_ELEMENT_COUNT = 71;
+    
+    /** The Constant GROUPCODE_MLINE_STYLE_ELEMENT_OFFSET. */
     public static final int GROUPCODE_MLINE_STYLE_ELEMENT_OFFSET = 49;
+    
+    /** The Constant GROUPCODE_MLINE_STYLE_ELEMENT_COLOR. */
     public static final int GROUPCODE_MLINE_STYLE_ELEMENT_COLOR = 62;
+    
+    /** The Constant GROUPCODE_MLINE_STYLE_ELEMENT_LINE_STYLE. */
     public static final int GROUPCODE_MLINE_STYLE_ELEMENT_LINE_STYLE = 6;
+    
+    /** The style. */
     protected DXFMLineStyle style;
+    
+    /** The element. */
     protected DXFMLineStyleElement element;
+    
+    /** The process line element. */
     protected boolean processLineElement = false;
 
     public void endObject() {

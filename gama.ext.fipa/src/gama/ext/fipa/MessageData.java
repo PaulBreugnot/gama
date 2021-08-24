@@ -1,15 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
+ * MessageData.java, in gama.ext.fipa, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * 'MessageData.java', in plugin 'msi.gaml.extensions.fipa', is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
- *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.fipa;
 
 import gama.metamodel.agent.IAgent;
@@ -36,6 +34,11 @@ public class MessageData {
 	/** The associated conversation. */
 	private Conversation conversation;
 
+	/**
+	 * Gets the sender.
+	 *
+	 * @return the sender
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -45,6 +48,11 @@ public class MessageData {
 		return sender;
 	}
 
+	/**
+	 * Sets the sender.
+	 *
+	 * @param sender the new sender
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -54,6 +62,11 @@ public class MessageData {
 		this.sender = sender;
 	}
 
+	/**
+	 * Gets the receivers.
+	 *
+	 * @return the receivers
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -63,6 +76,11 @@ public class MessageData {
 		return receivers;
 	}
 
+	/**
+	 * Sets the receivers.
+	 *
+	 * @param receivers the new receivers
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -72,6 +90,11 @@ public class MessageData {
 		this.receivers = receivers;
 	}
 
+	/**
+	 * Gets the content.
+	 *
+	 * @return the content
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -81,6 +104,11 @@ public class MessageData {
 		return content;
 	}
 
+	/**
+	 * Sets the content.
+	 *
+	 * @param content the new content
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -92,6 +120,11 @@ public class MessageData {
 		}
 	}
 
+	/**
+	 * Gets the performative name.
+	 *
+	 * @return the performative name
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -101,6 +134,11 @@ public class MessageData {
 		return performative.name();
 	}
 
+	/**
+	 * Gets the performative.
+	 *
+	 * @return the performative
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -110,6 +148,11 @@ public class MessageData {
 		return performative;
 	}
 
+	/**
+	 * Sets the performative name.
+	 *
+	 * @param performative the new performative name
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -119,6 +162,11 @@ public class MessageData {
 		this.performative = Performative.valueOf(performative);
 	}
 
+	/**
+	 * Sets the performative.
+	 *
+	 * @param performative the new performative
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -128,6 +176,11 @@ public class MessageData {
 		this.performative = performative;
 	}
 
+	/**
+	 * Gets the conversation.
+	 *
+	 * @return the conversation
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -137,6 +190,11 @@ public class MessageData {
 		return conversation;
 	}
 
+	/**
+	 * Sets the conversation.
+	 *
+	 * @param conv the new conversation
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -159,6 +217,11 @@ public class MessageData {
 		return retVal.toString();
 	}
 
+	/**
+	 * Gets the message.
+	 *
+	 * @return the message
+	 */
 	/*
 	 * (non-Javadoc)
 	 *

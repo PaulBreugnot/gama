@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.expressions.AbstractNAryOperator.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * AbstractNAryOperator.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.expressions.operators;
 
@@ -42,16 +42,25 @@ import gaml.types.IType;
 import gaml.types.Types;
 
 /**
- * AbstractBinaryOperator
+ * AbstractBinaryOperator.
  *
  * @author drogoul 23 august 07
  */
 @SuppressWarnings ({ "rawtypes" })
 public abstract class AbstractNAryOperator extends AbstractExpression implements IOperator {
 
+	/** The exprs. */
 	public final IExpression[] exprs;
+	
+	/** The prototype. */
 	protected OperatorProto prototype;
 
+	/**
+	 * Instantiates a new abstract N ary operator.
+	 *
+	 * @param proto the proto
+	 * @param expressions the expressions
+	 */
 	public AbstractNAryOperator(final OperatorProto proto, final IExpression... expressions) {
 		// Copy introduced in order to circumvent issue 1060
 		if (expressions.length == 0 || expressions[0] == null) {
@@ -68,6 +77,11 @@ public abstract class AbstractNAryOperator extends AbstractExpression implements
 		return prototype;
 	}
 
+	/**
+	 * Compute type.
+	 *
+	 * @return the i type
+	 */
 	protected IType computeType() {
 		if (prototype == null) return Types.NO_TYPE;
 		IType result = computeType(prototype.typeProvider, 0, prototype.returnType, GamaType.TYPE);
@@ -80,6 +94,15 @@ public abstract class AbstractNAryOperator extends AbstractExpression implements
 		return result;
 	}
 
+	/**
+	 * Compute type.
+	 *
+	 * @param tp the tp
+	 * @param contentTypeProvider the content type provider
+	 * @param defaultType the default type
+	 * @param kind the kind
+	 * @return the i type
+	 */
 	protected IType computeType(final int tp, final int contentTypeProvider, final IType defaultType, final int kind) {
 		IType result = defaultType;
 		int typeProvider = tp;
@@ -163,6 +186,11 @@ public abstract class AbstractNAryOperator extends AbstractExpression implements
 		return result;
 	}
 
+	/**
+	 * Copy.
+	 *
+	 * @return the abstract N ary operator
+	 */
 	protected abstract AbstractNAryOperator copy();
 
 	@Override
@@ -212,6 +240,11 @@ public abstract class AbstractNAryOperator extends AbstractExpression implements
 		return sb.toString();
 	}
 
+	/**
+	 * Num arg.
+	 *
+	 * @return the int
+	 */
 	public int numArg() {
 		return exprs == null ? 0 : exprs.length;
 	}

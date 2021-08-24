@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ummisco.gama.ui.controls.SimulationSpeedContributionItem.java, in plugin ummisco.gama.ui.experiment, is part of the
- * source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * SimulationSpeedContributionItem.java, in gama.ui.experiment, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.ui.experiment.controls;
 
@@ -46,20 +46,35 @@ public class SimulationSpeedContributionItem extends WorkbenchWindowControlContr
 		DEBUG.OFF();
 	}
 
+	/** The instance. */
 	private static SimulationSpeedContributionItem instance;
+	
+	/** The max. */
 	static double max = 1000;
+	
+	/** The Constant popupColor. */
 	protected final static GamaUIColor popupColor = IGamaColors.BLUE;
+	
+	/** The Constant sliderColor. */
 	protected final static GamaUIColor sliderColor = IGamaColors.GRAY_LABEL;
+	
+	/** The Constant widthSize. */
 	public final static int widthSize = 100;
+	
+	/** The Constant marginWidth. */
 	public final static int marginWidth = 16;
+	
+	/** The Constant heightSize. */
 	public final static int heightSize = 16;
+	
+	/** The sliders. */
 	protected static List<SimpleSlider> sliders = new ArrayList<>();
 
 	/**
+	 * Position from value.
 	 *
-	 * @param v
-	 *            in millisecondsmax
-	 * @return
+	 * @param v            in millisecondsmax
+	 * @return the double
 	 */
 	public static double positionFromValue(final double v) {
 		// returns a percentage between 0 and 1 (0 -> max milliseconds; 1 -> 0
@@ -75,17 +90,25 @@ public class SimulationSpeedContributionItem extends WorkbenchWindowControlContr
 	/**
 	 * v between 0 and 1. Retuns a value in milliseconds
 	 *
-	 * @param v
-	 * @return
+	 * @param v the v
+	 * @return the double
 	 */
 	public static double valueFromPosition(final double v) {
 		return max - v * max;
 	}
 
+	/**
+	 * Instantiates a new simulation speed contribution item.
+	 */
 	public SimulationSpeedContributionItem() {
 		instance = this;
 	}
 
+	/**
+	 * Total width.
+	 *
+	 * @return the int
+	 */
 	public static int totalWidth() {
 		return widthSize + 2 * marginWidth;
 	}
@@ -95,6 +118,12 @@ public class SimulationSpeedContributionItem extends WorkbenchWindowControlContr
 		return create(parent);
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param parent the parent
+	 * @return the control
+	 */
 	public static Control create(final Composite parent) {
 		final Composite composite = new Composite(parent, SWT.DOUBLE_BUFFERED);
 		final GridLayout layout = new GridLayout(1, false);
@@ -129,6 +158,11 @@ public class SimulationSpeedContributionItem extends WorkbenchWindowControlContr
 
 	}
 
+	/**
+	 * Gets the initial value.
+	 *
+	 * @return the initial value
+	 */
 	protected static double getInitialValue() {
 		final ExperimentAgent a = GAMA.getExperiment() == null ? null : GAMA.getExperiment().getAgent();
 		double value = 0d;
@@ -153,9 +187,11 @@ public class SimulationSpeedContributionItem extends WorkbenchWindowControlContr
 		}
 	}
 
+	/** The tooltip provider. */
 	static IToolTipProvider TOOLTIP_PROVIDER =
 			position -> "Minimum duration of a cycle " + Maths.opTruncate(valueFromPosition(position) / 1000, 3) + " s";
 
+	/** The position listener. */
 	static IPositionChangeListener POSITION_LISTENER = (s, position) -> {
 		// DEBUG.OUT("Position changed to " + position + " affects sliders: " + sliders);
 		GAMA.getExperiment().getAgent().setMinimumDurationExternal(valueFromPosition(position) / 1000);
@@ -166,6 +202,11 @@ public class SimulationSpeedContributionItem extends WorkbenchWindowControlContr
 
 	};
 
+	/**
+	 * Gets the single instance of SimulationSpeedContributionItem.
+	 *
+	 * @return single instance of SimulationSpeedContributionItem
+	 */
 	public static SimulationSpeedContributionItem getInstance() {
 		return instance;
 	}

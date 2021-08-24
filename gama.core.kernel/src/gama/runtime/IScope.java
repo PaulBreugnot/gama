@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.runtime.IScope.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and simulation
- * platform (v. 1.8.1)
+ * IScope.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.runtime;
 
@@ -224,6 +224,9 @@ public interface IScope extends Closeable, IBenchmarkable {
 
 	void clear();
 
+	/**
+	 * Close.
+	 */
 	@Override
 	default void close() {
 		clear();
@@ -269,10 +272,9 @@ public interface IScope extends Closeable, IBenchmarkable {
 	boolean reportErrors();
 
 	/**
-	 * Sets whether to trace or not the execution
+	 * Sets whether to trace or not the execution.
 	 *
-	 * @param trace
-	 *            the new trace
+	 * @param trace            the new trace
 	 */
 	void setTrace(boolean trace);
 
@@ -283,6 +285,11 @@ public interface IScope extends Closeable, IBenchmarkable {
 	 */
 	String getName();
 
+	/**
+	 * Gets the name for benchmarks.
+	 *
+	 * @return the name for benchmarks
+	 */
 	@Override
 	default String getNameForBenchmarks() {
 		return getName();
@@ -502,10 +509,23 @@ public interface IScope extends Closeable, IBenchmarkable {
 	 */
 	IGraphics getGraphics();
 
+	/**
+	 * Execute.
+	 *
+	 * @param executable the executable
+	 * @return the execution result
+	 */
 	default ExecutionResult execute(final IExecutable executable) {
 		return execute(executable, getAgent(), null);
 	}
 
+	/**
+	 * Execute.
+	 *
+	 * @param executable the executable
+	 * @param args the args
+	 * @return the execution result
+	 */
 	default ExecutionResult execute(final IExecutable executable, final Arguments args) {
 		return execute(executable, getAgent(), args);
 	}
@@ -586,10 +606,10 @@ public interface IScope extends Closeable, IBenchmarkable {
 	Object getGlobalVarValue(String name) throws GamaRuntimeException;
 
 	/**
-	 * Verifies that this scope has access to the global var value named 'name'
+	 * Verifies that this scope has access to the global var value named 'name'.
 	 *
-	 * @param name
-	 * @return
+	 * @param name the name
+	 * @return true, if successful
 	 */
 	boolean hasAccessToGlobalVar(String name);
 
@@ -619,11 +639,11 @@ public interface IScope extends Closeable, IBenchmarkable {
 
 	/**
 	 * Sets the var value, and states whether the var should be written in an outer scope (if it is defined there) or
-	 * kept in this scope (like for instance the variable defined in a loop (see Issue #3085)
+	 * kept in this scope (like for instance the variable defined in a loop (see Issue #3085).
 	 *
-	 * @param varName
-	 * @param val
-	 * @param localScopeOnly
+	 * @param varName the var name
+	 * @param val the val
+	 * @param localScopeOnly the local scope only
 	 */
 	void setVarValue(String varName, Object val, boolean localScopeOnly);
 
@@ -689,11 +709,10 @@ public interface IScope extends Closeable, IBenchmarkable {
 	/**
 	 * Gets the list arg.
 	 *
-	 * @param string
-	 *            the string
+	 * @param <T> the generic type
+	 * @param string            the string
 	 * @return the list arg
-	 * @throws GamaRuntimeException
-	 *             the gama runtime exception
+	 * @throws GamaRuntimeException             the gama runtime exception
 	 */
 	<T> IList<T> getListArg(String string) throws GamaRuntimeException;
 
@@ -822,26 +841,61 @@ public interface IScope extends Closeable, IBenchmarkable {
 	 */
 	ExecutionResult update(IAgent agent);
 
+	/**
+	 * Gets the execution context.
+	 *
+	 * @return the execution context
+	 */
 	IExecutionContext getExecutionContext();
 
+	/**
+	 * Checks if is in try mode.
+	 *
+	 * @return true, if is in try mode
+	 */
 	boolean isInTryMode();
 
+	/**
+	 * Enable try mode.
+	 */
 	void enableTryMode();
 
+	/**
+	 * Disable try mode.
+	 */
 	void disableTryMode();
 
 	/**
+	 * Sets the current error.
+	 *
+	 * @param g the new current error
 	 * @return the current statement or null if none
 	 */
 
 	void setCurrentError(GamaRuntimeException g);
 
+	/**
+	 * Gets the current error.
+	 *
+	 * @return the current error
+	 */
 	GamaRuntimeException getCurrentError();
 
+	/**
+	 * Sets the horizontal pixel context.
+	 */
 	void setHorizontalPixelContext();
 
+	/**
+	 * Sets the vertical pixel context.
+	 */
 	void setVerticalPixelContext();
 
+	/**
+	 * Checks if is horizontal pixel context.
+	 *
+	 * @return true, if is horizontal pixel context
+	 */
 	boolean isHorizontalPixelContext();
 
 }

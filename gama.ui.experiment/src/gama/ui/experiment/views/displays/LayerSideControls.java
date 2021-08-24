@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'LayerSideControls.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * LayerSideControls.java, in gama.ui.experiment, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.experiment.views.displays;
 
 import java.awt.Color;
@@ -68,10 +67,23 @@ import gaml.types.Types;
  */
 public class LayerSideControls {
 
+	/**
+	 * Update if paused.
+	 *
+	 * @param layer the layer
+	 * @param container the container
+	 */
 	public static void updateIfPaused(final ILayer layer, final IDisplaySurface container) {
 		container.updateDisplay(true);
 	}
 
+	/**
+	 * Fill.
+	 *
+	 * @param parent the parent
+	 * @param view the view
+	 * @return the composite
+	 */
 	public Composite fill(final Composite parent, final LayeredDisplayView view) {
 
 		final Composite column = new Composite(parent, SWT.NONE);
@@ -124,6 +136,12 @@ public class LayerSideControls {
 
 	}
 
+	/**
+	 * Fill open GL parameters.
+	 *
+	 * @param viewer the viewer
+	 * @param view the view
+	 */
 	private void fillOpenGLParameters(final ParameterExpandBar viewer, final LayeredDisplayView view) {
 		final EditorsGroup contents = createContentsComposite(viewer);
 		final IDisplaySurface ds = view.getDisplaySurface();
@@ -152,11 +170,24 @@ public class LayerSideControls {
 		createItem(viewer, "OpenGL", null, contents);
 	}
 
+	/** The camera orientation. */
 	PointEditor cameraPos, cameraTarget, cameraOrientation;
+	
+	/** The preset. */
 	StringEditor preset;
+	
+	/** The zoom. */
 	IntEditor zoom;
+	
+	/** The rotate. */
 	FloatEditor rotate;
 
+	/**
+	 * Fill camera parameters.
+	 *
+	 * @param viewer the viewer
+	 * @param view the view
+	 */
 	private void fillCameraParameters(final ParameterExpandBar viewer, final LayeredDisplayView view) {
 		final EditorsGroup contents = createContentsComposite(viewer);
 		final IDisplaySurface ds = view.getDisplaySurface();
@@ -254,6 +285,12 @@ public class LayerSideControls {
 
 	}
 
+	/**
+	 * Fill keystone parameters.
+	 *
+	 * @param viewer the viewer
+	 * @param view the view
+	 */
 	private void fillKeystoneParameters(final ParameterExpandBar viewer, final LayeredDisplayView view) {
 		final EditorsGroup contents = createContentsComposite(viewer);
 		final IDisplaySurface ds = view.getDisplaySurface();
@@ -308,6 +345,12 @@ public class LayerSideControls {
 		createItem(viewer, "Keystone", null, contents);
 	}
 
+	/**
+	 * Fill general parameters.
+	 *
+	 * @param viewer the viewer
+	 * @param view the view
+	 */
 	private void fillGeneralParameters(final ParameterExpandBar viewer, final LayeredDisplayView view) {
 		final EditorsGroup contents = createContentsComposite(viewer);
 		final IDisplaySurface ds = view.getDisplaySurface();
@@ -381,6 +424,14 @@ public class LayerSideControls {
 
 	}
 
+	/**
+	 * Creates the item.
+	 *
+	 * @param viewer the viewer
+	 * @param name the name
+	 * @param data the data
+	 * @param contents the contents
+	 */
 	public static void createItem(final ParameterExpandBar viewer, final String name, final Object data,
 			final Composite contents) {
 		final ParameterExpandItem i = new ParameterExpandItem(viewer, data, SWT.None, null);
@@ -392,6 +443,12 @@ public class LayerSideControls {
 		i.setExpanded(false);
 	}
 
+	/**
+	 * Creates the contents composite.
+	 *
+	 * @param viewer the viewer
+	 * @return the editors group
+	 */
 	public static EditorsGroup createContentsComposite(final ParameterExpandBar viewer) {
 
 		// contents.setBackground(IGamaColors.WHITE.color());
@@ -401,6 +458,13 @@ public class LayerSideControls {
 		return new EditorsGroup(viewer, SWT.NONE);
 	}
 
+	/**
+	 * Fill layer parameters.
+	 *
+	 * @param viewer the viewer
+	 * @param layer the layer
+	 * @param view the view
+	 */
 	private void fillLayerParameters(final ParameterExpandBar viewer, final ILayer layer,
 			final LayeredDisplayView view) {
 		if (layer.isControllable()) {
@@ -410,6 +474,13 @@ public class LayerSideControls {
 		}
 	}
 
+	/**
+	 * Fill.
+	 *
+	 * @param compo the compo
+	 * @param layer the layer
+	 * @param container the container
+	 */
 	public void fill(final EditorsGroup compo, final ILayer layer, final IDisplaySurface container) {
 
 		final ILayerStatement definition = layer.getDefinition();
@@ -518,6 +589,12 @@ public class LayerSideControls {
 
 	}
 
+	/**
+	 * Copy camera and keystone definition.
+	 *
+	 * @param scope the scope
+	 * @param data the data
+	 */
 	private void copyCameraAndKeystoneDefinition(final IScope scope, final LayeredDisplayData data) {
 		if (!GamaPreferences.Displays.OPENGL_CLIPBOARD_CAM.getValue()) return;
 		final String toCopy = cameraDefinitionToCopy() + " " + Strings.LN
@@ -525,6 +602,11 @@ public class LayerSideControls {
 		WorkbenchHelper.copy(toCopy);
 	}
 
+	/**
+	 * Camera definition to copy.
+	 *
+	 * @return the string
+	 */
 	private String cameraDefinitionToCopy() {
 		StringBuilder text = new StringBuilder(IKeyword.CAMERA_LOCATION).append(": ").append(
 				new GamaPoint(cameraPos.getCurrentValue()).yNegated().withPrecision(4).serialize(false));
@@ -536,6 +618,13 @@ public class LayerSideControls {
 		return text.toString();
 	}
 
+	/**
+	 * Keystone definition to copy.
+	 *
+	 * @param scope the scope
+	 * @param data the data
+	 * @return the string
+	 */
 	private String keystoneDefinitionToCopy(final IScope scope, final LayeredDisplayData data) {
 		final IList<GamaPoint> pp = GamaListFactory.create(scope, Types.POINT, data.getKeystone().toCoordinateArray());
 		return IKeyword.KEYSTONE + ": " + pp.serialize(false);

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * IconStyle.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -182,6 +192,8 @@ public class IconStyle
      * 
      */
     protected Vec2 hotSpot;
+    
+    /** The icon style simple extension. */
     @XmlElement(name = "IconStyleSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> iconStyleSimpleExtension;
@@ -206,109 +218,106 @@ public class IconStyle
     @XmlElement(name = "IconStyleObjectExtensionGroup")
     protected List<AbstractObject> iconStyleObjectExtension;
 
+    /**
+     * Instantiates a new icon style.
+     */
     public IconStyle() {
         super();
     }
 
     /**
-     * @see scale
-     * 
-     * @return
-     *     possible object is
+     * Gets the scale.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see scale
      */
     public double getScale() {
         return scale;
     }
 
     /**
-     * @see scale
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the scale.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see scale
      */
     public void setScale(double value) {
         this.scale = value;
     }
 
     /**
-     * @see heading
-     * 
-     * @return
-     *     possible object is
+     * Gets the heading.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see heading
      */
     public double getHeading() {
         return heading;
     }
 
     /**
-     * @see heading
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the heading.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see heading
      */
     public void setHeading(double value) {
         this.heading = value;
     }
 
     /**
-     * @see icon
-     * 
-     * @return
-     *     possible object is
+     * Gets the icon.
+     *
+     * @return     possible object is
      *     {@link BasicLink}
-     *     
+     * @see icon
      */
     public Icon getIcon() {
         return icon;
     }
 
     /**
-     * @see icon
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the icon.
+     *
+     * @param value     allowed object is
      *     {@link BasicLink}
-     *     
+     * @see icon
      */
     public void setIcon(Icon value) {
         this.icon = value;
     }
 
     /**
-     * @see hotSpot
-     * 
-     * @return
-     *     possible object is
+     * Gets the hot spot.
+     *
+     * @return     possible object is
      *     {@link Vec2}
-     *     
+     * @see hotSpot
      */
     public Vec2 getHotSpot() {
         return hotSpot;
     }
 
     /**
-     * @see hotSpot
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the hot spot.
+     *
+     * @param value     allowed object is
      *     {@link Vec2}
-     *     
+     * @see hotSpot
      */
     public void setHotSpot(Vec2 value) {
         this.hotSpot = value;
     }
 
     /**
+     * Gets the icon style simple extension.
+     *
+     * @return the icon style simple extension
      * @see iconStyleSimpleExtension
-     * 
      */
     public List<Object> getIconStyleSimpleExtension() {
         if (iconStyleSimpleExtension == null) {
@@ -318,8 +327,10 @@ public class IconStyle
     }
 
     /**
+     * Gets the icon style object extension.
+     *
+     * @return the icon style object extension
      * @see iconStyleObjectExtension
-     * 
      */
     public List<AbstractObject> getIconStyleObjectExtension() {
         if (iconStyleObjectExtension == null) {
@@ -411,8 +422,8 @@ public class IconStyle
      * <code>
      * Icon icon = new Icon();
      * this.setIcon(icon); </code>
-     * 
-     * 
+     *
+     * @return the icon
      */
     public Icon createAndSetIcon() {
         Icon newValue = new Icon();
@@ -427,8 +438,8 @@ public class IconStyle
      * <code>
      * Vec2 vec2 = new Vec2();
      * this.setHotSpot(vec2); </code>
-     * 
-     * 
+     *
+     * @return the vec 2
      */
     public Vec2 createAndSetHotSpot() {
         Vec2 newValue = new Vec2();
@@ -437,21 +448,20 @@ public class IconStyle
     }
 
     /**
+     * Sets the icon style simple extension.
+     *
+     * @param iconStyleSimpleExtension the new icon style simple extension
      * @see iconStyleSimpleExtension
-     * 
-     * @param iconStyleSimpleExtension
      */
     public void setIconStyleSimpleExtension(final List<Object> iconStyleSimpleExtension) {
         this.iconStyleSimpleExtension = iconStyleSimpleExtension;
     }
 
     /**
-     * add a value to the iconStyleSimpleExtension property collection
-     * 
-     * @param iconStyleSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the iconStyleSimpleExtension property collection.
+     *
+     * @param iconStyleSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public IconStyle addToIconStyleSimpleExtension(final Object iconStyleSimpleExtension) {
         this.getIconStyleSimpleExtension().add(iconStyleSimpleExtension);
@@ -459,21 +469,20 @@ public class IconStyle
     }
 
     /**
+     * Sets the icon style object extension.
+     *
+     * @param iconStyleObjectExtension the new icon style object extension
      * @see iconStyleObjectExtension
-     * 
-     * @param iconStyleObjectExtension
      */
     public void setIconStyleObjectExtension(final List<AbstractObject> iconStyleObjectExtension) {
         this.iconStyleObjectExtension = iconStyleObjectExtension;
     }
 
     /**
-     * add a value to the iconStyleObjectExtension property collection
-     * 
-     * @param iconStyleObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the iconStyleObjectExtension property collection.
+     *
+     * @param iconStyleObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public IconStyle addToIconStyleObjectExtension(final AbstractObject iconStyleObjectExtension) {
         this.getIconStyleObjectExtension().add(iconStyleObjectExtension);
@@ -566,11 +575,11 @@ public class IconStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param scale     required parameter
+     * @return the icon style
      * @see #setScale(double)
-     * 
-     * @param scale
-     *     required parameter
      */
     public IconStyle withScale(final double scale) {
         this.setScale(scale);
@@ -578,11 +587,11 @@ public class IconStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param heading     required parameter
+     * @return the icon style
      * @see #setHeading(double)
-     * 
-     * @param heading
-     *     required parameter
      */
     public IconStyle withHeading(final double heading) {
         this.setHeading(heading);
@@ -590,11 +599,11 @@ public class IconStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param icon     required parameter
+     * @return the icon style
      * @see #setIcon(Icon)
-     * 
-     * @param icon
-     *     required parameter
      */
     public IconStyle withIcon(final Icon icon) {
         this.setIcon(icon);
@@ -602,11 +611,11 @@ public class IconStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param hotSpot     required parameter
+     * @return the icon style
      * @see #setHotSpot(Vec2)
-     * 
-     * @param hotSpot
-     *     required parameter
      */
     public IconStyle withHotSpot(final Vec2 hotSpot) {
         this.setHotSpot(hotSpot);
@@ -614,11 +623,11 @@ public class IconStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param iconStyleSimpleExtension     required parameter
+     * @return the icon style
      * @see #setIconStyleSimpleExtension(List<Object>)
-     * 
-     * @param iconStyleSimpleExtension
-     *     required parameter
      */
     public IconStyle withIconStyleSimpleExtension(final List<Object> iconStyleSimpleExtension) {
         this.setIconStyleSimpleExtension(iconStyleSimpleExtension);
@@ -626,11 +635,11 @@ public class IconStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param iconStyleObjectExtension     required parameter
+     * @return the icon style
      * @see #setIconStyleObjectExtension(List<AbstractObject>)
-     * 
-     * @param iconStyleObjectExtension
-     *     required parameter
      */
     public IconStyle withIconStyleObjectExtension(final List<AbstractObject> iconStyleObjectExtension) {
         this.setIconStyleObjectExtension(iconStyleObjectExtension);

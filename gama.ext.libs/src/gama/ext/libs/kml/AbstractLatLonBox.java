@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * AbstractLatLonBox.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -76,11 +86,8 @@ public abstract class AbstractLatLonBox
      */
     @XmlElement(defaultValue = "-180.0")
     protected double south;
-    /**
-     * <east> (required)
-     * 
-     * 
-     */
+    
+    /** <east> (required). */
     @XmlElement(defaultValue = "180.0")
     protected double east;
     /**
@@ -95,6 +102,8 @@ public abstract class AbstractLatLonBox
      */
     @XmlElement(defaultValue = "-180.0")
     protected double west;
+    
+    /** The abstract lat lon box simple extension. */
     @XmlElement(name = "AbstractLatLonBoxSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> abstractLatLonBoxSimpleExtension;
@@ -119,109 +128,106 @@ public abstract class AbstractLatLonBox
     @XmlElement(name = "AbstractLatLonBoxObjectExtensionGroup")
     protected List<AbstractObject> abstractLatLonBoxObjectExtension;
 
+    /**
+     * Instantiates a new abstract lat lon box.
+     */
     public AbstractLatLonBox() {
         super();
     }
 
     /**
-     * @see north
-     * 
-     * @return
-     *     possible object is
+     * Gets the north.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see north
      */
     public double getNorth() {
         return north;
     }
 
     /**
-     * @see north
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the north.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see north
      */
     public void setNorth(double value) {
         this.north = value;
     }
 
     /**
-     * @see south
-     * 
-     * @return
-     *     possible object is
+     * Gets the south.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see south
      */
     public double getSouth() {
         return south;
     }
 
     /**
-     * @see south
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the south.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see south
      */
     public void setSouth(double value) {
         this.south = value;
     }
 
     /**
-     * @see east
-     * 
-     * @return
-     *     possible object is
+     * Gets the east.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see east
      */
     public double getEast() {
         return east;
     }
 
     /**
-     * @see east
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the east.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see east
      */
     public void setEast(double value) {
         this.east = value;
     }
 
     /**
-     * @see west
-     * 
-     * @return
-     *     possible object is
+     * Gets the west.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see west
      */
     public double getWest() {
         return west;
     }
 
     /**
-     * @see west
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the west.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see west
      */
     public void setWest(double value) {
         this.west = value;
     }
 
     /**
+     * Gets the abstract lat lon box simple extension.
+     *
+     * @return the abstract lat lon box simple extension
      * @see abstractLatLonBoxSimpleExtension
-     * 
      */
     public List<Object> getAbstractLatLonBoxSimpleExtension() {
         if (abstractLatLonBoxSimpleExtension == null) {
@@ -231,8 +237,10 @@ public abstract class AbstractLatLonBox
     }
 
     /**
+     * Gets the abstract lat lon box object extension.
+     *
+     * @return the abstract lat lon box object extension
      * @see abstractLatLonBoxObjectExtension
-     * 
      */
     public List<AbstractObject> getAbstractLatLonBoxObjectExtension() {
         if (abstractLatLonBoxObjectExtension == null) {
@@ -308,21 +316,20 @@ public abstract class AbstractLatLonBox
     }
 
     /**
+     * Sets the abstract lat lon box simple extension.
+     *
+     * @param abstractLatLonBoxSimpleExtension the new abstract lat lon box simple extension
      * @see abstractLatLonBoxSimpleExtension
-     * 
-     * @param abstractLatLonBoxSimpleExtension
      */
     public void setAbstractLatLonBoxSimpleExtension(final List<Object> abstractLatLonBoxSimpleExtension) {
         this.abstractLatLonBoxSimpleExtension = abstractLatLonBoxSimpleExtension;
     }
 
     /**
-     * add a value to the abstractLatLonBoxSimpleExtension property collection
-     * 
-     * @param abstractLatLonBoxSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the abstractLatLonBoxSimpleExtension property collection.
+     *
+     * @param abstractLatLonBoxSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public AbstractLatLonBox addToAbstractLatLonBoxSimpleExtension(final Object abstractLatLonBoxSimpleExtension) {
         this.getAbstractLatLonBoxSimpleExtension().add(abstractLatLonBoxSimpleExtension);
@@ -330,21 +337,20 @@ public abstract class AbstractLatLonBox
     }
 
     /**
+     * Sets the abstract lat lon box object extension.
+     *
+     * @param abstractLatLonBoxObjectExtension the new abstract lat lon box object extension
      * @see abstractLatLonBoxObjectExtension
-     * 
-     * @param abstractLatLonBoxObjectExtension
      */
     public void setAbstractLatLonBoxObjectExtension(final List<AbstractObject> abstractLatLonBoxObjectExtension) {
         this.abstractLatLonBoxObjectExtension = abstractLatLonBoxObjectExtension;
     }
 
     /**
-     * add a value to the abstractLatLonBoxObjectExtension property collection
-     * 
-     * @param abstractLatLonBoxObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the abstractLatLonBoxObjectExtension property collection.
+     *
+     * @param abstractLatLonBoxObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public AbstractLatLonBox addToAbstractLatLonBoxObjectExtension(final AbstractObject abstractLatLonBoxObjectExtension) {
         this.getAbstractLatLonBoxObjectExtension().add(abstractLatLonBoxObjectExtension);
@@ -369,11 +375,11 @@ public abstract class AbstractLatLonBox
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param north     required parameter
+     * @return the abstract lat lon box
      * @see #setNorth(double)
-     * 
-     * @param north
-     *     required parameter
      */
     public AbstractLatLonBox withNorth(final double north) {
         this.setNorth(north);
@@ -381,11 +387,11 @@ public abstract class AbstractLatLonBox
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param south     required parameter
+     * @return the abstract lat lon box
      * @see #setSouth(double)
-     * 
-     * @param south
-     *     required parameter
      */
     public AbstractLatLonBox withSouth(final double south) {
         this.setSouth(south);
@@ -393,11 +399,11 @@ public abstract class AbstractLatLonBox
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param east     required parameter
+     * @return the abstract lat lon box
      * @see #setEast(double)
-     * 
-     * @param east
-     *     required parameter
      */
     public AbstractLatLonBox withEast(final double east) {
         this.setEast(east);
@@ -405,11 +411,11 @@ public abstract class AbstractLatLonBox
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param west     required parameter
+     * @return the abstract lat lon box
      * @see #setWest(double)
-     * 
-     * @param west
-     *     required parameter
      */
     public AbstractLatLonBox withWest(final double west) {
         this.setWest(west);
@@ -417,11 +423,11 @@ public abstract class AbstractLatLonBox
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param abstractLatLonBoxSimpleExtension     required parameter
+     * @return the abstract lat lon box
      * @see #setAbstractLatLonBoxSimpleExtension(List<Object>)
-     * 
-     * @param abstractLatLonBoxSimpleExtension
-     *     required parameter
      */
     public AbstractLatLonBox withAbstractLatLonBoxSimpleExtension(final List<Object> abstractLatLonBoxSimpleExtension) {
         this.setAbstractLatLonBoxSimpleExtension(abstractLatLonBoxSimpleExtension);
@@ -429,11 +435,11 @@ public abstract class AbstractLatLonBox
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param abstractLatLonBoxObjectExtension     required parameter
+     * @return the abstract lat lon box
      * @see #setAbstractLatLonBoxObjectExtension(List<AbstractObject>)
-     * 
-     * @param abstractLatLonBoxObjectExtension
-     *     required parameter
      */
     public AbstractLatLonBox withAbstractLatLonBoxObjectExtension(final List<AbstractObject> abstractLatLonBoxObjectExtension) {
         this.setAbstractLatLonBoxObjectExtension(abstractLatLonBoxObjectExtension);

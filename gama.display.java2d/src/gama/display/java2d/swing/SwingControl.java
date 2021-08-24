@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'SwingControl.java, in plugin ummisco.gama.java2d, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * SwingControl.java, in gama.display.java2d, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.display.java2d.swing;
 
 import java.awt.EventQueue;
@@ -29,16 +28,30 @@ import gama.display.java2d.WorkaroundForIssue2476;
 import gama.ui.base.utils.PlatformHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 
+/**
+ * The Class SwingControl.
+ */
 public abstract class SwingControl extends Composite {
 
 	static {
 		// DEBUG.ON();
 	}
 
+	/** The applet. */
 	JApplet applet;
+	
+	/** The frame. */
 	Frame frame;
+	
+	/** The populated. */
 	boolean populated = false;
 
+	/**
+	 * Instantiates a new swing control.
+	 *
+	 * @param parent the parent
+	 * @param style the style
+	 */
 	public SwingControl(final Composite parent, final int style) {
 		super(parent, style | ((style & SWT.BORDER) == 0 ? SWT.EMBEDDED : 0) | SWT.NO_BACKGROUND);
 		setLayout(new FillLayout());
@@ -65,6 +78,9 @@ public abstract class SwingControl extends Composite {
 		return result;
 	}
 
+	/**
+	 * Populate.
+	 */
 	protected void populate() {
 		if (isDisposed()) return;
 		if (!populated) {
@@ -104,6 +120,11 @@ public abstract class SwingControl extends Composite {
 		super.setBounds(x, y, width, height);
 	}
 
+	/**
+	 * Gets the top level container.
+	 *
+	 * @return the top level container
+	 */
 	public Panel getTopLevelContainer() {
 		return applet;
 	}

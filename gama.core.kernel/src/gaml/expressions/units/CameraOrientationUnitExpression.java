@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.expressions.CameraOrientationUnitExpression.java, in plugin msi.gama.core, is part of the source code of the
- * GAMA modeling and simulation platform (v. 1.8.1)
+ * CameraOrientationUnitExpression.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.expressions.units;
 
@@ -19,6 +19,7 @@ import gama.runtime.IScope;
 import gaml.types.Types;
 
 /**
+ * The Class CameraOrientationUnitExpression.
  *
  * @author Drogoul
  * @revision Now provides the camera_orientation even if the code is not run within a graphics context but the current
@@ -26,6 +27,11 @@ import gaml.types.Types;
  */
 public class CameraOrientationUnitExpression extends UnitConstantExpression {
 
+	/**
+	 * Instantiates a new camera orientation unit expression.
+	 *
+	 * @param doc the doc
+	 */
 	public CameraOrientationUnitExpression(final String doc) {
 		super(new GamaPoint(), Types.POINT, "camera_orientation", doc, null);
 	}

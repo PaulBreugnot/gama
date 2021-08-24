@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.extensions.multi_criteria.EvidenceTheory.java, in plugin msi.gama.core, is part of the source code of the
- * GAMA modeling and simulation platform (v. 1.8.1)
+ * EvidenceTheory.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.extensions.multi_criteria;
 
@@ -18,20 +18,17 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Classe impl�mentant la prise de d�cision � l'aide des fonctions de croyance
+ * Classe impl�mentant la prise de d�cision � l'aide des fonctions de croyance.
  *
  * @author PTaillandier
- *
  */
 public class EvidenceTheory {
 
 	/**
-	 * M�thode assurant la fusion entre 2 sources
+	 * M�thode assurant la fusion entre 2 sources.
 	 *
-	 * @param m1
-	 *            : premi�re source
-	 * @param m2
-	 *            : deuxi�me source
+	 * @param m1            : premi�re source
+	 * @param m2            : deuxi�me source
 	 * @return les masses de croyance m12
 	 */
 	private MassesCroyances fusionLesMassesLocalesDeuxSources(final MassesCroyances m1, final MassesCroyances m2) {
@@ -48,10 +45,9 @@ public class EvidenceTheory {
 	}
 
 	/**
-	 * M�thode permettant de fusionner des ensembles de masses de croyances
+	 * M�thode permettant de fusionner des ensembles de masses de croyances.
 	 *
-	 * @param masses
-	 *            : ensemble de MassesCroyances : les masses de croyances � fusionner
+	 * @param masses            : ensemble de MassesCroyances : les masses de croyances � fusionner
 	 * @return les masses de croyances correspondant � la fusion de l'ensemble des masses
 	 */
 	private MassesCroyances fusionLesMassesLocales(final LinkedList<MassesCroyances> masses) {
@@ -70,10 +66,9 @@ public class EvidenceTheory {
 	}
 
 	/**
-	 * M�thode assurant la fusion entre hypoth�ses
+	 * M�thode assurant la fusion entre hypoth�ses.
 	 *
-	 * @param candidats
-	 *            : dictionnaire des hypoth�ses : clef : Candidat (hypoth�se) -> valeur : MassesCroyances (associ� �
+	 * @param candidats            : dictionnaire des hypoth�ses : clef : Candidat (hypoth�se) -> valeur : MassesCroyances (associ� �
 	 *            l'hypoth�se)
 	 * @return la liste des propositions r�sultantes de la fusion ainsi que leur masse de croyance associ�e
 	 */
@@ -82,17 +77,21 @@ public class EvidenceTheory {
 		return fusion;
 	}
 
+	/**
+	 * Builds the propositions.
+	 *
+	 * @param candidats the candidats
+	 * @return the propositions
+	 */
 	private Propositions buildPropositions(final Map<Candidate, MassesCroyances> candidats) {
 		return new Propositions(candidats, true);
 	}
 
 	/**
-	 * M�thode assurant la fusion de l'ensemble des crit�res
+	 * M�thode assurant la fusion de l'ensemble des crit�res.
 	 *
-	 * @param criteres
-	 *            : Ensemble de CritereFonctionsCroyances (les crit�res pour cette m�thode)
-	 * @param valeursCourantes
-	 *            : dictionnaire des valeurs des crit�res pour le jeu de K courant : Clef : Strign : nom du crit�re ->
+	 * @param criteres            : Ensemble de CritereFonctionsCroyances (les crit�res pour cette m�thode)
+	 * @param valeursCourantes            : dictionnaire des valeurs des crit�res pour le jeu de K courant : Clef : Strign : nom du crit�re ->
 	 *            Valeur : Double : sa valeur
 	 * @return MassesCroyances correspondant � la fusion des crit�res
 	 */
@@ -114,10 +113,11 @@ public class EvidenceTheory {
 	}
 
 	/**
-	 * Fonction qui permet de d�finir le meilleur candidat
+	 * Fonction qui permet de d�finir le meilleur candidat.
 	 *
-	 * @param criteres
-	 *            : Ensemble de CritereFonctionsCroyances (les crit�res pour cette m�thode)
+	 * @param criteres            : Ensemble de CritereFonctionsCroyances (les crit�res pour cette m�thode)
+	 * @param cands the cands
+	 * @param simple the simple
 	 * @return le meilleur candidat
 	 */
 	public Candidate decision(final LinkedList<CritereFonctionsCroyances> criteres, final LinkedList<Candidate> cands,
@@ -144,12 +144,10 @@ public class EvidenceTheory {
 	}
 
 	/**
-	 * Fonction de choix d'un candidat
+	 * Fonction de choix d'un candidat.
 	 *
-	 * @param propositions
-	 *            : l'ensemble des propositions possibles ainsi que leur masse de croyance associ�
-	 * @param candidates
-	 *            : l'ensemble des candidats possibles
+	 * @param propositions            : l'ensemble des propositions possibles ainsi que leur masse de croyance associ�
+	 * @param candidates            : l'ensemble des candidats possibles
 	 * @return le meilleur candidat
 	 */
 	private Candidate choixCandidat(final Propositions propositions, final LinkedList<Candidate> candidates) {
@@ -168,6 +166,13 @@ public class EvidenceTheory {
 		return bestCand;
 	}
 
+	/**
+	 * Proba pignistic.
+	 *
+	 * @param cand the cand
+	 * @param propositions the propositions
+	 * @return the double
+	 */
 	private/**
 			 * Calcul la probabilit� pignistic qu'un candidat soit le bon
 			 *
@@ -204,24 +209,31 @@ public class EvidenceTheory {
 
 		// masse de croyance repr�sentant le fait qu'un crit�re (source) ou un ensemble de
 		// crit�res
+		/** The pour. */
 		// pense qu'il faut apparier le jeu de K courant avec l'intervalle
 		double pour;
 		// masse de croyance repr�sentant le fait qu'un crit�re (source) ou un ensemble de
 		// crit�res
+		/** The contre. */
 		// pense qu'il ne faut pas apparier le jeu de K courant avec l'intervalle
 		double contre;
 		// masse de croyance repr�sentant le fait qu'un crit�re (source) ou un ensemble de
 		// crit�res
+		/** The ignorance. */
 		// ne sait pas s'il faut apparier le jeu de K courant avec l'intervalle
 		double ignorance;
+		
+		/** The conflit. */
 		// masse de croyance repr�sentant le conflit
 		double conflit;
 
 		/**
-		 * @param pour
-		 * @param contre
-		 * @param ignorance
-		 * @param conflit
+		 * Instantiates a new masses croyances.
+		 *
+		 * @param pour the pour
+		 * @param contre the contre
+		 * @param ignorance the ignorance
+		 * @param conflit the conflit
 		 */
 		public MassesCroyances(final double pour, final double contre, final double ignorance, final double conflit) {
 			super();
@@ -232,7 +244,7 @@ public class EvidenceTheory {
 		}
 
 		/**
-		 * Constructeur basique
+		 * Constructeur basique.
 		 */
 		public MassesCroyances() {}
 
@@ -242,44 +254,68 @@ public class EvidenceTheory {
 					+ conflit;
 		}
 
+		/**
+		 * Sets the contre.
+		 *
+		 * @param contre the new contre
+		 */
 		public void setContre(final double contre) {
 			this.contre = contre;
 		}
 
+		/**
+		 * Sets the ignorance.
+		 *
+		 * @param ignorance the new ignorance
+		 */
 		public void setIgnorance(final double ignorance) {
 			this.ignorance = ignorance;
 		}
 
+		/**
+		 * Sets the pour.
+		 *
+		 * @param pour the new pour
+		 */
 		public void setPour(final double pour) {
 			this.pour = pour;
 		}
 
+		/**
+		 * Sets the conflit.
+		 *
+		 * @param conflit the new conflit
+		 */
 		public void setConflit(final double conflit) {
 			this.conflit = conflit;
 		}
 	}
 
 	/**
-	 * Classe repr�sentant une proposition (genre : il faut apparier le jeu de K courant avec cet intervalle)
+	 * Classe repr�sentant une proposition (genre : il faut apparier le jeu de K courant avec cet intervalle).
 	 *
 	 * @author PTaillandier
-	 *
 	 */
 	private class Proposition {
 
 		// Ensemble de Candidate : les hypoth�ses repr�sente les candidats
 		// une proposition peut avoir comme hypoth�se {bon, moyen}, c'est � dire que le jeu de K
+		/** The hypothese. */
 		// courant est pour cette proposition soit bon, soit mauvais
 		final LinkedList<Candidate> hypothese;
+		
+		/** The masse croyance. */
 		// valeur de la masse de croyance associ�e � cette proposition
 		double masseCroyance;
 
+		/** The id. */
 		final int id;
 
 		/**
-		 * @param hypothese
-		 *            : ensemble de String
-		 * @param masseCroyance
+		 * Instantiates a new proposition.
+		 *
+		 * @param hypothese            : ensemble de String
+		 * @param masseCroyance the masse croyance
 		 */
 		public Proposition(final LinkedList<Candidate> hypothese, final double masseCroyance) {
 			super();
@@ -298,10 +334,20 @@ public class EvidenceTheory {
 			return this.hypothese.toString() + " : " + masseCroyance;
 		}
 
+		/**
+		 * Gets the masse croyance.
+		 *
+		 * @return the masse croyance
+		 */
 		public double getMasseCroyance() {
 			return masseCroyance;
 		}
 
+		/**
+		 * Gets the hypothese.
+		 *
+		 * @return the hypothese
+		 */
 		public LinkedList<Candidate> getHypothese() {
 			return hypothese;
 		}
@@ -326,6 +372,11 @@ public class EvidenceTheory {
 			return true;
 		}
 
+		/**
+		 * Gets the outer type.
+		 *
+		 * @return the outer type
+		 */
 		private EvidenceTheory getOuterType() {
 			return EvidenceTheory.this;
 		}
@@ -333,22 +384,23 @@ public class EvidenceTheory {
 	}
 
 	/**
-	 * Classe qui repr�sente un ensemble de propositions
+	 * Classe qui repr�sente un ensemble de propositions.
 	 *
 	 * @author PTaillandier
-	 *
 	 */
 	private class Propositions {
 
+		/** The propositions. */
 		// L'ensemble des Proposition
 		LinkedList<Proposition> propositions;
+		
+		/** The coeff norm. */
 		private double coeffNorm;
 
 		/**
-		 * Constructeur qui va permettre la fusion des hypoth�ses et fournir l'ensemble des propositions apr�s fusion
+		 * Constructeur qui va permettre la fusion des hypoth�ses et fournir l'ensemble des propositions apr�s fusion.
 		 *
-		 * @param candidats
-		 *            : dictionnaire des diff�rents candidats possibles : Clef : Candidat -> Valeur : MassesCroyances
+		 * @param candidats            : dictionnaire des diff�rents candidats possibles : Clef : Candidat -> Valeur : MassesCroyances
 		 *            associ�es au candidat
 		 */
 		public Propositions(final Map<Candidate, MassesCroyances> candidats) {
@@ -357,12 +409,24 @@ public class EvidenceTheory {
 			init(candidats, false);
 		}
 
+		/**
+		 * Instantiates a new propositions.
+		 *
+		 * @param candidats the candidats
+		 * @param simple the simple
+		 */
 		public Propositions(final Map<Candidate, MassesCroyances> candidats, final boolean simple) {
 			this.propositions = new LinkedList<>();
 			coeffNorm = 1;
 			init(candidats, simple);
 		}
 
+		/**
+		 * Inits the.
+		 *
+		 * @param candidats the candidats
+		 * @param simple the simple
+		 */
 		private void init(final Map<Candidate, MassesCroyances> candidats, final boolean simple) {
 			for (final Candidate cand : candidats.keySet()) {
 				final MassesCroyances mc1 = candidats.get(cand);
@@ -430,13 +494,11 @@ public class EvidenceTheory {
 		}
 
 		/**
-		 * M�thode qui permet d'ajouter une proposition � un dictionnaire de propositions
+		 * M�thode qui permet d'ajouter une proposition � un dictionnaire de propositions.
 		 *
-		 * @param propositionsTmp
-		 *            : dictionnaire de propositions : Clef : String : le nom de la proposition -> Valeur : Proposition
+		 * @param propositionsTmp            : dictionnaire de propositions : Clef : String : le nom de la proposition -> Valeur : Proposition
 		 *            : proposition correspondante
-		 * @param propFus
-		 *            : la nouvelle proposition
+		 * @param propFus            : la nouvelle proposition
 		 */
 		public void ajouteProposition(final Map<Integer, Proposition> propositionsTmp, final Proposition propFus) {
 			// s'il y a d�j� une proposition similaire (avec le m�me nom) dans le dictionnaire
@@ -452,10 +514,10 @@ public class EvidenceTheory {
 		}
 
 		/**
-		 * M�thode qui permet de fusionner deux propositions
+		 * M�thode qui permet de fusionner deux propositions.
 		 *
-		 * @param prop1
-		 * @param prop2
+		 * @param prop1 the prop 1
+		 * @param prop2 the prop 2
 		 * @return la proposition fusionn�
 		 */
 		public Proposition fusionPropositions(final Proposition prop1, final Proposition prop2) {
@@ -475,14 +537,11 @@ public class EvidenceTheory {
 		}
 
 		/**
-		 * Initialisation de l'ensemble de propositions � partir d'un candidat (d'une hypoth�se)
+		 * Initialisation de l'ensemble de propositions � partir d'un candidat (d'une hypoth�se).
 		 *
-		 * @param cand
-		 *            : un candidat (une hypoth�se)
-		 * @param mc1
-		 *            : les masses de croyance associ�es � cette hypoth�se
-		 * @param candidats
-		 *            : dictionnaire des diff�rents candidats possibles : Clef : Intervalle -> Valeur : MassesCroyances
+		 * @param cand            : un candidat (une hypoth�se)
+		 * @param mc1            : les masses de croyance associ�es � cette hypoth�se
+		 * @param candidats            : dictionnaire des diff�rents candidats possibles : Clef : Intervalle -> Valeur : MassesCroyances
 		 *            associ�es � l'intervalle
 		 */
 		public void initPropositions(final Candidate cand, final MassesCroyances mc1,
@@ -517,6 +576,9 @@ public class EvidenceTheory {
 			propositions.add(propConflit);
 		}
 
+		/**
+		 * Compute coeff norm.
+		 */
 		public void computeCoeffNorm() {
 			for (final Proposition prop : propositions) {
 				if (prop.hypothese.isEmpty()) {
@@ -526,6 +588,11 @@ public class EvidenceTheory {
 			}
 		}
 
+		/**
+		 * Gets the coeff norm.
+		 *
+		 * @return the coeff norm
+		 */
 		public double getCoeffNorm() {
 			return coeffNorm;
 		}

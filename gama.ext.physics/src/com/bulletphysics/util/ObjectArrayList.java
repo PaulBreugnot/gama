@@ -1,25 +1,13 @@
-/*
- * Java port of Bullet (c) 2008 Martin Dvorak <jezek2@advel.cz>
+/*******************************************************************************************************
  *
- * Bullet Continuous Collision Detection and Physics Library
- * Copyright (c) 2003-2008 Erwin Coumans  http://www.bulletphysics.com/
+ * ObjectArrayList.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * This software is provided 'as-is', without any express or implied warranty.
- * In no event will the authors be held liable for any damages arising from
- * the use of this software.
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * Permission is granted to anyone to use this software for any purpose, 
- * including commercial applications, and to alter it and redistribute it
- * freely, subject to the following restrictions:
- * 
- * 1. The origin of this software must not be misrepresented; you must not
- *    claim that you wrote the original software. If you use this software
- *    in a product, an acknowledgment in the product documentation would be
- *    appreciated but is not required.
- * 2. Altered source versions must be plainly marked as such, and must not be
- *    misrepresented as being the original software.
- * 3. This notice may not be removed or altered from any source distribution.
- */
+ ********************************************************************************************************/
 
 package com.bulletphysics.util;
 
@@ -31,18 +19,31 @@ import java.util.AbstractList;
 import java.util.RandomAccess;
 
 /**
+ * The Class ObjectArrayList.
  *
  * @author jezek2
+ * @param <T> the generic type
  */
 public final class ObjectArrayList<T> extends AbstractList<T> implements RandomAccess, Externalizable {
 
+	/** The array. */
 	private T[] array;
+	
+	/** The size. */
 	private int size;
 
+	/**
+	 * Instantiates a new object array list.
+	 */
 	public ObjectArrayList() {
 		this(16);
 	}
 	
+	/**
+	 * Instantiates a new object array list.
+	 *
+	 * @param initialCapacity the initial capacity
+	 */
 	@SuppressWarnings("unchecked")
 	public ObjectArrayList(int initialCapacity) {
 		array = (T[])new Object[initialCapacity];
@@ -83,6 +84,9 @@ public final class ObjectArrayList<T> extends AbstractList<T> implements RandomA
 		return prev;
     }
 	
+	/**
+	 * Expand.
+	 */
 	@SuppressWarnings("unchecked")
 	private void expand() {
 		T[] newArray = (T[])new Object[array.length << 1];
@@ -90,6 +94,11 @@ public final class ObjectArrayList<T> extends AbstractList<T> implements RandomA
 		array = newArray;
 	}
 
+	/**
+	 * Removes the quick.
+	 *
+	 * @param index the index
+	 */
 	public void removeQuick(int index) {
 		System.arraycopy(array, index+1, array, index, size - index - 1);
 		array[size-1] = null;
@@ -101,6 +110,12 @@ public final class ObjectArrayList<T> extends AbstractList<T> implements RandomA
 		return array[index];
 	}
 
+	/**
+	 * Gets the quick.
+	 *
+	 * @param index the index
+	 * @return the quick
+	 */
 	public T getQuick(int index) {
 		return array[index];
 	}
@@ -113,6 +128,12 @@ public final class ObjectArrayList<T> extends AbstractList<T> implements RandomA
 		return old;
 	}
 
+	/**
+	 * Sets the quick.
+	 *
+	 * @param index the index
+	 * @param value the value
+	 */
 	public void setQuick(int index, T value) {
 		array[index] = value;
 	}
@@ -121,6 +142,11 @@ public final class ObjectArrayList<T> extends AbstractList<T> implements RandomA
 		return size;
 	}
 	
+	/**
+	 * Capacity.
+	 *
+	 * @return the int
+	 */
 	public int capacity() {
 		return array.length;
 	}

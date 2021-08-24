@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.statements.AbstractContainerStatement.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * AbstractContainerStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.statements;
 
@@ -34,15 +34,17 @@ import gaml.types.IType;
 import gaml.types.Types;
 
 /**
- * Written by drogoul Modified on 24 ao�t 2010
+ * Written by drogoul Modified on 24 ao�t 2010.
  *
  * @todo Description
- *
  */
 @validator (ContainerValidator.class)
 @SuppressWarnings ({ "rawtypes" })
 public abstract class AbstractContainerStatement extends AbstractStatement {
 
+	/**
+	 * The Class ContainerValidator.
+	 */
 	public static class ContainerValidator implements IDescriptionValidator {
 
 		/**
@@ -156,10 +158,11 @@ public abstract class AbstractContainerStatement extends AbstractStatement {
 		}
 
 		/**
-		 * @param list
-		 * @param item
-		 * @param index
-		 * @param whole
+		 * Validate index and content types.
+		 *
+		 * @param keyword the keyword
+		 * @param cd the cd
+		 * @param all the all
 		 */
 		public void validateIndexAndContentTypes(final String keyword, final IDescription cd, final boolean all) {
 			final IExpression item = cd.getFacetExpr(ITEM);
@@ -225,9 +228,13 @@ public abstract class AbstractContainerStatement extends AbstractStatement {
 		}
 	}
 
+	/** The all. */
 	protected IExpression item, index, list, all;
+	
+	/** The as all indexes. */
 	final boolean asAll, asAllValues, asAllIndexes;
 	// Identifies whether or not the container is directly modified by the
+	/** The is graph. */
 	// statement or if it is a shape or an agent
 	final boolean isDirect, isGraph;
 
@@ -237,6 +244,11 @@ public abstract class AbstractContainerStatement extends AbstractStatement {
 	// private static final IType attributesType = Types.MAP.of(Types.STRING,
 	// Types.NO_TYPE);
 
+	/**
+	 * Instantiates a new abstract container statement.
+	 *
+	 * @param desc the desc
+	 */
 	public AbstractContainerStatement(final IDescription desc) {
 		super(desc);
 
@@ -272,6 +284,13 @@ public abstract class AbstractContainerStatement extends AbstractStatement {
 
 	}
 
+	/**
+	 * Identify value.
+	 *
+	 * @param scope the scope
+	 * @param container the container
+	 * @return the object
+	 */
 	protected Object identifyValue(final IScope scope, final IContainer.Modifiable container) {
 		if (item == null) return null;
 		// For the moment, only graphs need to recompute their objects
@@ -281,25 +300,49 @@ public abstract class AbstractContainerStatement extends AbstractStatement {
 		return item.value(scope);
 	}
 
+	/**
+	 * Identify index.
+	 *
+	 * @param scope the scope
+	 * @param container the container
+	 * @return the object
+	 */
 	protected Object identifyIndex(final IScope scope, final IContainer.Modifiable container) {
 		if (index == null) return null;
 		if (isGraph) return buildIndex(scope, (IGraph) container);
 		return index.value(scope);
 	}
 
+	/**
+	 * Builds the value.
+	 *
+	 * @param scope the scope
+	 * @param container the container
+	 * @return the object
+	 */
 	protected Object buildValue(final IScope scope, final IGraph container) {
 		if (asAllValues) return container.buildValues(scope, (IContainer) this.item.value(scope));
 		return container.buildValue(scope, this.item.value(scope));
 	}
 
+	/**
+	 * Builds the index.
+	 *
+	 * @param scope the scope
+	 * @param container the container
+	 * @return the object
+	 */
 	protected Object buildIndex(final IScope scope, final IGraph container) {
 		if (asAllIndexes) return container.buildIndexes(scope, (IContainer) this.index.value(scope));
 		return container.buildIndex(scope, this.index.value(scope));
 	}
 
 	/**
-	 * @throws GamaRuntimeException
+	 * Identify container.
+	 *
+	 * @param scope the scope
 	 * @return the container to which this command will be applied
+	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 	private IContainer.Modifiable identifyContainer(final IScope scope) throws GamaRuntimeException {
 		final Object cont = list.value(scope);
@@ -310,13 +353,13 @@ public abstract class AbstractContainerStatement extends AbstractStatement {
 	}
 
 	/**
-	 * Method to add, remove or put one individual item
+	 * Method to add, remove or put one individual item.
 	 *
-	 * @param scope
-	 * @param object
-	 * @param position
-	 * @param container
-	 * @throws GamaRuntimeException
+	 * @param scope the scope
+	 * @param object the object
+	 * @param position the position
+	 * @param container the container
+	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 	protected abstract void apply(IScope scope, Object object, Object position, IContainer.Modifiable container)
 			throws GamaRuntimeException;

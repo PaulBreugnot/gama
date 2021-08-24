@@ -1,10 +1,13 @@
-/*******************************************************************************
- * Copyright (c) 2006 IBM Corporation and others. All rights reserved. This program and the accompanying materials are
- * made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is
- * available at http://www.eclipse.org/legal/epl-v10.html
+/*******************************************************************************************************
  *
- * Contributors: IBM Corporation - initial API and implementation
- *******************************************************************************/
+ * ShowLocalHistory.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator.actions;
 
 import java.lang.reflect.InvocationTargetException;
@@ -33,15 +36,27 @@ import org.eclipse.ui.actions.WorkspaceAction;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.navigator.contents.ResourceManager;
 
+/**
+ * The Class ShowLocalHistory.
+ */
 public class ShowLocalHistory extends WorkspaceAction {
 
+	/** The is file. */
 	boolean isFile;
+	
+	/** The project action. */
 	AddFromHistoryAction projectAction = new AddFromHistoryAction();
 
+	/**
+	 * Instantiates a new show local history.
+	 *
+	 * @param provider the provider
+	 */
 	protected ShowLocalHistory(final IShellProvider provider) {
 		super(provider, "Local history...");
 	}
 
+	/** The selection. */
 	private IStructuredSelection fSelection;
 
 	@Override
@@ -83,14 +98,29 @@ public class ShowLocalHistory extends WorkspaceAction {
 		return true;
 	}
 
+	/**
+	 * Checks if is compare.
+	 *
+	 * @return true, if is compare
+	 */
 	protected boolean isCompare() {
 		return false;
 	}
 
+	/**
+	 * Gets the selection.
+	 *
+	 * @return the selection
+	 */
 	public IStructuredSelection getSelection() {
 		return fSelection;
 	}
 
+	/**
+	 * Gets the local history.
+	 *
+	 * @return the local history
+	 */
 	protected IFileState[] getLocalHistory() {
 		final IFile file = ResourceManager.getFile(getSelection().getFirstElement());
 		IFileState states[] = null;
@@ -108,6 +138,11 @@ public class ShowLocalHistory extends WorkspaceAction {
 		return states;
 	}
 
+	/**
+	 * Gets the prompt title.
+	 *
+	 * @return the prompt title
+	 */
 	protected String getPromptTitle() {
 		return TeamUIMessages.ShowLocalHistory_2;
 	}

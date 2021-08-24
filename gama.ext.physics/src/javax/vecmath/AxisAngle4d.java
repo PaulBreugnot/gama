@@ -1,22 +1,13 @@
-/*
- * Copyright 1997-2008 Sun Microsystems, Inc. All Rights Reserved. DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE
- * HEADER.
+/*******************************************************************************************************
  *
- * This code is free software; you can redistribute it and/or modify it under the terms of the GNU General Public
- * License version 2 only, as published by the Free Software Foundation. Sun designates this particular file as subject
- * to the "Classpath" exception as provided by Sun in the LICENSE file that accompanied this code.
+ * AxisAngle4d.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License version 2 for
- * more details (a copy is included in the LICENSE file that accompanied this code).
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * You should have received a copy of the GNU General Public License version 2 along with this work; if not, write to
- * the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
- *
- * Please contact Sun Microsystems, Inc., 4150 Network Circle, Santa Clara, CA 95054 USA or visit www.sun.com if you
- * need additional information or have any questions.
- *
- */
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package javax.vecmath;
 
@@ -27,6 +18,7 @@ package javax.vecmath;
  */
 public class AxisAngle4d implements java.io.Serializable, Cloneable {
 
+	/** The Constant serialVersionUID. */
 	// Compatible with 1.1
 	static final long serialVersionUID = 3644296204459140589L;
 
@@ -50,6 +42,7 @@ public class AxisAngle4d implements java.io.Serializable, Cloneable {
 	 */
 	public double angle;
 
+	/** The Constant EPS. */
 	// Fixed to issue 538
 	final static double EPS = 1.0e-12;
 
@@ -471,10 +464,9 @@ public class AxisAngle4d implements java.io.Serializable, Cloneable {
 	 * epsilon parameter, otherwise returns false. The L-infinite distance is equal to MAX[abs(x1-x2), abs(y1-y2),
 	 * abs(z1-z2), abs(angle1-angle2)].
 	 *
-	 * @param a1
-	 *            the axis-angle to be compared to this axis-angle
-	 * @param epsilon
-	 *            the threshold value
+	 * @param a1            the axis-angle to be compared to this axis-angle
+	 * @param epsilon            the threshold value
+	 * @return true, if successful
 	 */
 	public boolean epsilonEquals(final AxisAngle4d a1, final double epsilon) {
 		double diff;

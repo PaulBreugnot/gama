@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ItemIconState.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -29,28 +39,57 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum ItemIconState {
 
+    /** The open. */
     @XmlEnumValue("open")
     OPEN("open"),
+    
+    /** The closed. */
     @XmlEnumValue("closed")
     CLOSED("closed"),
+    
+    /** The error. */
     @XmlEnumValue("error")
     ERROR("error"),
+    
+    /** The fetching 0. */
     @XmlEnumValue("fetching0")
     FETCHING_0("fetching0"),
+    
+    /** The fetching 1. */
     @XmlEnumValue("fetching1")
     FETCHING_1("fetching1"),
+    
+    /** The fetching 2. */
     @XmlEnumValue("fetching2")
     FETCHING_2("fetching2");
+    
+    /** The value. */
     private final String value;
 
+    /**
+     * Instantiates a new item icon state.
+     *
+     * @param v the v
+     */
     ItemIconState(String v) {
         value = v;
     }
 
+    /**
+     * Value.
+     *
+     * @return the string
+     */
     public String value() {
         return value;
     }
 
+    /**
+     * From value.
+     *
+     * @param v the v
+     * @return the item icon state
+     */
     public static ItemIconState fromValue(String v) {
         for (ItemIconState c: ItemIconState.values()) {
             if (c.value.equals(v)) {

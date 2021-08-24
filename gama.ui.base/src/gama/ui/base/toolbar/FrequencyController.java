@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'FrequencyController.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * FrequencyController.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.toolbar;
 
 import org.eclipse.swt.SWT;
@@ -30,21 +29,45 @@ import gama.ui.base.toolbar.IToolbarDecoratedView.StateListener;
  */
 public class FrequencyController implements StateListener {
 
+	/** The view. */
 	final IToolbarDecoratedView.Pausable view;
+	
+	/** The pause item. */
 	ToolItem pauseItem;
+	
+	/** The sync item. */
 	ToolItem syncItem;
+	
+	/** The internal change. */
 	boolean internalChange;
 
+	/**
+	 * Instantiates a new frequency controller.
+	 *
+	 * @param view the view
+	 */
 	public FrequencyController(final IToolbarDecoratedView.Pausable view) {
 		this.view = view;
 		view.addStateListener(this);
 	}
 
+	/**
+	 * Toggle pause.
+	 *
+	 * @param item the item
+	 * @param out the out
+	 */
 	void togglePause(final ToolItem item, final IOutput out) {
 		if (out != null) { item.setToolTipText((out.isPaused() ? "Resume " : "Pause ") + out.getName()); }
 		view.pauseChanged();
 	}
 
+	/**
+	 * Toggle sync.
+	 *
+	 * @param item the item
+	 * @param out the out
+	 */
 	void toggleSync(final ToolItem item, final IDisplayOutput out) {
 		if (out != null) {
 			item.setToolTipText((out.isSynchronized() ? "Desynchronize " : "Synchronize ") + out.getName());
@@ -53,7 +76,9 @@ public class FrequencyController implements StateListener {
 	}
 
 	/**
-	 * @param tb
+	 * Install.
+	 *
+	 * @param tb the tb
 	 */
 	public void install(final GamaToolbar2 tb) {
 
@@ -62,6 +87,12 @@ public class FrequencyController implements StateListener {
 		tb.sep(GamaToolbarFactory.TOOLBAR_SEP, SWT.RIGHT);
 	}
 
+	/**
+	 * Creates the synchronize item.
+	 *
+	 * @param tb the tb
+	 * @return the tool item
+	 */
 	protected ToolItem createSynchronizeItem(final GamaToolbar2 tb) {
 		syncItem = tb.check(IGamaIcons.DISPLAY_TOOLBAR_SYNC, "Synchronize with simulation", "Synchronize", e -> {
 			final IDisplayOutput output = view.getOutput();
@@ -80,7 +111,9 @@ public class FrequencyController implements StateListener {
 	}
 
 	/**
-	 * @param tb
+	 * Creates the pause item.
+	 *
+	 * @param tb the tb
 	 */
 	private void createPauseItem(final GamaToolbar2 tb) {
 

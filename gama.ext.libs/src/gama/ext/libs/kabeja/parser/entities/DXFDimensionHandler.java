@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * DXFDimensionHandler.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.parser.entities;
 
 import gama.ext.libs.kabeja.dxf.DXFDimension;
@@ -21,42 +16,109 @@ import gama.ext.libs.kabeja.parser.DXFValue;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth</a>
+ * The Class DXFDimensionHandler.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth</a>
  */
 public class DXFDimensionHandler extends AbstractEntityHandler {
+    
+    /** The Constant GROUPCODE_REFERENCE_POINT_X. */
     protected final static int GROUPCODE_REFERENCE_POINT_X = 10;
+    
+    /** The Constant GROUPCODE_REFERENCE_POINT_Y. */
     protected final static int GROUPCODE_REFERENCE_POINT_Y = 20;
+    
+    /** The Constant GROUPCODE_REFERENCE_POINT_Z. */
     protected final static int GROUPCODE_REFERENCE_POINT_Z = 30;
+    
+    /** The Constant GROUPCODE_TEXT_POINT_X. */
     protected final static int GROUPCODE_TEXT_POINT_X = 11;
+    
+    /** The Constant GROUPCODE_TEXT_POINT_Y. */
     protected final static int GROUPCODE_TEXT_POINT_Y = 21;
+    
+    /** The Constant GROUPCODE_TEXT_POINT_Z. */
     protected final static int GROUPCODE_TEXT_POINT_Z = 31;
+    
+    /** The Constant GROUPCODE_INSERT_POINT_X. */
     protected final static int GROUPCODE_INSERT_POINT_X = 12;
+    
+    /** The Constant GROUPCODE_INSERT_POINT_Y. */
     protected final static int GROUPCODE_INSERT_POINT_Y = 22;
+    
+    /** The Constant GROUPCODE_INSERT_POINT_Z. */
     protected final static int GROUPCODE_INSERT_POINT_Z = 32;
+    
+    /** The Constant GROUPCODE_REFERENCE_POINT3_X. */
     protected final static int GROUPCODE_REFERENCE_POINT3_X = 13;
+    
+    /** The Constant GROUPCODE_REFERENCE_POINT3_Y. */
     protected final static int GROUPCODE_REFERENCE_POINT3_Y = 23;
+    
+    /** The Constant GROUPCODE_REFERENCE_POINT3_Z. */
     protected final static int GROUPCODE_REFERENCE_POINT3_Z = 33;
+    
+    /** The Constant GROUPCODE_REFERENCE_POINT4_X. */
     protected final static int GROUPCODE_REFERENCE_POINT4_X = 14;
+    
+    /** The Constant GROUPCODE_REFERENCE_POINT4_Y. */
     protected final static int GROUPCODE_REFERENCE_POINT4_Y = 24;
+    
+    /** The Constant GROUPCODE_REFERENCE_POINT4_Z. */
     protected final static int GROUPCODE_REFERENCE_POINT4_Z = 34;
+    
+    /** The Constant GROUPCODE_REFERENCE_POINT5_X. */
     protected final static int GROUPCODE_REFERENCE_POINT5_X = 15;
+    
+    /** The Constant GROUPCODE_REFERENCE_POINT5_Y. */
     protected final static int GROUPCODE_REFERENCE_POINT5_Y = 25;
+    
+    /** The Constant GROUPCODE_REFERENCE_POINT5_Z. */
     protected final static int GROUPCODE_REFERENCE_POINT5_Z = 35;
+    
+    /** The Constant GROUPCODE_REFERENCE_POINT6_X. */
     protected final static int GROUPCODE_REFERENCE_POINT6_X = 16;
+    
+    /** The Constant GROUPCODE_REFERENCE_POINT6_Y. */
     protected final static int GROUPCODE_REFERENCE_POINT6_Y = 26;
+    
+    /** The Constant GROUPCODE_REFERENCE_POINT6_Z. */
     protected final static int GROUPCODE_REFERENCE_POINT6_Z = 36;
+    
+    /** The Constant GROUPCODE_DIMENSION_STYLE. */
     protected final static int GROUPCODE_DIMENSION_STYLE = 3;
+    
+    /** The Constant GROUPCODE_DIMENSION_BLOCK. */
     protected final static int GROUPCODE_DIMENSION_BLOCK = 2;
+    
+    /** The Constant GROUPCODE_DIMENSION_AREA. */
     protected final static int GROUPCODE_DIMENSION_AREA = 67;
+    
+    /** The Constant GROUPCODE_DIMENSION_TEXT. */
     protected final static int GROUPCODE_DIMENSION_TEXT = 1;
+    
+    /** The Constant GROUPCODE_LEADINGLINE_LENGTH. */
     protected final static int GROUPCODE_LEADINGLINE_LENGTH = 40;
+    
+    /** The Constant GROUPCODE_DIMENSION_ROTATE. */
     protected final static int GROUPCODE_DIMENSION_ROTATE = 50;
+    
+    /** The Constant GROUPCODE_HORIZONTAL_ALIGNMENT. */
     protected final static int GROUPCODE_HORIZONTAL_ALIGNMENT = 51;
+    
+    /** The Constant GROUPCODE_INCLINATION_HELPLINE. */
     protected final static int GROUPCODE_INCLINATION_HELPLINE = 52;
+    
+    /** The Constant GROUPCODE_TEXT_ROTATION. */
     protected final static int GROUPCODE_TEXT_ROTATION = 53;
+    
+    /** The Constant GROUPCODE_DIMENSION_TYPE. */
     protected final static int GROUPCODE_DIMENSION_TYPE = 70;
+    
+    /** The entity name. */
     protected String ENTITY_NAME = "DIMENSION";
+    
+    /** The dimension. */
     protected DXFDimension dimension;
 
     public void endDXFEntity() {

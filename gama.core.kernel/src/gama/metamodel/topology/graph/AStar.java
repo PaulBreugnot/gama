@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.metamodel.topology.graph.AStar.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * AStar.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.metamodel.topology.graph;
 
@@ -27,46 +27,101 @@ import gama.util.graph._Edge;
 import gama.util.graph._Vertex;
 import gaml.types.Types;
 
+/**
+ * The Class AStar.
+ *
+ * @param <V> the value type
+ * @param <E> the element type
+ */
 public class AStar<V, E> {
 
+	/** The graph. */
 	protected GamaGraph<V, E> graph;
+	
+	/** The source. */
 	protected V source;
+	
+	/** The target. */
 	protected V target;
+	
+	/** The open map. */
 	protected Map<V, ASNode> openMap = GamaMapFactory.create();
+	
+	/** The closed map. */
 	protected Map<V, ASNode> closedMap = GamaMapFactory.create();
 
+	/** The result. */
 	protected List<E> result;
+	
+	/** The is spatial graph. */
 	protected boolean isSpatialGraph;
+	
+	/** The is path found. */
 	protected boolean isPathFound = false;
 
+	/**
+	 * Instantiates a new a star.
+	 */
 	public AStar() {}
 
+	/**
+	 * Instantiates a new a star.
+	 *
+	 * @param graph the graph
+	 */
 	public AStar(final GamaGraph<V, E> graph) {
 		init(graph);
 	}
 
+	/**
+	 * Instantiates a new a star.
+	 *
+	 * @param graph the graph
+	 * @param src the src
+	 * @param trg the trg
+	 */
 	public AStar(final GamaGraph<V, E> graph, final V src, final V trg) {
 		this(graph);
 		setSource(src);
 		setTarget(trg);
 	}
 
+	/**
+	 * Sets the source.
+	 *
+	 * @param node the new source
+	 */
 	public void setSource(final V node) {
 		cleanAll();
 		source = node;
 	}
 
+	/**
+	 * Sets the target.
+	 *
+	 * @param node the new target
+	 */
 	public void setTarget(final V node) {
 		cleanAll();
 		target = node;
 	}
 
+	/**
+	 * Inits the.
+	 *
+	 * @param graph the graph
+	 */
 	public void init(final GamaGraph<V, E> graph) {
 		cleanAll();
 		this.graph = graph;
 		isSpatialGraph = graph instanceof GamaSpatialGraph;
 	}
 
+	/**
+	 * Compute.
+	 *
+	 * @return the i list
+	 */
 	public IList<E> compute() {
 		if (source != null && target != null) {
 			aStar(source, target);
@@ -78,6 +133,12 @@ public class AStar<V, E> {
 		
 	}
 
+	/**
+	 * Builds the path.
+	 *
+	 * @param target the target
+	 * @return the i list
+	 */
 	public IList<E> buildPath(final ASNode target) {
 		try (final Collector.AsList<E> path = Collector.getList();
 
@@ -104,6 +165,9 @@ public class AStar<V, E> {
 		}
 	}
 
+	/**
+	 * Clean all.
+	 */
 	protected void cleanAll() {
 		openMap.clear();
 		closedMap.clear();
@@ -112,6 +176,12 @@ public class AStar<V, E> {
 		isPathFound = false;
 	}
 
+	/**
+	 * A star.
+	 *
+	 * @param sourceNode the source node
+	 * @param targetNode the target node
+	 */
 	@SuppressWarnings ("unchecked")
 	protected void aStar(final V sourceNode, final V targetNode) {
 		cleanAll();
@@ -155,6 +225,13 @@ public class AStar<V, E> {
 		}
 	}
 
+	/**
+	 * Heuristic.
+	 *
+	 * @param node1 the node 1
+	 * @param node2 the node 2
+	 * @return the double
+	 */
 	protected double heuristic(final Object node1, final Object node2) {
 		if (isSpatialGraph) {
 			final GamaPoint pt1 = ((IShape) node1).getLocation();
@@ -165,6 +242,11 @@ public class AStar<V, E> {
 		return 0;
 	}
 
+	/**
+	 * Gets the next better node.
+	 *
+	 * @return the next better node
+	 */
 	protected ASNode getNextBetterNode() {
 		double min = Float.MAX_VALUE;
 		ASNode theChosenOne = null;
@@ -179,16 +261,36 @@ public class AStar<V, E> {
 		return theChosenOne;
 	}
 
+	/**
+	 * The Class ASNode.
+	 */
 	protected class ASNode {
 
+		/** The node. */
 		public V node;
+		
+		/** The parent. */
 		public ASNode parent;
+		
+		/** The edge. */
 		public E edge;
+		
+		/** The g. */
 		public double g;
 		// public double h;
 
+		/** The rank. */
 		public double rank;
 
+		/**
+		 * Instantiates a new AS node.
+		 *
+		 * @param node the node
+		 * @param edge the edge
+		 * @param parent the parent
+		 * @param g the g
+		 * @param h the h
+		 */
 		public ASNode(final V node, final E edge, final ASNode parent, final double g, final double h) {
 			this.node = node;
 			this.edge = edge;

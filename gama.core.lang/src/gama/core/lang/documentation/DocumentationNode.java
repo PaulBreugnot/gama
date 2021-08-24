@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'DocumentationNode.java, in plugin msi.gama.lang.gaml, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * DocumentationNode.java, in gama.core.lang, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.core.lang.documentation;
 
 import java.io.ByteArrayInputStream;
@@ -21,8 +20,18 @@ import java.util.zip.InflaterInputStream;
 
 import gama.common.interfaces.IGamlDescription;
 
+/**
+ * The Class DocumentationNode.
+ */
 public class DocumentationNode implements IGamlDescription {
 
+	/**
+	 * Compress.
+	 *
+	 * @param text the text
+	 * @return the byte[]
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static byte[] compress(final String text) throws IOException {
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try (final OutputStream out = new DeflaterOutputStream(baos, true);) {
@@ -31,6 +40,13 @@ public class DocumentationNode implements IGamlDescription {
 		return baos.toByteArray();
 	}
 
+	/**
+	 * Decompress.
+	 *
+	 * @param bytes the bytes
+	 * @return the string
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static String decompress(final byte[] bytes) throws IOException {
 		final InputStream in = new InflaterInputStream(new ByteArrayInputStream(bytes));
 		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -42,9 +58,18 @@ public class DocumentationNode implements IGamlDescription {
 		return new String(baos.toByteArray(), "ISO-8859-1");
 	}
 
+	/** The title. */
 	final byte[] title;
+	
+	/** The doc. */
 	final byte[] doc;
 
+	/**
+	 * Instantiates a new documentation node.
+	 *
+	 * @param desc the desc
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	DocumentationNode(final IGamlDescription desc) throws IOException {
 
 		final String plugin = desc.getDefiningPlugin();

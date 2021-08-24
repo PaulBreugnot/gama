@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.graph.GraphEventQueue.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * GraphEventQueue.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -31,9 +31,7 @@ public class GraphEventQueue implements IGraphEventListener {
 	 */
 	public final Deque<GraphEvent> queue = new ArrayDeque<GraphEvent>(1000);
 
-	/**
-	 * If the queue grows beyong this size, an error will be thrown
-	 */
+	/** If the queue grows beyong this size, an error will be thrown. */
 	public static final int MAX_EVENTS_MEMORY = 1000000;
 
 	@Override
@@ -47,8 +45,8 @@ public class GraphEventQueue implements IGraphEventListener {
 
 	/**
 	 * Provides the next graph event (synchronous) or null if no more event.
-	 * 
-	 * @return
+	 *
+	 * @return the graph event
 	 */
 	public GraphEvent popNext() {
 		synchronized (queue) {
@@ -56,12 +54,22 @@ public class GraphEventQueue implements IGraphEventListener {
 		}
 	}
 
+	/**
+	 * Checks if is empty.
+	 *
+	 * @return true, if is empty
+	 */
 	public boolean isEmpty() {
 		synchronized (queue) {
 			return queue.isEmpty();
 		}
 	}
 
+	/**
+	 * Size.
+	 *
+	 * @return the int
+	 */
 	public int size() {
 		synchronized (queue) {
 			return queue.size();

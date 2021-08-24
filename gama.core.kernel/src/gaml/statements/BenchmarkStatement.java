@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.statements.BenchmarkStatement.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * BenchmarkStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.statements;
 
@@ -55,10 +55,13 @@ import gaml.types.IType;
 		value = "Displays in the console the duration in ms of the execution of the statements included in the block. It is possible to indicate, with the 'repeat' facet, how many times the sequence should be run")
 public class BenchmarkStatement extends AbstractStatementSequence {
 
+	/** The message. */
 	final IExpression repeat, message;
 
 	/**
-	 * @param desc
+	 * Instantiates a new benchmark statement.
+	 *
+	 * @param desc the desc
 	 */
 	public BenchmarkStatement(final IDescription desc) {
 		super(desc);

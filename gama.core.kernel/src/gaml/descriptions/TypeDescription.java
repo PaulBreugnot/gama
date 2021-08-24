@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.descriptions.TypeDescription.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * TypeDescription.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.descriptions;
 
@@ -50,12 +50,31 @@ public abstract class TypeDescription extends SymbolDescription {
 	}
 
 	// AD 08/16 : actions and attributes are now inherited dynamically and built
+	/** The actions. */
 	// lazily
 	protected IMap<String, ActionDescription> actions;
+	
+	/** The attributes. */
 	protected IMap<String, VariableDescription> attributes;
+	
+	/** The parent. */
 	protected TypeDescription parent;
+	
+	/** The is abstract. */
 	protected final boolean isAbstract;
 
+	/**
+	 * Instantiates a new type description.
+	 *
+	 * @param keyword the keyword
+	 * @param clazz the clazz
+	 * @param macroDesc the macro desc
+	 * @param parent the parent
+	 * @param cp the cp
+	 * @param source the source
+	 * @param facets the facets
+	 * @param plugin the plugin
+	 */
 	public TypeDescription(final String keyword, final Class clazz, final IDescription macroDesc,
 			final TypeDescription parent, final Iterable<? extends IDescription> cp, final EObject source,
 			final Facets facets, final String plugin) {
@@ -72,6 +91,11 @@ public abstract class TypeDescription extends SymbolDescription {
 
 	}
 
+	/**
+	 * Gets the attribute documentation.
+	 *
+	 * @return the attribute documentation
+	 */
 	public String getAttributeDocumentation() {
 		final StringBuilder sb = new StringBuilder(200);
 		sb.append("<b><br/>Attributes :</b><ul>");
@@ -84,6 +108,11 @@ public abstract class TypeDescription extends SymbolDescription {
 		return sb.toString();
 	}
 
+	/**
+	 * Gets the action documentation.
+	 *
+	 * @return the action documentation
+	 */
 	public String getActionDocumentation() {
 		final StringBuilder sb = new StringBuilder(200);
 		sb.append("<b><br/>Actions :</b><ul>");
@@ -102,20 +131,37 @@ public abstract class TypeDescription extends SymbolDescription {
 		return null;
 	}
 
+	/**
+	 * Gets the java base.
+	 *
+	 * @return the java base
+	 */
 	public abstract Class getJavaBase();
 
 	/**
-	 * ==================================== MANAGEMENT OF ATTRIBUTES
+	 * ==================================== MANAGEMENT OF ATTRIBUTES.
+	 *
+	 * @return the attributes
 	 */
 
 	public Iterable<VariableDescription> getAttributes() {
 		return Iterables.transform(getAttributeNames(), this::getAttribute);
 	}
 
+	/**
+	 * Gets the own attributes.
+	 *
+	 * @return the own attributes
+	 */
 	public Iterable<VariableDescription> getOwnAttributes() {
 		return attributes == null ? Collections.EMPTY_LIST : attributes.values();
 	}
 
+	/**
+	 * Gets the attribute names.
+	 *
+	 * @return the attribute names
+	 */
 	public Collection<String> getAttributeNames() {
 		final Collection<String> accumulator =
 				parent != null && parent != this ? parent.getAttributeNames() : new LinkedHashSet<>();
@@ -129,12 +175,24 @@ public abstract class TypeDescription extends SymbolDescription {
 		return accumulator;
 	}
 
+	/**
+	 * Gets the attribute.
+	 *
+	 * @param vn the vn
+	 * @return the attribute
+	 */
 	public VariableDescription getAttribute(final String vn) {
 		final VariableDescription attribute = attributes == null ? null : attributes.get(vn);
 		if (attribute == null && parent != null && parent != this) return getParent().getAttribute(vn);
 		return attribute;
 	}
 
+	/**
+	 * Redefines attribute.
+	 *
+	 * @param vn the vn
+	 * @return true, if successful
+	 */
 	public boolean redefinesAttribute(final String vn) {
 		if (!attributes.containsKey(name) || parent == null || parent == this) return false;
 		return parent.hasAttribute(name);
@@ -157,6 +215,11 @@ public abstract class TypeDescription extends SymbolDescription {
 		return vd.getVarExpr(asField);
 	}
 
+	/**
+	 * Adds the attribute no check.
+	 *
+	 * @param vd the vd
+	 */
 	protected void addAttributeNoCheck(final VariableDescription vd) {
 		if (attributes == null) { attributes = GamaMapFactory.create(); }
 		// synchronized (this) {
@@ -164,6 +227,13 @@ public abstract class TypeDescription extends SymbolDescription {
 		// }
 	}
 
+	/**
+	 * Assert attributes are compatible.
+	 *
+	 * @param existingVar the existing var
+	 * @param newVar the new var
+	 * @return true, if successful
+	 */
 	public boolean assertAttributesAreCompatible(final VariableDescription existingVar,
 			final VariableDescription newVar) {
 		if (newVar.isBuiltIn() && existingVar.isBuiltIn()) return true;
@@ -177,6 +247,15 @@ public abstract class TypeDescription extends SymbolDescription {
 		return true;
 	}
 
+	/**
+	 * Mark type difference.
+	 *
+	 * @param existingVar the existing var
+	 * @param newVar the new var
+	 * @param existingType the existing type
+	 * @param newType the new type
+	 * @param error the error
+	 */
 	private void markTypeDifference(final VariableDescription existingVar, final VariableDescription newVar,
 			final IType existingType, final IType newType, final boolean error) {
 		final String msg = "Type (" + newType + ") differs from that (" + existingType + ") of the implementation of  "
@@ -212,6 +291,12 @@ public abstract class TypeDescription extends SymbolDescription {
 
 	}
 
+	/**
+	 * Mark attribute redefinition.
+	 *
+	 * @param existingVar the existing var
+	 * @param newVar the new var
+	 */
 	public void markAttributeRedefinition(final VariableDescription existingVar, final VariableDescription newVar) {
 		if (newVar.isBuiltIn() && existingVar.isBuiltIn()) return;
 		if (newVar.getOriginName().equals(existingVar.getOriginName())) {
@@ -244,12 +329,22 @@ public abstract class TypeDescription extends SymbolDescription {
 		}
 	}
 
+	/**
+	 * Inherit attributes from.
+	 *
+	 * @param p the p
+	 */
 	protected void inheritAttributesFrom(final TypeDescription p) {
 		for (final VariableDescription v : p.getAttributes()) {
 			addInheritedAttribute(v);
 		}
 	}
 
+	/**
+	 * Adds the own attribute.
+	 *
+	 * @param vd the vd
+	 */
 	public void addOwnAttribute(final VariableDescription vd) {
 		final String newVarName = vd.getName();
 		final VariableDescription existing = getAttribute(newVarName);
@@ -265,6 +360,11 @@ public abstract class TypeDescription extends SymbolDescription {
 		addAttributeNoCheck(vd);
 	}
 
+	/**
+	 * Adds the inherited attribute.
+	 *
+	 * @param vd the vd
+	 */
 	public void addInheritedAttribute(final VariableDescription vd) {
 		// We dont inherit from previously added variables, as a child and its
 		// parent should share the same javaBase
@@ -285,6 +385,10 @@ public abstract class TypeDescription extends SymbolDescription {
 	 * (meaning a cycle is being introduced by the addition of a variable), then emits an error on the first
 	 * non-built-in variable involved in the cycle
 	 *
+	 * @param graph the graph
+	 * @param source the source
+	 * @param target the target
+	 * @param type the type
 	 * @return true if the addition has been done, false otherwise
 	 */
 	private boolean add(final DirectedAcyclicGraph<VariableDescription, Object> graph, final VariableDescription source,
@@ -343,10 +447,21 @@ public abstract class TypeDescription extends SymbolDescription {
 		return true;
 	}
 
+	/**
+	 * Sets the parent.
+	 *
+	 * @param parent the new parent
+	 */
 	public void setParent(final TypeDescription parent) {
 		this.parent = parent;
 	}
 
+	/**
+	 * Duplicate info.
+	 *
+	 * @param one the one
+	 * @param two the two
+	 */
 	protected void duplicateInfo(final IDescription one, final IDescription two) {
 		final String aName = one.getName();
 		final String key = one.getKeyword();
@@ -366,6 +481,11 @@ public abstract class TypeDescription extends SymbolDescription {
 		}
 	}
 
+	/**
+	 * Adds the action.
+	 *
+	 * @param newAction the new action
+	 */
 	protected void addAction(final ActionDescription newAction) {
 		final String actionName = newAction.getName();
 		if (actions != null) {
@@ -377,6 +497,12 @@ public abstract class TypeDescription extends SymbolDescription {
 		actions.put(actionName, newAction);
 	}
 
+	/**
+	 * Redefines action.
+	 *
+	 * @param theName the the name
+	 * @return true, if successful
+	 */
 	public boolean redefinesAction(final String theName) {
 		if (!actions.containsKey(theName) || parent == null || parent == this) return false;
 		return parent.hasAction(theName, false);
@@ -390,16 +516,31 @@ public abstract class TypeDescription extends SymbolDescription {
 		return ownAction;
 	}
 
+	/**
+	 * Gets the own actions.
+	 *
+	 * @return the own actions
+	 */
 	public Iterable<ActionDescription> getOwnActions() {
 		return actions == null ? Collections.EMPTY_LIST : actions.values();
 	}
 
+	/**
+	 * Removes the action.
+	 *
+	 * @param temp the temp
+	 */
 	public void removeAction(final String temp) {
 		if (actions == null) return;
 		actions.remove(temp);
 
 	}
 
+	/**
+	 * Gets the action names.
+	 *
+	 * @return the action names
+	 */
 	public Collection<String> getActionNames() {
 		final Collection<String> allNames =
 				new LinkedHashSet(actions == null ? Collections.EMPTY_LIST : actions.keySet());
@@ -407,6 +548,11 @@ public abstract class TypeDescription extends SymbolDescription {
 		return allNames;
 	}
 
+	/**
+	 * Gets the actions.
+	 *
+	 * @return the actions
+	 */
 	public Iterable<ActionDescription> getActions() {
 		return Iterables.transform(getActionNames(), this::getAction);
 	}
@@ -430,6 +576,11 @@ public abstract class TypeDescription extends SymbolDescription {
 		return hasAction(vn, false) ? this : null;
 	}
 
+	/**
+	 * Checks if is abstract.
+	 *
+	 * @return true, if is abstract
+	 */
 	public final boolean isAbstract() {
 		if (isAbstract) return true;
 		for (final ActionDescription a : getActions()) {
@@ -443,6 +594,13 @@ public abstract class TypeDescription extends SymbolDescription {
 		return getTypeNamed(getName());
 	}
 
+	/**
+	 * Checks if is arg of.
+	 *
+	 * @param op the op
+	 * @param arg the arg
+	 * @return true, if is arg of
+	 */
 	public boolean isArgOf(final String op, final String arg) {
 		final ActionDescription action = getAction(op);
 		if (action != null) return action.containsArg(arg);
@@ -468,6 +626,9 @@ public abstract class TypeDescription extends SymbolDescription {
 		parent = null;
 	}
 
+	/**
+	 * Inherit from parent.
+	 */
 	protected void inheritFromParent() {
 		// Takes care of invalid species (see Issue 711)
 		if (parent != null && parent != this) {
@@ -476,6 +637,11 @@ public abstract class TypeDescription extends SymbolDescription {
 		}
 	}
 
+	/**
+	 * Inherit actions from.
+	 *
+	 * @param p the p
+	 */
 	protected void inheritActionsFrom(final TypeDescription p) {
 		if (p == null || p == this) return;
 		for (final ActionDescription inheritedAction : p.getActions()) {
@@ -514,6 +680,13 @@ public abstract class TypeDescription extends SymbolDescription {
 
 	}
 
+	/**
+	 * Assert actions are compatible.
+	 *
+	 * @param myAction the my action
+	 * @param parentAction the parent action
+	 * @param parentName the parent name
+	 */
 	public static void assertActionsAreCompatible(final ActionDescription myAction,
 			final ActionDescription parentAction, final String parentName) {
 		final String actionName = parentAction.getName();
@@ -596,21 +769,45 @@ public abstract class TypeDescription extends SymbolDescription {
 		return visitOwnActionsRecursively(visitor);
 	}
 
+	/**
+	 * Visit all attributes.
+	 *
+	 * @param visitor the visitor
+	 * @return true, if successful
+	 */
 	public boolean visitAllAttributes(final DescriptionVisitor<IDescription> visitor) {
 		if (parent != null && parent != this && !parent.visitAllAttributes(visitor)) return false;
 		return visitOwnAttributes(visitor);
 	}
 
+	/**
+	 * Visit own attributes.
+	 *
+	 * @param visitor the visitor
+	 * @return true, if successful
+	 */
 	public boolean visitOwnAttributes(final DescriptionVisitor<IDescription> visitor) {
 		if (attributes == null) return true;
 		return attributes.forEachValue(visitor);
 	}
 
+	/**
+	 * Visit own actions.
+	 *
+	 * @param visitor the visitor
+	 * @return true, if successful
+	 */
 	public boolean visitOwnActions(final DescriptionVisitor<IDescription> visitor) {
 		if (actions == null) return true;
 		return actions.forEachValue(visitor);
 	}
 
+	/**
+	 * Visit own actions recursively.
+	 *
+	 * @param visitor the visitor
+	 * @return true, if successful
+	 */
 	public boolean visitOwnActionsRecursively(final DescriptionVisitor<IDescription> visitor) {
 		if (actions == null) return true;
 		return actions.forEachValue(each -> {
@@ -633,10 +830,22 @@ public abstract class TypeDescription extends SymbolDescription {
 		return result;
 	}
 
+	/**
+	 * Gets the own attribute.
+	 *
+	 * @param kw the kw
+	 * @return the own attribute
+	 */
 	public VariableDescription getOwnAttribute(final String kw) {
 		return attributes == null ? null : attributes.get(kw);
 	}
 
+	/**
+	 * Gets the own action.
+	 *
+	 * @param kw the kw
+	 * @return the own action
+	 */
 	public ActionDescription getOwnAction(final String kw) {
 		return actions == null ? null : actions.get(kw);
 	}

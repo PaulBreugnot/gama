@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Utils.java, in gama.ext.traffic, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.traffic.carfollowing;
 
 import org.apache.commons.collections4.OrderedBidiMap;
@@ -24,9 +34,13 @@ import static gama.ext.traffic.DrivingSkill.readyToCross;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Class Utils.
+ */
 public class Utils {
+	
 	/**
-	 * Attempts to make lane changing probabilities timestep-agnostic
+	 * Attempts to make lane changing probabilities timestep-agnostic.
 	 *
 	 * @param probaInOneSecond a probability with respect to one second
 	 * @param timeStep         the duration of a simulation step
@@ -37,6 +51,13 @@ public class Utils {
 		return Math.min(probaInOneSecond * timeStep, 1.0);
 	}
 	
+	/**
+	 * Compute linked lane limit.
+	 *
+	 * @param vehicle the vehicle
+	 * @param road the road
+	 * @return the int
+	 */
 	public static int computeLinkedLaneLimit(final IAgent vehicle,
 			final IAgent road) {
 		double probaUseLinkedRoad = getProbaUseLinkedRoad(vehicle);
@@ -55,6 +76,14 @@ public class Utils {
 		return linkedLaneLimit;
 	}
 	
+	/**
+	 * Find leader.
+	 *
+	 * @param scope the scope
+	 * @param vehicle the vehicle
+	 * @param lowestLane the lowest lane
+	 * @return the triple
+	 */
 	// TODO: this and findFollower don't need this many params
 	public static Triple<IAgent, Double, Boolean> findLeader(final IScope scope,
 										final IAgent vehicle,
@@ -139,6 +168,14 @@ public class Utils {
 	}
 	
 	
+	/**
+	 * Find follower.
+	 *
+	 * @param scope the scope
+	 * @param vehicle the vehicle
+	 * @param lowestLane the lowest lane
+	 * @return the triple
+	 */
 	public static Triple<IAgent, Double, Boolean> findFollower(final IScope scope,
 										final IAgent vehicle,
 										final int lowestLane) {
@@ -216,6 +253,15 @@ public class Utils {
 		}
 	}
 	
+	/**
+	 * Find neighbor on current road.
+	 *
+	 * @param scope the scope
+	 * @param vehicle the vehicle
+	 * @param lowestLane the lowest lane
+	 * @param isLeader the is leader
+	 * @return the triple
+	 */
 	private static Triple<IAgent, Double, Boolean> findNeighborOnCurrentRoad(
 			final IScope scope,
 			final IAgent vehicle,

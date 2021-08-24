@@ -1,26 +1,13 @@
-/*******************************************************************************
- * Copyright (c) 2013, Daniel Murphy
- * All rights reserved.
+/*******************************************************************************************************
+ *
+ * Fixture.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
- * 	* Redistributions of source code must retain the above copyright notice,
- * 	  this list of conditions and the following disclaimer.
- * 	* Redistributions in binary form must reproduce the above copyright notice,
- * 	  this list of conditions and the following disclaimer in the documentation
- * 	  and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
- * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
- * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
- * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- ******************************************************************************/
+ ********************************************************************************************************/
 package org.jbox2d.dynamics;
 
 import org.jbox2d.collision.AABB;
@@ -40,32 +27,48 @@ import org.jbox2d.dynamics.contacts.ContactEdge;
  * A fixture is used to attach a shape to a body for collision detection. A fixture inherits its
  * transform from its parent. Fixtures hold additional non-geometric data such as friction,
  * collision filters, etc. Fixtures are created via Body::CreateFixture.
- * 
- * @warning you cannot reuse fixtures.
- * 
+ *
  * @author daniel
+ * @warning you cannot reuse fixtures.
  */
 public class Fixture {
 
+  /** The m density. */
   public float m_density;
 
+  /** The m next. */
   public Fixture m_next;
+  
+  /** The m body. */
   public Body m_body;
 
+  /** The m shape. */
   public Shape m_shape;
 
+  /** The m friction. */
   public float m_friction;
+  
+  /** The m restitution. */
   public float m_restitution;
 
+  /** The m proxies. */
   public FixtureProxy[] m_proxies;
+  
+  /** The m proxy count. */
   public int m_proxyCount;
 
+  /** The m filter. */
   public final Filter m_filter;
 
+  /** The m is sensor. */
   public boolean m_isSensor;
 
+  /** The m user data. */
   public Object m_userData;
 
+  /**
+   * Instantiates a new fixture.
+   */
   public Fixture() {
     m_userData = null;
     m_body = null;
@@ -88,18 +91,17 @@ public class Fixture {
   /**
    * Get the child shape. You can modify the child shape, however you should not change the number
    * of vertices because this will crash some collision caching mechanisms.
-   * 
-   * @return
+   *
+   * @return the shape
    */
   public Shape getShape() {
     return m_shape;
   }
 
   /**
-   * Is this fixture a sensor (non-solid)?
-   * 
+   * Is this fixture a sensor (non-solid)?.
+   *
    * @return the true if the shape is a sensor.
-   * @return
    */
   public boolean isSensor() {
     return m_isSensor;
@@ -107,8 +109,8 @@ public class Fixture {
 
   /**
    * Set if this fixture is a sensor.
-   * 
-   * @param sensor
+   *
+   * @param sensor the new sensor
    */
   public void setSensor(boolean sensor) {
     if (sensor != m_isSensor) {
@@ -121,8 +123,8 @@ public class Fixture {
    * Set the contact filtering data. This is an expensive operation and should not be called
    * frequently. This will not update contacts until the next time step when either parent body is
    * awake. This automatically calls refilter.
-   * 
-   * @param filter
+   *
+   * @param filter the new filter data
    */
   public void setFilterData(final Filter filter) {
     m_filter.set(filter);
@@ -132,8 +134,8 @@ public class Fixture {
 
   /**
    * Get the contact filtering data.
-   * 
-   * @return
+   *
+   * @return the filter data
    */
   public Filter getFilterData() {
     return m_filter;
@@ -175,9 +177,8 @@ public class Fixture {
 
   /**
    * Get the parent body of this fixture. This is NULL if the fixture is not attached.
-   * 
+   *
    * @return the parent body.
-   * @return
    */
   public Body getBody() {
     return m_body;
@@ -185,19 +186,28 @@ public class Fixture {
 
   /**
    * Get the next fixture in the parent body's fixture list.
-   * 
+   *
    * @return the next shape.
-   * @return
    */
   public Fixture getNext() {
     return m_next;
   }
 
+  /**
+   * Sets the density.
+   *
+   * @param density the new density
+   */
   public void setDensity(float density) {
     assert (density >= 0f);
     m_density = density;
   }
 
+  /**
+   * Gets the density.
+   *
+   * @return the density
+   */
   public float getDensity() {
     return m_density;
   }
@@ -205,8 +215,8 @@ public class Fixture {
   /**
    * Get the user data that was assigned in the fixture definition. Use this to store your
    * application specific data.
-   * 
-   * @return
+   *
+   * @return the user data
    */
   public Object getUserData() {
     return m_userData;
@@ -214,8 +224,8 @@ public class Fixture {
 
   /**
    * Set the user data. Use this to store your application specific data.
-   * 
-   * @param data
+   *
+   * @param data the new user data
    */
   public void setUserData(Object data) {
     m_userData = data;
@@ -223,9 +233,9 @@ public class Fixture {
 
   /**
    * Test a point for containment in this fixture. This only works for convex shapes.
-   * 
+   *
    * @param p a point in world coordinates.
-   * @return
+   * @return true, if successful
    */
   public boolean testPoint(final Vec2 p) {
     return m_shape.testPoint(m_body.m_xf, p);
@@ -233,11 +243,11 @@ public class Fixture {
 
   /**
    * Cast a ray against this shape.
-   * 
-   * @param output the ray-cast results.
-   * @param input the ray-cast input parameters.
-   * @param output
-   * @param input
+   *
+   * @param output the output
+   * @param input the input
+   * @param childIndex the child index
+   * @return true, if successful
    */
   public boolean raycast(RayCastOutput output, RayCastInput input, int childIndex) {
     return m_shape.raycast(output, input, m_body.m_xf, childIndex);
@@ -246,8 +256,9 @@ public class Fixture {
   /**
    * Get the mass data for this fixture. The mass data is based on the density and the shape. The
    * rotational inertia is about the shape's origin.
-   * 
-   * @return
+   *
+   * @param massData the mass data
+   * @return the mass data
    */
   public void getMassData(MassData massData) {
     m_shape.computeMass(massData, m_density);
@@ -255,8 +266,8 @@ public class Fixture {
 
   /**
    * Get the coefficient of friction.
-   * 
-   * @return
+   *
+   * @return the friction
    */
   public float getFriction() {
     return m_friction;
@@ -264,8 +275,8 @@ public class Fixture {
 
   /**
    * Set the coefficient of friction. This will _not_ change the friction of existing contacts.
-   * 
-   * @param friction
+   *
+   * @param friction the new friction
    */
   public void setFriction(float friction) {
     m_friction = friction;
@@ -273,8 +284,8 @@ public class Fixture {
 
   /**
    * Get the coefficient of restitution.
-   * 
-   * @return
+   *
+   * @return the restitution
    */
   public float getRestitution() {
     return m_restitution;
@@ -283,8 +294,8 @@ public class Fixture {
   /**
    * Set the coefficient of restitution. This will _not_ change the restitution of existing
    * contacts.
-   * 
-   * @param restitution
+   *
+   * @param restitution the new restitution
    */
   public void setRestitution(float restitution) {
     m_restitution = restitution;
@@ -293,8 +304,9 @@ public class Fixture {
   /**
    * Get the fixture's AABB. This AABB may be enlarge and/or stale. If you need a more accurate
    * AABB, compute it using the shape and the body transform.
-   * 
-   * @return
+   *
+   * @param childIndex the child index
+   * @return the aabb
    */
   public AABB getAABB(int childIndex) {
     assert (childIndex >= 0 && childIndex < m_proxyCount);
@@ -303,8 +315,10 @@ public class Fixture {
 
   /**
    * Compute the distance from this fixture.
-   * 
+   *
    * @param p a point in world coordinates.
+   * @param childIndex the child index
+   * @param normalOut the normal out
    * @return distance
    */
   public float computeDistance(Vec2 p, int childIndex, Vec2 normalOut) {
@@ -314,6 +328,12 @@ public class Fixture {
   // We need separation create/destroy functions from the constructor/destructor because
   // the destructor cannot access the allocator (no destructor arguments allowed by C++).
 
+  /**
+   * Creates the.
+   *
+   * @param body the body
+   * @param def the def
+   */
   public void create(Body body, FixtureDef def) {
     m_userData = def.userData;
     m_friction = def.friction;
@@ -358,6 +378,9 @@ public class Fixture {
     m_density = def.density;
   }
 
+  /**
+   * Destroy.
+   */
   public void destroy() {
     // The proxies must be destroyed before calling this.
     assert (m_proxyCount == 0);
@@ -371,6 +394,12 @@ public class Fixture {
     // TODO pool fixtures
   }
 
+  /**
+   * Creates the proxies.
+   *
+   * @param broadPhase the broad phase
+   * @param xf the xf
+   */
   // These support body activation/deactivation.
   public void createProxies(BroadPhase broadPhase, final Transform xf) {
     assert (m_proxyCount == 0);
@@ -388,9 +417,9 @@ public class Fixture {
   }
 
   /**
-   * Internal method
-   * 
-   * @param broadPhase
+   * Internal method.
+   *
+   * @param broadPhase the broad phase
    */
   public void destroyProxies(BroadPhase broadPhase) {
     // Destroy proxies in the broad-phase.
@@ -403,16 +432,21 @@ public class Fixture {
     m_proxyCount = 0;
   }
 
+  /** The pool 1. */
   private final AABB pool1 = new AABB();
+  
+  /** The pool 2. */
   private final AABB pool2 = new AABB();
+  
+  /** The displacement. */
   private final Vec2 displacement = new Vec2();
 
   /**
-   * Internal method
-   * 
-   * @param broadPhase
-   * @param xf1
-   * @param xf2
+   * Internal method.
+   *
+   * @param broadPhase the broad phase
+   * @param transform1 the transform 1
+   * @param transform2 the transform 2
    */
   protected void synchronize(BroadPhase broadPhase, final Transform transform1,
       final Transform transform2) {

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.expressions.TypeExpression.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * TypeExpression.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.expressions.types;
 
@@ -25,6 +25,11 @@ import gaml.types.Types;
  */
 public class TypeExpression extends AbstractExpression {
 
+	/**
+	 * Instantiates a new type expression.
+	 *
+	 * @param type the type
+	 */
 	@SuppressWarnings ("rawtypes")
 	public TypeExpression(final IType type) {
 		this.type = type;

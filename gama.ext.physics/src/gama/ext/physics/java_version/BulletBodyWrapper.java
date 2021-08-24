@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * BulletBodyWrapper.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.physics.java_version;
 
 import static gaml.types.GamaGeometryType.buildBox;
@@ -25,6 +35,9 @@ import gama.metamodel.shape.IShape;
 import gama.util.GamaPair;
 import gaml.types.Types;
 
+/**
+ * The Class BulletBodyWrapper.
+ */
 /*
  * A rigid body "wrapper" dedicated to GAMA agents. Allows to translate information from/to the agents and their bodies,
  * to reconstruct shapes (from JTS geometries and GAMA 3D additions, but also from AABB envelopes) and to pass commands
@@ -35,11 +48,24 @@ import gaml.types.Types;
 public class BulletBodyWrapper extends AbstractBodyWrapper<DiscreteDynamicsWorld, RigidBody, CollisionShape, Vector3f>
 		implements IBulletPhysicalEntity {
 
+	/** The temp. */
 	private final Transform temp = new Transform();
+	
+	/** The vtemp 2. */
 	private final Vector3f vtemp = new Vector3f(), vtemp2 = new Vector3f();
+	
+	/** The axis angle transfer. */
 	final AxisAngle4f axisAngleTransfer = new AxisAngle4f();
+	
+	/** The quat transfer. */
 	Quat4f quatTransfer = new Quat4f();
 
+	/**
+	 * Instantiates a new bullet body wrapper.
+	 *
+	 * @param agent the agent
+	 * @param gateway the gateway
+	 */
 	public BulletBodyWrapper(final IAgent agent, final BulletPhysicalWorld gateway) {
 		super(agent, gateway);
 		body.setUserPointer(this);

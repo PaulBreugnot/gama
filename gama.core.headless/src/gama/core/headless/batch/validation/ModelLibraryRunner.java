@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ModelLibraryRunner.java, in gama.core.headless, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.core.headless.batch.validation;
 
 import java.io.IOException;
@@ -25,10 +35,17 @@ import gama.kernel.model.IModel;
 import gaml.compilation.GamlCompilationError;
 import gaml.descriptions.ModelDescription;
 
+/**
+ * The Class ModelLibraryRunner.
+ */
 public class ModelLibraryRunner extends AbstractModelLibraryRunner {
 
+	/** The instance. */
 	private static ModelLibraryRunner instance;
 
+	/**
+	 * Instantiates a new model library runner.
+	 */
 	private ModelLibraryRunner() {
 		DEBUG.ON();
 	}
@@ -112,6 +129,17 @@ public class ModelLibraryRunner extends AbstractModelLibraryRunner {
 	// });
 	// }
 
+	/**
+	 * Validate and run.
+	 *
+	 * @param builder the builder
+	 * @param executionErrors the execution errors
+	 * @param countOfModelsValidated the count of models validated
+	 * @param returnCode the return code
+	 * @param pathToModel the path to model
+	 * @param expGUIOnly the exp GUI only
+	 * @param nbCycles the nb cycles
+	 */
 	private void validateAndRun(final GamlModelBuilder builder, final Map<String, Exception> executionErrors,
 			final int[] countOfModelsValidated, final int[] returnCode, final URL pathToModel, final boolean expGUIOnly,
 			final int nbCycles) {
@@ -155,6 +183,11 @@ public class ModelLibraryRunner extends AbstractModelLibraryRunner {
 
 	}
 
+	/**
+	 * Gets the single instance of ModelLibraryRunner.
+	 *
+	 * @return single instance of ModelLibraryRunner
+	 */
 	public static ModelLibraryRunner getInstance() {
 		if (instance == null) { instance = new ModelLibraryRunner(); }
 		return instance;

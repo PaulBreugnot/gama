@@ -1,26 +1,13 @@
-/*******************************************************************************
- * Copyright (c) 2013, Daniel Murphy
- * All rights reserved.
+/*******************************************************************************************************
+ *
+ * PrismaticJoint.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
- * 	* Redistributions of source code must retain the above copyright notice,
- * 	  this list of conditions and the following disclaimer.
- * 	* Redistributions in binary form must reproduce the above copyright notice,
- * 	  this list of conditions and the following disclaimer in the documentation
- * 	  and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
- * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
- * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
- * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- ******************************************************************************/
+ ********************************************************************************************************/
 package org.jbox2d.dynamics.joints;
 
 import org.jbox2d.common.Mat22;
@@ -110,37 +97,95 @@ import org.jbox2d.pooling.IWorldPool;
  */
 public class PrismaticJoint extends Joint {
 
+  /** The m local anchor A. */
   // Solver shared
   protected final Vec2 m_localAnchorA;
+  
+  /** The m local anchor B. */
   protected final Vec2 m_localAnchorB;
+  
+  /** The m local X axis A. */
   protected final Vec2 m_localXAxisA;
+  
+  /** The m local Y axis A. */
   protected final Vec2 m_localYAxisA;
+  
+  /** The m reference angle. */
   protected float m_referenceAngle;
+  
+  /** The m impulse. */
   private final Vec3 m_impulse;
+  
+  /** The m motor impulse. */
   private float m_motorImpulse;
+  
+  /** The m lower translation. */
   private float m_lowerTranslation;
+  
+  /** The m upper translation. */
   private float m_upperTranslation;
+  
+  /** The m max motor force. */
   private float m_maxMotorForce;
+  
+  /** The m motor speed. */
   private float m_motorSpeed;
+  
+  /** The m enable limit. */
   private boolean m_enableLimit;
+  
+  /** The m enable motor. */
   private boolean m_enableMotor;
+  
+  /** The m limit state. */
   private LimitState m_limitState;
 
+  /** The m index A. */
   // Solver temp
   private int m_indexA;
+  
+  /** The m index B. */
   private int m_indexB;
+  
+  /** The m local center A. */
   private final Vec2 m_localCenterA = new Vec2();
+  
+  /** The m local center B. */
   private final Vec2 m_localCenterB = new Vec2();
+  
+  /** The m inv mass A. */
   private float m_invMassA;
+  
+  /** The m inv mass B. */
   private float m_invMassB;
+  
+  /** The m inv IA. */
   private float m_invIA;
+  
+  /** The m inv IB. */
   private float m_invIB;
+  
+  /** The m perp. */
   private final Vec2 m_axis, m_perp;
+  
+  /** The m s 2. */
   private float m_s1, m_s2;
+  
+  /** The m a 2. */
   private float m_a1, m_a2;
+  
+  /** The m K. */
   private final Mat33 m_K;
+  
+  /** The m motor mass. */
   private float m_motorMass; // effective mass for motor/limit translational constraint.
 
+  /**
+   * Instantiates a new prismatic joint.
+   *
+   * @param argWorld the arg world
+   * @param def the def
+   */
   protected PrismaticJoint(IWorldPool argWorld, PrismaticJointDef def) {
     super(argWorld, def);
     m_localAnchorA = new Vec2(def.localAnchorA);
@@ -168,10 +213,20 @@ public class PrismaticJoint extends Joint {
     m_perp = new Vec2();
   }
 
+  /**
+   * Gets the local anchor A.
+   *
+   * @return the local anchor A
+   */
   public Vec2 getLocalAnchorA() {
     return m_localAnchorA;
   }
 
+  /**
+   * Gets the local anchor B.
+   *
+   * @return the local anchor B
+   */
   public Vec2 getLocalAnchorB() {
     return m_localAnchorB;
   }
@@ -201,6 +256,8 @@ public class PrismaticJoint extends Joint {
 
   /**
    * Get the current joint translation, usually in meters.
+   *
+   * @return the joint speed
    */
   public float getJointSpeed() {
     Body bA = m_bodyA;
@@ -246,6 +303,11 @@ public class PrismaticJoint extends Joint {
     return speed;
   }
 
+  /**
+   * Gets the joint translation.
+   *
+   * @return the joint translation
+   */
   public float getJointTranslation() {
     Vec2 pA = pool.popVec2(), pB = pool.popVec2(), axis = pool.popVec2();
     m_bodyA.getWorldPointToOut(m_localAnchorA, pA);
@@ -258,9 +320,9 @@ public class PrismaticJoint extends Joint {
   }
 
   /**
-   * Is the joint limit enabled?
-   * 
-   * @return
+   * Is the joint limit enabled?.
+   *
+   * @return true, if is limit enabled
    */
   public boolean isLimitEnabled() {
     return m_enableLimit;
@@ -268,8 +330,8 @@ public class PrismaticJoint extends Joint {
 
   /**
    * Enable/disable the joint limit.
-   * 
-   * @param flag
+   *
+   * @param flag the flag
    */
   public void enableLimit(boolean flag) {
     if (flag != m_enableLimit) {
@@ -282,8 +344,8 @@ public class PrismaticJoint extends Joint {
 
   /**
    * Get the lower joint limit, usually in meters.
-   * 
-   * @return
+   *
+   * @return the lower limit
    */
   public float getLowerLimit() {
     return m_lowerTranslation;
@@ -291,8 +353,8 @@ public class PrismaticJoint extends Joint {
 
   /**
    * Get the upper joint limit, usually in meters.
-   * 
-   * @return
+   *
+   * @return the upper limit
    */
   public float getUpperLimit() {
     return m_upperTranslation;
@@ -300,9 +362,9 @@ public class PrismaticJoint extends Joint {
 
   /**
    * Set the joint limits, usually in meters.
-   * 
-   * @param lower
-   * @param upper
+   *
+   * @param lower the lower
+   * @param upper the upper
    */
   public void setLimits(float lower, float upper) {
     assert (lower <= upper);
@@ -316,9 +378,9 @@ public class PrismaticJoint extends Joint {
   }
 
   /**
-   * Is the joint motor enabled?
-   * 
-   * @return
+   * Is the joint motor enabled?.
+   *
+   * @return true, if is motor enabled
    */
   public boolean isMotorEnabled() {
     return m_enableMotor;
@@ -326,8 +388,8 @@ public class PrismaticJoint extends Joint {
 
   /**
    * Enable/disable the joint motor.
-   * 
-   * @param flag
+   *
+   * @param flag the flag
    */
   public void enableMotor(boolean flag) {
     m_bodyA.setAwake(true);
@@ -337,8 +399,8 @@ public class PrismaticJoint extends Joint {
 
   /**
    * Set the motor speed, usually in meters per second.
-   * 
-   * @param speed
+   *
+   * @param speed the new motor speed
    */
   public void setMotorSpeed(float speed) {
     m_bodyA.setAwake(true);
@@ -348,8 +410,8 @@ public class PrismaticJoint extends Joint {
 
   /**
    * Get the motor speed, usually in meters per second.
-   * 
-   * @return
+   *
+   * @return the motor speed
    */
   public float getMotorSpeed() {
     return m_motorSpeed;
@@ -357,8 +419,8 @@ public class PrismaticJoint extends Joint {
 
   /**
    * Set the maximum motor force, usually in N.
-   * 
-   * @param force
+   *
+   * @param force the new max motor force
    */
   public void setMaxMotorForce(float force) {
     m_bodyA.setAwake(true);
@@ -368,22 +430,37 @@ public class PrismaticJoint extends Joint {
 
   /**
    * Get the current motor force, usually in N.
-   * 
-   * @param inv_dt
-   * @return
+   *
+   * @param inv_dt the inv dt
+   * @return the motor force
    */
   public float getMotorForce(float inv_dt) {
     return m_motorImpulse * inv_dt;
   }
 
+  /**
+   * Gets the max motor force.
+   *
+   * @return the max motor force
+   */
   public float getMaxMotorForce() {
     return m_maxMotorForce;
   }
 
+  /**
+   * Gets the reference angle.
+   *
+   * @return the reference angle
+   */
   public float getReferenceAngle() {
     return m_referenceAngle;
   }
 
+  /**
+   * Gets the local axis A.
+   *
+   * @return the local axis A
+   */
   public Vec2 getLocalAxisA() {
     return m_localXAxisA;
   }

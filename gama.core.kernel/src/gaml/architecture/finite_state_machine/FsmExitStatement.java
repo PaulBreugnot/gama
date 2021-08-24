@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gaml.architecture.finite_state_machine.FsmExitStatement.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * FsmExitStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -21,6 +21,9 @@ import gama.runtime.IScope;
 import gaml.descriptions.IDescription;
 import gaml.statements.AbstractStatementSequence;
 
+/**
+ * The Class FsmExitStatement.
+ */
 @symbol(name = FsmStateStatement.EXIT,
 	kind = ISymbolKind.SEQUENCE_STATEMENT,
 	with_sequence = true,
@@ -40,6 +43,11 @@ import gaml.statements.AbstractStatementSequence;
 	see = { FsmStateStatement.ENTER, FsmStateStatement.STATE, FsmTransitionStatement.TRANSITION })
 public class FsmExitStatement extends AbstractStatementSequence {
 
+	/**
+	 * Instantiates a new fsm exit statement.
+	 *
+	 * @param desc the desc
+	 */
 	public FsmExitStatement(final IDescription desc) {
 		super(desc);
 	}

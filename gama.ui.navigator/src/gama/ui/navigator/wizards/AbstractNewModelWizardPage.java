@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * AbstractNewModelWizardPage.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator.wizards;
 
 import java.net.InetAddress;
@@ -30,25 +40,51 @@ import org.eclipse.ui.dialogs.ContainerSelectionDialog;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.navigator.contents.ResourceManager;
 
+/**
+ * The Class AbstractNewModelWizardPage.
+ */
 public abstract class AbstractNewModelWizardPage extends WizardPage {
 
+	/** The selection. */
 	protected final ISelection selection;
+	
+	/** The name text. */
 	protected Text containerText, fileText, authorText, nameText;
+	
+	/** The template path. */
 	protected String templatePath;
 
+	/**
+	 * Instantiates a new abstract new model wizard page.
+	 *
+	 * @param selection the selection
+	 */
 	protected AbstractNewModelWizardPage(final ISelection selection) {
 		super("wizardPage");
 		this.selection = selection;
 	}
 
-	/** Gets the container name of the new file */
+	/**
+	 *  Gets the container name of the new file.
+	 *
+	 * @return the container name
+	 */
 	public String getContainerName() {
 		return containerText.getText();
 	}
 
+	/**
+	 * Gets the template type.
+	 *
+	 * @return the template type
+	 */
 	public abstract String getTemplateType();
 
-	/** Gets the file name of the new file */
+	/**
+	 *  Gets the file name of the new file.
+	 *
+	 * @return the file name
+	 */
 	public String getFileName() {
 		return fileText.getText();
 	}
@@ -60,12 +96,20 @@ public abstract class AbstractNewModelWizardPage extends WizardPage {
 		if (b) { fileText.setFocus(); }
 	}
 
-	/** Gets the author of the new file */
+	/**
+	 *  Gets the author of the new file.
+	 *
+	 * @return the author
+	 */
 	public String getAuthor() {
 		return authorText.getText();
 	}
 
-	/** Gets the model name of the new file */
+	/**
+	 *  Gets the model name of the new file.
+	 *
+	 * @return the model name
+	 */
 	public String getModelName() {
 		return nameText.getText();
 	}
@@ -98,11 +142,19 @@ public abstract class AbstractNewModelWizardPage extends WizardPage {
 		}
 	}
 
+	/**
+	 * Update status.
+	 *
+	 * @param message the message
+	 */
 	protected void updateStatus(final String message) {
 		setErrorMessage(message);
 		setPageComplete(message == null);
 	}
 
+	/**
+	 * Initialize.
+	 */
 	protected void initialize() {
 		final IContainer container = findContainer();
 		if (container != null) {
@@ -114,6 +166,11 @@ public abstract class AbstractNewModelWizardPage extends WizardPage {
 
 	}
 
+	/**
+	 * Gets the initial file name.
+	 *
+	 * @return the initial file name
+	 */
 	protected String getInitialFileName() {
 		final IResource resource = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(getContainerName()));
 		if (resource instanceof IContainer) {
@@ -127,16 +184,32 @@ public abstract class AbstractNewModelWizardPage extends WizardPage {
 		return getDefaultFileBody() + getExtension();
 	}
 
+	/**
+	 * Gets the initial model file name.
+	 *
+	 * @param i the i
+	 * @return the initial model file name
+	 */
 	protected String getInitialModelFileName(final int i) {
 		final String body = getDefaultFileBody();
 		final String extension = getExtension();
 		return body + (i == 0 ? "" : String.valueOf(i)) + extension;
 	}
 
+	/**
+	 * Gets the default file body.
+	 *
+	 * @return the default file body
+	 */
 	protected String getDefaultFileBody() {
 		return "New " + gamlType();
 	}
 
+	/**
+	 * Find container.
+	 *
+	 * @return the i container
+	 */
 	protected IContainer findContainer() {
 		Object obj = null;
 		if (selection instanceof IStructuredSelection && !selection.isEmpty()) {
@@ -151,10 +224,22 @@ public abstract class AbstractNewModelWizardPage extends WizardPage {
 			return r.getParent();
 	}
 
+	/**
+	 * Gets the inner default folder.
+	 *
+	 * @return the inner default folder
+	 */
 	protected String getInnerDefaultFolder() {
 		return "models";
 	}
 
+	/**
+	 * Creates the label.
+	 *
+	 * @param c the c
+	 * @param t the t
+	 * @return the label
+	 */
 	Label createLabel(final Composite c, final String t) {
 		final Label label = new Label(c, t == null ? SWT.NULL : SWT.RIGHT);
 		final GridData d = new GridData(SWT.END, SWT.CENTER, false, false);
@@ -166,6 +251,11 @@ public abstract class AbstractNewModelWizardPage extends WizardPage {
 		return label;
 	}
 
+	/**
+	 * Creates the author section.
+	 *
+	 * @param container the container
+	 */
 	public void createAuthorSection(final Composite container) {
 		// final GridData gd;
 		/* Need to add empty label so the next two controls are pushed to the next line in the grid. */
@@ -177,6 +267,11 @@ public abstract class AbstractNewModelWizardPage extends WizardPage {
 		authorText.addModifyListener(e -> dialogChanged());
 	}
 
+	/**
+	 * Creates the container section.
+	 *
+	 * @param container the container
+	 */
 	public void createContainerSection(final Composite container) {
 		GridLayout layout = new GridLayout();
 		container.setLayout(layout);
@@ -205,6 +300,11 @@ public abstract class AbstractNewModelWizardPage extends WizardPage {
 		});
 	}
 
+	/**
+	 * Creates the name section.
+	 *
+	 * @param container the container
+	 */
 	public void createNameSection(final Composite container) {
 		createLabel(container, gamlType() + " name:");
 		nameText = new Text(container, SWT.BORDER | SWT.SINGLE);
@@ -213,11 +313,22 @@ public abstract class AbstractNewModelWizardPage extends WizardPage {
 		nameText.addModifyListener(e -> dialogChanged());
 	}
 
+	/**
+	 * Apply grid data.
+	 *
+	 * @param c the c
+	 * @param hSpan the h span
+	 */
 	void applyGridData(final Control c, final int hSpan) {
 		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).span(hSpan, 1)
 				.minSize(SWT.DEFAULT, 20).applyTo(c);
 	}
 
+	/**
+	 * Creates the file name section.
+	 *
+	 * @param container the container
+	 */
 	public void createFileNameSection(final Composite container) {
 		createLabel(container, "&File name:");
 		fileText = new Text(container, SWT.BORDER | SWT.SINGLE);
@@ -285,12 +396,32 @@ public abstract class AbstractNewModelWizardPage extends WizardPage {
 	@Override
 	public abstract void createControl(final Composite parent);
 
+	/**
+	 * Gets the extension.
+	 *
+	 * @return the extension
+	 */
 	public abstract String getExtension();
 
+	/**
+	 * Gaml type.
+	 *
+	 * @return the string
+	 */
 	public abstract String gamlType();
 
+	/**
+	 * Creates the doc.
+	 *
+	 * @return true, if successful
+	 */
 	public abstract boolean createDoc();
 
+	/**
+	 * Gets the template path.
+	 *
+	 * @return the template path
+	 */
 	public String getTemplatePath() {
 		return templatePath;
 	}

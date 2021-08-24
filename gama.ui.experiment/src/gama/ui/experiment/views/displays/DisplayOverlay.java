@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'DisplayOverlay.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * DisplayOverlay.java, in gama.ui.experiment, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.experiment.views.displays;
 
 import java.util.List;
@@ -67,18 +66,40 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		DEBUG.OFF();
 	}
 
+	/** The right. */
 	Label coord, zoom, left, center, right;
+	
+	/** The text. */
 	StringBuilder text = new StringBuilder();
+	
+	/** The scalebar. */
 	Canvas scalebar;
+	
+	/** The is busy. */
 	volatile boolean isBusy;
+	
+	/** The popup. */
 	private final Shell popup;
+	
+	/** The visible. */
 	private boolean visible = false;
+	
+	/** The view. */
 	final LayeredDisplayView view;
+	
+	/** The reference composite. */
 	protected final Composite referenceComposite;
+	
+	/** The create extra info. */
 	// private final Shell parentShell;
 	final boolean createExtraInfo;
+	
+	/** The timer. */
 	Timer timer = new Timer();
 
+	/**
+	 * The Class FPSTask.
+	 */
 	public class FPSTask extends TimerTask {
 
 		@Override
@@ -94,6 +115,17 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		}
 	}
 
+	/**
+	 * The listener interface for receiving overlay events.
+	 * The class that is interested in processing a overlay
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addOverlayListener<code> method. When
+	 * the overlay event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see OverlayEvent
+	 */
 	class OverlayListener extends ShellAdapter implements ControlListener {
 
 		@Override
@@ -115,6 +147,13 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 
 	}
 
+	/**
+	 * Instantiates a new display overlay.
+	 *
+	 * @param view the view
+	 * @param c the c
+	 * @param provider the provider
+	 */
 	public DisplayOverlay(final LayeredDisplayView view, final Composite c,
 			final IOverlayProvider<OverlayInfo> provider) {
 		this.createExtraInfo = provider != null;
@@ -151,6 +190,13 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 	// }
 	// }
 
+	/**
+	 * Label.
+	 *
+	 * @param c the c
+	 * @param horizontalAlign the horizontal align
+	 * @return the label
+	 */
 	private Label label(final Composite c, final int horizontalAlign) {
 		final Label l = new Label(c, SWT.None);
 		l.setForeground(IGamaColors.WHITE.color());
@@ -161,6 +207,12 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		return l;
 	}
 
+	/**
+	 * Info data.
+	 *
+	 * @param horizontalAlign the horizontal align
+	 * @return the grid data
+	 */
 	private GridData infoData(final int horizontalAlign) {
 		final GridData data = new GridData(horizontalAlign, SWT.CENTER, true, false);
 		data.minimumHeight = 24;
@@ -168,6 +220,9 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		return data;
 	}
 
+	/**
+	 * Creates the popup control.
+	 */
 	protected void createPopupControl() {
 		// overall panel
 		final Shell top = getPopup();
@@ -206,6 +261,11 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		top.layout();
 	}
 
+	/**
+	 * Paint scale.
+	 *
+	 * @param gc the gc
+	 */
 	void paintScale(final GC gc) {
 		gc.setBackground(IGamaColors.BLACK.color());
 		final int BAR_WIDTH = 1;
@@ -236,6 +296,11 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		path.dispose();
 	}
 
+	/**
+	 * Gets the scale right.
+	 *
+	 * @return the scale right
+	 */
 	private String getScaleRight() {
 		final double real = getValueOfOnePixelInModelUnits() * 100;
 		// DEBUG.LOG("GetScaleRight " + real);
@@ -250,8 +315,13 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		}
 	}
 
+	/** The do hide. */
 	Runnable doHide = () -> hide();
+	
+	/** The do display. */
 	Runnable doDisplay = () -> display();
+	
+	/** The pl 2. */
 	private final IPartListener2 pl2 = new IPartListener2() {
 
 		@Override
@@ -304,7 +374,11 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		@Override
 		public void partInputChanged(final IWorkbenchPartReference partRef) {}
 	};
+	
+	/** The listener. */
 	OverlayListener listener = new OverlayListener();
+	
+	/** The toggle listener. */
 	protected final MouseListener toggleListener = new MouseAdapter() {
 
 		@Override
@@ -319,6 +393,9 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		return isBusy;
 	}
 
+	/**
+	 * Update.
+	 */
 	public void update() {
 		if (isBusy) { return; }
 		isBusy = true;
@@ -353,6 +430,11 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		}
 	}
 
+	/**
+	 * Gets the location.
+	 *
+	 * @return the location
+	 */
 	protected Point getLocation() {
 		final Rectangle r = referenceComposite.getClientArea();
 		final Point p = referenceComposite.toDisplay(r.x, r.y);
@@ -362,11 +444,25 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		return new Point(x, y);
 	}
 
+	/**
+	 * Gets the size.
+	 *
+	 * @return the size
+	 */
 	protected Point getSize() {
 		final Point s = referenceComposite.getSize();
 		return new Point(s.x, -1);
 	}
 
+	/**
+	 * Draw string centered.
+	 *
+	 * @param gc the gc
+	 * @param string the string
+	 * @param xCenter the x center
+	 * @param yBase the y base
+	 * @param filled the filled
+	 */
 	private void drawStringCentered(final GC gc, final String string, final int xCenter, final int yBase,
 			final boolean filled) {
 		final Point extent = gc.textExtent(string);
@@ -379,8 +475,10 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 	// }
 
 	/**
-	 * @param left2
-	 * @param createColor
+	 * Sets the foreground.
+	 *
+	 * @param label the label
+	 * @param color the color
 	 */
 	private void setForeground(final Label label, final Color color) {
 		if (label == null || label.isDisposed()) { return; }
@@ -440,6 +538,11 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 	@Override
 	public void resume() {}
 
+	/**
+	 * Gets the popup.
+	 *
+	 * @return the popup
+	 */
 	public Shell getPopup() {
 		return popup;
 	}
@@ -448,6 +551,9 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 	// return view;
 	// }
 
+	/**
+	 * Display.
+	 */
 	public void display() {
 		if (!isVisible()) { return; }
 		// We first verify that the popup is still ok
@@ -460,6 +566,9 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		}
 	}
 
+	/**
+	 * Relocate.
+	 */
 	public void relocate() {
 		if (!isVisible()) { return; }
 		if (!popup.isDisposed()) {
@@ -467,6 +576,9 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		}
 	}
 
+	/**
+	 * Resize.
+	 */
 	public void resize() {
 		if (!isVisible()) { return; }
 		if (!popup.isDisposed()) {
@@ -475,6 +587,9 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		}
 	}
 
+	/**
+	 * Hide.
+	 */
 	public void hide() {
 		if (!popup.isDisposed() && popup.isVisible()) {
 			popup.setSize(0, 0);
@@ -488,6 +603,9 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		return popup.isDisposed() || viewIsDetached();
 	}
 
+	/**
+	 * Close.
+	 */
 	public void close() {
 		if (!popup.isDisposed()) {
 			// Composite c = view.getComponent();
@@ -514,6 +632,11 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		return visible && !isDisposed();
 	}
 
+	/**
+	 * View is detached.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean viewIsDetached() {
 		// Uses the trick from
 		// http://eclipsesource.com/blogs/2010/06/23/tip-how-to-detect-that-a-view-was-detached/
@@ -530,6 +653,11 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 
 	}
 
+	/**
+	 * Sets the visible.
+	 *
+	 * @param visible the new visible
+	 */
 	public void setVisible(final boolean visible) {
 		this.visible = visible;
 		if (!visible) {
@@ -539,11 +667,19 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		}
 	}
 
+	/**
+	 * Dispose.
+	 */
 	public void dispose() {
 		popup.dispose();
 
 	}
 
+	/**
+	 * Gets the value of one pixel in model units.
+	 *
+	 * @return the value of one pixel in model units
+	 */
 	public double getValueOfOnePixelInModelUnits() {
 		final IDisplaySurface s = view.getDisplaySurface();
 		if (s == null) { return 1; }
@@ -552,6 +688,12 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		return envWidth / displayWidth;
 	}
 
+	/**
+	 * Gets the overlay coord info.
+	 *
+	 * @param sb the sb
+	 * @return the overlay coord info
+	 */
 	public void getOverlayCoordInfo(final StringBuilder sb) {
 		final LayeredDisplayOutput output = view.getOutput();
 		if (output == null) { return; }
@@ -569,6 +711,12 @@ public class DisplayOverlay implements IUpdaterTarget<OverlayInfo> {
 		}
 	}
 
+	/**
+	 * Gets the overlay zoom info.
+	 *
+	 * @param sb the sb
+	 * @return the overlay zoom info
+	 */
 	public void getOverlayZoomInfo(final StringBuilder sb) {
 		final IDisplaySurface surface = view.getDisplaySurface();
 		if (surface == null) { return; }

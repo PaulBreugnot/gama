@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.expressions.GamlExpressionFactory.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * GamlExpressionFactory.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.expressions;
 
@@ -63,12 +63,27 @@ import gaml.types.Types;
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class GamlExpressionFactory implements IExpressionFactory {
 
+	/**
+	 * The Interface ParserProvider.
+	 */
 	public interface ParserProvider {
+		
+		/**
+		 * Gets the.
+		 *
+		 * @return the i expression compiler
+		 */
 		IExpressionCompiler get();
 	}
 
+	/** The parser. */
 	static ThreadLocal<IExpressionCompiler> parser;
 
+	/**
+	 * Register parser provider.
+	 *
+	 * @param f the f
+	 */
 	public static void registerParserProvider(final ParserProvider f) {
 		parser = new ThreadLocal() {
 			@Override
@@ -188,6 +203,12 @@ public class GamlExpressionFactory implements IExpressionFactory {
 		return ListExpression.create(elements);
 	}
 
+	/**
+	 * Creates a new GamlExpression object.
+	 *
+	 * @param elements the elements
+	 * @return the i expression
+	 */
 	public IExpression createList(final IExpression[] elements) {
 		return ListExpression.create(elements);
 	}
@@ -290,6 +311,15 @@ public class GamlExpressionFactory implements IExpressionFactory {
 		return OperatorProto.AS.create(context, null, toCast, type);
 	}
 
+	/**
+	 * Creates a new GamlExpression object.
+	 *
+	 * @param context the context
+	 * @param eObject the e object
+	 * @param proto the proto
+	 * @param args the args
+	 * @return the i expression
+	 */
 	private IExpression createDirectly(final IDescription context, final EObject eObject, final OperatorProto proto,
 			final IExpression... args) {
 		// We finally make an instance of the operator and init it with the arguments

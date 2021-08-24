@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.graph.loader.AvailableGraphParsers.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * GraphImporters.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -41,6 +41,7 @@ import gama.runtime.exceptions.GamaRuntimeException;
  */
 public class GraphImporters {
 
+	/** The Constant name2parser. */
 	private static final Map<String, Class<? extends GraphImporter>> name2parser =
 		new HashMap<String, Class<? extends GraphImporter>>() {
 
@@ -90,7 +91,8 @@ public class GraphImporters {
 	 * Typically required for interaction with users (like propose
 	 * the list of all the possible loader, or search something passed
 	 * by the user).
-	 * @return
+	 *
+	 * @return the available loaders
 	 */
 		public static Set<String> getAvailableLoaders() {
 		return name2parser.keySet();
@@ -100,14 +102,22 @@ public class GraphImporters {
 	 * Returns a list of loaders declared, by ensuring that each loader is provided once
 	 * only. So all the redondancies are removed.
 	 * Typically used for automatic type detection.
-	 * @return
+	 *
+	 * @return the loaders for auto detection
 	 */
 	public static List<String> getLoadersForAutoDetection() {
 		return parsersForAutomaticDetection;
 	}
 
+	/** The name 2 singleton. */
 	private static Map<String, GraphImporter> name2singleton = new HashMap<String, GraphImporter>();
 
+	/**
+	 * Gets the graph importer.
+	 *
+	 * @param fileType the file type
+	 * @return the graph importer
+	 */
 	public static GraphImporter getGraphImporter(final String fileType) {
 		GraphImporter res = name2singleton.get(fileType);
 

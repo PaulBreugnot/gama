@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'NewProjectWizard.java, in plugin ummisco.gama.ui.navigator, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * NewProjectWizard.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator.wizards;
 
 import java.lang.reflect.InvocationTargetException;
@@ -43,12 +42,23 @@ import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.base.workspace.WorkspaceModelsManager;
 import gama.ui.navigator.contents.ResourceManager;
 
+/**
+ * The Class NewProjectWizard.
+ */
 public class NewProjectWizard extends Wizard implements INewWizard, IExecutableExtension {
 
+	/** The Constant NATURE_ID. */
 	public static final String NATURE_ID = "gama.core.application.gamaNature";
+	
+	/** The wizard page. */
 	private NewProjectWizardPage wizardPage;
+	
+	/** The project. */
 	private IProject project;
 
+	/**
+	 * Instantiates a new new project wizard.
+	 */
 	public NewProjectWizard() {
 	}
 
@@ -109,11 +119,12 @@ public class NewProjectWizard extends Wizard implements INewWizard, IExecutableE
 	/**
 	 * This creates the project in the workspace.
 	 *
-	 * @param description
-	 * @param projectHandle
-	 * @param monitor
-	 * @throws CoreException
-	 * @throws OperationCanceledException
+	 * @param description the description
+	 * @param proj the proj
+	 * @param isTest the is test
+	 * @param monitor the monitor
+	 * @throws CoreException the core exception
+	 * @throws OperationCanceledException the operation canceled exception
 	 */
 	void createProject(final IProjectDescription description, final IProject proj, final boolean isTest,
 			final IProgressMonitor monitor) throws CoreException, OperationCanceledException {

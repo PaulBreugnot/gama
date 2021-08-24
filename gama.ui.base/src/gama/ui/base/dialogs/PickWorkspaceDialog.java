@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'PickWorkspaceDialog.java, in plugin msi.gama.application, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * PickWorkspaceDialog.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.dialogs;
 
 // import java.awt.GridLayout;
@@ -54,32 +53,41 @@ public class PickWorkspaceDialog extends TitleAreaDialog {
 	// 240.
 
 	// static Preferences preferences = Preferences.userRoot().node("gama");
+	/** The Constant strMsg. */
 	/* Various dialog messages */
 	private static final String strMsg =
 			"Your workspace is where settings and files of your Gama models will be stored.";
+	
+	/** The Constant strInfo. */
 	private static final String strInfo = "Please select a directory that will be the workspace root";
+	
+	/** The Constant strError. */
 	private static final String strError = "You must set a directory";
 
+	/** The workspace path combo. */
 	/* Our controls */
 	protected Combo workspacePathCombo;
+	
+	/** The last used workspaces. */
 	protected List<String> lastUsedWorkspaces;
+	
+	/** The remember workspace button. */
 	protected Button rememberWorkspaceButton;
 
+	/** The Constant splitChar. */
 	/* Used as separator when we save the last used workspace locations */
 	private static final String splitChar = "#";
+	
+	/** The Constant maxHistory. */
 	/* Max number of entries in the history box */
 	private static final int maxHistory = 20;
 
+	/** The cloning. */
 	/* Whatever the user picks ends up on this variable */
 	private boolean cloning = false;
 
 	/**
 	 * Creates a new workspace dialog with a specific image as title-area image.
-	 *
-	 * @param switchWorkspace
-	 *            true if we're using this dialog as a switch workspace dialog
-	 * @param wizardImage
-	 *            Image to show
 	 */
 	public PickWorkspaceDialog() {
 		super(Display.getDefault().getActiveShell());
@@ -170,6 +178,11 @@ public class PickWorkspaceDialog extends TitleAreaDialog {
 		return WorkspaceManager.getSelectedWorkspaceRootLocation();
 	}
 
+	/**
+	 * Gets the workspace path suggestion.
+	 *
+	 * @return the workspace path suggestion
+	 */
 	/* Suggests a default path based on the user.home/GAMA directory location */
 	private String getWorkspacePathSuggestion() {
 		final StringBuilder buf = new StringBuilder();
@@ -234,6 +247,9 @@ public class PickWorkspaceDialog extends TitleAreaDialog {
 		}
 	}
 
+	/**
+	 * Clone current workspace.
+	 */
 	protected void cloneCurrentWorkspace() {
 		final String currentLocation = WorkspaceManager.getLastSetWorkspaceDirectory();
 		if (currentLocation == null || currentLocation.isEmpty()) {

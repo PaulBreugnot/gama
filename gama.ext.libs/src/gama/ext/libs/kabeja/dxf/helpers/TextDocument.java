@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * TextDocument.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf.helpers;
 
 import java.util.ArrayList;
@@ -21,10 +16,13 @@ import java.util.List;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class TextDocument.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class TextDocument {
+    
+    /** The paragraphs. */
     protected List paragraphs = new ArrayList();
 
     /**
@@ -48,22 +46,48 @@ public class TextDocument {
         return buf.toString();
     }
 
+    /**
+     * Adds the styled paragraph.
+     *
+     * @param para the para
+     */
     public void addStyledParagraph(StyledTextParagraph para) {
         this.paragraphs.add(para);
     }
 
+    /**
+     * Gets the styled paragraph iterator.
+     *
+     * @return the styled paragraph iterator
+     */
     public Iterator getStyledParagraphIterator() {
         return this.paragraphs.iterator();
     }
 
+    /**
+     * Gets the paragraph count.
+     *
+     * @return the paragraph count
+     */
     public int getParagraphCount() {
         return this.paragraphs.size();
     }
 
+    /**
+     * Gets the style text paragraph.
+     *
+     * @param i the i
+     * @return the style text paragraph
+     */
     public StyledTextParagraph getStyleTextParagraph(int i) {
         return (StyledTextParagraph) this.paragraphs.get(i);
     }
 
+    /**
+     * Gets the line count.
+     *
+     * @return the line count
+     */
     public int getLineCount() {
         int count = 1;
         Iterator i = this.paragraphs.iterator();
@@ -79,6 +103,11 @@ public class TextDocument {
         return count;
     }
 
+    /**
+     * Gets the maximum line length.
+     *
+     * @return the maximum line length
+     */
     public int getMaximumLineLength() {
         int count = 0;
         int max = 0;

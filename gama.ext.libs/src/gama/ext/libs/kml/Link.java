@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Link.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -116,18 +126,7 @@ public class Link
     implements Cloneable
 {
 
-    /**
-     * RefreshMode
-     * <p>
-     * onChange, onInterval, onExpire 
-     * </p>
-     * 
-     * See Also: 
-     * See <Link>
-     * 
-     * 
-     * 
-     */
+    /** RefreshMode <p> onChange, onInterval, onExpire  </p>  See Also:  See <Link>. */
     @XmlElement(defaultValue = "onChange")
     protected RefreshMode refreshMode;
     /**
@@ -141,18 +140,8 @@ public class Link
      */
     @XmlElement(defaultValue = "4.0")
     protected double refreshInterval;
-    /**
-     * ViewRefreshMode
-     * <p>
-     * never, onRequest, onStop, onRegion 
-     * </p>
-     * 
-     * See Also: 
-     * See <Link>
-     * 
-     * 
-     * 
-     */
+    
+    /** ViewRefreshMode <p> never, onRequest, onStop, onRegion  </p>  See Also:  See <Link>. */
     @XmlElement(defaultValue = "never")
     protected ViewRefreshMode viewRefreshMode;
     /**
@@ -237,6 +226,8 @@ public class Link
      * 
      */
     protected String httpQuery;
+    
+    /** The link simple extension. */
     @XmlElement(name = "LinkSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> linkSimpleExtension;
@@ -261,181 +252,172 @@ public class Link
     @XmlElement(name = "LinkObjectExtensionGroup")
     protected List<AbstractObject> linkObjectExtension;
 
+    /**
+     * Instantiates a new link.
+     */
     public Link() {
         super();
     }
 
     /**
-     * @see refreshMode
-     * 
-     * @return
-     *     possible object is
+     * Gets the refresh mode.
+     *
+     * @return     possible object is
      *     {@link RefreshMode}
-     *     
+     * @see refreshMode
      */
     public RefreshMode getRefreshMode() {
         return refreshMode;
     }
 
     /**
-     * @see refreshMode
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the refresh mode.
+     *
+     * @param value     allowed object is
      *     {@link RefreshMode}
-     *     
+     * @see refreshMode
      */
     public void setRefreshMode(RefreshMode value) {
         this.refreshMode = value;
     }
 
     /**
-     * @see refreshInterval
-     * 
-     * @return
-     *     possible object is
+     * Gets the refresh interval.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see refreshInterval
      */
     public double getRefreshInterval() {
         return refreshInterval;
     }
 
     /**
-     * @see refreshInterval
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the refresh interval.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see refreshInterval
      */
     public void setRefreshInterval(double value) {
         this.refreshInterval = value;
     }
 
     /**
-     * @see viewRefreshMode
-     * 
-     * @return
-     *     possible object is
+     * Gets the view refresh mode.
+     *
+     * @return     possible object is
      *     {@link ViewRefreshMode}
-     *     
+     * @see viewRefreshMode
      */
     public ViewRefreshMode getViewRefreshMode() {
         return viewRefreshMode;
     }
 
     /**
-     * @see viewRefreshMode
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the view refresh mode.
+     *
+     * @param value     allowed object is
      *     {@link ViewRefreshMode}
-     *     
+     * @see viewRefreshMode
      */
     public void setViewRefreshMode(ViewRefreshMode value) {
         this.viewRefreshMode = value;
     }
 
     /**
-     * @see viewRefreshTime
-     * 
-     * @return
-     *     possible object is
+     * Gets the view refresh time.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see viewRefreshTime
      */
     public double getViewRefreshTime() {
         return viewRefreshTime;
     }
 
     /**
-     * @see viewRefreshTime
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the view refresh time.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see viewRefreshTime
      */
     public void setViewRefreshTime(double value) {
         this.viewRefreshTime = value;
     }
 
     /**
-     * @see viewBoundScale
-     * 
-     * @return
-     *     possible object is
+     * Gets the view bound scale.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see viewBoundScale
      */
     public double getViewBoundScale() {
         return viewBoundScale;
     }
 
     /**
-     * @see viewBoundScale
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the view bound scale.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see viewBoundScale
      */
     public void setViewBoundScale(double value) {
         this.viewBoundScale = value;
     }
 
     /**
-     * @see viewFormat
-     * 
-     * @return
-     *     possible object is
+     * Gets the view format.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see viewFormat
      */
     public String getViewFormat() {
         return viewFormat;
     }
 
     /**
-     * @see viewFormat
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the view format.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see viewFormat
      */
     public void setViewFormat(String value) {
         this.viewFormat = value;
     }
 
     /**
-     * @see httpQuery
-     * 
-     * @return
-     *     possible object is
+     * Gets the http query.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see httpQuery
      */
     public String getHttpQuery() {
         return httpQuery;
     }
 
     /**
-     * @see httpQuery
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the http query.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see httpQuery
      */
     public void setHttpQuery(String value) {
         this.httpQuery = value;
     }
 
     /**
+     * Gets the link simple extension.
+     *
+     * @return the link simple extension
      * @see linkSimpleExtension
-     * 
      */
     public List<Object> getLinkSimpleExtension() {
         if (linkSimpleExtension == null) {
@@ -445,8 +427,10 @@ public class Link
     }
 
     /**
+     * Gets the link object extension.
+     *
+     * @return the link object extension
      * @see linkObjectExtension
-     * 
      */
     public List<AbstractObject> getLinkObjectExtension() {
         if (linkObjectExtension == null) {
@@ -557,21 +541,20 @@ public class Link
     }
 
     /**
+     * Sets the link simple extension.
+     *
+     * @param linkSimpleExtension the new link simple extension
      * @see linkSimpleExtension
-     * 
-     * @param linkSimpleExtension
      */
     public void setLinkSimpleExtension(final List<Object> linkSimpleExtension) {
         this.linkSimpleExtension = linkSimpleExtension;
     }
 
     /**
-     * add a value to the linkSimpleExtension property collection
-     * 
-     * @param linkSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the linkSimpleExtension property collection.
+     *
+     * @param linkSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Link addToLinkSimpleExtension(final Object linkSimpleExtension) {
         this.getLinkSimpleExtension().add(linkSimpleExtension);
@@ -579,21 +562,20 @@ public class Link
     }
 
     /**
+     * Sets the link object extension.
+     *
+     * @param linkObjectExtension the new link object extension
      * @see linkObjectExtension
-     * 
-     * @param linkObjectExtension
      */
     public void setLinkObjectExtension(final List<AbstractObject> linkObjectExtension) {
         this.linkObjectExtension = linkObjectExtension;
     }
 
     /**
-     * add a value to the linkObjectExtension property collection
-     * 
-     * @param linkObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the linkObjectExtension property collection.
+     *
+     * @param linkObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Link addToLinkObjectExtension(final AbstractObject linkObjectExtension) {
         this.getLinkObjectExtension().add(linkObjectExtension);
@@ -652,11 +634,11 @@ public class Link
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param refreshMode     required parameter
+     * @return the link
      * @see #setRefreshMode(RefreshMode)
-     * 
-     * @param refreshMode
-     *     required parameter
      */
     public Link withRefreshMode(final RefreshMode refreshMode) {
         this.setRefreshMode(refreshMode);
@@ -664,11 +646,11 @@ public class Link
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param refreshInterval     required parameter
+     * @return the link
      * @see #setRefreshInterval(double)
-     * 
-     * @param refreshInterval
-     *     required parameter
      */
     public Link withRefreshInterval(final double refreshInterval) {
         this.setRefreshInterval(refreshInterval);
@@ -676,11 +658,11 @@ public class Link
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param viewRefreshMode     required parameter
+     * @return the link
      * @see #setViewRefreshMode(ViewRefreshMode)
-     * 
-     * @param viewRefreshMode
-     *     required parameter
      */
     public Link withViewRefreshMode(final ViewRefreshMode viewRefreshMode) {
         this.setViewRefreshMode(viewRefreshMode);
@@ -688,11 +670,11 @@ public class Link
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param viewRefreshTime     required parameter
+     * @return the link
      * @see #setViewRefreshTime(double)
-     * 
-     * @param viewRefreshTime
-     *     required parameter
      */
     public Link withViewRefreshTime(final double viewRefreshTime) {
         this.setViewRefreshTime(viewRefreshTime);
@@ -700,11 +682,11 @@ public class Link
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param viewBoundScale     required parameter
+     * @return the link
      * @see #setViewBoundScale(double)
-     * 
-     * @param viewBoundScale
-     *     required parameter
      */
     public Link withViewBoundScale(final double viewBoundScale) {
         this.setViewBoundScale(viewBoundScale);
@@ -712,11 +694,11 @@ public class Link
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param viewFormat     required parameter
+     * @return the link
      * @see #setViewFormat(String)
-     * 
-     * @param viewFormat
-     *     required parameter
      */
     public Link withViewFormat(final String viewFormat) {
         this.setViewFormat(viewFormat);
@@ -724,11 +706,11 @@ public class Link
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param httpQuery     required parameter
+     * @return the link
      * @see #setHttpQuery(String)
-     * 
-     * @param httpQuery
-     *     required parameter
      */
     public Link withHttpQuery(final String httpQuery) {
         this.setHttpQuery(httpQuery);
@@ -736,11 +718,11 @@ public class Link
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param linkSimpleExtension     required parameter
+     * @return the link
      * @see #setLinkSimpleExtension(List<Object>)
-     * 
-     * @param linkSimpleExtension
-     *     required parameter
      */
     public Link withLinkSimpleExtension(final List<Object> linkSimpleExtension) {
         this.setLinkSimpleExtension(linkSimpleExtension);
@@ -748,11 +730,11 @@ public class Link
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param linkObjectExtension     required parameter
+     * @return the link
      * @see #setLinkObjectExtension(List<AbstractObject>)
-     * 
-     * @param linkObjectExtension
-     *     required parameter
      */
     public Link withLinkObjectExtension(final List<AbstractObject> linkObjectExtension) {
         this.setLinkObjectExtension(linkObjectExtension);

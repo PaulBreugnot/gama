@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.types.GamaPairType.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * GamaPairType.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.types;
 
@@ -25,10 +25,9 @@ import gama.util.IList;
 import gama.util.IMap;
 
 /**
- * Written by drogoul Modified on 1 ao�t 2010
+ * Written by drogoul Modified on 1 ao�t 2010.
  *
  * @todo Description
- *
  */
 @type (
 		name = IKeyword.PAIR,
@@ -51,6 +50,17 @@ public class GamaPairType extends GamaContainerType<GamaPair> {
 		return 2;
 	}
 
+	/**
+	 * Static cast.
+	 *
+	 * @param scope the scope
+	 * @param obj the obj
+	 * @param keyType the key type
+	 * @param contentsType the contents type
+	 * @param copy the copy
+	 * @return the gama pair
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public static GamaPair staticCast(final IScope scope, final Object obj, final IType keyType,
 			final IType contentsType, final boolean copy) throws GamaRuntimeException {
 		Object key, value;

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * SimpleArrayField.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.gx;
 
@@ -12,7 +22,7 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * 
+ * The Class SimpleArrayField.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SimpleArrayFieldType", propOrder = {
@@ -23,43 +33,53 @@ import javax.xml.bind.annotation.XmlType;
 public class SimpleArrayField implements Cloneable
 {
 
+    /** The display name. */
     @XmlElement(namespace = "http://www.opengis.net/kml/2.2")
     protected String displayName;
+    
+    /** The simple array field extension. */
     @XmlElement(name = "SimpleArrayFieldExtension")
     protected List<Object> simpleArrayFieldExtension;
+    
+    /** The type. */
     @XmlAttribute(name = "type")
     protected String type;
+    
+    /** The name. */
     @XmlAttribute(name = "name")
     protected String name;
 
+    /**
+     * Instantiates a new simple array field.
+     */
     public SimpleArrayField() {
         super();
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the display name.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getDisplayName() {
         return displayName;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the display name.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setDisplayName(String value) {
         this.displayName = value;
     }
 
     /**
-     * 
+     * Gets the simple array field extension.
+     *
+     * @return the simple array field extension
      */
     public List<Object> getSimpleArrayFieldExtension() {
         if (simpleArrayFieldExtension == null) {
@@ -69,44 +89,40 @@ public class SimpleArrayField implements Cloneable
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the type.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getType() {
         return type;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the type.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setType(String value) {
         this.type = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the name.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getName() {
         return name;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the name.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setName(String value) {
         this.name = value;
@@ -178,21 +194,18 @@ public class SimpleArrayField implements Cloneable
      * Sets the value of the simpleArrayFieldExtension property Objects of the following type(s) are allowed in the list List<Object>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withSimpleArrayFieldExtension} instead.
-     * 
-     * 
-     * @param simpleArrayFieldExtension
+     *
+     * @param simpleArrayFieldExtension the new simple array field extension
      */
     public void setSimpleArrayFieldExtension(final List<Object> simpleArrayFieldExtension) {
         this.simpleArrayFieldExtension = simpleArrayFieldExtension;
     }
 
     /**
-     * add a value to the simpleArrayFieldExtension property collection
-     * 
-     * @param simpleArrayFieldExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the simpleArrayFieldExtension property collection.
+     *
+     * @param simpleArrayFieldExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public SimpleArrayField addToSimpleArrayFieldExtension(final Object simpleArrayFieldExtension) {
         this.getSimpleArrayFieldExtension().add(simpleArrayFieldExtension);
@@ -200,11 +213,11 @@ public class SimpleArrayField implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param displayName     required parameter
+     * @return the simple array field
      * @see #setDisplayName(String)
-     * 
-     * @param displayName
-     *     required parameter
      */
     public SimpleArrayField withDisplayName(final String displayName) {
         this.setDisplayName(displayName);
@@ -212,11 +225,11 @@ public class SimpleArrayField implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param simpleArrayFieldExtension     required parameter
+     * @return the simple array field
      * @see #setSimpleArrayFieldExtension(List<Object>)
-     * 
-     * @param simpleArrayFieldExtension
-     *     required parameter
      */
     public SimpleArrayField withSimpleArrayFieldExtension(final List<Object> simpleArrayFieldExtension) {
         this.setSimpleArrayFieldExtension(simpleArrayFieldExtension);
@@ -224,11 +237,11 @@ public class SimpleArrayField implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param type     required parameter
+     * @return the simple array field
      * @see #setType(String)
-     * 
-     * @param type
-     *     required parameter
      */
     public SimpleArrayField withType(final String type) {
         this.setType(type);
@@ -236,11 +249,11 @@ public class SimpleArrayField implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param name     required parameter
+     * @return the simple array field
      * @see #setName(String)
-     * 
-     * @param name
-     *     required parameter
      */
     public SimpleArrayField withName(final String name) {
         this.setName(name);

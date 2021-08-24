@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * DXFSolidHandler.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.parser.entities;
 
 import gama.ext.libs.kabeja.dxf.DXFEntity;
@@ -21,20 +16,43 @@ import gama.ext.libs.kabeja.parser.DXFValue;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth</a>
+ * The Class DXFSolidHandler.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth</a>
  */
 public class DXFSolidHandler extends AbstractEntityHandler {
+    
+    /** The Constant POINT2_X. */
     public final static int POINT2_X = 11;
+    
+    /** The Constant POINT2_Y. */
     public final static int POINT2_Y = 21;
+    
+    /** The Constant POINT2_Z. */
     public final static int POINT2_Z = 31;
+    
+    /** The Constant POINT3_X. */
     public final static int POINT3_X = 12;
+    
+    /** The Constant POINT3_Y. */
     public final static int POINT3_Y = 22;
+    
+    /** The Constant POINT3_Z. */
     public final static int POINT3_Z = 32;
+    
+    /** The Constant POINT4_X. */
     public final static int POINT4_X = 13;
+    
+    /** The Constant POINT4_Y. */
     public final static int POINT4_Y = 23;
+    
+    /** The Constant POINT4_Z. */
     public final static int POINT4_Z = 33;
+    
+    /** The entity name. */
     protected String ENTITY_NAME = "SOLID";
+    
+    /** The solid. */
     protected DXFSolid solid;
 
     /*

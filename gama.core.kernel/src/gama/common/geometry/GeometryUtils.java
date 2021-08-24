@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.common.geometry.GeometryUtils.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * GeometryUtils.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.common.geometry;
 
@@ -86,15 +86,32 @@ import gaml.types.Types;
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class GeometryUtils {
 
+	/** The envelope computers. */
 	private static List<IEnvelopeComputer> envelopeComputers = new ArrayList<>();
 
+	/**
+	 * Adds the envelope computer.
+	 *
+	 * @param ec the ec
+	 */
 	public static void addEnvelopeComputer(final IEnvelopeComputer ec) {
 		envelopeComputers.add(ec);
 	}
 
+	/** The Constant GEOMETRY_FACTORY. */
 	public final static GamaGeometryFactory GEOMETRY_FACTORY = new GamaGeometryFactory();
+	
+	/** The Constant PREPARED_GEOMETRY_FACTORY. */
 	public final static PreparedGeometryFactory PREPARED_GEOMETRY_FACTORY = new PreparedGeometryFactory();
 
+	/**
+	 * Distance on polyline.
+	 *
+	 * @param line the line
+	 * @param pt1 the pt 1
+	 * @param pt2 the pt 2
+	 * @return the double
+	 */
 	public static Double distanceOnPolyline(final IShape line, final GamaPoint pt1, final GamaPoint pt2) {
 		int indexS = 0;
 		int indexT = 0;
@@ -148,6 +165,13 @@ public class GeometryUtils {
 		return distance;
 	}
 
+	/**
+	 * Point in geom.
+	 *
+	 * @param geom the geom
+	 * @param rand the rand
+	 * @return the gama point
+	 */
 	public static GamaPoint pointInGeom(final Geometry geom, final RandomUtils rand) {
 		// WARNING Only in 2D for Polygons !
 		if (geom == null || geom.getCoordinate() == null) return null;
@@ -230,11 +254,24 @@ public class GeometryUtils {
 
 	}
 
+	/**
+	 * Point in geom.
+	 *
+	 * @param shape the shape
+	 * @param rand the rand
+	 * @return the gama point
+	 */
 	public static GamaPoint pointInGeom(final IShape shape, final RandomUtils rand) {
 		if (shape == null) return null;
 		return pointInGeom(shape.getInnerGeometry(), rand);
 	}
 
+	/**
+	 * Minimise length.
+	 *
+	 * @param coords the coords
+	 * @return the coordinate[]
+	 */
 	private static Coordinate[] minimiseLength(final Coordinate[] coords) {
 		final double dist1 = GEOMETRY_FACTORY.createLineString(coords).getLength();
 		final Coordinate[] coordstest1 = new Coordinate[3];
@@ -255,6 +292,13 @@ public class GeometryUtils {
 		return coords;
 	}
 
+	/**
+	 * Nb common points.
+	 *
+	 * @param p1 the p 1
+	 * @param p2 the p 2
+	 * @return the int
+	 */
 	public static int nbCommonPoints(final Geometry p1, final Geometry p2) {
 		try (final ICollector<Coordinate> cp = Collector.getSet()) {
 			final List<Coordinate> coords = Arrays.asList(p1.getCoordinates());
@@ -265,6 +309,13 @@ public class GeometryUtils {
 		}
 	}
 
+	/**
+	 * Extract points.
+	 *
+	 * @param triangle the triangle
+	 * @param connectedNodes the connected nodes
+	 * @return the coordinate[]
+	 */
 	public static Coordinate[] extractPoints(final IShape triangle, final Set<IShape> connectedNodes) {
 		final Coordinate[] coords = triangle.getInnerGeometry().getCoordinates();
 		final int degree = connectedNodes.size();
@@ -300,6 +351,13 @@ public class GeometryUtils {
 		return pts;
 	}
 
+	/**
+	 * Extract points.
+	 *
+	 * @param triangle1 the triangle 1
+	 * @param triangle2 the triangle 2
+	 * @return the coordinate[]
+	 */
 	public static Coordinate[] extractPoints(final IShape triangle1, final IShape triangle2) {
 		final Coordinate[] coords = triangle1.getInnerGeometry().getCoordinates();
 		final Coordinate[] c1 = { coords[0], coords[1] };
@@ -320,6 +378,14 @@ public class GeometryUtils {
 		return pts;
 	}
 
+	/**
+	 * Hexagonal grid from geom.
+	 *
+	 * @param geom the geom
+	 * @param nbRows the nb rows
+	 * @param nbColumns the nb columns
+	 * @return the i list
+	 */
 	public static IList<IShape> hexagonalGridFromGeom(final IShape geom, final int nbRows, final int nbColumns) {
 		final Envelope env = geom.getEnvelope();
 		final double widthEnv = env.getWidth();
@@ -348,6 +414,15 @@ public class GeometryUtils {
 		return geoms;
 	}
 
+	/**
+	 * Square discretization.
+	 *
+	 * @param geom the geom
+	 * @param nb_squares the nb squares
+	 * @param overlaps the overlaps
+	 * @param coeff_precision the coeff precision
+	 * @return the i list
+	 */
 	public static IList<IShape> squareDiscretization(final Geometry geom, final int nb_squares, final boolean overlaps,
 			final double coeff_precision) {
 		double size = Math.sqrt(geom.getArea() / nb_squares);
@@ -383,11 +458,30 @@ public class GeometryUtils {
 		return squares;
 	}
 
+	/**
+	 * Discretization.
+	 *
+	 * @param geom the geom
+	 * @param size_x the size x
+	 * @param size_y the size y
+	 * @param overlaps the overlaps
+	 * @return the i list
+	 */
 	public static IList<IShape> discretization(final Geometry geom, final double size_x, final double size_y,
 			final boolean overlaps) {
 		return discretization(geom, size_x, size_y, overlaps, null);
 	}
 
+	/**
+	 * Discretization.
+	 *
+	 * @param geom the geom
+	 * @param size_x the size x
+	 * @param size_y the size y
+	 * @param overlaps the overlaps
+	 * @param borders the borders
+	 * @return the i list
+	 */
 	public static IList<IShape> discretization(final Geometry geom, final double size_x, final double size_y,
 			final boolean overlaps, final List<IShape> borders) {
 		final IList<IShape> geoms = GamaListFactory.create(Types.GEOMETRY);
@@ -435,6 +529,14 @@ public class GeometryUtils {
 		return geoms;
 	}
 
+	/**
+	 * Geometry decomposition.
+	 *
+	 * @param geom the geom
+	 * @param x_size the x size
+	 * @param y_size the y size
+	 * @return the i list
+	 */
 	public static IList<IShape> geometryDecomposition(final IShape geom, final double x_size, final double y_size) {
 		final IList<IShape> geoms = GamaListFactory.create(Types.GEOMETRY);
 		final double zVal = geom.getLocation().getZ();
@@ -454,6 +556,13 @@ public class GeometryUtils {
 		return geoms;
 	}
 
+	/**
+	 * Voronoi.
+	 *
+	 * @param scope the scope
+	 * @param points the points
+	 * @return the i list
+	 */
 	public static IList<IShape> voronoi(final IScope scope, final IList<GamaPoint> points) {
 		final IList<IShape> geoms = GamaListFactory.create(Types.GEOMETRY);
 		final VoronoiDiagramBuilder dtb = new VoronoiDiagramBuilder();
@@ -468,6 +577,14 @@ public class GeometryUtils {
 		return geoms;
 	}
 
+	/**
+	 * Voronoi.
+	 *
+	 * @param scope the scope
+	 * @param points the points
+	 * @param clip the clip
+	 * @return the i list
+	 */
 	public static IList<IShape> voronoi(final IScope scope, final IList<GamaPoint> points, final IShape clip) {
 		final IList<IShape> geoms = GamaListFactory.create(Types.GEOMETRY);
 		final VoronoiDiagramBuilder dtb = new VoronoiDiagramBuilder();
@@ -482,6 +599,13 @@ public class GeometryUtils {
 		return geoms;
 	}
 
+	/**
+	 * Triangulation.
+	 *
+	 * @param scope the scope
+	 * @param lines the lines
+	 * @return the i list
+	 */
 	public static IList<IShape> triangulation(final IScope scope, final IList<IShape> lines) {
 		final IList<IShape> geoms = GamaListFactory.create(Types.GEOMETRY);
 		final ConformingDelaunayTriangulationBuilder dtb = new ConformingDelaunayTriangulationBuilder();
@@ -498,6 +622,16 @@ public class GeometryUtils {
 		return geoms;
 	}
 
+	/**
+	 * Triangulation.
+	 *
+	 * @param scope the scope
+	 * @param geom the geom
+	 * @param toleranceTriangulation the tolerance triangulation
+	 * @param toleranceClip the tolerance clip
+	 * @param approxClipping the approx clipping
+	 * @return the i list
+	 */
 	public static IList<IShape> triangulation(final IScope scope, final Geometry geom,
 			final double toleranceTriangulation, final double toleranceClip, final boolean approxClipping) {
 		final IList<IShape> geoms = GamaListFactory.create(Types.GEOMETRY);
@@ -527,6 +661,15 @@ public class GeometryUtils {
 		return geoms;
 	}
 
+	/**
+	 * Filter geoms.
+	 *
+	 * @param geom the geom
+	 * @param clip the clip
+	 * @param sizeTol the size tol
+	 * @param approxClipping the approx clipping
+	 * @return the i list
+	 */
 	private static IList<IShape> filterGeoms(final GeometryCollection geom, final Geometry clip, final double sizeTol,
 			final boolean approxClipping) {
 		if (geom == null) return null;
@@ -568,6 +711,12 @@ public class GeometryUtils {
 		return result;
 	}
 
+	/**
+	 * Iterate over triangles.
+	 *
+	 * @param polygon the polygon
+	 * @param action the action
+	 */
 	public static void iterateOverTriangles(final Polygon polygon, final Consumer<Geometry> action) {
 		final double elevation = getContourCoordinates(polygon).averageZ();
 		final double sizeTol = Math.sqrt(polygon.getArea()) / 100.0;
@@ -595,6 +744,16 @@ public class GeometryUtils {
 		}
 	}
 
+	/**
+	 * Squeletisation.
+	 *
+	 * @param scope the scope
+	 * @param geom the geom
+	 * @param toleranceTriangulation the tolerance triangulation
+	 * @param toleranceClip the tolerance clip
+	 * @param approxClipping the approx clipping
+	 * @return the list
+	 */
 	public static List<LineString> squeletisation(final IScope scope, final Geometry geom,
 			final double toleranceTriangulation, final double toleranceClip, final boolean approxClipping) {
 		final List<LineString> network = new ArrayList<>();
@@ -619,6 +778,12 @@ public class GeometryUtils {
 		return network;
 	}
 
+	/**
+	 * Builds the geometry JTS.
+	 *
+	 * @param geomG the geom G
+	 * @return the geometry
+	 */
 	public static Geometry buildGeometryJTS(final List<List<List<GamaPoint>>> geomG) {
 		final IShape.Type geometryType = geometryType(geomG);
 		switch (geometryType) {
@@ -656,10 +821,22 @@ public class GeometryUtils {
 		}
 	}
 
+	/**
+	 * Builds the point.
+	 *
+	 * @param listPoints the list points
+	 * @return the geometry
+	 */
 	private static Geometry buildPoint(final List<List<GamaPoint>> listPoints) {
 		return GEOMETRY_FACTORY.createPoint(listPoints.get(0).get(0));
 	}
 
+	/**
+	 * Builds the geometry collection.
+	 *
+	 * @param geoms the geoms
+	 * @return the geometry
+	 */
 	public static Geometry buildGeometryCollection(final List<IShape> geoms) {
 		final int nb = geoms.size();
 		final Geometry[] geometries = new Geometry[nb];
@@ -670,6 +847,12 @@ public class GeometryUtils {
 
 	}
 
+	/**
+	 * Builds the line.
+	 *
+	 * @param listPoints the list points
+	 * @return the geometry
+	 */
 	private static Geometry buildLine(final List<List<GamaPoint>> listPoints) {
 		final List<GamaPoint> coords = listPoints.get(0);
 		final int nb = coords.size();
@@ -680,6 +863,12 @@ public class GeometryUtils {
 		return GEOMETRY_FACTORY.createLineString(coordinates);
 	}
 
+	/**
+	 * Builds the polygon.
+	 *
+	 * @param listPoints the list points
+	 * @return the geometry
+	 */
 	private static Geometry buildPolygon(final List<List<GamaPoint>> listPoints) {
 		final List<GamaPoint> coords = listPoints.get(0);
 		final int nb = coords.size();
@@ -704,6 +893,12 @@ public class GeometryUtils {
 		return GEOMETRY_FACTORY.createPolygon(GEOMETRY_FACTORY.createLinearRing(coordinates), holes);
 	}
 
+	/**
+	 * Geometry type.
+	 *
+	 * @param listPoints the list points
+	 * @return the i shape. type
+	 */
 	private static IShape.Type geometryType(final List<List<List<GamaPoint>>> listPoints) {
 		final int size = listPoints.size();
 		if (size == 0) return NULL;
@@ -721,6 +916,12 @@ public class GeometryUtils {
 		}
 	}
 
+	/**
+	 * Geometry type simp.
+	 *
+	 * @param listPoints the list points
+	 * @return the i shape. type
+	 */
 	private static IShape.Type geometryTypeSimp(final List<List<GamaPoint>> listPoints) {
 		if (listPoints.isEmpty() || listPoints.get(0).isEmpty()) return NULL;
 		final List<GamaPoint> list0 = listPoints.get(0);
@@ -730,6 +931,13 @@ public class GeometryUtils {
 		return POLYGON;
 	}
 
+	/**
+	 * Locs on geometry.
+	 *
+	 * @param geom the geom
+	 * @param distance the distance
+	 * @return the i list
+	 */
 	public static IList<GamaPoint> locsOnGeometry(final Geometry geom, final Double distance) {
 		final IList<GamaPoint> locs = GamaListFactory.create(Types.POINT);
 		if (geom instanceof Point) {
@@ -780,6 +988,13 @@ public class GeometryUtils {
 		return locs;
 	}
 
+	/**
+	 * Locs along geometry.
+	 *
+	 * @param geom the geom
+	 * @param rates the rates
+	 * @return the i list
+	 */
 	public static IList<GamaPoint> locsAlongGeometry(final Geometry geom, final List<Double> rates) {
 		final IList<GamaPoint> locs = GamaListFactory.create(Types.POINT);
 		if (rates == null || rates.isEmpty()) return locs;
@@ -837,6 +1052,13 @@ public class GeometryUtils {
 	// Created date:24-Feb-2013: Process for SQL - MAP type
 	// Modified: 03-Jan-2014
 
+	/**
+	 * Compute envelope from.
+	 *
+	 * @param scope the scope
+	 * @param obj the obj
+	 * @return the envelope 3 D
+	 */
 	public static Envelope3D computeEnvelopeFrom(final IScope scope, final Object obj) {
 		Envelope3D result = null;
 		if (obj instanceof ISpecies)
@@ -873,6 +1095,13 @@ public class GeometryUtils {
 		return result;
 	}
 
+	/**
+	 * Split at.
+	 *
+	 * @param g the g
+	 * @param pt the pt
+	 * @return the i list
+	 */
 	private static IList<IShape> split_at(final Geometry g, final GamaPoint pt) {
 		final IList<IShape> lines = GamaListFactory.create(Types.GEOMETRY);
 		// final GamaPoint p = new GamaPoint(pt);
@@ -917,13 +1146,22 @@ public class GeometryUtils {
 
 	}
 
+	/**
+	 * Split at.
+	 *
+	 * @param geom the geom
+	 * @param pt the pt
+	 * @return the i list
+	 */
 	public static IList<IShape> split_at(final IShape geom, final GamaPoint pt) {
 		return split_at(geom.getInnerGeometry(), pt);
 	}
 
 	/**
-	 * @param intersect
-	 * @return
+	 * Gets the type of.
+	 *
+	 * @param g the g
+	 * @return the type of
 	 */
 	public static Type getTypeOf(final Geometry g) {
 		if (g == null) return Type.NULL;
@@ -931,15 +1169,22 @@ public class GeometryUtils {
 	}
 
 	/**
-	 * @param ownScope
-	 * @param innerGeometry
-	 * @param param
-	 * @return
+	 * Smooth.
+	 *
+	 * @param geom the geom
+	 * @param fit the fit
+	 * @return the i shape
 	 */
 	public static IShape smooth(final Geometry geom, final double fit) {
 		return new GamaShape(JTS.smooth(geom, fit, GEOMETRY_FACTORY));
 	}
 
+	/**
+	 * Gets the contour coordinates.
+	 *
+	 * @param g the g
+	 * @return the contour coordinates
+	 */
 	public static ICoordinates getContourCoordinates(final Polygon g) {
 		if (g.isEmpty()) return ICoordinates.EMPTY;
 		if (g.getExteriorRing().getCoordinateSequence() instanceof CoordinateArraySequence)
@@ -947,16 +1192,34 @@ public class GeometryUtils {
 		return (ICoordinates) g.getExteriorRing().getCoordinateSequence();
 	}
 
+	/**
+	 * Gets the contour coordinates.
+	 *
+	 * @param g the g
+	 * @return the contour coordinates
+	 */
 	public static ICoordinates getContourCoordinates(final LineString g) {
 		if (g.isEmpty()) return ICoordinates.EMPTY;
 		return (ICoordinates) g.getCoordinateSequence();
 	}
 
+	/**
+	 * Gets the contour coordinates.
+	 *
+	 * @param g the g
+	 * @return the contour coordinates
+	 */
 	public static ICoordinates getContourCoordinates(final Point g) {
 		if (g.isEmpty()) return ICoordinates.EMPTY;
 		return (ICoordinates) g.getCoordinateSequence();
 	}
 
+	/**
+	 * Gets the contour coordinates.
+	 *
+	 * @param g the g
+	 * @return the contour coordinates
+	 */
 	public static ICoordinates getContourCoordinates(final Geometry g) {
 		if (g instanceof Polygon) return getContourCoordinates((Polygon) g);
 		if (g instanceof LineString) return getContourCoordinates((LineString) g);
@@ -965,21 +1228,45 @@ public class GeometryUtils {
 		return ICoordinates.EMPTY;
 	}
 
+	/**
+	 * Gets the points of.
+	 *
+	 * @param shape the shape
+	 * @return the points of
+	 */
 	public static GamaPoint[] getPointsOf(final IShape shape) {
 		final Geometry g = shape.getInnerGeometry();
 		return getContourCoordinates(g).toCoordinateArray();
 	}
 
+	/**
+	 * Gets the points of.
+	 *
+	 * @param g the g
+	 * @return the points of
+	 */
 	public static GamaPoint[] getPointsOf(final Geometry g) {
 		return getContourCoordinates(g).toCoordinateArray();
 	}
 
+	/**
+	 * Gets the first point of.
+	 *
+	 * @param shape the shape
+	 * @return the first point of
+	 */
 	public static GamaPoint getFirstPointOf(final IShape shape) {
 		final Geometry g = shape.getInnerGeometry();
 		if (g.isEmpty()) return null;
 		return (GamaPoint) g.getCoordinates()[0];
 	}
 
+	/**
+	 * Gets the last point of.
+	 *
+	 * @param shape the shape
+	 * @return the last point of
+	 */
 	public static GamaPoint getLastPointOf(final IShape shape) {
 		final Geometry g = shape.getInnerGeometry();
 		if (g.isEmpty()) return null;
@@ -1002,6 +1289,12 @@ public class GeometryUtils {
 		} else if (g instanceof GeometryCollection) { applyToInnerGeometries((GeometryCollection) g, f); }
 	}
 
+	/**
+	 * Apply to inner geometries.
+	 *
+	 * @param g the g
+	 * @param f the f
+	 */
 	public static void applyToInnerGeometries(final Polygon g, final GeometryFilter f) {
 		final int holes = g.getNumInteriorRing();
 		if (holes == 0) return;
@@ -1010,6 +1303,12 @@ public class GeometryUtils {
 		}
 	}
 
+	/**
+	 * Apply to inner geometries.
+	 *
+	 * @param g the g
+	 * @param f the f
+	 */
 	public static void applyToInnerGeometries(final GeometryCollection g, final GeometryFilter f) {
 		final int geoms = g.getNumGeometries();
 		if (geoms == 0) return;
@@ -1019,6 +1318,13 @@ public class GeometryUtils {
 		}
 	}
 
+	/**
+	 * Translate.
+	 *
+	 * @param geometry the geometry
+	 * @param previous the previous
+	 * @param location the location
+	 */
 	public static void translate(final Geometry geometry, final GamaPoint previous, final GamaPoint location) {
 		final double dx = location.x - previous.x;
 		final double dy = location.y - previous.y;
@@ -1026,6 +1332,14 @@ public class GeometryUtils {
 		translate(geometry, dx, dy, dz);
 	}
 
+	/**
+	 * Translate.
+	 *
+	 * @param geometry the geometry
+	 * @param dx the dx
+	 * @param dy the dy
+	 * @param dz the dz
+	 */
 	public static void translate(final Geometry geometry, final double dx, final double dy, final double dz) {
 		geometry.apply((final Coordinate p) -> {
 			p.x += dx;
@@ -1035,6 +1349,13 @@ public class GeometryUtils {
 		geometry.geometryChanged();
 	}
 
+	/**
+	 * Rotate.
+	 *
+	 * @param geometry the geometry
+	 * @param center the center
+	 * @param rotation the rotation
+	 */
 	public static void rotate(final Geometry geometry, final GamaPoint center, final AxisAngle rotation) {
 		if (rotation == null) return;
 		final Rotation3D r = new Rotation3D.CenteredOn(rotation, center);
@@ -1042,14 +1363,32 @@ public class GeometryUtils {
 		geometry.geometryChanged();
 	}
 
+	/**
+	 * Gets the y negated coordinates.
+	 *
+	 * @param geom the geom
+	 * @return the y negated coordinates
+	 */
 	public static ICoordinates getYNegatedCoordinates(final Geometry geom) {
 		return getContourCoordinates(geom).yNegated();
 	}
 
+	/**
+	 * Gets the holes number.
+	 *
+	 * @param p the p
+	 * @return the holes number
+	 */
 	public static int getHolesNumber(final Geometry p) {
 		return p instanceof Polygon ? ((Polygon) p).getNumInteriorRing() : 0;
 	}
 
+	/**
+	 * Geometry collection management.
+	 *
+	 * @param gjts the gjts
+	 * @return the geometry
+	 */
 	public static Geometry geometryCollectionManagement(final Geometry gjts) {
 		if (!(gjts instanceof GeometryCollection) || gjts instanceof MultiPoint || gjts instanceof MultiLineString
 				|| gjts instanceof MultiPolygon)
@@ -1095,6 +1434,12 @@ public class GeometryUtils {
 		return gc;
 	}
 
+	/**
+	 * Clean geometry.
+	 *
+	 * @param g the g
+	 * @return the geometry
+	 */
 	public static Geometry cleanGeometry(final Geometry g) {
 		// follow the proposition of https://locationtech.github.io/jts/jts-faq.html#G1
 		if (g == null || g.isEmpty()) return g;

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.metamodel.population.MetaPopulation.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * MetaPopulation.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.metamodel.population;
 
@@ -49,15 +49,28 @@ import one.util.streamex.StreamEx;
 @SuppressWarnings ({ "rawtypes", "unchecked" })
 public class MetaPopulation implements IContainer.Addressable<Integer, IAgent>, IPopulationSet {
 
+	/** The population sets. */
 	protected final List<IPopulationSet<? extends IAgent>> populationSets;
+	
+	/** The set of populations. */
 	// We cache the value in case.
 	protected IMap<String, IPopulation> setOfPopulations;
+	
+	/** The type. */
 	protected IContainerType type = Types.LIST.of(Types.AGENT);
 
+	/**
+	 * Instantiates a new meta population.
+	 */
 	public MetaPopulation() {
 		populationSets = new ArrayList();
 	}
 
+	/**
+	 * Instantiates a new meta population.
+	 *
+	 * @param pops the pops
+	 */
 	public MetaPopulation(final IPopulation<? extends IAgent>[] pops) {
 		this();
 		for (final IPopulation<? extends IAgent> pop : pops) {
@@ -78,12 +91,19 @@ public class MetaPopulation implements IContainer.Addressable<Integer, IAgent>, 
 	}
 
 	/**
-	 * @param pop
+	 * Adds the population.
+	 *
+	 * @param pop the pop
 	 */
 	public void addPopulation(final IPopulation pop) {
 		populationSets.add(pop);
 	}
 
+	/**
+	 * Adds the population set.
+	 *
+	 * @param pop the pop
+	 */
 	public void addPopulationSet(final IPopulationSet pop) {
 		populationSets.add(pop);
 	}
@@ -366,6 +386,12 @@ public class MetaPopulation implements IContainer.Addressable<Integer, IAgent>, 
 		return null; // We dont know what to return here.
 	}
 
+	/**
+	 * Gets the map of populations.
+	 *
+	 * @param scope the scope
+	 * @return the map of populations
+	 */
 	private Map<String, IPopulation> getMapOfPopulations(final IScope scope) {
 		if (setOfPopulations == null) {
 			setOfPopulations = GamaMapFactory.create();

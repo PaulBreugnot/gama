@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * IDM.java, in gama.ext.traffic, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.traffic.carfollowing;
 
 import static gama.ext.traffic.DrivingSkill.getDeltaIDM;
@@ -13,13 +23,18 @@ import gama.ext.traffic.RoadSkill;
 import gama.metamodel.agent.IAgent;
 import gama.runtime.IScope;
 
+/**
+ * The Class IDM.
+ */
 public class IDM {
+	
 	/**
 	 * Computes the acceleration according to the Intelligent Driver Model
 	 * (https://traffic-simulation.de/info/info_IDM.html), DrivingSkill.isViolatingOneway(driver)
 	 *
-	 * @param scope
+	 * @param scope the scope
 	 * @param vehicle      the vehicle whose acceleration will be computed
+	 * @param road the road
 	 * @param leadingDist  the bumper-to-bumper gap with its leading vehicle
 	 * @param leadingSpeed the speed of the leading vehicle
 	 * @return the resulting acceleration (deceleration if it is < 0)

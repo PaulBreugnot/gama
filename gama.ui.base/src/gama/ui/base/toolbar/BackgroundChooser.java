@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'BackgroundChooser.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * BackgroundChooser.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- *
- **********************************************************************************************/
+ ********************************************************************************************************/
 package gama.ui.base.toolbar;
 
 import org.eclipse.swt.SWT;
@@ -33,10 +32,20 @@ import gama.util.GamaColor;
  */
 public class BackgroundChooser {
 
+	/** The view. */
 	final IToolbarDecoratedView.Colorizable view;
+	
+	/** The labels. */
 	final String[] labels;
+	
+	/** The colors. */
 	final GamaUIColor[] colors;
 
+	/**
+	 * Instantiates a new background chooser.
+	 *
+	 * @param view the view
+	 */
 	public BackgroundChooser(final IToolbarDecoratedView.Colorizable view) {
 		// We add a control listener to the toolbar in order to install the
 		// gesture once the control to resize have been created.
@@ -49,7 +58,9 @@ public class BackgroundChooser {
 	}
 
 	/**
-	 * @param tb
+	 * Install.
+	 *
+	 * @param tb the tb
 	 */
 	public void install(final GamaToolbar2 tb) {
 		for (int i = 0; i < labels.length; i++) {

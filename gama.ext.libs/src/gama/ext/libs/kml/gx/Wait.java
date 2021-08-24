@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Wait.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.gx;
 
@@ -12,7 +22,7 @@ import gama.ext.libs.kml.annotations.Obvious;
 
 
 /**
- * 
+ * The Class Wait.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "WaitType", propOrder = {
@@ -24,30 +34,32 @@ public class Wait
     implements Cloneable
 {
 
+    /** The duration. */
     @XmlElement(defaultValue = "0.0")
     protected double duration;
 
+    /**
+     * Instantiates a new wait.
+     */
     public Wait() {
         super();
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the duration.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
      */
     public double getDuration() {
         return duration;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the duration.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
      */
     public void setDuration(double value) {
         this.duration = value;
@@ -82,11 +94,11 @@ public class Wait
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param duration     required parameter
+     * @return the wait
      * @see #setDuration(double)
-     * 
-     * @param duration
-     *     required parameter
      */
     public Wait withDuration(final double duration) {
         this.setDuration(duration);

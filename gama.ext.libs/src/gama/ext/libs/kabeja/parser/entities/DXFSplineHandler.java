@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * DXFSplineHandler.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.parser.entities;
 
 import gama.ext.libs.kabeja.dxf.DXFConstants;
@@ -23,38 +18,97 @@ import gama.ext.libs.kabeja.parser.DXFValue;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth</a>
+ * The Class DXFSplineHandler.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth</a>
  */
 public class DXFSplineHandler extends AbstractEntityHandler {
+    
+    /** The Constant CONTROL_POINT_X. */
     public static final int CONTROL_POINT_X = 10;
+    
+    /** The Constant CONTROL_POINT_Y. */
     public static final int CONTROL_POINT_Y = 20;
+    
+    /** The Constant CONTROL_POINT_Z. */
     public static final int CONTROL_POINT_Z = 30;
+    
+    /** The Constant FIT_POINT_X. */
     public static final int FIT_POINT_X = 11;
+    
+    /** The Constant FIT_POINT_Y. */
     public static final int FIT_POINT_Y = 21;
+    
+    /** The Constant FIT_POINT_Z. */
     public static final int FIT_POINT_Z = 31;
+    
+    /** The Constant START_TANGENT_X. */
     public static final int START_TANGENT_X = 12;
+    
+    /** The Constant START_TANGENT_Y. */
     public static final int START_TANGENT_Y = 22;
+    
+    /** The Constant START_TANGENT_Z. */
     public static final int START_TANGENT_Z = 32;
+    
+    /** The Constant END_TANGENT_X. */
     public static final int END_TANGENT_X = 13;
+    
+    /** The Constant END_TANGENT_Y. */
     public static final int END_TANGENT_Y = 23;
+    
+    /** The Constant END_TANGENT_Z. */
     public static final int END_TANGENT_Z = 33;
+    
+    /** The Constant FIT_TOLERANCE. */
     public static final int FIT_TOLERANCE = 44;
+    
+    /** The Constant KNOTS. */
     public static final int KNOTS = 40;
+    
+    /** The Constant WEIGHTS. */
     public static final int WEIGHTS = 41;
+    
+    /** The Constant CONTROLPOINT_TOLERANCE. */
     public static final int CONTROLPOINT_TOLERANCE = 42;
+    
+    /** The Constant KNOT_TOLERANCE. */
     public static final int KNOT_TOLERANCE = 43;
+    
+    /** The Constant NUMBER_OF_FIT_POINTS. */
     public static final int NUMBER_OF_FIT_POINTS = 74;
+    
+    /** The Constant NUMBER_OF_CONTROL_POINTS. */
     public static final int NUMBER_OF_CONTROL_POINTS = 73;
+    
+    /** The Constant NUMBER_OF_CONTROL_POINTS2. */
     public static final int NUMBER_OF_CONTROL_POINTS2 = 96;
+    
+    /** The Constant NUMBER_OF_NODES. */
     public static final int NUMBER_OF_NODES = 72;
+    
+    /** The Constant NUMBER_OF_NODES2. */
     public static final int NUMBER_OF_NODES2 = 95;
+    
+    /** The Constant DEGREE. */
     public static final int DEGREE = 71;
+    
+    /** The spline. */
     private DXFSpline spline;
+    
+    /** The point. */
     private SplinePoint point;
+    
+    /** The knots. */
     private double[] knots;
+    
+    /** The weights. */
     private double[] weights;
+    
+    /** The knots count. */
     private int knotsCount;
+    
+    /** The control point count. */
     private int controlPointCount;
 
     /*

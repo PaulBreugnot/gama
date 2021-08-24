@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * PremiseNumber.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.xal;
 
@@ -17,7 +27,7 @@ import javax.xml.namespace.QName;
 
 
 /**
- * 
+ * The Class PremiseNumber.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -27,191 +37,195 @@ import javax.xml.namespace.QName;
 public class PremiseNumber implements Cloneable
 {
 
+    /** The content. */
     @XmlValue
     protected String content;
+    
+    /** The number. */
     @XmlAttribute(name = "NumberType")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     protected String number;
+    
+    /** The underscore. */
     @XmlAttribute(name = "Type")
     @XmlSchemaType(name = "anySimpleType")
     protected String underscore;
+    
+    /** The indicator. */
     @XmlAttribute(name = "Indicator")
     @XmlSchemaType(name = "anySimpleType")
     protected String indicator;
+    
+    /** The indicator occurrence. */
     @XmlAttribute(name = "IndicatorOccurrence")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     protected String indicatorOccurrence;
+    
+    /** The number type occurrence. */
     @XmlAttribute(name = "NumberTypeOccurrence")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     protected String numberTypeOccurrence;
+    
+    /** The code. */
     @XmlAttribute(name = "Code")
     @XmlSchemaType(name = "anySimpleType")
     protected String code;
+    
+    /** The other attributes. */
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+    /**
+     * Instantiates a new premise number.
+     */
     public PremiseNumber() {
         super();
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the content.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getContent() {
         return content;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the content.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setContent(String value) {
         this.content = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the number.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getNumber() {
         return number;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the number.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setNumber(String value) {
         this.number = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the underscore.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getUnderscore() {
         return underscore;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the underscore.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setUnderscore(String value) {
         this.underscore = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the indicator.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getIndicator() {
         return indicator;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the indicator.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setIndicator(String value) {
         this.indicator = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the indicator occurrence.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getIndicatorOccurrence() {
         return indicatorOccurrence;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the indicator occurrence.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setIndicatorOccurrence(String value) {
         this.indicatorOccurrence = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the number type occurrence.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getNumberTypeOccurrence() {
         return numberTypeOccurrence;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the number type occurrence.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setNumberTypeOccurrence(String value) {
         this.numberTypeOccurrence = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the code.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getCode() {
         return code;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the code.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setCode(String value) {
         this.code = value;
     }
 
     /**
-     * 
-     * @return
-     *     always non-null
+     * Gets the other attributes.
+     *
+     * @return     always non-null
      */
     public Map<QName, String> getOtherAttributes() {
         return otherAttributes;
@@ -310,11 +324,11 @@ public class PremiseNumber implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param content     required parameter
+     * @return the premise number
      * @see #setContent(String)
-     * 
-     * @param content
-     *     required parameter
      */
     public PremiseNumber withContent(final String content) {
         this.setContent(content);
@@ -322,11 +336,11 @@ public class PremiseNumber implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param number     required parameter
+     * @return the premise number
      * @see #setNumber(String)
-     * 
-     * @param number
-     *     required parameter
      */
     public PremiseNumber withNumber(final String number) {
         this.setNumber(number);
@@ -334,11 +348,11 @@ public class PremiseNumber implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param underscore     required parameter
+     * @return the premise number
      * @see #setUnderscore(String)
-     * 
-     * @param underscore
-     *     required parameter
      */
     public PremiseNumber withUnderscore(final String underscore) {
         this.setUnderscore(underscore);
@@ -346,11 +360,11 @@ public class PremiseNumber implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param indicator     required parameter
+     * @return the premise number
      * @see #setIndicator(String)
-     * 
-     * @param indicator
-     *     required parameter
      */
     public PremiseNumber withIndicator(final String indicator) {
         this.setIndicator(indicator);
@@ -358,11 +372,11 @@ public class PremiseNumber implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param indicatorOccurrence     required parameter
+     * @return the premise number
      * @see #setIndicatorOccurrence(String)
-     * 
-     * @param indicatorOccurrence
-     *     required parameter
      */
     public PremiseNumber withIndicatorOccurrence(final String indicatorOccurrence) {
         this.setIndicatorOccurrence(indicatorOccurrence);
@@ -370,11 +384,11 @@ public class PremiseNumber implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param numberTypeOccurrence     required parameter
+     * @return the premise number
      * @see #setNumberTypeOccurrence(String)
-     * 
-     * @param numberTypeOccurrence
-     *     required parameter
      */
     public PremiseNumber withNumberTypeOccurrence(final String numberTypeOccurrence) {
         this.setNumberTypeOccurrence(numberTypeOccurrence);
@@ -382,11 +396,11 @@ public class PremiseNumber implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param code     required parameter
+     * @return the premise number
      * @see #setCode(String)
-     * 
-     * @param code
-     *     required parameter
      */
     public PremiseNumber withCode(final String code) {
         this.setCode(code);

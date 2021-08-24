@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Particle.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.kernel.batch;
 
 import java.util.HashMap;
@@ -16,21 +26,37 @@ import gaml.operators.Cast;
  */
 class Particle {
 
+    /** The position. */
     private ParametersSet position;        // Current position.
+    
+    /** The velocity. */
     private ParametersSet velocity;
+    
+    /** The best position. */
     private ParametersSet bestPosition;    // Personal best solution.
+    
+    /** The best eval. */
     private double bestEval;        // Personal best value.
 
+	/** The tested solutions. */
 	protected HashMap<ParametersSet, Double> testedSolutions;
 
+	/** The current experiment. */
 	BatchAgent currentExperiment;
+	
+	/** The parameters. */
 	final Map<String, GamaPoint> parameters;
 	 
+	/** The algo. */
 	ParamSpaceExploAlgorithm algo;
+    
     /**
      * Construct a Particle with a random starting position.
-     * @param beginRange    the minimum xyz values of the position (inclusive)
-     * @param endRange      the maximum xyz values of the position (exclusive)
+     *
+     * @param scope the scope
+     * @param agent the agent
+     * @param algorithm the algorithm
+     * @param testedSolutionsMap the tested solutions map
      */
     Particle (IScope scope, BatchAgent agent, ParamSpaceExploAlgorithm algorithm, HashMap<ParametersSet, Double> testedSolutionsMap) {
         currentExperiment = agent;
@@ -112,6 +138,8 @@ class Particle {
 
     /**
      * Update the position of a particle by adding its velocity to its position.
+     *
+     * @param scope the scope
      */
     void updatePosition (IScope scope) {
     	

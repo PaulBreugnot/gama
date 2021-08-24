@@ -1,11 +1,13 @@
-/*
- * Copyright 2016 Clifton Labs Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
- * except in compliance with the License. You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific language governing permissions and limitations under the
- * License.
- */
+/*******************************************************************************************************
+ *
+ * Jsoner.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.util.file.json;
 
 import java.io.IOException;
@@ -82,12 +84,19 @@ public class Jsoner {
 		INITIAL,
 		/** Parsing error, ParsingException should be thrown. */
 		PARSED_ERROR,
+		
+		/** The parsing array. */
 		PARSING_ARRAY,
 		/** Parsing a key-value pair inside of an object. */
 		PARSING_ENTRY,
+		
+		/** The parsing object. */
 		PARSING_OBJECT;
 	}
 
+	/**
+	 * Instantiates a new jsoner.
+	 */
 	private Jsoner() {
 		/* Keeping it classy. */
 	}
@@ -646,18 +655,11 @@ public class Jsoner {
 	/**
 	 * Serialize values to JSON and write them to the provided writer based on behavior flags.
 	 *
-	 * @param jsonSerializable
-	 *            represents the object that should be serialized to a string in JSON format.
-	 * @param writableDestination
-	 *            represents where the resulting JSON text is written to.
-	 * @param replacement
-	 *            represents what is serialized instead of a non-JSON value when replacements are allowed.
-	 * @param flags
-	 *            represents the allowances and restrictions on serialization.
-	 * @throws IOException
-	 *             if the writableDestination encounters an I/O problem.
-	 * @throws IllegalArgumentException
-	 *             if the jsonSerializable isn't serializable in JSON.
+	 * @param jsonSerializable            represents the object that should be serialized to a string in JSON format.
+	 * @param writableDestination            represents where the resulting JSON text is written to.
+	 * @param flags            represents the allowances and restrictions on serialization.
+	 * @throws IOException             if the writableDestination encounters an I/O problem.
+	 * @throws IllegalArgumentException             if the jsonSerializable isn't serializable in JSON.
 	 * @see SerializationOptions
 	 */
 	private static void serialize(final Object jsonSerializable, final Writer writableDestination,

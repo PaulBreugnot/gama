@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.IAddressableContainer.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * IAddressableContainer.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -12,9 +12,12 @@ package gama.util;
 
 /**
  * Class IAddressableContainer.
- * 
+ *
  * @author drogoul
+ * @param <K> the key type
+ * @param <V> the value type
+ * @param <AK> the generic type
+ * @param <AV> the generic type
  * @since 24 janv. 2014
- * 
  */
 public interface IAddressableContainer<K, V, AK, AV> extends IContainer<K, V>, IContainer.Addressable<AK, AV> {}

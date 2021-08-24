@@ -1,29 +1,37 @@
-/*
-   Copyright 2008 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * DXFStreamEntityFilter.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.parser.dxf.filter;
 
 import gama.ext.libs.kabeja.parser.DXFValue;
 import gama.ext.libs.kabeja.parser.ParseException;
 
 
+/**
+ * The Class DXFStreamEntityFilter.
+ */
 abstract class DXFStreamEntityFilter extends DXFStreamSectionFilter {
+    
+    /** The section key. */
     private static String SECTION_KEY = "ENTITIES";
+    
+    /** The Constant ENTITY_START. */
     public static final int ENTITY_START = 0;
+    
+    /** The entity section. */
     protected boolean entitySection = false;
+    
+    /** The parse entity. */
     protected boolean parseEntity = false;
+    
+    /** The parse header. */
     protected boolean parseHeader = false;
 
     protected void parseSection(int groupCode, DXFValue value)
@@ -64,10 +72,28 @@ abstract class DXFStreamEntityFilter extends DXFStreamSectionFilter {
         }
     }
 
+    /**
+     * Start entity.
+     *
+     * @param type the type
+     * @throws ParseException the parse exception
+     */
     protected abstract void startEntity(String type) throws ParseException;
 
+    /**
+     * End entity.
+     *
+     * @throws ParseException the parse exception
+     */
     protected abstract void endEntity() throws ParseException;
 
+    /**
+     * Parses the entity.
+     *
+     * @param groupCode the group code
+     * @param value the value
+     * @throws ParseException the parse exception
+     */
     protected abstract void parseEntity(int groupCode, DXFValue value)
         throws ParseException;
 }

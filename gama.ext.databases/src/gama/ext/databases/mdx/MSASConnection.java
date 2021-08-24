@@ -1,15 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
+ * MSASConnection.java, in gama.ext.databases, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * 'MSASConnection.java', in plugin 'msi.gama.core', is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
- *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.databases.mdx;
 
 import java.sql.Connection;
@@ -22,10 +20,24 @@ import org.olap4j.OlapWrapper;
 import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 
+/**
+ * The Class MSASConnection.
+ */
 class MSASConnection extends MdxConnection {
 
+	/** The Constant DRIVER. */
 	private static final String DRIVER = "org.olap4j.driver.xmla.XmlaOlap4jDriver";
 
+	/**
+	 * Instantiates a new MSAS connection.
+	 *
+	 * @param venderName the vender name
+	 * @param url the url
+	 * @param port the port
+	 * @param dbName the db name
+	 * @param userName the user name
+	 * @param password the password
+	 */
 	MSASConnection(final String venderName, final String url, final String port, final String dbName,
 			final String userName, final String password) {
 		super(venderName, url, port, dbName, userName, password);

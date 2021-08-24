@@ -1,16 +1,13 @@
-/*********************************************************************************************
- * 
- * 
- * 'DrivingOperators.java', in plugin 'simtools.gaml.extensions.traffic', is part of the source code of the
- * GAMA modeling and simulation platform.
- * (v. 1.8.1)
+/*******************************************************************************************************
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * DrivingOperators.java, in gama.ext.traffic, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- * 
- * 
- **********************************************************************************************/
+ ********************************************************************************************************/
 package gama.ext.traffic;
 
 import java.util.Collections;
@@ -34,9 +31,20 @@ import gama.runtime.IScope;
 import gama.util.IContainer;
 import gama.util.graph.IGraph;
 
+/**
+ * The Class DrivingOperators.
+ */
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class DrivingOperators {
 
+	/**
+	 * Spatial driving from edges.
+	 *
+	 * @param scope the scope
+	 * @param edges the edges
+	 * @param nodes the nodes
+	 * @return the i graph
+	 */
 	@operator(value = "as_driving_graph", content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 2, index_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1, concept = {
 			IConcept.GRAPH, IConcept.TRANSPORT })
 	@doc(value = "creates a graph from the list/map of edges given as operand and connect the node to the edge", examples = {

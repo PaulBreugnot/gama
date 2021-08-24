@@ -1,18 +1,13 @@
-/*
- Copyright 2005 Simon Mieth
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+/*******************************************************************************************************
+ *
+ * DXFHatchHandler.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.parser.entities;
 
 import java.util.Hashtable;
@@ -31,57 +26,148 @@ import gama.ext.libs.kabeja.parser.DXFValue;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth</a>
+ * The Class DXFHatchHandler.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth</a>
  */
 public class DXFHatchHandler extends AbstractEntityHandler {
+    
+    /** The Constant END_SEQUENCE. */
     public static final String END_SEQUENCE = "SEQEND";
+    
+    /** The Constant END_SEQUENCE_CODE. */
     public static final int END_SEQUENCE_CODE = -2;
+    
+    /** The Constant GROUPCODE_ASSOSIATIVITY_FLAG. */
     public static final int GROUPCODE_ASSOSIATIVITY_FLAG = 71;
+    
+    /** The Constant GROUPCODE_BOUNDARY_ANNOTATION. */
     public static final int GROUPCODE_BOUNDARY_ANNOTATION = 73;
+    
+    /** The Constant GROUPCODE_BOUNDARY_EDGE_COUNT. */
     public static final int GROUPCODE_BOUNDARY_EDGE_COUNT = 93;
+    
+    /** The Constant GROUPCODE_BOUNDARY_EDGE_TYPE. */
     public static final int GROUPCODE_BOUNDARY_EDGE_TYPE = 72;
+    
+    /** The Constant GROUPCODE_BOUNDARY_LOOP_COUNT. */
     public static final int GROUPCODE_BOUNDARY_LOOP_COUNT = 91;
+    
+    /** The Constant GROUPCODE_BOUNDAYY_LOOP_TYPE. */
     public static final int GROUPCODE_BOUNDAYY_LOOP_TYPE = 92;
+    
+    /** The Constant GROUPCODE_DEFINITION_LINE_COUNT. */
     public static final int GROUPCODE_DEFINITION_LINE_COUNT = 78;
+    
+    /** The Constant GROUPCODE_DEGENERTE_BOUNDARY_PATH_COUNT. */
     public static final int GROUPCODE_DEGENERTE_BOUNDARY_PATH_COUNT = 99;
+    
+    /** The Constant GROUPCODE_HATCH_DOUBLE_FLAG. */
     public static final int GROUPCODE_HATCH_DOUBLE_FLAG = 77;
+    
+    /** The Constant GROUPCODE_HATCH_STYLE. */
     public static final int GROUPCODE_HATCH_STYLE = 75;
+    
+    /** The Constant GROUPCODE_NAME. */
     public static final int GROUPCODE_NAME = 2;
+    
+    /** The Constant GROUPCODE_OFFSET_VECTOR. */
     public static final int GROUPCODE_OFFSET_VECTOR = 11;
+    
+    /** The Constant GROUPCODE_PATTERN_ANGLE. */
     public static final int GROUPCODE_PATTERN_ANGLE = 52;
+    
+    /** The Constant GROUPCODE_PATTERN_BASE_X. */
     public static final int GROUPCODE_PATTERN_BASE_X = 43;
+    
+    /** The Constant GROUPCODE_PATTERN_BASE_Y. */
     public static final int GROUPCODE_PATTERN_BASE_Y = 44;
+    
+    /** The Constant GROUPCODE_PATTERN_FILL_COLOR. */
     public static final int GROUPCODE_PATTERN_FILL_COLOR = 63;
+    
+    /** The Constant GROUPCODE_PATTERN_LINE_ANGLE. */
     public static final int GROUPCODE_PATTERN_LINE_ANGLE = 53;
+    
+    /** The Constant GROUPCODE_PATTERN_LINE_COUNT. */
     public static final int GROUPCODE_PATTERN_LINE_COUNT = 79;
+    
+    /** The Constant GROUPCODE_PATTERN_LINE_TYPE_DATA. */
     public static final int GROUPCODE_PATTERN_LINE_TYPE_DATA = 49;
+    
+    /** The Constant GROUPCODE_PATTERN_OFFSET_X. */
     public static final int GROUPCODE_PATTERN_OFFSET_X = 45;
+    
+    /** The Constant GROUPCODE_PATTERN_OFFSET_Y. */
     public static final int GROUPCODE_PATTERN_OFFSET_Y = 46;
+    
+    /** The Constant GROUPCODE_PATTERN_SCALE. */
     public static final int GROUPCODE_PATTERN_SCALE = 41;
+    
+    /** The Constant GROUPCODE_PATTERN_TYPE. */
     public static final int GROUPCODE_PATTERN_TYPE = 76;
+    
+    /** The Constant GROUPCODE_PIXEL_SIZE. */
     public static final int GROUPCODE_PIXEL_SIZE = 47;
+    
+    /** The Constant GROUPCODE_SEED_POINTS_COUNT. */
     public static final int GROUPCODE_SEED_POINTS_COUNT = 98;
+    
+    /** The Constant GROUPCODE_SOLID_FILL_FLAG. */
     public static final int GROUPCODE_SOLID_FILL_FLAG = 70;
+    
+    /** The boundary handler. */
     protected DXFEntityHandler boundaryHandler;
+    
+    /** The boundary handlers. */
     protected Hashtable boundaryHandlers = new Hashtable();
+    
+    /** The count. */
     protected int count;
+    
+    /** The follow. */
     private boolean follow = false;
+    
+    /** The hatch. */
     private DXFHatch hatch;
+    
+    /** The line pattern. */
     protected HatchLineFamily linePattern = new HatchLineFamily();
+    
+    /** The loop. */
     protected HatchBoundaryLoop loop;
+    
+    /** The parameters. */
     protected double[] parameters = new double[0];
+    
+    /** The parse boundary. */
     private boolean parseBoundary = false;
+    
+    /** The pattern. */
     protected DXFHatchPattern pattern;
+    
+    /** The polyline. */
     protected DXFPolyline polyline;
+    
+    /** The polyline boundary. */
     private boolean polylineBoundary = false;
+    
+    /** The vertex. */
     protected DXFVertex vertex;
+    
+    /** The last group code. */
     protected int lastGroupCode;
 
+    /**
+     * Instantiates a new DXF hatch handler.
+     */
     public DXFHatchHandler() {
         init();
     }
 
+    /**
+     * End boundary element.
+     */
     protected void endBoundaryElement() {
         if (boundaryHandler != null) {
             // get the last parsed entity
@@ -121,6 +207,9 @@ public class DXFHatchHandler extends AbstractEntityHandler {
         return DXFConstants.ENTITY_TYPE_HATCH;
     }
 
+    /**
+     * Inits the.
+     */
     protected void init() {
         DXFEntityHandler handler = new DXFSplineHandler();
         boundaryHandlers.put(handler.getDXFEntityName(), handler);
@@ -144,6 +233,12 @@ public class DXFHatchHandler extends AbstractEntityHandler {
         return false;
     }
 
+    /**
+     * Parses the boundary.
+     *
+     * @param groupCode the group code
+     * @param value the value
+     */
     protected void parseBoundary(int groupCode, DXFValue value) {
         if (this.polylineBoundary) {
             parsePolylineBoundary(groupCode, value);
@@ -346,6 +441,12 @@ public class DXFHatchHandler extends AbstractEntityHandler {
         this.lastGroupCode = groupCode;
     }
 
+    /**
+     * Parses the polyline boundary.
+     *
+     * @param groupCode the group code
+     * @param value the value
+     */
     protected void parsePolylineBoundary(int groupCode, DXFValue value) {
         switch (groupCode) {
         case GROUPCODE_START_X:

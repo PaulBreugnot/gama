@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * GenerateStatement.java, in gama.ext.genstar, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.genstar.statement;
 
 import static gama.common.interfaces.IKeyword.FROM;
@@ -56,6 +66,9 @@ import gaml.types.IType;
 import gaml.types.Types;
 import one.util.streamex.StreamEx;
 
+/**
+ * The Class GenerateStatement.
+ */
 @symbol (
 		name = GENERATE,
 		kind = SEQUENCE_STATEMENT,
@@ -135,11 +148,23 @@ import one.util.streamex.StreamEx;
 @validator (GenerateValidator.class)
 public class GenerateStatement extends AbstractStatementSequence implements IStatement.WithArgs {
 	
+	/** The init. */
 	private Arguments init;
+	
+	/** The algorithm. */
 	private final IExpression from, number, species, attributes, algorithm;
+	
+	/** The returns. */
 	private final String returns;
+	
+	/** The sequence. */
 	private final RemoteSequence sequence;
 	
+	/**
+	 * Instantiates a new generate statement.
+	 *
+	 * @param desc the desc
+	 */
 	public GenerateStatement(IDescription desc) { 
 		super(desc);
 		returns = getLiteral(RETURNS);
@@ -191,9 +216,10 @@ public class GenerateStatement extends AbstractStatementSequence implements ISta
 	
 	/**
 	 * TODO Description PLZZZZZ
-	 * TODO Call it before calling the ICreateDelegate createFrom method !
-	 * @param scope
-	 * @param values
+	 * TODO Call it before calling the ICreateDelegate createFrom method !.
+	 *
+	 * @param scope the scope
+	 * @param values the values
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void fillWithUserInit(final IScope scope, final Map values) {
@@ -217,6 +243,12 @@ public class GenerateStatement extends AbstractStatementSequence implements ISta
 	// ------------------------------------------------------------------------------------------------ //
 	// ------------------------------------------------------------------------------------------------ //
 	
+	/**
+	 * Find population.
+	 *
+	 * @param scope the scope
+	 * @return the i population
+	 */
 	@SuppressWarnings("rawtypes")
 	private IPopulation findPopulation(final IScope scope) {
 		final IAgent executor = scope.getAgent();
@@ -233,11 +265,11 @@ public class GenerateStatement extends AbstractStatementSequence implements ISta
 	}
 	
 	/**
-	 * A check made in order to address issues #2621 and #2611
+	 * A check made in order to address issues #2621 and #2611.
 	 *
-	 * @param pop
-	 * @param scope
-	 * @throws GamaRuntimeException
+	 * @param pop the pop
+	 * @param scope the scope
+	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 	@SuppressWarnings("rawtypes")
 	private void checkPopulationValidity(final IPopulation pop, final IScope scope) throws GamaRuntimeException {
@@ -250,10 +282,9 @@ public class GenerateStatement extends AbstractStatementSequence implements ISta
 	}
 	
 	/**
-	 * TODO : make the validator coherent with 'must contains' facets 
-	 * 
-	 * @author kevinchapuis
+	 * TODO : make the validator coherent with 'must contains' facets .
 	 *
+	 * @author kevinchapuis
 	 */
 	public static class GenerateValidator implements IDescriptionValidator<StatementDescription> {
 

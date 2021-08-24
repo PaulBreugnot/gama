@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * simtools.gaml.extensions.traffic.DrivingSkill.java, in plugin simtools.gaml.extensions.traffic, is part of the source
- * code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * OldDrivingSkill.java, in gama.ext.traffic, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.ext.traffic;
 
@@ -52,6 +52,9 @@ import gaml.types.GamaGeometryType;
 import gaml.types.IType;
 import gaml.types.Types;
 
+/**
+ * The Class OldDrivingSkill.
+ */
 @vars ({ @variable (
 		name = "living_space",
 		type = IType.FLOAT,
@@ -87,67 +90,154 @@ import gaml.types.Types;
 @Deprecated
 public class OldDrivingSkill extends MovingSkill {
 
+	/** The Constant LIVING_SPACE. */
 	public final static String LIVING_SPACE = "living_space";
+	
+	/** The Constant TOLERANCE. */
 	public final static String TOLERANCE = "tolerance";
+	
+	/** The Constant LANES_ATTRIBUTE. */
 	public final static String LANES_ATTRIBUTE = "lanes_attribute";
+	
+	/** The Constant OBSTACLE_SPECIES. */
 	public final static String OBSTACLE_SPECIES = "obstacle_species";
 
+	/**
+	 * Gets the living space.
+	 *
+	 * @param agent the agent
+	 * @return the living space
+	 */
 	@getter (LIVING_SPACE)
 	public double getLivingSpace(final IAgent agent) {
 		return (Double) agent.getAttribute(LIVING_SPACE);
 	}
 
+	/**
+	 * Sets the lanes attribute.
+	 *
+	 * @param agent the agent
+	 * @param latt the latt
+	 */
 	@setter (LANES_ATTRIBUTE)
 	public void setLanesAttribute(final IAgent agent, final String latt) {
 		agent.setAttribute(LANES_ATTRIBUTE, latt);
 		// scope.setAgentVarValue(agent, IKeyword.SPEED, s);
 	}
 
+	/**
+	 * Gets the lanes attribute.
+	 *
+	 * @param agent the agent
+	 * @return the lanes attribute
+	 */
 	@getter (LANES_ATTRIBUTE)
 	public String getLanesAttribute(final IAgent agent) {
 		return (String) agent.getAttribute(LANES_ATTRIBUTE);
 	}
 
+	/**
+	 * Sets the living space.
+	 *
+	 * @param agent the agent
+	 * @param ls the ls
+	 */
 	@setter (LIVING_SPACE)
 	public void setLivingSpace(final IAgent agent, final double ls) {
 		agent.setAttribute(LIVING_SPACE, ls);
 		// scope.setAgentVarValue(agent, IKeyword.SPEED, s);
 	}
 
+	/**
+	 * Gets the tolerance.
+	 *
+	 * @param agent the agent
+	 * @return the tolerance
+	 */
 	@getter (TOLERANCE)
 	public double getTolerance(final IAgent agent) {
 		return (Double) agent.getAttribute(TOLERANCE);
 	}
 
+	/**
+	 * Sets the tolerance.
+	 *
+	 * @param agent the agent
+	 * @param t the t
+	 */
 	@setter (TOLERANCE)
 	public void setTolerance(final IAgent agent, final double t) {
 		agent.setAttribute(TOLERANCE, t);
 		// scope.setAgentVarValue(agent, IKeyword.SPEED, s);
 	}
 
+	/**
+	 * Gets the obstacle species.
+	 *
+	 * @param agent the agent
+	 * @return the obstacle species
+	 */
 	@getter (OBSTACLE_SPECIES)
 	public IList<ISpecies> getObstacleSpecies(final IAgent agent) {
 		return (IList<ISpecies>) agent.getAttribute(OBSTACLE_SPECIES);
 	}
 
+	/**
+	 * Sets the obstacle species.
+	 *
+	 * @param agent the agent
+	 * @param os the os
+	 */
 	@setter (OBSTACLE_SPECIES)
 	public void setObstacleSpecies(final IAgent agent, final IList<ISpecies> os) {
 		agent.setAttribute(OBSTACLE_SPECIES, os);
 	}
 
+	/**
+	 * Compute lanes number.
+	 *
+	 * @param scope the scope
+	 * @param agent the agent
+	 * @return the string
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	protected String computeLanesNumber(final IScope scope, final IAgent agent) throws GamaRuntimeException {
 		return scope.hasArg(LANES_ATTRIBUTE) ? scope.getStringArg(LANES_ATTRIBUTE) : getLanesAttribute(agent);
 	}
 
+	/**
+	 * Compute obstacle species.
+	 *
+	 * @param scope the scope
+	 * @param agent the agent
+	 * @return the i list
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	protected IList<ISpecies> computeObstacleSpecies(final IScope scope, final IAgent agent)
 			throws GamaRuntimeException {
 		return scope.hasArg(OBSTACLE_SPECIES) ? scope.getListArg(OBSTACLE_SPECIES) : getObstacleSpecies(agent);
 	}
 
+	/**
+	 * Compute tolerance.
+	 *
+	 * @param scope the scope
+	 * @param agent the agent
+	 * @return the double
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	protected double computeTolerance(final IScope scope, final IAgent agent) throws GamaRuntimeException {
 		return scope.hasArg(TOLERANCE) ? scope.getFloatArg(TOLERANCE) : getTolerance(agent);
 	}
 
+	/**
+	 * Compute living space.
+	 *
+	 * @param scope the scope
+	 * @param agent the agent
+	 * @return the double
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	protected double computeLivingSpace(final IScope scope, final IAgent agent) throws GamaRuntimeException {
 		return scope.hasArg(LIVING_SPACE) ? scope.getFloatArg(LIVING_SPACE) : getLivingSpace(agent);
 	}
@@ -238,6 +328,13 @@ public class OldDrivingSkill extends MovingSkill {
 		return null;
 	}
 
+	/**
+	 * Prim goto traffic.
+	 *
+	 * @param scope the scope
+	 * @return the i path
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@action (
 			name = "goto_driving",
 			args = { @arg (
@@ -343,18 +440,19 @@ public class OldDrivingSkill extends MovingSkill {
 	}
 
 	/**
-	 * @throws GamaRuntimeException
-	 *             Return the next location toward a target on a line
+	 * Avoid collision.
 	 *
-	 * @param coords
-	 *            coordinates of the line
-	 * @param source
-	 *            current location
-	 * @param target
-	 *            location to reach
-	 * @param distance
-	 *            max displacement distance
+	 * @param scope the scope
+	 * @param agent the agent
+	 * @param distance            max displacement distance
+	 * @param livingSpace the living space
+	 * @param tolerance the tolerance
+	 * @param currentLocation the current location
+	 * @param target            location to reach
+	 * @param nbLanes the nb lanes
+	 * @param obsSpecies the obs species
 	 * @return the next location
+	 * @throws GamaRuntimeException             Return the next location toward a target on a line
 	 */
 
 	private double avoidCollision(final IScope scope, final IAgent agent, final double distance,
@@ -413,12 +511,32 @@ public class OldDrivingSkill extends MovingSkill {
 		return minDist;
 	}
 
+	/**
+	 * Compute nb lanes.
+	 *
+	 * @param lineAg the line ag
+	 * @param laneAttributes the lane attributes
+	 * @return the int
+	 */
 	private int computeNbLanes(final IShape lineAg, final String laneAttributes) {
 		return lineAg == null || !(lineAg instanceof IAgent) ? 1
 				: (Integer) ((IAgent) lineAg).getAttribute(laneAttributes);
 
 	}
 
+	/**
+	 * Move to next loc along path simplified traffic.
+	 *
+	 * @param scope the scope
+	 * @param agent the agent
+	 * @param path the path
+	 * @param _distance the distance
+	 * @param weigths the weigths
+	 * @param livingSpace the living space
+	 * @param tolerance the tolerance
+	 * @param laneAttributes the lane attributes
+	 * @param obsSpecies the obs species
+	 */
 	private void moveToNextLocAlongPathSimplifiedTraffic(final IScope scope, final IAgent agent, final IPath path,
 			final double _distance, final IMap weigths, final double livingSpace, final double tolerance,
 			final String laneAttributes, final IList<ISpecies> obsSpecies) {
@@ -520,6 +638,20 @@ public class OldDrivingSkill extends MovingSkill {
 
 	}
 
+	/**
+	 * Move to next loc along path traffic.
+	 *
+	 * @param scope the scope
+	 * @param agent the agent
+	 * @param path the path
+	 * @param _distance the distance
+	 * @param weigths the weigths
+	 * @param livingSpace the living space
+	 * @param tolerance the tolerance
+	 * @param laneAttributes the lane attributes
+	 * @param obsSpecies the obs species
+	 * @return the i path
+	 */
 	private IPath moveToNextLocAlongPathTraffic(final IScope scope, final IAgent agent, final IPath path,
 			final double _distance, final IMap weigths, final double livingSpace, final double tolerance,
 			final String laneAttributes, final IList<ISpecies> obsSpecies) {

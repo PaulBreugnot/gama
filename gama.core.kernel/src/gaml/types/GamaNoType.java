@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gaml.types.GamaNoType.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * GamaNoType.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -19,11 +19,10 @@ import gama.runtime.IScope;
 
 /**
  * The type used to represent the absence of type
- *
- * Written by drogoul Modified on 1 ao�t 2010
+ * 
+ * Written by drogoul Modified on 1 ao�t 2010.
  *
  * @todo Description
- *
  */
 @SuppressWarnings ("unchecked")
 @type (

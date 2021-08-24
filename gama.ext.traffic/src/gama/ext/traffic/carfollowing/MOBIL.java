@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * MOBIL.java, in gama.ext.traffic, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.traffic.carfollowing;
 
 import static gama.ext.traffic.DrivingSkill.getAccBias;
@@ -36,15 +46,19 @@ import gama.metamodel.agent.IAgent;
 import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 
+/**
+ * The Class MOBIL.
+ */
 public class MOBIL {
+	
 	/**
 	 * Choose a new lane according to the lane change model MOBIL
 	 * (https://traffic-simulation.de/info/info_MOBIL.html).
 	 *
-	 * @param scope
+	 * @param scope the scope
+	 * @param vehicle the vehicle
 	 * @param road             the road which the vehicle is moving on
-	 * @param segment          the index of the current road segment
-	 * @param distToSegmentEnd the distance to the endpoint of the segment
+	 * @param currentLowestLane the current lowest lane
 	 * @return a pair composed of the optimal lowest lane index and
 	 *         the resulting acceleration of the vehicle
 	 */

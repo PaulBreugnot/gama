@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.runtime.concurrent.ParallelAgentExecuter.java, in plugin msi.gama.core, is part of the source code of the
- * GAMA modeling and simulation platform (v. 1.8.1)
+ * ParallelAgentExecuter.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.runtime.concurrent;
 
@@ -17,10 +17,21 @@ import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gaml.statements.IExecutable;
 
+/**
+ * The Class ParallelAgentExecuter.
+ */
 public class ParallelAgentExecuter extends ParallelAgentRunner<Object> {
 
+	/** The executable. */
 	final IExecutable executable;
 
+	/**
+	 * Instantiates a new parallel agent executer.
+	 *
+	 * @param scope the scope
+	 * @param executable the executable
+	 * @param agents the agents
+	 */
 	public ParallelAgentExecuter(final IScope scope, final IExecutable executable, final Spliterator<IAgent> agents) {
 		super(scope, agents);
 		this.executable = executable;

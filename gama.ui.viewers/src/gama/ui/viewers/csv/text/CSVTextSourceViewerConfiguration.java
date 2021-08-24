@@ -1,15 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'CSVTextSourceViewerConfiguration.java, in plugin ummisco.gama.ui.viewers, is part of the source code of the
- * GAMA modeling and simulation platform.
- * (v. 1.8.1)
+ * CSVTextSourceViewerConfiguration.java, in gama.ui.viewers, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- *
- **********************************************************************************************/
+ ********************************************************************************************************/
 package gama.ui.viewers.csv.text;
 
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -20,14 +18,19 @@ import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.ui.editors.text.TextSourceViewerConfiguration;
 
+/**
+ * The Class CSVTextSourceViewerConfiguration.
+ */
 class CSVTextSourceViewerConfiguration extends TextSourceViewerConfiguration
 {
 
-    /** Delimiter */
+    /**  Delimiter. */
     private final char m_delimiter;
 
     /**
-     * Constructor
+     * Constructor.
+     *
+     * @param delimiter the delimiter
      * @param prefStore the {@link IPreferenceStore} used by the base class constructor
      */
     public CSVTextSourceViewerConfiguration(char delimiter, IPreferenceStore prefStore) {

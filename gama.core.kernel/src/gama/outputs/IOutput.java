@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.IOutput.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * IOutput.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs;
 
@@ -22,10 +22,9 @@ import gaml.compilation.ISymbol;
  * information on a concrete support, only computing it. They however control whatever concrete support they represent
  * (opening, closing, pausing, updating and refreshing it).
  *
+ * @author Alexis Drogoul, IRD
  * @update Since 2018, the role of ouputs in the computation has been reduced, so as to not weigh too much on the
  *         simulation thread. More computations are now taken in charge by the concrete implementations of the output
- *
- * @author Alexis Drogoul, IRD
  * @revised in Dec. 2015 to simplify and document the interface of outputs
  */
 public interface IOutput extends ISymbol, IStepable, IScoped {
@@ -52,6 +51,11 @@ public interface IOutput extends ISymbol, IStepable, IScoped {
 	 */
 	void open();
 
+	/**
+	 * Checks if is open.
+	 *
+	 * @return true, if is open
+	 */
 	boolean isOpen();
 
 	/**
@@ -71,8 +75,7 @@ public interface IOutput extends ISymbol, IStepable, IScoped {
 	/**
 	 * The output should set its refresh rate to the parameter passed. Mainly called by the interface
 	 *
-	 * @param rate,
-	 *            an integer normally >= 1. The output is free to consider if a negative or null rate makes any sense
+	 * @param rate the new refresh rate
 	 */
 	void setRefreshRate(int rate);
 
@@ -80,6 +83,8 @@ public interface IOutput extends ISymbol, IStepable, IScoped {
 	 * Called by the output thread to perform the actual "refresh" of the concrete support of the output (whereas
 	 * step(), from IStepable, performs the computations described in GAML, that will serve as a model for this
 	 * refresh).
+	 *
+	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 	void update() throws GamaRuntimeException;
 
@@ -101,7 +106,7 @@ public interface IOutput extends ISymbol, IStepable, IScoped {
 	String getOriginalName();
 
 	/**
-	 * Returns the identifier (should be unique) of this output
+	 * Returns the identifier (should be unique) of this output.
 	 *
 	 * @return a string representing the unique identifier of this output (especially important for UI outputs)
 	 */
@@ -117,10 +122,9 @@ public interface IOutput extends ISymbol, IStepable, IScoped {
 	boolean isRefreshable();
 
 	/**
-	 * Sets whether this output has been created by the user or from the model
+	 * Sets whether this output has been created by the user or from the model.
 	 *
-	 * @param b
-	 *            true if the user has created this output
+	 * @param b            true if the user has created this output
 	 */
 	void setUserCreated(boolean b);
 

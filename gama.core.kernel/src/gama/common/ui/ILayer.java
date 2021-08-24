@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.common.interfaces.ILayer.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * ILayer.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.common.ui;
 
@@ -30,31 +30,29 @@ import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 
 /**
- * Represents the concrete layers that are displayed on IDisplaySurface's and managed by its ILayerManager
+ * Represents the concrete layers that are displayed on IDisplaySurface's and managed by its ILayerManager.
  *
  * @author A. Drogoul
  * @since nov. 2009
- *
- *
  */
 public interface ILayer extends INamed, Comparable<ILayer> {
 
 	/**
-	 * Returns the statement (ILayerStatement) that constitutes the definition of this layer, or null if it has none
+	 * Returns the statement (ILayerStatement) that constitutes the definition of this layer, or null if it has none.
 	 *
 	 * @return an instance of ILayerStatement or null
 	 */
 	ILayerStatement getDefinition();
 
 	/**
-	 * Returns the instance of ILayerData that holds all the data used by this layer
+	 * Returns the instance of ILayerData that holds all the data used by this layer.
 	 *
 	 * @return an instance of ILayerData (never null)
 	 */
 	ILayerData getData();
 
 	/**
-	 * Returns the name to use in the layers menu in a display
+	 * Returns the name to use in the layers menu in a display.
 	 *
 	 * @return a string representing this layer in the layers menu
 	 */
@@ -65,18 +63,16 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	/**
 	 * Asks this layer to draw itself on the IGraphics instance passed in parameter.
 	 *
-	 * @param scope
-	 *            the current scope (usually that of the surface)
-	 * @param simGraphics
-	 *            the current instance of IGraphics on which to draw the elements of the layer
-	 * @throws GamaRuntimeException
+	 * @param scope            the current scope (usually that of the surface)
+	 * @param simGraphics            the current instance of IGraphics on which to draw the elements of the layer
+	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 
 	void draw(IScope scope, IGraphics simGraphics) throws GamaRuntimeException;
 
 	/**
 	 * Asks this layer to dispose of the resources it may use (in addition to the ILayerData instance, which is
-	 * automatically disposed of)
+	 * automatically disposed of).
 	 */
 	default void dispose() {}
 
@@ -103,10 +99,9 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	}
 
 	/**
-	 * Indicates that this layer will make its first appearance on the surface, before being displayed
+	 * Indicates that this layer will make its first appearance on the surface, before being displayed.
 	 *
-	 * @param surface
-	 *            the display surface on which this layer is drawn
+	 * @param surface            the display surface on which this layer is drawn
 	 */
 	default void firstLaunchOn(final IDisplaySurface surface) {}
 
@@ -131,7 +126,7 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	}
 
 	/**
-	 * Returns the human-readable type of the layer for use in the UI
+	 * Returns the human-readable type of the layer for use in the UI.
 	 *
 	 * @return a string describing the type of the layer (e.g. "Agents layer", etc.)
 	 */
@@ -139,12 +134,10 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 
 	/**
 	 * Returns a rectangle that represents, in screen coordinates, the position of the geometry on which to focus in
-	 * this layer
+	 * this layer.
 	 *
-	 * @param geometry
-	 *            a geometry or an agent
-	 * @param s
-	 *            the surface on which this focus is requested
+	 * @param geometry            a geometry or an agent
+	 * @param s            the surface on which this focus is requested
 	 * @return a rectangle in screen coordinates
 	 */
 	default Rectangle2D focusOn(final IShape geometry, final IDisplaySurface s) {
@@ -155,10 +148,9 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	}
 
 	/**
-	 * Returns the collection of agents populating this layer in order to display them in the agents menu of the display
+	 * Returns the collection of agents populating this layer in order to display them in the agents menu of the display.
 	 *
-	 * @param scope
-	 *            the current scope (usually the surface's one)
+	 * @param scope            the current scope (usually the surface's one)
 	 * @return a collection of agents or an empty collection if no agents are drawn on this layer
 	 */
 	default Collection<IAgent> getAgentsForMenu(final IScope scope) {
@@ -167,7 +159,7 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 
 	/**
 	 * Whether this layer can be used as a support for providing coordinates (used to indicate the position of the
-	 * mouse)
+	 * mouse).
 	 *
 	 * @return true if this layer can provide coordinates, false otherwise
 	 */
@@ -177,7 +169,7 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 
 	/**
 	 * Whether this layer can be used as a support for providing world coordinates (used to indicate the position of the
-	 * mouse)
+	 * mouse).
 	 *
 	 * @return true if this layer can provide coordinates, false otherwise
 	 */
@@ -186,12 +178,10 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	}
 
 	/**
-	 * Returns whether this layer contains the mouse cursor (or the point on screen passed in parameter)
+	 * Returns whether this layer contains the mouse cursor (or the point on screen passed in parameter).
 	 *
-	 * @param x
-	 *            the x-ordinate on screen
-	 * @param y
-	 *            the y-ordinate on screen
+	 * @param x            the x-ordinate on screen
+	 * @param y            the y-ordinate on screen
 	 * @return true if {x,y} is inside the layer, false otherwise
 	 */
 	default boolean containsScreenPoint(final int x, final int y) {
@@ -201,14 +191,11 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	}
 
 	/**
-	 * Returns the world (model) coordinates of the mouse cursor (or the point on screen passed in parameter)
+	 * Returns the world (model) coordinates of the mouse cursor (or the point on screen passed in parameter).
 	 *
-	 * @param xOnScreen
-	 *            the x-ordinate on screen
-	 * @param yOnScreen
-	 *            the y-ordinate on screen
-	 * @param g
-	 *            the surface on which the layer is displayed
+	 * @param xOnScreen            the x-ordinate on screen
+	 * @param yOnScreen            the y-ordinate on screen
+	 * @param g            the surface on which the layer is displayed
 	 * @return a point describing a position in the world
 	 */
 	default GamaPoint getModelCoordinatesFrom(final int xOnScreen, final int yOnScreen, final IDisplaySurface g) {
@@ -217,14 +204,11 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	}
 
 	/**
-	 * Returns a point on screen whose coordinates correspond to the location in the world passed in parameter
+	 * Returns a point on screen whose coordinates correspond to the location in the world passed in parameter.
 	 *
-	 * @param x
-	 *            the x-ordinate in the world
-	 * @param y
-	 *            the y-ordinate in the world
-	 * @param g
-	 *            the surface on which the layer is displayed
+	 * @param x            the x-ordinate in the world
+	 * @param y            the y-ordinate in the world
+	 * @param g            the surface on which the layer is displayed
 	 * @return a point describing a position on screen
 	 */
 	default Point getScreenCoordinatesFrom(final double x, final double y, final IDisplaySurface g) {
@@ -238,16 +222,13 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	}
 
 	/**
-	 * Feeds a StringBuilder with coordinates information about the location on screen correctly formatted
+	 * Feeds a StringBuilder with coordinates information about the location on screen correctly formatted.
 	 *
-	 * @param xOnScreen
-	 *            the x-ordinate on screen
-	 * @param yOnScreen
-	 *            the y-ordinate on screen
-	 * @param g
-	 *            the surface on which this layer is displayed
-	 * @param sb
-	 *            the StringBuilder to feed
+	 * @param xOnScreen            the x-ordinate on screen
+	 * @param yOnScreen            the y-ordinate on screen
+	 * @param g            the surface on which this layer is displayed
+	 * @param sb            the StringBuilder to feed
+	 * @return the model coordinates info
 	 */
 
 	default void getModelCoordinatesInfo(final int xOnScreen, final int yOnScreen, final IDisplaySurface g,
@@ -259,14 +240,11 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	}
 
 	/**
-	 * Collect all the agents intersecting (or close) to the screen point passed in parameter
+	 * Collect all the agents intersecting (or close) to the screen point passed in parameter.
 	 *
-	 * @param x
-	 *            the x-ordinate on screen
-	 * @param y
-	 *            the y-ordinate on screen
-	 * @param g
-	 *            the surface on which this layer is displayed
+	 * @param x            the x-ordinate on screen
+	 * @param y            the y-ordinate on screen
+	 * @param g            the surface on which this layer is displayed
 	 * @return a set of agents (or an empty set if no agents are concerned or displayed)
 	 */
 	default Set<IAgent> collectAgentsAt(final int x, final int y, final IDisplaySurface g) {
@@ -279,7 +257,7 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	void forceRedrawingOnce();
 
 	/**
-	 * Whether this layer is an overlay or not
+	 * Whether this layer is an overlay or not.
 	 *
 	 * @return true if it is an overlay, false otherwise
 	 */
@@ -288,7 +266,10 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	}
 
 	/**
-	 * Returns a textual description of the layer that can be reinterpreted by GAML
+	 * Returns a textual description of the layer that can be reinterpreted by GAML.
+	 *
+	 * @param includingBuiltIn the including built in
+	 * @return the string
 	 */
 	@Override
 	default String serialize(final boolean includingBuiltIn) {
@@ -296,7 +277,10 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	}
 
 	/**
-	 * Compares two layers using their definition order
+	 * Compares two layers using their definition order.
+	 *
+	 * @param o the o
+	 * @return the int
 	 */
 	@Override
 	default int compareTo(final ILayer o) {

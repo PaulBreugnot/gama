@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ExtendedData.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -104,16 +114,23 @@ public class ExtendedData implements Cloneable
      */
     @XmlElement(name = "SchemaData")
     protected List<SchemaData> schemaData;
+    
+    /** The any. */
     @XmlAnyElement(lax = true)
     protected List<Object> any;
 
+    /**
+     * Instantiates a new extended data.
+     */
     public ExtendedData() {
         super();
     }
 
     /**
+     * Gets the data.
+     *
+     * @return the data
      * @see data
-     * 
      */
     public List<Data> getData() {
         if (data == null) {
@@ -123,8 +140,10 @@ public class ExtendedData implements Cloneable
     }
 
     /**
+     * Gets the schema data.
+     *
+     * @return the schema data
      * @see schemaData
-     * 
      */
     public List<SchemaData> getSchemaData() {
         if (schemaData == null) {
@@ -134,8 +153,10 @@ public class ExtendedData implements Cloneable
     }
 
     /**
+     * Gets the any.
+     *
+     * @return the any
      * @see any
-     * 
      */
     public List<Object> getAny() {
         if (any == null) {
@@ -202,10 +223,9 @@ public class ExtendedData implements Cloneable
      * <code>
      * Data data = new Data();
      * this.getData().add(data); </code>
-     * 
-     * 
-     * @param value
-     *     required parameter
+     *
+     * @param value     required parameter
+     * @return the data
      */
     public Data createAndAddData(final String value) {
         Data newValue = new Data(value);
@@ -219,8 +239,8 @@ public class ExtendedData implements Cloneable
      * <code>
      * SchemaData schemaData = new SchemaData();
      * this.getSchemaData().add(schemaData); </code>
-     * 
-     * 
+     *
+     * @return the schema data
      */
     public SchemaData createAndAddSchemaData() {
         SchemaData newValue = new SchemaData();
@@ -229,21 +249,20 @@ public class ExtendedData implements Cloneable
     }
 
     /**
+     * Sets the data.
+     *
+     * @param data the new data
      * @see data
-     * 
-     * @param data
      */
     public void setData(final List<Data> data) {
         this.data = data;
     }
 
     /**
-     * add a value to the data property collection
-     * 
-     * @param data
-     *     Objects of the following type are allowed in the list: {@link Data}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the data property collection.
+     *
+     * @param data     Objects of the following type are allowed in the list: {@link Data}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public ExtendedData addToData(final Data data) {
         this.getData().add(data);
@@ -251,21 +270,20 @@ public class ExtendedData implements Cloneable
     }
 
     /**
+     * Sets the schema data.
+     *
+     * @param schemaData the new schema data
      * @see schemaData
-     * 
-     * @param schemaData
      */
     public void setSchemaData(final List<SchemaData> schemaData) {
         this.schemaData = schemaData;
     }
 
     /**
-     * add a value to the schemaData property collection
-     * 
-     * @param schemaData
-     *     Objects of the following type are allowed in the list: {@link SchemaData}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the schemaData property collection.
+     *
+     * @param schemaData     Objects of the following type are allowed in the list: {@link SchemaData}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public ExtendedData addToSchemaData(final SchemaData schemaData) {
         this.getSchemaData().add(schemaData);
@@ -273,21 +291,20 @@ public class ExtendedData implements Cloneable
     }
 
     /**
+     * Sets the any.
+     *
+     * @param any the new any
      * @see any
-     * 
-     * @param any
      */
     public void setAny(final List<Object> any) {
         this.any = any;
     }
 
     /**
-     * add a value to the any property collection
-     * 
-     * @param any
-     *     Objects of the following type are allowed in the list: {@link Object}{@link Element}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the any property collection.
+     *
+     * @param any     Objects of the following type are allowed in the list: {@link Object}{@link Element}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public ExtendedData addToAny(final Object any) {
         this.getAny().add(any);
@@ -295,11 +312,11 @@ public class ExtendedData implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param data     required parameter
+     * @return the extended data
      * @see #setData(List<Data>)
-     * 
-     * @param data
-     *     required parameter
      */
     public ExtendedData withData(final List<Data> data) {
         this.setData(data);
@@ -307,11 +324,11 @@ public class ExtendedData implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param schemaData     required parameter
+     * @return the extended data
      * @see #setSchemaData(List<SchemaData>)
-     * 
-     * @param schemaData
-     *     required parameter
      */
     public ExtendedData withSchemaData(final List<SchemaData> schemaData) {
         this.setSchemaData(schemaData);
@@ -319,11 +336,11 @@ public class ExtendedData implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param any     required parameter
+     * @return the extended data
      * @see #setAny(List<Object>)
-     * 
-     * @param any
-     *     required parameter
      */
     public ExtendedData withAny(final List<Object> any) {
         this.setAny(any);

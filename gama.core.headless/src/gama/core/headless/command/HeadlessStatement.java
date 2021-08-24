@@ -1,15 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
+ * HeadlessStatement.java, in gama.core.headless, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * 'HeadlessStatement.java', in plugin 'msi.gama.headless', is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
- *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.core.headless.command;
 
 import java.io.File;
@@ -30,6 +28,9 @@ import gaml.operators.Cast;
 import gaml.statements.AbstractStatement;
 import gaml.types.IType;
 
+/**
+ * The Class HeadlessStatement.
+ */
 @symbol (
 		name = IKeywords.RUNSIMULARTION,
 		kind = ISymbolKind.SEQUENCE_STATEMENT,
@@ -69,19 +70,42 @@ import gaml.types.IType;
 						optional = true) },
 		omissible = IKeywords.EXPERIMENT)
 public class HeadlessStatement extends AbstractStatement {
+	
+	/** The number of thread. */
 	private final int numberOfThread = 4;
+	
+	/** The processor queue. */
 	private final SimulationRuntime processorQueue;
+	
+	/** The max simulation ID. */
 	private int maxSimulationID = 0;
 
+	/**
+	 * Gets the simulation id.
+	 *
+	 * @return the simulation id
+	 */
 	public String getSimulationId() {
 		return new Integer(maxSimulationID++).toString();
 	}
 
+	/**
+	 * Instantiates a new headless statement.
+	 *
+	 * @param desc the desc
+	 */
 	public HeadlessStatement(final IDescription desc) {
 		super(desc);
 		processorQueue = new LocalSimulationRuntime(this.numberOfThread);
 	}
 
+	/**
+	 * Retrieve model file absolute path.
+	 *
+	 * @param scope the scope
+	 * @param filename the filename
+	 * @return the string
+	 */
 	private String retrieveModelFileAbsolutePath(final IScope scope, final String filename) {
 		if (filename.charAt(0) == '/') { return filename; }
 		return new File(scope.getModel().getFilePath()).getParentFile().getAbsolutePath() + "/" + filename;

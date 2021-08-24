@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * TourControl.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.gx;
 
@@ -12,7 +22,7 @@ import gama.ext.libs.kml.annotations.Obvious;
 
 
 /**
- * 
+ * The Class TourControl.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TourControlType", propOrder = {
@@ -24,30 +34,32 @@ public class TourControl
     implements Cloneable
 {
 
+    /** The play mode. */
     @XmlElement(defaultValue = "pause")
     protected PlayMode playMode;
 
+    /**
+     * Instantiates a new tour control.
+     */
     public TourControl() {
         super();
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the play mode.
+     *
+     * @return     possible object is
      *     {@link PlayMode}
-     *     
      */
     public PlayMode getPlayMode() {
         return playMode;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the play mode.
+     *
+     * @param value     allowed object is
      *     {@link PlayMode}
-     *     
      */
     public void setPlayMode(PlayMode value) {
         this.playMode = value;
@@ -86,11 +98,11 @@ public class TourControl
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param playMode     required parameter
+     * @return the tour control
      * @see #setPlayMode(PlayMode)
-     * 
-     * @param playMode
-     *     required parameter
      */
     public TourControl withPlayMode(final PlayMode playMode) {
         this.setPlayMode(playMode);

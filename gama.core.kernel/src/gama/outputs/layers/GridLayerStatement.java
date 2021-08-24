@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.layers.GridLayerStatement.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * GridLayerStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -193,6 +193,9 @@ import gaml.types.Types;
 @validator (GridLayerValidator.class)
 public class GridLayerStatement extends AbstractLayerStatement {
 
+	/**
+	 * The Class GridLayerSerializer.
+	 */
 	public static class GridLayerSerializer extends SymbolSerializer<SymbolDescription> {
 
 		@Override
@@ -203,6 +206,9 @@ public class GridLayerStatement extends AbstractLayerStatement {
 
 	}
 
+	/**
+	 * The Class GridLayerValidator.
+	 */
 	public static class GridLayerValidator implements IDescriptionValidator<StatementDescription> {
 
 		@Override
@@ -240,8 +246,15 @@ public class GridLayerStatement extends AbstractLayerStatement {
 
 	}
 
+	/** The is flat grid. */
 	final boolean isHexagonal, isFlatGrid;
 
+	/**
+	 * Instantiates a new grid layer statement.
+	 *
+	 * @param desc the desc
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public GridLayerStatement(final IDescription desc) throws GamaRuntimeException {
 		super(desc);
 		setName(getFacet(IKeyword.SPECIES).literalValue());
@@ -254,6 +267,12 @@ public class GridLayerStatement extends AbstractLayerStatement {
 		return true;
 	}
 
+	/**
+	 * Checks if is open GL flat grid.
+	 *
+	 * @param out the out
+	 * @return true, if is open GL flat grid
+	 */
 	boolean isOpenGLFlatGrid(final LayeredDisplayOutput out) {
 		final boolean isOpenGL = out.getData().isOpenGL();
 		return isOpenGL && isFlatGrid;

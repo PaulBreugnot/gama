@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.layers.AgentLayerStatement.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * AgentLayerStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -145,6 +145,9 @@ import gaml.types.IType;
 				IKeyword.OVERLAY, IKeyword.POPULATION })
 public class AgentLayerStatement extends AbstractLayerStatement {
 
+	/**
+	 * The Class AgentLayerValidator.
+	 */
 	public static class AgentLayerValidator implements IDescriptionValidator<StatementDescription> {
 
 		/**
@@ -180,11 +183,24 @@ public class AgentLayerStatement extends AbstractLayerStatement {
 
 	}
 
+	/** The agents expr. */
 	private IExpression agentsExpr;
+	
+	/** The constant aspect name. */
 	protected String constantAspectName = null;
+	
+	/** The aspect expr. */
 	protected IExpression aspectExpr;
+	
+	/** The aspect. */
 	private IExecutable aspect = null;
 
+	/**
+	 * Instantiates a new agent layer statement.
+	 *
+	 * @param desc the desc
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public AgentLayerStatement(final IDescription desc) throws GamaRuntimeException {
 		super(desc);
 		setAgentsExpr(getFacet(IKeyword.VALUE));
@@ -213,6 +229,12 @@ public class AgentLayerStatement extends AbstractLayerStatement {
 		return LayerType.AGENTS;
 	}
 
+	/**
+	 * Compute aspect name.
+	 *
+	 * @param scope the scope
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public void computeAspectName(final IScope scope) throws GamaRuntimeException {
 		final String aspectName = constantAspectName == null
 				? aspectExpr == null ? IKeyword.DEFAULT : Cast.asString(scope, aspectExpr.value(scope))
@@ -220,22 +242,47 @@ public class AgentLayerStatement extends AbstractLayerStatement {
 		setAspect(aspectName);
 	}
 
+	/**
+	 * Sets the aspect.
+	 *
+	 * @param currentAspect the new aspect
+	 */
 	public void setAspect(final String currentAspect) {
 		this.constantAspectName = currentAspect;
 	}
 
+	/**
+	 * Gets the aspect name.
+	 *
+	 * @return the aspect name
+	 */
 	public String getAspectName() {
 		return constantAspectName;
 	}
 
+	/**
+	 * Sets the agents expr.
+	 *
+	 * @param setOfAgents the new agents expr
+	 */
 	public void setAgentsExpr(final IExpression setOfAgents) {
 		this.agentsExpr = setOfAgents;
 	}
 
+	/**
+	 * Gets the agents expr.
+	 *
+	 * @return the agents expr
+	 */
 	IExpression getAgentsExpr() {
 		return agentsExpr;
 	}
 
+	/**
+	 * Gets the aspect.
+	 *
+	 * @return the aspect
+	 */
 	public IExecutable getAspect() {
 		return aspect;
 	}

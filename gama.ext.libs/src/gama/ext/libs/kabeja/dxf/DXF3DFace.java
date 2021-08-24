@@ -1,15 +1,22 @@
-/*
- * Created on 29.09.2005
+/*******************************************************************************************************
  *
- */
+ * DXF3DFace.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf;
 
 import gama.ext.libs.kabeja.math.MathUtils;
 
 
 /**
- * @author simon
+ * The Class DXF3DFace.
  *
+ * @author simon
  */
 public class DXF3DFace extends DXFSolid {
     public String getType() {

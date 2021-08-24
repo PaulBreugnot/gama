@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.layers.charts.ChartJFreeChartOutputPie.java, in plugin msi.gama.core, is part of the source code of
- * the GAMA modeling and simulation platform (v. 1.8.1)
+ * ChartJFreeChartOutputPie.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs.layers.charts;
 
@@ -35,8 +35,18 @@ import gama.common.ui.IDisplaySurface;
 import gama.runtime.IScope;
 import gaml.expressions.IExpression;
 
+/**
+ * The Class ChartJFreeChartOutputPie.
+ */
 public class ChartJFreeChartOutputPie extends ChartJFreeChartOutput {
 
+	/**
+	 * Instantiates a new chart J free chart output pie.
+	 *
+	 * @param scope the scope
+	 * @param name the name
+	 * @param typeexp the typeexp
+	 */
 	public ChartJFreeChartOutputPie(final IScope scope, final String name, final IExpression typeexp) {
 		super(scope, name, typeexp);
 		// TODO Auto-generated constructor stubs
@@ -135,6 +145,12 @@ public class ChartJFreeChartOutputPie extends ChartJFreeChartOutput {
 		return newr;
 	}
 
+	/**
+	 * Reset renderer.
+	 *
+	 * @param scope the scope
+	 * @param serieid the serieid
+	 */
 	protected void resetRenderer(final IScope scope, final String serieid) {
 		final ChartDataSeries myserie = this.getChartdataset().getDataSeries(scope, serieid);
 		// final int myrow = IdPosition.get(serieid);

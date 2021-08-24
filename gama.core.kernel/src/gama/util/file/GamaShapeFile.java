@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.file.GamaShapeFile.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * GamaShapeFile.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.util.file;
 
@@ -77,14 +77,33 @@ public class GamaShapeFile extends GamaGisFile {
 
 	// FileDataStore store;
 
+	/**
+	 * The Class ShapeInfo.
+	 */
 	public static class ShapeInfo extends GamaFileMetaData {
 
+		/** The item number. */
 		final int itemNumber;
+		
+		/** The crs. */
 		final CoordinateReferenceSystem crs;
+		
+		/** The width. */
 		final double width;
+		
+		/** The height. */
 		final double height;
+		
+		/** The attributes. */
 		final Map<String, String> attributes = new LinkedHashMap();
 
+		/**
+		 * Instantiates a new shape info.
+		 *
+		 * @param scope the scope
+		 * @param url the url
+		 * @param modificationStamp the modification stamp
+		 */
 		public ShapeInfo(final IScope scope, final URL url, final long modificationStamp) {
 			super(modificationStamp);
 			FileDataStore store = null;
@@ -143,10 +162,20 @@ public class GamaShapeFile extends GamaGisFile {
 
 		}
 
+		/**
+		 * Gets the crs.
+		 *
+		 * @return the crs
+		 */
 		public CoordinateReferenceSystem getCRS() {
 			return crs;
 		}
 
+		/**
+		 * Instantiates a new shape info.
+		 *
+		 * @param propertiesString the properties string
+		 */
 		public ShapeInfo(final String propertiesString) {
 			super(propertiesString);
 			final String[] segments = split(propertiesString);
@@ -212,6 +241,11 @@ public class GamaShapeFile extends GamaGisFile {
 			return sb.toString();
 		}
 
+		/**
+		 * Gets the attributes.
+		 *
+		 * @return the attributes
+		 */
 		public Map<String, String> getAttributes() {
 			return attributes;
 		}
@@ -239,9 +273,11 @@ public class GamaShapeFile extends GamaGisFile {
 	}
 
 	/**
-	 * @throws GamaRuntimeException
-	 * @param scope
-	 * @param pathName
+	 * Instantiates a new gama shape file.
+	 *
+	 * @param scope the scope
+	 * @param pathName the path name
+	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 	@doc (
 			value = "This file constructor allows to read a shapefile (.shp) file",
@@ -252,6 +288,14 @@ public class GamaShapeFile extends GamaGisFile {
 		super(scope, pathName, (Integer) null);
 	}
 
+	/**
+	 * Instantiates a new gama shape file.
+	 *
+	 * @param scope the scope
+	 * @param pathName the path name
+	 * @param code the code
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@doc (
 			value = "This file constructor allows to read a shapefile (.shp) file and specifying the coordinates system code, as an int (epsg code)",
 			examples = { @example (
@@ -261,6 +305,14 @@ public class GamaShapeFile extends GamaGisFile {
 		super(scope, pathName, code);
 	}
 
+	/**
+	 * Instantiates a new gama shape file.
+	 *
+	 * @param scope the scope
+	 * @param pathName the path name
+	 * @param code the code
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@doc (
 			value = "This file constructor allows to read a shapefile (.shp) file and specifying the coordinates system code (epg,...,), as a string",
 			examples = { @example (
@@ -270,6 +322,14 @@ public class GamaShapeFile extends GamaGisFile {
 		super(scope, pathName, code);
 	}
 
+	/**
+	 * Instantiates a new gama shape file.
+	 *
+	 * @param scope the scope
+	 * @param pathName the path name
+	 * @param with3D the with 3 D
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@doc (
 			value = "This file constructor allows to read a shapefile (.shp) file and take a potential z value (not taken in account by default)",
 			examples = { @example (
@@ -279,6 +339,15 @@ public class GamaShapeFile extends GamaGisFile {
 		super(scope, pathName, (Integer) null, with3D);
 	}
 
+	/**
+	 * Instantiates a new gama shape file.
+	 *
+	 * @param scope the scope
+	 * @param pathName the path name
+	 * @param code the code
+	 * @param with3D the with 3 D
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@doc (
 			value = "This file constructor allows to read a shapefile (.shp) file and specifying the coordinates system code, as an int (epsg code) and take a potential z value (not taken in account by default)",
 			examples = { @example (
@@ -289,6 +358,15 @@ public class GamaShapeFile extends GamaGisFile {
 		super(scope, pathName, code, with3D);
 	}
 
+	/**
+	 * Instantiates a new gama shape file.
+	 *
+	 * @param scope the scope
+	 * @param pathName the path name
+	 * @param code the code
+	 * @param with3D the with 3 D
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@doc (
 			value = "This file constructor allows to read a shapefile (.shp) file and specifying the coordinates system code (epg,...,), as a string and take a potential z value (not taken in account by default)",
 			examples = { @example (
@@ -315,6 +393,12 @@ public class GamaShapeFile extends GamaGisFile {
 		return GamaListFactory.wrap(Types.STRING, s.attributes.keySet());
 	}
 
+	/**
+	 * Gets the data store.
+	 *
+	 * @param url the url
+	 * @return the data store
+	 */
 	static FileDataStore getDataStore(final URL url) {
 		FileDataStore fds;
 		try {

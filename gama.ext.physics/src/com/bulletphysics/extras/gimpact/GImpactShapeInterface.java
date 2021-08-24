@@ -1,23 +1,13 @@
-/*
- * Java port of Bullet (c) 2008 Martin Dvorak <jezek2@advel.cz>
+/*******************************************************************************************************
  *
- * This source file is part of GIMPACT Library.
+ * GImpactShapeInterface.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * For the latest info, see http://gimpact.sourceforge.net/
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Copyright (c) 2007 Francisco Leon Najera. C.C. 80087371. email: projectileman@yahoo.com
- *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the authors be held
- * liable for any damages arising from the use of this software.
- *
- * Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter
- * it and redistribute it freely, subject to the following restrictions:
- *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software.
- * If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not
- * required. 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the
- * original software. 3. This notice may not be removed or altered from any source distribution.
- */
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package com.bulletphysics.extras.gimpact;
 
@@ -41,11 +31,21 @@ import com.bulletphysics.linearmath.Transform;
  */
 public abstract class GImpactShapeInterface extends ConcaveShape {
 
+	/** The local AABB. */
 	protected AABB localAABB = new AABB();
+	
+	/** The needs update. */
 	protected boolean needs_update;
+	
+	/** The local scaling. */
 	protected final Vector3f localScaling = new Vector3f();
+	
+	/** The box set. */
 	GImpactBvh box_set = new GImpactBvh(); // optionally boxset
 
+	/**
+	 * Instantiates a new g impact shape interface.
+	 */
 	public GImpactShapeInterface() {
 		localAABB.invalidate();
 		needs_update = true;
@@ -91,6 +91,9 @@ public abstract class GImpactShapeInterface extends ConcaveShape {
 
 	/**
 	 * Obtains the local box, which is the global calculated box of the total of subshapes.
+	 *
+	 * @param out the out
+	 * @return the local box
 	 */
 	public AABB getLocalBox(final AABB out) {
 		out.set(localAABB);
@@ -131,15 +134,24 @@ public abstract class GImpactShapeInterface extends ConcaveShape {
 
 	/**
 	 * Base method for determinig which kind of GIMPACT shape we get.
+	 *
+	 * @return the g impact shape type
 	 */
 	abstract ShapeType getGImpactShapeType();
 
+	/**
+	 * Gets the box set.
+	 *
+	 * @return the box set
+	 */
 	GImpactBvh getBoxSet() {
 		return box_set;
 	}
 
 	/**
 	 * Determines if this class has a hierarchy structure for sorting its primitives.
+	 *
+	 * @return true, if successful
 	 */
 	public boolean hasBoxSet() {
 		if (box_set.getNodeCount() == 0) return false;
@@ -148,31 +160,55 @@ public abstract class GImpactShapeInterface extends ConcaveShape {
 
 	/**
 	 * Obtains the primitive manager.
+	 *
+	 * @return the primitive manager
 	 */
 	abstract PrimitiveManagerBase getPrimitiveManager();
 
 	/**
 	 * Gets the number of children.
+	 *
+	 * @return the num child shapes
 	 */
 	public abstract int getNumChildShapes();
 
 	/**
 	 * If true, then its children must get transforms.
+	 *
+	 * @return true, if successful
 	 */
 	public abstract boolean childrenHasTransform();
 
 	/**
 	 * Determines if this shape has triangles.
+	 *
+	 * @return true, if successful
 	 */
 	public abstract boolean needsRetrieveTriangles();
 
 	/**
 	 * Determines if this shape has tetrahedrons.
+	 *
+	 * @return true, if successful
 	 */
 	public abstract boolean needsRetrieveTetrahedrons();
 
+	/**
+	 * Gets the bullet triangle.
+	 *
+	 * @param prim_index the prim index
+	 * @param triangle the triangle
+	 * @return the bullet triangle
+	 */
 	public abstract void getBulletTriangle(int prim_index, TriangleShapeEx triangle);
 
+	/**
+	 * Gets the bullet tetrahedron.
+	 *
+	 * @param prim_index the prim index
+	 * @param tetrahedron the tetrahedron
+	 * @return the bullet tetrahedron
+	 */
 	abstract void getBulletTetrahedron(int prim_index, TetrahedronShapeEx tetrahedron);
 
 	/**
@@ -180,10 +216,17 @@ public abstract class GImpactShapeInterface extends ConcaveShape {
 	 */
 	public void lockChildShapes() {}
 
+	/**
+	 * Unlock child shapes.
+	 */
 	public void unlockChildShapes() {}
 
 	/**
 	 * If this trimesh.
+	 *
+	 * @param index the index
+	 * @param triangle the triangle
+	 * @return the primitive triangle
 	 */
 	void getPrimitiveTriangle(final int index, final PrimitiveTriangle triangle) {
 		getPrimitiveManager().get_primitive_triangle(index, triangle);
@@ -206,6 +249,12 @@ public abstract class GImpactShapeInterface extends ConcaveShape {
 
 	/**
 	 * Retrieves the bound from a child.
+	 *
+	 * @param child_index the child index
+	 * @param t the t
+	 * @param aabbMin the aabb min
+	 * @param aabbMax the aabb max
+	 * @return the child aabb
 	 */
 	public void getChildAabb(final int child_index, final Transform t, final Vector3f aabbMin, final Vector3f aabbMax) {
 		AABB child_aabb = AABBS.get();
@@ -217,11 +266,17 @@ public abstract class GImpactShapeInterface extends ConcaveShape {
 
 	/**
 	 * Gets the children.
+	 *
+	 * @param index the index
+	 * @return the child shape
 	 */
 	public abstract CollisionShape getChildShape(int index);
 
 	/**
 	 * Gets the children transform.
+	 *
+	 * @param index the index
+	 * @return the child transform
 	 */
 	public abstract Transform getChildTransform(int index);
 
@@ -229,11 +284,18 @@ public abstract class GImpactShapeInterface extends ConcaveShape {
 	 * Sets the children transform.
 	 * <p>
 	 * You must call updateBound() for update the box set.
+	 *
+	 * @param index the index
+	 * @param transform the transform
 	 */
 	public abstract void setChildTransform(int index, Transform transform);
 
 	/**
 	 * Virtual method for ray collision.
+	 *
+	 * @param rayFrom the ray from
+	 * @param rayTo the ray to
+	 * @param resultCallback the result callback
 	 */
 	public void rayTest(final Vector3f rayFrom, final Vector3f rayTo, final RayResultCallback resultCallback) {}
 

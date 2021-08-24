@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'FileMetaDataProvider.java, in plugin ummisco.gama.ui.navigator, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * FileMetaDataProvider.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator.metadata;
 
 import static gama.core.dev.utils.DEBUG.ERR;
@@ -107,17 +106,17 @@ public class FileMetaDataProvider implements IFileMetaDataProvider {
 	// }
 	// }
 
+	/** The processing. */
 	private static volatile Set<Object> processing = Collections.<Object> synchronizedSet(new HashSet<>());
 
 	/**
 	 * Adapt the specific object to the specified classes, supporting the IAdaptable interface as well.
 	 *
-	 * @param o
-	 *            the object.
-	 * @param actualType
-	 *            the actual type that must be returned.
-	 * @param adapterType
-	 *            the adapter type to check for.
+	 * @param <T> the generic type
+	 * @param o            the object.
+	 * @param actualType            the actual type that must be returned.
+	 * @param adapterType            the adapter type to check for.
+	 * @return the t
 	 */
 	private <T> T adaptTo(final Object o, final Class<T> actualType, final Class<?> adapterType) {
 		if (actualType.isInstance(o)) return actualType.cast(o);
@@ -128,18 +127,37 @@ public class FileMetaDataProvider implements IFileMetaDataProvider {
 		return null;
 	}
 
+	/** The Constant CACHE_KEY. */
 	public static final QualifiedName CACHE_KEY = new QualifiedName("msi.gama.application", "metadata");
+	
+	/** The Constant CHANGE_KEY. */
 	public static final QualifiedName CHANGE_KEY = new QualifiedName("msi.gama.application", "changed");
+	
+	/** The Constant CSV_CT_ID. */
 	public static final String CSV_CT_ID = "msi.gama.gui.csv.type";
+	
+	/** The Constant IMAGE_CT_ID. */
 	public static final String IMAGE_CT_ID = "msi.gama.gui.images.type";
+	
+	/** The Constant GAML_CT_ID. */
 	public static final String GAML_CT_ID = "msi.gama.gui.gaml.type";
+	
+	/** The Constant SHAPEFILE_CT_ID. */
 	public static final String SHAPEFILE_CT_ID = "msi.gama.gui.shapefile.type";
+	
+	/** The Constant OSM_CT_ID. */
 	public static final String OSM_CT_ID = "msi.gama.gui.osm.type";
+	
+	/** The Constant SHAPEFILE_SUPPORT_CT_ID. */
 	public static final String SHAPEFILE_SUPPORT_CT_ID = "msi.gama.gui.shapefile.support.type";
+	
+	/** The Constant GSIM_CT_ID. */
 	public static final String GSIM_CT_ID = "msi.gama.gui.gsim.type";
 
+	/** The Constant instance. */
 	private final static FileMetaDataProvider instance = new FileMetaDataProvider();
 
+	/** The Constant OSMExt. */
 	public static final ArrayList<String> OSMExt = new ArrayList<>() {
 
 		{
@@ -149,6 +167,8 @@ public class FileMetaDataProvider implements IFileMetaDataProvider {
 			add("bz2");
 		}
 	};
+	
+	/** The Constant longNames. */
 	public static final HashMap<String, String> longNames = new HashMap<>() {
 
 		{
@@ -166,15 +186,30 @@ public class FileMetaDataProvider implements IFileMetaDataProvider {
 		}
 	};
 
+	/**
+	 * The Class GenericFileInfo.
+	 */
 	public static class GenericFileInfo extends GamaFileMetaData {
 
+		/** The suffix. */
 		final String suffix;
 
+		/**
+		 * Instantiates a new generic file info.
+		 *
+		 * @param stamp the stamp
+		 * @param suffix the suffix
+		 */
 		public GenericFileInfo(final long stamp, final String suffix) {
 			super(stamp);
 			this.suffix = suffix;
 		}
 
+		/**
+		 * Instantiates a new generic file info.
+		 *
+		 * @param propertiesString the properties string
+		 */
 		public GenericFileInfo(final String propertiesString) { // NO_UCD (unused code)
 			super(propertiesString);
 			final String[] segments = split(propertiesString);
@@ -202,16 +237,31 @@ public class FileMetaDataProvider implements IFileMetaDataProvider {
 		}
 	}
 
+	/**
+	 * The Class ProjectInfo.
+	 */
 	public static class ProjectInfo extends GamaFileMetaData {
 
+		/** The comment. */
 		final String comment;
 
+		/**
+		 * Instantiates a new project info.
+		 *
+		 * @param project the project
+		 * @throws CoreException the core exception
+		 */
 		public ProjectInfo(final IProject project) throws CoreException {
 			super(project.getModificationStamp());
 			final IProjectDescription desc = project.getDescription();
 			comment = desc.getComment();
 		}
 
+		/**
+		 * Instantiates a new project info.
+		 *
+		 * @param propertiesString the properties string
+		 */
 		public ProjectInfo(final String propertiesString) { // NO_UCD (unused code)
 			super(propertiesString);
 			final String[] segments = split(propertiesString);
@@ -240,6 +290,7 @@ public class FileMetaDataProvider implements IFileMetaDataProvider {
 		}
 	}
 
+	/** The Constant CLASSES. */
 	public static final Map<String, Class<? extends GamaFileMetaData>> CLASSES = new HashMap<>() {
 
 		{
@@ -254,13 +305,26 @@ public class FileMetaDataProvider implements IFileMetaDataProvider {
 		}
 	};
 
+	/** The executor. */
 	ExecutorService executor = Executors.newCachedThreadPool();
+	
+	/** The started. */
 	volatile boolean started;
 
+	/**
+	 * Instantiates a new file meta data provider.
+	 */
 	private FileMetaDataProvider() {
 		ResourcesPlugin.getWorkspace().getSynchronizer().add(CACHE_KEY);
 	}
 
+	/**
+	 * Gets the meta data.
+	 *
+	 * @param project the project
+	 * @param includeOutdated the include outdated
+	 * @return the meta data
+	 */
 	private IGamaFileMetaData getMetaData(final IProject project, final boolean includeOutdated) {
 		if (!project.isAccessible()) return null;
 		final String ct = "project";
@@ -378,6 +442,15 @@ public class FileMetaDataProvider implements IFileMetaDataProvider {
 		}
 	}
 
+	/**
+	 * Read metadata.
+	 *
+	 * @param <T> the generic type
+	 * @param file the file
+	 * @param clazz the clazz
+	 * @param includeOutdated the include outdated
+	 * @return the t
+	 */
 	private <T extends IGamaFileMetaData> T readMetadata(final IResource file, final Class<T> clazz,
 			final boolean includeOutdated) {
 		T result = null;
@@ -430,17 +503,32 @@ public class FileMetaDataProvider implements IFileMetaDataProvider {
 	}
 
 	/**
-	 * @param file
+	 * Creates the gaml file meta data.
+	 *
+	 * @param file the file
+	 * @return the gaml file info
 	 */
 	private GamlFileInfo createGamlFileMetaData(final IFile file) {
 		return GAML.getInfo(URI.createPlatformResourceURI(file.getFullPath().toOSString(), true),
 				file.getModificationStamp());
 	}
 
+	/**
+	 * Creates the CSV file meta data.
+	 *
+	 * @param file the file
+	 * @return the gama CSV file. CSV info
+	 */
 	private GamaCSVFile.CSVInfo createCSVFileMetaData(final IFile file) {
 		return new CSVInfo(file.getLocation().toOSString(), file.getModificationStamp(), null);
 	}
 
+	/**
+	 * Creates the image file meta data.
+	 *
+	 * @param file the file
+	 * @return the image info
+	 */
 	private ImageInfo createImageFileMetaData(final IFile file) {
 		ImageData imageData = null;
 
@@ -460,8 +548,10 @@ public class FileMetaDataProvider implements IFileMetaDataProvider {
 	}
 
 	/**
-	 * @param file
-	 * @return
+	 * Creates the shape file meta data.
+	 *
+	 * @param file the file
+	 * @return the gama shape file. shape info
 	 */
 	private GamaShapeFile.ShapeInfo createShapeFileMetaData(final IFile file) {
 		ShapeInfo info = null;
@@ -474,6 +564,12 @@ public class FileMetaDataProvider implements IFileMetaDataProvider {
 
 	}
 
+	/**
+	 * Creates the OSM meta data.
+	 *
+	 * @param file the file
+	 * @return the gama osm file. OSM info
+	 */
 	private GamaOsmFile.OSMInfo createOSMMetaData(final IFile file) {
 		OSMInfo info = null;
 		try {
@@ -485,6 +581,12 @@ public class FileMetaDataProvider implements IFileMetaDataProvider {
 
 	}
 
+	/**
+	 * Creates the shape file support meta data.
+	 *
+	 * @param file the file
+	 * @return the generic file info
+	 */
 	private GenericFileInfo createShapeFileSupportMetaData(final IFile file) {
 		final IResource r = shapeFileSupportedBy(file);
 		if (r == null) return null;
@@ -494,6 +596,12 @@ public class FileMetaDataProvider implements IFileMetaDataProvider {
 
 	}
 
+	/**
+	 * Creates the generic file meta data.
+	 *
+	 * @param file the file
+	 * @return the generic file info
+	 */
 	private GenericFileInfo createGenericFileMetaData(final IFile file) {
 		String ext = file.getFileExtension();
 		if (ext == null) return new GenericFileInfo(file.getModificationStamp(), "Generic file");
@@ -505,6 +613,12 @@ public class FileMetaDataProvider implements IFileMetaDataProvider {
 	// BEN return new SavedSimulationInfo(file.getLocation().toOSString(), file.getModificationStamp());
 	// BEN }
 
+	/**
+	 * Gets the content type id.
+	 *
+	 * @param p the p
+	 * @return the content type id
+	 */
 	public static String getContentTypeId(final IFile p) {
 		final IContentType ct = Platform.getContentTypeManager().findContentTypeFor(p.getFullPath().toOSString());
 		if (ct != null) return ct.getId();
@@ -517,6 +631,12 @@ public class FileMetaDataProvider implements IFileMetaDataProvider {
 		return "";
 	}
 
+	/**
+	 * Shape file supported by.
+	 *
+	 * @param r the r
+	 * @return the i resource
+	 */
 	public static IResource shapeFileSupportedBy(final IFile r) {
 		String fileName = r.getName();
 		// Special case for these odd files
@@ -530,15 +650,30 @@ public class FileMetaDataProvider implements IFileMetaDataProvider {
 		return r.getParent().findMember(fileName);
 	}
 
+	/**
+	 * Checks if is support.
+	 *
+	 * @param shapefile the shapefile
+	 * @param other the other
+	 * @return true, if is support
+	 */
 	public static boolean isSupport(final IFile shapefile, final IFile other) {
 		final IResource r = shapeFileSupportedBy(other);
 		return shapefile.equals(r);
 	}
 
+	/**
+	 * Gets the single instance of FileMetaDataProvider.
+	 *
+	 * @return single instance of FileMetaDataProvider
+	 */
 	public static FileMetaDataProvider getInstance() {
 		return instance;
 	}
 
+	/**
+	 * Startup.
+	 */
 	private void startup() {
 		if (started) return;
 		started = true;
@@ -562,6 +697,11 @@ public class FileMetaDataProvider implements IFileMetaDataProvider {
 		}
 	}
 
+	/**
+	 * Gets the save participant.
+	 *
+	 * @return the save participant
+	 */
 	private ISaveParticipant getSaveParticipant() {
 		return new ISaveParticipant() {
 
@@ -600,6 +740,12 @@ public class FileMetaDataProvider implements IFileMetaDataProvider {
 		};
 	}
 
+	/**
+	 * Gets the support files of.
+	 *
+	 * @param f the f
+	 * @return the support files of
+	 */
 	public List<IFile> getSupportFilesOf(final IFile f) {
 		if (f == null || !SHAPEFILE_CT_ID.equals(getContentTypeId(f))) return Collections.EMPTY_LIST;
 		final IContainer c = f.getParent();
@@ -612,6 +758,12 @@ public class FileMetaDataProvider implements IFileMetaDataProvider {
 		return result;
 	}
 
+	/**
+	 * Checks for support files.
+	 *
+	 * @param r the r
+	 * @return true, if successful
+	 */
 	public boolean hasSupportFiles(final IResource r) {
 		return r instanceof IFile && SHAPEFILE_CT_ID.equals(getContentTypeId((IFile) r));
 	}

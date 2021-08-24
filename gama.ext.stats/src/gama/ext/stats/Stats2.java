@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'Stats2.java, in plugin ummisco.gaml.extensions.stats, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * Stats2.java, in gama.ext.stats, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.stats;
 
 import cern.colt.list.DoubleArrayList;
@@ -27,9 +26,19 @@ import gama.util.IContainer;
 import gaml.operators.Containers;
 import gaml.types.IType;
 
+/**
+ * The Class Stats2.
+ */
 @SuppressWarnings ({ "rawtypes" })
 public class Stats2 {
 
+	/**
+	 * From.
+	 *
+	 * @param scope the scope
+	 * @param values the values
+	 * @return the double array list
+	 */
 	static DoubleArrayList from(final IScope scope, final IContainer values) {
 		final DoubleArrayList d = new DoubleArrayList(values.length(scope));
 		for (final Object o : values.iterable(scope)) {
@@ -39,6 +48,9 @@ public class Stats2 {
 		return d;
 	}
 
+	/**
+	 * The Class DescriptiveStatistics.
+	 */
 	public static abstract class DescriptiveStatistics {
 
 		// A list of agents among the left-operand list that are located at a
@@ -48,12 +60,10 @@ public class Stats2 {
 		/**
 		 * Returns the auto-correlation of a data sequence.
 		 *
-		 * @param scope
-		 * @param data
-		 * @param lag
-		 * @param mean
-		 * @param variance
-		 * @return
+		 * @param scope the scope
+		 * @param data the data
+		 * @param lag the lag
+		 * @return the double
 		 */
 		@operator (
 				value = "auto_correlation",
@@ -84,14 +94,11 @@ public class Stats2 {
 		/**
 		 * Returns the correlation of two data sequences.
 		 *
+		 * @param scope the scope
+		 * @param data1 the data 1
+		 * @param data2 the data 2
+		 * @return the double
 		 * @see <a href="http://www.mathsisfun.com/data/correlation.html"> Correlation</a>
-		 *
-		 * @param scope
-		 * @param data1
-		 * @param standardDev1
-		 * @param data2
-		 * @param stanardDev2
-		 * @return
 		 */
 		@operator (
 				value = "correlation",
@@ -120,12 +127,12 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op covariance.
 		 *
-		 *
-		 * @param scope
-		 * @param data1
-		 * @param data2
-		 * @return
+		 * @param scope the scope
+		 * @param data1 the data 1
+		 * @param data2 the data 2
+		 * @return the double
 		 */
 		@operator (
 				value = "covariance",
@@ -148,11 +155,11 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op durbin watson.
 		 *
-		 *
-		 * @param scope
-		 * @param data
-		 * @return
+		 * @param scope the scope
+		 * @param data the data
+		 * @return the double
 		 */
 		@operator (
 				value = "durbin_watson",
@@ -175,11 +182,11 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op kurtosis.
 		 *
-		 *
-		 * @param scope
-		 * @param data
-		 * @return
+		 * @param scope the scope
+		 * @param data the data
+		 * @return the double
 		 */
 		@operator (
 				value = "kurtosis",
@@ -205,12 +212,12 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op kurtosis.
 		 *
-		 *
-		 * @param scope
-		 * @param moment4
-		 * @param standardDeviation
-		 * @return
+		 * @param scope the scope
+		 * @param moment4 the moment 4
+		 * @param standardDeviation the standard deviation
+		 * @return the double
 		 */
 		@operator (
 				value = "kurtosis",
@@ -236,11 +243,11 @@ public class Stats2 {
 		 * Returns the moment of k-th order with constant c of a data sequence, which is Sum( (data[i]-c)k ) /
 		 * data.size().
 		 *
-		 * @param scope
-		 * @param data
-		 * @param k
-		 * @param c
-		 * @return
+		 * @param scope the scope
+		 * @param data the data
+		 * @param k the k
+		 * @param c the c
+		 * @return the double
 		 */
 		@operator (
 				value = "moment",
@@ -263,12 +270,12 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op quantile.
 		 *
-		 *
-		 * @param scope
-		 * @param data
-		 * @param phi
-		 * @return
+		 * @param scope the scope
+		 * @param data the data
+		 * @param phi the phi
+		 * @return the double
 		 */
 		@operator (
 				value = "quantile",
@@ -291,12 +298,12 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op quantile inverse.
 		 *
-		 *
-		 * @param scope
-		 * @param data
-		 * @param element
-		 * @return
+		 * @param scope the scope
+		 * @param data the data
+		 * @param element the element
+		 * @return the double
 		 */
 		@operator (
 				value = { "quantile_inverse", "percentile" },
@@ -319,12 +326,12 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op rank interpolated.
 		 *
-		 *
-		 * @param scope
-		 * @param data
-		 * @param element
-		 * @return
+		 * @param scope the scope
+		 * @param data the data
+		 * @param element the element
+		 * @return the double
 		 */
 		@operator (
 				value = "rank_interpolated",
@@ -347,12 +354,12 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op rms.
 		 *
-		 *
-		 * @param scope
-		 * @param size
-		 * @param sumOfSquares
-		 * @return
+		 * @param scope the scope
+		 * @param size the size
+		 * @param sumOfSquares the sum of squares
+		 * @return the double
 		 */
 		@operator (
 				value = "rms",
@@ -378,13 +385,11 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op skew.
 		 *
-		 *
-		 * @param scope
-		 * @param data
-		 * @param mean
-		 * @param standardDeviation
-		 * @return
+		 * @param scope the scope
+		 * @param data the data
+		 * @return the double
 		 */
 		@operator (
 				value = "skew",
@@ -409,12 +414,12 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op skew.
 		 *
-		 *
-		 * @param scope
-		 * @param moment3
-		 * @param standardDeviation
-		 * @return
+		 * @param scope the scope
+		 * @param moment3 the moment 3
+		 * @param standardDeviation the standard deviation
+		 * @return the double
 		 */
 		@operator (
 				value = "skew",
@@ -441,6 +446,13 @@ public class Stats2 {
 			return Descriptive.skew(moment3, standardDeviation);
 		}
 
+		/**
+		 * Op variance.
+		 *
+		 * @param scope the scope
+		 * @param standardDeviation the standard deviation
+		 * @return the double
+		 */
 		@operator (
 				value = "variance",
 				can_be_const = true,
@@ -464,13 +476,13 @@ public class Stats2 {
 		}
 
 		/**
+		 * Variance.
 		 *
-		 *
-		 * @param scope
-		 * @param size
-		 * @param sum
-		 * @param numOfSquares
-		 * @return
+		 * @param scope the scope
+		 * @param size the size
+		 * @param sum the sum
+		 * @param numOfSquares the num of squares
+		 * @return the double
 		 */
 		@operator (
 				value = "variance",
@@ -506,13 +518,13 @@ public class Stats2 {
 	public static abstract class Distributions {
 
 		/**
+		 * Op pvalue for fstat.
 		 *
-		 *
-		 * @param scope
-		 * @param fstat
-		 * @param dfn
-		 * @param dfd
-		 * @return
+		 * @param scope the scope
+		 * @param fstat the fstat
+		 * @param dfn the dfn
+		 * @param dfd the dfd
+		 * @return the double
 		 */
 		@operator (
 				value = "pValue_for_fStat",
@@ -545,12 +557,12 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op pvalue for tstat.
 		 *
-		 *
-		 * @param scope
-		 * @param tstat
-		 * @param df
-		 * @return
+		 * @param scope the scope
+		 * @param tstat the tstat
+		 * @param df the df
+		 * @return the double
 		 */
 		@operator (
 				value = "pValue_for_tStat",
@@ -584,12 +596,12 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op student area.
 		 *
-		 *
-		 * @param scope
-		 * @param x
-		 * @param df
-		 * @return
+		 * @param scope the scope
+		 * @param x the x
+		 * @param df the df
+		 * @return the double
 		 */
 		@operator (
 				value = "student_area",
@@ -618,13 +630,13 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op normal area.
 		 *
-		 *
-		 * @param scope
-		 * @param x
-		 * @param mean
-		 * @param sd
-		 * @return
+		 * @param scope the scope
+		 * @param x the x
+		 * @param mean the mean
+		 * @param sd the sd
+		 * @return the double
 		 */
 		@operator (
 				value = { "normal_area", "pnorm" },
@@ -653,12 +665,12 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op student T inverse.
 		 *
-		 *
-		 * @param scope
-		 * @param x
-		 * @param df
-		 * @return
+		 * @param scope the scope
+		 * @param x the x
+		 * @param df the df
+		 * @return the double
 		 */
 		@operator (
 				value = "student_t_inverse",
@@ -692,13 +704,13 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op normal inverse.
 		 *
-		 *
-		 * @param scope
-		 * @param area
-		 * @param mean
-		 * @param sd
-		 * @return
+		 * @param scope the scope
+		 * @param area the area
+		 * @param mean the mean
+		 * @param sd the sd
+		 * @return the double
 		 */
 		@operator (
 				value = "normal_inverse",
@@ -731,13 +743,13 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op normal density.
 		 *
-		 *
-		 * @param scope
-		 * @param x
-		 * @param mean
-		 * @param sd
-		 * @return
+		 * @param scope the scope
+		 * @param x the x
+		 * @param mean the mean
+		 * @param sd the sd
+		 * @return the double
 		 */
 		@operator (
 				value = { "normal_density", "dnorm" },
@@ -763,12 +775,12 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op binomial coeff.
 		 *
-		 *
-		 * @param scope
-		 * @param n
-		 * @param k
-		 * @return
+		 * @param scope the scope
+		 * @param n the n
+		 * @param k the k
+		 * @return the double
 		 */
 		@operator (
 				value = "binomial_coeff",
@@ -797,13 +809,13 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op binomial sum.
 		 *
-		 *
-		 * @param scope
-		 * @param n
-		 * @param k
-		 * @param p
-		 * @return
+		 * @param scope the scope
+		 * @param k the k
+		 * @param n the n
+		 * @param p the p
+		 * @return the double
 		 */
 		@operator (
 				value = { "binomial_sum", "pbinom" },
@@ -834,17 +846,14 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op gamma.
 		 *
-		 *
-		 * @param scope
-		 * @param a
-		 *            the paramater a (alpha) of the gamma distribution (shape parameter).
-		 * @param b
-		 *            the paramater b (beta, lambda) of the gamma distribution (rate parameter, inverse scale parameter
+		 * @param scope the scope
+		 * @param a            the paramater a (alpha) of the gamma distribution (shape parameter).
+		 * @param b            the paramater b (beta, lambda) of the gamma distribution (rate parameter, inverse scale parameter
 		 *            theta).
-		 * @param x
-		 *            integration end point.
-		 * @return
+		 * @param x            integration end point.
+		 * @return the double
 		 */
 		@operator (
 				value = { "gamma_distribution", "pgamma" },
@@ -873,16 +882,13 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op gamma complemented.
 		 *
-		 *
-		 * @param scope
-		 * @param a
-		 *            the paramater a (alpha) of the gamma distribution.
-		 * @param b
-		 *            the paramater b (beta, lambda) of the gamma distribution.
-		 * @param x
-		 *            integration end point.
-		 * @return
+		 * @param scope the scope
+		 * @param a            the paramater a (alpha) of the gamma distribution.
+		 * @param b            the paramater b (beta, lambda) of the gamma distribution.
+		 * @param x            integration end point.
+		 * @return the double
 		 */
 		@operator (
 				value = "gamma_distribution_complemented",
@@ -911,13 +917,13 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op binomial complemented.
 		 *
-		 *
-		 * @param scope
-		 * @param n
-		 * @param k
-		 * @param p
-		 * @return
+		 * @param scope the scope
+		 * @param n the n
+		 * @param k the k
+		 * @param p the p
+		 * @return the double
 		 */
 		@operator (
 				value = "binomial_complemented",
@@ -949,12 +955,12 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op chi square.
 		 *
-		 *
-		 * @param scope
-		 * @param x
-		 * @param df
-		 * @return
+		 * @param scope the scope
+		 * @param x the x
+		 * @param df the df
+		 * @return the double
 		 */
 		@operator (
 				value = { "chi_square", "pchisq" },
@@ -986,12 +992,12 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op chi square complemented.
 		 *
-		 *
-		 * @param scope
-		 * @param x
-		 * @param df
-		 * @return
+		 * @param scope the scope
+		 * @param x the x
+		 * @param df the df
+		 * @return the double
 		 */
 		@operator (
 				value = "chi_square_complemented",
@@ -1025,14 +1031,17 @@ public class Stats2 {
 		}
 	}
 
+	/**
+	 * The Class GammaFunction.
+	 */
 	public static abstract class GammaFunction {
 
 		/**
+		 * Op gamma.
 		 *
-		 *
-		 * @param scope
-		 * @param x
-		 * @return
+		 * @param scope the scope
+		 * @param x the x
+		 * @return the double
 		 */
 		@operator (
 				value = "gamma",
@@ -1061,11 +1070,11 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op log gamma.
 		 *
-		 *
-		 * @param scope
-		 * @param x
-		 * @return
+		 * @param scope the scope
+		 * @param x the x
+		 * @return the double
 		 */
 		@operator (
 				value = { "log_gamma", "lgamma" },
@@ -1093,12 +1102,12 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op incomplete gamma.
 		 *
-		 *
-		 * @param scope
-		 * @param a
-		 * @param x
-		 * @return
+		 * @param scope the scope
+		 * @param a the a
+		 * @param x the x
+		 * @return the double
 		 */
 		@operator (
 				value = "incomplete_gamma",
@@ -1130,12 +1139,12 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op incomplete gamma complement.
 		 *
-		 *
-		 * @param scope
-		 * @param a
-		 * @param x
-		 * @return
+		 * @param scope the scope
+		 * @param a the a
+		 * @param x the x
+		 * @return the double
 		 */
 		@operator (
 				value = "incomplete_gamma_complement",
@@ -1166,12 +1175,12 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op beta.
 		 *
-		 *
-		 * @param scope
-		 * @param a
-		 * @param b
-		 * @return
+		 * @param scope the scope
+		 * @param a the a
+		 * @param b the b
+		 * @return the double
 		 */
 		@operator (
 				value = "beta",
@@ -1199,13 +1208,13 @@ public class Stats2 {
 		}
 
 		/**
+		 * Op incomplete beta.
 		 *
-		 *
-		 * @param scope
-		 * @param a
-		 * @param b
-		 * @param x
-		 * @return
+		 * @param scope the scope
+		 * @param a the a
+		 * @param b the b
+		 * @param x the x
+		 * @return the double
 		 */
 		@operator (
 				value = "incomplete_beta",

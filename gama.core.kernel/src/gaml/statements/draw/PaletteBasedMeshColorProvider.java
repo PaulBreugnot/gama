@@ -1,12 +1,33 @@
+/*******************************************************************************************************
+ *
+ * PaletteBasedMeshColorProvider.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gaml.statements.draw;
 
 import gaml.operators.Colors.GamaPalette;
 
+/**
+ * The Class PaletteBasedMeshColorProvider.
+ */
 public class PaletteBasedMeshColorProvider implements IMeshColorProvider {
 
+	/** The components. */
 	final double[] components;
+	
+	/** The size. */
 	final int size;
 
+	/**
+	 * Instantiates a new palette based mesh color provider.
+	 *
+	 * @param palette the palette
+	 */
 	public PaletteBasedMeshColorProvider(final GamaPalette palette) {
 		this.size = palette.size();
 		components = new double[size * 3];

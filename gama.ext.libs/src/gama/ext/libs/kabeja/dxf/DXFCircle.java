@@ -1,18 +1,13 @@
-/*
- Copyright 2005 Simon Mieth
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+/*******************************************************************************************************
+ *
+ * DXFCircle.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf;
 
 import gama.ext.libs.kabeja.dxf.helpers.Point;
@@ -20,35 +15,56 @@ import gama.ext.libs.kabeja.math.ParametricPlane;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class DXFCircle.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class DXFCircle extends DXFEntity {
+    
+    /** The center. */
     private Point center;
+    
+    /** The radius. */
     private double radius;
 
     /**
-     *
+     * Instantiates a new DXF circle.
      */
     public DXFCircle() {
     }
 
+    /**
+     * Gets the radius.
+     *
+     * @return the radius
+     */
     public double getRadius() {
         return radius;
     }
 
     /**
-     * @param radius
-     *            The radius to set.
+     * Sets the radius.
+     *
+     * @param radius            The radius to set.
      */
     public void setRadius(double radius) {
         this.radius = radius;
     }
 
+    /**
+     * Sets the center point.
+     *
+     * @param p the new center point
+     */
     public void setCenterPoint(Point p) {
         this.center = p;
     }
 
+    /**
+     * Gets the center point.
+     *
+     * @return the center point
+     */
     public Point getCenterPoint() {
         return center;
     }
@@ -73,6 +89,12 @@ public class DXFCircle extends DXFEntity {
         return 2 * Math.PI * this.radius;
     }
 
+    /**
+     * Gets the point at.
+     *
+     * @param angle the angle
+     * @return the point at
+     */
     public Point getPointAt(double angle) {
         // the local part
         double x = this.radius * Math.cos(Math.toRadians(angle));

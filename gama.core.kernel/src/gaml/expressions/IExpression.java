@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.expressions.IExpression.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * IExpression.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.expressions;
 
@@ -39,7 +39,7 @@ public interface IExpression extends IGamlDescription, ITyped, IDisposable, IVar
 	 * expression with {@link IExpression#isConst()}. All runtime exceptions are caught and the method returns null in
 	 * case of exceptions. Typically useful in validation contexts
 	 *
-	 * @return
+	 * @return the const value
 	 */
 	default Object getConstValue() {
 		try {
@@ -62,7 +62,7 @@ public interface IExpression extends IGamlDescription, ITyped, IDisposable, IVar
 
 	/**
 	 * Whether the expression is considered as 'constant', meaning it does not need a scope to be evaluated and return a
-	 * value
+	 * value.
 	 *
 	 * @return true if the expression is constant
 	 */
@@ -83,14 +83,17 @@ public interface IExpression extends IGamlDescription, ITyped, IDisposable, IVar
 
 	/**
 	 * Returns an expression where all the temp variables belonging to the scope passed in parameter are replaced by
-	 * constants representing their values
+	 * constants representing their values.
+	 *
+	 * @param scope the scope
+	 * @return the i expression
 	 */
 	default IExpression resolveAgainst(final IScope scope) {
 		return this;
 	}
 
 	/**
-	 * Whether this expression should be parenthesized when serialized
+	 * Whether this expression should be parenthesized when serialized.
 	 *
 	 * @return true if the serialization of the expression needs to be parenthesized
 	 */
@@ -100,7 +103,7 @@ public interface IExpression extends IGamlDescription, ITyped, IDisposable, IVar
 	}
 
 	/**
-	 * Whether this expression depends on variables, attributes, or species belonging to a specific context or not
+	 * Whether this expression depends on variables, attributes, or species belonging to a specific context or not.
 	 *
 	 * @return true if this expression does not use any attribute, variable or species
 	 */
@@ -119,10 +122,9 @@ public interface IExpression extends IGamlDescription, ITyped, IDisposable, IVar
 	}
 
 	/**
-	 * Whether this expression or one of its sub-expressions match the predicate passed in parameter
+	 * Whether this expression or one of its sub-expressions match the predicate passed in parameter.
 	 *
-	 * @param predicate
-	 *            a predicate returning true or false
+	 * @param predicate            a predicate returning true or false
 	 * @return true if this expression or one of its sub-expressions evaluate the predicate to true; false otherwise
 	 */
 	default boolean findAny(final Predicate<IExpression> predicate) {

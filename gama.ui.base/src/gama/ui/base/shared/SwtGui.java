@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ummisco.gama.ui.utils.SwtGui.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * SwtGui.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.ui.base.shared;
 
@@ -92,10 +92,9 @@ import gaml.statements.test.TestExperimentSummary;
 import one.util.streamex.StreamEx;
 
 /**
- * Written by drogoul Modified on 6 mai 2011
+ * Written by drogoul Modified on 6 mai 2011.
  *
  * @todo Description
- *
  */
 public class SwtGui implements IGui {
 
@@ -105,17 +104,30 @@ public class SwtGui implements IGui {
 
 	}
 
+	/** The instance. */
 	private static SwtGui INSTANCE = new SwtGui();
 
+	/**
+	 * Gets the single instance of SwtGui.
+	 *
+	 * @return single instance of SwtGui
+	 */
 	public static IGui getInstance() {
 		return INSTANCE;
 	}
 
+	/**
+	 * Instantiates a new swt gui.
+	 */
 	private SwtGui() {}
 
+	/** The all tests running. */
 	public volatile static boolean ALL_TESTS_RUNNING;
 
+	/** The highlighted agent. */
 	private IAgent highlightedAgent;
+	
+	/** The mouse location in model. */
 	private GamaPoint mouseLocationInModel;
 
 	@Override
@@ -173,6 +185,14 @@ public class SwtGui implements IGui {
 		handler.clearErrors();
 	}
 
+	/**
+	 * Internal show view.
+	 *
+	 * @param viewId the view id
+	 * @param secondaryId the secondary id
+	 * @param code the code
+	 * @return the object
+	 */
 	private Object internalShowView(final String viewId, final String secondaryId, final int code) {
 		if (GAMA.getFrontmostController() != null && GAMA.getFrontmostController().isDisposing()) return null;
 		final Object[] result = new Object[1];
@@ -227,6 +247,9 @@ public class SwtGui implements IGui {
 		return null;
 	}
 
+	/**
+	 * Hide monitor view.
+	 */
 	public void hideMonitorView() {
 		final IGamaView m = (IGamaView) WorkbenchHelper.findView(MONITOR_VIEW_ID, null, false);
 		if (m != null) {
@@ -337,6 +360,11 @@ public class SwtGui implements IGui {
 		highlightedAgent = a;
 	}
 
+	/**
+	 * Gets the model runner.
+	 *
+	 * @return the model runner
+	 */
 	private IModelRunner getModelRunner() {
 		return WorkbenchHelper.getService(IModelRunner.class);
 	}
@@ -470,6 +498,11 @@ public class SwtGui implements IGui {
 		handler.stop();
 	}
 
+	/**
+	 * Gets the runtime exception handler.
+	 *
+	 * @return the runtime exception handler
+	 */
 	private IRuntimeExceptionHandler getRuntimeExceptionHandler() {
 		return WorkbenchHelper.getService(IRuntimeExceptionHandler.class);
 	}
@@ -481,10 +514,20 @@ public class SwtGui implements IGui {
 		modelRunner.runModel(object, exp);
 	}
 
+	/**
+	 * All display surfaces.
+	 *
+	 * @return the list
+	 */
 	public static List<IDisplaySurface> allDisplaySurfaces() {
 		return StreamEx.of(allDisplayViews()).map(gama.common.ui.IGamaView.Display::getDisplaySurface).toList();
 	}
 
+	/**
+	 * All display views.
+	 *
+	 * @return the list
+	 */
 	public static List<IGamaView.Display> allDisplayViews() {
 		final List<IGamaView.Display> result = new ArrayList<>();
 		final IViewReference[] viewRefs = WorkbenchHelper.getPage().getViewReferences();

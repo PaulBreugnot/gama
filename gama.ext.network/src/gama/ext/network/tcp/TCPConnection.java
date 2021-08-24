@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * TCPConnection.java, in gama.ext.network, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.network.tcp;
 
 import java.io.IOException;
@@ -13,18 +23,37 @@ import gama.ext.network.common.socket.SocketService;
 import gama.metamodel.agent.IAgent;
 import gama.runtime.IScope;
 
+/**
+ * The Class TCPConnection.
+ */
 public class TCPConnection extends Connector {
 
+	/** The socket. */
 	private SocketService socket;
+	
+	/** The is server. */
 	private final boolean isServer;
 
+	/** The remote box name. */
 	private final ArrayList<String> remoteBoxName;
 
+	/**
+	 * Instantiates a new TCP connection.
+	 *
+	 * @param scope the scope
+	 * @param isServer the is server
+	 */
 	public TCPConnection(final IScope scope, final boolean isServer) {
 		this.isServer = isServer;
 		this.remoteBoxName = new ArrayList<>();
 	}
 
+	/**
+	 * Extract and apply command.
+	 *
+	 * @param sender the sender
+	 * @param message the message
+	 */
 	protected void extractAndApplyCommand(final String sender, final String message) {
 		final CommandMessage mm = MessageFactory.unPackCommandMessage(sender, message);
 		final String sttr = mm.getPlainContents();

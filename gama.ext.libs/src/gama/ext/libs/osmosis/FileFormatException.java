@@ -1,31 +1,33 @@
-/**
- * Copyright (c) 2010 Scott A. Crosby. <scott@sacrosby.com>
+/*******************************************************************************************************
+ *
+ * FileFormatException.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- * 
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License along with this program. If not, see
- * <http://www.gnu.org/licenses/>.
- * 
- */
+ ********************************************************************************************************/
 
 package gama.ext.libs.osmosis;
 
 import java.io.IOException;
 
+/**
+ * The Class FileFormatException.
+ */
 public class FileFormatException extends IOException {
 
+	/**
+	 * Instantiates a new file format exception.
+	 *
+	 * @param string the string
+	 */
 	public FileFormatException(final String string) {
 		super(string);
 	}
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = -8128010128748910923L;
 
 }

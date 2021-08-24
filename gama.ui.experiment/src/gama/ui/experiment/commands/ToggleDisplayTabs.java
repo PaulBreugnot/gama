@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ToggleDisplayTabs.java, in gama.ui.experiment, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.experiment.commands;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -7,6 +17,9 @@ import org.eclipse.core.commands.ExecutionException;
 import gama.ui.base.utils.PerspectiveHelper;
 import gama.ui.base.utils.PerspectiveHelper.SimulationPerspectiveDescriptor;
 
+/**
+ * The Class ToggleDisplayTabs.
+ */
 public class ToggleDisplayTabs extends AbstractHandler {
 
 	// NOT YET READY FOR PRIME TIME

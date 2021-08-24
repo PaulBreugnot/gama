@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'PointEditor.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * PointEditor.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.parameters;
 
 import static gama.ui.base.resources.GamaColors.get;
@@ -46,23 +45,59 @@ import gaml.operators.Cast;
 import gaml.types.IType;
 import gaml.types.Types;
 
+/**
+ * The Class PointEditor.
+ */
 public class PointEditor extends AbstractEditor<GamaPoint> implements VerifyListener {
 
+	/** The Constant LABELS. */
 	private static final String[] LABELS = { "x", "y", "z" };
+	
+	/** The Constant LABEL_WIDTH. */
 	private static final int LABEL_WIDTH = 15;
+	
+	/** The Constant SPACING. */
 	private static final int SPACING = 4;
+	
+	/** The Constant MARGIN. */
 	private static final int MARGIN = 2;
 
+	/** The point editor. */
 	private Composite pointEditor;
+	
+	/** The allow verification. */
 	private boolean allowVerification;
+	
+	/** The is reverting. */
 	private boolean isReverting;
+	
+	/** The ordinates. */
 	private final Text[] ordinates = new Text[3];
+	
+	/** The labels. */
 	private final Label[] labels = new Label[3];
 
+	/**
+	 * Instantiates a new point editor.
+	 *
+	 * @param scope the scope
+	 * @param agent the agent
+	 * @param param the param
+	 * @param l the l
+	 */
 	PointEditor(final IScope scope, final IAgent agent, final IParameter param, final EditorListener<GamaPoint> l) {
 		super(scope, agent, param, l);
 	}
 
+	/**
+	 * Instantiates a new point editor.
+	 *
+	 * @param scope the scope
+	 * @param parent the parent
+	 * @param title the title
+	 * @param value the value
+	 * @param whenModified the when modified
+	 */
 	PointEditor(final IScope scope, final EditorsGroup parent, final String title, final GamaPoint value,
 			final EditorListener<GamaPoint> whenModified) {
 		// Convenience method

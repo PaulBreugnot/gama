@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * GamaField.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.util.matrix;
 
 import static gaml.types.GamaGeometryType.buildRectangle;
@@ -30,13 +40,29 @@ import gaml.types.Types;
 import one.util.streamex.DoubleStreamEx;
 import one.util.streamex.StreamEx;
 
+/**
+ * The Class GamaField.
+ */
 public class GamaField extends GamaFloatMatrix implements IField {
 
+	/** The world dimensions. */
 	GamaPoint worldDimensions = null;
+	
+	/** The cell dimensions. */
 	GamaPoint cellDimensions = null;
+	
+	/** The no data value. */
 	double epsilon, noDataValue;
+	
+	/** The bands. */
 	IList<GamaField> bands = GamaListFactory.create(Types.FIELD);
 
+	/**
+	 * Instantiates a new gama field.
+	 *
+	 * @param scope the scope
+	 * @param provider the provider
+	 */
 	public GamaField(final IScope scope, final IFieldMatrixProvider provider) {
 		this(scope, provider.getCols(scope), provider.getRows(scope), provider.getFieldData(scope),
 				provider.getNoData(scope));
@@ -46,6 +72,13 @@ public class GamaField extends GamaFloatMatrix implements IField {
 		}
 	}
 
+	/**
+	 * Instantiates a new gama field.
+	 *
+	 * @param scope the scope
+	 * @param primary the primary
+	 * @param band the band
+	 */
 	private GamaField(final IScope scope, final GamaField primary, final double[] band) {
 		this(scope, primary.numCols, primary.numRows, band, primary.noDataValue);
 		worldDimensions = primary.worldDimensions;
@@ -53,6 +86,15 @@ public class GamaField extends GamaFloatMatrix implements IField {
 		epsilon = primary.epsilon;
 	}
 
+	/**
+	 * Instantiates a new gama field.
+	 *
+	 * @param scope the scope
+	 * @param cols the cols
+	 * @param rows the rows
+	 * @param objects the objects
+	 * @param noDataValue the no data value
+	 */
 	public GamaField(final IScope scope, final int cols, final int rows, final double[] objects,
 			final double noDataValue) {
 		super(objects); // no copy
@@ -67,7 +109,7 @@ public class GamaField extends GamaFloatMatrix implements IField {
 	 * Call this method before any computation that involves the world/cell dimensions. Computed lazily to avoid
 	 * deadlock problems (when the shape of the world, for instance, is computed after a field)
 	 *
-	 * @param scope
+	 * @param scope the scope
 	 */
 	private void computeDimensions(final IScope scope) {
 		if (worldDimensions != null) return;
@@ -77,14 +119,32 @@ public class GamaField extends GamaFloatMatrix implements IField {
 		epsilon = cellDimensions.x / 1000;
 	}
 
+	/**
+	 * Gets the grid X.
+	 *
+	 * @param x the x
+	 * @return the grid X
+	 */
 	int getGridX(final double x) {
 		return (int) ((x == worldDimensions.x ? x - epsilon : x) / cellDimensions.x);
 	}
 
+	/**
+	 * Gets the grid Y.
+	 *
+	 * @param y the y
+	 * @return the grid Y
+	 */
 	int getGridY(final double y) {
 		return (int) ((y == worldDimensions.y ? y - epsilon : y) / cellDimensions.y);
 	}
 
+	/**
+	 * Gets the index.
+	 *
+	 * @param p the p
+	 * @return the index
+	 */
 	int getIndex(final GamaPoint p) {
 		return getGridY(p.y) * numCols + getGridX(p.x);
 	}

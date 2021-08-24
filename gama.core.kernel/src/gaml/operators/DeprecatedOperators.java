@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.operators.DeprecatedOperators.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * DeprecatedOperators.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.operators;
 
@@ -469,6 +469,15 @@ public class DeprecatedOperators {
 	// // Types.NO_TYPE);
 	// }
 
+	/**
+	 * At.
+	 *
+	 * @param scope the scope
+	 * @param s the s
+	 * @param val the val
+	 * @return the i agent
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = { IKeyword.AT, "@" },
 			type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1)
@@ -1117,6 +1126,13 @@ public class DeprecatedOperators {
 	// return GamaGeometryType.buildSphere(radius, location);
 	// }
 
+	/**
+	 * Dem.
+	 *
+	 * @param scope the scope
+	 * @param demFileName the dem file name
+	 * @return the i shape
+	 */
 	@operator (
 			value = "dem",
 			category = { IOperatorCategory.SPATIAL, IOperatorCategory.THREED },
@@ -1136,6 +1152,14 @@ public class DeprecatedOperators {
 		return dem(scope, demFileName, demFileName, 1.0);
 	}
 
+	/**
+	 * Dem.
+	 *
+	 * @param scope the scope
+	 * @param demFileName the dem file name
+	 * @param z_factor the z factor
+	 * @return the i shape
+	 */
 	@operator (
 			value = "dem",
 			category = { IOperatorCategory.SPATIAL, IOperatorCategory.THREED },
@@ -1153,6 +1177,14 @@ public class DeprecatedOperators {
 		return dem(scope, demFileName, demFileName, z_factor);
 	}
 
+	/**
+	 * Dem.
+	 *
+	 * @param scope the scope
+	 * @param demFile the dem file
+	 * @param textureFile the texture file
+	 * @return the i shape
+	 */
 	@operator (
 			value = "dem",
 			category = { IOperatorCategory.SPATIAL, IOperatorCategory.THREED },
@@ -1170,6 +1202,15 @@ public class DeprecatedOperators {
 		return dem(scope, demFile, textureFile, 1.0);
 	}
 
+	/**
+	 * Dem.
+	 *
+	 * @param scope the scope
+	 * @param demFile the dem file
+	 * @param textureFile the texture file
+	 * @param z_factor the z factor
+	 * @return the i shape
+	 */
 	@operator (
 			value = "dem",
 			category = { IOperatorCategory.SPATIAL, IOperatorCategory.THREED },
@@ -1212,6 +1253,13 @@ public class DeprecatedOperators {
 		return null;
 	}
 
+	/**
+	 * Gets the dimensions of.
+	 *
+	 * @param scope the scope
+	 * @param file the file
+	 * @return the dimensions of
+	 */
 	private static GamaPoint getDimensionsOf(final IScope scope, final GamaFile file) {
 		GamaPoint result = new GamaPoint();
 		if (file instanceof GamaImageFile) {

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.descriptions.SkillDescription.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * SkillDescription.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.descriptions;
 
@@ -20,12 +20,28 @@ import gama.core.dev.annotations.GamlAnnotations.skill;
 import gaml.architecture.IArchitecture;
 import gaml.skills.Skill;
 
+/**
+ * The Class SkillDescription.
+ */
 public class SkillDescription extends TypeDescription {
 
+	/** The instance. */
 	Skill instance;
+	
+	/** The is control. */
 	final boolean isControl;
+	
+	/** The java base. */
 	final Class<? extends ISkill> javaBase;
 
+	/**
+	 * Instantiates a new skill description.
+	 *
+	 * @param name the name
+	 * @param support the support
+	 * @param children the children
+	 * @param plugin the plugin
+	 */
 	public SkillDescription(final String name, final Class<? extends ISkill> support,
 			final Iterable<IDescription> children, final String plugin) {
 		super(IKeyword.SKILL, support, null, null, children, null, null, plugin);
@@ -71,6 +87,11 @@ public class SkillDescription extends TypeDescription {
 		return attributes == null ? Collections.EMPTY_LIST : attributes.keySet();
 	}
 
+	/**
+	 * Creates the instance.
+	 *
+	 * @return the skill
+	 */
 	public Skill createInstance() {
 		Skill instance = null;
 		try {
@@ -80,12 +101,22 @@ public class SkillDescription extends TypeDescription {
 		return instance;
 	}
 
+	/**
+	 * Gets the single instance of SkillDescription.
+	 *
+	 * @return single instance of SkillDescription
+	 */
 	public Skill getInstance() {
 		if (instance == null)
 			instance = createInstance();
 		return instance;
 	}
 
+	/**
+	 * Checks if is control.
+	 *
+	 * @return true, if is control
+	 */
 	public boolean isControl() {
 		return isControl;
 	}
@@ -121,6 +152,11 @@ public class SkillDescription extends TypeDescription {
 
 	}
 
+	/**
+	 * Gets the doc annotation.
+	 *
+	 * @return the doc annotation
+	 */
 	public doc getDocAnnotation() {
 		skill s = javaBase.getAnnotation(skill.class);
 		doc[] docs = s.doc();
@@ -135,6 +171,11 @@ public class SkillDescription extends TypeDescription {
 		return d;
 	}
 
+	/**
+	 * Gets the deprecated.
+	 *
+	 * @return the deprecated
+	 */
 	public String getDeprecated() {
 		doc d = getDocAnnotation();
 		if (d == null)

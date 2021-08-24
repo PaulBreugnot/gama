@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.file.http.WebbUtils.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * WebbUtils.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.ext.libs.webb;
 
@@ -37,6 +37,9 @@ import java.util.zip.InflaterInputStream;
  */
 public class WebbUtils {
 
+	/**
+	 * Instantiates a new webb utils.
+	 */
 	protected WebbUtils() {}
 
 	/**
@@ -72,6 +75,14 @@ public class WebbUtils {
 		return sbuf.toString();
 	}
 
+	/**
+	 * Append param.
+	 *
+	 * @param sbuf the sbuf
+	 * @param separator the separator
+	 * @param entryKey the entry key
+	 * @param value the value
+	 */
 	private static void appendParam(final StringBuilder sbuf, final String separator, final String entryKey,
 			final Object value) {
 		final String sValue = value == null ? "" : String.valueOf(value);
@@ -84,11 +95,10 @@ public class WebbUtils {
 	/**
 	 * Convert a byte array to a JSONObject.
 	 *
-	 * @param bytes
-	 *            a UTF-8 encoded string representing a JSON object.
+	 * @param is the is
 	 * @return the parsed object
-	 * @throws WebbException
-	 *             in case of error (usually a parsing error due to invalid JSON)
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws WebbException             in case of error (usually a parsing error due to invalid JSON)
 	 */
 	// public static JSONObject toJsonObject(final byte[] bytes) {
 	// String json;
@@ -175,6 +185,12 @@ public class WebbUtils {
 		return format;
 	}
 
+	/**
+	 * Url encode.
+	 *
+	 * @param value the value
+	 * @return the string
+	 */
 	static String urlEncode(final String value) {
 		try {
 			return URLEncoder.encode(value, "UTF-8");
@@ -183,6 +199,12 @@ public class WebbUtils {
 		}
 	}
 
+	/**
+	 * Adds the request properties.
+	 *
+	 * @param connection the connection
+	 * @param map the map
+	 */
 	static void addRequestProperties(final HttpURLConnection connection, final Map<String, Object> map) {
 		if (map == null || map.isEmpty()) { return; }
 		for (final Map.Entry<String, Object> entry : map.entrySet()) {
@@ -190,6 +212,13 @@ public class WebbUtils {
 		}
 	}
 
+	/**
+	 * Adds the request property.
+	 *
+	 * @param connection the connection
+	 * @param name the name
+	 * @param value the value
+	 */
 	static void addRequestProperty(final HttpURLConnection connection, final String name, final Object value) {
 		if (name == null || name.length() == 0 || value == null) {
 			throw new IllegalArgumentException("name and value must not be empty");
@@ -207,12 +236,29 @@ public class WebbUtils {
 		connection.addRequestProperty(name, valueAsString);
 	}
 
+	/**
+	 * Ensure request property.
+	 *
+	 * @param connection the connection
+	 * @param name the name
+	 * @param value the value
+	 */
 	static void ensureRequestProperty(final HttpURLConnection connection, final String name, final Object value) {
 		if (!connection.getRequestProperties().containsKey(name)) {
 			addRequestProperty(connection, name, value);
 		}
 	}
 
+	/**
+	 * Gets the payload as bytes and set content type.
+	 *
+	 * @param connection the connection
+	 * @param request the request
+	 * @param compress the compress
+	 * @param jsonIndentFactor the json indent factor
+	 * @return the payload as bytes and set content type
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
+	 */
 	static byte[] getPayloadAsBytesAndSetContentType(final HttpURLConnection connection, final Request request,
 			final boolean compress, final int jsonIndentFactor) throws UnsupportedEncodingException {
 
@@ -251,6 +297,13 @@ public class WebbUtils {
 		return requestBody;
 	}
 
+	/**
+	 * Sets the content type and length for streaming.
+	 *
+	 * @param connection the connection
+	 * @param request the request
+	 * @param compress the compress
+	 */
 	static void setContentTypeAndLengthForStreaming(final HttpURLConnection connection, final Request request,
 			final boolean compress) {
 
@@ -279,6 +332,12 @@ public class WebbUtils {
 		}
 	}
 
+	/**
+	 * Gzip.
+	 *
+	 * @param input the input
+	 * @return the byte[]
+	 */
 	static byte[] gzip(final byte[] input) {
 		try (final ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
 				GZIPOutputStream gzipOS = new GZIPOutputStream(byteArrayOS);) {
@@ -290,6 +349,14 @@ public class WebbUtils {
 		}
 	}
 
+	/**
+	 * Wrap stream.
+	 *
+	 * @param contentEncoding the content encoding
+	 * @param inputStream the input stream
+	 * @return the input stream
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	static InputStream wrapStream(final String contentEncoding, final InputStream inputStream) throws IOException {
 		if (contentEncoding == null || "identity".equalsIgnoreCase(contentEncoding)) { return inputStream; }
 		if ("gzip".equalsIgnoreCase(contentEncoding)) { return new GZIPInputStream(inputStream); }
@@ -299,6 +366,16 @@ public class WebbUtils {
 		throw new WebbException("unsupported content-encoding: " + contentEncoding);
 	}
 
+	/**
+	 * Parses the response body.
+	 *
+	 * @param <T> the generic type
+	 * @param clazz the clazz
+	 * @param response the response
+	 * @param responseBodyStream the response body stream
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	static <T> void parseResponseBody(final Class<T> clazz, final Response<T> response,
 			final InputStream responseBodyStream) throws UnsupportedEncodingException, IOException {
 
@@ -325,6 +402,16 @@ public class WebbUtils {
 
 	}
 
+	/**
+	 * Parses the error response.
+	 *
+	 * @param <T> the generic type
+	 * @param clazz the clazz
+	 * @param response the response
+	 * @param responseBodyStream the response body stream
+	 * @throws UnsupportedEncodingException the unsupported encoding exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	static <T> void parseErrorResponse(final Class<T> clazz, final Response<T> response,
 			final InputStream responseBodyStream) throws UnsupportedEncodingException, IOException {
 

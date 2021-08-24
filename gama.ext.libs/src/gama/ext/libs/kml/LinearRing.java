@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * LinearRing.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -130,18 +140,8 @@ public class LinearRing
     @XmlElement(defaultValue = "0")
     @XmlJavaTypeAdapter(BooleanConverter.class)
     protected Boolean tessellate;
-    /**
-     * AltitudeMode
-     * <p>
-     * clampToGround, relativeToGround, absolute 
-     * </p>
-     * 
-     * See Also: 
-     * See <LookAt> and <Region>
-     * 
-     * 
-     * 
-     */
+    
+    /** AltitudeMode <p> clampToGround, relativeToGround, absolute  </p>  See Also:  See <LookAt> and <Region>. */
     @XmlElement(defaultValue = "clampToGround")
     protected AltitudeMode altitudeMode;
     /**
@@ -168,6 +168,8 @@ public class LinearRing
     @XmlElement(namespace = "http://www.opengis.net/kml/2.2", type = String.class)
     @XmlJavaTypeAdapter(CoordinatesConverter.class)
     protected List<Coordinate> coordinates;
+    
+    /** The linear ring simple extension. */
     @XmlElement(name = "LinearRingSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> linearRingSimpleExtension;
@@ -192,87 +194,86 @@ public class LinearRing
     @XmlElement(name = "LinearRingObjectExtensionGroup")
     protected List<AbstractObject> linearRingObjectExtension;
 
+    /**
+     * Instantiates a new linear ring.
+     */
     public LinearRing() {
         super();
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Checks if is extrude.
+     *
+     * @return     possible object is
      *     {@link Boolean}
-     *     
      */
     public Boolean isExtrude() {
         return extrude;
     }
 
     /**
-     * @see extrude
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the extrude.
+     *
+     * @param value     allowed object is
      *     {@link Boolean}
-     *     
+     * @see extrude
      */
     public void setExtrude(Boolean value) {
         this.extrude = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Checks if is tessellate.
+     *
+     * @return     possible object is
      *     {@link Boolean}
-     *     
      */
     public Boolean isTessellate() {
         return tessellate;
     }
 
     /**
-     * @see tessellate
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the tessellate.
+     *
+     * @param value     allowed object is
      *     {@link Boolean}
-     *     
+     * @see tessellate
      */
     public void setTessellate(Boolean value) {
         this.tessellate = value;
     }
 
     /**
-     * @see altitudeMode
-     * 
-     * @return
-     *     possible object is
+     * Gets the altitude mode.
+     *
+     * @return     possible object is
      *     {@code <}{@link Object}{@code>}
      *     {@code <}{@link gama.ext.libs.kml.AltitudeMode}{@code>}
      *     {@code <}{@link msi.gama.ext.kml.gx.AltitudeMode}{@code>}
-     *     
+     * @see altitudeMode
      */
     public AltitudeMode getAltitudeMode() {
         return altitudeMode;
     }
 
     /**
-     * @see altitudeMode
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the altitude mode.
+     *
+     * @param value     allowed object is
      *     {@code <}{@link Object}{@code>}
      *     {@code <}{@link gama.ext.libs.kml.AltitudeMode}{@code>}
      *     {@code <}{@link msi.gama.ext.kml.gx.AltitudeMode}{@code>}
-     *     
+     * @see altitudeMode
      */
     public void setAltitudeMode(AltitudeMode value) {
         this.altitudeMode = value;
     }
 
     /**
+     * Gets the linear ring simple extension.
+     *
+     * @return the linear ring simple extension
      * @see linearRingSimpleExtension
-     * 
      */
     public List<Object> getLinearRingSimpleExtension() {
         if (linearRingSimpleExtension == null) {
@@ -282,8 +283,10 @@ public class LinearRing
     }
 
     /**
+     * Gets the linear ring object extension.
+     *
+     * @return the linear ring object extension
      * @see linearRingObjectExtension
-     * 
      */
     public List<AbstractObject> getLinearRingObjectExtension() {
         if (linearRingObjectExtension == null) {
@@ -293,8 +296,10 @@ public class LinearRing
     }
 
     /**
+     * Gets the coordinates.
+     *
+     * @return the coordinates
      * @see coordinates
-     * 
      */
     public List<Coordinate> getCoordinates() {
         if (coordinates == null) {
@@ -389,23 +394,21 @@ public class LinearRing
     }
 
     /**
+     * Sets the coordinates.
+     *
+     * @param coordinates the new coordinates
      * @see coordinates
-     * 
-     * @param coordinates
      */
     public void setCoordinates(final List<Coordinate> coordinates) {
         this.coordinates = coordinates;
     }
 
     /**
-     * add a value to the coordinates property collection
-     * 
-     * @param longitude
-     *     required parameter
-     * @param latitude
-     *     required parameter
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the coordinates property collection.
+     *
+     * @param longitude     required parameter
+     * @param latitude     required parameter
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LinearRing addToCoordinates(final double longitude, final double latitude) {
         this.getCoordinates().add(new Coordinate(longitude, latitude));
@@ -413,16 +416,12 @@ public class LinearRing
     }
 
     /**
-     * add a value to the coordinates property collection
-     * 
-     * @param longitude
-     *     required parameter
-     * @param latitude
-     *     required parameter
-     * @param altitude
-     *     required parameter
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the coordinates property collection.
+     *
+     * @param longitude     required parameter
+     * @param latitude     required parameter
+     * @param altitude     required parameter
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LinearRing addToCoordinates(final double longitude, final double latitude, final double altitude) {
         this.getCoordinates().add(new Coordinate(longitude, latitude, altitude));
@@ -430,12 +429,10 @@ public class LinearRing
     }
 
     /**
-     * add a value to the coordinates property collection
-     * 
-     * @param coordinates
-     *     required parameter
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the coordinates property collection.
+     *
+     * @param coordinates     required parameter
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LinearRing addToCoordinates(final String coordinates) {
         this.getCoordinates().add(new Coordinate(coordinates));
@@ -443,21 +440,20 @@ public class LinearRing
     }
 
     /**
+     * Sets the linear ring simple extension.
+     *
+     * @param linearRingSimpleExtension the new linear ring simple extension
      * @see linearRingSimpleExtension
-     * 
-     * @param linearRingSimpleExtension
      */
     public void setLinearRingSimpleExtension(final List<Object> linearRingSimpleExtension) {
         this.linearRingSimpleExtension = linearRingSimpleExtension;
     }
 
     /**
-     * add a value to the linearRingSimpleExtension property collection
-     * 
-     * @param linearRingSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the linearRingSimpleExtension property collection.
+     *
+     * @param linearRingSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LinearRing addToLinearRingSimpleExtension(final Object linearRingSimpleExtension) {
         this.getLinearRingSimpleExtension().add(linearRingSimpleExtension);
@@ -465,21 +461,20 @@ public class LinearRing
     }
 
     /**
+     * Sets the linear ring object extension.
+     *
+     * @param linearRingObjectExtension the new linear ring object extension
      * @see linearRingObjectExtension
-     * 
-     * @param linearRingObjectExtension
      */
     public void setLinearRingObjectExtension(final List<AbstractObject> linearRingObjectExtension) {
         this.linearRingObjectExtension = linearRingObjectExtension;
     }
 
     /**
-     * add a value to the linearRingObjectExtension property collection
-     * 
-     * @param linearRingObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the linearRingObjectExtension property collection.
+     *
+     * @param linearRingObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LinearRing addToLinearRingObjectExtension(final AbstractObject linearRingObjectExtension) {
         this.getLinearRingObjectExtension().add(linearRingObjectExtension);
@@ -538,11 +533,11 @@ public class LinearRing
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param extrude     required parameter
+     * @return the linear ring
      * @see #setExtrude(Boolean)
-     * 
-     * @param extrude
-     *     required parameter
      */
     public LinearRing withExtrude(final Boolean extrude) {
         this.setExtrude(extrude);
@@ -550,11 +545,11 @@ public class LinearRing
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param tessellate     required parameter
+     * @return the linear ring
      * @see #setTessellate(Boolean)
-     * 
-     * @param tessellate
-     *     required parameter
      */
     public LinearRing withTessellate(final Boolean tessellate) {
         this.setTessellate(tessellate);
@@ -562,11 +557,11 @@ public class LinearRing
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param altitudeMode     required parameter
+     * @return the linear ring
      * @see #setAltitudeMode(Object)
-     * 
-     * @param altitudeMode
-     *     required parameter
      */
     public LinearRing withAltitudeMode(final  AltitudeMode altitudeMode) {
         this.setAltitudeMode(altitudeMode);
@@ -574,11 +569,11 @@ public class LinearRing
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param coordinates     required parameter
+     * @return the linear ring
      * @see #setCoordinates(List<Coordinate>)
-     * 
-     * @param coordinates
-     *     required parameter
      */
     public LinearRing withCoordinates(final List<Coordinate> coordinates) {
         this.setCoordinates(coordinates);
@@ -586,11 +581,11 @@ public class LinearRing
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param linearRingSimpleExtension     required parameter
+     * @return the linear ring
      * @see #setLinearRingSimpleExtension(List<Object>)
-     * 
-     * @param linearRingSimpleExtension
-     *     required parameter
      */
     public LinearRing withLinearRingSimpleExtension(final List<Object> linearRingSimpleExtension) {
         this.setLinearRingSimpleExtension(linearRingSimpleExtension);
@@ -598,11 +593,11 @@ public class LinearRing
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param linearRingObjectExtension     required parameter
+     * @return the linear ring
      * @see #setLinearRingObjectExtension(List<AbstractObject>)
-     * 
-     * @param linearRingObjectExtension
-     *     required parameter
      */
     public LinearRing withLinearRingObjectExtension(final List<AbstractObject> linearRingObjectExtension) {
         this.setLinearRingObjectExtension(linearRingObjectExtension);
@@ -653,8 +648,8 @@ public class LinearRing
      * List<Coordinate> newValue = new List<Coordinate>();
      * this.setCoordinates(newValue); </code>
      * </pre>
-     * 
-     * 
+     *
+     * @return the list
      */
     public List<Coordinate> createAndSetCoordinates() {
         List<Coordinate> newValue = new ArrayList<Coordinate>();

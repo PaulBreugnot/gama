@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GamlSearchField.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * GamlSearchField.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.search;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -61,35 +60,69 @@ import gama.ui.base.utils.PlatformHelper;
 import gama.ui.base.utils.WebHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 
+/**
+ * The Class GamlSearchField.
+ */
 public class GamlSearchField {
 
 	static {
 		DEBUG.ON();
 	}
 
+	/** The shell. */
 	Shell shell;
+	
+	/** The text. */
 	protected Text text;
+	
+	/** The instance. */
 	public static GamlSearchField INSTANCE;
 
+	/** The quick access contents. */
 	GamlAccessContents quickAccessContents;
 
+	/** The dialog height. */
 	int dialogHeight = -1;
+	
+	/** The dialog width. */
 	int dialogWidth = -1;
+	
+	/** The previous focus control. */
 	Control previousFocusControl;
+	
+	/** The composite. */
 	// private GamaToolbarSimple toolbar;
 	private Composite composite;
+	
+	/** The table. */
 	Table table;
 
+	/** The selected string. */
 	String selectedString = ""; //$NON-NLS-1$
+	
+	/** The accessible listener. */
 	private AccessibleAdapter accessibleListener;
+	
+	/** The commands installed. */
 	private boolean commandsInstalled;
 
+	/**
+	 * Instantiates a new gaml search field.
+	 */
 	private GamlSearchField() {}
 
+	/**
+	 * Gets the text.
+	 *
+	 * @return the text
+	 */
 	public Text getText() {
 		return text;
 	}
 
+	/**
+	 * Hook up commands.
+	 */
 	void hookUpCommands() {
 		if (commandsInstalled) { return; }
 		commandsInstalled = true;
@@ -140,6 +173,12 @@ public class GamlSearchField {
 		}, focusExpr);
 	}
 
+	/**
+	 * Creates the widget.
+	 *
+	 * @param parent the parent
+	 * @return the control
+	 */
 	public Control createWidget(final Composite parent) {
 		composite = new Composite(parent, SWT.NONE);
 		GridLayoutFactory.fillDefaults().margins(0, 0).spacing(0, 0).extendedMargins(0, 5, 5, 5).numColumns(2)
@@ -289,6 +328,12 @@ public class GamlSearchField {
 		return composite;
 	}
 
+	/**
+	 * Creates the text.
+	 *
+	 * @param parent the parent
+	 * @return the text
+	 */
 	private Text createText(final Composite parent) {
 		final Text text = new Text(parent, SWT.SEARCH | SWT.ICON_SEARCH);
 		final String message = "GAML reference (" + GamaKeyBindings.SEARCH_STRING + ")";
@@ -298,6 +343,10 @@ public class GamlSearchField {
 
 	/**
 	 * This method was copy/pasted from JFace.
+	 *
+	 * @param toSearch the to search
+	 * @param toFind the to find
+	 * @return the closest monitor
 	 */
 	private static Monitor getClosestMonitor(final Display toSearch, final Point toFind) {
 		int closest = Integer.MAX_VALUE;
@@ -322,6 +371,10 @@ public class GamlSearchField {
 
 	/**
 	 * This method was copy/pasted from JFace.
+	 *
+	 * @param display the display
+	 * @param preferredSize the preferred size
+	 * @return the constrained shell bounds
 	 */
 	private Rectangle getConstrainedShellBounds(final Display display, final Rectangle preferredSize) {
 		final Rectangle result =
@@ -345,6 +398,9 @@ public class GamlSearchField {
 		return result;
 	}
 
+	/**
+	 * Layout shell.
+	 */
 	void layoutShell() {
 		final Display display = text.getDisplay();
 		final Rectangle tempBounds = text.getBounds();
@@ -366,6 +422,11 @@ public class GamlSearchField {
 		shell.layout();
 	}
 
+	/**
+	 * Activate.
+	 *
+	 * @param previousFocusControl the previous focus control
+	 */
 	public void activate(final Control previousFocusControl) {
 		this.previousFocusControl = previousFocusControl;
 		if (!shell.isVisible()) {
@@ -437,6 +498,9 @@ public class GamlSearchField {
 		text.getAccessible().sendEvent(ACC.EVENT_NAME_CHANGED, null);
 	}
 
+	/**
+	 * Search.
+	 */
 	public void search() {
 		final IWorkbenchPart part = WorkbenchHelper.getActivePart();
 		if (part instanceof IEditorPart) {
@@ -459,6 +523,12 @@ public class GamlSearchField {
 
 	}
 
+	/**
+	 * Install on.
+	 *
+	 * @param parent the parent
+	 * @return the control
+	 */
 	public static Control installOn(final Composite parent) {
 		INSTANCE = new GamlSearchField();
 		return INSTANCE.createWidget(parent);

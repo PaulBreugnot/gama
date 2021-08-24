@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * LawStatement.java, in gama.ext.bdi, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.bdi;
 
 import java.util.ArrayList;
@@ -25,6 +35,9 @@ import gaml.types.IType;
 
 //Définition des lois pour créer des obligations sur le modèle des rêgles d'inférences avec en supplément un seuil d'obéissance
 
+/**
+ * The Class LawStatement.
+ */
 @symbol (
 		name = LawStatement.LAW,
 		kind = ISymbolKind.SINGLE_STATEMENT,
@@ -100,48 +113,114 @@ import gaml.types.IType;
 
 public class LawStatement extends AbstractStatement{
 
+	/** The Constant LAW. */
 	public static final String LAW = "law";
+	
+	/** The Constant BELIEF. */
 	public static final String BELIEF = "belief";
+	
+	/** The Constant BELIEFS. */
 	public static final String BELIEFS = "beliefs";
+	
+	/** The Constant NEW_OBLIGATION. */
 	public static final String NEW_OBLIGATION = "new_obligation";
+	
+	/** The Constant NEW_OBLIGATIONS. */
 	public static final String NEW_OBLIGATIONS = "new_obligations";
+	
+	/** The Constant STRENGTH. */
 	public static final String STRENGTH = "strength";
+	
+	/** The Constant LIFETIME. */
 	public static final String LIFETIME = "lifetime";
+	
+	/** The Constant THRESHOLD. */
 	public static final String THRESHOLD = "threshold";
+	
+	/** The Constant ALL. */
 	public static final String ALL = "all";
 	
 
+	/** The when. */
 	final IExpression when;
+	
+	/** The parallel. */
 	final IExpression parallel;
+	
+	/** The belief. */
 	final IExpression belief;
+	
+	/** The beliefs. */
 	final IExpression beliefs;
+	
+	/** The new obligation. */
 	final IExpression newObligation;
+	
+	/** The new obligations. */
 	final IExpression newObligations;
+	
+	/** The strength. */
 	final IExpression strength;
+	
+	/** The lifetime. */
 	final IExpression lifetime;
+	
+	/** The threshold. */
 	final IExpression threshold;
+	
+	/** The all. */
 	final IExpression all;
 	
+	/**
+	 * Gets the context expression.
+	 *
+	 * @return the context expression
+	 */
 	public IExpression getContextExpression() {
 		return when;
 	}
 	
+	/**
+	 * Gets the belief expression.
+	 *
+	 * @return the belief expression
+	 */
 	public IExpression getBeliefExpression() {
 		return belief;
 	}
 	
+	/**
+	 * Gets the obligation expression.
+	 *
+	 * @return the obligation expression
+	 */
 	public IExpression getObligationExpression() {
 		return newObligation;
 	}
 	
+	/**
+	 * Gets the parallel.
+	 *
+	 * @return the parallel
+	 */
 	public IExpression getParallel() {
 		return parallel;
 	}
 	
+	/**
+	 * Gets the threshold.
+	 *
+	 * @return the threshold
+	 */
 	public IExpression getThreshold() {
 		return threshold;
 	}
 	
+	/**
+	 * Instantiates a new law statement.
+	 *
+	 * @param desc the desc
+	 */
 	public LawStatement(IDescription desc) {
 		super(desc);
 		when = getFacet(IKeyword.WHEN);
@@ -260,6 +339,13 @@ public class LawStatement extends AbstractStatement{
 	}
 
 
+/**
+ * Checks for beliefs.
+ *
+ * @param scope the scope
+ * @param predicates the predicates
+ * @return true, if successful
+ */
 private boolean hasBeliefs(final IScope scope, final List<Predicate> predicates) {
 	for (final Predicate p : predicates) {
 		final MentalState temp = new MentalState("Belief", p);

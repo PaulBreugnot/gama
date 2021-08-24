@@ -1,28 +1,45 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'NetworkMessage.java, in plugin ummisco.gama.network, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * NetworkMessage.java, in gama.ext.network, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.network.common;
 
 import gama.ext.serialize.factory.StreamConverter;
 import gama.runtime.IScope;
 import gaml.extensions.messaging.GamaMessage;
 
+/**
+ * The Class NetworkMessage.
+ */
 public class NetworkMessage implements ConnectorMessage {
+	
+	/** The Constant UNDEFINED. */
 	public static final String UNDEFINED = "undefined";
 
+	/** The from. */
 	private final String from;
+	
+	/** The to. */
 	private final String to;
+	
+	/** The content. */
 	private final String content;
+	
+	/** The is plain message. */
 	protected boolean isPlainMessage = false;
 
+	/**
+	 * Instantiates a new network message.
+	 *
+	 * @param to the to
+	 * @param data the data
+	 */
 	protected NetworkMessage(final String to, final String data) {
 		this.content = data;
 		this.from = UNDEFINED;
@@ -30,6 +47,13 @@ public class NetworkMessage implements ConnectorMessage {
 		isPlainMessage = true;
 	}
 
+	/**
+	 * Instantiates a new network message.
+	 *
+	 * @param from the from
+	 * @param to the to
+	 * @param data the data
+	 */
 	protected NetworkMessage(final String from, final String to, final String data) {
 		this.from = from;
 		this.to = to;
@@ -62,12 +86,24 @@ public class NetworkMessage implements ConnectorMessage {
 		return isPlainMessage ? getPlainContent(scope) : getCompositeContent(scope);
 	}
 
+	/**
+	 * Gets the plain content.
+	 *
+	 * @param scope the scope
+	 * @return the plain content
+	 */
 	public GamaMessage getPlainContent(final IScope scope) {
 		final GamaMessage message = new GamaMessage(scope, from, to, content);
 		message.hasBeenReceived(scope);
 		return message;
 	}
 
+	/**
+	 * Gets the composite content.
+	 *
+	 * @param scope the scope
+	 * @return the composite content
+	 */
 	public GamaMessage getCompositeContent(final IScope scope) {
 		final Object messageContent = StreamConverter.convertStreamToObject(scope, content);
 		GamaMessage message = null;

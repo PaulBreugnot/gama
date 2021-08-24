@@ -1,9 +1,32 @@
+/*******************************************************************************************************
+ *
+ * BufferUtils.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package org.jbox2d.common;
 
 import java.lang.reflect.Array;
 
+/**
+ * The Class BufferUtils.
+ */
 public class BufferUtils {
-  /** Reallocate a buffer. */
+  
+  /**
+   *  Reallocate a buffer.
+   *
+   * @param <T> the generic type
+   * @param klass the klass
+   * @param oldBuffer the old buffer
+   * @param oldCapacity the old capacity
+   * @param newCapacity the new capacity
+   * @return the t[]
+   */
   public static <T> T[] reallocateBuffer(Class<T> klass, T[] oldBuffer, int oldCapacity,
       int newCapacity) {
     assert (newCapacity > oldCapacity);
@@ -22,7 +45,14 @@ public class BufferUtils {
     return newBuffer;
   }
 
-  /** Reallocate a buffer. */
+  /**
+   *  Reallocate a buffer.
+   *
+   * @param oldBuffer the old buffer
+   * @param oldCapacity the old capacity
+   * @param newCapacity the new capacity
+   * @return the int[]
+   */
   public static int[] reallocateBuffer(int[] oldBuffer, int oldCapacity, int newCapacity) {
     assert (newCapacity > oldCapacity);
     int[] newBuffer = new int[newCapacity];
@@ -32,7 +62,14 @@ public class BufferUtils {
     return newBuffer;
   }
 
-  /** Reallocate a buffer. */
+  /**
+   *  Reallocate a buffer.
+   *
+   * @param oldBuffer the old buffer
+   * @param oldCapacity the old capacity
+   * @param newCapacity the new capacity
+   * @return the float[]
+   */
   public static float[] reallocateBuffer(float[] oldBuffer, int oldCapacity, int newCapacity) {
     assert (newCapacity > oldCapacity);
     float[] newBuffer = new float[newCapacity];
@@ -45,6 +82,15 @@ public class BufferUtils {
   /**
    * Reallocate a buffer. A 'deferred' buffer is reallocated only if it is not NULL. If
    * 'userSuppliedCapacity' is not zero, buffer is user supplied and must be kept.
+   *
+   * @param <T> the generic type
+   * @param klass the klass
+   * @param buffer the buffer
+   * @param userSuppliedCapacity the user supplied capacity
+   * @param oldCapacity the old capacity
+   * @param newCapacity the new capacity
+   * @param deferred the deferred
+   * @return the t[]
    */
   public static <T> T[] reallocateBuffer(Class<T> klass, T[] buffer, int userSuppliedCapacity,
       int oldCapacity, int newCapacity, boolean deferred) {
@@ -59,6 +105,13 @@ public class BufferUtils {
   /**
    * Reallocate an int buffer. A 'deferred' buffer is reallocated only if it is not NULL. If
    * 'userSuppliedCapacity' is not zero, buffer is user supplied and must be kept.
+   *
+   * @param buffer the buffer
+   * @param userSuppliedCapacity the user supplied capacity
+   * @param oldCapacity the old capacity
+   * @param newCapacity the new capacity
+   * @param deferred the deferred
+   * @return the int[]
    */
   public static int[] reallocateBuffer(int[] buffer, int userSuppliedCapacity, int oldCapacity,
       int newCapacity, boolean deferred) {
@@ -73,6 +126,13 @@ public class BufferUtils {
   /**
    * Reallocate a float buffer. A 'deferred' buffer is reallocated only if it is not NULL. If
    * 'userSuppliedCapacity' is not zero, buffer is user supplied and must be kept.
+   *
+   * @param buffer the buffer
+   * @param userSuppliedCapacity the user supplied capacity
+   * @param oldCapacity the old capacity
+   * @param newCapacity the new capacity
+   * @param deferred the deferred
+   * @return the float[]
    */
   public static float[] reallocateBuffer(float[] buffer, int userSuppliedCapacity, int oldCapacity,
       int newCapacity, boolean deferred) {
@@ -84,7 +144,15 @@ public class BufferUtils {
     return buffer;
   }
 
-  /** Rotate an array, see std::rotate */
+  /**
+   *  Rotate an array, see std::rotate.
+   *
+   * @param <T> the generic type
+   * @param ray the ray
+   * @param first the first
+   * @param new_first the new first
+   * @param last the last
+   */
   public static <T> void rotate(T[] ray, int first, int new_first, int last) {
     int next = new_first;
     while (next != first) {
@@ -101,7 +169,14 @@ public class BufferUtils {
     }
   }
 
-  /** Rotate an array, see std::rotate */
+  /**
+   *  Rotate an array, see std::rotate.
+   *
+   * @param ray the ray
+   * @param first the first
+   * @param new_first the new first
+   * @param last the last
+   */
   public static void rotate(int[] ray, int first, int new_first, int last) {
     int next = new_first;
     while (next != first) {
@@ -118,7 +193,14 @@ public class BufferUtils {
     }
   }
 
-  /** Rotate an array, see std::rotate */
+  /**
+   *  Rotate an array, see std::rotate.
+   *
+   * @param ray the ray
+   * @param first the first
+   * @param new_first the new first
+   * @param last the last
+   */
   public static void rotate(float[] ray, int first, int new_first, int last) {
     int next = new_first;
     while (next != first) {

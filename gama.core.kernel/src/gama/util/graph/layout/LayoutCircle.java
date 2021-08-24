@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * LayoutCircle.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.util.graph.layout;
 
 import java.util.Collections;
@@ -10,17 +20,34 @@ import gama.util.graph.IGraph;
 import gaml.operators.Maths;
 import gaml.operators.Spatial;
 
+/**
+ * The Class LayoutCircle.
+ */
 public class LayoutCircle {
 
+	/** The graph. */
 	private final IGraph<IShape, IShape> graph;
 
+	/** The envelope geometry. */
 	private final IShape envelopeGeometry;
 
+	/**
+	 * Instantiates a new layout circle.
+	 *
+	 * @param graph the graph
+	 * @param envelopeGeometry the envelope geometry
+	 */
 	public LayoutCircle(final IGraph<IShape, IShape> graph, final IShape envelopeGeometry) {
 		this.graph = graph;
 		this.envelopeGeometry = envelopeGeometry;
 	}
 
+	/**
+	 * Apply layout.
+	 *
+	 * @param scope the scope
+	 * @param shuffle the shuffle
+	 */
 	public void applyLayout(final IScope scope, final boolean shuffle) {
 
 		final double radius = envelopeGeometry.getCentroid().euclidianDistanceTo(Spatial.Punctal
@@ -39,6 +66,13 @@ public class LayoutCircle {
 
 	}
 
+	/**
+	 * Minimize edge length.
+	 *
+	 * @param graph the graph
+	 * @param shuffle the shuffle
+	 * @return the list
+	 */
 	private List<IShape> minimizeEdgeLength(final IGraph<IShape, IShape> graph, final boolean shuffle) {
 		/*
 		 * List<IShape> orderedNode = graph.vertexSet().stream().sorted((v1,v2) -> graph.degreeOf(v1) <

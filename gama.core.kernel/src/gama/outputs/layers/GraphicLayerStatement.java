@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.layers.GraphicLayerStatement.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * GraphicLayerStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -29,6 +29,9 @@ import gaml.factories.DescriptionFactory;
 import gaml.statements.AspectStatement;
 import gaml.types.IType;
 
+/**
+ * The Class GraphicLayerStatement.
+ */
 @symbol (
 		name = "graphics",
 		kind = ISymbolKind.LAYER,
@@ -99,9 +102,18 @@ import gaml.types.IType;
 				IKeyword.IMAGE, IKeyword.OVERLAY, IKeyword.POPULATION })
 public class GraphicLayerStatement extends AbstractLayerStatement {
 
+	/** The aspect. */
 	AspectStatement aspect;
+	
+	/** The Layer index. */
 	static int LayerIndex;
 
+	/**
+	 * Instantiates a new graphic layer statement.
+	 *
+	 * @param desc the desc
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public GraphicLayerStatement(final IDescription desc) throws GamaRuntimeException {
 		super(desc);
 		final IDescription d =
@@ -114,6 +126,11 @@ public class GraphicLayerStatement extends AbstractLayerStatement {
 		aspect.setChildren(children);
 	}
 
+	/**
+	 * Gets the aspect.
+	 *
+	 * @return the aspect
+	 */
 	public AspectStatement getAspect() {
 		return aspect;
 	}

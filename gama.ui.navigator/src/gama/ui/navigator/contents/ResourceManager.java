@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ResourceManager.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator.contents;
 
 import static gama.ui.base.utils.WorkbenchHelper.BUILTIN_NATURE;
@@ -52,29 +62,61 @@ import gama.ui.navigator.metadata.FileMetaDataProvider;
 import gama.util.file.IFileMetaDataProvider;
 import gaml.statements.test.CompoundSummary;
 
+/**
+ * The Class ResourceManager.
+ */
 public class ResourceManager implements IResourceChangeListener, IResourceDeltaVisitor, ISelectionChangedListener {
 
 	static {
 		DEBUG.OFF();
 	}
 
+	/** The instance. */
 	public static ResourceManager INSTANCE;
+	
+	/** The Constant cache. */
 	public final static Cache<IResource, WrappedResource<?, ?>> cache =
 			CacheBuilder.newBuilder().initialCapacity(1000).concurrencyLevel(4).build();
+	
+	/** The viewer. */
 	final CommonViewer viewer;
+	
+	/** The delegate. */
 	final IResourceChangeListener delegate;
+	
+	/** The blocked. */
 	volatile static boolean BLOCKED = false;
+	
+	/** The in initialization phase. */
 	private static volatile boolean IN_INITIALIZATION_PHASE = false;
+	
+	/** The post event actions. */
 	private final List<Runnable> postEventActions = new ArrayList<>();
+	
+	/** The to refresh. */
 	private final Set<VirtualContent<?>> toRefresh = Collections.synchronizedSet(new HashSet<>());
+	
+	/** The to update. */
 	private final Set<VirtualContent<?>> toUpdate = Collections.synchronizedSet(new HashSet<>());
+	
+	/** The to reveal. */
 	private volatile Object toReveal = null;
+	
+	/** The current selection. */
 	private static IStructuredSelection currentSelection;
 
+	/**
+	 * Block.
+	 */
 	public static void block() {
 		BLOCKED = true;
 	}
 
+	/**
+	 * Unblock.
+	 *
+	 * @param monitor the monitor
+	 */
 	public static void unblock(final IProgressMonitor monitor) {
 		BLOCKED = false;
 		WorkbenchHelper.run(() -> {
@@ -95,14 +137,28 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		BLOCKED_EVENTS.clear();
 	}
 
+	/**
+	 * Gets the single instance of ResourceManager.
+	 *
+	 * @return single instance of ResourceManager
+	 */
 	public static ResourceManager getInstance() {
 		return INSTANCE;
 	}
 
+	/**
+	 * Finish tests.
+	 */
 	public static void finishTests() {
 		INSTANCE.refreshResource(NavigatorRoot.getInstance().getTestFolder());
 	}
 
+	/**
+	 * Instantiates a new resource manager.
+	 *
+	 * @param delegate the delegate
+	 * @param navigator the navigator
+	 */
 	public ResourceManager(final IResourceChangeListener delegate, final CommonViewer navigator) {
 		this.viewer = navigator;
 		viewer.addSelectionChangedListener(this);
@@ -110,14 +166,29 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		INSTANCE = this;
 	}
 
+	/**
+	 * Reveal.
+	 *
+	 * @param r the r
+	 */
 	public void reveal(final Object r) {
 		toReveal = r;
 	}
 
+	/**
+	 * Gets the tests summary.
+	 *
+	 * @return the tests summary
+	 */
 	public CompoundSummary<?, ?> getTestsSummary() {
 		return TestsRunner.LAST_RUN;
 	}
 
+	/**
+	 * Post.
+	 *
+	 * @param run the run
+	 */
 	public void post(final Runnable run) {
 		postEventActions.add(run);
 	}
@@ -127,10 +198,18 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		currentSelection = (IStructuredSelection) event.getSelection();
 	}
 
+	/**
+	 * Sets the selected folder.
+	 *
+	 * @param o the new selected folder
+	 */
 	public static void setSelectedFolder(final Object o) {
 		currentSelection = new StructuredSelection(o);
 	}
 
+	/**
+	 * Run post event actions.
+	 */
 	void runPostEventActions() {
 
 		WorkbenchHelper.runInUI("Resource changes", 5, (m) -> {
@@ -178,6 +257,12 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 
 	}
 
+	/**
+	 * Gets the resource.
+	 *
+	 * @param target the target
+	 * @return the resource
+	 */
 	public static IResource getResource(final Object target) {
 		if (target instanceof IResource) { return (IResource) target; }
 		if (target instanceof IAdaptable) {
@@ -188,6 +273,12 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		return null;
 	}
 
+	/**
+	 * Gets the file.
+	 *
+	 * @param target the target
+	 * @return the file
+	 */
 	public static IFile getFile(final Object target) {
 		if (target instanceof IFile) { return (IFile) target; }
 		if (target instanceof IAdaptable) {
@@ -198,14 +289,27 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		return null;
 	}
 
+	/**
+	 * Checks if is file.
+	 *
+	 * @param target the target
+	 * @return true, if is file
+	 */
 	public static boolean isFile(final Object target) {
 		return getFile(target) != null;
 	}
 
+	/**
+	 * Checks if is resource.
+	 *
+	 * @param target the target
+	 * @return true, if is resource
+	 */
 	public static boolean isResource(final Object target) {
 		return getResource(target) != null;
 	}
 
+	/** The Constant BLOCKED_EVENTS. */
 	static final List<IResourceChangeEvent> BLOCKED_EVENTS = new ArrayList<>();
 
 	@Override
@@ -253,6 +357,12 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		}
 	}
 
+	/**
+	 * Process addition.
+	 *
+	 * @param res the res
+	 * @return true, if successful
+	 */
 	// Returns whether to update or not
 	boolean processAddition(final IResource res) {
 		boolean update = false;
@@ -279,6 +389,11 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		return update;
 	}
 
+	/**
+	 * File added.
+	 *
+	 * @param file the file
+	 */
 	public void fileAdded(final IFile file) {
 		if (DEBUG.IS_ON()) {
 			DEBUG.OUT("File " + file.getName() + " has been added");
@@ -292,10 +407,10 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 	}
 
 	/**
-	 * Returns the top-level folder in which to paste/drop a project, based on its description and the current selection
+	 * Returns the top-level folder in which to paste/drop a project, based on its description and the current selection.
 	 *
-	 * @param project
-	 * @return
+	 * @param project the project
+	 * @return the top level folder
 	 */
 	public TopLevelFolder chooseFolderForPasting(final IProject project) {
 		if (currentSelection != null && !currentSelection.isEmpty()) {
@@ -305,6 +420,11 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		return NavigatorRoot.getInstance().getUserFolder();
 	}
 
+	/**
+	 * Project added.
+	 *
+	 * @param project the project
+	 */
 	public void projectAdded(final IProject project) {
 		if (DEBUG.IS_ON()) {
 			DEBUG.OUT("Project " + project.getName() + " has been added");
@@ -323,6 +443,12 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		}
 	}
 
+	/**
+	 * Project opened.
+	 *
+	 * @param res the res
+	 * @return true, if successful
+	 */
 	private boolean projectOpened(final IProject res) {
 		if (DEBUG.IS_ON()) {
 			DEBUG.OUT("Project " + res.getName() + " has been opened");
@@ -338,6 +464,12 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		return false;
 	}
 
+	/**
+	 * Project closed.
+	 *
+	 * @param res the res
+	 * @return true, if successful
+	 */
 	private boolean projectClosed(final IProject res) {
 		if (DEBUG.IS_ON()) {
 			DEBUG.OUT("Project " + res.getName() + " has been closed");
@@ -351,6 +483,11 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		return false;
 	}
 
+	/**
+	 * Folder added.
+	 *
+	 * @param folder the folder
+	 */
 	public void folderAdded(final IFolder folder) {
 		if (DEBUG.IS_ON()) {
 			DEBUG.OUT("Folder " + folder.getName() + " has been added");
@@ -364,6 +501,12 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 
 	}
 
+	/**
+	 * Process removal.
+	 *
+	 * @param res the res
+	 * @return true, if successful
+	 */
 	// Returns whether to update or not
 	boolean processRemoval(final IResource res) {
 		boolean update = false;
@@ -387,6 +530,11 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		return update;
 	}
 
+	/**
+	 * File removed.
+	 *
+	 * @param file the file
+	 */
 	public void fileRemoved(final IFile file) {
 		if (DEBUG.IS_ON()) {
 			DEBUG.OUT("File " + file.getName() + " has been removed");
@@ -399,6 +547,11 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		}
 	}
 
+	/**
+	 * Folder removed.
+	 *
+	 * @param folder the folder
+	 */
 	public void folderRemoved(final IFolder folder) {
 		if (DEBUG.IS_ON()) {
 			DEBUG.OUT("Folder " + folder.getName() + " has been removed");
@@ -411,6 +564,11 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		}
 	}
 
+	/**
+	 * Project removed.
+	 *
+	 * @param project the project
+	 */
 	public void projectRemoved(final IProject project) {
 		if (DEBUG.IS_ON()) {
 			DEBUG.OUT("Project " + project.getName() + " has been removed");
@@ -474,6 +632,12 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		return true; // visit the children
 	}
 
+	/**
+	 * Process linked targer changed.
+	 *
+	 * @param res the res
+	 * @return true, if successful
+	 */
 	private boolean processLinkedTargerChanged(final IResource res) {
 		if (res.getType() == IResource.FILE) {
 			invalidateSeverityCache(res);
@@ -483,6 +647,12 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		return true;
 	}
 
+	/**
+	 * Process markers changed.
+	 *
+	 * @param res the res
+	 * @return true, if successful
+	 */
 	private boolean processMarkersChanged(final IResource res) {
 		if (DEBUG.IS_ON()) {
 			DEBUG.OUT("File " + res.getName() + " markers have changed");
@@ -498,11 +668,21 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		return true;
 	}
 
+	/**
+	 * Update resource.
+	 *
+	 * @param res the res
+	 */
 	private void updateResource(final IResource res) {
 		if (res == null) { return; }
 		updateResource(findWrappedInstanceOf(res));
 	}
 
+	/**
+	 * Update resource.
+	 *
+	 * @param res the res
+	 */
 	private void updateResource(final VirtualContent<?> res) {
 		if (res == null) { return; }
 		VirtualContent<?> resource = res;
@@ -514,6 +694,11 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		}
 	}
 
+	/**
+	 * Refresh resource.
+	 *
+	 * @param res the res
+	 */
 	public void refreshResource(final VirtualContent<?> res) {
 		// if (res == null) { return; }
 		// Keep null to refresh all workspace
@@ -522,6 +707,11 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		}
 	}
 
+	/**
+	 * Invalidate severity cache.
+	 *
+	 * @param resource the resource
+	 */
 	private void invalidateSeverityCache(final IResource resource) {
 		final WrappedResource<?, ?> p = findWrappedInstanceOf(resource);
 		if (p != null) {
@@ -535,6 +725,11 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		}
 	}
 
+	/**
+	 * Invalidate models count cache.
+	 *
+	 * @param container the container
+	 */
 	private void invalidateModelsCountCache(final IContainer container) {
 		final WrappedContainer<?> p = findWrappedInstanceOf(container);
 		if (p != null) {
@@ -542,22 +737,47 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		}
 	}
 
+	/**
+	 * Find wrapped instance of.
+	 *
+	 * @param resource the resource
+	 * @return the wrapped resource
+	 */
 	public WrappedResource<?, ?> findWrappedInstanceOf(final Object resource) {
 		if (resource == null) { return null; }
 		if (resource instanceof WrappedResource) { return (WrappedResource<?, ?>) resource; }
 		return cache.getIfPresent(resource);
 	}
 
+	/**
+	 * Find wrapped instance of.
+	 *
+	 * @param shape the shape
+	 * @return the wrapped container
+	 */
 	public WrappedContainer<?> findWrappedInstanceOf(final IContainer shape) {
 		if (shape == null) { return null; }
 		return (WrappedContainer<?>) cache.getIfPresent(shape);
 	}
 
+	/**
+	 * Find wrapped instance of.
+	 *
+	 * @param parent the parent
+	 * @return the wrapped project
+	 */
 	public WrappedProject findWrappedInstanceOf(final IProject parent) {
 		if (parent == null) { return null; }
 		return (WrappedProject) cache.getIfPresent(parent);
 	}
 
+	/**
+	 * Wrap.
+	 *
+	 * @param parent the parent
+	 * @param child the child
+	 * @return the wrapped resource
+	 */
 	public WrappedResource<?, ?> wrap(final VirtualContent<?> parent, final IResource child) {
 		if (parent == null || child == null) { return null; }
 		try {
@@ -567,6 +787,13 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		}
 	}
 
+	/**
+	 * Private create wrapping.
+	 *
+	 * @param parent the parent
+	 * @param child the child
+	 * @return the wrapped resource
+	 */
 	private static WrappedResource<?, ?> privateCreateWrapping(final VirtualContent<?> parent, final IResource child) {
 		if (DEBUG.IS_ON()) {
 			DEBUG.OUT("Creation of the wrapped instance of " + child.getName());
@@ -586,6 +813,12 @@ public class ResourceManager implements IResourceChangeListener, IResourceDeltaV
 		return null;
 	}
 
+	/**
+	 * Validate location.
+	 *
+	 * @param resource the resource
+	 * @return true, if successful
+	 */
 	public boolean validateLocation(final IFile resource) {
 		if (!resource.isLinked()) { return true; }
 		if (DEBUG.IS_ON()) {

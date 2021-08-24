@@ -2,13 +2,13 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: FIPA-compliant Gama Extension
 Bundle-SymbolicName: gama.ext.fipa;singleton:=true
-Bundle-Version: 1.8.1.qualifier
-Require-Bundle: gama.core.kernel,
- gama.ext.libs
+Bundle-Version: 2.0.0.qualifier
+Require-Bundle: gama.core.kernel;bundle-version="2.0.0",
+ gama.ext.libs;bundle-version="2.0.0"
 Export-Package: 
  gama.ext.fipa
 Bundle-ClassPath: .
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Automatic-Module-Name: msi.gaml.extensions.fipa
+Automatic-Module-Name: gama.ext.fipa
 

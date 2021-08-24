@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ResourceMap.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -14,9 +24,7 @@ import gama.ext.libs.kml.annotations.Obvious;
 
 
 /**
- * <resourcemap>
- * 
- * 
+ * <resourcemap>.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ResourceMapType", propOrder = {
@@ -44,6 +52,8 @@ public class ResourceMap
      */
     @XmlElement(name = "Alias")
     protected List<Alias> alias;
+    
+    /** The resource map simple extension. */
     @XmlElement(name = "ResourceMapSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> resourceMapSimpleExtension;
@@ -68,13 +78,18 @@ public class ResourceMap
     @XmlElement(name = "ResourceMapObjectExtensionGroup")
     protected List<AbstractObject> resourceMapObjectExtension;
 
+    /**
+     * Instantiates a new resource map.
+     */
     public ResourceMap() {
         super();
     }
 
     /**
+     * Gets the alias.
+     *
+     * @return the alias
      * @see alias
-     * 
      */
     public List<Alias> getAlias() {
         if (alias == null) {
@@ -84,8 +99,10 @@ public class ResourceMap
     }
 
     /**
+     * Gets the resource map simple extension.
+     *
+     * @return the resource map simple extension
      * @see resourceMapSimpleExtension
-     * 
      */
     public List<Object> getResourceMapSimpleExtension() {
         if (resourceMapSimpleExtension == null) {
@@ -95,8 +112,10 @@ public class ResourceMap
     }
 
     /**
+     * Gets the resource map object extension.
+     *
+     * @return the resource map object extension
      * @see resourceMapObjectExtension
-     * 
      */
     public List<AbstractObject> getResourceMapObjectExtension() {
         if (resourceMapObjectExtension == null) {
@@ -166,8 +185,8 @@ public class ResourceMap
      * <code>
      * Alias alias = new Alias();
      * this.getAlias().add(alias); </code>
-     * 
-     * 
+     *
+     * @return the alias
      */
     public Alias createAndAddAlias() {
         Alias newValue = new Alias();
@@ -176,21 +195,20 @@ public class ResourceMap
     }
 
     /**
+     * Sets the alias.
+     *
+     * @param alias the new alias
      * @see alias
-     * 
-     * @param alias
      */
     public void setAlias(final List<Alias> alias) {
         this.alias = alias;
     }
 
     /**
-     * add a value to the alias property collection
-     * 
-     * @param alias
-     *     Objects of the following type are allowed in the list: {@link Alias}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the alias property collection.
+     *
+     * @param alias     Objects of the following type are allowed in the list: {@link Alias}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public ResourceMap addToAlias(final Alias alias) {
         this.getAlias().add(alias);
@@ -198,21 +216,20 @@ public class ResourceMap
     }
 
     /**
+     * Sets the resource map simple extension.
+     *
+     * @param resourceMapSimpleExtension the new resource map simple extension
      * @see resourceMapSimpleExtension
-     * 
-     * @param resourceMapSimpleExtension
      */
     public void setResourceMapSimpleExtension(final List<Object> resourceMapSimpleExtension) {
         this.resourceMapSimpleExtension = resourceMapSimpleExtension;
     }
 
     /**
-     * add a value to the resourceMapSimpleExtension property collection
-     * 
-     * @param resourceMapSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the resourceMapSimpleExtension property collection.
+     *
+     * @param resourceMapSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public ResourceMap addToResourceMapSimpleExtension(final Object resourceMapSimpleExtension) {
         this.getResourceMapSimpleExtension().add(resourceMapSimpleExtension);
@@ -220,21 +237,20 @@ public class ResourceMap
     }
 
     /**
+     * Sets the resource map object extension.
+     *
+     * @param resourceMapObjectExtension the new resource map object extension
      * @see resourceMapObjectExtension
-     * 
-     * @param resourceMapObjectExtension
      */
     public void setResourceMapObjectExtension(final List<AbstractObject> resourceMapObjectExtension) {
         this.resourceMapObjectExtension = resourceMapObjectExtension;
     }
 
     /**
-     * add a value to the resourceMapObjectExtension property collection
-     * 
-     * @param resourceMapObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the resourceMapObjectExtension property collection.
+     *
+     * @param resourceMapObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public ResourceMap addToResourceMapObjectExtension(final AbstractObject resourceMapObjectExtension) {
         this.getResourceMapObjectExtension().add(resourceMapObjectExtension);
@@ -259,11 +275,11 @@ public class ResourceMap
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param alias     required parameter
+     * @return the resource map
      * @see #setAlias(List<Alias>)
-     * 
-     * @param alias
-     *     required parameter
      */
     public ResourceMap withAlias(final List<Alias> alias) {
         this.setAlias(alias);
@@ -271,11 +287,11 @@ public class ResourceMap
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param resourceMapSimpleExtension     required parameter
+     * @return the resource map
      * @see #setResourceMapSimpleExtension(List<Object>)
-     * 
-     * @param resourceMapSimpleExtension
-     *     required parameter
      */
     public ResourceMap withResourceMapSimpleExtension(final List<Object> resourceMapSimpleExtension) {
         this.setResourceMapSimpleExtension(resourceMapSimpleExtension);
@@ -283,11 +299,11 @@ public class ResourceMap
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param resourceMapObjectExtension     required parameter
+     * @return the resource map
      * @see #setResourceMapObjectExtension(List<AbstractObject>)
-     * 
-     * @param resourceMapObjectExtension
-     *     required parameter
      */
     public ResourceMap withResourceMapObjectExtension(final List<AbstractObject> resourceMapObjectExtension) {
         this.setResourceMapObjectExtension(resourceMapObjectExtension);

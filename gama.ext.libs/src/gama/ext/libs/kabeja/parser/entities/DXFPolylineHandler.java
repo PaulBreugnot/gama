@@ -1,18 +1,13 @@
-/*
- Copyright 2005 Simon Mieth
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+/*******************************************************************************************************
+ *
+ * DXFPolylineHandler.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.parser.entities;
 
 import gama.ext.libs.kabeja.dxf.DXFConstants;
@@ -24,30 +19,65 @@ import gama.ext.libs.kabeja.parser.DXFValue;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth </a>
+ * The Class DXFPolylineHandler.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth </a>
  */
 public class DXFPolylineHandler extends AbstractEntityHandler {
+    
+    /** The Constant ENTITY_NAME. */
     public static final String ENTITY_NAME = "POLYLINE";
+    
+    /** The Constant ENTITY_VERTEX. */
     public static final String ENTITY_VERTEX = "VERTEX";
+    
+    /** The Constant END_SEQUENCE. */
     public static final String END_SEQUENCE = "SEQEND";
+    
+    /** The Constant END_SEQUENCE_CODE. */
     public static final int END_SEQUENCE_CODE = -2;
+    
+    /** The Constant VERTEX_BULGE. */
     public static final int VERTEX_BULGE = 42;
+    
+    /** The Constant START_WIDTH. */
     public static final int START_WIDTH = 40;
+    
+    /** The Constant END_WIDTH. */
     public static final int END_WIDTH = 41;
+    
+    /** The Constant THICKNESS. */
     public static final int THICKNESS = 39;
+    
+    /** The Constant SURFACE_TYPE. */
     public static final int SURFACE_TYPE = 75;
+    
+    /** The Constant SUREFACE_DENSITY_ROW_COUNT. */
     public static final int SUREFACE_DENSITY_ROW_COUNT = 73;
+    
+    /** The Constant SUREFACE_DENSITY_COLUMN_COUNT. */
     public static final int SUREFACE_DENSITY_COLUMN_COUNT = 74;
+    
+    /** The Constant ROW_COUNT. */
     public static final int ROW_COUNT = 71;
+    
+    /** The Constant COLUMN_COUNT. */
     public static final int COLUMN_COUNT = 72;
+    
+    /** The follow. */
     private boolean follow = true;
+    
+    /** The parse vertex. */
     private boolean parse_vertex = false;
+    
+    /** The vertex. */
     private DXFVertex vertex;
+    
+    /** The polyline. */
     private DXFPolyline polyline;
 
     /**
-     *
+     * Instantiates a new DXF polyline handler.
      */
     public DXFPolylineHandler() {
         super();

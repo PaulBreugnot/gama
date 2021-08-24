@@ -1,19 +1,13 @@
-/*
- * Java port of Bullet (c) 2008 Martin Dvorak <jezek2@advel.cz>
+/*******************************************************************************************************
  *
- * Stan Melax Convex Hull Computation Copyright (c) 2008 Stan Melax http://www.melax.com/
+ * HullLibrary.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the authors be held
- * liable for any damages arising from the use of this software.
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter
- * it and redistribute it freely, subject to the following restrictions:
- *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software.
- * If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not
- * required. 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the
- * original software. 3. This notice may not be removed or altered from any source distribution.
- */
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 // includes modifications/improvements by John Ratcliff, see BringOutYourDead below.
 
@@ -39,8 +33,10 @@ import java.util.ArrayList;
  */
 public class HullLibrary {
 
+	/** The vertex index mapping. */
 	public final IntArrayList vertexIndexMapping = new IntArrayList();
 
+	/** The tris. */
 	private final ArrayList<Tri> tris = new ArrayList<>();
 
 	/**
@@ -167,6 +163,9 @@ public class HullLibrary {
 
 	/**
 	 * Release memory allocated for this result, we are done with it.
+	 *
+	 * @param result the result
+	 * @return true, if successful
 	 */
 	public boolean releaseResult(final HullResult result) {
 		if (result.outputVertices.size() != 0) {
@@ -180,6 +179,15 @@ public class HullLibrary {
 		return true;
 	}
 
+	/**
+	 * Compute hull.
+	 *
+	 * @param vcount the vcount
+	 * @param vertices the vertices
+	 * @param result the result
+	 * @param vlimit the vlimit
+	 * @return true, if successful
+	 */
 	private boolean computeHull(final int vcount, final ArrayList<Vector3f> vertices, final PHullResult result,
 			final int vlimit) {
 		int[] tris_count = new int[1];
@@ -192,6 +200,14 @@ public class HullLibrary {
 		return true;
 	}
 
+	/**
+	 * Allocate triangle.
+	 *
+	 * @param a the a
+	 * @param b the b
+	 * @param c the c
+	 * @return the tri
+	 */
 	private Tri allocateTriangle(final int a, final int b, final int c) {
 		Tri tr = new Tri(a, b, c);
 		tr.id = tris.size();
@@ -200,11 +216,22 @@ public class HullLibrary {
 		return tr;
 	}
 
+	/**
+	 * De allocate triangle.
+	 *
+	 * @param tri the tri
+	 */
 	private void deAllocateTriangle(final Tri tri) {
 		assert tris.get(tri.id) == tri;
 		tris.set(tri.id, null);
 	}
 
+	/**
+	 * B 2 bfix.
+	 *
+	 * @param s the s
+	 * @param t the t
+	 */
 	private void b2bfix(final Tri s, final Tri t) {
 		for (int i = 0; i < 3; i++) {
 			int i1 = (i + 1) % 3;
@@ -218,6 +245,12 @@ public class HullLibrary {
 		}
 	}
 
+	/**
+	 * Removeb 2 b.
+	 *
+	 * @param s the s
+	 * @param t the t
+	 */
 	private void removeb2b(final Tri s, final Tri t) {
 		b2bfix(s, t);
 		deAllocateTriangle(s);
@@ -225,6 +258,11 @@ public class HullLibrary {
 		deAllocateTriangle(t);
 	}
 
+	/**
+	 * Checkit.
+	 *
+	 * @param t the t
+	 */
 	private void checkit(final Tri t) {
 		assert tris.get(t.id) == t;
 		for (int i = 0; i < 3; i++) {
@@ -238,6 +276,12 @@ public class HullLibrary {
 		}
 	}
 
+	/**
+	 * Extrudable.
+	 *
+	 * @param epsilon the epsilon
+	 * @return the tri
+	 */
 	private Tri extrudable(final float epsilon) {
 		Tri t = null;
 		for (int i = 0; i < tris.size(); i++) {
@@ -246,6 +290,16 @@ public class HullLibrary {
 		return t.rise > epsilon ? t : null;
 	}
 
+	/**
+	 * Calchull.
+	 *
+	 * @param verts the verts
+	 * @param verts_count the verts count
+	 * @param tris_out the tris out
+	 * @param tris_count the tris count
+	 * @param vlimit the vlimit
+	 * @return the int
+	 */
 	private int calchull(final ArrayList<Vector3f> verts, final int verts_count, final IntArrayList tris_out,
 			final int[] tris_count, final int vlimit) {
 		int rc = calchullgen(verts, verts_count, vlimit);
@@ -272,6 +326,14 @@ public class HullLibrary {
 		return 1;
 	}
 
+	/**
+	 * Calchullgen.
+	 *
+	 * @param verts the verts
+	 * @param verts_count the verts count
+	 * @param vlimit the vlimit
+	 * @return the int
+	 */
 	private int calchullgen(final ArrayList<Vector3f> verts, final int verts_count, int vlimit) {
 		if (verts_count < 4) return 0;
 
@@ -392,6 +454,15 @@ public class HullLibrary {
 		}
 	}
 
+	/**
+	 * Find simplex.
+	 *
+	 * @param verts the verts
+	 * @param verts_count the verts count
+	 * @param allow the allow
+	 * @param out the out
+	 * @return the int 4
+	 */
 	private Int4 findSimplex(final ArrayList<Vector3f> verts, final int verts_count, final IntArrayList allow,
 			final Int4 out) {
 		Vector3f tmp = VECTORS.get();
@@ -461,6 +532,12 @@ public class HullLibrary {
 
 	// private ConvexH convexHCrop(ConvexH convex,Plane slice);
 
+	/**
+	 * Extrude.
+	 *
+	 * @param t0 the t 0
+	 * @param v the v
+	 */
 	private void extrude(final Tri t0, final int v) {
 		Int3 t = new Int3(t0);
 		int n = tris.size();
@@ -490,6 +567,16 @@ public class HullLibrary {
 	// The thing is, often times, there are many 'dead vertices' in the point cloud that are on longer referenced by the
 	// hull.
 	// The routine 'BringOutYourDead' find only the referenced vertices, copies them to an new buffer, and re-indexes
+	/**
+	 * Bring out your dead.
+	 *
+	 * @param verts the verts
+	 * @param vcount the vcount
+	 * @param overts the overts
+	 * @param ocount the ocount
+	 * @param indices the indices
+	 * @param indexcount the indexcount
+	 */
 	// the hull so that it is a minimal representation.
 	private void bringOutYourDead(final ArrayList<Vector3f> verts, final int vcount,
 			final ArrayList<Vector3f> overts, final int[] ocount, final IntArrayList indices,
@@ -532,9 +619,22 @@ public class HullLibrary {
 		}
 	}
 
+	/** The Constant EPSILON. */
 	private static final float EPSILON =
 			0.000001f; /* close enough to consider two btScalaring point numbers to be 'the same'. */
 
+	/**
+	 * Cleanup vertices.
+	 *
+	 * @param svcount the svcount
+	 * @param svertices the svertices
+	 * @param stride the stride
+	 * @param vcount the vcount
+	 * @param vertices the vertices
+	 * @param normalepsilon the normalepsilon
+	 * @param scale the scale
+	 * @return true, if successful
+	 */
 	private boolean cleanupVertices(final int svcount, final ArrayList<Vector3f> svertices, final int stride,
 			final int[] vcount, // output number of vertices
 			final ArrayList<Vector3f> vertices, // location to store the results.
@@ -765,10 +865,24 @@ public class HullLibrary {
 
 	////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * Hasvert.
+	 *
+	 * @param t the t
+	 * @param v the v
+	 * @return true, if successful
+	 */
 	private static boolean hasvert(final Int3 t, final int v) {
 		return t.getCoord(0) == v || t.getCoord(1) == v || t.getCoord(2) == v;
 	}
 
+	/**
+	 * Orth.
+	 *
+	 * @param v the v
+	 * @param out the out
+	 * @return the vector 3 f
+	 */
 	private static Vector3f orth(final Vector3f v, final Vector3f out) {
 		Vector3f a = VECTORS.get();
 		a.set(0f, 0f, 1f);
@@ -791,6 +905,15 @@ public class HullLibrary {
 		}
 	}
 
+	/**
+	 * Maxdirfiltered.
+	 *
+	 * @param p the p
+	 * @param count the count
+	 * @param dir the dir
+	 * @param allow the allow
+	 * @return the int
+	 */
 	private static int maxdirfiltered(final ArrayList<Vector3f> p, final int count, final Vector3f dir,
 			final IntArrayList allow) {
 		assert count != 0;
@@ -802,6 +925,15 @@ public class HullLibrary {
 		return m;
 	}
 
+	/**
+	 * Maxdirsterid.
+	 *
+	 * @param p the p
+	 * @param count the count
+	 * @param dir the dir
+	 * @param allow the allow
+	 * @return the int
+	 */
 	private static int maxdirsterid(final ArrayList<Vector3f> p, final int count, final Vector3f dir,
 			final IntArrayList allow) {
 		Vector3f tmp = VECTORS.get();
@@ -864,6 +996,15 @@ public class HullLibrary {
 		}
 	}
 
+	/**
+	 * Tri normal.
+	 *
+	 * @param v0 the v 0
+	 * @param v1 the v 1
+	 * @param v2 the v 2
+	 * @param out the out
+	 * @return the vector 3 f
+	 */
 	private static Vector3f triNormal(final Vector3f v0, final Vector3f v1, final Vector3f v2, final Vector3f out) {
 		Vector3f tmp1 = VECTORS.get();
 		Vector3f tmp2 = VECTORS.get();
@@ -888,6 +1029,15 @@ public class HullLibrary {
 
 	}
 
+	/**
+	 * Above.
+	 *
+	 * @param vertices the vertices
+	 * @param t the t
+	 * @param p the p
+	 * @param epsilon the epsilon
+	 * @return true, if successful
+	 */
 	private static boolean above(final ArrayList<Vector3f> vertices, final Int3 t, final Vector3f p,
 			final float epsilon) {
 		Vector3f n = triNormal(vertices.get(t.getCoord(0)), vertices.get(t.getCoord(1)),
@@ -899,6 +1049,11 @@ public class HullLibrary {
 		return result;
 	}
 
+	/**
+	 * Release hull.
+	 *
+	 * @param result the result
+	 */
 	private static void releaseHull(final PHullResult result) {
 		if (result.indices.size() != 0) { result.indices.clear(); }
 
@@ -907,6 +1062,15 @@ public class HullLibrary {
 		result.vertices = null;
 	}
 
+	/**
+	 * Adds the point.
+	 *
+	 * @param vcount the vcount
+	 * @param p the p
+	 * @param x the x
+	 * @param y the y
+	 * @param z the z
+	 */
 	private static void addPoint(final int[] vcount, final ArrayList<Vector3f> p, final float x, final float y,
 			final float z) {
 		// XXX, might be broken
@@ -917,6 +1081,15 @@ public class HullLibrary {
 		vcount[0]++;
 	}
 
+	/**
+	 * Gets the dist.
+	 *
+	 * @param px the px
+	 * @param py the py
+	 * @param pz the pz
+	 * @param p2 the p 2
+	 * @return the dist
+	 */
 	private static float getDist(final float px, final float py, final float pz, final Vector3f p2) {
 		float dx = px - p2.x;
 		float dy = py - p2.y;

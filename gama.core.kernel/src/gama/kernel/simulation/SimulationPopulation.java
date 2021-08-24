@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.kernel.simulation.SimulationPopulation.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * SimulationPopulation.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.kernel.simulation;
 
@@ -35,17 +35,34 @@ import gaml.species.ISpecies;
 import gaml.statements.RemoteSequence;
 import gaml.variables.IVariable;
 
+/**
+ * The Class SimulationPopulation.
+ */
 @SuppressWarnings ({ "rawtypes", "unchecked" })
 public class SimulationPopulation extends GamaPopulation<SimulationAgent> {
 
+	/** The current simulation. */
 	private SimulationAgent currentSimulation;
+	
+	/** The runner. */
 	private final SimulationRunner runner;
 
+	/**
+	 * Instantiates a new simulation population.
+	 *
+	 * @param agent the agent
+	 * @param species the species
+	 */
 	public SimulationPopulation(final ExperimentAgent agent, final ISpecies species) {
 		super(agent, species);
 		runner = SimulationRunner.of(this);
 	}
 
+	/**
+	 * Gets the max number of concurrent simulations.
+	 *
+	 * @return the max number of concurrent simulations
+	 */
 	public int getMaxNumberOfConcurrentSimulations() {
 		if (getHost().getSpecies().isHeadless()) return 1;
 		return GamaExecutorService.getParallelism(getHost().getScope(), getSpecies().getConcurrency(),
@@ -107,6 +124,17 @@ public class SimulationPopulation extends GamaPopulation<SimulationAgent> {
 		return result;
 	}
 
+	/**
+	 * Inits the simulation.
+	 *
+	 * @param scope the scope
+	 * @param sim the sim
+	 * @param initialValues the initial values
+	 * @param index the index
+	 * @param isRestored the is restored
+	 * @param toBeScheduled the to be scheduled
+	 * @param sequence the sequence
+	 */
 	private void initSimulation(final IScope scope, final SimulationAgent sim,
 			final List<? extends Map<String, Object>> initialValues, final int index, final boolean isRestored,
 			final boolean toBeScheduled, final RemoteSequence sequence) {
@@ -153,6 +181,11 @@ public class SimulationPopulation extends GamaPopulation<SimulationAgent> {
 		return get(null, 0);
 	}
 
+	/**
+	 * Sets the host.
+	 *
+	 * @param agent the new host
+	 */
 	public void setHost(final ExperimentAgent agent) {
 		host = agent;
 	}
@@ -170,25 +203,37 @@ public class SimulationPopulation extends GamaPopulation<SimulationAgent> {
 	}
 
 	/**
-	 * This method can be called by the batch experiments to temporarily stop (unschedule) a simulation
+	 * This method can be called by the batch experiments to temporarily stop (unschedule) a simulation.
 	 *
-	 * @param sim
+	 * @param sim the sim
 	 */
 	public void unscheduleSimulation(final SimulationAgent sim) {
 		runner.remove(sim);
 	}
 
+	/**
+	 * Gets the number of active threads.
+	 *
+	 * @return the number of active threads
+	 */
 	public int getNumberOfActiveThreads() {
 		return runner.getActiveThreads();
 	}
 
 	/**
-	 * @return
+	 * Checks for scheduled simulations.
+	 *
+	 * @return true, if successful
 	 */
 	public boolean hasScheduledSimulations() {
 		return runner.hasSimulations();
 	}
 
+	/**
+	 * Last simulation created.
+	 *
+	 * @return the simulation agent
+	 */
 	public SimulationAgent lastSimulationCreated() {
 		return currentSimulation;
 	}

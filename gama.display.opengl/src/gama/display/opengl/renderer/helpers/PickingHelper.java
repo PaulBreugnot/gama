@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * PickingHelper.java, in gama.display.opengl, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.display.opengl.renderer.helpers;
 
 import java.nio.IntBuffer;
@@ -11,10 +21,19 @@ import gama.display.opengl.OpenGL;
 import gama.display.opengl.renderer.IOpenGLRenderer;
 import gaml.statements.draw.DrawingAttributes;
 
+/**
+ * The Class PickingHelper.
+ */
 public class PickingHelper extends AbstractRendererHelper {
 
+	/** The select buffer. */
 	protected final IntBuffer selectBuffer = Buffers.newDirectIntBuffer(1024);
 
+	/**
+	 * Instantiates a new picking helper.
+	 *
+	 * @param r the r
+	 */
 	public PickingHelper(final IOpenGLRenderer r) {
 		super(r);
 	}
@@ -22,13 +41,26 @@ public class PickingHelper extends AbstractRendererHelper {
 	@Override
 	public void initialize() {}
 
+	/** The Constant NONE. */
 	final static int NONE = -2;
+	
+	/** The Constant WORLD. */
 	final static int WORLD = -1;
 
+	/** The is picking. */
 	volatile boolean isPicking;
+	
+	/** The is menu on. */
 	volatile boolean isMenuOn;
+	
+	/** The picked index. */
 	volatile int pickedIndex = NONE;
 
+	/**
+	 * Sets the picking.
+	 *
+	 * @param isPicking the new picking
+	 */
 	public void setPicking(final boolean isPicking) {
 		this.isPicking = isPicking;
 		if (!isPicking) {
@@ -37,10 +69,20 @@ public class PickingHelper extends AbstractRendererHelper {
 		}
 	}
 
+	/**
+	 * Sets the menu on.
+	 *
+	 * @param isMenuOn the new menu on
+	 */
 	public void setMenuOn(final boolean isMenuOn) {
 		this.isMenuOn = isMenuOn;
 	}
 
+	/**
+	 * Sets the picked index.
+	 *
+	 * @param pickedIndex the new picked index
+	 */
 	public void setPickedIndex(final int pickedIndex) {
 		this.pickedIndex = pickedIndex;
 		if (pickedIndex == WORLD && !isMenuOn) {
@@ -50,6 +92,11 @@ public class PickingHelper extends AbstractRendererHelper {
 		}
 	}
 
+	/**
+	 * Try pick.
+	 *
+	 * @param attributes the attributes
+	 */
 	public void tryPick(final DrawingAttributes attributes) {
 		attributes.markSelected(pickedIndex);
 		if (attributes.isSelected() && !isMenuOn) {
@@ -58,14 +105,29 @@ public class PickingHelper extends AbstractRendererHelper {
 		}
 	}
 
+	/**
+	 * Checks if is beginning picking.
+	 *
+	 * @return true, if is beginning picking
+	 */
 	public boolean isBeginningPicking() {
 		return isPicking && pickedIndex == NONE;
 	}
 
+	/**
+	 * Checks if is menu on.
+	 *
+	 * @return true, if is menu on
+	 */
 	public boolean isMenuOn() {
 		return isMenuOn;
 	}
 
+	/**
+	 * Checks if is picking.
+	 *
+	 * @return true, if is picking
+	 */
 	public boolean isPicking() {
 		return isPicking;
 	}
@@ -74,7 +136,7 @@ public class PickingHelper extends AbstractRendererHelper {
 	// //////////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * First pass prepare select buffer for select mode by clearing it, prepare openGL to select mode and tell it where
-	 * should draw object by using gluPickMatrix() method
+	 * should draw object by using gluPickMatrix() method.
 	 *
 	 * @return if returned value is true that mean the picking is enabled
 	 */
@@ -111,6 +173,9 @@ public class PickingHelper extends AbstractRendererHelper {
 		openGL.matrixMode(GL2.GL_MODELVIEW);
 	}
 
+	/**
+	 * End picking.
+	 */
 	public void endPicking() {
 		final GL2 gl = getGL();
 		final OpenGL openGL = getOpenGL();

@@ -1,4 +1,13 @@
-// This software is released into the Public Domain. See copying.txt for details.
+/*******************************************************************************************************
+ *
+ * CommonEntityData.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.osmosis;
 
 import java.util.ArrayList;
@@ -15,13 +24,28 @@ import java.util.Map.Entry;
  */
 public class CommonEntityData implements Storeable {
 
+	/** The id. */
 	private long id;
+	
+	/** The version. */
 	private int version;
+	
+	/** The changeset id. */
 	private int changesetId;
+	
+	/** The timestamp container. */
 	private TimestampContainer timestampContainer;
+	
+	/** The user. */
 	private OsmUser user;
+	
+	/** The tags. */
 	private TagCollection tags;
+	
+	/** The meta tags. */
 	private Map<String, Object> metaTags;
+	
+	/** The read only. */
 	private boolean readOnly;
 
 	/**
@@ -113,16 +137,11 @@ public class CommonEntityData implements Storeable {
 	/**
 	 * Initializes non-collection attributes.
 	 *
-	 * @param newId
-	 *            The unique identifier.
-	 * @param newTimestampContainer
-	 *            The container holding the timestamp in an alternative timestamp representation.
-	 * @param newUser
-	 *            The user that last modified this entity.
-	 * @param newVersion
-	 *            The version of the entity.
-	 * @param changesetId
-	 *            The id of the changeset that this version of the entity was created by.
+	 * @param newId            The unique identifier.
+	 * @param newTimestampContainer            The container holding the timestamp in an alternative timestamp representation.
+	 * @param newUser            The user that last modified this entity.
+	 * @param newVersion            The version of the entity.
+	 * @param newChangesetId the new changeset id
 	 */
 	private void init(final long newId, final TimestampContainer newTimestampContainer, final OsmUser newUser,
 			final int newVersion, final long newChangesetId) {
@@ -133,6 +152,13 @@ public class CommonEntityData implements Storeable {
 		this.changesetId = LongAsInt.longToInt(newChangesetId);
 	}
 
+	/**
+	 * Read timestamp container.
+	 *
+	 * @param sr the sr
+	 * @param scr the scr
+	 * @return the timestamp container
+	 */
 	private static TimestampContainer readTimestampContainer(final StoreReader sr, final StoreClassRegister scr) {
 		if (sr.readBoolean()) {
 			return new SimpleTimestampContainer(new Date(sr.readLong()));
@@ -141,6 +167,13 @@ public class CommonEntityData implements Storeable {
 		}
 	}
 
+	/**
+	 * Read osm user.
+	 *
+	 * @param sr the sr
+	 * @param scr the scr
+	 * @return the osm user
+	 */
 	private static OsmUser readOsmUser(final StoreReader sr, final StoreClassRegister scr) {
 		OsmUser user;
 

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * SanctionStatement.java, in gama.ext.bdi, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.bdi;
 
 import gama.common.interfaces.IKeyword;
@@ -14,6 +24,9 @@ import gaml.descriptions.IDescription;
 import gaml.statements.AbstractStatementSequence;
 import gaml.types.IType;
 
+/**
+ * The Class SanctionStatement.
+ */
 @symbol(name = { SanctionStatement.SANCTION }, kind = ISymbolKind.BEHAVIOR, with_sequence = true, concept = {
 		IConcept.BDI })
 @inside(kinds = { ISymbolKind.SPECIES, ISymbolKind.MODEL })
@@ -22,9 +35,15 @@ import gaml.types.IType;
 @doc("declare the actions an agent execute when enforcing norms of others during a perception")
 public class SanctionStatement extends AbstractStatementSequence{
 
+	/** The Constant SANCTION. */
 	public static final String SANCTION = "sanction";
 	
 	
+	/**
+	 * Instantiates a new sanction statement.
+	 *
+	 * @param desc the desc
+	 */
 	public SanctionStatement(IDescription desc) {
 		super(desc);
 		setName(desc.getName());

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.layers.LayerData.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * LayerData.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -43,20 +43,48 @@ import gaml.statements.draw.AttributeHolder;
  */
 public class LayerData extends AttributeHolder implements ILayerData {
 
+	/** The position in pixels. */
 	protected final Point positionInPixels = new Point();
+	
+	/** The size in pixels. */
 	protected final Point sizeInPixels = new Point();
+	
+	/** The added elevation. */
 	protected double addedElevation;
+	
+	/** The size is in pixels. */
 	boolean positionIsInPixels, sizeIsInPixels;
+	
+	/** The visible region. */
 	Envelope visibleRegion;
 
+	/** The size. */
 	Attribute<GamaPoint> size;
+	
+	/** The position. */
 	Attribute<GamaPoint> position;
+	
+	/** The refresh. */
 	final Attribute<Boolean> refresh;
+	
+	/** The fading. */
 	final Attribute<Boolean> fading;
+	
+	/** The trace. */
 	final Attribute<Integer> trace;
+	
+	/** The selectable. */
 	Attribute<Boolean> selectable;
+	
+	/** The transparency. */
 	Attribute<Double> transparency;
 
+	/**
+	 * Instantiates a new layer data.
+	 *
+	 * @param def the def
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public LayerData(final ILayerStatement def) throws GamaRuntimeException {
 		super(def);
 		final IExpression sizeExp = def.getFacet(SIZE);

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Update.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -74,6 +84,8 @@ public class Update implements Cloneable
     @XmlElement(required = true)
     @XmlSchemaType(name = "anyURI")
     protected String targetHref;
+    
+    /** The create or delete or change. */
     @XmlElements({
         @XmlElement(name = "UpdateOpExtensionGroup"),
         @XmlElement(name = "Change", type = Change.class),
@@ -81,16 +93,16 @@ public class Update implements Cloneable
         @XmlElement(name = "Create", type = Create.class)
     })
     protected List<Object> createOrDeleteOrChange;
+    
+    /** The update extension. */
     @XmlElement(name = "UpdateExtensionGroup")
     protected List<Object> updateExtension;
 
     /**
-     * Value constructor with only mandatory fields
-     * 
-     * @param createOrDeleteOrChange
-     *     required parameter
-     * @param targetHref
-     *     required parameter
+     * Value constructor with only mandatory fields.
+     *
+     * @param targetHref     required parameter
+     * @param createOrDeleteOrChange     required parameter
      */
     public Update(final String targetHref, final List<Object> createOrDeleteOrChange) {
         super();
@@ -108,32 +120,32 @@ public class Update implements Cloneable
     }
 
     /**
-     * @see targetHref
-     * 
-     * @return
-     *     possible object is
+     * Gets the target href.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see targetHref
      */
     public String getTargetHref() {
         return targetHref;
     }
 
     /**
-     * @see targetHref
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the target href.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see targetHref
      */
     public void setTargetHref(String value) {
         this.targetHref = value;
     }
 
     /**
+     * Gets the creates the or delete or change.
+     *
+     * @return the creates the or delete or change
      * @see createOrDeleteOrChange
-     * 
      */
     public List<Object> getCreateOrDeleteOrChange() {
         if (createOrDeleteOrChange == null) {
@@ -143,8 +155,10 @@ public class Update implements Cloneable
     }
 
     /**
+     * Gets the update extension.
+     *
+     * @return the update extension
      * @see updateExtension
-     * 
      */
     public List<Object> getUpdateExtension() {
         if (updateExtension == null) {
@@ -206,21 +220,20 @@ public class Update implements Cloneable
     }
 
     /**
+     * Sets the creates the or delete or change.
+     *
+     * @param createOrDeleteOrChange the new creates the or delete or change
      * @see createOrDeleteOrChange
-     * 
-     * @param createOrDeleteOrChange
      */
     public void setCreateOrDeleteOrChange(final List<Object> createOrDeleteOrChange) {
         this.createOrDeleteOrChange = createOrDeleteOrChange;
     }
 
     /**
-     * add a value to the createOrDeleteOrChange property collection
-     * 
-     * @param createOrDeleteOrChange
-     *     Objects of the following type are allowed in the list: {@link Object}{@link Change}{@link Delete}{@link Create}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the createOrDeleteOrChange property collection.
+     *
+     * @param createOrDeleteOrChange     Objects of the following type are allowed in the list: {@link Object}{@link Change}{@link Delete}{@link Create}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Update addToCreateOrDeleteOrChange(final Object createOrDeleteOrChange) {
         this.getCreateOrDeleteOrChange().add(createOrDeleteOrChange);
@@ -228,21 +241,20 @@ public class Update implements Cloneable
     }
 
     /**
+     * Sets the update extension.
+     *
+     * @param updateExtension the new update extension
      * @see updateExtension
-     * 
-     * @param updateExtension
      */
     public void setUpdateExtension(final List<Object> updateExtension) {
         this.updateExtension = updateExtension;
     }
 
     /**
-     * add a value to the updateExtension property collection
-     * 
-     * @param updateExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the updateExtension property collection.
+     *
+     * @param updateExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Update addToUpdateExtension(final Object updateExtension) {
         this.getUpdateExtension().add(updateExtension);
@@ -250,11 +262,11 @@ public class Update implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param updateExtension     required parameter
+     * @return the update
      * @see #setUpdateExtension(List<Object>)
-     * 
-     * @param updateExtension
-     *     required parameter
      */
     public Update withUpdateExtension(final List<Object> updateExtension) {
         this.setUpdateExtension(updateExtension);

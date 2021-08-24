@@ -1,15 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
+ * ProtocolNode.java, in gama.ext.fipa, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * 'ProtocolNode.java', in plugin 'msi.gaml.extensions.fipa', is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
- *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.fipa;
 
 import static org.jgrapht.Graphs.successorListOf;
@@ -25,10 +23,15 @@ public class ProtocolNode {
 	/** Initiator should send performative at this node?. */
 	private boolean sentByInitiator;
 
+	/** The protocol. */
 	private final FIPAProtocol protocol;
 
 	/**
 	 * Instantiates a new protocol node.
+	 *
+	 * @param protocol the protocol
+	 * @param perf the perf
+	 * @param initiator the initiator
 	 */
 
 	public ProtocolNode(FIPAProtocol protocol, Performative perf, boolean initiator) {

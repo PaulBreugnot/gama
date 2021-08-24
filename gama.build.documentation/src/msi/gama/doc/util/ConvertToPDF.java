@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ConvertToPDF.java, in gama.build.documentation, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package msi.gama.doc.util;
 
 import java.io.BufferedReader;
@@ -20,8 +30,19 @@ import org.xml.sax.SAXException;
 import msi.gama.doc.Constants;
 import msi.gama.doc.OSUtils;
 
+/**
+ * The Class ConvertToPDF.
+ */
 public class ConvertToPDF {
 
+	/**
+	 * Gets the command line.
+	 *
+	 * @return the command line
+	 * @throws ParserConfigurationException the parser configuration exception
+	 * @throws SAXException the SAX exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static String getCommandLine() throws ParserConfigurationException, SAXException, IOException {
 		FileInputStream in;
 		final Properties prop2 = new Properties();
@@ -54,6 +75,9 @@ public class ConvertToPDF {
 
 	}
 
+	/**
+	 * Convert mac os.
+	 */
 	public static void convertMacOs() {
 		System.out.println("Start of convert for MacOS");
 		String line;
@@ -80,6 +104,9 @@ public class ConvertToPDF {
 		}
 	}
 
+	/**
+	 * Convert windows.
+	 */
 	public static void convertWindows() {
 		System.out.println("Start of convert for Windows");
 
@@ -117,6 +144,9 @@ public class ConvertToPDF {
 		}
 	}
 
+	/**
+	 * Convert.
+	 */
 	public static void convert() {
 		if (OSUtils.isWindows()) {
 			convertWindows();
@@ -128,6 +158,14 @@ public class ConvertToPDF {
 
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param argc the arguments
+	 * @throws ParserConfigurationException the parser configuration exception
+	 * @throws SAXException the SAX exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void main(final String[] argc) throws ParserConfigurationException, SAXException, IOException {
 
 		convert();

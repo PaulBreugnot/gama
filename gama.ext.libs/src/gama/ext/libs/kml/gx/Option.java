@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Option.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.gx;
 
@@ -9,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * 
+ * The Class Option.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "optionType")
@@ -17,46 +27,54 @@ import javax.xml.bind.annotation.XmlType;
 public class Option implements Cloneable
 {
 
+    /** The name. */
     @XmlAttribute(name = "name")
     protected String name;
+    
+    /** The enabled. */
     @XmlAttribute(name = "enabled")
     protected boolean enabled;
 
+    /**
+     * Instantiates a new option.
+     */
     public Option() {
         super();
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the name.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getName() {
         return name;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the name.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setName(String value) {
         this.name = value;
     }
 
     /**
-     * 
+     * Checks if is enabled.
+     *
+     * @return true, if is enabled
      */
     public boolean isEnabled() {
         return enabled;
     }
 
     /**
-     * 
+     * Sets the enabled.
+     *
+     * @param value the new enabled
      */
     public void setEnabled(boolean value) {
         this.enabled = value;
@@ -99,11 +117,11 @@ public class Option implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param name     required parameter
+     * @return the option
      * @see #setName(String)
-     * 
-     * @param name
-     *     required parameter
      */
     public Option withName(final String name) {
         this.setName(name);
@@ -111,11 +129,11 @@ public class Option implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param enabled     required parameter
+     * @return the option
      * @see #setEnabled(boolean)
-     * 
-     * @param enabled
-     *     required parameter
      */
     public Option withEnabled(final boolean enabled) {
         this.setEnabled(enabled);

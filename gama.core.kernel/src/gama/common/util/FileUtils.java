@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.common.util.FileUtils.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * FileUtils.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.common.util;
 
@@ -58,17 +58,40 @@ import gama.util.file.CacheLocationProvider;
 @SuppressWarnings ("deprecation")
 public class FileUtils {
 
+	/** The web. */
 	public static ThreadLocal<Webb> WEB = ThreadLocal.withInitial(() -> Webb.create());
+	
+	/** The Constant URL_SEPARATOR_REPLACEMENT. */
 	public static final String URL_SEPARATOR_REPLACEMENT = "+_+";
+	
+	/** The Constant COPY_OF. */
 	public static final String COPY_OF = "copy of ";
+	
+	/** The Constant HOME. */
 	public static final String HOME = "~";
+	
+	/** The Constant SEPARATOR. */
 	public static final String SEPARATOR = "/";
+	
+	/** The Constant CACHE_FOLDER_PATH. */
 	public static final IPath CACHE_FOLDER_PATH = new Path(".cache");
+	
+	/** The Constant EXTERNAL_FOLDER_PATH. */
 	public static final IPath EXTERNAL_FOLDER_PATH = new Path("external");
+	
+	/** The root. */
 	static IWorkspaceRoot ROOT = ResourcesPlugin.getWorkspace().getRoot();
+	
+	/** The file system. */
 	static IFileSystem FILE_SYSTEM = EFS.getLocalFileSystem();
+	
+	/** The user home. */
 	static String USER_HOME = System.getProperty("user.home");
+	
+	/** The Constant WORKSPACE_URI. */
 	static final URI WORKSPACE_URI = URI.createURI(ROOT.getLocationURI().toString(), false);
+	
+	/** The Constant CACHE. */
 	public static final File CACHE;
 
 	static {
@@ -100,6 +123,14 @@ public class FileUtils {
 
 	// Add a thin layer of workspace-based searching in order to resolve linked
 	// resources.
+	/**
+	 * Construct absolute file path.
+	 *
+	 * @param scope the scope
+	 * @param filePath the file path
+	 * @param mustExist the must exist
+	 * @return the string
+	 */
 	// Should be able to catch most of the calls to relative resources as well
 	static public String constructAbsoluteFilePath(final IScope scope, final String filePath, final boolean mustExist) {
 		String fp;
@@ -144,6 +175,14 @@ public class FileUtils {
 		return OldFileUtils.constructAbsoluteFilePathAlternate(scope, fp, mustExist);
 	}
 
+	/**
+	 * Find in workspace.
+	 *
+	 * @param fp the fp
+	 * @param container the container
+	 * @param mustExist the must exist
+	 * @return the string
+	 */
 	private static String findInWorkspace(final String fp, final IContainer container, final boolean mustExist) {
 		final IPath full = container.getFullPath().append(fp);
 		IResource file = ROOT.getFile(full);
@@ -161,6 +200,14 @@ public class FileUtils {
 		// getLocation() works for regular and linked files
 	}
 
+	/**
+	 * Find outside workspace.
+	 *
+	 * @param fp the fp
+	 * @param modelBase the model base
+	 * @param mustExist the must exist
+	 * @return the string
+	 */
 	private static String findOutsideWorkspace(final String fp, final URI modelBase, final boolean mustExist) {
 		if (!mustExist) { return fp; }
 		final IFileStore file = FILE_SYSTEM.getStore(new Path(fp));
@@ -173,6 +220,13 @@ public class FileUtils {
 		return null;
 	}
 
+	/**
+	 * Creates the link to external file.
+	 *
+	 * @param path the path
+	 * @param workspaceResource the workspace resource
+	 * @return the i file
+	 */
 	public static IFile createLinkToExternalFile(final String path, final URI workspaceResource) {
 		// Always try to return the full file, without creating a link, if the file
 		// happens to be in the workspace
@@ -206,11 +260,9 @@ public class FileUtils {
 	 * Returns a best guess URI based on the target string and an optional URI specifying from where the relative URI
 	 * should be run. If existingResource is null, then the root of the workspace is used as the relative URI
 	 *
-	 * @param target
-	 *            a String giving the path
-	 * @param existingResource
-	 *            the URI of the resource from which relative URIs should be interpreted
 	 * @author Alexis Drogoul, July 2018
+	 * @param target            a String giving the path
+	 * @param existingResource            the URI of the resource from which relative URIs should be interpreted
 	 * @return an URI or null if it cannot be determined.
 	 */
 	public static URI getURI(final String target, final URI existingResource) {
@@ -243,6 +295,12 @@ public class FileUtils {
 		}
 	}
 
+	/**
+	 * Checks if is file existing in workspace.
+	 *
+	 * @param uri the uri
+	 * @return true, if is file existing in workspace
+	 */
 	public static boolean isFileExistingInWorkspace(final URI uri) {
 		if (uri == null) { return false; }
 		final IFile file = getWorkspaceFile(uri);
@@ -250,6 +308,14 @@ public class FileUtils {
 		return false;
 	}
 
+	/**
+	 * Gets the file.
+	 *
+	 * @param path the path
+	 * @param root the root
+	 * @param mustExist the must exist
+	 * @return the file
+	 */
 	public static IFile getFile(final String path, final URI root, final boolean mustExist) {
 		final URI uri = getURI(path, root);
 		if (uri != null) {
@@ -266,6 +332,13 @@ public class FileUtils {
 	// return linkAndGetExternalFile(URI.decode(path), workspaceResource);
 	// }
 
+	/**
+	 * Creates the linked file.
+	 *
+	 * @param path the path
+	 * @param file the file
+	 * @return the i file
+	 */
 	private static IFile createLinkedFile(final String path, final IFile file) {
 		java.net.URI resolvedURI = null;
 		final java.net.URI javaURI = URIUtil.toURI(path);// new java.io.File(path).toURI();
@@ -284,6 +357,13 @@ public class FileUtils {
 		return file;
 	}
 
+	/**
+	 * Correctly named file.
+	 *
+	 * @param folder the folder
+	 * @param fileName the file name
+	 * @return the i file
+	 */
 	private static IFile correctlyNamedFile(final IFolder folder, final String fileName) {
 		IFile file;
 		String fn = fileName;
@@ -294,6 +374,13 @@ public class FileUtils {
 		return file;
 	}
 
+	/**
+	 * Find existing linked file.
+	 *
+	 * @param folder the folder
+	 * @param name the name
+	 * @return the i file
+	 */
 	private static IFile findExistingLinkedFile(final IFolder folder, final String name) {
 		final IFile[] result = new IFile[1];
 		try {
@@ -315,6 +402,12 @@ public class FileUtils {
 		return file;
 	}
 
+	/**
+	 * Creates the external folder.
+	 *
+	 * @param workspaceResource the workspace resource
+	 * @return the i folder
+	 */
 	private static IFolder createExternalFolder(final URI workspaceResource) {
 		if (workspaceResource == null || !isFileExistingInWorkspace(workspaceResource)) { return null; }
 		final IFile root = getWorkspaceFile(workspaceResource);
@@ -332,6 +425,12 @@ public class FileUtils {
 		return folder;
 	}
 
+	/**
+	 * Gets the workspace file.
+	 *
+	 * @param uri the uri
+	 * @return the workspace file
+	 */
 	public static IFile getWorkspaceFile(final URI uri) {
 		final IPath uriAsPath = new Path(URI.decode(uri.toString()));
 		IFile file;
@@ -353,18 +452,35 @@ public class FileUtils {
 		return null;
 	}
 
+	/**
+	 * Construct absolute temp file path.
+	 *
+	 * @param scope the scope
+	 * @param url the url
+	 * @return the string
+	 */
 	public static String constructAbsoluteTempFilePath(final IScope scope, final URL url) {
 		return CACHE.getAbsolutePath() + SEPARATOR + url.getHost() + URL_SEPARATOR_REPLACEMENT
 				+ url.getPath().replace(SEPARATOR, URL_SEPARATOR_REPLACEMENT);
 
 	}
 
+	/**
+	 * Construct relative temp file path.
+	 *
+	 * @param scope the scope
+	 * @param url the url
+	 * @return the string
+	 */
 	private static String constructRelativeTempFilePath(final IScope scope, final URL url) {
 		return "" + CacheLocationProvider.NAME + "" + SEPARATOR + url.getHost() + URL_SEPARATOR_REPLACEMENT
 				+ url.getPath().replace(SEPARATOR, URL_SEPARATOR_REPLACEMENT);
 
 	}
 
+	/**
+	 * Clean cache.
+	 */
 	public static void cleanCache() {
 		if (GamaPreferences.External.CORE_HTTP_EMPTY_CACHE.getValue()) {
 			final File[] files = CACHE.listFiles();
@@ -382,6 +498,12 @@ public class FileUtils {
 		}
 	}
 
+	/**
+	 * Checks if is directory or null external file.
+	 *
+	 * @param path the path
+	 * @return true, if is directory or null external file
+	 */
 	public static boolean isDirectoryOrNullExternalFile(final String path) {
 		final IFileStore external = FILE_SYSTEM.getStore(new Path(path));
 		final IFileInfo info = external.fetchInfo();
@@ -389,6 +511,13 @@ public class FileUtils {
 		return false;
 	}
 
+	/**
+	 * Fetch to temp file.
+	 *
+	 * @param scope the scope
+	 * @param url the url
+	 * @return the string
+	 */
 	@SuppressWarnings ("deprecation")
 	public static String fetchToTempFile(final IScope scope, final URL url) {
 		String pathName = constructRelativeTempFilePath(scope, url);

@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'PopulationEditor.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * PopulationEditor.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.parameters;
 
 import java.util.Collection;
@@ -28,11 +27,23 @@ import gama.ui.base.interfaces.EditorListener;
 import gama.util.IContainer;
 import gaml.species.ISpecies;
 
+/**
+ * The Class PopulationEditor.
+ */
 @SuppressWarnings ({ "rawtypes", "unchecked" })
 public class PopulationEditor extends AbstractEditor<IContainer> {
 
+	/** The population displayer. */
 	Text populationDisplayer;
 
+	/**
+	 * Instantiates a new population editor.
+	 *
+	 * @param scope the scope
+	 * @param agent the agent
+	 * @param param the param
+	 * @param l the l
+	 */
 	PopulationEditor(final IScope scope, final IAgent agent, final IParameter param, final EditorListener l) {
 		super(scope, agent, param, l);
 	}

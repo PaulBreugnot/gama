@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'OSMFileViewer.java, in plugin ummisco.gama.ui.viewers, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * OSMFileViewer.java, in gama.ui.viewers, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.viewers.gis;
 
 import java.io.File;
@@ -60,10 +59,18 @@ import gama.ui.base.toolbar.GamaToolbarFactory;
 import gama.ui.viewers.gis.geotools.styling.Utils;
 import gama.util.file.GamaOsmFile;
 
+/**
+ * The Class OSMFileViewer.
+ */
 public class OSMFileViewer extends GISFileViewer {
 
+	/** The attributes. */
 	Map<String, String> attributes;
+	
+	/** The osmfile. */
 	GamaOsmFile osmfile;
+	
+	/** The map layer table. */
 	MapLayerComposite mapLayerTable;
 
 	@Override

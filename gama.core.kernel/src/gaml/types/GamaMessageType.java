@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.types.GamaMessageType.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * GamaMessageType.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.types;
 
@@ -21,6 +21,9 @@ import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gaml.extensions.messaging.GamaMessage;
 
+/**
+ * The Class GamaMessageType.
+ */
 @type (
 		name = GamaMessageType.MESSAGE_STR,
 		id = IType.MESSAGE,
@@ -29,8 +32,12 @@ import gaml.extensions.messaging.GamaMessage;
 		doc = @doc ("Represents the messages exchanged between agents"))
 public class GamaMessageType extends GamaType<GamaMessage> {
 
+	/** The Constant MESSAGE_STR. */
 	public static final String MESSAGE_STR = "message";
 
+	/**
+	 * Instantiates a new gama message type.
+	 */
 	public GamaMessageType() {}
 
 	@Override
@@ -43,6 +50,14 @@ public class GamaMessageType extends GamaType<GamaMessage> {
 		return true;
 	}
 
+	/**
+	 * As message.
+	 *
+	 * @param scope the scope
+	 * @param val the val
+	 * @return the gama message
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = GamaMessageType.MESSAGE_STR,
 			can_be_const = true,
@@ -55,6 +70,14 @@ public class GamaMessageType extends GamaType<GamaMessage> {
 		return GamaMessageType.staticCast(scope, val, null);
 	}
 
+	/**
+	 * Static cast.
+	 *
+	 * @param scope the scope
+	 * @param val the val
+	 * @param object the object
+	 * @return the gama message
+	 */
 	private static GamaMessage staticCast(final IScope scope, final Object val, final Object object) {
 
 		if (val instanceof GamaMessage) return (GamaMessage) val;

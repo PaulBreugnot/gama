@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Link.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.atom;
 
@@ -121,25 +131,34 @@ public class Link implements Cloneable
     @XmlAttribute(name = "href", required = true)
     @XmlSchemaType(name = "anySimpleType")
     protected String href;
+    
+    /** The rel. */
     @XmlAttribute(name = "rel")
     @XmlSchemaType(name = "anySimpleType")
     protected String rel;
+    
+    /** The type. */
     @XmlAttribute(name = "type")
     protected String type;
+    
+    /** The hreflang. */
     @XmlAttribute(name = "hreflang")
     protected String hreflang;
+    
+    /** The title. */
     @XmlAttribute(name = "title")
     @XmlSchemaType(name = "anySimpleType")
     protected String title;
+    
+    /** The length. */
     @XmlAttribute(name = "length")
     @XmlSchemaType(name = "anySimpleType")
     protected String length;
 
     /**
-     * Value constructor with only mandatory fields
-     * 
-     * @param href
-     *     required parameter
+     * Value constructor with only mandatory fields.
+     *
+     * @param href     required parameter
      */
     public Link(final String href) {
         super();
@@ -156,144 +175,132 @@ public class Link implements Cloneable
     }
 
     /**
-     * @see href
-     * 
-     * @return
-     *     possible object is
+     * Gets the href.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see href
      */
     public String getHref() {
         return href;
     }
 
     /**
-     * @see href
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the href.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see href
      */
     public void setHref(String value) {
         this.href = value;
     }
 
     /**
-     * @see rel
-     * 
-     * @return
-     *     possible object is
+     * Gets the rel.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see rel
      */
     public String getRel() {
         return rel;
     }
 
     /**
-     * @see rel
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the rel.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see rel
      */
     public void setRel(String value) {
         this.rel = value;
     }
 
     /**
-     * @see type
-     * 
-     * @return
-     *     possible object is
+     * Gets the type.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see type
      */
     public String getType() {
         return type;
     }
 
     /**
-     * @see type
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the type.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see type
      */
     public void setType(String value) {
         this.type = value;
     }
 
     /**
-     * @see hreflang
-     * 
-     * @return
-     *     possible object is
+     * Gets the hreflang.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see hreflang
      */
     public String getHreflang() {
         return hreflang;
     }
 
     /**
-     * @see hreflang
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the hreflang.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see hreflang
      */
     public void setHreflang(String value) {
         this.hreflang = value;
     }
 
     /**
-     * @see title
-     * 
-     * @return
-     *     possible object is
+     * Gets the title.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see title
      */
     public String getTitle() {
         return title;
     }
 
     /**
-     * @see title
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the title.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see title
      */
     public void setTitle(String value) {
         this.title = value;
     }
 
     /**
-     * @see length
-     * 
-     * @return
-     *     possible object is
+     * Gets the length.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see length
      */
     public String getLength() {
         return length;
     }
 
     /**
-     * @see length
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the length.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see length
      */
     public void setLength(String value) {
         this.length = value;
@@ -382,11 +389,11 @@ public class Link implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param rel     required parameter
+     * @return the link
      * @see #setRel(String)
-     * 
-     * @param rel
-     *     required parameter
      */
     public Link withRel(final String rel) {
         this.setRel(rel);
@@ -394,11 +401,11 @@ public class Link implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param type     required parameter
+     * @return the link
      * @see #setType(String)
-     * 
-     * @param type
-     *     required parameter
      */
     public Link withType(final String type) {
         this.setType(type);
@@ -406,11 +413,11 @@ public class Link implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param hreflang     required parameter
+     * @return the link
      * @see #setHreflang(String)
-     * 
-     * @param hreflang
-     *     required parameter
      */
     public Link withHreflang(final String hreflang) {
         this.setHreflang(hreflang);
@@ -418,11 +425,11 @@ public class Link implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param title     required parameter
+     * @return the link
      * @see #setTitle(String)
-     * 
-     * @param title
-     *     required parameter
      */
     public Link withTitle(final String title) {
         this.setTitle(title);
@@ -430,11 +437,11 @@ public class Link implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param length     required parameter
+     * @return the link
      * @see #setLength(String)
-     * 
-     * @param length
-     *     required parameter
      */
     public Link withLength(final String length) {
         this.setLength(length);

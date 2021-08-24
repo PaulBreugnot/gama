@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.metamodel.agent.SavedAgent.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * SavedAgent.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.metamodel.agent;
 
@@ -37,7 +37,10 @@ public class SavedAgent extends GamaMap<String, Object> {
 	static final List<String> UNSAVABLE_VARIABLES = Arrays.asList(IKeyword.PEERS, IKeyword.AGENTS, IKeyword.HOST,
 			IKeyword.TOPOLOGY, IKeyword.MEMBERS, "populations");
 
+	/** The index. */
 	int index;
+	
+	/** The inner populations. */
 	Map<String, List<SavedAgent>> innerPopulations;
 
 	@Override
@@ -49,10 +52,20 @@ public class SavedAgent extends GamaMap<String, Object> {
 		return result;
 	}
 
+	/**
+	 * Instantiates a new saved agent.
+	 */
 	private SavedAgent() {
 		super(11, Types.STRING, Types.NO_TYPE);
 	}
 
+	/**
+	 * Instantiates a new saved agent.
+	 *
+	 * @param scope the scope
+	 * @param agent the agent
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public SavedAgent(final IScope scope, final IAgent agent) throws GamaRuntimeException {
 		this();
 		index = agent.getIndex();
@@ -62,34 +75,73 @@ public class SavedAgent extends GamaMap<String, Object> {
 		}
 	}
 
+	/**
+	 * Instantiates a new saved agent.
+	 *
+	 * @param ind the ind
+	 * @param v the v
+	 * @param inPop the in pop
+	 */
 	public SavedAgent(final int ind, final Map<String, Object> v, final Map<String, List<SavedAgent>> inPop) {
 		this(v, inPop);
 		index = ind;
 	}
 
+	/**
+	 * Instantiates a new saved agent.
+	 *
+	 * @param v the v
+	 * @param inPop the in pop
+	 */
 	public SavedAgent(final Map<String, Object> v, final Map<String, List<SavedAgent>> inPop) {
 		super(v.size(), Types.STRING, Types.NO_TYPE);
 		putAll(v);
 		innerPopulations = inPop;
 	}
 
+	/**
+	 * Instantiates a new saved agent.
+	 *
+	 * @param map the map
+	 */
 	public SavedAgent(final IMap<String, Object> map) {
 		this();
 		putAll(map);
 	}
 
+	/**
+	 * Gets the attribute value.
+	 *
+	 * @param attrName the attr name
+	 * @return the attribute value
+	 */
 	public Object getAttributeValue(final String attrName) {
 		return get(attrName);
 	}
 
+	/**
+	 * Gets the variables.
+	 *
+	 * @return the variables
+	 */
 	public Map<String, Object> getVariables() {
 		return this;
 	}
 
+	/**
+	 * Gets the inner populations.
+	 *
+	 * @return the inner populations
+	 */
 	public Map<String, List<SavedAgent>> getInnerPopulations() {
 		return innerPopulations;
 	}
 
+	/**
+	 * Gets the index.
+	 *
+	 * @return the index
+	 */
 	public int getIndex() {
 		return index;
 	}
@@ -97,8 +149,9 @@ public class SavedAgent extends GamaMap<String, Object> {
 	/**
 	 * Saves agent's attributes to a map.
 	 *
-	 * @param agent
-	 * @throws GamaRuntimeException
+	 * @param scope the scope
+	 * @param agent the agent
+	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 	private void saveAttributes(final IScope scope, final IAgent agent) throws GamaRuntimeException {
 		final ISpecies species = agent.getSpecies();
@@ -159,9 +212,9 @@ public class SavedAgent extends GamaMap<String, Object> {
 	/**
 	 * Recursively save micro-agents of an agent.
 	 *
-	 * @param agent
-	 *            The agent having micro-agents to be saved.
-	 * @throws GamaRuntimeException
+	 * @param scope the scope
+	 * @param agent            The agent having micro-agents to be saved.
+	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 	private void saveMicroAgents(final IScope scope, final IMacroAgent agent) throws GamaRuntimeException {
 		innerPopulations = GamaMapFactory.createUnordered();
@@ -178,13 +231,12 @@ public class SavedAgent extends GamaMap<String, Object> {
 	}
 
 	/**
-	 * @param scope
-	 *            Restores the saved agent as a member of the target population.
+	 * Restore to.
 	 *
-	 * @param targetPopulation
-	 *            The population that the saved agent will be restored to.
-	 * @return
-	 * @throws GamaRuntimeException
+	 * @param scope            Restores the saved agent as a member of the target population.
+	 * @param targetPopulation            The population that the saved agent will be restored to.
+	 * @return the i agent
+	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 	public IAgent restoreTo(final IScope scope, final IPopulation<? extends IAgent> targetPopulation)
 			throws GamaRuntimeException {
@@ -197,10 +249,11 @@ public class SavedAgent extends GamaMap<String, Object> {
 	}
 
 	/**
+	 * Restore micro agents.
 	 *
-	 *
-	 * @param host
-	 * @throws GamaRuntimeException
+	 * @param scope the scope
+	 * @param host the host
+	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 	public void restoreMicroAgents(final IScope scope, final IAgent host) throws GamaRuntimeException {
 		if (innerPopulations != null) {

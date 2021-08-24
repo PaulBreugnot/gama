@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * FlyToMode.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.gx;
 
@@ -25,20 +35,41 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum FlyToMode {
 
+    /** The bounce. */
     @XmlEnumValue("bounce")
     BOUNCE("bounce"),
+    
+    /** The smooth. */
     @XmlEnumValue("smooth")
     SMOOTH("smooth");
+    
+    /** The value. */
     private final String value;
 
+    /**
+     * Instantiates a new fly to mode.
+     *
+     * @param v the v
+     */
     FlyToMode(String v) {
         value = v;
     }
 
+    /**
+     * Value.
+     *
+     * @return the string
+     */
     public String value() {
         return value;
     }
 
+    /**
+     * From value.
+     *
+     * @param v the v
+     * @return the fly to mode
+     */
     public static FlyToMode fromValue(String v) {
         for (FlyToMode c: FlyToMode.values()) {
             if (c.value.equals(v)) {

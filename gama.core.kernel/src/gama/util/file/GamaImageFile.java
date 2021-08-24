@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.file.GamaImageFile.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * GamaImageFile.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.util.file;
 
@@ -55,6 +55,9 @@ import gaml.types.IContainerType;
 import gaml.types.IType;
 import gaml.types.Types;
 
+/**
+ * The Class GamaImageFile.
+ */
 @file (
 		name = "image",
 		extensions = { "tiff", "jpg", "jpeg", "png", "pict", "bmp" },
@@ -66,8 +69,12 @@ import gaml.types.Types;
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class GamaImageFile extends GamaFile<IMatrix<Integer>, Integer> implements IFieldMatrixProvider {
 
+	/**
+	 * The Class ImageInfo.
+	 */
 	public static class ImageInfo extends GamaFileMetaData {
 
+		/** The Constant formatsShortNames. */
 		public final static Map<Integer, String> formatsShortNames = new HashMap<>() {
 
 			{
@@ -87,10 +94,23 @@ public class GamaImageFile extends GamaFile<IMatrix<Integer>, Integer> implement
 			}
 		};
 
+		/** The type. */
 		private final int type;
+		
+		/** The width. */
 		private final int width;
+		
+		/** The height. */
 		private final int height;
 
+		/**
+		 * Instantiates a new image info.
+		 *
+		 * @param modificationStamp the modification stamp
+		 * @param origType the orig type
+		 * @param origWidth the orig width
+		 * @param origHeight the orig height
+		 */
 		public ImageInfo(final long modificationStamp, /* final Object thumbnail, */final int origType,
 				final int origWidth, final int origHeight) {
 			super(modificationStamp);
@@ -99,6 +119,11 @@ public class GamaImageFile extends GamaFile<IMatrix<Integer>, Integer> implement
 			this.height = origHeight;
 		}
 
+		/**
+		 * Instantiates a new image info.
+		 *
+		 * @param propertyString the property string
+		 */
 		public ImageInfo(final String propertyString) {
 			super(propertyString);
 			final String[] segments = split(propertyString);
@@ -107,6 +132,12 @@ public class GamaImageFile extends GamaFile<IMatrix<Integer>, Integer> implement
 			height = Integer.parseInt(segments[3]);
 		}
 
+		/**
+		 * Gets the short label.
+		 *
+		 * @param type the type
+		 * @return the short label
+		 */
 		public String getShortLabel(final int type) {
 			return formatsShortNames.containsKey(type) ? formatsShortNames.get(type) : formatsShortNames.get(-1);
 		}
@@ -129,6 +160,11 @@ public class GamaImageFile extends GamaFile<IMatrix<Integer>, Integer> implement
 			return sb.toString();
 		}
 
+		/**
+		 * Gets the type.
+		 *
+		 * @return the type
+		 */
 		public int getType() {
 			return type;
 		}
@@ -139,6 +175,9 @@ public class GamaImageFile extends GamaFile<IMatrix<Integer>, Integer> implement
 		}
 	}
 
+	/**
+	 * The Class GamaPgmFile.
+	 */
 	@file (
 			name = "pgm",
 			extensions = { "pgm" },
@@ -148,9 +187,11 @@ public class GamaImageFile extends GamaFile<IMatrix<Integer>, Integer> implement
 	public static class GamaPgmFile extends GamaImageFile {
 
 		/**
-		 * @param scope
-		 * @param pathName
-		 * @throws GamaRuntimeException
+		 * Instantiates a new gama pgm file.
+		 *
+		 * @param scope the scope
+		 * @param pathName the path name
+		 * @throws GamaRuntimeException the gama runtime exception
 		 */
 		@doc (
 				value = "This file constructor allows to read a pgm file",
@@ -180,9 +221,17 @@ public class GamaImageFile extends GamaFile<IMatrix<Integer>, Integer> implement
 
 	}
 
+	/** The is georeferenced. */
 	// protected BufferedImage image;
 	private boolean isGeoreferenced = false;
 
+	/**
+	 * Instantiates a new gama image file.
+	 *
+	 * @param scope the scope
+	 * @param pathName the path name
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@doc (
 			value = "This file constructor allows to read an image file (tiff, jpg, jpeg, png, pict, bmp)",
 			examples = { @example (
@@ -193,6 +242,13 @@ public class GamaImageFile extends GamaFile<IMatrix<Integer>, Integer> implement
 		super(scope, pathName);
 	}
 
+	/**
+	 * Instantiates a new gama image file.
+	 *
+	 * @param scope the scope
+	 * @param pathName the path name
+	 * @param image the image
+	 */
 	@doc (
 			value = "This file constructor allows to store a matrix in a image file (it does not save it - just store it in memory)",
 			examples = { @example (
@@ -224,6 +280,11 @@ public class GamaImageFile extends GamaFile<IMatrix<Integer>, Integer> implement
 				: matrixValueFromImage(scope, null));
 	}
 
+	/**
+	 * Checks if is pgm file.
+	 *
+	 * @return true, if is pgm file
+	 */
 	protected boolean isPgmFile() {
 		return false;
 	}
@@ -254,6 +315,13 @@ public class GamaImageFile extends GamaFile<IMatrix<Integer>, Integer> implement
 		return getBuffer().matrixValue(scope, contentsType, copy);
 	}
 
+	/**
+	 * Load image.
+	 *
+	 * @param scope the scope
+	 * @param useCache the use cache
+	 * @return the buffered image
+	 */
 	protected BufferedImage loadImage(final IScope scope, final boolean useCache) {
 		// if (image == null) {
 		final BufferedImage image;
@@ -270,17 +338,40 @@ public class GamaImageFile extends GamaFile<IMatrix<Integer>, Integer> implement
 		return image;
 	}
 
+	/**
+	 * Gets the image.
+	 *
+	 * @param scope the scope
+	 * @param useCache the use cache
+	 * @return the image
+	 */
 	public BufferedImage getImage(final IScope scope, final boolean useCache) {
 		return loadImage(scope, useCache);
 		// return image;
 	}
 
+	/**
+	 * Matrix value from image.
+	 *
+	 * @param scope the scope
+	 * @param preferredSize the preferred size
+	 * @return the i matrix
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	private IMatrix matrixValueFromImage(final IScope scope, final GamaPoint preferredSize)
 			throws GamaRuntimeException {
 		final BufferedImage image = loadImage(scope, true);
 		return matrixValueFromImage(scope, image, preferredSize);
 	}
 
+	/**
+	 * Matrix value from image.
+	 *
+	 * @param scope the scope
+	 * @param image the image
+	 * @param preferredSize the preferred size
+	 * @return the i matrix
+	 */
 	private IMatrix matrixValueFromImage(final IScope scope, final BufferedImage image, final GamaPoint preferredSize) {
 		int xSize, ySize;
 		BufferedImage resultingImage = image;
@@ -306,6 +397,12 @@ public class GamaImageFile extends GamaFile<IMatrix<Integer>, Integer> implement
 
 	}
 
+	/**
+	 * Image from matrix.
+	 *
+	 * @param scope the scope
+	 * @return the buffered image
+	 */
 	private BufferedImage imageFromMatrix(final IScope scope) {
 		final int xSize = getBuffer().getCols(scope);
 		final int ySize = getBuffer().getRows(scope);
@@ -319,6 +416,14 @@ public class GamaImageFile extends GamaFile<IMatrix<Integer>, Integer> implement
 
 	}
 
+	/**
+	 * Matrix value from pgm.
+	 *
+	 * @param scope the scope
+	 * @param preferredSize the preferred size
+	 * @return the i matrix
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	private IMatrix matrixValueFromPgm(final IScope scope, final GamaPoint preferredSize) throws GamaRuntimeException {
 		// TODO PreferredSize is not respected here
 		try (BufferedReader in = new BufferedReader(new FileReader(getFile(scope)))) {
@@ -356,6 +461,12 @@ public class GamaImageFile extends GamaFile<IMatrix<Integer>, Integer> implement
 
 	}
 
+	/**
+	 * Gets the geo data file.
+	 *
+	 * @param scope the scope
+	 * @return the geo data file
+	 */
 	public String getGeoDataFile(final IScope scope) {
 		final String extension = getExtension(scope);
 		String val = null;
@@ -461,6 +572,11 @@ public class GamaImageFile extends GamaFile<IMatrix<Integer>, Integer> implement
 
 	}
 
+	/**
+	 * Checks if is georeferenced.
+	 *
+	 * @return true, if is georeferenced
+	 */
 	public boolean isGeoreferenced() {
 		return isGeoreferenced;
 	}
@@ -472,6 +588,11 @@ public class GamaImageFile extends GamaFile<IMatrix<Integer>, Integer> implement
 	// // image = image2;
 	// }
 
+	/**
+	 * Checks if is animated.
+	 *
+	 * @return true, if is animated
+	 */
 	public boolean isAnimated() {
 		return false;
 	}

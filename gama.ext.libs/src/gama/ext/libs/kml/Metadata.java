@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Metadata.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -25,16 +35,22 @@ import org.w3c.dom.Element;
 public class Metadata implements Cloneable
 {
 
+    /** The any. */
     @XmlAnyElement(lax = true)
     protected List<Object> any;
 
+    /**
+     * Instantiates a new metadata.
+     */
     public Metadata() {
         super();
     }
 
     /**
+     * Gets the any.
+     *
+     * @return the any
      * @see any
-     * 
      */
     public List<Object> getAny() {
         if (any == null) {
@@ -76,21 +92,20 @@ public class Metadata implements Cloneable
     }
 
     /**
+     * Sets the any.
+     *
+     * @param any the new any
      * @see any
-     * 
-     * @param any
      */
     public void setAny(final List<Object> any) {
         this.any = any;
     }
 
     /**
-     * add a value to the any property collection
-     * 
-     * @param any
-     *     Objects of the following type are allowed in the list: {@link Object}{@link Element}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the any property collection.
+     *
+     * @param any     Objects of the following type are allowed in the list: {@link Object}{@link Element}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Metadata addToAny(final Object any) {
         this.getAny().add(any);
@@ -98,11 +113,11 @@ public class Metadata implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param any     required parameter
+     * @return the metadata
      * @see #setAny(List<Object>)
-     * 
-     * @param any
-     *     required parameter
      */
     public Metadata withAny(final List<Object> any) {
         this.setAny(any);

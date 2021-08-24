@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * AbstractEntityHandler.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.parser.entities;
 
 import gama.ext.libs.kabeja.dxf.DXFDocument;
@@ -21,36 +16,91 @@ import gama.ext.libs.kabeja.parser.DXFValue;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth </a>
+ * The Class AbstractEntityHandler.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth </a>
  */
 public abstract class AbstractEntityHandler implements DXFEntityHandler {
+    
+    /** The Constant ELEMENT_REFERENCE. */
     public final static int ELEMENT_REFERENCE = 5;
+    
+    /** The Constant GROUPCODE_START_X. */
     public final static int GROUPCODE_START_X = 10;
+    
+    /** The Constant GROUPCODE_START_Y. */
     public final static int GROUPCODE_START_Y = 20;
+    
+    /** The Constant GROUPCODE_START_Z. */
     public final static int GROUPCODE_START_Z = 30;
+    
+    /** The Constant END_X. */
     public final static int END_X = 11;
+    
+    /** The Constant END_Y. */
     public final static int END_Y = 21;
+    
+    /** The Constant END_Z. */
     public final static int END_Z = 31;
+    
+    /** The Constant LAYER_NAME. */
     public final static int LAYER_NAME = 8;
+    
+    /** The Constant TRANSPARENCY. */
     public final static int TRANSPARENCY = 440;
+    
+    /** The Constant COLOR_CODE. */
     public final static int COLOR_CODE = 62;
+    
+    /** The Constant COLORNAME. */
     public final static int COLORNAME = 430;
+    
+    /** The Constant COLOR_24BIT. */
     public final static int COLOR_24BIT = 420;
+    
+    /** The Constant COLOR_TRANSPARENCY. */
     public final static int COLOR_TRANSPARENCY = 440;
+    
+    /** The Constant FLAGS. */
     public final static int FLAGS = 70;
+    
+    /** The Constant EXTRUSION_X. */
     public final static int EXTRUSION_X = 210;
+    
+    /** The Constant EXTRUSION_Y. */
     public final static int EXTRUSION_Y = 220;
+    
+    /** The Constant EXTRUSION_Z. */
     public final static int EXTRUSION_Z = 230;
+    
+    /** The Constant VISIBILITY. */
     public final static int VISIBILITY = 60;
+    
+    /** The Constant LINE_TYPE. */
     public final static int LINE_TYPE = 6;
+    
+    /** The Constant LINE_TYPE_SCALE. */
     public final static int LINE_TYPE_SCALE = 48;
+    
+    /** The Constant LINE_WEIGHT. */
     public final static int LINE_WEIGHT = 370;
+    
+    /** The Constant GROUPCODE_THICKNESS. */
     public final static int GROUPCODE_THICKNESS = 39;
+    
+    /** The Constant GROUPCODE_STYLENAME. */
     public final static int GROUPCODE_STYLENAME = 3;
+    
+    /** The Constant GROUPCODE_TEXT. */
     public final static int GROUPCODE_TEXT = 1;
+    
+    /** The Constant GROUPCODE_ROTATION_ANGLE. */
     public final static int GROUPCODE_ROTATION_ANGLE = 50;
+    
+    /** The Constant GROUPCODE_MODELSPACE. */
     public final static int GROUPCODE_MODELSPACE = 67;
+    
+    /** The doc. */
     protected DXFDocument doc;
 
     /*
@@ -62,6 +112,13 @@ public abstract class AbstractEntityHandler implements DXFEntityHandler {
         this.doc = doc;
     }
 
+    /**
+     * Parses the common property.
+     *
+     * @param groupCode the group code
+     * @param value the value
+     * @param entity the entity
+     */
     protected void parseCommonProperty(int groupCode, DXFValue value,
         DXFEntity entity) {
         switch (groupCode) {

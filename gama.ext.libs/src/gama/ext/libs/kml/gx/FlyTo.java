@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * FlyTo.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.gx;
 
@@ -96,6 +106,8 @@ public class FlyTo
      */
     @XmlElement(defaultValue = "0.0")
     protected double duration;
+    
+    /** The fly to mode. */
     @XmlElement(defaultValue = "bounce")
     protected FlyToMode flyToMode;
     /**
@@ -129,81 +141,78 @@ public class FlyTo
     @XmlElementRef(name = "AbstractViewGroup", namespace = "http://www.opengis.net/kml/2.2", required = false)
     protected AbstractView abstractView;
 
+    /**
+     * Instantiates a new fly to.
+     */
     public FlyTo() {
         super();
     }
 
     /**
-     * @see duration
-     * 
-     * @return
-     *     possible object is
+     * Gets the duration.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see duration
      */
     public double getDuration() {
         return duration;
     }
 
     /**
-     * @see duration
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the duration.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see duration
      */
     public void setDuration(double value) {
         this.duration = value;
     }
 
     /**
-     * @see flyToMode
-     * 
-     * @return
-     *     possible object is
+     * Gets the fly to mode.
+     *
+     * @return     possible object is
      *     {@link FlyToMode}
-     *     
+     * @see flyToMode
      */
     public FlyToMode getFlyToMode() {
         return flyToMode;
     }
 
     /**
-     * @see flyToMode
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the fly to mode.
+     *
+     * @param value     allowed object is
      *     {@link FlyToMode}
-     *     
+     * @see flyToMode
      */
     public void setFlyToMode(FlyToMode value) {
         this.flyToMode = value;
     }
 
     /**
-     * @see abstractView
-     * 
-     * @return
-     *     possible object is
+     * Gets the abstract view.
+     *
+     * @return     possible object is
      *     {@code <}{@link AbstractView}{@code>}
      *     {@code <}{@link LookAt}{@code>}
      *     {@code <}{@link Camera}{@code>}
-     *     
+     * @see abstractView
      */
     public AbstractView getAbstractView() {
         return abstractView;
     }
 
     /**
-     * @see abstractView
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the abstract view.
+     *
+     * @param value     allowed object is
      *     {@code <}{@link AbstractView}{@code>}
      *     {@code <}{@link LookAt}{@code>}
      *     {@code <}{@link Camera}{@code>}
-     *     
+     * @see abstractView
      */
     public void setAbstractView(AbstractView value) {
         this.abstractView = (value);
@@ -264,8 +273,8 @@ public class FlyTo
      * <code>
      * LookAt lookAt = new LookAt();
      * this.setAbstractView(lookAt); </code>
-     * 
-     * 
+     *
+     * @return the look at
      */
     public LookAt createAndSetLookAt() {
         LookAt newValue = new LookAt();
@@ -280,8 +289,8 @@ public class FlyTo
      * <code>
      * Camera camera = new Camera();
      * this.setAbstractView(camera); </code>
-     * 
-     * 
+     *
+     * @return the camera
      */
     public Camera createAndSetCamera() {
         Camera newValue = new Camera();
@@ -290,11 +299,11 @@ public class FlyTo
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param duration     required parameter
+     * @return the fly to
      * @see #setDuration(double)
-     * 
-     * @param duration
-     *     required parameter
      */
     public FlyTo withDuration(final double duration) {
         this.setDuration(duration);
@@ -302,11 +311,11 @@ public class FlyTo
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param flyToMode     required parameter
+     * @return the fly to
      * @see #setFlyToMode(FlyToMode)
-     * 
-     * @param flyToMode
-     *     required parameter
      */
     public FlyTo withFlyToMode(final FlyToMode flyToMode) {
         this.setFlyToMode(flyToMode);
@@ -314,11 +323,11 @@ public class FlyTo
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param abstractView     required parameter
+     * @return the fly to
      * @see #setAbstractView(AbstractView)
-     * 
-     * @param abstractView
-     *     required parameter
      */
     public FlyTo withAbstractView(final AbstractView abstractView) {
         this.setAbstractView(abstractView);

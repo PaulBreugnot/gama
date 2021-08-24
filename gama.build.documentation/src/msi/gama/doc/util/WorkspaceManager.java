@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * WorkspaceManager.java, in gama.build.documentation, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package msi.gama.doc.util;
 
 import java.io.File;
@@ -15,35 +25,76 @@ import org.xml.sax.SAXException;
 import msi.gama.doc.Constants;
 
 /**
- * @author bgaudou
+ * The Class WorkspaceManager.
  *
+ * @author bgaudou
  */
 public class WorkspaceManager {
+	
+	/** The ws file. */
 	private final File wsFile;
+	
+	/** The is local. */
 	private final boolean isLocal;
 
+	/**
+	 * Instantiates a new workspace manager.
+	 *
+	 * @param location the location
+	 * @param local the local
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public WorkspaceManager(final String location, final boolean local) throws IOException {
 		File mainFile = new File(new File(location).getCanonicalPath());
 		wsFile = new File(mainFile.getParent());
 		isLocal = local;
 	}
 
+	/**
+	 * Gets the file.
+	 *
+	 * @return the file
+	 */
 	public File getFile() {
 		return wsFile;
 	}
 
+	/**
+	 * Gets the plugin folder.
+	 *
+	 * @param plugin the plugin
+	 * @return the plugin folder
+	 */
 	public File getPluginFolder(final String plugin) {
 		return new File(wsFile.getAbsolutePath() + File.separator + plugin);
 	}
 
+	/**
+	 * Gets the feature file.
+	 *
+	 * @param feature the feature
+	 * @return the feature file
+	 */
 	public File getFeatureFile(final String feature) {
 		return new File(wsFile.getAbsolutePath() + File.separator + feature + File.separator + "feature.xml");
 	}
 
+	/**
+	 * Gets the doc file.
+	 *
+	 * @param plugin the plugin
+	 * @return the doc file
+	 */
 	public File getDocFile(final String plugin) {
 		return new File(wsFile.getAbsolutePath() + File.separator + plugin + File.separator + Constants.DOCGAMA_FILE);
 	}
 
+	/**
+	 * Gets the product file.
+	 *
+	 * @return the product file
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public File getProductFile() throws IOException {
 		File productFile = new File(wsFile.getAbsolutePath() + File.separator + Constants.RELEASE_APPLICATION
 				+ File.separator + Constants.RELEASE_PRODUCT);
@@ -52,7 +103,9 @@ public class WorkspaceManager {
 	}
 
 	/**
-	 * @param pluginName
+	 * Checks if is GAMA plugin.
+	 *
+	 * @param pluginName the plugin name
 	 * @return true whether the pluginName plugin exists in the workspace
 	 */
 	public boolean isGAMAPlugin(final String pluginName) {
@@ -60,12 +113,24 @@ public class WorkspaceManager {
 		return plugin.exists();
 	}
 
+	/**
+	 * Checks if is feature.
+	 *
+	 * @param pluginName the plugin name
+	 * @return true, if is feature
+	 */
 	public boolean isFeature(final String pluginName) {
 		if (!isGAMAPlugin(pluginName)) return false;
 		File feature = getFeatureFile(pluginName);
 		return feature.exists();
 	}
 
+	/**
+	 * Checks for plugin doc.
+	 *
+	 * @param pluginName the plugin name
+	 * @return true, if successful
+	 */
 	public boolean hasPluginDoc(final String pluginName) {
 		File pluginDoc = getDocFile(pluginName);
 		return pluginDoc.exists();
@@ -75,7 +140,7 @@ public class WorkspaceManager {
 	 * This method will parse the Eclipse workspace to find project that have a file "docGama.xml".
 	 *
 	 * @return It will then return the HashMap containing all their project name with their associated files associated
-	 * @throws IOException
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public HashMap<String, File> getAllDocFiles() throws IOException {
 		HashMap<String, File> hmFilesPackages = new HashMap<>();
@@ -87,6 +152,12 @@ public class WorkspaceManager {
 		return hmFilesPackages;
 	}
 
+	/**
+	 * Gets the all doc files local.
+	 *
+	 * @return the all doc files local
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public HashMap<String, File> getAllDocFilesLocal() throws IOException {
 		HashMap<String, File> hmFilesPackages = new HashMap<>();
 
@@ -97,6 +168,14 @@ public class WorkspaceManager {
 		return hmFilesPackages;
 	}
 
+	/**
+	 * Gets the product doc files.
+	 *
+	 * @return the product doc files
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParserConfigurationException the parser configuration exception
+	 * @throws SAXException the SAX exception
+	 */
 	public HashMap<String, File> getProductDocFiles() throws IOException, ParserConfigurationException, SAXException {
 		HashMap<String, File> hmFilesPackages = isLocal ? getAllDocFilesLocal() : getAllDocFiles();
 		List<String> pluginsProduct = getAllGAMAPluginsInProduct();
@@ -109,6 +188,14 @@ public class WorkspaceManager {
 		return hmFilesRes;
 	}
 
+	/**
+	 * Gets the extensions doc files.
+	 *
+	 * @return the extensions doc files
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParserConfigurationException the parser configuration exception
+	 * @throws SAXException the SAX exception
+	 */
 	public HashMap<String, File> getExtensionsDocFiles()
 			throws IOException, ParserConfigurationException, SAXException {
 		HashMap<String, File> hmFilesPackages = isLocal ? getAllDocFilesLocal() : getAllDocFiles();
@@ -123,13 +210,13 @@ public class WorkspaceManager {
 	}
 
 	/**
-	 * From a product file, get all the features
+	 * From a product file, get all the features.
 	 *
-	 * @param feature
+	 * @param product the product
 	 * @return the list of the name of all features included in the product
-	 * @throws ParserConfigurationException
-	 * @throws SAXException
-	 * @throws IOException
+	 * @throws ParserConfigurationException the parser configuration exception
+	 * @throws SAXException the SAX exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	private List<String> getPluginsFromProduct(final File product)
 			throws ParserConfigurationException, SAXException, IOException {
@@ -155,13 +242,13 @@ public class WorkspaceManager {
 	}
 
 	/**
-	 * From a feature file, get all the plugins
+	 * From a feature file, get all the plugins.
 	 *
-	 * @param feature
+	 * @param feature the feature
 	 * @return the list of the name of all plugins included in the feature
-	 * @throws ParserConfigurationException
-	 * @throws SAXException
-	 * @throws IOException
+	 * @throws ParserConfigurationException the parser configuration exception
+	 * @throws SAXException the SAX exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	private List<String> getPluginsFromFeature(final File feature)
 			throws ParserConfigurationException, SAXException, IOException {
@@ -187,6 +274,14 @@ public class WorkspaceManager {
 		return listPlugins;
 	}
 
+	/**
+	 * Gets the all GAMA plugins in product.
+	 *
+	 * @return the all GAMA plugins in product
+	 * @throws ParserConfigurationException the parser configuration exception
+	 * @throws SAXException the SAX exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public List<String> getAllGAMAPluginsInProduct() throws ParserConfigurationException, SAXException, IOException {
 		ArrayList<String> listPlugins = new ArrayList<>();
 		List<String> initPluginList = getPluginsFromProduct(getProductFile());
@@ -197,6 +292,15 @@ public class WorkspaceManager {
 		return listPlugins;
 	}
 
+	/**
+	 * Gets the list.
+	 *
+	 * @param plugin the plugin
+	 * @return the list
+	 * @throws ParserConfigurationException the parser configuration exception
+	 * @throws SAXException the SAX exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	private List<String> getList(final String plugin) throws ParserConfigurationException, SAXException, IOException {
 		ArrayList<String> listPlugins = new ArrayList<>();
 		if (isFeature(plugin)) {
@@ -209,14 +313,21 @@ public class WorkspaceManager {
 		return listPlugins;
 	}
 
-	/*****************************************************************************************************
-	 * 
-	 * 
+	/**
+	 * ***************************************************************************************************.
+	 *
+	 * @return the model library
 	 */
 	public ArrayList<String> getModelLibrary() {
 		return litRep(wsFile.getAbsolutePath() + File.separator + "gama.models.library" + File.separator + "models");
 	}
 
+	/**
+	 * Lit rep.
+	 *
+	 * @param dir the dir
+	 * @return the array list
+	 */
 	private static ArrayList<String> litRep(final String dir) {
 		ArrayList<String> listFiles = new ArrayList<>();
 		File rep = new File(dir);
@@ -237,6 +348,12 @@ public class WorkspaceManager {
 		return listFiles;
 	}
 
+	/**
+	 * Gets the file extension.
+	 *
+	 * @param fileName the file name
+	 * @return the file extension
+	 */
 	private static String getFileExtension(final String fileName) {
 		String extension = null;
 		try {
@@ -247,6 +364,14 @@ public class WorkspaceManager {
 		return extension;
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param arg the arguments
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParserConfigurationException the parser configuration exception
+	 * @throws SAXException the SAX exception
+	 */
 	public static void main(final String[] arg) throws IOException, ParserConfigurationException, SAXException {
 		WorkspaceManager ws = new WorkspaceManager(".", false);
 		List<String> l = ws.getAllGAMAPluginsInProduct();

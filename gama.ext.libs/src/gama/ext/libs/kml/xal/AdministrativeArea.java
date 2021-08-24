@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * AdministrativeArea.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.xal;
 
@@ -19,7 +29,7 @@ import javax.xml.namespace.QName;
 
 
 /**
- * 
+ * The Class AdministrativeArea.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -35,41 +45,59 @@ import javax.xml.namespace.QName;
 public class AdministrativeArea implements Cloneable
 {
 
+    /** The address line. */
     @XmlElement(name = "AddressLine")
     protected List<AddressLine> addressLine;
+    
+    /** The administrative area name. */
     @XmlElement(name = "AdministrativeAreaName")
     protected List<AdministrativeArea.AdministrativeAreaName> administrativeAreaName;
+    
+    /** The sub administrative area. */
     @XmlElement(name = "SubAdministrativeArea")
     protected AdministrativeArea.SubAdministrativeArea subAdministrativeArea;
+    
+    /** The locality. */
     @XmlElement(name = "Locality")
     protected Locality locality;
+    
+    /** The post office. */
     @XmlElement(name = "PostOffice")
     protected PostOffice postOffice;
+    
+    /** The postal code. */
     @XmlElement(name = "PostalCode")
     protected PostalCode postalCode;
+    
+    /** The any. */
     @XmlAnyElement(lax = true)
     protected List<Object> any;
+    
+    /** The underscore. */
     @XmlAttribute(name = "Type")
     @XmlSchemaType(name = "anySimpleType")
     protected String underscore;
+    
+    /** The usage. */
     @XmlAttribute(name = "UsageType")
     @XmlSchemaType(name = "anySimpleType")
     protected String usage;
+    
+    /** The indicator. */
     @XmlAttribute(name = "Indicator")
     @XmlSchemaType(name = "anySimpleType")
     protected String indicator;
+    
+    /** The other attributes. */
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
-     * Value constructor with only mandatory fields
-     * 
-     * @param postalCode
-     *     required parameter
-     * @param locality
-     *     required parameter
-     * @param postOffice
-     *     required parameter
+     * Value constructor with only mandatory fields.
+     *
+     * @param locality     required parameter
+     * @param postOffice     required parameter
+     * @param postalCode     required parameter
      */
     public AdministrativeArea(final Locality locality, final PostOffice postOffice, final PostalCode postalCode) {
         super();
@@ -88,7 +116,9 @@ public class AdministrativeArea implements Cloneable
     }
 
     /**
-     * 
+     * Gets the address line.
+     *
+     * @return the address line
      */
     public List<AddressLine> getAddressLine() {
         if (addressLine == null) {
@@ -98,7 +128,9 @@ public class AdministrativeArea implements Cloneable
     }
 
     /**
-     * 
+     * Gets the administrative area name.
+     *
+     * @return the administrative area name
      */
     public List<AdministrativeArea.AdministrativeAreaName> getAdministrativeAreaName() {
         if (administrativeAreaName == null) {
@@ -108,95 +140,89 @@ public class AdministrativeArea implements Cloneable
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the sub administrative area.
+     *
+     * @return     possible object is
      *     {@link AdministrativeArea.SubAdministrativeArea}
-     *     
      */
     public AdministrativeArea.SubAdministrativeArea getSubAdministrativeArea() {
         return subAdministrativeArea;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the sub administrative area.
+     *
+     * @param value     allowed object is
      *     {@link AdministrativeArea.SubAdministrativeArea}
-     *     
      */
     public void setSubAdministrativeArea(AdministrativeArea.SubAdministrativeArea value) {
         this.subAdministrativeArea = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the locality.
+     *
+     * @return     possible object is
      *     {@link Locality}
-     *     
      */
     public Locality getLocality() {
         return locality;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the locality.
+     *
+     * @param value     allowed object is
      *     {@link Locality}
-     *     
      */
     public void setLocality(Locality value) {
         this.locality = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the post office.
+     *
+     * @return     possible object is
      *     {@link PostOffice}
-     *     
      */
     public PostOffice getPostOffice() {
         return postOffice;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the post office.
+     *
+     * @param value     allowed object is
      *     {@link PostOffice}
-     *     
      */
     public void setPostOffice(PostOffice value) {
         this.postOffice = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the postal code.
+     *
+     * @return     possible object is
      *     {@link PostalCode}
-     *     
      */
     public PostalCode getPostalCode() {
         return postalCode;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the postal code.
+     *
+     * @param value     allowed object is
      *     {@link PostalCode}
-     *     
      */
     public void setPostalCode(PostalCode value) {
         this.postalCode = value;
     }
 
     /**
-     * 
+     * Gets the any.
+     *
+     * @return the any
      */
     public List<Object> getAny() {
         if (any == null) {
@@ -206,75 +232,69 @@ public class AdministrativeArea implements Cloneable
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the underscore.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getUnderscore() {
         return underscore;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the underscore.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setUnderscore(String value) {
         this.underscore = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the usage.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getUsage() {
         return usage;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the usage.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setUsage(String value) {
         this.usage = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the indicator.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getIndicator() {
         return indicator;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the indicator.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setIndicator(String value) {
         this.indicator = value;
     }
 
     /**
-     * 
-     * @return
-     *     always non-null
+     * Gets the other attributes.
+     *
+     * @return     always non-null
      */
     public Map<QName, String> getOtherAttributes() {
         return otherAttributes;
@@ -408,8 +428,8 @@ public class AdministrativeArea implements Cloneable
      * <code>
      * AddressLine addressLine = new AddressLine();
      * this.getAddressLine().add(addressLine); </code>
-     * 
-     * 
+     *
+     * @return the address line
      */
     public AddressLine createAndAddAddressLine() {
         AddressLine newValue = new AddressLine();
@@ -423,8 +443,8 @@ public class AdministrativeArea implements Cloneable
      * <code>
      * AdministrativeAreaName administrativeAreaName = new AdministrativeAreaName();
      * this.getAdministrativeAreaName().add(administrativeAreaName); </code>
-     * 
-     * 
+     *
+     * @return the administrative area. administrative area name
      */
     public AdministrativeArea.AdministrativeAreaName createAndAddAdministrativeAreaName() {
         AdministrativeArea.AdministrativeAreaName newValue = new AdministrativeArea.AdministrativeAreaName();
@@ -439,14 +459,11 @@ public class AdministrativeArea implements Cloneable
      * <code>
      * SubAdministrativeArea subAdministrativeArea = new SubAdministrativeArea();
      * this.setSubAdministrativeArea(subAdministrativeArea); </code>
-     * 
-     * 
-     * @param postalCode
-     *     required parameter
-     * @param locality
-     *     required parameter
-     * @param postOffice
-     *     required parameter
+     *
+     * @param locality     required parameter
+     * @param postOffice     required parameter
+     * @param postalCode     required parameter
+     * @return the administrative area. sub administrative area
      */
     public AdministrativeArea.SubAdministrativeArea createAndSetSubAdministrativeArea(final Locality locality, final PostOffice postOffice, final PostalCode postalCode) {
         AdministrativeArea.SubAdministrativeArea newValue = new AdministrativeArea.SubAdministrativeArea(locality, postOffice, postalCode);
@@ -461,16 +478,12 @@ public class AdministrativeArea implements Cloneable
      * <code>
      * Locality locality = new Locality();
      * this.setLocality(locality); </code>
-     * 
-     * 
-     * @param postBox
-     *     required parameter
-     * @param postOffice
-     *     required parameter
-     * @param postalRoute
-     *     required parameter
-     * @param largeMailUser
-     *     required parameter
+     *
+     * @param postBox     required parameter
+     * @param largeMailUser     required parameter
+     * @param postOffice     required parameter
+     * @param postalRoute     required parameter
+     * @return the locality
      */
     public Locality createAndSetLocality(final PostBox postBox, final LargeMailUser largeMailUser, final PostOffice postOffice, final PostalRoute postalRoute) {
         Locality newValue = new Locality(postBox, largeMailUser, postOffice, postalRoute);
@@ -485,8 +498,8 @@ public class AdministrativeArea implements Cloneable
      * <code>
      * PostOffice postOffice = new PostOffice();
      * this.setPostOffice(postOffice); </code>
-     * 
-     * 
+     *
+     * @return the post office
      */
     public PostOffice createAndSetPostOffice() {
         PostOffice newValue = new PostOffice();
@@ -501,8 +514,8 @@ public class AdministrativeArea implements Cloneable
      * <code>
      * PostalCode postalCode = new PostalCode();
      * this.setPostalCode(postalCode); </code>
-     * 
-     * 
+     *
+     * @return the postal code
      */
     public PostalCode createAndSetPostalCode() {
         PostalCode newValue = new PostalCode();
@@ -514,21 +527,18 @@ public class AdministrativeArea implements Cloneable
      * Sets the value of the addressLine property Objects of the following type(s) are allowed in the list List<AddressLine>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAddressLine} instead.
-     * 
-     * 
-     * @param addressLine
+     *
+     * @param addressLine the new address line
      */
     public void setAddressLine(final List<AddressLine> addressLine) {
         this.addressLine = addressLine;
     }
 
     /**
-     * add a value to the addressLine property collection
-     * 
-     * @param addressLine
-     *     Objects of the following type are allowed in the list: {@link AddressLine}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the addressLine property collection.
+     *
+     * @param addressLine     Objects of the following type are allowed in the list: {@link AddressLine}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public AdministrativeArea addToAddressLine(final AddressLine addressLine) {
         this.getAddressLine().add(addressLine);
@@ -539,21 +549,18 @@ public class AdministrativeArea implements Cloneable
      * Sets the value of the administrativeAreaName property Objects of the following type(s) are allowed in the list List<AdministrativeAreaName>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAdministrativeAreaName} instead.
-     * 
-     * 
-     * @param administrativeAreaName
+     *
+     * @param administrativeAreaName the new administrative area name
      */
     public void setAdministrativeAreaName(final List<AdministrativeArea.AdministrativeAreaName> administrativeAreaName) {
         this.administrativeAreaName = administrativeAreaName;
     }
 
     /**
-     * add a value to the administrativeAreaName property collection
-     * 
-     * @param administrativeAreaName
-     *     Objects of the following type are allowed in the list: {@link AdministrativeArea.AdministrativeAreaName}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the administrativeAreaName property collection.
+     *
+     * @param administrativeAreaName     Objects of the following type are allowed in the list: {@link AdministrativeArea.AdministrativeAreaName}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public AdministrativeArea addToAdministrativeAreaName(final AdministrativeArea.AdministrativeAreaName administrativeAreaName) {
         this.getAdministrativeAreaName().add(administrativeAreaName);
@@ -564,21 +571,18 @@ public class AdministrativeArea implements Cloneable
      * Sets the value of the any property Objects of the following type(s) are allowed in the list List<Object>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAny} instead.
-     * 
-     * 
-     * @param any
+     *
+     * @param any the new any
      */
     public void setAny(final List<Object> any) {
         this.any = any;
     }
 
     /**
-     * add a value to the any property collection
-     * 
-     * @param any
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the any property collection.
+     *
+     * @param any     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public AdministrativeArea addToAny(final Object any) {
         this.getAny().add(any);
@@ -586,11 +590,11 @@ public class AdministrativeArea implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param addressLine     required parameter
+     * @return the administrative area
      * @see #setAddressLine(List<AddressLine>)
-     * 
-     * @param addressLine
-     *     required parameter
      */
     public AdministrativeArea withAddressLine(final List<AddressLine> addressLine) {
         this.setAddressLine(addressLine);
@@ -598,11 +602,11 @@ public class AdministrativeArea implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param administrativeAreaName     required parameter
+     * @return the administrative area
      * @see #setAdministrativeAreaName(List<AdministrativeAreaName>)
-     * 
-     * @param administrativeAreaName
-     *     required parameter
      */
     public AdministrativeArea withAdministrativeAreaName(final List<AdministrativeArea.AdministrativeAreaName> administrativeAreaName) {
         this.setAdministrativeAreaName(administrativeAreaName);
@@ -610,11 +614,11 @@ public class AdministrativeArea implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param subAdministrativeArea     required parameter
+     * @return the administrative area
      * @see #setSubAdministrativeArea(SubAdministrativeArea)
-     * 
-     * @param subAdministrativeArea
-     *     required parameter
      */
     public AdministrativeArea withSubAdministrativeArea(final AdministrativeArea.SubAdministrativeArea subAdministrativeArea) {
         this.setSubAdministrativeArea(subAdministrativeArea);
@@ -622,11 +626,11 @@ public class AdministrativeArea implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param any     required parameter
+     * @return the administrative area
      * @see #setAny(List<Object>)
-     * 
-     * @param any
-     *     required parameter
      */
     public AdministrativeArea withAny(final List<Object> any) {
         this.setAny(any);
@@ -634,11 +638,11 @@ public class AdministrativeArea implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param underscore     required parameter
+     * @return the administrative area
      * @see #setUnderscore(String)
-     * 
-     * @param underscore
-     *     required parameter
      */
     public AdministrativeArea withUnderscore(final String underscore) {
         this.setUnderscore(underscore);
@@ -646,11 +650,11 @@ public class AdministrativeArea implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param usage     required parameter
+     * @return the administrative area
      * @see #setUsage(String)
-     * 
-     * @param usage
-     *     required parameter
      */
     public AdministrativeArea withUsage(final String usage) {
         this.setUsage(usage);
@@ -658,11 +662,11 @@ public class AdministrativeArea implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param indicator     required parameter
+     * @return the administrative area
      * @see #setIndicator(String)
-     * 
-     * @param indicator
-     *     required parameter
      */
     public AdministrativeArea withIndicator(final String indicator) {
         this.setIndicator(indicator);
@@ -698,7 +702,7 @@ public class AdministrativeArea implements Cloneable
 
 
     /**
-     * 
+     * The Class AdministrativeAreaName.
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -708,91 +712,95 @@ public class AdministrativeArea implements Cloneable
     public static class AdministrativeAreaName implements Cloneable
     {
 
+        /** The content. */
         @XmlValue
         protected String content;
+        
+        /** The underscore. */
         @XmlAttribute(name = "Type")
         @XmlSchemaType(name = "anySimpleType")
         protected String underscore;
+        
+        /** The code. */
         @XmlAttribute(name = "Code")
         @XmlSchemaType(name = "anySimpleType")
         protected String code;
+        
+        /** The other attributes. */
         @XmlAnyAttribute
         private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+        /**
+         * Instantiates a new administrative area name.
+         */
         public AdministrativeAreaName() {
             super();
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the content.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getContent() {
             return content;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the content.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setContent(String value) {
             this.content = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the underscore.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getUnderscore() {
             return underscore;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the underscore.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setUnderscore(String value) {
             this.underscore = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the code.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getCode() {
             return code;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the code.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setCode(String value) {
             this.code = value;
         }
 
         /**
-         * 
-         * @return
-         *     always non-null
+         * Gets the other attributes.
+         *
+         * @return     always non-null
          */
         public Map<QName, String> getOtherAttributes() {
             return otherAttributes;
@@ -851,11 +859,11 @@ public class AdministrativeArea implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param content     required parameter
+         * @return the administrative area. administrative area name
          * @see #setContent(String)
-         * 
-         * @param content
-         *     required parameter
          */
         public AdministrativeArea.AdministrativeAreaName withContent(final String content) {
             this.setContent(content);
@@ -863,11 +871,11 @@ public class AdministrativeArea implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param underscore     required parameter
+         * @return the administrative area. administrative area name
          * @see #setUnderscore(String)
-         * 
-         * @param underscore
-         *     required parameter
          */
         public AdministrativeArea.AdministrativeAreaName withUnderscore(final String underscore) {
             this.setUnderscore(underscore);
@@ -875,11 +883,11 @@ public class AdministrativeArea implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param code     required parameter
+         * @return the administrative area. administrative area name
          * @see #setCode(String)
-         * 
-         * @param code
-         *     required parameter
          */
         public AdministrativeArea.AdministrativeAreaName withCode(final String code) {
             this.setCode(code);
@@ -901,7 +909,7 @@ public class AdministrativeArea implements Cloneable
 
 
     /**
-     * 
+     * The Class SubAdministrativeArea.
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -916,39 +924,55 @@ public class AdministrativeArea implements Cloneable
     public static class SubAdministrativeArea implements Cloneable
     {
 
+        /** The address line. */
         @XmlElement(name = "AddressLine")
         protected List<AddressLine> addressLine;
+        
+        /** The sub administrative area name. */
         @XmlElement(name = "SubAdministrativeAreaName")
         protected List<AdministrativeArea.SubAdministrativeArea.SubAdministrativeAreaName> subAdministrativeAreaName;
+        
+        /** The locality. */
         @XmlElement(name = "Locality")
         protected Locality locality;
+        
+        /** The post office. */
         @XmlElement(name = "PostOffice")
         protected PostOffice postOffice;
+        
+        /** The postal code. */
         @XmlElement(name = "PostalCode")
         protected PostalCode postalCode;
+        
+        /** The any. */
         @XmlAnyElement(lax = true)
         protected List<Object> any;
+        
+        /** The underscore. */
         @XmlAttribute(name = "Type")
         @XmlSchemaType(name = "anySimpleType")
         protected String underscore;
+        
+        /** The usage. */
         @XmlAttribute(name = "UsageType")
         @XmlSchemaType(name = "anySimpleType")
         protected String usage;
+        
+        /** The indicator. */
         @XmlAttribute(name = "Indicator")
         @XmlSchemaType(name = "anySimpleType")
         protected String indicator;
+        
+        /** The other attributes. */
         @XmlAnyAttribute
         private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
         /**
-         * Value constructor with only mandatory fields
-         * 
-         * @param postalCode
-         *     required parameter
-         * @param locality
-         *     required parameter
-         * @param postOffice
-         *     required parameter
+         * Value constructor with only mandatory fields.
+         *
+         * @param locality     required parameter
+         * @param postOffice     required parameter
+         * @param postalCode     required parameter
          */
         public SubAdministrativeArea(final Locality locality, final PostOffice postOffice, final PostalCode postalCode) {
             super();
@@ -967,7 +991,9 @@ public class AdministrativeArea implements Cloneable
         }
 
         /**
-         * 
+         * Gets the address line.
+         *
+         * @return the address line
          */
         public List<AddressLine> getAddressLine() {
             if (addressLine == null) {
@@ -977,7 +1003,9 @@ public class AdministrativeArea implements Cloneable
         }
 
         /**
-         * 
+         * Gets the sub administrative area name.
+         *
+         * @return the sub administrative area name
          */
         public List<AdministrativeArea.SubAdministrativeArea.SubAdministrativeAreaName> getSubAdministrativeAreaName() {
             if (subAdministrativeAreaName == null) {
@@ -987,73 +1015,69 @@ public class AdministrativeArea implements Cloneable
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the locality.
+         *
+         * @return     possible object is
          *     {@link Locality}
-         *     
          */
         public Locality getLocality() {
             return locality;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the locality.
+         *
+         * @param value     allowed object is
          *     {@link Locality}
-         *     
          */
         public void setLocality(Locality value) {
             this.locality = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the post office.
+         *
+         * @return     possible object is
          *     {@link PostOffice}
-         *     
          */
         public PostOffice getPostOffice() {
             return postOffice;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the post office.
+         *
+         * @param value     allowed object is
          *     {@link PostOffice}
-         *     
          */
         public void setPostOffice(PostOffice value) {
             this.postOffice = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the postal code.
+         *
+         * @return     possible object is
          *     {@link PostalCode}
-         *     
          */
         public PostalCode getPostalCode() {
             return postalCode;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the postal code.
+         *
+         * @param value     allowed object is
          *     {@link PostalCode}
-         *     
          */
         public void setPostalCode(PostalCode value) {
             this.postalCode = value;
         }
 
         /**
-         * 
+         * Gets the any.
+         *
+         * @return the any
          */
         public List<Object> getAny() {
             if (any == null) {
@@ -1063,75 +1087,69 @@ public class AdministrativeArea implements Cloneable
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the underscore.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getUnderscore() {
             return underscore;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the underscore.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setUnderscore(String value) {
             this.underscore = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the usage.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getUsage() {
             return usage;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the usage.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setUsage(String value) {
             this.usage = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the indicator.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getIndicator() {
             return indicator;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the indicator.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setIndicator(String value) {
             this.indicator = value;
         }
 
         /**
-         * 
-         * @return
-         *     always non-null
+         * Gets the other attributes.
+         *
+         * @return     always non-null
          */
         public Map<QName, String> getOtherAttributes() {
             return otherAttributes;
@@ -1255,8 +1273,8 @@ public class AdministrativeArea implements Cloneable
          * <code>
          * AddressLine addressLine = new AddressLine();
          * this.getAddressLine().add(addressLine); </code>
-         * 
-         * 
+         *
+         * @return the address line
          */
         public AddressLine createAndAddAddressLine() {
             AddressLine newValue = new AddressLine();
@@ -1270,8 +1288,8 @@ public class AdministrativeArea implements Cloneable
          * <code>
          * SubAdministrativeAreaName subAdministrativeAreaName = new SubAdministrativeAreaName();
          * this.getSubAdministrativeAreaName().add(subAdministrativeAreaName); </code>
-         * 
-         * 
+         *
+         * @return the administrative area. sub administrative area. sub administrative area name
          */
         public AdministrativeArea.SubAdministrativeArea.SubAdministrativeAreaName createAndAddSubAdministrativeAreaName() {
             AdministrativeArea.SubAdministrativeArea.SubAdministrativeAreaName newValue = new AdministrativeArea.SubAdministrativeArea.SubAdministrativeAreaName();
@@ -1286,16 +1304,12 @@ public class AdministrativeArea implements Cloneable
          * <code>
          * Locality locality = new Locality();
          * this.setLocality(locality); </code>
-         * 
-         * 
-         * @param postBox
-         *     required parameter
-         * @param postOffice
-         *     required parameter
-         * @param postalRoute
-         *     required parameter
-         * @param largeMailUser
-         *     required parameter
+         *
+         * @param postBox     required parameter
+         * @param largeMailUser     required parameter
+         * @param postOffice     required parameter
+         * @param postalRoute     required parameter
+         * @return the locality
          */
         public Locality createAndSetLocality(final PostBox postBox, final LargeMailUser largeMailUser, final PostOffice postOffice, final PostalRoute postalRoute) {
             Locality newValue = new Locality(postBox, largeMailUser, postOffice, postalRoute);
@@ -1310,8 +1324,8 @@ public class AdministrativeArea implements Cloneable
          * <code>
          * PostOffice postOffice = new PostOffice();
          * this.setPostOffice(postOffice); </code>
-         * 
-         * 
+         *
+         * @return the post office
          */
         public PostOffice createAndSetPostOffice() {
             PostOffice newValue = new PostOffice();
@@ -1326,8 +1340,8 @@ public class AdministrativeArea implements Cloneable
          * <code>
          * PostalCode postalCode = new PostalCode();
          * this.setPostalCode(postalCode); </code>
-         * 
-         * 
+         *
+         * @return the postal code
          */
         public PostalCode createAndSetPostalCode() {
             PostalCode newValue = new PostalCode();
@@ -1339,21 +1353,18 @@ public class AdministrativeArea implements Cloneable
          * Sets the value of the addressLine property Objects of the following type(s) are allowed in the list List<AddressLine>.
          * <p>Note:
          * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAddressLine} instead.
-         * 
-         * 
-         * @param addressLine
+         *
+         * @param addressLine the new address line
          */
         public void setAddressLine(final List<AddressLine> addressLine) {
             this.addressLine = addressLine;
         }
 
         /**
-         * add a value to the addressLine property collection
-         * 
-         * @param addressLine
-         *     Objects of the following type are allowed in the list: {@link AddressLine}
-         * @return
-         *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+         * add a value to the addressLine property collection.
+         *
+         * @param addressLine     Objects of the following type are allowed in the list: {@link AddressLine}
+         * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
          */
         public AdministrativeArea.SubAdministrativeArea addToAddressLine(final AddressLine addressLine) {
             this.getAddressLine().add(addressLine);
@@ -1364,21 +1375,18 @@ public class AdministrativeArea implements Cloneable
          * Sets the value of the subAdministrativeAreaName property Objects of the following type(s) are allowed in the list List<SubAdministrativeAreaName>.
          * <p>Note:
          * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withSubAdministrativeAreaName} instead.
-         * 
-         * 
-         * @param subAdministrativeAreaName
+         *
+         * @param subAdministrativeAreaName the new sub administrative area name
          */
         public void setSubAdministrativeAreaName(final List<AdministrativeArea.SubAdministrativeArea.SubAdministrativeAreaName> subAdministrativeAreaName) {
             this.subAdministrativeAreaName = subAdministrativeAreaName;
         }
 
         /**
-         * add a value to the subAdministrativeAreaName property collection
-         * 
-         * @param subAdministrativeAreaName
-         *     Objects of the following type are allowed in the list: {@link AdministrativeArea.SubAdministrativeArea.SubAdministrativeAreaName}
-         * @return
-         *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+         * add a value to the subAdministrativeAreaName property collection.
+         *
+         * @param subAdministrativeAreaName     Objects of the following type are allowed in the list: {@link AdministrativeArea.SubAdministrativeArea.SubAdministrativeAreaName}
+         * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
          */
         public AdministrativeArea.SubAdministrativeArea addToSubAdministrativeAreaName(final AdministrativeArea.SubAdministrativeArea.SubAdministrativeAreaName subAdministrativeAreaName) {
             this.getSubAdministrativeAreaName().add(subAdministrativeAreaName);
@@ -1389,21 +1397,18 @@ public class AdministrativeArea implements Cloneable
          * Sets the value of the any property Objects of the following type(s) are allowed in the list List<Object>.
          * <p>Note:
          * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAny} instead.
-         * 
-         * 
-         * @param any
+         *
+         * @param any the new any
          */
         public void setAny(final List<Object> any) {
             this.any = any;
         }
 
         /**
-         * add a value to the any property collection
-         * 
-         * @param any
-         *     Objects of the following type are allowed in the list: {@link Object}
-         * @return
-         *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+         * add a value to the any property collection.
+         *
+         * @param any     Objects of the following type are allowed in the list: {@link Object}
+         * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
          */
         public AdministrativeArea.SubAdministrativeArea addToAny(final Object any) {
             this.getAny().add(any);
@@ -1411,11 +1416,11 @@ public class AdministrativeArea implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param addressLine     required parameter
+         * @return the administrative area. sub administrative area
          * @see #setAddressLine(List<AddressLine>)
-         * 
-         * @param addressLine
-         *     required parameter
          */
         public AdministrativeArea.SubAdministrativeArea withAddressLine(final List<AddressLine> addressLine) {
             this.setAddressLine(addressLine);
@@ -1423,11 +1428,11 @@ public class AdministrativeArea implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param subAdministrativeAreaName     required parameter
+         * @return the administrative area. sub administrative area
          * @see #setSubAdministrativeAreaName(List<SubAdministrativeAreaName>)
-         * 
-         * @param subAdministrativeAreaName
-         *     required parameter
          */
         public AdministrativeArea.SubAdministrativeArea withSubAdministrativeAreaName(final List<AdministrativeArea.SubAdministrativeArea.SubAdministrativeAreaName> subAdministrativeAreaName) {
             this.setSubAdministrativeAreaName(subAdministrativeAreaName);
@@ -1435,11 +1440,11 @@ public class AdministrativeArea implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param any     required parameter
+         * @return the administrative area. sub administrative area
          * @see #setAny(List<Object>)
-         * 
-         * @param any
-         *     required parameter
          */
         public AdministrativeArea.SubAdministrativeArea withAny(final List<Object> any) {
             this.setAny(any);
@@ -1447,11 +1452,11 @@ public class AdministrativeArea implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param underscore     required parameter
+         * @return the administrative area. sub administrative area
          * @see #setUnderscore(String)
-         * 
-         * @param underscore
-         *     required parameter
          */
         public AdministrativeArea.SubAdministrativeArea withUnderscore(final String underscore) {
             this.setUnderscore(underscore);
@@ -1459,11 +1464,11 @@ public class AdministrativeArea implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param usage     required parameter
+         * @return the administrative area. sub administrative area
          * @see #setUsage(String)
-         * 
-         * @param usage
-         *     required parameter
          */
         public AdministrativeArea.SubAdministrativeArea withUsage(final String usage) {
             this.setUsage(usage);
@@ -1471,11 +1476,11 @@ public class AdministrativeArea implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param indicator     required parameter
+         * @return the administrative area. sub administrative area
          * @see #setIndicator(String)
-         * 
-         * @param indicator
-         *     required parameter
          */
         public AdministrativeArea.SubAdministrativeArea withIndicator(final String indicator) {
             this.setIndicator(indicator);
@@ -1510,7 +1515,7 @@ public class AdministrativeArea implements Cloneable
 
 
         /**
-         * 
+         * The Class SubAdministrativeAreaName.
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -1520,91 +1525,95 @@ public class AdministrativeArea implements Cloneable
         public static class SubAdministrativeAreaName implements Cloneable
         {
 
+            /** The content. */
             @XmlValue
             protected String content;
+            
+            /** The underscore. */
             @XmlAttribute(name = "Type")
             @XmlSchemaType(name = "anySimpleType")
             protected String underscore;
+            
+            /** The code. */
             @XmlAttribute(name = "Code")
             @XmlSchemaType(name = "anySimpleType")
             protected String code;
+            
+            /** The other attributes. */
             @XmlAnyAttribute
             private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+            /**
+             * Instantiates a new sub administrative area name.
+             */
             public SubAdministrativeAreaName() {
                 super();
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the content.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getContent() {
                 return content;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the content.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setContent(String value) {
                 this.content = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the underscore.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getUnderscore() {
                 return underscore;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the underscore.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setUnderscore(String value) {
                 this.underscore = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the code.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getCode() {
                 return code;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the code.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setCode(String value) {
                 this.code = value;
             }
 
             /**
-             * 
-             * @return
-             *     always non-null
+             * Gets the other attributes.
+             *
+             * @return     always non-null
              */
             public Map<QName, String> getOtherAttributes() {
                 return otherAttributes;
@@ -1663,11 +1672,11 @@ public class AdministrativeArea implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param content     required parameter
+             * @return the administrative area. sub administrative area. sub administrative area name
              * @see #setContent(String)
-             * 
-             * @param content
-             *     required parameter
              */
             public AdministrativeArea.SubAdministrativeArea.SubAdministrativeAreaName withContent(final String content) {
                 this.setContent(content);
@@ -1675,11 +1684,11 @@ public class AdministrativeArea implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param underscore     required parameter
+             * @return the administrative area. sub administrative area. sub administrative area name
              * @see #setUnderscore(String)
-             * 
-             * @param underscore
-             *     required parameter
              */
             public AdministrativeArea.SubAdministrativeArea.SubAdministrativeAreaName withUnderscore(final String underscore) {
                 this.setUnderscore(underscore);
@@ -1687,11 +1696,11 @@ public class AdministrativeArea implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param code     required parameter
+             * @return the administrative area. sub administrative area. sub administrative area name
              * @see #setCode(String)
-             * 
-             * @param code
-             *     required parameter
              */
             public AdministrativeArea.SubAdministrativeArea.SubAdministrativeAreaName withCode(final String code) {
                 this.setCode(code);

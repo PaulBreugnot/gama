@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.layers.LightStatement.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * LightStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -38,6 +38,9 @@ import gaml.statements.AspectStatement;
 import gaml.types.IType;
 import gaml.types.Types;
 
+/**
+ * The Class LightStatement.
+ */
 @symbol (
 		name = "light",
 		kind = ISymbolKind.LAYER,
@@ -119,6 +122,9 @@ import gaml.types.Types;
 		see = { IKeyword.DISPLAY })
 public class LightStatement extends AbstractLayerStatement {
 
+	/**
+	 * The Class LightStatementValidator.
+	 */
 	public static class LightStatementValidator implements IDescriptionValidator<IDescription> {
 
 		/**
@@ -176,10 +182,21 @@ public class LightStatement extends AbstractLayerStatement {
 
 	}
 
+	/** The aspect. */
 	AspectStatement aspect;
+	
+	/** The i. */
 	static int i;
+	
+	/** The update. */
 	boolean update = true;
 
+	/**
+	 * Instantiates a new light statement.
+	 *
+	 * @param desc the desc
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public LightStatement(final IDescription desc) throws GamaRuntimeException {
 		super(desc);
 		layerToCreate = false;
@@ -187,6 +204,11 @@ public class LightStatement extends AbstractLayerStatement {
 		aspect = new AspectStatement(d);
 	}
 
+	/**
+	 * Gets the aspect.
+	 *
+	 * @return the aspect
+	 */
 	public AspectStatement getAspect() {
 		return aspect;
 	}
@@ -214,6 +236,11 @@ public class LightStatement extends AbstractLayerStatement {
 		return true;
 	}
 
+	/**
+	 * Sets the light properties.
+	 *
+	 * @param scope the new light properties
+	 */
 	private void setLightProperties(final IScope scope) {
 		final int lightId = Cast.asInt(scope, getFacetValue(scope, IKeyword.ID));
 

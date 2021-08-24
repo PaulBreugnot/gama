@@ -8,14 +8,14 @@
          point="org.eclipse.core.runtime.products">
       <product
             application="gama.core.application.GamaApplication"
-            name="Gama">
+            name="Gama (runtime)">
          <property
                name="windowImages"
                value="branding_icons/icon16.png,branding_icons/icon32.png,branding_icons/icon48.png,branding_icons/icon64.png,branding_icons/icon128.png,branding_icons/icon256.png">
          </property> 
          <property
                name="aboutText"
-               value="GAMA Platform - V1.8.1 http://gama-platform.org&#x0A;&#x0A;(c) 2007-2008 IRD-UR GEODES (France) &amp; IFI-MSI (Vietnam)&#x0A;(c) 2009-2011 UMI 209 UMMISCO IRD/UPMC - MSI (Vietnam)&#x0A;(c) 2012-2017 UMI 209 UMMISCO IRD/UPMC &amp; Partners&#x0A;(c) 2018-2020 UMI 209 UMMISCO IRD/SU &amp; Partners">
+               value="GAMA Platform - V2.0.0 - http://gama-platform.org&#x0A;&#x0A;(c) 2007-2008 IRD-UR GEODES (France) &amp; IFI-MSI (Vietnam)&#x0A;(c) 2009-2011 UMI 209 UMMISCO IRD/UPMC - MSI (Vietnam)&#x0A;(c) 2012-2017 UMI 209 UMMISCO IRD/UPMC &amp; Partners&#x0A;(c) 2018-2021 UMI 209 UMMISCO IRD/SU &amp; Partners">
          </property>
          <property
                name="aboutImage"
@@ -35,7 +35,7 @@
          </property>
          <property
                name="appName"
-               value="Gama">
+               value="Gama (runtime)">
          </property>
          <property
                name="preferenceCustomization"
@@ -98,46 +98,6 @@
             <requires-nature
                   id="gama.core.application.gamaNature">
             </requires-nature>
-         </extension>
-         <extension
-               id="runtime"
-               point="org.eclipse.core.runtime.products">
-            <product
-                  application="gama.core.application.GamaApplication"
-                  name="Gama (runtime)">
-               <property
-                     name="windowImages"
-                     value="branding_icons/icon16.png,branding_icons/icon32.png,branding_icons/icon48.png,branding_icons/icon64.png,branding_icons/icon128.png,branding_icons/icon256.png">
-               </property>
-               <property
-                     name="aboutText"
-                     value="GAMA Platform - V1.8.2 - http://gama-platform.org&#x0A;&#x0A;(c) 2007-2008 IRD-UR GEODES (France) &amp; IFI-MSI (Vietnam)&#x0A;(c) 2009-2011 UMI 209 UMMISCO IRD/UPMC - MSI (Vietnam)&#x0A;(c) 2012-2017 UMI 209 UMMISCO IRD/UPMC &amp; Partners&#x0A;(c) 2018-2021 UMI 209 UMMISCO IRD/SU &amp; Partners">
-               </property>
-               <property
-                     name="aboutImage"
-                     value="branding_icons/icon128.png">
-               </property>
-               <property
-                     name="startupForegroundColor"
-                     value="165E93">
-               </property>
-               <property
-                     name="startupProgressRect"
-                     value="71,515,500,12">
-               </property>
-               <property
-                     name="startupMessageRect"
-                     value="230,490,500,16">
-               </property>
-               <property
-                     name="appName"
-                     value="Gama (runtime)">
-               </property>
-               <property
-                     name="preferenceCustomization"
-                     value="plugin_customization.ini">
-               </property>
-            </product>
          </extension>
          <extension
                id="testNature"

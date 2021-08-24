@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'CSVLabelProvider.java, in plugin ummisco.gama.ui.viewers, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * CSVLabelProvider.java, in gama.ui.viewers, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.viewers.csv;
 
 import java.util.ArrayList;
@@ -26,28 +25,33 @@ import gama.ui.viewers.csv.model.CSVRow;
 import gama.ui.viewers.csv.text.SearchResultStyle;
 
 /**
+ * The Class CSVLabelProvider.
  *
  * @author fhenri
- *
  */
 public class CSVLabelProvider extends StyledCellLabelProvider {
 
 	// implements ITableLabelProvider
 
+	/** The search text. */
 	private String searchText;
+	
+	/** The search color. */
 	private final Color searchColor;
 
 	/**
-	 *
+	 * Instantiates a new CSV label provider.
 	 */
 	public CSVLabelProvider() {
 		searchColor = WorkbenchHelper.getDisplay().getSystemColor(SWT.COLOR_YELLOW);
 	}
 
 	/**
-	 * @param element
-	 * @param columnIndex
-	 * @return
+	 * Gets the column text.
+	 *
+	 * @param element the element
+	 * @param columnIndex the column index
+	 * @return the column text
 	 */
 	public String getColumnText(final Object element, final int columnIndex) {
 		final CSVRow row = (CSVRow) element;
@@ -78,7 +82,9 @@ public class CSVLabelProvider extends StyledCellLabelProvider {
 	public void removeListener(final ILabelProviderListener listener) {}
 
 	/**
-	 * @param searchText
+	 * Sets the search text.
+	 *
+	 * @param searchText the new search text
 	 */
 	public void setSearchText(final String searchText) {
 		this.searchText = searchText;

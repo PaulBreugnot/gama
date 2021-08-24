@@ -1,7 +1,13 @@
-/*
- * Created on Jun 28, 2004
+/*******************************************************************************************************
  *
- */
+ * DXFArc.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf;
 
 import gama.ext.libs.kabeja.dxf.helpers.Point;
@@ -10,21 +16,37 @@ import gama.ext.libs.kabeja.math.ParametricPlane;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class DXFArc.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class DXFArc extends DXFEntity {
+    
+    /** The center. */
     private Point center;
+    
+    /** The radius. */
     private double radius;
+    
+    /** The start angle. */
     private double start_angle;
+    
+    /** The end angle. */
     private double end_angle;
+    
+    /** The counterclockwise. */
     private boolean counterclockwise = false;
 
+    /**
+     * Instantiates a new DXF arc.
+     */
     public DXFArc() {
         center = new Point();
     }
 
     /**
+     * Gets the end angle.
+     *
      * @return Returns the end_angle.
      */
     public double getEndAngle() {
@@ -32,14 +54,17 @@ public class DXFArc extends DXFEntity {
     }
 
     /**
-     * @param end_angle
-     *            The end_angle to set.
+     * Sets the end angle.
+     *
+     * @param end_angle            The end_angle to set.
      */
     public void setEndAngle(double end_angle) {
         this.end_angle = end_angle;
     }
 
     /**
+     * Gets the radius.
+     *
      * @return Returns the radius.
      */
     public double getRadius() {
@@ -47,14 +72,17 @@ public class DXFArc extends DXFEntity {
     }
 
     /**
-     * @param radius
-     *            The radius to set.
+     * Sets the radius.
+     *
+     * @param radius            The radius to set.
      */
     public void setRadius(double radius) {
         this.radius = radius;
     }
 
     /**
+     * Gets the start angle.
+     *
      * @return Returns the start_angle.
      */
     public double getStartAngle() {
@@ -62,8 +90,9 @@ public class DXFArc extends DXFEntity {
     }
 
     /**
-     * @param start_angle
-     *            The start_angle to set.
+     * Sets the start angle.
+     *
+     * @param start_angle            The start_angle to set.
      */
     public void setStartAngle(double start_angle) {
         this.start_angle = start_angle;
@@ -125,16 +154,26 @@ public class DXFArc extends DXFEntity {
         return bounds;
     }
 
+    /**
+     * Sets the center point.
+     *
+     * @param p the new center point
+     */
     public void setCenterPoint(Point p) {
         this.center = p;
     }
 
+    /**
+     * Gets the center point.
+     *
+     * @return the center point
+     */
     public Point getCenterPoint() {
         return center;
     }
 
     /**
-     * Calculate the start point of the arc (defined by the start parameter)
+     * Calculate the start point of the arc (defined by the start parameter).
      *
      * @return the start point
      */
@@ -148,7 +187,7 @@ public class DXFArc extends DXFEntity {
     }
 
     /**
-     * Calculate the end point of the arc (defined by the end parameter)
+     * Calculate the end point of the arc (defined by the end parameter).
      *
      * @return the end point
      */
@@ -162,10 +201,9 @@ public class DXFArc extends DXFEntity {
     }
 
     /**
-     * Calculate a point of the arc
+     * Calculate a point of the arc.
      *
-     * @param angle
-     *            in degree
+     * @param angle            in degree
      * @return Point on the circle
      */
     public Point getPointAt(double angle) {
@@ -194,6 +232,11 @@ public class DXFArc extends DXFEntity {
         return (alpha * Math.PI * this.radius) / 180.0;
     }
 
+    /**
+     * Gets the total angle.
+     *
+     * @return the total angle
+     */
     public double getTotalAngle() {
         if (this.end_angle < this.start_angle) {
             return (360 + this.end_angle) - this.start_angle;
@@ -202,6 +245,11 @@ public class DXFArc extends DXFEntity {
         }
     }
 
+    /**
+     * Gets the chord length.
+     *
+     * @return the chord length
+     */
     public double getChordLength() {
         double s = 2 * this.radius * Math.sin(Math.toRadians(
                     this.getTotalAngle() / 2));
@@ -209,10 +257,20 @@ public class DXFArc extends DXFEntity {
         return s;
     }
 
+    /**
+     * Checks if is counter clockwise.
+     *
+     * @return true, if is counter clockwise
+     */
     public boolean isCounterClockwise() {
         return counterclockwise;
     }
 
+    /**
+     * Sets the counter clockwise.
+     *
+     * @param counterclockwise the new counter clockwise
+     */
     public void setCounterClockwise(boolean counterclockwise) {
         this.counterclockwise = counterclockwise;
     }

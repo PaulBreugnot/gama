@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'ConsoleDisplayerFactory.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the GAMA modeling
- * and simulation platform. (v. 1.8.1)
+ * ConsoleDisplayerFactory.java, in gama.ui.experiment, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.experiment.factories;
 
 import java.util.ConcurrentModificationException;
@@ -27,12 +26,20 @@ import gama.ui.base.utils.WorkbenchHelper;
 import gama.util.GamaColor;
 import gaml.operators.Strings;
 
+/**
+ * A factory for creating ConsoleDisplayer objects.
+ */
 public class ConsoleDisplayerFactory extends AbstractServiceFactory {
 
+	/** The displayer. */
 	IConsoleDisplayer displayer = new ConsoleDisplayer();
 
+	/**
+	 * The Class ConsoleDisplayer.
+	 */
 	class ConsoleDisplayer implements IConsoleDisplayer {
 
+		/** The console buffer. */
 		private final StringBuilder consoleBuffer = new StringBuilder(2000);
 
 		@Override
@@ -55,6 +62,13 @@ public class ConsoleDisplayerFactory extends AbstractServiceFactory {
 			writeToConsole(msg + Strings.LN, root, color);
 		}
 
+		/**
+		 * Write to console.
+		 *
+		 * @param msg the msg
+		 * @param root the root
+		 * @param color the color
+		 */
 		private void writeToConsole(final String msg, final ITopLevelAgent root, final GamaColor color) {
 			IGamaView.Console console = null;
 			try {

@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GamlResource.java, in plugin msi.gama.lang.gaml, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * GamlResource.java, in gama.core.lang, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.core.lang.resource;
 
 import java.io.IOException;
@@ -49,6 +48,9 @@ import gaml.descriptions.ModelDescription;
 import gaml.descriptions.ValidationContext;
 import gaml.factories.ModelFactory;
 
+/**
+ * The Class GamlResource.
+ */
 /*
  *
  * The class GamlResource.
@@ -59,14 +61,29 @@ import gaml.factories.ModelFactory;
  */
 public class GamlResource extends LazyLinkingResource {
 
+	/** The memoize description. */
 	private static boolean MEMOIZE_DESCRIPTION = false;
+	
+	/** The description. */
 	ModelDescription description;
+	
+	/** The element. */
 	ISyntacticElement element;
 
+	/**
+	 * Gets the validation context.
+	 *
+	 * @return the validation context
+	 */
 	public ValidationContext getValidationContext() {
 		return GamlResourceServices.getValidationContext(this);
 	}
 
+	/**
+	 * Checks for semantic errors.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean hasSemanticErrors() {
 		return getValidationContext().hasErrors();
 	}
@@ -81,10 +98,21 @@ public class GamlResource extends LazyLinkingResource {
 		return "GamlResource[" + getURI().lastSegment() + "]";
 	}
 
+	/**
+	 * Update with.
+	 *
+	 * @param model the model
+	 * @param newState the new state
+	 */
 	public void updateWith(final ModelDescription model, final boolean newState) {
 		GamlResourceServices.updateState(getURI(), model, newState, GamlResourceServices.getValidationContext(this));
 	}
 
+	/**
+	 * Gets the syntactic contents.
+	 *
+	 * @return the syntactic contents
+	 */
 	public ISyntacticElement getSyntacticContents() {
 		if (element == null) {
 			setElement(GamlResourceServices.buildSyntacticContents(this));
@@ -92,11 +120,18 @@ public class GamlResource extends LazyLinkingResource {
 		return element;
 	}
 
+	/** The Constant TO_SYNTACTIC_CONTENTS. */
 	private final static Function<GamlResource, ISyntacticElement> TO_SYNTACTIC_CONTENTS = input -> {
 		input.getResourceSet().getResource(input.getURI(), true);
 		return input.getSyntacticContents();
 	};
 
+	/**
+	 * Builds the model description.
+	 *
+	 * @param resources the resources
+	 * @return the model description
+	 */
 	private ModelDescription buildModelDescription(final LinkedHashMultimap<String, GamlResource> resources) {
 
 		// Initializations
@@ -134,6 +169,12 @@ public class GamlResource extends LazyLinkingResource {
 		return f.createModelDescription(projectPath, modelPath, ownImports, context, isEdited, compiledMicroModels);
 	}
 
+	/**
+	 * Invalidate.
+	 *
+	 * @param r the r
+	 * @param s the s
+	 */
 	public void invalidate(final GamlResource r, final String s) {
 		GamlCompilationError error = null;
 		if (GamlResourceIndexer.equals(r.getURI(), getURI())) {
@@ -145,6 +186,11 @@ public class GamlResource extends LazyLinkingResource {
 		updateWith(null, true);
 	}
 
+	/**
+	 * Builds the complete description.
+	 *
+	 * @return the model description
+	 */
 	public ModelDescription buildCompleteDescription() {
 		if (MEMOIZE_DESCRIPTION && description != null) { return description; }
 		final LinkedHashMultimap<String, GamlResource> imports = GamlResourceIndexer.validateImportsOf(this);
@@ -164,13 +210,12 @@ public class GamlResource extends LazyLinkingResource {
 
 	/**
 	 * Validates the resource by compiling its contents into a ModelDescription and discarding this ModelDescription
-	 * afterwards
+	 * afterwards.
 	 *
 	 * @note The errors will be available as part of the ValidationContext, which can later be retrieved from the
 	 *       resource, and which contains semantic errors (as opposed to the ones obtained via resource.getErrors(),
 	 *       which are syntactic errors), This collector can be probed for compilation errors via its hasErrors(),
 	 *       hasInternalErrors(), hasImportedErrors() methods
-	 *
 	 */
 	public void validate() {
 		final ModelDescription model = buildCompleteDescription();
@@ -218,6 +263,11 @@ public class GamlResource extends LazyLinkingResource {
 		setDescription(null);
 	}
 
+	/**
+	 * Sets the description.
+	 *
+	 * @param model the new description
+	 */
 	private void setDescription(final ModelDescription model) {
 		if (!MEMOIZE_DESCRIPTION) { return; }
 		if (model == description) { return; }
@@ -227,6 +277,11 @@ public class GamlResource extends LazyLinkingResource {
 		description = model;
 	}
 
+	/**
+	 * Sets the element.
+	 *
+	 * @param model the new element
+	 */
 	private void setElement(final ISyntacticElement model) {
 		if (model == element) { return; }
 		if (element != null) {
@@ -236,9 +291,11 @@ public class GamlResource extends LazyLinkingResource {
 	}
 
 	/**
-	 * In the case of synthetic resources, pass the URI they depend on
+	 * In the case of synthetic resources, pass the URI they depend on.
 	 *
-	 * @throws IOException
+	 * @param is the is
+	 * @param additionalLinkingContext the additional linking context
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public void loadSynthetic(final InputStream is, final IExecutionContext additionalLinkingContext)
 			throws IOException {
@@ -276,6 +333,11 @@ public class GamlResource extends LazyLinkingResource {
 		super.doLinking();
 	}
 
+	/**
+	 * Checks for errors.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean hasErrors() {
 		return !getErrors().isEmpty() || getParseResult().hasSyntaxErrors();
 	}

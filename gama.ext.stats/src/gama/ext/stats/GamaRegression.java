@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.GamaRegression.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * GamaRegression.java, in gama.ext.stats, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.ext.stats;
 
@@ -28,6 +28,9 @@ import gaml.operators.Cast;
 import gaml.types.IType;
 import gaml.types.Types;
 
+/**
+ * The Class GamaRegression.
+ */
 @vars ({ @variable (
 		name = "parameters",
 		type = IType.LIST,
@@ -39,10 +42,22 @@ import gaml.types.Types;
 				doc = { @doc ("number of variables") }) })
 public class GamaRegression implements IValue {
 
+	/** The regression results. */
 	RegressionResults regressionResults;
+	
+	/** The nb features. */
 	int nbFeatures;
+	
+	/** The param. */
 	double param[];
 
+	/**
+	 * Instantiates a new gama regression.
+	 *
+	 * @param scope the scope
+	 * @param data the data
+	 * @throws Exception the exception
+	 */
 	public GamaRegression(final IScope scope, final GamaMatrix<?> data) throws Exception {
 		final AbstractMultipleLinearRegression regressionMethod = new OLSMultipleLinearRegression();
 		final int nbFeatures = data.numCols - 1;
@@ -57,6 +72,13 @@ public class GamaRegression implements IValue {
 		param = regressionMethod.estimateRegressionParameters();
 	}
 
+	/**
+	 * Instantiates a new gama regression.
+	 *
+	 * @param param the param
+	 * @param nbFeatures the nb features
+	 * @param regressionResults the regression results
+	 */
 	public GamaRegression(final double[] param, final int nbFeatures, final RegressionResults regressionResults) {
 		super();
 		this.regressionResults = regressionResults;
@@ -64,6 +86,13 @@ public class GamaRegression implements IValue {
 		this.param = param;
 	}
 
+	/**
+	 * Predict.
+	 *
+	 * @param scope the scope
+	 * @param instance the instance
+	 * @return the double
+	 */
 	public Double predict(final IScope scope, final IList<?> instance) {
 		if (param == null) { return null; }
 		double val = param[0];
@@ -73,6 +102,11 @@ public class GamaRegression implements IValue {
 		return val;
 	}
 
+	/**
+	 * Gets the parameters.
+	 *
+	 * @return the parameters
+	 */
 	@getter ("parameters")
 	public IList<Double> getParameters() {
 		if (param == null) { return GamaListFactory.create(Types.FLOAT); }
@@ -83,6 +117,11 @@ public class GamaRegression implements IValue {
 		return vals;
 	}
 
+	/**
+	 * Gets the nb features.
+	 *
+	 * @return the nb features
+	 */
 	@getter ("nb_features")
 	public Integer getNbFeatures() {
 		return nbFeatures;

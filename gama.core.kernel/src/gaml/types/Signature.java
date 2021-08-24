@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gaml.types.Signature.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * Signature.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -15,20 +15,40 @@ import java.util.Arrays;
 import gaml.descriptions.IDescription;
 import gaml.expressions.IExpression;
 
+/**
+ * The Class Signature.
+ */
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 
 public class Signature {
 
+	/** The list. */
 	final IType[] list;
 
+	/**
+	 * Var arg from.
+	 *
+	 * @param sig the sig
+	 * @return the signature
+	 */
 	public static Signature varArgFrom(final Signature sig) {
 		return new Signature(Types.LIST.of(GamaType.findCommonType(sig.list)));
 	}
 
+	/**
+	 * Instantiates a new signature.
+	 *
+	 * @param types the types
+	 */
 	public Signature(final IType... types) {
 		list = types;
 	}
 
+	/**
+	 * Instantiates a new signature.
+	 *
+	 * @param types the types
+	 */
 	public Signature(final int[] types) {
 		list = new IType[types.length];
 		for (int i = 0; i < list.length; i++) {
@@ -36,6 +56,11 @@ public class Signature {
 		}
 	}
 
+	/**
+	 * Instantiates a new signature.
+	 *
+	 * @param objects the objects
+	 */
 	public Signature(final IExpression... objects) {
 		list = new IType[objects.length];
 		for (int i = 0; i < list.length; i++) {
@@ -44,6 +69,11 @@ public class Signature {
 		}
 	}
 
+	/**
+	 * Instantiates a new signature.
+	 *
+	 * @param objects the objects
+	 */
 	public Signature(final Class... objects) {
 		list = new IType[objects.length];
 		for (int i = 0; i < list.length; i++) {
@@ -51,6 +81,11 @@ public class Signature {
 		}
 	}
 
+	/**
+	 * Simplified.
+	 *
+	 * @return the signature
+	 */
 	public Signature simplified() {
 		// returns a signature that does not contain any parametric types
 		final IType[] copy = Arrays.copyOf(list, list.length);
@@ -60,6 +95,12 @@ public class Signature {
 		return new Signature(copy);
 	}
 
+	/**
+	 * Matches desired signature.
+	 *
+	 * @param types the types
+	 * @return true, if successful
+	 */
 	public boolean matchesDesiredSignature(final IType... types) {
 		if (types.length != list.length) { return false; }
 		for (int i = 0; i < list.length; i++) {
@@ -82,10 +123,22 @@ public class Signature {
 	// return true;
 	// }
 
+	/**
+	 * Matches desired signature.
+	 *
+	 * @param types the types
+	 * @return true, if successful
+	 */
 	public boolean matchesDesiredSignature(final Signature types) {
 		return matchesDesiredSignature(types.list);
 	}
 
+	/**
+	 * Distance to.
+	 *
+	 * @param types the types
+	 * @return the int
+	 */
 	public int distanceTo(final IType... types) {
 		if (types.length != list.length) { return Integer.MAX_VALUE; }
 		// int dist = 0;
@@ -114,10 +167,22 @@ public class Signature {
 		return min + max;
 	}
 
+	/**
+	 * Distance to.
+	 *
+	 * @param types the types
+	 * @return the int
+	 */
 	public int distanceTo(final Signature types) {
 		return distanceTo(types.list);
 	}
 
+	/**
+	 * Equals.
+	 *
+	 * @param p the p
+	 * @return true, if successful
+	 */
 	public boolean equals(final Signature p) {
 		if (p.list.length != list.length) { return false; }
 		for (int i = 0; i < list.length; i++) {
@@ -152,10 +217,23 @@ public class Signature {
 		return s;
 	}
 
+	/**
+	 * Gets the.
+	 *
+	 * @param i the i
+	 * @return the i type
+	 */
 	public IType get(final int i) {
 		return list[i];
 	}
 
+	/**
+	 * Coerce.
+	 *
+	 * @param originalSignature the original signature
+	 * @param context the context
+	 * @return the i type[]
+	 */
 	public IType[] coerce(final Signature originalSignature, final IDescription context) {
 		final IType[] result = new IType[list.length];
 		for (int i = 0; i < list.length; i++) {
@@ -165,21 +243,28 @@ public class Signature {
 	}
 
 	/**
-	 * @return
+	 * Checks if is unary.
+	 *
+	 * @return true, if is unary
 	 */
 	public boolean isUnary() {
 		return list.length == 1;
 	}
 
 	/**
-	 * @return
+	 * Size.
+	 *
+	 * @return the int
 	 */
 	public int size() {
 		return list.length;
 	}
 
 	/**
-	 * @return
+	 * As pattern.
+	 *
+	 * @param withVariables the with variables
+	 * @return the string
 	 */
 	public String asPattern(final boolean withVariables) {
 		final StringBuilder sb = new StringBuilder();

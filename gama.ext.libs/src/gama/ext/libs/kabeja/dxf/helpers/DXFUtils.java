@@ -1,18 +1,13 @@
-/*
- Copyright 2005 Simon Mieth
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+/*******************************************************************************************************
+ *
+ * DXFUtils.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf.helpers;
 
 import java.util.ArrayList;
@@ -24,17 +19,26 @@ import gama.ext.libs.kabeja.math.MathUtils;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class DXFUtils.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class DXFUtils {
+    
     /**
-     *
+     * Instantiates a new DXF utils.
      */
     public DXFUtils() {
         super();
     }
 
+    /**
+     * Distance.
+     *
+     * @param start the start
+     * @param end the end
+     * @return the double
+     */
     public static double distance(Point start, Point end) {
         double length;
         length = Math.sqrt(Math.pow((end.getX() - start.getX()), 2) +
@@ -43,6 +47,13 @@ public class DXFUtils {
         return length;
     }
 
+    /**
+     * Rotate angle X.
+     *
+     * @param start the start
+     * @param end the end
+     * @return the double
+     */
     public static double rotateAngleX(Point start, Point end) {
         if (end.getY() == start.getY()) {
             return 0.0;
@@ -54,6 +65,12 @@ public class DXFUtils {
         return Math.toDegrees(Math.atan(1 / (dy / dx)));
     }
 
+    /**
+     * Vector value.
+     *
+     * @param x the x
+     * @return the double
+     */
     public static double vectorValue(double[] x) {
         double v = 0.0;
 
@@ -64,6 +81,13 @@ public class DXFUtils {
         return Math.sqrt(v);
     }
 
+    /**
+     * Scale point.
+     *
+     * @param p the p
+     * @param scale the scale
+     * @return the point
+     */
     public static Point scalePoint(Point p, double scale) {
         Point r = new Point();
         r.setX(p.getX() * scale);
@@ -73,6 +97,14 @@ public class DXFUtils {
         return r;
     }
 
+    /**
+     * Gets the point from parameterized line.
+     *
+     * @param basePoint the base point
+     * @param direction the direction
+     * @param parameter the parameter
+     * @return the point from parameterized line
+     */
     public static Point getPointFromParameterizedLine(Point basePoint,
         Vector direction, double parameter) {
         Point r = scalePoint(direction, parameter);
@@ -84,12 +116,22 @@ public class DXFUtils {
         return r;
     }
 
+    /**
+     * Reverse DXF line.
+     *
+     * @param line the line
+     */
     public static void reverseDXFLine(DXFLine line) {
         Point start = line.getStartPoint();
         line.setStartPoint(line.getEndPoint());
         line.setEndPoint(start);
     }
 
+    /**
+     * Reverse DXF polyline.
+     *
+     * @param pline the pline
+     */
     public static void reverseDXFPolyline(DXFPolyline pline) {
         ArrayList list = new ArrayList();
         double bulge = 0;
@@ -120,6 +162,13 @@ public class DXFUtils {
         }
     }
 
+    /**
+     * Gets the arc radius.
+     *
+     * @param start the start
+     * @param end the end
+     * @return the arc radius
+     */
     public static double getArcRadius(DXFVertex start, DXFVertex end) {
         double alpha = 4 * Math.atan(Math.abs(start.getBulge()));
         double l = MathUtils.distance(start.getPoint(), end.getPoint());
@@ -132,10 +181,10 @@ public class DXFUtils {
      * Tests if the two points are the same for a given radius. In other words
      * the distance between the two points is lower then the radius.
      *
-     * @param p1
-     * @param p2
-     * @param radius
-     * @return
+     * @param p1 the p 1
+     * @param p2 the p 2
+     * @param radius the radius
+     * @return true, if successful
      */
     public static boolean equals(Point p1, Point p2, double radius) {
         return distance(p1, p2) < radius;

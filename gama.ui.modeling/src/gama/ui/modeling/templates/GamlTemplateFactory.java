@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GamlTemplateFactory.java, in plugin ummisco.gama.ui.modeling, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * GamlTemplateFactory.java, in gama.ui.modeling, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.modeling.templates;
 
 import java.util.Collections;
@@ -47,14 +46,31 @@ import gaml.types.Types;
 @SuppressWarnings ("deprecation")
 public class GamlTemplateFactory {
 
+	/**
+	 * Gets the context name.
+	 *
+	 * @return the context name
+	 */
 	public static String getContextName() {
 		return "Model";
 	}
 
+	/**
+	 * Gets the context id.
+	 *
+	 * @return the context id
+	 */
 	public static String getContextId() {
 		return "gama.core.lang.Gaml.Model";
 	}
 
+	/**
+	 * From.
+	 *
+	 * @param u the u
+	 * @param sp the sp
+	 * @return the template persistence data
+	 */
 	public static TemplatePersistenceData from(final usage u, final AbstractProto sp) {
 		boolean isExample = false;
 		String name = u.name();
@@ -99,13 +115,30 @@ public class GamlTemplateFactory {
 
 	}
 
+	/** The begin comment. */
 	static String beginComment = "/**" + Strings.LN;
+	
+	/** The end comment. */
 	static String endComment = "*/" + Strings.LN;
+	
+	/** The comment line. */
 	static String commentLine = Strings.LN + "* " + Strings.TAB + Strings.TAB;
+	
+	/** The inherited attributes. */
 	static String inheritedAttributes = "* Inherited attributes:";
+	
+	/** The inherited actions. */
 	static String inheritedActions = "* Inherited actions:";
+	
+	/** The available behaviors. */
 	static String availableBehaviors = "* Available behaviors:";
 
+	/**
+	 * Body.
+	 *
+	 * @param body the body
+	 * @return the string
+	 */
 	private static String body(final String body) {
 		final StringBuilder sb = new StringBuilder(200);
 		sb.append(" {").append(Strings.LN);
@@ -115,6 +148,13 @@ public class GamlTemplateFactory {
 		return sb.toString();
 	}
 
+	/**
+	 * Dump.
+	 *
+	 * @param title the title
+	 * @param descs the descs
+	 * @param sb the sb
+	 */
 	private static void dump(final String title, final Iterable<? extends INamed> descs, final StringBuilder sb) {
 		if (!Iterables.isEmpty(descs)) {
 			final List<INamed> named = Lists.newArrayList(descs);
@@ -127,6 +167,12 @@ public class GamlTemplateFactory {
 		}
 	}
 
+	/**
+	 * Species with skill.
+	 *
+	 * @param skill the skill
+	 * @return the template
+	 */
 	public static Template speciesWithSkill(final String skill) {
 		final StringBuilder comment = new StringBuilder(200);
 		comment.append(beginComment);
@@ -138,11 +184,23 @@ public class GamlTemplateFactory {
 				"species ${species_name} skills: [" + skill + "]" + body(comment.toString()), true);
 	}
 
+	/**
+	 * Attribute with type.
+	 *
+	 * @param type the type
+	 * @return the template
+	 */
 	public static Template attributeWithType(final String type) {
 		return new Template("An attribute of type " + type, "Defines an attribute of type " + type, getContextId(),
 				type + " " + Types.get(type).asPattern() + " <- ${initial_value};", true);
 	}
 
+	/**
+	 * Species with control.
+	 *
+	 * @param skill the skill
+	 * @return the template
+	 */
 	public static Template speciesWithControl(final String skill) {
 		// Collection<SymbolProto> controls =
 		// AbstractGamlAdditions.getStatementsForSkill(skill);
@@ -157,6 +215,12 @@ public class GamlTemplateFactory {
 				"species ${species_name} control: " + skill + body(comment.toString()), true);
 	}
 
+	/**
+	 * Species with parent.
+	 *
+	 * @param species the species
+	 * @return the template
+	 */
 	public static Template speciesWithParent(final TypeDescription species) {
 		final String name = species.getName();
 		final StringBuilder comment = new StringBuilder(200);
@@ -169,6 +233,12 @@ public class GamlTemplateFactory {
 				"species ${species_name} parent: " + name + body(comment.toString()), true);
 	}
 
+	/**
+	 * Call to action.
+	 *
+	 * @param sd the sd
+	 * @return the template
+	 */
 	public static Template callToAction(final StatementDescription sd) {
 		final String name = sd.getName();
 		final Iterable<IDescription> args = sd.getFormalArgs();
@@ -185,8 +255,10 @@ public class GamlTemplateFactory {
 	}
 
 	/**
-	 * @param proto
-	 * @return
+	 * From.
+	 *
+	 * @param proto the proto
+	 * @return the template
 	 */
 	public static Template from(final OperatorProto proto) {
 		String description = proto.getMainDoc();

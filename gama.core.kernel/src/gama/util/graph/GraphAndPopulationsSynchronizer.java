@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.graph.GraphAndPopulationsSynchronizer.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * GraphAndPopulationsSynchronizer.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -41,8 +41,13 @@ import gaml.types.GamaGeometryType;
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class GraphAndPopulationsSynchronizer implements IPopulation.Listener, IGraphEventListener {
 
+	/** The pop vertices. */
 	private final IPopulation popVertices;
+	
+	/** The pop edges. */
 	private final IPopulation popEdges;
+	
+	/** The graph. */
 	private final IGraph graph;
 
 	/**
@@ -50,12 +55,22 @@ public class GraphAndPopulationsSynchronizer implements IPopulation.Listener, IG
 	 * populations
 	 */
 	private Object currentEventVertex = null;
+	
+	/** The current event edge. */
 	private Object currentEventEdge = null;
 
 	// private boolean ignoreNextEvent = false;
 
+	/** The initial values. */
 	private final List<Map> initialValues = Collections.EMPTY_LIST;
 
+	/**
+	 * Instantiates a new graph and populations synchronizer.
+	 *
+	 * @param popVertices the pop vertices
+	 * @param popEdges the pop edges
+	 * @param graph the graph
+	 */
 	public GraphAndPopulationsSynchronizer(final IPopulation popVertices, final IPopulation popEdges,
 			final IGraph graph) {
 		this.popVertices = popVertices;
@@ -244,11 +259,12 @@ public class GraphAndPopulationsSynchronizer implements IPopulation.Listener, IG
 	}
 
 	/**
-	 * Creates a synchronizer which listens for a population of vertices and updates the graph accordingly
-	 * 
-	 * @param popVertices
-	 * @param graph
-	 * @return
+	 * Creates a synchronizer which listens for a population of vertices and updates the graph accordingly.
+	 *
+	 * @param popVertices the pop vertices
+	 * @param popEdges the pop edges
+	 * @param graph the graph
+	 * @return the graph and populations synchronizer
 	 */
 	public static GraphAndPopulationsSynchronizer synchronize(final IPopulation popVertices, final IPopulation popEdges,
 			final IGraph graph) {

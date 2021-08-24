@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Geometry.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -105,13 +115,18 @@ public abstract class Geometry
     @XmlElement(name = "AbstractGeometryObjectExtensionGroup")
     protected List<AbstractObject> geometryObjectExtension;
 
+    /**
+     * Instantiates a new geometry.
+     */
     public Geometry() {
         super();
     }
 
     /**
+     * Gets the geometry simple extension.
+     *
+     * @return the geometry simple extension
      * @see geometrySimpleExtension
-     * 
      */
     public List<Object> getGeometrySimpleExtension() {
         if (geometrySimpleExtension == null) {
@@ -121,8 +136,10 @@ public abstract class Geometry
     }
 
     /**
+     * Gets the geometry object extension.
+     *
+     * @return the geometry object extension
      * @see geometryObjectExtension
-     * 
      */
     public List<AbstractObject> getGeometryObjectExtension() {
         if (geometryObjectExtension == null) {
@@ -177,21 +194,20 @@ public abstract class Geometry
     }
 
     /**
+     * Sets the geometry simple extension.
+     *
+     * @param geometrySimpleExtension the new geometry simple extension
      * @see geometrySimpleExtension
-     * 
-     * @param geometrySimpleExtension
      */
     public void setGeometrySimpleExtension(final List<Object> geometrySimpleExtension) {
         this.geometrySimpleExtension = geometrySimpleExtension;
     }
 
     /**
-     * add a value to the geometrySimpleExtension property collection
-     * 
-     * @param geometrySimpleExtension
-     *     Objects of the following type are allowed in the list: {@code <}{@link Object}{@code>}{@link JAXBElement}{@code <}{@link BigInteger}{@code>}{@link JAXBElement}{@code <}{@link Double}{@code>}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the geometrySimpleExtension property collection.
+     *
+     * @param geometrySimpleExtension     Objects of the following type are allowed in the list: {@code <}{@link Object}{@code>}{@link JAXBElement}{@code <}{@link BigInteger}{@code>}{@link JAXBElement}{@code <}{@link Double}{@code>}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Geometry addToGeometrySimpleExtension(final Object geometrySimpleExtension) {
         this.getGeometrySimpleExtension().add(geometrySimpleExtension);
@@ -199,21 +215,20 @@ public abstract class Geometry
     }
 
     /**
+     * Sets the geometry object extension.
+     *
+     * @param geometryObjectExtension the new geometry object extension
      * @see geometryObjectExtension
-     * 
-     * @param geometryObjectExtension
      */
     public void setGeometryObjectExtension(final List<AbstractObject> geometryObjectExtension) {
         this.geometryObjectExtension = geometryObjectExtension;
     }
 
     /**
-     * add a value to the geometryObjectExtension property collection
-     * 
-     * @param geometryObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the geometryObjectExtension property collection.
+     *
+     * @param geometryObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Geometry addToGeometryObjectExtension(final AbstractObject geometryObjectExtension) {
         this.getGeometryObjectExtension().add(geometryObjectExtension);
@@ -238,11 +253,11 @@ public abstract class Geometry
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param geometrySimpleExtension     required parameter
+     * @return the geometry
      * @see #setGeometrySimpleExtension(List<Object>)
-     * 
-     * @param geometrySimpleExtension
-     *     required parameter
      */
     public Geometry withGeometrySimpleExtension(final List<Object> geometrySimpleExtension) {
         this.setGeometrySimpleExtension(geometrySimpleExtension);
@@ -250,11 +265,11 @@ public abstract class Geometry
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param geometryObjectExtension     required parameter
+     * @return the geometry
      * @see #setGeometryObjectExtension(List<AbstractObject>)
-     * 
-     * @param geometryObjectExtension
-     *     required parameter
      */
     public Geometry withGeometryObjectExtension(final List<AbstractObject> geometryObjectExtension) {
         this.setGeometryObjectExtension(geometryObjectExtension);

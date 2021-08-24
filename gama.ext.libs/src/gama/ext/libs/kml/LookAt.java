@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * LookAt.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -186,20 +196,12 @@ public class LookAt
      */
     @XmlElement(defaultValue = "0.0")
     protected double range;
-    /**
-     * AltitudeMode
-     * <p>
-     * clampToGround, relativeToGround, absolute 
-     * </p>
-     * 
-     * See Also: 
-     * See <LookAt> and <Region>
-     * 
-     * 
-     * 
-     */
+    
+    /** AltitudeMode <p> clampToGround, relativeToGround, absolute  </p>  See Also:  See <LookAt> and <Region>. */
     @XmlElement(defaultValue = "clampToGround")
     protected AltitudeMode altitudeMode;
+    
+    /** The look at simple extension. */
     @XmlElement(name = "LookAtSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> lookAtSimpleExtension;
@@ -224,185 +226,176 @@ public class LookAt
     @XmlElement(name = "LookAtObjectExtensionGroup")
     protected List<AbstractObject> lookAtObjectExtension;
 
+    /**
+     * Instantiates a new look at.
+     */
     public LookAt() {
         super();
     }
 
     /**
-     * @see longitude
-     * 
-     * @return
-     *     possible object is
+     * Gets the longitude.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see longitude
      */
     public double getLongitude() {
         return longitude;
     }
 
     /**
-     * @see longitude
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the longitude.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see longitude
      */
     public void setLongitude(double value) {
         this.longitude = value;
     }
 
     /**
-     * @see latitude
-     * 
-     * @return
-     *     possible object is
+     * Gets the latitude.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see latitude
      */
     public double getLatitude() {
         return latitude;
     }
 
     /**
-     * @see latitude
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the latitude.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see latitude
      */
     public void setLatitude(double value) {
         this.latitude = value;
     }
 
     /**
-     * @see altitude
-     * 
-     * @return
-     *     possible object is
+     * Gets the altitude.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see altitude
      */
     public double getAltitude() {
         return altitude;
     }
 
     /**
-     * @see altitude
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the altitude.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see altitude
      */
     public void setAltitude(double value) {
         this.altitude = value;
     }
 
     /**
-     * @see heading
-     * 
-     * @return
-     *     possible object is
+     * Gets the heading.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see heading
      */
     public double getHeading() {
         return heading;
     }
 
     /**
-     * @see heading
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the heading.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see heading
      */
     public void setHeading(double value) {
         this.heading = value;
     }
 
     /**
-     * @see tilt
-     * 
-     * @return
-     *     possible object is
+     * Gets the tilt.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see tilt
      */
     public double getTilt() {
         return tilt;
     }
 
     /**
-     * @see tilt
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the tilt.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see tilt
      */
     public void setTilt(double value) {
         this.tilt = value;
     }
 
     /**
-     * @see range
-     * 
-     * @return
-     *     possible object is
+     * Gets the range.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see range
      */
     public double getRange() {
         return range;
     }
 
     /**
-     * @see range
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the range.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see range
      */
     public void setRange(double value) {
         this.range = value;
     }
 
     /**
-     * @see altitudeMode
-     * 
-     * @return
-     *     possible object is
+     * Gets the altitude mode.
+     *
+     * @return     possible object is
      *     {@code <}{@link Object}{@code>}
      *     {@code <}{@link gama.ext.libs.kml.AltitudeMode}{@code>}
      *     {@code <}{@link msi.gama.ext.kml.gx.AltitudeMode}{@code>}
-     *     
+     * @see altitudeMode
      */
     public AltitudeMode getAltitudeMode() {
         return altitudeMode;
     }
 
     /**
-     * @see altitudeMode
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the altitude mode.
+     *
+     * @param value     allowed object is
      *     {@code <}{@link Object}{@code>}
      *     {@code <}{@link gama.ext.libs.kml.AltitudeMode}{@code>}
      *     {@code <}{@link msi.gama.ext.kml.gx.AltitudeMode}{@code>}
-     *     
+     * @see altitudeMode
      */
     public void setAltitudeMode(AltitudeMode value) {
         this.altitudeMode = value;
     }
 
     /**
+     * Gets the look at simple extension.
+     *
+     * @return the look at simple extension
      * @see lookAtSimpleExtension
-     * 
      */
     public List<Object> getLookAtSimpleExtension() {
         if (lookAtSimpleExtension == null) {
@@ -412,8 +405,10 @@ public class LookAt
     }
 
     /**
+     * Gets the look at object extension.
+     *
+     * @return the look at object extension
      * @see lookAtObjectExtension
-     * 
      */
     public List<AbstractObject> getLookAtObjectExtension() {
         if (lookAtObjectExtension == null) {
@@ -509,21 +504,20 @@ public class LookAt
     }
 
     /**
+     * Sets the look at simple extension.
+     *
+     * @param lookAtSimpleExtension the new look at simple extension
      * @see lookAtSimpleExtension
-     * 
-     * @param lookAtSimpleExtension
      */
     public void setLookAtSimpleExtension(final List<Object> lookAtSimpleExtension) {
         this.lookAtSimpleExtension = lookAtSimpleExtension;
     }
 
     /**
-     * add a value to the lookAtSimpleExtension property collection
-     * 
-     * @param lookAtSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the lookAtSimpleExtension property collection.
+     *
+     * @param lookAtSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LookAt addToLookAtSimpleExtension(final Object lookAtSimpleExtension) {
         this.getLookAtSimpleExtension().add(lookAtSimpleExtension);
@@ -531,21 +525,20 @@ public class LookAt
     }
 
     /**
+     * Sets the look at object extension.
+     *
+     * @param lookAtObjectExtension the new look at object extension
      * @see lookAtObjectExtension
-     * 
-     * @param lookAtObjectExtension
      */
     public void setLookAtObjectExtension(final List<AbstractObject> lookAtObjectExtension) {
         this.lookAtObjectExtension = lookAtObjectExtension;
     }
 
     /**
-     * add a value to the lookAtObjectExtension property collection
-     * 
-     * @param lookAtObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the lookAtObjectExtension property collection.
+     *
+     * @param lookAtObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LookAt addToLookAtObjectExtension(final AbstractObject lookAtObjectExtension) {
         this.getLookAtObjectExtension().add(lookAtObjectExtension);
@@ -604,11 +597,11 @@ public class LookAt
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param longitude     required parameter
+     * @return the look at
      * @see #setLongitude(double)
-     * 
-     * @param longitude
-     *     required parameter
      */
     public LookAt withLongitude(final double longitude) {
         this.setLongitude(longitude);
@@ -616,11 +609,11 @@ public class LookAt
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param latitude     required parameter
+     * @return the look at
      * @see #setLatitude(double)
-     * 
-     * @param latitude
-     *     required parameter
      */
     public LookAt withLatitude(final double latitude) {
         this.setLatitude(latitude);
@@ -628,11 +621,11 @@ public class LookAt
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param altitude     required parameter
+     * @return the look at
      * @see #setAltitude(double)
-     * 
-     * @param altitude
-     *     required parameter
      */
     public LookAt withAltitude(final double altitude) {
         this.setAltitude(altitude);
@@ -640,11 +633,11 @@ public class LookAt
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param heading     required parameter
+     * @return the look at
      * @see #setHeading(double)
-     * 
-     * @param heading
-     *     required parameter
      */
     public LookAt withHeading(final double heading) {
         this.setHeading(heading);
@@ -652,11 +645,11 @@ public class LookAt
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param tilt     required parameter
+     * @return the look at
      * @see #setTilt(double)
-     * 
-     * @param tilt
-     *     required parameter
      */
     public LookAt withTilt(final double tilt) {
         this.setTilt(tilt);
@@ -664,11 +657,11 @@ public class LookAt
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param range     required parameter
+     * @return the look at
      * @see #setRange(double)
-     * 
-     * @param range
-     *     required parameter
      */
     public LookAt withRange(final double range) {
         this.setRange(range);
@@ -676,11 +669,11 @@ public class LookAt
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param altitudeMode     required parameter
+     * @return the look at
      * @see #setAltitudeMode(Object)
-     * 
-     * @param altitudeMode
-     *     required parameter
      */
     public LookAt withAltitudeMode(final  AltitudeMode altitudeMode) {
         this.setAltitudeMode(altitudeMode);
@@ -688,11 +681,11 @@ public class LookAt
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param lookAtSimpleExtension     required parameter
+     * @return the look at
      * @see #setLookAtSimpleExtension(List<Object>)
-     * 
-     * @param lookAtSimpleExtension
-     *     required parameter
      */
     public LookAt withLookAtSimpleExtension(final List<Object> lookAtSimpleExtension) {
         this.setLookAtSimpleExtension(lookAtSimpleExtension);
@@ -700,11 +693,11 @@ public class LookAt
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param lookAtObjectExtension     required parameter
+     * @return the look at
      * @see #setLookAtObjectExtension(List<AbstractObject>)
-     * 
-     * @param lookAtObjectExtension
-     *     required parameter
      */
     public LookAt withLookAtObjectExtension(final List<AbstractObject> lookAtObjectExtension) {
         this.setLookAtObjectExtension(lookAtObjectExtension);

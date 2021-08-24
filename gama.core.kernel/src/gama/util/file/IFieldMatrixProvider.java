@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * IFieldMatrixProvider.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.util.file;
 
 import javax.annotation.Nonnegative;
@@ -23,8 +33,8 @@ public interface IFieldMatrixProvider {
 	 * it can be modified in place, should be cloned...). By default builds a new field that will use the information
 	 * provided by the other methods.
 	 *
-	 * @param scope
-	 * @return
+	 * @param scope the scope
+	 * @return the field
 	 */
 	@Nonnull
 	default IField getField(final IScope scope) {
@@ -35,7 +45,7 @@ public interface IFieldMatrixProvider {
 	 * Returns the value that will serve as a reference for the cells with "no value". Default is Double.MAX_VALUE.
 	 * Grid/raster files can define other values.
 	 *
-	 * @param scope
+	 * @param scope the scope
 	 * @return a value representing "no value"
 	 */
 	default double getNoData(final IScope scope) {
@@ -43,19 +53,19 @@ public interface IFieldMatrixProvider {
 	}
 
 	/**
-	 * Returns the number of rows of the receiver
+	 * Returns the number of rows of the receiver.
 	 *
-	 * @param scope
-	 * @return
+	 * @param scope the scope
+	 * @return the rows
 	 */
 	@Nonnegative
 	int getRows(IScope scope);
 
 	/**
-	 * Returns the number of columns of the receiver
+	 * Returns the number of columns of the receiver.
 	 *
-	 * @param scope
-	 * @return
+	 * @param scope the scope
+	 * @return the cols
 	 */
 	@Nonnegative
 	int getCols(IScope scope);
@@ -63,7 +73,7 @@ public interface IFieldMatrixProvider {
 	/**
 	 * Returns the number of bands of the receiver. Default is 1 (i.e. only primary data)
 	 *
-	 * @param scope
+	 * @param scope the scope
 	 * @return the number of bands.
 	 */
 
@@ -76,7 +86,7 @@ public interface IFieldMatrixProvider {
 	 * Returns the array of double values that will make up the contents of the field. By default, returns the 1st band
 	 * of the receiver.
 	 *
-	 * @param scope
+	 * @param scope the scope
 	 * @return an array of double, possibly empty, never null
 	 */
 	@Nonnull
@@ -89,9 +99,10 @@ public interface IFieldMatrixProvider {
 	 * Should throw a runtime exception when attempt is made to get non-existing bands (i.e. bands with an index >
 	 * getBands(..) - 1)
 	 *
-	 * @param scope
-	 * @param index
-	 * @return
+	 * @param scope the scope
+	 * @param index the index
+	 * @return the band
+	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 	double[] getBand(IScope scope, int index) throws GamaRuntimeException;
 

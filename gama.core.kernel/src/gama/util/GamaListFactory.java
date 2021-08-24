@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.GamaListFactory.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * GamaListFactory.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.util;
 
@@ -50,11 +50,22 @@ import gaml.types.Types;
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class GamaListFactory {
 
+	/** The Constant DEFAULT_SIZE. */
 	private static final int DEFAULT_SIZE = 4;
+	
+	/** The Constant EMPTY_LIST. */
 	public static final IList EMPTY_LIST = wrap(Types.NO_TYPE, Collections.EMPTY_LIST);
+	
+	/** The ch. */
 	static Set<Collector.Characteristics> CH =
 			ImmutableSet.<Collector.Characteristics> of(Collector.Characteristics.IDENTITY_FINISH);
 
+	/**
+	 * To gama list.
+	 *
+	 * @param <T> the generic type
+	 * @return the collector
+	 */
 	public static <T> Collector<T, IList<T>, IList<T>> toGamaList() {
 		return new Collector<>() {
 
@@ -88,12 +99,22 @@ public class GamaListFactory {
 		};
 	}
 
+	/** The to gama list. */
 	public static Collector<Object, IList<Object>, IList<Object>> TO_GAMA_LIST = toGamaList();
 
+	/**
+	 * The Class GamaListSupplier.
+	 */
 	public static class GamaListSupplier implements Supplier<IList> {
 
+		/** The t. */
 		final IType t;
 
+		/**
+		 * Instantiates a new gama list supplier.
+		 *
+		 * @param t the t
+		 */
 		public GamaListSupplier(final IType t) {
 			this.t = t;
 		}
@@ -105,6 +126,14 @@ public class GamaListFactory {
 
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param <T> the generic type
+	 * @param t the t
+	 * @param stream the stream
+	 * @return the i list
+	 */
 	public static <T> IList<T> create(final IType t, final Stream<T> stream) {
 		return (IList<T>) stream.collect(TO_GAMA_LIST);
 	}
@@ -112,10 +141,11 @@ public class GamaListFactory {
 	/**
 	 * Create a GamaList from an array of objects, but does not attempt casting its values.
 	 *
-	 * @param contentType
-	 * @param collection
+	 * @param <T> the generic type
+	 * @param contentType the content type
+	 * @param objects the objects
+	 * @return the i list< t>
 	 * @warning ***WARNING*** This operation can end up putting values of the wrong type into the list
-	 * @return
 	 */
 	public static <T> IList<T> createWithoutCasting(final IType contentType, final T... objects) {
 		final IList<T> list = create(contentType, objects.length);
@@ -126,10 +156,10 @@ public class GamaListFactory {
 	/**
 	 * Create a GamaList from an array of ints, but does not attempt casting its values.
 	 *
-	 * @param contentType
-	 * @param collection
+	 * @param contentType the content type
+	 * @param objects the objects
+	 * @return the i list< integer>
 	 * @warning ***WARNING*** This operation can end up putting values of the wrong type into the list
-	 * @return
 	 */
 	public static IList<Integer> createWithoutCasting(final IType contentType, final int[] objects) {
 		final IList<Integer> list = create(contentType, objects.length);
@@ -140,10 +170,10 @@ public class GamaListFactory {
 	/**
 	 * Create a GamaList from an array of floats, but does not attempt casting its values.
 	 *
-	 * @param contentType
-	 * @param collection
+	 * @param contentType the content type
+	 * @param objects the objects
+	 * @return the i list< double>
 	 * @warning ***WARNING*** This operation can end up putting values of the wrong type into the list
-	 * @return
 	 */
 	public static IList<Double> createWithoutCasting(final IType contentType, final double[] objects) {
 		final IList<Double> list = create(contentType, objects.length);
@@ -154,10 +184,11 @@ public class GamaListFactory {
 	/**
 	 * Create a GamaList from an iterable, but does not attempt casting its values.
 	 *
-	 * @param contentType
-	 * @param collection
+	 * @param <T> the generic type
+	 * @param contentType the content type
+	 * @param objects the objects
+	 * @return the i list< t>
 	 * @warning ***WARNING*** This operation can end up putting values of the wrong type into the list
-	 * @return
 	 */
 
 	public static <T> IList<T> createWithoutCasting(final IType contentType, final Iterable<T> objects) {
@@ -166,10 +197,25 @@ public class GamaListFactory {
 		return list;
 	}
 
+	/**
+	 * Cast and add.
+	 *
+	 * @param scope the scope
+	 * @param list the list
+	 * @param o the o
+	 */
 	private static void castAndAdd(final IScope scope, final IList list, final Object o) {
 		list.addValue(scope, o);
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param scope the scope
+	 * @param contentType the content type
+	 * @param container the container
+	 * @return the i list
+	 */
 	public static IList create(final IScope scope, final IType contentType, final IContainer container) {
 		if (container == null) return create(contentType);
 		if (GamaType.requiresCasting(contentType, container.getGamlType().getContentType()))
@@ -178,6 +224,15 @@ public class GamaListFactory {
 			return createWithoutCasting(contentType, container.iterable(scope));
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param <T> the generic type
+	 * @param scope the scope
+	 * @param contentType the content type
+	 * @param container the container
+	 * @return the i list
+	 */
 	public static <T> IList<T> create(final IScope scope, final IType contentType, final IList<T> container) {
 		if (container == null) return create(contentType);
 		if (GamaType.requiresCasting(contentType, container.getGamlType().getContentType()))
@@ -186,6 +241,15 @@ public class GamaListFactory {
 			return createWithoutCasting(contentType, container);
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param <T> the generic type
+	 * @param scope the scope
+	 * @param contentType the content type
+	 * @param iterable the iterable
+	 * @return the i list
+	 */
 	public static <T> IList<T> create(final IScope scope, final IType contentType, final Iterable<T> iterable) {
 		final IList<T> list = create(contentType);
 		for (final Object o : iterable) {
@@ -194,6 +258,15 @@ public class GamaListFactory {
 		return list;
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param <T> the generic type
+	 * @param scope the scope
+	 * @param contentType the content type
+	 * @param iterator the iterator
+	 * @return the i list
+	 */
 	public static <T> IList<T> create(final IScope scope, final IType contentType, final Iterator<T> iterator) {
 		final IList<T> list = create(contentType);
 		if (iterator != null) {
@@ -204,6 +277,15 @@ public class GamaListFactory {
 		return list;
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param <T> the generic type
+	 * @param scope the scope
+	 * @param contentType the content type
+	 * @param iterator the iterator
+	 * @return the i list
+	 */
 	public static <T> IList<T> create(final IScope scope, final IType contentType, final Enumeration<T> iterator) {
 		final IList<T> list = create(contentType);
 		if (iterator != null) {
@@ -214,6 +296,15 @@ public class GamaListFactory {
 		return list;
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param <T> the generic type
+	 * @param scope the scope
+	 * @param contentType the content type
+	 * @param objects the objects
+	 * @return the i list
+	 */
 	@SafeVarargs
 	public static <T> IList<T> create(final IScope scope, final IType contentType, final T... objects) {
 		final IList<T> list = create(contentType, objects == null ? 0 : objects.length);
@@ -225,6 +316,14 @@ public class GamaListFactory {
 		return list;
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param scope the scope
+	 * @param contentType the content type
+	 * @param ints the ints
+	 * @return the i list
+	 */
 	public static IList create(final IScope scope, final IType contentType, final byte[] ints) {
 		final IList list = create(contentType, ints == null ? 0 : ints.length);
 		if (ints != null) {
@@ -235,6 +334,14 @@ public class GamaListFactory {
 		return list;
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param scope the scope
+	 * @param contentType the content type
+	 * @param ints the ints
+	 * @return the i list
+	 */
 	public static IList create(final IScope scope, final IType contentType, final int[] ints) {
 		final IList list = create(contentType, ints == null ? 0 : ints.length);
 		if (ints != null) {
@@ -245,6 +352,14 @@ public class GamaListFactory {
 		return list;
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param scope the scope
+	 * @param contentType the content type
+	 * @param ints the ints
+	 * @return the i list
+	 */
 	public static IList create(final IScope scope, final IType contentType, final long[] ints) {
 		final IList list = create(contentType, ints == null ? 0 : ints.length);
 		if (ints != null) {
@@ -255,6 +370,14 @@ public class GamaListFactory {
 		return list;
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param scope the scope
+	 * @param contentType the content type
+	 * @param doubles the doubles
+	 * @return the i list
+	 */
 	public static IList create(final IScope scope, final IType contentType, final float[] doubles) {
 		final IList list = create(contentType, doubles == null ? 0 : doubles.length);
 		if (doubles != null) {
@@ -265,6 +388,14 @@ public class GamaListFactory {
 		return list;
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param scope the scope
+	 * @param fillExpr the fill expr
+	 * @param size the size
+	 * @return the i list
+	 */
 	public static IList create(final IScope scope, final IExpression fillExpr, final Integer size) {
 		if (fillExpr == null) return create(Types.NO_TYPE, size);
 		final Object[] contents = new Object[size];
@@ -284,6 +415,14 @@ public class GamaListFactory {
 		return create(scope, contentType, contents);
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param scope the scope
+	 * @param contentType the content type
+	 * @param doubles the doubles
+	 * @return the i list
+	 */
 	public static IList create(final IScope scope, final IType contentType, final double[] doubles) {
 		final IList list = create(contentType, doubles == null ? 0 : doubles.length);
 		if (doubles != null) {
@@ -294,19 +433,34 @@ public class GamaListFactory {
 		return list;
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param <T> the generic type
+	 * @param contentType the content type
+	 * @param size the size
+	 * @return the i list
+	 */
 	public static <T> IList<T> create(final IType contentType, final int size) {
 		return new GamaList<>(size, contentType);
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param <T> the generic type
+	 * @param contentType the content type
+	 * @return the i list
+	 */
 	public static <T> IList<T> create(final IType contentType) {
 		return create(contentType, DEFAULT_SIZE);
 	}
 
 	/**
-	 * Create a IList with no type and no elements
+	 * Create a IList with no type and no elements.
 	 *
-	 * @param clazz,
-	 *            the class from which the contents type
+	 * @param <T> the generic type
+	 * @param clazz the clazz
 	 * @return a new IList
 	 */
 	public static <T> IList<T> create(final Class<T> clazz) {
@@ -314,8 +468,9 @@ public class GamaListFactory {
 	}
 
 	/**
-	 * Create a IList with no type and no elements
+	 * Create a IList with no type and no elements.
 	 *
+	 * @param <T> the generic type
 	 * @return a new IList
 	 */
 	public static <T> IList<T> create() {
@@ -326,9 +481,10 @@ public class GamaListFactory {
 	 * Wraps the parameter into an IList. Every change in the wrapped list is reflected immediately and every change to
 	 * the IList is reflected in the wrapped list. No copy is made, , only a thin layer is created to wrap the parameter
 	 *
-	 * @param contentType
-	 * @param wrapped
-	 * @return
+	 * @param <E> the element type
+	 * @param contentType the content type
+	 * @param wrapped the wrapped
+	 * @return the i list
 	 */
 	public static <E> IList<E> wrap(final IType<E> contentType, final List<E> wrapped) {
 		// return createWithoutCasting(contentType, wrapped);
@@ -340,9 +496,10 @@ public class GamaListFactory {
 	 * IList is reflected in the array, exluding add and remove (as well as addAll and removeAll) operations, which
 	 * yield a runtime exception. No copy of the array is made, only a thin layer is created to wrap the array
 	 *
-	 * @param contentType
-	 * @param wrapped
-	 * @return
+	 * @param <E> the element type
+	 * @param contentType the content type
+	 * @param wrapped the wrapped
+	 * @return the i list
 	 */
 	public static <E> IList<E> wrap(final IType<E> contentType, final E... wrapped) {
 		// return createWithoutCasting(contentType, wrapped);
@@ -355,15 +512,22 @@ public class GamaListFactory {
 	 * to wrap the parameter. Some operations (esp. those using indices) are not really meaningful for collections; they
 	 * are emulated in the best possible way by this wrapper
 	 *
-	 * @param contentType
-	 *            s
-	 * @param wrapped
-	 * @return
+	 * @param <E> the element type
+	 * @param contentType            s
+	 * @param wrapped the wrapped
+	 * @return the i list
 	 */
 	public static <E> IList<E> wrap(final IType<E> contentType, final Collection<E> wrapped) {
 		return new GamaListCollectionWrapper(wrapped, contentType);
 	}
 
+	/**
+	 * Equals.
+	 *
+	 * @param one the one
+	 * @param two the two
+	 * @return true, if successful
+	 */
 	public static boolean equals(final IList one, final IList two) {
 		final Iterator<Object> it1 = one.iterator();
 		final Iterator<Object> it2 = two.iterator();

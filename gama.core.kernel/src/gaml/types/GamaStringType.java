@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gaml.types.GamaStringType.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * GamaStringType.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -21,13 +21,9 @@ import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 
 /**
- *
- *
- *
- * Written by drogoul Modified on 3 juin 2010
+ * Written by drogoul Modified on 3 juin 2010.
  *
  * @todo Description
- * 
  */
 @SuppressWarnings ("unchecked")
 @type (
@@ -45,6 +41,15 @@ public class GamaStringType extends GamaType<String> {
 		return staticCast(scope, obj, copy);
 	}
 
+	/**
+	 * Static cast.
+	 *
+	 * @param scope the scope
+	 * @param obj the obj
+	 * @param copy the copy
+	 * @return the string
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public static String staticCast(final IScope scope, final Object obj, final boolean copy)
 			throws GamaRuntimeException {
 		if (obj == null) { return null; }

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.layers.SpeciesLayerStatement.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * SpeciesLayerStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -162,6 +162,9 @@ import gaml.types.IType;
 @validator (SpeciesLayerValidator.class)
 public class SpeciesLayerStatement extends AgentLayerStatement {
 
+	/**
+	 * The Class SpeciesLayerSerializer.
+	 */
 	public static class SpeciesLayerSerializer extends SymbolSerializer<StatementDescription> {
 
 		@Override
@@ -172,6 +175,9 @@ public class SpeciesLayerStatement extends AgentLayerStatement {
 
 	}
 
+	/**
+	 * The Class SpeciesLayerValidator.
+	 */
 	public static class SpeciesLayerValidator implements IDescriptionValidator<StatementDescription> {
 
 		@Override
@@ -198,12 +204,24 @@ public class SpeciesLayerStatement extends AgentLayerStatement {
 
 	}
 
+	/** The aspect. */
 	private IExecutable aspect;
 
+	/** The host species. */
 	protected ISpecies hostSpecies;
+	
+	/** The species. */
 	protected ISpecies species;
+	
+	/** The micro species layers. */
 	protected List<SpeciesLayerStatement> microSpeciesLayers;
 
+	/**
+	 * Instantiates a new species layer statement.
+	 *
+	 * @param desc the desc
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public SpeciesLayerStatement(final IDescription desc) throws GamaRuntimeException {
 		super(desc);
 		setName(getFacet(IKeyword.SPECIES).literalValue());
@@ -244,6 +262,11 @@ public class SpeciesLayerStatement extends AgentLayerStatement {
 		return LayerType.SPECIES;
 	}
 
+	/**
+	 * Gets the aspects.
+	 *
+	 * @return the aspects
+	 */
 	public List<String> getAspects() {
 		return species.getAspectNames();
 	}
@@ -266,6 +289,11 @@ public class SpeciesLayerStatement extends AgentLayerStatement {
 		return aspect;
 	}
 
+	/**
+	 * Gets the species.
+	 *
+	 * @return the species
+	 */
 	public ISpecies getSpecies() {
 		return species;
 	}
@@ -296,7 +324,7 @@ public class SpeciesLayerStatement extends AgentLayerStatement {
 	/**
 	 * Returns a list of micro-species layers declared as sub-layers.
 	 *
-	 * @return
+	 * @return the micro species layers
 	 */
 	public List<SpeciesLayerStatement> getMicroSpeciesLayers() {
 		return microSpeciesLayers;

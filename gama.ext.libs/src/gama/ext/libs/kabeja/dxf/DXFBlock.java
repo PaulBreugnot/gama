@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
- */
+/*******************************************************************************************************
+ *
+ * DXFBlock.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf;
 
 import java.util.ArrayList;
@@ -22,20 +17,35 @@ import gama.ext.libs.kabeja.dxf.helpers.Point;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class DXFBlock.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class DXFBlock {
+    
+    /** The type. */
     public static String TYPE = "BLOCK";
+    
+    /** The reference point. */
     private Point referencePoint;
+    
+    /** The layer ID. */
     private String layerID = DXFConstants.DEFAULT_LAYER;
+    
+    /** The name. */
     private String name = "";
+    
+    /** The description. */
     private String description = "";
+    
+    /** The entities. */
     private ArrayList entities;
+    
+    /** The doc. */
     private DXFDocument doc;
 
     /**
-     *
+     * Instantiates a new DXF block.
      */
     public DXFBlock() {
         super();
@@ -44,6 +54,11 @@ public class DXFBlock {
         this.referencePoint = new Point();
     }
 
+    /**
+     * Gets the bounds.
+     *
+     * @return the bounds
+     */
     public Bounds getBounds() {
         // first set the own point
         Bounds bounds = new Bounds();
@@ -66,6 +81,8 @@ public class DXFBlock {
     }
 
     /**
+     * Gets the description.
+     *
      * @return Returns the description.
      */
     public String getDescription() {
@@ -73,14 +90,17 @@ public class DXFBlock {
     }
 
     /**
-     * @param description
-     *            The description to set.
+     * Sets the description.
+     *
+     * @param description            The description to set.
      */
     public void setDescription(String description) {
         this.description = description;
     }
 
     /**
+     * Gets the reference point.
+     *
      * @return Returns the p.
      */
     public Point getReferencePoint() {
@@ -88,18 +108,25 @@ public class DXFBlock {
     }
 
     /**
-     * @param p
-     *            The p to set.
+     * Sets the reference point.
+     *
+     * @param p            The p to set.
      */
     public void setReferencePoint(Point p) {
         this.referencePoint = p;
     }
 
+    /**
+     * Adds the DXF entity.
+     *
+     * @param entity the entity
+     */
     public void addDXFEntity(DXFEntity entity) {
         entities.add(entity);
     }
 
     /**
+     * Gets the DXF entities iterator.
      *
      * @return a iterator over all entities of this block
      */
@@ -108,6 +135,8 @@ public class DXFBlock {
     }
 
     /**
+     * Gets the layer ID.
+     *
      * @return Returns the layerID.
      */
     public String getLayerID() {
@@ -115,14 +144,17 @@ public class DXFBlock {
     }
 
     /**
-     * @param layerID
-     *            The layerID to set.
+     * Sets the layer ID.
+     *
+     * @param layerID            The layerID to set.
      */
     public void setLayerID(String layerID) {
         this.layerID = layerID;
     }
 
     /**
+     * Gets the name.
+     *
      * @return Returns the name.
      */
     public String getName() {
@@ -130,16 +162,18 @@ public class DXFBlock {
     }
 
     /**
-     * @param name
-     *            The name to set.
+     * Sets the name.
+     *
+     * @param name            The name to set.
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * @param doc
-     *            The doc to set.
+     * Sets the DXF document.
+     *
+     * @param doc            The doc to set.
      */
     public void setDXFDocument(DXFDocument doc) {
         this.doc = doc;
@@ -153,6 +187,7 @@ public class DXFBlock {
     }
 
     /**
+     * Gets the DXF document.
      *
      * @return the parent document
      */
@@ -160,6 +195,11 @@ public class DXFBlock {
         return this.doc;
     }
 
+    /**
+     * Gets the length.
+     *
+     * @return the length
+     */
     public double getLength() {
         double length = 0;
         Iterator i = entities.iterator();
@@ -173,13 +213,12 @@ public class DXFBlock {
     }
 
     /**
-     * Gets the
+     * Gets the.
      *
-     * @see DXFEntity with the specified ID.
-     * @param id
-     *            of the
-     * @see DXFEntity
+     * @param id            of the
      * @return the
+     * @see DXFEntity with the specified ID.
+     * @see DXFEntity
      * @see DXFEntity with the specified ID or null if there is no
      * @see DXFEntity with the specified ID
      */

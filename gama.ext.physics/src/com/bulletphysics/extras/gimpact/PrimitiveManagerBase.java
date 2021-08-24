@@ -1,29 +1,13 @@
-/*
- * Java port of Bullet (c) 2008 Martin Dvorak <jezek2@advel.cz>
+/*******************************************************************************************************
  *
- * This source file is part of GIMPACT Library.
+ * PrimitiveManagerBase.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * For the latest info, see http://gimpact.sourceforge.net/
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Copyright (c) 2007 Francisco Leon Najera. C.C. 80087371.
- * email: projectileman@yahoo.com
- *
- * This software is provided 'as-is', without any express or implied warranty.
- * In no event will the authors be held liable for any damages arising from
- * the use of this software.
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * Permission is granted to anyone to use this software for any purpose, 
- * including commercial applications, and to alter it and redistribute it
- * freely, subject to the following restrictions:
- * 
- * 1. The origin of this software must not be misrepresented; you must not
- *    claim that you wrote the original software. If you use this software
- *    in a product, an acknowledgment in the product documentation would be
- *    appreciated but is not required.
- * 2. Altered source versions must be plainly marked as such, and must not be
- *    misrepresented as being the original software.
- * 3. This notice may not be removed or altered from any source distribution.
- */
+ ********************************************************************************************************/
 
 package com.bulletphysics.extras.gimpact;
 
@@ -46,15 +30,33 @@ abstract class PrimitiveManagerBase {
 
 	/**
 	 * Determines if this manager consist on only triangles, which special case will be optimized.
+	 *
+	 * @return true, if is trimesh
 	 */
 	public abstract boolean is_trimesh();
 
+	/**
+	 * Gets the primitive count.
+	 *
+	 * @return the primitive count
+	 */
 	public abstract int get_primitive_count();
 
+	/**
+	 * Gets the primitive box.
+	 *
+	 * @param prim_index the prim index
+	 * @param primbox the primbox
+	 * @return the primitive box
+	 */
 	public abstract void get_primitive_box(int prim_index, AABB primbox);
 	
 	/**
 	 * Retrieves only the points of the triangle, and the collision margin.
+	 *
+	 * @param prim_index the prim index
+	 * @param triangle the triangle
+	 * @return the primitive triangle
 	 */
 	public abstract void get_primitive_triangle(int prim_index, PrimitiveTriangle triangle);
 	

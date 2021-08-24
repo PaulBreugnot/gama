@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.expressions.MapExpression.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * MapExpression.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.expressions.data;
 
@@ -43,6 +43,12 @@ import gaml.types.Types;
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class MapExpression extends AbstractExpression implements IOperator {
 
+	/**
+	 * Creates the.
+	 *
+	 * @param elements the elements
+	 * @return the i expression
+	 */
 	public static IExpression create(final Iterable<? extends IExpression> elements) {
 
 		// if ( u.isConst() && GamaPreferences.CONSTANT_OPTIMIZATION.getValue()
@@ -57,11 +63,19 @@ public class MapExpression extends AbstractExpression implements IOperator {
 		return new MapExpression(elements);
 	}
 
+	/** The keys. */
 	private final IExpression[] keys;
+	
+	/** The vals. */
 	private final IExpression[] vals;
 	// private final GamaMap values;
 	// private boolean isConst, computed;
 
+	/**
+	 * Instantiates a new map expression.
+	 *
+	 * @param pairs the pairs
+	 */
 	MapExpression(final Iterable<? extends IExpression> pairs) {
 		final int size = Iterables.size(pairs);
 		keys = new IExpression[size];
@@ -88,6 +102,11 @@ public class MapExpression extends AbstractExpression implements IOperator {
 		type = Types.MAP.of(keyType, contentsType);
 	}
 
+	/**
+	 * Instantiates a new map expression.
+	 *
+	 * @param pairs the pairs
+	 */
 	MapExpression(final IMap<IExpression, IExpression> pairs) {
 		keys = new IExpression[pairs.size()];
 		vals = new IExpression[pairs.size()];
@@ -161,14 +180,29 @@ public class MapExpression extends AbstractExpression implements IOperator {
 		return sb.toString();
 	}
 
+	/**
+	 * Keys array.
+	 *
+	 * @return the i expression[]
+	 */
 	public IExpression[] keysArray() {
 		return keys;
 	}
 
+	/**
+	 * Values array.
+	 *
+	 * @return the i expression[]
+	 */
 	public IExpression[] valuesArray() {
 		return vals;
 	}
 
+	/**
+	 * Gets the elements.
+	 *
+	 * @return the elements
+	 */
 	public IMap<IExpression, IExpression> getElements() {
 		// TODO Verify the key and content types in that case...
 		final IMap result = GamaMapFactory.create(type.getKeyType(), type.getContentType(), keys.length);
@@ -262,6 +296,11 @@ public class MapExpression extends AbstractExpression implements IOperator {
 		return null;
 	}
 
+	/**
+	 * Checks if is empty.
+	 *
+	 * @return true, if is empty
+	 */
 	public boolean isEmpty() {
 		return keys.length == 0;
 	}

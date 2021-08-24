@@ -1,15 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
+ * RuleStatement.java, in gama.ext.bdi, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * 'RuleStatement.java', in plugin 'msi.gaml.architecture.simplebdi', is part of the source code of the GAMA modeling
- * and simulation platform. (v. 1.8.1)
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
- *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.bdi;
 
@@ -35,6 +33,9 @@ import gaml.operators.System;
 import gaml.statements.AbstractStatement;
 import gaml.types.IType;
 
+/**
+ * The Class RuleStatement.
+ */
 @symbol (
 		name = RuleStatement.RULE,
 		kind = ISymbolKind.SINGLE_STATEMENT,
@@ -278,89 +279,254 @@ import gaml.types.IType;
 				@example ("rule belief: new_predicate(\"test\") when: flip(0.5) new_desire: new_predicate(\"test\")") })
 public class RuleStatement extends AbstractStatement {
 
+	/** The Constant RULE. */
 	public static final String RULE = "rule";
+	
+	/** The Constant BELIEF. */
 	public static final String BELIEF = "belief";
+	
+	/** The Constant DESIRE. */
 	public static final String DESIRE = "desire";
+	
+	/** The Constant EMOTION. */
 	public static final String EMOTION = "emotion";
+	
+	/** The Constant UNCERTAINTY. */
 	public static final String UNCERTAINTY = "uncertainty";
+	
+	/** The Constant IDEAL. */
 	public static final String IDEAL = "ideal";
+	
+	/** The Constant OBLIGATION. */
 	public static final String OBLIGATION = "obligation";
+	
+	/** The Constant RULES. */
 	public static final String RULES = "rules";
+	
+	/** The Constant BELIEFS. */
 	public static final String BELIEFS = "beliefs";
+	
+	/** The Constant DESIRES. */
 	public static final String DESIRES = "desires";
+	
+	/** The Constant EMOTIONS. */
 	public static final String EMOTIONS = "emotions";
+	
+	/** The Constant UNCERTAINTIES. */
 	public static final String UNCERTAINTIES = "uncertainties";
+	
+	/** The Constant IDEALS. */
 	public static final String IDEALS = "ideals";
+	
+	/** The Constant OBLIGATIONS. */
 	public static final String OBLIGATIONS = "obligations";
+	
+	/** The Constant NEW_DESIRE. */
 	public static final String NEW_DESIRE = "new_desire";
+	
+	/** The Constant NEW_BELIEF. */
 	public static final String NEW_BELIEF = "new_belief";
+	
+	/** The Constant NEW_EMOTION. */
 	public static final String NEW_EMOTION = "new_emotion";
+	
+	/** The Constant NEW_UNCERTAINTY. */
 	public static final String NEW_UNCERTAINTY = "new_uncertainty";
+	
+	/** The Constant NEW_IDEAL. */
 	public static final String NEW_IDEAL = "new_ideal";
+	
+	/** The Constant REMOVE_BELIEF. */
 	public static final String REMOVE_BELIEF = "remove_belief";
+	
+	/** The Constant REMOVE_DESIRE. */
 	public static final String REMOVE_DESIRE = "remove_desire";
+	
+	/** The Constant REMOVE_INTENTION. */
 	public static final String REMOVE_INTENTION = "remove_intention";
+	
+	/** The Constant REMOVE_EMOTION. */
 	public static final String REMOVE_EMOTION = "remove_emotion";
+	
+	/** The Constant REMOVE_UNCERTAINTY. */
 	public static final String REMOVE_UNCERTAINTY = "remove_uncertainty";
+	
+	/** The Constant REMOVE_IDEAL. */
 	public static final String REMOVE_IDEAL = "remove_ideal";
+	
+	/** The Constant REMOVE_OBLIGATION. */
 	public static final String REMOVE_OBLIGATION = "remove_obligation";
+	
+	/** The Constant NEW_DESIRES. */
 	public static final String NEW_DESIRES = "new_desires";
+	
+	/** The Constant NEW_BELIEFS. */
 	public static final String NEW_BELIEFS = "new_beliefs";
+	
+	/** The Constant NEW_EMOTIONS. */
 	public static final String NEW_EMOTIONS = "new_emotions";
+	
+	/** The Constant NEW_UNCERTAINTIES. */
 	public static final String NEW_UNCERTAINTIES = "new_uncertainties";
+	
+	/** The Constant NEW_IDEALS. */
 	public static final String NEW_IDEALS = "new_ideals";
+	
+	/** The Constant REMOVE_BELIEFS. */
 	public static final String REMOVE_BELIEFS = "remove_beliefs";
+	
+	/** The Constant REMOVE_DESIRES. */
 	public static final String REMOVE_DESIRES = "remove_desires";
+	
+	/** The Constant REMOVE_EMOTIONS. */
 	public static final String REMOVE_EMOTIONS = "remove_emotions";
+	
+	/** The Constant REMOVE_UNCERTAINTIES. */
 	public static final String REMOVE_UNCERTAINTIES = "remove_uncertainties";
+	
+	/** The Constant REMOVE_IDEALS. */
 	public static final String REMOVE_IDEALS = "remove_ideals";
+	
+	/** The Constant REMOVE_OBLIGATIONS. */
 	public static final String REMOVE_OBLIGATIONS = "remove_obligations";
+	
+	/** The Constant STRENGTH. */
 	public static final String STRENGTH = "strength";
+	
+	/** The Constant THRESHOLD. */
 	public static final String THRESHOLD = "threshold";
+	
+	/** The Constant ALL. */
 	public static final String ALL = "all";
 
+	/** The when. */
 	final IExpression when;
+	
+	/** The parallel. */
 	final IExpression parallel;
+	
+	/** The belief. */
 	final IExpression belief;
+	
+	/** The desire. */
 	final IExpression desire;
+	
+	/** The emotion. */
 	final IExpression emotion;
+	
+	/** The uncertainty. */
 	final IExpression uncertainty;
+	
+	/** The ideal. */
 	final IExpression ideal;
+	
+	/** The obligation. */
 	final IExpression obligation;
+	
+	/** The beliefs. */
 	final IExpression beliefs;
+	
+	/** The desires. */
 	final IExpression desires;
+	
+	/** The emotions. */
 	final IExpression emotions;
+	
+	/** The uncertainties. */
 	final IExpression uncertainties;
+	
+	/** The ideals. */
 	final IExpression ideals;
+	
+	/** The obligations. */
 	final IExpression obligations;
+	
+	/** The new belief. */
 	final IExpression newBelief;
+	
+	/** The new desire. */
 	final IExpression newDesire;
+	
+	/** The new emotion. */
 	final IExpression newEmotion;
+	
+	/** The new uncertainty. */
 	final IExpression newUncertainty;
+	
+	/** The new ideal. */
 	final IExpression newIdeal;
+	
+	/** The remove belief. */
 	final IExpression removeBelief;
+	
+	/** The remove desire. */
 	final IExpression removeDesire;
+	
+	/** The remove intention. */
 	final IExpression removeIntention;
+	
+	/** The remove emotion. */
 	final IExpression removeEmotion;
+	
+	/** The remove uncertainty. */
 	final IExpression removeUncertainty;
+	
+	/** The remove ideal. */
 	final IExpression removeIdeal;
+	
+	/** The remove obligation. */
 	final IExpression removeObligation;
+	
+	/** The new beliefs. */
 	final IExpression newBeliefs;
+	
+	/** The new desires. */
 	final IExpression newDesires;
+	
+	/** The new emotions. */
 	final IExpression newEmotions;
+	
+	/** The new uncertainties. */
 	final IExpression newUncertainties;
+	
+	/** The new ideals. */
 	final IExpression newIdeals;
+	
+	/** The remove beliefs. */
 	final IExpression removeBeliefs;
+	
+	/** The remove desires. */
 	final IExpression removeDesires;
+	
+	/** The remove emotions. */
 	final IExpression removeEmotions;
+	
+	/** The remove uncertainties. */
 	final IExpression removeUncertainties;
+	
+	/** The remove ideals. */
 	final IExpression removeIdeals;
+	
+	/** The remove obligations. */
 	final IExpression removeObligations;
+	
+	/** The strength. */
 	final IExpression strength;
+	
+	/** The threshold. */
 	final IExpression threshold;
+	
+	/** The all. */
 	final IExpression all;
+	
+	/** The lifetime. */
 	final IExpression lifetime;
 
+	/**
+	 * Instantiates a new rule statement.
+	 *
+	 * @param desc the desc
+	 */
 	public RuleStatement(final IDescription desc) {
 		super(desc);
 		when = getFacet(IKeyword.WHEN);
@@ -1285,6 +1451,13 @@ public class RuleStatement extends AbstractStatement {
 		return null;
 	}
 
+	/**
+	 * Checks for beliefs.
+	 *
+	 * @param scope the scope
+	 * @param predicates the predicates
+	 * @return true, if successful
+	 */
 	private boolean hasBeliefs(final IScope scope, final List<Predicate> predicates) {
 		for (final Predicate p : predicates) {
 			final MentalState temp = new MentalState("Belief", p);
@@ -1294,6 +1467,13 @@ public class RuleStatement extends AbstractStatement {
 		return true;
 	}
 
+	/**
+	 * Checks for desires.
+	 *
+	 * @param scope the scope
+	 * @param predicates the predicates
+	 * @return true, if successful
+	 */
 	private boolean hasDesires(final IScope scope, final List<Predicate> predicates) {
 		for (final Predicate p : predicates) {
 			final MentalState temp = new MentalState("Desire", p);
@@ -1303,6 +1483,13 @@ public class RuleStatement extends AbstractStatement {
 		return true;
 	}
 
+	/**
+	 * Checks for uncertainties.
+	 *
+	 * @param scope the scope
+	 * @param predicates the predicates
+	 * @return true, if successful
+	 */
 	private boolean hasUncertainties(final IScope scope, final List<Predicate> predicates) {
 		for (final Predicate p : predicates) {
 			final MentalState temp = new MentalState("Uncertainty", p);
@@ -1312,6 +1499,13 @@ public class RuleStatement extends AbstractStatement {
 		return true;
 	}
 
+	/**
+	 * Checks for ideals.
+	 *
+	 * @param scope the scope
+	 * @param predicates the predicates
+	 * @return true, if successful
+	 */
 	private boolean hasIdeals(final IScope scope, final List<Predicate> predicates) {
 		for (final Predicate p : predicates) {
 			final MentalState temp = new MentalState("Ideal", p);
@@ -1321,6 +1515,13 @@ public class RuleStatement extends AbstractStatement {
 		return true;
 	}
 
+	/**
+	 * Checks for obligations.
+	 *
+	 * @param scope the scope
+	 * @param predicates the predicates
+	 * @return true, if successful
+	 */
 	private boolean hasObligations(final IScope scope, final List<Predicate> predicates) {
 		for (final Predicate p : predicates) {
 			final MentalState temp = new MentalState("Uncertainty", p);
@@ -1330,6 +1531,13 @@ public class RuleStatement extends AbstractStatement {
 		return true;
 	}
 
+	/**
+	 * Checks for emotions.
+	 *
+	 * @param scope the scope
+	 * @param emotions the emotions
+	 * @return true, if successful
+	 */
 	private boolean hasEmotions(final IScope scope, final List<Emotion> emotions) {
 		for (final Emotion p : emotions) {
 			if (!SimpleBdiArchitecture.hasEmotion(scope, p))
@@ -1338,6 +1546,11 @@ public class RuleStatement extends AbstractStatement {
 		return true;
 	}
 
+	/**
+	 * Gets the parallel.
+	 *
+	 * @return the parallel
+	 */
 	public IExpression getParallel() {
 		return parallel;
 	}

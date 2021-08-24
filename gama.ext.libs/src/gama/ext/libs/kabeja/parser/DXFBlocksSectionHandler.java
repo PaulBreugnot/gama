@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * DXFBlocksSectionHandler.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.parser;
 
 import gama.ext.libs.kabeja.dxf.DXFBlock;
@@ -22,26 +17,53 @@ import gama.ext.libs.kabeja.dxf.DXFEntity;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class DXFBlocksSectionHandler.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class DXFBlocksSectionHandler extends DXFEntitiesSectionHandler {
+    
+    /** The Constant SECTION_KEY. */
     public final static String SECTION_KEY = "BLOCKS";
+    
+    /** The Constant BLOCK_START. */
     public final static String BLOCK_START = "BLOCK";
+    
+    /** The Constant BLOCK_END. */
     public final static String BLOCK_END = "ENDBLK";
+    
+    /** The Constant BLOCK. */
     public final static int BLOCK = 0;
+    
+    /** The Constant BLOCK_NAME. */
     public final static int BLOCK_NAME = 2;
+    
+    /** The Constant BLOCK_NAME2. */
     public final static int BLOCK_NAME2 = 3;
+    
+    /** The Constant BLOCK_DESCRIPTION. */
     public final static int BLOCK_DESCRIPTION = 4;
+    
+    /** The Constant BLOCK_XREFPATHNAME. */
     public final static int BLOCK_XREFPATHNAME = 1;
+    
+    /** The Constant BLOCK_BASE_X. */
     public final static int BLOCK_BASE_X = 10;
+    
+    /** The Constant BLOCK_BASE_Y. */
     public final static int BLOCK_BASE_Y = 20;
+    
+    /** The Constant BLOCK_BASE_Z. */
     public final static int BLOCK_BASE_Z = 30;
+    
+    /** The parse block header. */
     protected boolean parseBlockHeader = false;
+    
+    /** The block. */
     private DXFBlock block;
 
     /**
-     *
+     * Instantiates a new DXF blocks section handler.
      */
     public DXFBlocksSectionHandler() {
         super();

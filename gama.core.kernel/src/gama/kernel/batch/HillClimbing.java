@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.kernel.batch.HillClimbing.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * HillClimbing.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.kernel.batch;
 
@@ -36,6 +36,9 @@ import gaml.expressions.IExpression;
 import gaml.operators.Cast;
 import gaml.types.IType;
 
+/**
+ * The Class HillClimbing.
+ */
 @symbol (
 		name = IKeyword.HILL_CLIMBING,
 		kind = ISymbolKind.BATCH_METHOD,
@@ -86,10 +89,20 @@ import gaml.types.IType;
 								isExecutable = false) }) })
 public class HillClimbing extends LocalSearchAlgorithm {
 
+	/** The Constant ITER_MAX. */
 	protected static final String ITER_MAX = "iter_max";
+	
+	/** The stopping criterion. */
 	StoppingCriterion stoppingCriterion = null;
+	
+	/** The max it. */
 	int maxIt;
 
+	/**
+	 * Instantiates a new hill climbing.
+	 *
+	 * @param species the species
+	 */
 	public HillClimbing(final IDescription species) {
 		super(species);
 		initParams();

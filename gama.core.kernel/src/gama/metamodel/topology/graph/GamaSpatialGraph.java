@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.metamodel.topology.graph.GamaSpatialGraph.java, in plugin msi.gama.core, is part of the source code of the
- * GAMA modeling and simulation platform (v. 1.8.1)
+ * GamaSpatialGraph.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.metamodel.topology.graph;
 
@@ -43,14 +43,22 @@ import gaml.types.GamaGeometryType;
 import gaml.types.IType;
 import gaml.types.Types;
 
+/**
+ * The Class GamaSpatialGraph.
+ */
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class GamaSpatialGraph extends GamaGraph<IShape, IShape> implements ISpatialGraph, IPopulation.Listener {
 
+	/** The topology. */
 	/*
 	 * Own topology of the graph. Lazily instantiated, and invalidated at each modification of the graph.
 	 */
 	private ITopology topology;
+	
+	/** The tolerance. */
 	private double tolerance = 0;
+	
+	/** The vertices built. */
 	private final Map<Integer, IShape> verticesBuilt; // only used for
 														// optimization
 														// purpose of
@@ -59,26 +67,48 @@ public class GamaSpatialGraph extends GamaGraph<IShape, IShape> implements ISpat
 	// building.
 
 	/**
-	 * Determines the relationship among two polygons.
-	 */
+														 * Determines the relationship among two polygons.
+														 *
+														 * @param <T> the generic type
+														 */
 	public interface VertexRelationship<T> {
 
 		/**
-		 * @param scope
-		 *            TODO Determines if two vertex geometries are to be treated as related in any way.
-		 * @param p1
-		 *            a geometrical object
-		 * @param p2
-		 *            another geometrical object
+		 * Related.
+		 *
+		 * @param scope            TODO Determines if two vertex geometries are to be treated as related in any way.
+		 * @param p1            a geometrical object
+		 * @param p2            another geometrical object
+		 * @return true, if successful
 		 */
 		boolean related(IScope scope, T p1, T p2);
 
+		/**
+		 * Equivalent.
+		 *
+		 * @param scope the scope
+		 * @param p1 the p 1
+		 * @param p2 the p 2
+		 * @return true, if successful
+		 */
 		boolean equivalent(IScope scope, T p1, T p2);
 
 		// Double distance(T p1, T p2);
 
 	}
 
+	/**
+	 * Instantiates a new gama spatial graph.
+	 *
+	 * @param edgesOrVertices the edges or vertices
+	 * @param byEdge the by edge
+	 * @param directed the directed
+	 * @param rel the rel
+	 * @param edgesSpecies the edges species
+	 * @param scope the scope
+	 * @param nodeType the node type
+	 * @param edgeType the edge type
+	 */
 	public GamaSpatialGraph(final IContainer edgesOrVertices, final boolean byEdge, final boolean directed,
 			final VertexRelationship rel, final ISpecies edgesSpecies, final IScope scope, final IType nodeType,
 			final IType edgeType) {
@@ -86,6 +116,19 @@ public class GamaSpatialGraph extends GamaGraph<IShape, IShape> implements ISpat
 		init(scope, edgesOrVertices, byEdge, directed, rel, edgesSpecies);
 	}
 
+	/**
+	 * Instantiates a new gama spatial graph.
+	 *
+	 * @param edgesOrVertices the edges or vertices
+	 * @param byEdge the by edge
+	 * @param directed the directed
+	 * @param rel the rel
+	 * @param edgesSpecies the edges species
+	 * @param scope the scope
+	 * @param nodeType the node type
+	 * @param edgeType the edge type
+	 * @param tolerance the tolerance
+	 */
 	public GamaSpatialGraph(final IContainer edgesOrVertices, final boolean byEdge, final boolean directed,
 			final VertexRelationship rel, final ISpecies edgesSpecies, final IScope scope, final IType nodeType,
 			final IType edgeType, final Double tolerance) {
@@ -94,11 +137,25 @@ public class GamaSpatialGraph extends GamaGraph<IShape, IShape> implements ISpat
 		init(scope, edgesOrVertices, byEdge, directed, rel, edgesSpecies, tolerance);
 	}
 
+	/**
+	 * Instantiates a new gama spatial graph.
+	 *
+	 * @param edges the edges
+	 * @param vertices the vertices
+	 * @param scope the scope
+	 */
 	public GamaSpatialGraph(final IContainer edges, final IContainer vertices, final IScope scope) {
 		this(scope, vertices.getGamlType().getContentType(), edges.getGamlType().getContentType());
 		init(scope, edges, vertices);
 	}
 
+	/**
+	 * Instantiates a new gama spatial graph.
+	 *
+	 * @param scope the scope
+	 * @param nodeType the node type
+	 * @param edgeType the edge type
+	 */
 	public GamaSpatialGraph(final IScope scope, final IType nodeType, final IType edgeType) {
 		super(scope, nodeType, edgeType);
 		verticesBuilt = new HashMap();
@@ -176,10 +233,18 @@ public class GamaSpatialGraph extends GamaGraph<IShape, IShape> implements ISpat
 		return topology;
 	}
 
+	/**
+	 * Sets the topology.
+	 *
+	 * @param topology the new topology
+	 */
 	protected void setTopology(final ITopology topology) {
 		this.topology = topology;
 	}
 
+	/**
+	 * Refresh edges.
+	 */
 	private void refreshEdges() {
 		final Set<? extends IShape> vSet = vertexSet();
 		boolean related, already;
@@ -234,6 +299,11 @@ public class GamaSpatialGraph extends GamaGraph<IShape, IShape> implements ISpat
 		removeAllVertices(vertexSet());
 	}
 
+	/**
+	 * Post refresh management action.
+	 *
+	 * @param scope the scope
+	 */
 	public void postRefreshManagementAction(final IScope scope) {
 		scope.getSimulation().postEndAction(scope1 -> {
 			GamaSpatialGraph.this.refreshEdges();
@@ -246,10 +316,21 @@ public class GamaSpatialGraph extends GamaGraph<IShape, IShape> implements ISpat
 		return vertexMap.keySet();
 	}
 
+	/**
+	 * Adds the built vertex.
+	 *
+	 * @param vertex the vertex
+	 */
 	public void addBuiltVertex(final IShape vertex) {
 		verticesBuilt.put(vertex.getLocation().hashCode(), vertex);
 	}
 
+	/**
+	 * Gets the built vertex.
+	 *
+	 * @param vertex the vertex
+	 * @return the built vertex
+	 */
 	public IShape getBuiltVertex(final Coordinate vertex) {
 		if (tolerance == 0) return verticesBuilt.get(vertex.hashCode());
 		final IShape sh = verticesBuilt.get(vertex.hashCode());
@@ -260,6 +341,13 @@ public class GamaSpatialGraph extends GamaGraph<IShape, IShape> implements ISpat
 		return null;
 	}
 
+	/**
+	 * Builds the by edge with node.
+	 *
+	 * @param scope the scope
+	 * @param edges the edges
+	 * @param vertices the vertices
+	 */
 	protected void buildByEdgeWithNode(final IScope scope, final IContainer edges, final IContainer vertices) {
 
 		/*
@@ -281,6 +369,14 @@ public class GamaSpatialGraph extends GamaGraph<IShape, IShape> implements ISpat
 		}
 	}
 
+	/**
+	 * Adds the edge with nodes.
+	 *
+	 * @param scope the scope
+	 * @param e the e
+	 * @param nodes the nodes
+	 * @return true, if successful
+	 */
 	public boolean addEdgeWithNodes(final IScope scope, final IShape e, final IMap<GamaPoint, IShape> nodes) {
 		if (containsEdge(e)) return false;
 		final Coordinate[] coord = e.getInnerGeometry().getCoordinates();
@@ -316,6 +412,13 @@ public class GamaSpatialGraph extends GamaGraph<IShape, IShape> implements ISpat
 		return true;
 	}
 
+	/**
+	 * Inits the.
+	 *
+	 * @param scope the scope
+	 * @param edges the edges
+	 * @param vertices the vertices
+	 */
 	protected void init(final IScope scope, final IContainer edges, final IContainer vertices) {
 		this.directed = true;
 		edgeBased = true;
@@ -379,10 +482,20 @@ public class GamaSpatialGraph extends GamaGraph<IShape, IShape> implements ISpat
 		results.removeIf(each -> !edgeMap.containsKey(each));
 	}
 
+	/**
+	 * Gets the tolerance.
+	 *
+	 * @return the tolerance
+	 */
 	public double getTolerance() {
 		return tolerance;
 	}
 
+	/**
+	 * Sets the tolerance.
+	 *
+	 * @param tolerance the new tolerance
+	 */
 	public void setTolerance(final double tolerance) {
 		this.tolerance = tolerance;
 	}

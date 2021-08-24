@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.extensions.fipa.MessageBroker.java, in plugin msi.gaml.extensions.fipa, is part of the source code of the
- * GAMA modeling and simulation platform (v. 1.8.1)
+ * MessageBroker.java, in gama.ext.fipa, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.ext.fipa;
 
@@ -37,23 +37,19 @@ public class MessageBroker {
 	/** The messages to deliver. */
 	private final Map<IAgent, List<FIPAMessage>> messagesToDeliver = new HashMap<>();
 
-	/**
-	 * Centralized storage of Conversations and Messages to facilitate Garbage Collection
-	 */
+	/** Centralized storage of Conversations and Messages to facilitate Garbage Collection. */
 	private final Map<IAgent, ConversationsMessages> conversationsMessages = new HashMap<>();
 
 	/** The instance. */
 	private static Map<SimulationAgent, MessageBroker> instances = new HashMap<>();
 
 	/**
-	 * @throws GamaRuntimeException
-	 *             Deliver message.
+	 * Deliver messages for.
 	 *
-	 * @param m
-	 *            the m
-	 *
-	 * @throws GamlException
-	 *             the gaml exception
+	 * @param scope the scope
+	 * @param a the a
+	 * @return the i list
+	 * @throws GamaRuntimeException             Deliver message.
 	 */
 	public IList<FIPAMessage> deliverMessagesFor(final IScope scope, final IAgent a) throws GamaRuntimeException {
 		final List<FIPAMessage> messagesForA = messagesToDeliver.get(a);
@@ -83,14 +79,12 @@ public class MessageBroker {
 	}
 
 	/**
-	 * @throws GamaRuntimeException
-	 *             Deliver failure in reply to.
+	 * Failure message in reply to.
 	 *
-	 * @param m
-	 *            the m
-	 *
-	 * @throws GamlException
-	 *             the gaml exception
+	 * @param scope the scope
+	 * @param m            the m
+	 * @return the FIPA message
+	 * @throws GamaRuntimeException             Deliver failure in reply to.
 	 */
 	protected FIPAMessage failureMessageInReplyTo(final IScope scope, final FIPAMessage m) throws GamaRuntimeException {
 		if (m.getPerformative() == Performative.failure) { return null; }
@@ -109,8 +103,8 @@ public class MessageBroker {
 	/**
 	 * Schedule for delivery.
 	 *
-	 * @param m
-	 *            the m
+	 * @param scope the scope
+	 * @param m            the m
 	 */
 	public void scheduleForDelivery(final IScope scope, final FIPAMessage m) {
 		for (final IAgent a : m.getReceivers().iterable(scope)) {
@@ -118,6 +112,12 @@ public class MessageBroker {
 		}
 	}
 
+	/**
+	 * Schedule for delivery.
+	 *
+	 * @param m the m
+	 * @param agent the agent
+	 */
 	private void scheduleForDelivery(final FIPAMessage m, final IAgent agent) {
 		List<FIPAMessage> messages = messagesToDeliver.get(agent);
 		if (messages == null) {
@@ -128,16 +128,12 @@ public class MessageBroker {
 	}
 
 	/**
-	 * @throws GamaRuntimeException
-	 *             Schedule for delivery.
+	 * Schedule for delivery.
 	 *
-	 * @param m
-	 *            the m
-	 * @param protocol
-	 *            the protocol name
-	 *
-	 * @throws GamlException
-	 *             the gaml exception
+	 * @param scope the scope
+	 * @param m            the m
+	 * @param protocol            the protocol name
+	 * @throws GamaRuntimeException             Schedule for delivery.
 	 */
 	public void scheduleForDelivery(final IScope scope, final FIPAMessage m, final String protocol) {
 		Conversation conv;
@@ -149,9 +145,7 @@ public class MessageBroker {
 	/**
 	 * Gets the single instance of MessageBroker.
 	 *
-	 * @param sim
-	 *            the sim
-	 *
+	 * @param scope the scope
 	 * @return single instance of MessageBroker
 	 */
 	public static MessageBroker getInstance(final IScope scope) {
@@ -175,18 +169,35 @@ public class MessageBroker {
 		return instance;
 	}
 
+	/**
+	 * Gets the messages for.
+	 *
+	 * @param agent the agent
+	 * @return the messages for
+	 */
 	public IList<FIPAMessage> getMessagesFor(final IAgent agent) {
 		if (!conversationsMessages.containsKey(agent)) { return GamaListFactory.EMPTY_LIST; }
 
 		return conversationsMessages.get(agent).messages;
 	}
 
+	/**
+	 * Gets the conversations for.
+	 *
+	 * @param agent the agent
+	 * @return the conversations for
+	 */
 	public List<Conversation> getConversationsFor(final IAgent agent) {
 		if (!conversationsMessages.containsKey(agent)) { return GamaListFactory.EMPTY_LIST; }
 
 		return conversationsMessages.get(agent).conversations;
 	}
 
+	/**
+	 * Adds the conversation.
+	 *
+	 * @param c the c
+	 */
 	public void addConversation(final Conversation c) {
 		final IList<IAgent> members = GamaListFactory.create(Types.AGENT);
 		members.add(c.getIntitiator());
@@ -199,6 +210,12 @@ public class MessageBroker {
 		}
 	}
 
+	/**
+	 * Adds the conversation.
+	 *
+	 * @param a the a
+	 * @param c the c
+	 */
 	private void addConversation(final IAgent a, final Conversation c) {
 		ConversationsMessages cm = conversationsMessages.get(a);
 		if (cm == null) {
@@ -210,8 +227,9 @@ public class MessageBroker {
 	}
 
 	/**
-	 * @throws GamaRuntimeException
-	 *             Removes the already ended conversations.
+	 * Manage conversations and messages.
+	 *
+	 * @throws GamaRuntimeException             Removes the already ended conversations.
 	 */
 	public void manageConversationsAndMessages() throws GamaRuntimeException {
 
@@ -253,19 +271,30 @@ public class MessageBroker {
 		}
 	}
 
+	/**
+	 * The Class ConversationsMessages.
+	 */
 	class ConversationsMessages {
 
+		/** The conversations. */
 		IList<Conversation> conversations;
 
+		/** The messages. */
 		// agent mailbox : all un-read messages of an agent
 		IList<FIPAMessage> messages;
 
+		/**
+		 * Instantiates a new conversations messages.
+		 */
 		ConversationsMessages() {
 			this.conversations = GamaListFactory.create(Types.get(ConversationType.CONV_ID));
 			this.messages = GamaListFactory.create(Types.get(IType.MESSAGE));
 		}
 	}
 
+	/**
+	 * Scheduler disposed.
+	 */
 	public void schedulerDisposed() {
 		messagesToDeliver.clear();
 

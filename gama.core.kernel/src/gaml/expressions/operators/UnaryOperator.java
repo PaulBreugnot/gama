@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.expressions.UnaryOperator.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * UnaryOperator.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.expressions.operators;
 
@@ -47,9 +47,20 @@ import gaml.types.Types;
 @SuppressWarnings ({ "rawtypes" })
 public class UnaryOperator extends AbstractExpression implements IOperator {
 
+	/** The child. */
 	final protected IExpression child;
+	
+	/** The prototype. */
 	protected final OperatorProto prototype;
 
+	/**
+	 * Creates the.
+	 *
+	 * @param proto the proto
+	 * @param context the context
+	 * @param child the child
+	 * @return the i expression
+	 */
 	public static IExpression create(final OperatorProto proto, final IDescription context, final IExpression child) {
 		final UnaryOperator u = new UnaryOperator(proto, context, child);
 		if (u.isConst() && GamaPreferences.External.CONSTANT_OPTIMIZATION.getValue()) {
@@ -68,6 +79,13 @@ public class UnaryOperator extends AbstractExpression implements IOperator {
 		return prototype.getDefiningPlugin();
 	}
 
+	/**
+	 * Instantiates a new unary operator.
+	 *
+	 * @param proto the proto
+	 * @param context the context
+	 * @param child the child
+	 */
 	public UnaryOperator(final OperatorProto proto, final IDescription context, final IExpression... child) {
 		// setName(proto.getName());
 		this.child = child[0];
@@ -132,6 +150,13 @@ public class UnaryOperator extends AbstractExpression implements IOperator {
 		return prototype.getDocumentation();
 	}
 
+	/**
+	 * Compute type.
+	 *
+	 * @param theType the the type
+	 * @param def the def
+	 * @return the i type
+	 */
 	private IType computeType(final int theType, final IType def) {
 		int t = theType;
 		final boolean returnFloatsInsteadOfInts = t < FLOAT_IN_CASE_OF_INT;
@@ -176,6 +201,9 @@ public class UnaryOperator extends AbstractExpression implements IOperator {
 		return result;
 	}
 
+	/**
+	 * Compute type.
+	 */
 	protected void computeType() {
 		type = computeType(prototype.typeProvider, type);
 		if (type.isContainer()) {

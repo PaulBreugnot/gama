@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.kernel.experiment.ExperimentController.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * ExperimentController.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.kernel.experiment;
 
@@ -19,21 +19,43 @@ import gama.runtime.ISimulationStateProvider;
 import gama.runtime.concurrent.GamaExecutorService;
 import gama.runtime.exceptions.GamaRuntimeException;
 
+/**
+ * The Class ExperimentController.
+ */
 public class ExperimentController implements Runnable, IExperimentController {
 
+	/** The experiment. */
 	private final IExperimentPlan experiment;
+	
+	/** The disposing. */
 	private boolean disposing;
+	
+	/** The commands. */
 	protected volatile ArrayBlockingQueue<Integer> commands;
+	
+	/** The command thread. */
 	public volatile Thread commandThread;
+	
+	/** The running. */
 	protected volatile boolean running = true;
+	
+	/** The scheduler. */
 	private final ExperimentScheduler scheduler;
 
+	/**
+	 * Instantiates a new experiment controller.
+	 *
+	 * @param experiment the experiment
+	 */
 	public ExperimentController(final IExperimentPlan experiment) {
 		this.scheduler = new ExperimentScheduler(experiment);
 		commands = new ArrayBlockingQueue<>(10);
 		this.experiment = experiment;
 	}
 
+	/**
+	 * Launch command thread.
+	 */
 	private void launchCommandThread() {
 		if (commandThread != null) return;
 		if (experiment.isHeadless()) {
@@ -70,6 +92,11 @@ public class ExperimentController implements Runnable, IExperimentController {
 		commandThread = null;
 	}
 
+	/**
+	 * Offer.
+	 *
+	 * @param command the command
+	 */
 	public void offer(final int command) {
 		if (isDisposing()) return;
 		if (commandThread == null || !commandThread.isAlive()) {
@@ -79,6 +106,11 @@ public class ExperimentController implements Runnable, IExperimentController {
 		}
 	}
 
+	/**
+	 * Process user command.
+	 *
+	 * @param command the command
+	 */
 	protected void processUserCommand(final int command) {
 		final IScope scope = experiment.getExperimentScope();
 		switch (command) {
@@ -230,6 +262,11 @@ public class ExperimentController implements Runnable, IExperimentController {
 		closeExperiment(null);
 	}
 
+	/**
+	 * Close experiment.
+	 *
+	 * @param e the e
+	 */
 	public void closeExperiment(final Exception e) {
 		disposing = true;
 		// DEBUG.LOG("CloseExperiment : disposing = true");

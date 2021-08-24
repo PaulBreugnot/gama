@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * AddressDetails.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.xal;
 
@@ -53,6 +63,7 @@ import javax.xml.namespace.QName;
 public class AddressDetails implements Cloneable
 {
 
+    /** The postal service elements. */
     @XmlElement(name = "PostalServiceElements")
     protected AddressDetails.PostalServiceElements postalServiceElements;
     /**
@@ -70,16 +81,28 @@ public class AddressDetails implements Cloneable
      */
     @XmlElement(name = "Address")
     protected AddressDetails.Address xalAddress;
+    
+    /** The address lines. */
     @XmlElement(name = "AddressLines")
     protected AddressLines addressLines;
+    
+    /** The country. */
     @XmlElement(name = "Country")
     protected AddressDetails.Country country;
+    
+    /** The administrative area. */
     @XmlElement(name = "AdministrativeArea")
     protected AdministrativeArea administrativeArea;
+    
+    /** The locality. */
     @XmlElement(name = "Locality")
     protected Locality locality;
+    
+    /** The thoroughfare. */
     @XmlElement(name = "Thoroughfare")
     protected Thoroughfare thoroughfare;
+    
+    /** The any. */
     @XmlAnyElement(lax = true)
     protected List<Object> any;
     /**
@@ -98,42 +121,50 @@ public class AddressDetails implements Cloneable
     @XmlAttribute(name = "AddressType")
     @XmlSchemaType(name = "anySimpleType")
     protected String address;
+    
+    /** The current status. */
     @XmlAttribute(name = "CurrentStatus")
     @XmlSchemaType(name = "anySimpleType")
     protected String currentStatus;
+    
+    /** The valid from date. */
     @XmlAttribute(name = "ValidFromDate")
     @XmlSchemaType(name = "anySimpleType")
     protected String validFromDate;
+    
+    /** The valid to date. */
     @XmlAttribute(name = "ValidToDate")
     @XmlSchemaType(name = "anySimpleType")
     protected String validToDate;
+    
+    /** The usage. */
     @XmlAttribute(name = "Usage")
     @XmlSchemaType(name = "anySimpleType")
     protected String usage;
+    
+    /** The address details key. */
     @XmlAttribute(name = "AddressDetailsKey")
     @XmlSchemaType(name = "anySimpleType")
     protected String addressDetailsKey;
+    
+    /** The code. */
     @XmlAttribute(name = "Code")
     @XmlSchemaType(name = "anySimpleType")
     protected String code;
+    
+    /** The other attributes. */
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
-     * Value constructor with only mandatory fields
-     * 
-     * @param xalAddress
-     *     required parameter
-     * @param addressLines
-     *     required parameter
-     * @param country
-     *     required parameter
-     * @param locality
-     *     required parameter
-     * @param administrativeArea
-     *     required parameter
-     * @param thoroughfare
-     *     required parameter
+     * Value constructor with only mandatory fields.
+     *
+     * @param xalAddress     required parameter
+     * @param addressLines     required parameter
+     * @param country     required parameter
+     * @param administrativeArea     required parameter
+     * @param locality     required parameter
+     * @param thoroughfare     required parameter
      */
     public AddressDetails(final AddressDetails.Address xalAddress, final AddressLines addressLines, final AddressDetails.Country country, final AdministrativeArea administrativeArea, final Locality locality, final Thoroughfare thoroughfare) {
         super();
@@ -155,176 +186,164 @@ public class AddressDetails implements Cloneable
     }
 
     /**
-     * @see postalServiceElements
-     * 
-     * @return
-     *     possible object is
+     * Gets the postal service elements.
+     *
+     * @return     possible object is
      *     {@link AddressDetails.PostalServiceElements}
-     *     
+     * @see postalServiceElements
      */
     public AddressDetails.PostalServiceElements getPostalServiceElements() {
         return postalServiceElements;
     }
 
     /**
-     * @see postalServiceElements
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the postal service elements.
+     *
+     * @param value     allowed object is
      *     {@link AddressDetails.PostalServiceElements}
-     *     
+     * @see postalServiceElements
      */
     public void setPostalServiceElements(AddressDetails.PostalServiceElements value) {
         this.postalServiceElements = value;
     }
 
     /**
-     * @see xalAddress
-     * 
-     * @return
-     *     possible object is
+     * Gets the xal address.
+     *
+     * @return     possible object is
      *     {@link AddressDetails.Address}
-     *     
+     * @see xalAddress
      */
     public AddressDetails.Address getXalAddress() {
         return xalAddress;
     }
 
     /**
-     * @see xalAddress
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the xal address.
+     *
+     * @param value     allowed object is
      *     {@link AddressDetails.Address}
-     *     
+     * @see xalAddress
      */
     public void setXalAddress(AddressDetails.Address value) {
         this.xalAddress = value;
     }
 
     /**
-     * @see addressLines
-     * 
-     * @return
-     *     possible object is
+     * Gets the address lines.
+     *
+     * @return     possible object is
      *     {@link AddressLines}
-     *     
+     * @see addressLines
      */
     public AddressLines getAddressLines() {
         return addressLines;
     }
 
     /**
-     * @see addressLines
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the address lines.
+     *
+     * @param value     allowed object is
      *     {@link AddressLines}
-     *     
+     * @see addressLines
      */
     public void setAddressLines(AddressLines value) {
         this.addressLines = value;
     }
 
     /**
-     * @see country
-     * 
-     * @return
-     *     possible object is
+     * Gets the country.
+     *
+     * @return     possible object is
      *     {@link AddressDetails.Country}
-     *     
+     * @see country
      */
     public AddressDetails.Country getCountry() {
         return country;
     }
 
     /**
-     * @see country
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the country.
+     *
+     * @param value     allowed object is
      *     {@link AddressDetails.Country}
-     *     
+     * @see country
      */
     public void setCountry(AddressDetails.Country value) {
         this.country = value;
     }
 
     /**
-     * @see administrativeArea
-     * 
-     * @return
-     *     possible object is
+     * Gets the administrative area.
+     *
+     * @return     possible object is
      *     {@link AdministrativeArea}
-     *     
+     * @see administrativeArea
      */
     public AdministrativeArea getAdministrativeArea() {
         return administrativeArea;
     }
 
     /**
-     * @see administrativeArea
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the administrative area.
+     *
+     * @param value     allowed object is
      *     {@link AdministrativeArea}
-     *     
+     * @see administrativeArea
      */
     public void setAdministrativeArea(AdministrativeArea value) {
         this.administrativeArea = value;
     }
 
     /**
-     * @see locality
-     * 
-     * @return
-     *     possible object is
+     * Gets the locality.
+     *
+     * @return     possible object is
      *     {@link Locality}
-     *     
+     * @see locality
      */
     public Locality getLocality() {
         return locality;
     }
 
     /**
-     * @see locality
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the locality.
+     *
+     * @param value     allowed object is
      *     {@link Locality}
-     *     
+     * @see locality
      */
     public void setLocality(Locality value) {
         this.locality = value;
     }
 
     /**
-     * @see thoroughfare
-     * 
-     * @return
-     *     possible object is
+     * Gets the thoroughfare.
+     *
+     * @return     possible object is
      *     {@link Thoroughfare}
-     *     
+     * @see thoroughfare
      */
     public Thoroughfare getThoroughfare() {
         return thoroughfare;
     }
 
     /**
-     * @see thoroughfare
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the thoroughfare.
+     *
+     * @param value     allowed object is
      *     {@link Thoroughfare}
-     *     
+     * @see thoroughfare
      */
     public void setThoroughfare(Thoroughfare value) {
         this.thoroughfare = value;
     }
 
     /**
+     * Gets the any.
+     *
+     * @return the any
      * @see any
-     * 
      */
     public List<Object> getAny() {
         if (any == null) {
@@ -334,178 +353,164 @@ public class AddressDetails implements Cloneable
     }
 
     /**
-     * @see address
-     * 
-     * @return
-     *     possible object is
+     * Gets the address.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see address
      */
     public String getAddress() {
         return address;
     }
 
     /**
-     * @see address
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the address.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see address
      */
     public void setAddress(String value) {
         this.address = value;
     }
 
     /**
-     * @see currentStatus
-     * 
-     * @return
-     *     possible object is
+     * Gets the current status.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see currentStatus
      */
     public String getCurrentStatus() {
         return currentStatus;
     }
 
     /**
-     * @see currentStatus
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the current status.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see currentStatus
      */
     public void setCurrentStatus(String value) {
         this.currentStatus = value;
     }
 
     /**
-     * @see validFromDate
-     * 
-     * @return
-     *     possible object is
+     * Gets the valid from date.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see validFromDate
      */
     public String getValidFromDate() {
         return validFromDate;
     }
 
     /**
-     * @see validFromDate
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the valid from date.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see validFromDate
      */
     public void setValidFromDate(String value) {
         this.validFromDate = value;
     }
 
     /**
-     * @see validToDate
-     * 
-     * @return
-     *     possible object is
+     * Gets the valid to date.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see validToDate
      */
     public String getValidToDate() {
         return validToDate;
     }
 
     /**
-     * @see validToDate
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the valid to date.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see validToDate
      */
     public void setValidToDate(String value) {
         this.validToDate = value;
     }
 
     /**
-     * @see usage
-     * 
-     * @return
-     *     possible object is
+     * Gets the usage.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see usage
      */
     public String getUsage() {
         return usage;
     }
 
     /**
-     * @see usage
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the usage.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see usage
      */
     public void setUsage(String value) {
         this.usage = value;
     }
 
     /**
-     * @see addressDetailsKey
-     * 
-     * @return
-     *     possible object is
+     * Gets the address details key.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see addressDetailsKey
      */
     public String getAddressDetailsKey() {
         return addressDetailsKey;
     }
 
     /**
-     * @see addressDetailsKey
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the address details key.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see addressDetailsKey
      */
     public void setAddressDetailsKey(String value) {
         this.addressDetailsKey = value;
     }
 
     /**
-     * @see code
-     * 
-     * @return
-     *     possible object is
+     * Gets the code.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see code
      */
     public String getCode() {
         return code;
     }
 
     /**
-     * @see code
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the code.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see code
      */
     public void setCode(String value) {
         this.code = value;
     }
 
     /**
+     * Gets the other attributes.
+     *
+     * @return     always non-null
      * @see otherAttributes
-     * 
-     * @return
-     *     always non-null
      */
     public Map<QName, String> getOtherAttributes() {
         return otherAttributes;
@@ -690,8 +695,8 @@ public class AddressDetails implements Cloneable
      * <code>
      * PostalServiceElements postalServiceElements = new PostalServiceElements();
      * this.setPostalServiceElements(postalServiceElements); </code>
-     * 
-     * 
+     *
+     * @return the address details. postal service elements
      */
     public AddressDetails.PostalServiceElements createAndSetPostalServiceElements() {
         AddressDetails.PostalServiceElements newValue = new AddressDetails.PostalServiceElements();
@@ -706,8 +711,8 @@ public class AddressDetails implements Cloneable
      * <code>
      * Address address = new Address();
      * this.setXalAddress(address); </code>
-     * 
-     * 
+     *
+     * @return the address details. address
      */
     public AddressDetails.Address createAndSetXalAddress() {
         AddressDetails.Address newValue = new AddressDetails.Address();
@@ -722,10 +727,9 @@ public class AddressDetails implements Cloneable
      * <code>
      * AddressLines addressLines = new AddressLines();
      * this.setAddressLines(addressLines); </code>
-     * 
-     * 
-     * @param addressLine
-     *     required parameter
+     *
+     * @param addressLine     required parameter
+     * @return the address lines
      */
     public AddressLines createAndSetAddressLines(final List<AddressLine> addressLine) {
         AddressLines newValue = new AddressLines(addressLine);
@@ -740,14 +744,11 @@ public class AddressDetails implements Cloneable
      * <code>
      * Country country = new Country();
      * this.setCountry(country); </code>
-     * 
-     * 
-     * @param locality
-     *     required parameter
-     * @param administrativeArea
-     *     required parameter
-     * @param thoroughfare
-     *     required parameter
+     *
+     * @param administrativeArea     required parameter
+     * @param locality     required parameter
+     * @param thoroughfare     required parameter
+     * @return the address details. country
      */
     public AddressDetails.Country createAndSetCountry(final AdministrativeArea administrativeArea, final Locality locality, final Thoroughfare thoroughfare) {
         AddressDetails.Country newValue = new AddressDetails.Country(administrativeArea, locality, thoroughfare);
@@ -762,14 +763,11 @@ public class AddressDetails implements Cloneable
      * <code>
      * AdministrativeArea administrativeArea = new AdministrativeArea();
      * this.setAdministrativeArea(administrativeArea); </code>
-     * 
-     * 
-     * @param postalCode
-     *     required parameter
-     * @param locality
-     *     required parameter
-     * @param postOffice
-     *     required parameter
+     *
+     * @param locality     required parameter
+     * @param postOffice     required parameter
+     * @param postalCode     required parameter
+     * @return the administrative area
      */
     public AdministrativeArea createAndSetAdministrativeArea(final Locality locality, final PostOffice postOffice, final PostalCode postalCode) {
         AdministrativeArea newValue = new AdministrativeArea(locality, postOffice, postalCode);
@@ -784,16 +782,12 @@ public class AddressDetails implements Cloneable
      * <code>
      * Locality locality = new Locality();
      * this.setLocality(locality); </code>
-     * 
-     * 
-     * @param postBox
-     *     required parameter
-     * @param postOffice
-     *     required parameter
-     * @param postalRoute
-     *     required parameter
-     * @param largeMailUser
-     *     required parameter
+     *
+     * @param postBox     required parameter
+     * @param largeMailUser     required parameter
+     * @param postOffice     required parameter
+     * @param postalRoute     required parameter
+     * @return the locality
      */
     public Locality createAndSetLocality(final PostBox postBox, final LargeMailUser largeMailUser, final PostOffice postOffice, final PostalRoute postalRoute) {
         Locality newValue = new Locality(postBox, largeMailUser, postOffice, postalRoute);
@@ -808,16 +802,12 @@ public class AddressDetails implements Cloneable
      * <code>
      * Thoroughfare thoroughfare = new Thoroughfare();
      * this.setThoroughfare(thoroughfare); </code>
-     * 
-     * 
-     * @param postalCode
-     *     required parameter
-     * @param premise
-     *     required parameter
-     * @param firm
-     *     required parameter
-     * @param dependentLocality
-     *     required parameter
+     *
+     * @param dependentLocality     required parameter
+     * @param premise     required parameter
+     * @param firm     required parameter
+     * @param postalCode     required parameter
+     * @return the thoroughfare
      */
     public Thoroughfare createAndSetThoroughfare(final DependentLocality dependentLocality, final Premise premise, final Firm firm, final PostalCode postalCode) {
         Thoroughfare newValue = new Thoroughfare(dependentLocality, premise, firm, postalCode);
@@ -826,21 +816,20 @@ public class AddressDetails implements Cloneable
     }
 
     /**
+     * Sets the any.
+     *
+     * @param any the new any
      * @see any
-     * 
-     * @param any
      */
     public void setAny(final List<Object> any) {
         this.any = any;
     }
 
     /**
-     * add a value to the any property collection
-     * 
-     * @param any
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the any property collection.
+     *
+     * @param any     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public AddressDetails addToAny(final Object any) {
         this.getAny().add(any);
@@ -848,11 +837,11 @@ public class AddressDetails implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param postalServiceElements     required parameter
+     * @return the address details
      * @see #setPostalServiceElements(PostalServiceElements)
-     * 
-     * @param postalServiceElements
-     *     required parameter
      */
     public AddressDetails withPostalServiceElements(final AddressDetails.PostalServiceElements postalServiceElements) {
         this.setPostalServiceElements(postalServiceElements);
@@ -860,11 +849,11 @@ public class AddressDetails implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param any     required parameter
+     * @return the address details
      * @see #setAny(List<Object>)
-     * 
-     * @param any
-     *     required parameter
      */
     public AddressDetails withAny(final List<Object> any) {
         this.setAny(any);
@@ -872,11 +861,11 @@ public class AddressDetails implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param address     required parameter
+     * @return the address details
      * @see #setAddress(String)
-     * 
-     * @param address
-     *     required parameter
      */
     public AddressDetails withAddress(final String address) {
         this.setAddress(address);
@@ -884,11 +873,11 @@ public class AddressDetails implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param currentStatus     required parameter
+     * @return the address details
      * @see #setCurrentStatus(String)
-     * 
-     * @param currentStatus
-     *     required parameter
      */
     public AddressDetails withCurrentStatus(final String currentStatus) {
         this.setCurrentStatus(currentStatus);
@@ -896,11 +885,11 @@ public class AddressDetails implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param validFromDate     required parameter
+     * @return the address details
      * @see #setValidFromDate(String)
-     * 
-     * @param validFromDate
-     *     required parameter
      */
     public AddressDetails withValidFromDate(final String validFromDate) {
         this.setValidFromDate(validFromDate);
@@ -908,11 +897,11 @@ public class AddressDetails implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param validToDate     required parameter
+     * @return the address details
      * @see #setValidToDate(String)
-     * 
-     * @param validToDate
-     *     required parameter
      */
     public AddressDetails withValidToDate(final String validToDate) {
         this.setValidToDate(validToDate);
@@ -920,11 +909,11 @@ public class AddressDetails implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param usage     required parameter
+     * @return the address details
      * @see #setUsage(String)
-     * 
-     * @param usage
-     *     required parameter
      */
     public AddressDetails withUsage(final String usage) {
         this.setUsage(usage);
@@ -932,11 +921,11 @@ public class AddressDetails implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param addressDetailsKey     required parameter
+     * @return the address details
      * @see #setAddressDetailsKey(String)
-     * 
-     * @param addressDetailsKey
-     *     required parameter
      */
     public AddressDetails withAddressDetailsKey(final String addressDetailsKey) {
         this.setAddressDetailsKey(addressDetailsKey);
@@ -944,11 +933,11 @@ public class AddressDetails implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param code     required parameter
+     * @return the address details
      * @see #setCode(String)
-     * 
-     * @param code
-     *     required parameter
      */
     public AddressDetails withCode(final String code) {
         this.setCode(code);
@@ -999,98 +988,102 @@ public class AddressDetails implements Cloneable
     public static class Address implements Cloneable
     {
 
+        /** The content. */
         @XmlValue
         protected String content;
+        
+        /** The underscore. */
         @XmlAttribute(name = "Type")
         @XmlSchemaType(name = "anySimpleType")
         protected String underscore;
+        
+        /** The code. */
         @XmlAttribute(name = "Code")
         @XmlSchemaType(name = "anySimpleType")
         protected String code;
+        
+        /** The other attributes. */
         @XmlAnyAttribute
         private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+        /**
+         * Instantiates a new address.
+         */
         public Address() {
             super();
         }
 
         /**
-         * @see content
-         * 
-         * @return
-         *     possible object is
+         * Gets the content.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
+         * @see content
          */
         public String getContent() {
             return content;
         }
 
         /**
-         * @see content
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the content.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
+         * @see content
          */
         public void setContent(String value) {
             this.content = value;
         }
 
         /**
-         * @see underscore
-         * 
-         * @return
-         *     possible object is
+         * Gets the underscore.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
+         * @see underscore
          */
         public String getUnderscore() {
             return underscore;
         }
 
         /**
-         * @see underscore
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the underscore.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
+         * @see underscore
          */
         public void setUnderscore(String value) {
             this.underscore = value;
         }
 
         /**
-         * @see code
-         * 
-         * @return
-         *     possible object is
+         * Gets the code.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
+         * @see code
          */
         public String getCode() {
             return code;
         }
 
         /**
-         * @see code
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the code.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
+         * @see code
          */
         public void setCode(String value) {
             this.code = value;
         }
 
         /**
+         * Gets the other attributes.
+         *
+         * @return     always non-null
          * @see otherAttributes
-         * 
-         * @return
-         *     always non-null
          */
         public Map<QName, String> getOtherAttributes() {
             return otherAttributes;
@@ -1149,11 +1142,11 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param content     required parameter
+         * @return the address details. address
          * @see #setContent(String)
-         * 
-         * @param content
-         *     required parameter
          */
         public AddressDetails.Address withContent(final String content) {
             this.setContent(content);
@@ -1161,11 +1154,11 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param underscore     required parameter
+         * @return the address details. address
          * @see #setUnderscore(String)
-         * 
-         * @param underscore
-         *     required parameter
          */
         public AddressDetails.Address withUnderscore(final String underscore) {
             this.setUnderscore(underscore);
@@ -1173,11 +1166,11 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param code     required parameter
+         * @return the address details. address
          * @see #setCode(String)
-         * 
-         * @param code
-         *     required parameter
          */
         public AddressDetails.Address withCode(final String code) {
             this.setCode(code);
@@ -1199,7 +1192,7 @@ public class AddressDetails implements Cloneable
 
 
     /**
-     * 
+     * The Class Country.
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -1215,32 +1208,44 @@ public class AddressDetails implements Cloneable
     public static class Country implements Cloneable
     {
 
+        /** The address line. */
         @XmlElement(name = "AddressLine")
         protected List<AddressLine> addressLine;
+        
+        /** The country name code. */
         @XmlElement(name = "CountryNameCode")
         protected List<AddressDetails.Country.CountryNameCode> countryNameCode;
+        
+        /** The country name. */
         @XmlElement(name = "CountryName")
         protected List<CountryName> countryName;
+        
+        /** The administrative area. */
         @XmlElement(name = "AdministrativeArea")
         protected AdministrativeArea administrativeArea;
+        
+        /** The locality. */
         @XmlElement(name = "Locality")
         protected Locality locality;
+        
+        /** The thoroughfare. */
         @XmlElement(name = "Thoroughfare")
         protected Thoroughfare thoroughfare;
+        
+        /** The any. */
         @XmlAnyElement(lax = true)
         protected List<Object> any;
+        
+        /** The other attributes. */
         @XmlAnyAttribute
         private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
         /**
-         * Value constructor with only mandatory fields
-         * 
-         * @param locality
-         *     required parameter
-         * @param administrativeArea
-         *     required parameter
-         * @param thoroughfare
-         *     required parameter
+         * Value constructor with only mandatory fields.
+         *
+         * @param administrativeArea     required parameter
+         * @param locality     required parameter
+         * @param thoroughfare     required parameter
          */
         public Country(final AdministrativeArea administrativeArea, final Locality locality, final Thoroughfare thoroughfare) {
             super();
@@ -1259,7 +1264,9 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * 
+         * Gets the address line.
+         *
+         * @return the address line
          */
         public List<AddressLine> getAddressLine() {
             if (addressLine == null) {
@@ -1269,7 +1276,9 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * 
+         * Gets the country name code.
+         *
+         * @return the country name code
          */
         public List<AddressDetails.Country.CountryNameCode> getCountryNameCode() {
             if (countryNameCode == null) {
@@ -1279,7 +1288,9 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * 
+         * Gets the country name.
+         *
+         * @return the country name
          */
         public List<CountryName> getCountryName() {
             if (countryName == null) {
@@ -1289,73 +1300,69 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the administrative area.
+         *
+         * @return     possible object is
          *     {@link AdministrativeArea}
-         *     
          */
         public AdministrativeArea getAdministrativeArea() {
             return administrativeArea;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the administrative area.
+         *
+         * @param value     allowed object is
          *     {@link AdministrativeArea}
-         *     
          */
         public void setAdministrativeArea(AdministrativeArea value) {
             this.administrativeArea = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the locality.
+         *
+         * @return     possible object is
          *     {@link Locality}
-         *     
          */
         public Locality getLocality() {
             return locality;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the locality.
+         *
+         * @param value     allowed object is
          *     {@link Locality}
-         *     
          */
         public void setLocality(Locality value) {
             this.locality = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the thoroughfare.
+         *
+         * @return     possible object is
          *     {@link Thoroughfare}
-         *     
          */
         public Thoroughfare getThoroughfare() {
             return thoroughfare;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the thoroughfare.
+         *
+         * @param value     allowed object is
          *     {@link Thoroughfare}
-         *     
          */
         public void setThoroughfare(Thoroughfare value) {
             this.thoroughfare = value;
         }
 
         /**
-         * 
+         * Gets the any.
+         *
+         * @return the any
          */
         public List<Object> getAny() {
             if (any == null) {
@@ -1365,9 +1372,9 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * 
-         * @return
-         *     always non-null
+         * Gets the other attributes.
+         *
+         * @return     always non-null
          */
         public Map<QName, String> getOtherAttributes() {
             return otherAttributes;
@@ -1471,8 +1478,8 @@ public class AddressDetails implements Cloneable
          * <code>
          * AddressLine addressLine = new AddressLine();
          * this.getAddressLine().add(addressLine); </code>
-         * 
-         * 
+         *
+         * @return the address line
          */
         public AddressLine createAndAddAddressLine() {
             AddressLine newValue = new AddressLine();
@@ -1486,8 +1493,8 @@ public class AddressDetails implements Cloneable
          * <code>
          * CountryNameCode countryNameCode = new CountryNameCode();
          * this.getCountryNameCode().add(countryNameCode); </code>
-         * 
-         * 
+         *
+         * @return the address details. country. country name code
          */
         public AddressDetails.Country.CountryNameCode createAndAddCountryNameCode() {
             AddressDetails.Country.CountryNameCode newValue = new AddressDetails.Country.CountryNameCode();
@@ -1501,8 +1508,8 @@ public class AddressDetails implements Cloneable
          * <code>
          * CountryName countryName = new CountryName();
          * this.getCountryName().add(countryName); </code>
-         * 
-         * 
+         *
+         * @return the country name
          */
         public CountryName createAndAddCountryName() {
             CountryName newValue = new CountryName();
@@ -1517,14 +1524,11 @@ public class AddressDetails implements Cloneable
          * <code>
          * AdministrativeArea administrativeArea = new AdministrativeArea();
          * this.setAdministrativeArea(administrativeArea); </code>
-         * 
-         * 
-         * @param postalCode
-         *     required parameter
-         * @param locality
-         *     required parameter
-         * @param postOffice
-         *     required parameter
+         *
+         * @param locality     required parameter
+         * @param postOffice     required parameter
+         * @param postalCode     required parameter
+         * @return the administrative area
          */
         public AdministrativeArea createAndSetAdministrativeArea(final Locality locality, final PostOffice postOffice, final PostalCode postalCode) {
             AdministrativeArea newValue = new AdministrativeArea(locality, postOffice, postalCode);
@@ -1539,16 +1543,12 @@ public class AddressDetails implements Cloneable
          * <code>
          * Locality locality = new Locality();
          * this.setLocality(locality); </code>
-         * 
-         * 
-         * @param postBox
-         *     required parameter
-         * @param postOffice
-         *     required parameter
-         * @param postalRoute
-         *     required parameter
-         * @param largeMailUser
-         *     required parameter
+         *
+         * @param postBox     required parameter
+         * @param largeMailUser     required parameter
+         * @param postOffice     required parameter
+         * @param postalRoute     required parameter
+         * @return the locality
          */
         public Locality createAndSetLocality(final PostBox postBox, final LargeMailUser largeMailUser, final PostOffice postOffice, final PostalRoute postalRoute) {
             Locality newValue = new Locality(postBox, largeMailUser, postOffice, postalRoute);
@@ -1563,16 +1563,12 @@ public class AddressDetails implements Cloneable
          * <code>
          * Thoroughfare thoroughfare = new Thoroughfare();
          * this.setThoroughfare(thoroughfare); </code>
-         * 
-         * 
-         * @param postalCode
-         *     required parameter
-         * @param premise
-         *     required parameter
-         * @param firm
-         *     required parameter
-         * @param dependentLocality
-         *     required parameter
+         *
+         * @param dependentLocality     required parameter
+         * @param premise     required parameter
+         * @param firm     required parameter
+         * @param postalCode     required parameter
+         * @return the thoroughfare
          */
         public Thoroughfare createAndSetThoroughfare(final DependentLocality dependentLocality, final Premise premise, final Firm firm, final PostalCode postalCode) {
             Thoroughfare newValue = new Thoroughfare(dependentLocality, premise, firm, postalCode);
@@ -1584,21 +1580,18 @@ public class AddressDetails implements Cloneable
          * Sets the value of the addressLine property Objects of the following type(s) are allowed in the list List<AddressLine>.
          * <p>Note:
          * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAddressLine} instead.
-         * 
-         * 
-         * @param addressLine
+         *
+         * @param addressLine the new address line
          */
         public void setAddressLine(final List<AddressLine> addressLine) {
             this.addressLine = addressLine;
         }
 
         /**
-         * add a value to the addressLine property collection
-         * 
-         * @param addressLine
-         *     Objects of the following type are allowed in the list: {@link AddressLine}
-         * @return
-         *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+         * add a value to the addressLine property collection.
+         *
+         * @param addressLine     Objects of the following type are allowed in the list: {@link AddressLine}
+         * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
          */
         public AddressDetails.Country addToAddressLine(final AddressLine addressLine) {
             this.getAddressLine().add(addressLine);
@@ -1609,21 +1602,18 @@ public class AddressDetails implements Cloneable
          * Sets the value of the countryNameCode property Objects of the following type(s) are allowed in the list List<CountryNameCode>.
          * <p>Note:
          * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withCountryNameCode} instead.
-         * 
-         * 
-         * @param countryNameCode
+         *
+         * @param countryNameCode the new country name code
          */
         public void setCountryNameCode(final List<AddressDetails.Country.CountryNameCode> countryNameCode) {
             this.countryNameCode = countryNameCode;
         }
 
         /**
-         * add a value to the countryNameCode property collection
-         * 
-         * @param countryNameCode
-         *     Objects of the following type are allowed in the list: {@link AddressDetails.Country.CountryNameCode}
-         * @return
-         *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+         * add a value to the countryNameCode property collection.
+         *
+         * @param countryNameCode     Objects of the following type are allowed in the list: {@link AddressDetails.Country.CountryNameCode}
+         * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
          */
         public AddressDetails.Country addToCountryNameCode(final AddressDetails.Country.CountryNameCode countryNameCode) {
             this.getCountryNameCode().add(countryNameCode);
@@ -1634,21 +1624,18 @@ public class AddressDetails implements Cloneable
          * Sets the value of the countryName property Objects of the following type(s) are allowed in the list List<CountryName>.
          * <p>Note:
          * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withCountryName} instead.
-         * 
-         * 
-         * @param countryName
+         *
+         * @param countryName the new country name
          */
         public void setCountryName(final List<CountryName> countryName) {
             this.countryName = countryName;
         }
 
         /**
-         * add a value to the countryName property collection
-         * 
-         * @param countryName
-         *     Objects of the following type are allowed in the list: {@link CountryName}
-         * @return
-         *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+         * add a value to the countryName property collection.
+         *
+         * @param countryName     Objects of the following type are allowed in the list: {@link CountryName}
+         * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
          */
         public AddressDetails.Country addToCountryName(final CountryName countryName) {
             this.getCountryName().add(countryName);
@@ -1659,21 +1646,18 @@ public class AddressDetails implements Cloneable
          * Sets the value of the any property Objects of the following type(s) are allowed in the list List<Object>.
          * <p>Note:
          * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAny} instead.
-         * 
-         * 
-         * @param any
+         *
+         * @param any the new any
          */
         public void setAny(final List<Object> any) {
             this.any = any;
         }
 
         /**
-         * add a value to the any property collection
-         * 
-         * @param any
-         *     Objects of the following type are allowed in the list: {@link Object}
-         * @return
-         *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+         * add a value to the any property collection.
+         *
+         * @param any     Objects of the following type are allowed in the list: {@link Object}
+         * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
          */
         public AddressDetails.Country addToAny(final Object any) {
             this.getAny().add(any);
@@ -1681,11 +1665,11 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param addressLine     required parameter
+         * @return the address details. country
          * @see #setAddressLine(List<AddressLine>)
-         * 
-         * @param addressLine
-         *     required parameter
          */
         public AddressDetails.Country withAddressLine(final List<AddressLine> addressLine) {
             this.setAddressLine(addressLine);
@@ -1693,11 +1677,11 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param countryNameCode     required parameter
+         * @return the address details. country
          * @see #setCountryNameCode(List<CountryNameCode>)
-         * 
-         * @param countryNameCode
-         *     required parameter
          */
         public AddressDetails.Country withCountryNameCode(final List<AddressDetails.Country.CountryNameCode> countryNameCode) {
             this.setCountryNameCode(countryNameCode);
@@ -1705,11 +1689,11 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param countryName     required parameter
+         * @return the address details. country
          * @see #setCountryName(List<CountryName>)
-         * 
-         * @param countryName
-         *     required parameter
          */
         public AddressDetails.Country withCountryName(final List<CountryName> countryName) {
             this.setCountryName(countryName);
@@ -1717,11 +1701,11 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param any     required parameter
+         * @return the address details. country
          * @see #setAny(List<Object>)
-         * 
-         * @param any
-         *     required parameter
          */
         public AddressDetails.Country withAny(final List<Object> any) {
             this.setAny(any);
@@ -1760,7 +1744,7 @@ public class AddressDetails implements Cloneable
 
 
         /**
-         * 
+         * The Class CountryNameCode.
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -1770,91 +1754,95 @@ public class AddressDetails implements Cloneable
         public static class CountryNameCode implements Cloneable
         {
 
+            /** The content. */
             @XmlValue
             protected String content;
+            
+            /** The scheme. */
             @XmlAttribute(name = "Scheme")
             @XmlSchemaType(name = "anySimpleType")
             protected String scheme;
+            
+            /** The code. */
             @XmlAttribute(name = "Code")
             @XmlSchemaType(name = "anySimpleType")
             protected String code;
+            
+            /** The other attributes. */
             @XmlAnyAttribute
             private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+            /**
+             * Instantiates a new country name code.
+             */
             public CountryNameCode() {
                 super();
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the content.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getContent() {
                 return content;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the content.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setContent(String value) {
                 this.content = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the scheme.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getScheme() {
                 return scheme;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the scheme.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setScheme(String value) {
                 this.scheme = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the code.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getCode() {
                 return code;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the code.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setCode(String value) {
                 this.code = value;
             }
 
             /**
-             * 
-             * @return
-             *     always non-null
+             * Gets the other attributes.
+             *
+             * @return     always non-null
              */
             public Map<QName, String> getOtherAttributes() {
                 return otherAttributes;
@@ -1913,11 +1901,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param content     required parameter
+             * @return the address details. country. country name code
              * @see #setContent(String)
-             * 
-             * @param content
-             *     required parameter
              */
             public AddressDetails.Country.CountryNameCode withContent(final String content) {
                 this.setContent(content);
@@ -1925,11 +1913,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param scheme     required parameter
+             * @return the address details. country. country name code
              * @see #setScheme(String)
-             * 
-             * @param scheme
-             *     required parameter
              */
             public AddressDetails.Country.CountryNameCode withScheme(final String scheme) {
                 this.setScheme(scheme);
@@ -1937,11 +1925,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param code     required parameter
+             * @return the address details. country. country name code
              * @see #setCode(String)
-             * 
-             * @param code
-             *     required parameter
              */
             public AddressDetails.Country.CountryNameCode withCode(final String code) {
                 this.setCode(code);
@@ -1965,7 +1953,7 @@ public class AddressDetails implements Cloneable
 
 
     /**
-     * 
+     * The Class PostalServiceElements.
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -1985,40 +1973,70 @@ public class AddressDetails implements Cloneable
     public static class PostalServiceElements implements Cloneable
     {
 
+        /** The address identifier. */
         @XmlElement(name = "AddressIdentifier")
         protected List<AddressDetails.PostalServiceElements.AddressIdentifier> addressIdentifier;
+        
+        /** The endorsement line code. */
         @XmlElement(name = "EndorsementLineCode")
         protected AddressDetails.PostalServiceElements.EndorsementLineCode endorsementLineCode;
+        
+        /** The key line code. */
         @XmlElement(name = "KeyLineCode")
         protected AddressDetails.PostalServiceElements.KeyLineCode keyLineCode;
+        
+        /** The barcode. */
         @XmlElement(name = "Barcode")
         protected AddressDetails.PostalServiceElements.Barcode barcode;
+        
+        /** The sorting code. */
         @XmlElement(name = "SortingCode")
         protected AddressDetails.PostalServiceElements.SortingCode sortingCode;
+        
+        /** The address latitude. */
         @XmlElement(name = "AddressLatitude")
         protected AddressDetails.PostalServiceElements.AddressLatitude addressLatitude;
+        
+        /** The address latitude direction. */
         @XmlElement(name = "AddressLatitudeDirection")
         protected AddressDetails.PostalServiceElements.AddressLatitudeDirection addressLatitudeDirection;
+        
+        /** The address longitude. */
         @XmlElement(name = "AddressLongitude")
         protected AddressDetails.PostalServiceElements.AddressLongitude addressLongitude;
+        
+        /** The address longitude direction. */
         @XmlElement(name = "AddressLongitudeDirection")
         protected AddressDetails.PostalServiceElements.AddressLongitudeDirection addressLongitudeDirection;
+        
+        /** The supplementary postal service data. */
         @XmlElement(name = "SupplementaryPostalServiceData")
         protected List<AddressDetails.PostalServiceElements.SupplementaryPostalServiceData> supplementaryPostalServiceData;
+        
+        /** The any. */
         @XmlAnyElement(lax = true)
         protected List<Object> any;
+        
+        /** The underscore. */
         @XmlAttribute(name = "Type")
         @XmlSchemaType(name = "anySimpleType")
         protected String underscore;
+        
+        /** The other attributes. */
         @XmlAnyAttribute
         private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+        /**
+         * Instantiates a new postal service elements.
+         */
         public PostalServiceElements() {
             super();
         }
 
         /**
-         * 
+         * Gets the address identifier.
+         *
+         * @return the address identifier
          */
         public List<AddressDetails.PostalServiceElements.AddressIdentifier> getAddressIdentifier() {
             if (addressIdentifier == null) {
@@ -2028,183 +2046,169 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the endorsement line code.
+         *
+         * @return     possible object is
          *     {@link AddressDetails.PostalServiceElements.EndorsementLineCode}
-         *     
          */
         public AddressDetails.PostalServiceElements.EndorsementLineCode getEndorsementLineCode() {
             return endorsementLineCode;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the endorsement line code.
+         *
+         * @param value     allowed object is
          *     {@link AddressDetails.PostalServiceElements.EndorsementLineCode}
-         *     
          */
         public void setEndorsementLineCode(AddressDetails.PostalServiceElements.EndorsementLineCode value) {
             this.endorsementLineCode = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the key line code.
+         *
+         * @return     possible object is
          *     {@link AddressDetails.PostalServiceElements.KeyLineCode}
-         *     
          */
         public AddressDetails.PostalServiceElements.KeyLineCode getKeyLineCode() {
             return keyLineCode;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the key line code.
+         *
+         * @param value     allowed object is
          *     {@link AddressDetails.PostalServiceElements.KeyLineCode}
-         *     
          */
         public void setKeyLineCode(AddressDetails.PostalServiceElements.KeyLineCode value) {
             this.keyLineCode = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the barcode.
+         *
+         * @return     possible object is
          *     {@link AddressDetails.PostalServiceElements.Barcode}
-         *     
          */
         public AddressDetails.PostalServiceElements.Barcode getBarcode() {
             return barcode;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the barcode.
+         *
+         * @param value     allowed object is
          *     {@link AddressDetails.PostalServiceElements.Barcode}
-         *     
          */
         public void setBarcode(AddressDetails.PostalServiceElements.Barcode value) {
             this.barcode = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the sorting code.
+         *
+         * @return     possible object is
          *     {@link AddressDetails.PostalServiceElements.SortingCode}
-         *     
          */
         public AddressDetails.PostalServiceElements.SortingCode getSortingCode() {
             return sortingCode;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the sorting code.
+         *
+         * @param value     allowed object is
          *     {@link AddressDetails.PostalServiceElements.SortingCode}
-         *     
          */
         public void setSortingCode(AddressDetails.PostalServiceElements.SortingCode value) {
             this.sortingCode = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the address latitude.
+         *
+         * @return     possible object is
          *     {@link AddressDetails.PostalServiceElements.AddressLatitude}
-         *     
          */
         public AddressDetails.PostalServiceElements.AddressLatitude getAddressLatitude() {
             return addressLatitude;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the address latitude.
+         *
+         * @param value     allowed object is
          *     {@link AddressDetails.PostalServiceElements.AddressLatitude}
-         *     
          */
         public void setAddressLatitude(AddressDetails.PostalServiceElements.AddressLatitude value) {
             this.addressLatitude = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the address latitude direction.
+         *
+         * @return     possible object is
          *     {@link AddressDetails.PostalServiceElements.AddressLatitudeDirection}
-         *     
          */
         public AddressDetails.PostalServiceElements.AddressLatitudeDirection getAddressLatitudeDirection() {
             return addressLatitudeDirection;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the address latitude direction.
+         *
+         * @param value     allowed object is
          *     {@link AddressDetails.PostalServiceElements.AddressLatitudeDirection}
-         *     
          */
         public void setAddressLatitudeDirection(AddressDetails.PostalServiceElements.AddressLatitudeDirection value) {
             this.addressLatitudeDirection = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the address longitude.
+         *
+         * @return     possible object is
          *     {@link AddressDetails.PostalServiceElements.AddressLongitude}
-         *     
          */
         public AddressDetails.PostalServiceElements.AddressLongitude getAddressLongitude() {
             return addressLongitude;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the address longitude.
+         *
+         * @param value     allowed object is
          *     {@link AddressDetails.PostalServiceElements.AddressLongitude}
-         *     
          */
         public void setAddressLongitude(AddressDetails.PostalServiceElements.AddressLongitude value) {
             this.addressLongitude = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the address longitude direction.
+         *
+         * @return     possible object is
          *     {@link AddressDetails.PostalServiceElements.AddressLongitudeDirection}
-         *     
          */
         public AddressDetails.PostalServiceElements.AddressLongitudeDirection getAddressLongitudeDirection() {
             return addressLongitudeDirection;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the address longitude direction.
+         *
+         * @param value     allowed object is
          *     {@link AddressDetails.PostalServiceElements.AddressLongitudeDirection}
-         *     
          */
         public void setAddressLongitudeDirection(AddressDetails.PostalServiceElements.AddressLongitudeDirection value) {
             this.addressLongitudeDirection = value;
         }
 
         /**
-         * 
+         * Gets the supplementary postal service data.
+         *
+         * @return the supplementary postal service data
          */
         public List<AddressDetails.PostalServiceElements.SupplementaryPostalServiceData> getSupplementaryPostalServiceData() {
             if (supplementaryPostalServiceData == null) {
@@ -2214,7 +2218,9 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * 
+         * Gets the any.
+         *
+         * @return the any
          */
         public List<Object> getAny() {
             if (any == null) {
@@ -2224,31 +2230,29 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the underscore.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getUnderscore() {
             return underscore;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the underscore.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setUnderscore(String value) {
             this.underscore = value;
         }
 
         /**
-         * 
-         * @return
-         *     always non-null
+         * Gets the other attributes.
+         *
+         * @return     always non-null
          */
         public Map<QName, String> getOtherAttributes() {
             return otherAttributes;
@@ -2402,8 +2406,8 @@ public class AddressDetails implements Cloneable
          * <code>
          * AddressIdentifier addressIdentifier = new AddressIdentifier();
          * this.getAddressIdentifier().add(addressIdentifier); </code>
-         * 
-         * 
+         *
+         * @return the address details. postal service elements. address identifier
          */
         public AddressDetails.PostalServiceElements.AddressIdentifier createAndAddAddressIdentifier() {
             AddressDetails.PostalServiceElements.AddressIdentifier newValue = new AddressDetails.PostalServiceElements.AddressIdentifier();
@@ -2418,8 +2422,8 @@ public class AddressDetails implements Cloneable
          * <code>
          * EndorsementLineCode endorsementLineCode = new EndorsementLineCode();
          * this.setEndorsementLineCode(endorsementLineCode); </code>
-         * 
-         * 
+         *
+         * @return the address details. postal service elements. endorsement line code
          */
         public AddressDetails.PostalServiceElements.EndorsementLineCode createAndSetEndorsementLineCode() {
             AddressDetails.PostalServiceElements.EndorsementLineCode newValue = new AddressDetails.PostalServiceElements.EndorsementLineCode();
@@ -2434,8 +2438,8 @@ public class AddressDetails implements Cloneable
          * <code>
          * KeyLineCode keyLineCode = new KeyLineCode();
          * this.setKeyLineCode(keyLineCode); </code>
-         * 
-         * 
+         *
+         * @return the address details. postal service elements. key line code
          */
         public AddressDetails.PostalServiceElements.KeyLineCode createAndSetKeyLineCode() {
             AddressDetails.PostalServiceElements.KeyLineCode newValue = new AddressDetails.PostalServiceElements.KeyLineCode();
@@ -2450,8 +2454,8 @@ public class AddressDetails implements Cloneable
          * <code>
          * Barcode barcode = new Barcode();
          * this.setBarcode(barcode); </code>
-         * 
-         * 
+         *
+         * @return the address details. postal service elements. barcode
          */
         public AddressDetails.PostalServiceElements.Barcode createAndSetBarcode() {
             AddressDetails.PostalServiceElements.Barcode newValue = new AddressDetails.PostalServiceElements.Barcode();
@@ -2466,8 +2470,8 @@ public class AddressDetails implements Cloneable
          * <code>
          * SortingCode sortingCode = new SortingCode();
          * this.setSortingCode(sortingCode); </code>
-         * 
-         * 
+         *
+         * @return the address details. postal service elements. sorting code
          */
         public AddressDetails.PostalServiceElements.SortingCode createAndSetSortingCode() {
             AddressDetails.PostalServiceElements.SortingCode newValue = new AddressDetails.PostalServiceElements.SortingCode();
@@ -2482,8 +2486,8 @@ public class AddressDetails implements Cloneable
          * <code>
          * AddressLatitude addressLatitude = new AddressLatitude();
          * this.setAddressLatitude(addressLatitude); </code>
-         * 
-         * 
+         *
+         * @return the address details. postal service elements. address latitude
          */
         public AddressDetails.PostalServiceElements.AddressLatitude createAndSetAddressLatitude() {
             AddressDetails.PostalServiceElements.AddressLatitude newValue = new AddressDetails.PostalServiceElements.AddressLatitude();
@@ -2498,8 +2502,8 @@ public class AddressDetails implements Cloneable
          * <code>
          * AddressLatitudeDirection addressLatitudeDirection = new AddressLatitudeDirection();
          * this.setAddressLatitudeDirection(addressLatitudeDirection); </code>
-         * 
-         * 
+         *
+         * @return the address details. postal service elements. address latitude direction
          */
         public AddressDetails.PostalServiceElements.AddressLatitudeDirection createAndSetAddressLatitudeDirection() {
             AddressDetails.PostalServiceElements.AddressLatitudeDirection newValue = new AddressDetails.PostalServiceElements.AddressLatitudeDirection();
@@ -2514,8 +2518,8 @@ public class AddressDetails implements Cloneable
          * <code>
          * AddressLongitude addressLongitude = new AddressLongitude();
          * this.setAddressLongitude(addressLongitude); </code>
-         * 
-         * 
+         *
+         * @return the address details. postal service elements. address longitude
          */
         public AddressDetails.PostalServiceElements.AddressLongitude createAndSetAddressLongitude() {
             AddressDetails.PostalServiceElements.AddressLongitude newValue = new AddressDetails.PostalServiceElements.AddressLongitude();
@@ -2530,8 +2534,8 @@ public class AddressDetails implements Cloneable
          * <code>
          * AddressLongitudeDirection addressLongitudeDirection = new AddressLongitudeDirection();
          * this.setAddressLongitudeDirection(addressLongitudeDirection); </code>
-         * 
-         * 
+         *
+         * @return the address details. postal service elements. address longitude direction
          */
         public AddressDetails.PostalServiceElements.AddressLongitudeDirection createAndSetAddressLongitudeDirection() {
             AddressDetails.PostalServiceElements.AddressLongitudeDirection newValue = new AddressDetails.PostalServiceElements.AddressLongitudeDirection();
@@ -2545,8 +2549,8 @@ public class AddressDetails implements Cloneable
          * <code>
          * SupplementaryPostalServiceData supplementaryPostalServiceData = new SupplementaryPostalServiceData();
          * this.getSupplementaryPostalServiceData().add(supplementaryPostalServiceData); </code>
-         * 
-         * 
+         *
+         * @return the address details. postal service elements. supplementary postal service data
          */
         public AddressDetails.PostalServiceElements.SupplementaryPostalServiceData createAndAddSupplementaryPostalServiceData() {
             AddressDetails.PostalServiceElements.SupplementaryPostalServiceData newValue = new AddressDetails.PostalServiceElements.SupplementaryPostalServiceData();
@@ -2558,21 +2562,18 @@ public class AddressDetails implements Cloneable
          * Sets the value of the addressIdentifier property Objects of the following type(s) are allowed in the list List<AddressIdentifier>.
          * <p>Note:
          * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAddressIdentifier} instead.
-         * 
-         * 
-         * @param addressIdentifier
+         *
+         * @param addressIdentifier the new address identifier
          */
         public void setAddressIdentifier(final List<AddressDetails.PostalServiceElements.AddressIdentifier> addressIdentifier) {
             this.addressIdentifier = addressIdentifier;
         }
 
         /**
-         * add a value to the addressIdentifier property collection
-         * 
-         * @param addressIdentifier
-         *     Objects of the following type are allowed in the list: {@link AddressDetails.PostalServiceElements.AddressIdentifier}
-         * @return
-         *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+         * add a value to the addressIdentifier property collection.
+         *
+         * @param addressIdentifier     Objects of the following type are allowed in the list: {@link AddressDetails.PostalServiceElements.AddressIdentifier}
+         * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
          */
         public AddressDetails.PostalServiceElements addToAddressIdentifier(final AddressDetails.PostalServiceElements.AddressIdentifier addressIdentifier) {
             this.getAddressIdentifier().add(addressIdentifier);
@@ -2583,21 +2584,18 @@ public class AddressDetails implements Cloneable
          * Sets the value of the supplementaryPostalServiceData property Objects of the following type(s) are allowed in the list List<SupplementaryPostalServiceData>.
          * <p>Note:
          * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withSupplementaryPostalServiceData} instead.
-         * 
-         * 
-         * @param supplementaryPostalServiceData
+         *
+         * @param supplementaryPostalServiceData the new supplementary postal service data
          */
         public void setSupplementaryPostalServiceData(final List<AddressDetails.PostalServiceElements.SupplementaryPostalServiceData> supplementaryPostalServiceData) {
             this.supplementaryPostalServiceData = supplementaryPostalServiceData;
         }
 
         /**
-         * add a value to the supplementaryPostalServiceData property collection
-         * 
-         * @param supplementaryPostalServiceData
-         *     Objects of the following type are allowed in the list: {@link AddressDetails.PostalServiceElements.SupplementaryPostalServiceData}
-         * @return
-         *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+         * add a value to the supplementaryPostalServiceData property collection.
+         *
+         * @param supplementaryPostalServiceData     Objects of the following type are allowed in the list: {@link AddressDetails.PostalServiceElements.SupplementaryPostalServiceData}
+         * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
          */
         public AddressDetails.PostalServiceElements addToSupplementaryPostalServiceData(final AddressDetails.PostalServiceElements.SupplementaryPostalServiceData supplementaryPostalServiceData) {
             this.getSupplementaryPostalServiceData().add(supplementaryPostalServiceData);
@@ -2608,21 +2606,18 @@ public class AddressDetails implements Cloneable
          * Sets the value of the any property Objects of the following type(s) are allowed in the list List<Object>.
          * <p>Note:
          * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAny} instead.
-         * 
-         * 
-         * @param any
+         *
+         * @param any the new any
          */
         public void setAny(final List<Object> any) {
             this.any = any;
         }
 
         /**
-         * add a value to the any property collection
-         * 
-         * @param any
-         *     Objects of the following type are allowed in the list: {@link Object}
-         * @return
-         *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+         * add a value to the any property collection.
+         *
+         * @param any     Objects of the following type are allowed in the list: {@link Object}
+         * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
          */
         public AddressDetails.PostalServiceElements addToAny(final Object any) {
             this.getAny().add(any);
@@ -2630,11 +2625,11 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param addressIdentifier     required parameter
+         * @return the address details. postal service elements
          * @see #setAddressIdentifier(List<AddressIdentifier>)
-         * 
-         * @param addressIdentifier
-         *     required parameter
          */
         public AddressDetails.PostalServiceElements withAddressIdentifier(final List<AddressDetails.PostalServiceElements.AddressIdentifier> addressIdentifier) {
             this.setAddressIdentifier(addressIdentifier);
@@ -2642,11 +2637,11 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param endorsementLineCode     required parameter
+         * @return the address details. postal service elements
          * @see #setEndorsementLineCode(EndorsementLineCode)
-         * 
-         * @param endorsementLineCode
-         *     required parameter
          */
         public AddressDetails.PostalServiceElements withEndorsementLineCode(final AddressDetails.PostalServiceElements.EndorsementLineCode endorsementLineCode) {
             this.setEndorsementLineCode(endorsementLineCode);
@@ -2654,11 +2649,11 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param keyLineCode     required parameter
+         * @return the address details. postal service elements
          * @see #setKeyLineCode(KeyLineCode)
-         * 
-         * @param keyLineCode
-         *     required parameter
          */
         public AddressDetails.PostalServiceElements withKeyLineCode(final AddressDetails.PostalServiceElements.KeyLineCode keyLineCode) {
             this.setKeyLineCode(keyLineCode);
@@ -2666,11 +2661,11 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param barcode     required parameter
+         * @return the address details. postal service elements
          * @see #setBarcode(Barcode)
-         * 
-         * @param barcode
-         *     required parameter
          */
         public AddressDetails.PostalServiceElements withBarcode(final AddressDetails.PostalServiceElements.Barcode barcode) {
             this.setBarcode(barcode);
@@ -2678,11 +2673,11 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param sortingCode     required parameter
+         * @return the address details. postal service elements
          * @see #setSortingCode(SortingCode)
-         * 
-         * @param sortingCode
-         *     required parameter
          */
         public AddressDetails.PostalServiceElements withSortingCode(final AddressDetails.PostalServiceElements.SortingCode sortingCode) {
             this.setSortingCode(sortingCode);
@@ -2690,11 +2685,11 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param addressLatitude     required parameter
+         * @return the address details. postal service elements
          * @see #setAddressLatitude(AddressLatitude)
-         * 
-         * @param addressLatitude
-         *     required parameter
          */
         public AddressDetails.PostalServiceElements withAddressLatitude(final AddressDetails.PostalServiceElements.AddressLatitude addressLatitude) {
             this.setAddressLatitude(addressLatitude);
@@ -2702,11 +2697,11 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param addressLatitudeDirection     required parameter
+         * @return the address details. postal service elements
          * @see #setAddressLatitudeDirection(AddressLatitudeDirection)
-         * 
-         * @param addressLatitudeDirection
-         *     required parameter
          */
         public AddressDetails.PostalServiceElements withAddressLatitudeDirection(final AddressDetails.PostalServiceElements.AddressLatitudeDirection addressLatitudeDirection) {
             this.setAddressLatitudeDirection(addressLatitudeDirection);
@@ -2714,11 +2709,11 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param addressLongitude     required parameter
+         * @return the address details. postal service elements
          * @see #setAddressLongitude(AddressLongitude)
-         * 
-         * @param addressLongitude
-         *     required parameter
          */
         public AddressDetails.PostalServiceElements withAddressLongitude(final AddressDetails.PostalServiceElements.AddressLongitude addressLongitude) {
             this.setAddressLongitude(addressLongitude);
@@ -2726,11 +2721,11 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param addressLongitudeDirection     required parameter
+         * @return the address details. postal service elements
          * @see #setAddressLongitudeDirection(AddressLongitudeDirection)
-         * 
-         * @param addressLongitudeDirection
-         *     required parameter
          */
         public AddressDetails.PostalServiceElements withAddressLongitudeDirection(final AddressDetails.PostalServiceElements.AddressLongitudeDirection addressLongitudeDirection) {
             this.setAddressLongitudeDirection(addressLongitudeDirection);
@@ -2738,11 +2733,11 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param supplementaryPostalServiceData     required parameter
+         * @return the address details. postal service elements
          * @see #setSupplementaryPostalServiceData(List<SupplementaryPostalServiceData>)
-         * 
-         * @param supplementaryPostalServiceData
-         *     required parameter
          */
         public AddressDetails.PostalServiceElements withSupplementaryPostalServiceData(final List<AddressDetails.PostalServiceElements.SupplementaryPostalServiceData> supplementaryPostalServiceData) {
             this.setSupplementaryPostalServiceData(supplementaryPostalServiceData);
@@ -2750,11 +2745,11 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param any     required parameter
+         * @return the address details. postal service elements
          * @see #setAny(List<Object>)
-         * 
-         * @param any
-         *     required parameter
          */
         public AddressDetails.PostalServiceElements withAny(final List<Object> any) {
             this.setAny(any);
@@ -2762,11 +2757,11 @@ public class AddressDetails implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param underscore     required parameter
+         * @return the address details. postal service elements
          * @see #setUnderscore(String)
-         * 
-         * @param underscore
-         *     required parameter
          */
         public AddressDetails.PostalServiceElements withUnderscore(final String underscore) {
             this.setUnderscore(underscore);
@@ -2806,7 +2801,7 @@ public class AddressDetails implements Cloneable
 
 
         /**
-         * 
+         * The Class AddressIdentifier.
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -2816,116 +2811,120 @@ public class AddressDetails implements Cloneable
         public static class AddressIdentifier implements Cloneable
         {
 
+            /** The content. */
             @XmlValue
             protected String content;
+            
+            /** The identifier. */
             @XmlAttribute(name = "IdentifierType")
             @XmlSchemaType(name = "anySimpleType")
             protected String identifier;
+            
+            /** The underscore. */
             @XmlAttribute(name = "Type")
             @XmlSchemaType(name = "anySimpleType")
             protected String underscore;
+            
+            /** The code. */
             @XmlAttribute(name = "Code")
             @XmlSchemaType(name = "anySimpleType")
             protected String code;
+            
+            /** The other attributes. */
             @XmlAnyAttribute
             private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+            /**
+             * Instantiates a new address identifier.
+             */
             public AddressIdentifier() {
                 super();
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the content.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getContent() {
                 return content;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the content.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setContent(String value) {
                 this.content = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the identifier.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getIdentifier() {
                 return identifier;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the identifier.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setIdentifier(String value) {
                 this.identifier = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the underscore.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getUnderscore() {
                 return underscore;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the underscore.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setUnderscore(String value) {
                 this.underscore = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the code.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getCode() {
                 return code;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the code.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setCode(String value) {
                 this.code = value;
             }
 
             /**
-             * 
-             * @return
-             *     always non-null
+             * Gets the other attributes.
+             *
+             * @return     always non-null
              */
             public Map<QName, String> getOtherAttributes() {
                 return otherAttributes;
@@ -2994,11 +2993,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param content     required parameter
+             * @return the address details. postal service elements. address identifier
              * @see #setContent(String)
-             * 
-             * @param content
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.AddressIdentifier withContent(final String content) {
                 this.setContent(content);
@@ -3006,11 +3005,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param identifier     required parameter
+             * @return the address details. postal service elements. address identifier
              * @see #setIdentifier(String)
-             * 
-             * @param identifier
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.AddressIdentifier withIdentifier(final String identifier) {
                 this.setIdentifier(identifier);
@@ -3018,11 +3017,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param underscore     required parameter
+             * @return the address details. postal service elements. address identifier
              * @see #setUnderscore(String)
-             * 
-             * @param underscore
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.AddressIdentifier withUnderscore(final String underscore) {
                 this.setUnderscore(underscore);
@@ -3030,11 +3029,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param code     required parameter
+             * @return the address details. postal service elements. address identifier
              * @see #setCode(String)
-             * 
-             * @param code
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.AddressIdentifier withCode(final String code) {
                 this.setCode(code);
@@ -3056,7 +3055,7 @@ public class AddressDetails implements Cloneable
 
 
         /**
-         * 
+         * The Class AddressLatitude.
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -3066,91 +3065,95 @@ public class AddressDetails implements Cloneable
         public static class AddressLatitude implements Cloneable
         {
 
+            /** The content. */
             @XmlValue
             protected String content;
+            
+            /** The underscore. */
             @XmlAttribute(name = "Type")
             @XmlSchemaType(name = "anySimpleType")
             protected String underscore;
+            
+            /** The code. */
             @XmlAttribute(name = "Code")
             @XmlSchemaType(name = "anySimpleType")
             protected String code;
+            
+            /** The other attributes. */
             @XmlAnyAttribute
             private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+            /**
+             * Instantiates a new address latitude.
+             */
             public AddressLatitude() {
                 super();
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the content.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getContent() {
                 return content;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the content.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setContent(String value) {
                 this.content = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the underscore.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getUnderscore() {
                 return underscore;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the underscore.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setUnderscore(String value) {
                 this.underscore = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the code.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getCode() {
                 return code;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the code.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setCode(String value) {
                 this.code = value;
             }
 
             /**
-             * 
-             * @return
-             *     always non-null
+             * Gets the other attributes.
+             *
+             * @return     always non-null
              */
             public Map<QName, String> getOtherAttributes() {
                 return otherAttributes;
@@ -3209,11 +3212,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param content     required parameter
+             * @return the address details. postal service elements. address latitude
              * @see #setContent(String)
-             * 
-             * @param content
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.AddressLatitude withContent(final String content) {
                 this.setContent(content);
@@ -3221,11 +3224,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param underscore     required parameter
+             * @return the address details. postal service elements. address latitude
              * @see #setUnderscore(String)
-             * 
-             * @param underscore
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.AddressLatitude withUnderscore(final String underscore) {
                 this.setUnderscore(underscore);
@@ -3233,11 +3236,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param code     required parameter
+             * @return the address details. postal service elements. address latitude
              * @see #setCode(String)
-             * 
-             * @param code
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.AddressLatitude withCode(final String code) {
                 this.setCode(code);
@@ -3259,7 +3262,7 @@ public class AddressDetails implements Cloneable
 
 
         /**
-         * 
+         * The Class AddressLatitudeDirection.
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -3269,91 +3272,95 @@ public class AddressDetails implements Cloneable
         public static class AddressLatitudeDirection implements Cloneable
         {
 
+            /** The content. */
             @XmlValue
             protected String content;
+            
+            /** The underscore. */
             @XmlAttribute(name = "Type")
             @XmlSchemaType(name = "anySimpleType")
             protected String underscore;
+            
+            /** The code. */
             @XmlAttribute(name = "Code")
             @XmlSchemaType(name = "anySimpleType")
             protected String code;
+            
+            /** The other attributes. */
             @XmlAnyAttribute
             private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+            /**
+             * Instantiates a new address latitude direction.
+             */
             public AddressLatitudeDirection() {
                 super();
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the content.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getContent() {
                 return content;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the content.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setContent(String value) {
                 this.content = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the underscore.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getUnderscore() {
                 return underscore;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the underscore.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setUnderscore(String value) {
                 this.underscore = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the code.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getCode() {
                 return code;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the code.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setCode(String value) {
                 this.code = value;
             }
 
             /**
-             * 
-             * @return
-             *     always non-null
+             * Gets the other attributes.
+             *
+             * @return     always non-null
              */
             public Map<QName, String> getOtherAttributes() {
                 return otherAttributes;
@@ -3412,11 +3419,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param content     required parameter
+             * @return the address details. postal service elements. address latitude direction
              * @see #setContent(String)
-             * 
-             * @param content
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.AddressLatitudeDirection withContent(final String content) {
                 this.setContent(content);
@@ -3424,11 +3431,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param underscore     required parameter
+             * @return the address details. postal service elements. address latitude direction
              * @see #setUnderscore(String)
-             * 
-             * @param underscore
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.AddressLatitudeDirection withUnderscore(final String underscore) {
                 this.setUnderscore(underscore);
@@ -3436,11 +3443,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param code     required parameter
+             * @return the address details. postal service elements. address latitude direction
              * @see #setCode(String)
-             * 
-             * @param code
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.AddressLatitudeDirection withCode(final String code) {
                 this.setCode(code);
@@ -3462,7 +3469,7 @@ public class AddressDetails implements Cloneable
 
 
         /**
-         * 
+         * The Class AddressLongitude.
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -3472,91 +3479,95 @@ public class AddressDetails implements Cloneable
         public static class AddressLongitude implements Cloneable
         {
 
+            /** The content. */
             @XmlValue
             protected String content;
+            
+            /** The underscore. */
             @XmlAttribute(name = "Type")
             @XmlSchemaType(name = "anySimpleType")
             protected String underscore;
+            
+            /** The code. */
             @XmlAttribute(name = "Code")
             @XmlSchemaType(name = "anySimpleType")
             protected String code;
+            
+            /** The other attributes. */
             @XmlAnyAttribute
             private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+            /**
+             * Instantiates a new address longitude.
+             */
             public AddressLongitude() {
                 super();
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the content.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getContent() {
                 return content;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the content.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setContent(String value) {
                 this.content = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the underscore.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getUnderscore() {
                 return underscore;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the underscore.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setUnderscore(String value) {
                 this.underscore = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the code.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getCode() {
                 return code;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the code.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setCode(String value) {
                 this.code = value;
             }
 
             /**
-             * 
-             * @return
-             *     always non-null
+             * Gets the other attributes.
+             *
+             * @return     always non-null
              */
             public Map<QName, String> getOtherAttributes() {
                 return otherAttributes;
@@ -3615,11 +3626,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param content     required parameter
+             * @return the address details. postal service elements. address longitude
              * @see #setContent(String)
-             * 
-             * @param content
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.AddressLongitude withContent(final String content) {
                 this.setContent(content);
@@ -3627,11 +3638,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param underscore     required parameter
+             * @return the address details. postal service elements. address longitude
              * @see #setUnderscore(String)
-             * 
-             * @param underscore
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.AddressLongitude withUnderscore(final String underscore) {
                 this.setUnderscore(underscore);
@@ -3639,11 +3650,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param code     required parameter
+             * @return the address details. postal service elements. address longitude
              * @see #setCode(String)
-             * 
-             * @param code
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.AddressLongitude withCode(final String code) {
                 this.setCode(code);
@@ -3665,7 +3676,7 @@ public class AddressDetails implements Cloneable
 
 
         /**
-         * 
+         * The Class AddressLongitudeDirection.
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -3675,91 +3686,95 @@ public class AddressDetails implements Cloneable
         public static class AddressLongitudeDirection implements Cloneable
         {
 
+            /** The content. */
             @XmlValue
             protected String content;
+            
+            /** The underscore. */
             @XmlAttribute(name = "Type")
             @XmlSchemaType(name = "anySimpleType")
             protected String underscore;
+            
+            /** The code. */
             @XmlAttribute(name = "Code")
             @XmlSchemaType(name = "anySimpleType")
             protected String code;
+            
+            /** The other attributes. */
             @XmlAnyAttribute
             private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+            /**
+             * Instantiates a new address longitude direction.
+             */
             public AddressLongitudeDirection() {
                 super();
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the content.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getContent() {
                 return content;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the content.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setContent(String value) {
                 this.content = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the underscore.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getUnderscore() {
                 return underscore;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the underscore.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setUnderscore(String value) {
                 this.underscore = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the code.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getCode() {
                 return code;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the code.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setCode(String value) {
                 this.code = value;
             }
 
             /**
-             * 
-             * @return
-             *     always non-null
+             * Gets the other attributes.
+             *
+             * @return     always non-null
              */
             public Map<QName, String> getOtherAttributes() {
                 return otherAttributes;
@@ -3818,11 +3833,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param content     required parameter
+             * @return the address details. postal service elements. address longitude direction
              * @see #setContent(String)
-             * 
-             * @param content
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.AddressLongitudeDirection withContent(final String content) {
                 this.setContent(content);
@@ -3830,11 +3845,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param underscore     required parameter
+             * @return the address details. postal service elements. address longitude direction
              * @see #setUnderscore(String)
-             * 
-             * @param underscore
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.AddressLongitudeDirection withUnderscore(final String underscore) {
                 this.setUnderscore(underscore);
@@ -3842,11 +3857,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param code     required parameter
+             * @return the address details. postal service elements. address longitude direction
              * @see #setCode(String)
-             * 
-             * @param code
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.AddressLongitudeDirection withCode(final String code) {
                 this.setCode(code);
@@ -3868,7 +3883,7 @@ public class AddressDetails implements Cloneable
 
 
         /**
-         * 
+         * The Class Barcode.
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -3878,91 +3893,95 @@ public class AddressDetails implements Cloneable
         public static class Barcode implements Cloneable
         {
 
+            /** The content. */
             @XmlValue
             protected String content;
+            
+            /** The underscore. */
             @XmlAttribute(name = "Type")
             @XmlSchemaType(name = "anySimpleType")
             protected String underscore;
+            
+            /** The code. */
             @XmlAttribute(name = "Code")
             @XmlSchemaType(name = "anySimpleType")
             protected String code;
+            
+            /** The other attributes. */
             @XmlAnyAttribute
             private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+            /**
+             * Instantiates a new barcode.
+             */
             public Barcode() {
                 super();
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the content.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getContent() {
                 return content;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the content.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setContent(String value) {
                 this.content = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the underscore.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getUnderscore() {
                 return underscore;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the underscore.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setUnderscore(String value) {
                 this.underscore = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the code.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getCode() {
                 return code;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the code.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setCode(String value) {
                 this.code = value;
             }
 
             /**
-             * 
-             * @return
-             *     always non-null
+             * Gets the other attributes.
+             *
+             * @return     always non-null
              */
             public Map<QName, String> getOtherAttributes() {
                 return otherAttributes;
@@ -4021,11 +4040,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param content     required parameter
+             * @return the address details. postal service elements. barcode
              * @see #setContent(String)
-             * 
-             * @param content
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.Barcode withContent(final String content) {
                 this.setContent(content);
@@ -4033,11 +4052,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param underscore     required parameter
+             * @return the address details. postal service elements. barcode
              * @see #setUnderscore(String)
-             * 
-             * @param underscore
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.Barcode withUnderscore(final String underscore) {
                 this.setUnderscore(underscore);
@@ -4045,11 +4064,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param code     required parameter
+             * @return the address details. postal service elements. barcode
              * @see #setCode(String)
-             * 
-             * @param code
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.Barcode withCode(final String code) {
                 this.setCode(code);
@@ -4071,7 +4090,7 @@ public class AddressDetails implements Cloneable
 
 
         /**
-         * 
+         * The Class EndorsementLineCode.
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -4081,91 +4100,95 @@ public class AddressDetails implements Cloneable
         public static class EndorsementLineCode implements Cloneable
         {
 
+            /** The content. */
             @XmlValue
             protected String content;
+            
+            /** The underscore. */
             @XmlAttribute(name = "Type")
             @XmlSchemaType(name = "anySimpleType")
             protected String underscore;
+            
+            /** The code. */
             @XmlAttribute(name = "Code")
             @XmlSchemaType(name = "anySimpleType")
             protected String code;
+            
+            /** The other attributes. */
             @XmlAnyAttribute
             private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+            /**
+             * Instantiates a new endorsement line code.
+             */
             public EndorsementLineCode() {
                 super();
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the content.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getContent() {
                 return content;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the content.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setContent(String value) {
                 this.content = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the underscore.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getUnderscore() {
                 return underscore;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the underscore.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setUnderscore(String value) {
                 this.underscore = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the code.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getCode() {
                 return code;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the code.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setCode(String value) {
                 this.code = value;
             }
 
             /**
-             * 
-             * @return
-             *     always non-null
+             * Gets the other attributes.
+             *
+             * @return     always non-null
              */
             public Map<QName, String> getOtherAttributes() {
                 return otherAttributes;
@@ -4224,11 +4247,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param content     required parameter
+             * @return the address details. postal service elements. endorsement line code
              * @see #setContent(String)
-             * 
-             * @param content
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.EndorsementLineCode withContent(final String content) {
                 this.setContent(content);
@@ -4236,11 +4259,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param underscore     required parameter
+             * @return the address details. postal service elements. endorsement line code
              * @see #setUnderscore(String)
-             * 
-             * @param underscore
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.EndorsementLineCode withUnderscore(final String underscore) {
                 this.setUnderscore(underscore);
@@ -4248,11 +4271,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param code     required parameter
+             * @return the address details. postal service elements. endorsement line code
              * @see #setCode(String)
-             * 
-             * @param code
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.EndorsementLineCode withCode(final String code) {
                 this.setCode(code);
@@ -4274,7 +4297,7 @@ public class AddressDetails implements Cloneable
 
 
         /**
-         * 
+         * The Class KeyLineCode.
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -4284,91 +4307,95 @@ public class AddressDetails implements Cloneable
         public static class KeyLineCode implements Cloneable
         {
 
+            /** The content. */
             @XmlValue
             protected String content;
+            
+            /** The underscore. */
             @XmlAttribute(name = "Type")
             @XmlSchemaType(name = "anySimpleType")
             protected String underscore;
+            
+            /** The code. */
             @XmlAttribute(name = "Code")
             @XmlSchemaType(name = "anySimpleType")
             protected String code;
+            
+            /** The other attributes. */
             @XmlAnyAttribute
             private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+            /**
+             * Instantiates a new key line code.
+             */
             public KeyLineCode() {
                 super();
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the content.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getContent() {
                 return content;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the content.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setContent(String value) {
                 this.content = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the underscore.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getUnderscore() {
                 return underscore;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the underscore.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setUnderscore(String value) {
                 this.underscore = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the code.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getCode() {
                 return code;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the code.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setCode(String value) {
                 this.code = value;
             }
 
             /**
-             * 
-             * @return
-             *     always non-null
+             * Gets the other attributes.
+             *
+             * @return     always non-null
              */
             public Map<QName, String> getOtherAttributes() {
                 return otherAttributes;
@@ -4427,11 +4454,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param content     required parameter
+             * @return the address details. postal service elements. key line code
              * @see #setContent(String)
-             * 
-             * @param content
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.KeyLineCode withContent(final String content) {
                 this.setContent(content);
@@ -4439,11 +4466,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param underscore     required parameter
+             * @return the address details. postal service elements. key line code
              * @see #setUnderscore(String)
-             * 
-             * @param underscore
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.KeyLineCode withUnderscore(final String underscore) {
                 this.setUnderscore(underscore);
@@ -4451,11 +4478,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param code     required parameter
+             * @return the address details. postal service elements. key line code
              * @see #setCode(String)
-             * 
-             * @param code
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.KeyLineCode withCode(final String code) {
                 this.setCode(code);
@@ -4477,7 +4504,7 @@ public class AddressDetails implements Cloneable
 
 
         /**
-         * 
+         * The Class SortingCode.
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "")
@@ -4485,56 +4512,58 @@ public class AddressDetails implements Cloneable
         public static class SortingCode implements Cloneable
         {
 
+            /** The underscore. */
             @XmlAttribute(name = "Type")
             @XmlSchemaType(name = "anySimpleType")
             protected String underscore;
+            
+            /** The code. */
             @XmlAttribute(name = "Code")
             @XmlSchemaType(name = "anySimpleType")
             protected String code;
 
+            /**
+             * Instantiates a new sorting code.
+             */
             public SortingCode() {
                 super();
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the underscore.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getUnderscore() {
                 return underscore;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the underscore.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setUnderscore(String value) {
                 this.underscore = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the code.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getCode() {
                 return code;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the code.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setCode(String value) {
                 this.code = value;
@@ -4583,11 +4612,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param underscore     required parameter
+             * @return the address details. postal service elements. sorting code
              * @see #setUnderscore(String)
-             * 
-             * @param underscore
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.SortingCode withUnderscore(final String underscore) {
                 this.setUnderscore(underscore);
@@ -4595,11 +4624,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param code     required parameter
+             * @return the address details. postal service elements. sorting code
              * @see #setCode(String)
-             * 
-             * @param code
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.SortingCode withCode(final String code) {
                 this.setCode(code);
@@ -4621,7 +4650,7 @@ public class AddressDetails implements Cloneable
 
 
         /**
-         * 
+         * The Class SupplementaryPostalServiceData.
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "", propOrder = {
@@ -4631,91 +4660,95 @@ public class AddressDetails implements Cloneable
         public static class SupplementaryPostalServiceData implements Cloneable
         {
 
+            /** The content. */
             @XmlValue
             protected String content;
+            
+            /** The underscore. */
             @XmlAttribute(name = "Type")
             @XmlSchemaType(name = "anySimpleType")
             protected String underscore;
+            
+            /** The code. */
             @XmlAttribute(name = "Code")
             @XmlSchemaType(name = "anySimpleType")
             protected String code;
+            
+            /** The other attributes. */
             @XmlAnyAttribute
             private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+            /**
+             * Instantiates a new supplementary postal service data.
+             */
             public SupplementaryPostalServiceData() {
                 super();
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the content.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getContent() {
                 return content;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the content.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setContent(String value) {
                 this.content = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the underscore.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getUnderscore() {
                 return underscore;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the underscore.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setUnderscore(String value) {
                 this.underscore = value;
             }
 
             /**
-             * 
-             * @return
-             *     possible object is
+             * Gets the code.
+             *
+             * @return     possible object is
              *     {@link String}
-             *     
              */
             public String getCode() {
                 return code;
             }
 
             /**
-             * 
-             * @param value
-             *     allowed object is
+             * Sets the code.
+             *
+             * @param value     allowed object is
              *     {@link String}
-             *     
              */
             public void setCode(String value) {
                 this.code = value;
             }
 
             /**
-             * 
-             * @return
-             *     always non-null
+             * Gets the other attributes.
+             *
+             * @return     always non-null
              */
             public Map<QName, String> getOtherAttributes() {
                 return otherAttributes;
@@ -4774,11 +4807,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param content     required parameter
+             * @return the address details. postal service elements. supplementary postal service data
              * @see #setContent(String)
-             * 
-             * @param content
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.SupplementaryPostalServiceData withContent(final String content) {
                 this.setContent(content);
@@ -4786,11 +4819,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param underscore     required parameter
+             * @return the address details. postal service elements. supplementary postal service data
              * @see #setUnderscore(String)
-             * 
-             * @param underscore
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.SupplementaryPostalServiceData withUnderscore(final String underscore) {
                 this.setUnderscore(underscore);
@@ -4798,11 +4831,11 @@ public class AddressDetails implements Cloneable
             }
 
             /**
-             * fluent setter
+             * fluent setter.
+             *
+             * @param code     required parameter
+             * @return the address details. postal service elements. supplementary postal service data
              * @see #setCode(String)
-             * 
-             * @param code
-             *     required parameter
              */
             public AddressDetails.PostalServiceElements.SupplementaryPostalServiceData withCode(final String code) {
                 this.setCode(code);

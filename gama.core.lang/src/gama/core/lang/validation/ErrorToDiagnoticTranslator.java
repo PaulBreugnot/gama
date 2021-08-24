@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'ErrorToDiagnoticTranslator.java, in plugin msi.gama.lang.gaml, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * ErrorToDiagnoticTranslator.java, in gama.core.lang, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- *
- **********************************************************************************************/
+ ********************************************************************************************************/
 package gama.core.lang.validation;
 
 import org.eclipse.emf.common.util.BasicDiagnostic;
@@ -38,12 +37,26 @@ import gama.core.lang.resource.GamlResource;
 import gaml.compilation.GamlCompilationError;
 import gaml.descriptions.ValidationContext;
 
+/**
+ * The Class ErrorToDiagnoticTranslator.
+ */
 @Singleton
 public class ErrorToDiagnoticTranslator {
 
+	/**
+	 * Instantiates a new error to diagnotic translator.
+	 */
 	@Inject
 	public ErrorToDiagnoticTranslator() {}
 
+	/**
+	 * Translate.
+	 *
+	 * @param errors the errors
+	 * @param r the r
+	 * @param mode the mode
+	 * @return the diagnostic
+	 */
 	public Diagnostic translate(final ValidationContext errors, final GamlResource r, final CheckMode mode) {
 		final BasicDiagnostic chain = new BasicDiagnostic();
 		for (final GamlCompilationError e : errors) {
@@ -55,6 +68,14 @@ public class ErrorToDiagnoticTranslator {
 		return chain;
 	}
 
+	/**
+	 * Translate.
+	 *
+	 * @param e the e
+	 * @param r the r
+	 * @param mode the mode
+	 * @return the diagnostic
+	 */
 	public Diagnostic translate(final GamlCompilationError e, final GamlResource r, final CheckMode mode) {
 		final URI errorURI = e.getURI();
 		if (!GamlResourceIndexer.equals(errorURI, r.getURI())) {
@@ -90,6 +111,19 @@ public class ErrorToDiagnoticTranslator {
 		return null;
 	}
 
+	/**
+	 * Creates the diagnostic.
+	 *
+	 * @param mode the mode
+	 * @param diagnosticSeverity the diagnostic severity
+	 * @param message the message
+	 * @param object the object
+	 * @param feature the feature
+	 * @param index the index
+	 * @param code the code
+	 * @param issueData the issue data
+	 * @return the diagnostic
+	 */
 	private Diagnostic createDiagnostic(final CheckMode mode, final int diagnosticSeverity, final String message,
 			final EObject object, final EStructuralFeature feature, final int index, final String code,
 			final String... issueData) {
@@ -98,6 +132,12 @@ public class ErrorToDiagnoticTranslator {
 		return result;
 	}
 
+	/**
+	 * Gets the type.
+	 *
+	 * @param mode the mode
+	 * @return the type
+	 */
 	private CheckType getType(final CheckMode mode) {
 		if (mode == CheckMode.FAST_ONLY) {
 			return CheckType.FAST;
@@ -114,6 +154,12 @@ public class ErrorToDiagnoticTranslator {
 		}
 	}
 
+	/**
+	 * To diagnostic severity.
+	 *
+	 * @param e the e
+	 * @return the int
+	 */
 	protected int toDiagnosticSeverity(final GamlCompilationError e) {
 		int diagnosticSeverity = -1;
 		if (e.isError()) {
@@ -127,6 +173,13 @@ public class ErrorToDiagnoticTranslator {
 		return diagnosticSeverity;
 	}
 
+	/**
+	 * Find import with.
+	 *
+	 * @param m the m
+	 * @param s the s
+	 * @return the e object
+	 */
 	private EObject findImportWith(final EObject m, final String s) {
 		if (m instanceof Model) {
 			for (final Import i : ((Model) m).getImports()) {

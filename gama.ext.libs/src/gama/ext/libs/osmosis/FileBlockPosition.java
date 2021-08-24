@@ -1,17 +1,13 @@
-/**
- * Copyright (c) 2010 Scott A. Crosby. <scott@sacrosby.com>
+/*******************************************************************************************************
+ *
+ * FileBlockPosition.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- * 
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License along with this program. If not, see
- * <http://www.gnu.org/licenses/>.
- * 
- */
+ ********************************************************************************************************/
 
 package gama.ext.libs.osmosis;
 
@@ -32,11 +28,24 @@ import com.google.protobuf.InvalidProtocolBufferException;
  * 
  */
 public class FileBlockPosition extends FileBlockBase {
+	
+	/**
+	 * Instantiates a new file block position.
+	 *
+	 * @param type the type
+	 * @param indexdata the indexdata
+	 */
 	protected FileBlockPosition(final String type, final ByteString indexdata) {
 		super(type, indexdata);
 	}
 
-	/** Parse out and decompress the data part of a fileblock helper function. */
+	/**
+	 *  Parse out and decompress the data part of a fileblock helper function.
+	 *
+	 * @param buf the buf
+	 * @return the file block
+	 * @throws InvalidProtocolBufferException the invalid protocol buffer exception
+	 */
 	FileBlock parseData(final byte buf[]) throws InvalidProtocolBufferException {
 		final FileBlock out = FileBlock.newInstance(type, null, indexdata);
 		final Fileformat.Blob blob = Fileformat.Blob.parseFrom(buf);
@@ -60,10 +69,23 @@ public class FileBlockPosition extends FileBlockBase {
 		return out;
 	}
 
+	/**
+	 * Gets the datasize.
+	 *
+	 * @return the datasize
+	 */
 	public int getDatasize() {
 		return datasize;
 	}
 
+	/**
+	 * New instance.
+	 *
+	 * @param base the base
+	 * @param offset the offset
+	 * @param length the length
+	 * @return the file block position
+	 */
 	/*
 	 * Given any form of fileblock and an offset/length value, return a reference that can be used to dereference and
 	 * read the contents.
@@ -75,6 +97,13 @@ public class FileBlockPosition extends FileBlockBase {
 		return out;
 	}
 
+	/**
+	 * Read.
+	 *
+	 * @param input the input
+	 * @return the file block
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public FileBlock read(final InputStream input) throws IOException {
 		if (input instanceof FileInputStream) {
 			((FileInputStream) input).getChannel().position(data_offset);
@@ -88,17 +117,26 @@ public class FileBlockPosition extends FileBlockBase {
 
 	/**
 	 * TODO: Convert this reference into a serialized representation that can be stored.
+	 *
+	 * @return the byte string
 	 */
 	public ByteString serialize() {
 		throw new Error("TODO");
 	}
 
-	/** TODO: Parse a serialized representation of this block reference */
+	/**
+	 *  TODO: Parse a serialized representation of this block reference.
+	 *
+	 * @param b the b
+	 * @return the file block position
+	 */
 	static FileBlockPosition parseFrom(final ByteString b) {
 		throw new Error("TODO");
 	}
 
+	/** The datasize. */
 	protected int datasize;
-	/** Offset into the file of the data part of the block */
+	
+	/**  Offset into the file of the data part of the block. */
 	long data_offset;
 }

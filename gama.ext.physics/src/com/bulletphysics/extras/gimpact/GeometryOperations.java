@@ -1,23 +1,13 @@
-/*
- * Java port of Bullet (c) 2008 Martin Dvorak <jezek2@advel.cz>
+/*******************************************************************************************************
  *
- * This source file is part of GIMPACT Library.
+ * GeometryOperations.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * For the latest info, see http://gimpact.sourceforge.net/
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Copyright (c) 2007 Francisco Leon Najera. C.C. 80087371. email: projectileman@yahoo.com
- *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the authors be held
- * liable for any damages arising from the use of this software.
- *
- * Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter
- * it and redistribute it freely, subject to the following restrictions:
- *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software.
- * If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not
- * required. 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the
- * original software. 3. This notice may not be removed or altered from any source distribution.
- */
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package com.bulletphysics.extras.gimpact;
 
@@ -31,20 +21,37 @@ import com.bulletphysics.BulletGlobals;
 import com.bulletphysics.linearmath.VectorUtil;
 
 /**
+ * The Class GeometryOperations.
  *
  * @author jezek2
  */
 class GeometryOperations {
 
+	/** The Constant PLANEDIREPSILON. */
 	public static final float PLANEDIREPSILON = 0.0000001f;
+	
+	/** The Constant PARALELENORMALS. */
 	public static final float PARALELENORMALS = 0.000001f;
 
+	/**
+	 * Clamp.
+	 *
+	 * @param number the number
+	 * @param minval the minval
+	 * @param maxval the maxval
+	 * @return the float
+	 */
 	public static final float CLAMP(final float number, final float minval, final float maxval) {
 		return number < minval ? minval : number > maxval ? maxval : number;
 	}
 
 	/**
 	 * Calc a plane from a triangle edge an a normal.
+	 *
+	 * @param e1 the e 1
+	 * @param e2 the e 2
+	 * @param normal the normal
+	 * @param plane the plane
 	 */
 	public static void edge_plane(final Vector3f e1, final Vector3f e2, final Vector3f normal, final Vector4f plane) {
 		Vector3f planenormal = VECTORS.get();
@@ -59,6 +66,11 @@ class GeometryOperations {
 
 	/**
 	 * Finds the closest point(cp) to (v) on a segment (e1,e2).
+	 *
+	 * @param cp the cp
+	 * @param v the v
+	 * @param e1 the e 1
+	 * @param e2 the e 2
 	 */
 	public static void closest_point_on_segment(Vector3f cp, final Vector3f v, final Vector3f e1, final Vector3f e2) {
 		Vector3f n = VECTORS.get();
@@ -78,6 +90,13 @@ class GeometryOperations {
 	/**
 	 * Line plane collision.
 	 *
+	 * @param plane the plane
+	 * @param vDir the v dir
+	 * @param vPoint the v point
+	 * @param pout the pout
+	 * @param tparam the tparam
+	 * @param tmin the tmin
+	 * @param tmax the tmax
 	 * @return -0 if the ray never intersects, -1 if the ray collides in front, -2 if the ray collides in back
 	 */
 	public static int line_plane_collision(final Vector4f plane, final Vector3f vDir, final Vector3f vPoint,
@@ -106,6 +125,13 @@ class GeometryOperations {
 
 	/**
 	 * Find closest points on segments.
+	 *
+	 * @param vA1 the v A 1
+	 * @param vA2 the v A 2
+	 * @param vB1 the v B 1
+	 * @param vB2 the v B 2
+	 * @param vPointA the v point A
+	 * @param vPointB the v point B
 	 */
 	public static void segment_collision(final Vector3f vA1, final Vector3f vA2, final Vector3f vB1, final Vector3f vB2,
 			Vector3f vPointA, Vector3f vPointB) {

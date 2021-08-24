@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'LayeredDisplayMultiListener.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the GAMA
- * modeling and simulation platform. (v. 1.8.1)
+ * SWTLayeredDisplayMultiListener.java, in gama.ui.experiment, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- *
- **********************************************************************************************/
+ ********************************************************************************************************/
 package gama.ui.experiment.views.displays;
 
 import java.util.Objects;
@@ -35,13 +34,35 @@ import gama.common.ui.IDisplaySurface;
 import gama.ui.base.bindings.GamaKeyBindings;
 import gama.ui.base.utils.WorkbenchHelper;
 
+/**
+ * The listener interface for receiving SWTLayeredDisplayMulti events.
+ * The class that is interested in processing a SWTLayeredDisplayMulti
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addSWTLayeredDisplayMultiListener<code> method. When
+ * the SWTLayeredDisplayMulti event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see SWTLayeredDisplayMultiEvent
+ */
 public class SWTLayeredDisplayMultiListener implements MenuDetectListener, MouseListener, MouseMoveListener,
 		MouseTrackListener, MouseWheelListener, KeyListener, DragDetectListener, FocusListener {
 
+	/** The delegate. */
 	final LayeredDisplayMultiListener delegate;
+	
+	/** The control. */
 	final Control control;
+	
+	/** The ok. */
 	final Supplier<Boolean> ok;
 
+	/**
+	 * Instantiates a new SWT layered display multi listener.
+	 *
+	 * @param deco the deco
+	 * @param surface the surface
+	 */
 	public SWTLayeredDisplayMultiListener(final LayeredDisplayDecorator deco, final IDisplaySurface surface) {
 
 		delegate = new LayeredDisplayMultiListener(surface, deco);
@@ -71,6 +92,9 @@ public class SWTLayeredDisplayMultiListener implements MenuDetectListener, Mouse
 		control.addFocusListener(this);
 	}
 
+	/**
+	 * Dispose.
+	 */
 	public void dispose() {
 		if (control == null || control.isDisposed()) { return; }
 		control.removeKeyListener(this);

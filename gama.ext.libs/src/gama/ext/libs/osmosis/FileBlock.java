@@ -1,17 +1,13 @@
-/**
- * Copyright (c) 2010 Scott A. Crosby. <scott@sacrosby.com>
+/*******************************************************************************************************
  *
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
+ * FileBlock.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * You should have received a copy of the GNU General Public License along with this program. If not, see
- * <http://www.gnu.org/licenses/>.
- *
- */
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.osmosis;
 
@@ -27,19 +23,37 @@ import com.google.protobuf.ByteString;
 
 import gama.ext.libs.osmosis.Fileformat.BlobHeader;
 
-/** A full fileblock object contains both the metadata and data of a fileblock */
+/**
+ *  A full fileblock object contains both the metadata and data of a fileblock.
+ */
 public class FileBlock extends FileBlockBase {
-	/** Contains the contents of a block for use or further processing */
+	
+	/**  Contains the contents of a block for use or further processing. */
 	ByteString data; // serialized Format.Blob
 
-	/** Don't be noisy unless the warning occurs somewhat often */
+	/**  Don't be noisy unless the warning occurs somewhat often. */
 	static int warncount = 0;
 
+	/**
+	 * Instantiates a new file block.
+	 *
+	 * @param type the type
+	 * @param blob the blob
+	 * @param indexdata the indexdata
+	 */
 	private FileBlock(final String type, final ByteString blob, final ByteString indexdata) {
 		super(type, indexdata);
 		this.data = blob;
 	}
 
+	/**
+	 * New instance.
+	 *
+	 * @param type the type
+	 * @param blob the blob
+	 * @param indexdata the indexdata
+	 * @return the file block
+	 */
 	public static FileBlock newInstance(final String type, final ByteString blob, final ByteString indexdata) {
 		if (blob != null && blob.size() > MAX_BODY_SIZE / 2) {
 			System.err.println("Warning: Fileblock has body size too large and may be considered corrupt");
@@ -56,6 +70,11 @@ public class FileBlock extends FileBlockBase {
 		return new FileBlock(type, blob, indexdata);
 	}
 
+	/**
+	 * Deflate into.
+	 *
+	 * @param blobbuilder the blobbuilder
+	 */
 	protected void deflateInto(final Fileformat.Blob.Builder blobbuilder) {
 		final int size = data.size();
 		final Deflater deflater = new Deflater();
@@ -79,6 +98,14 @@ public class FileBlock extends FileBlockBase {
 		deflater.end();
 	}
 
+	/**
+	 * Write to.
+	 *
+	 * @param outwrite the outwrite
+	 * @param flags the flags
+	 * @return the file block position
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public FileBlockPosition writeTo(final OutputStream outwrite, final CompressFlags flags) throws IOException {
 		final BlobHeader.Builder builder = Fileformat.BlobHeader.newBuilder();
 		if (indexdata != null) {
@@ -118,7 +145,13 @@ public class FileBlock extends FileBlockBase {
 		return FileBlockPosition.newInstance(this, offset, size);
 	}
 
-	/** Reads or skips a fileblock. */
+	/**
+	 *  Reads or skips a fileblock.
+	 *
+	 * @param input the input
+	 * @param callback the callback
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	static void process(final InputStream input, final BlockReaderAdapter callback) throws IOException {
 		final FileBlockHead fileblock = FileBlockHead.readHead(input);
 		if (callback.skipBlock(fileblock)) {
@@ -129,6 +162,11 @@ public class FileBlock extends FileBlockBase {
 		}
 	}
 
+	/**
+	 * Gets the data.
+	 *
+	 * @return the data
+	 */
 	public ByteString getData() {
 		return data;
 	}

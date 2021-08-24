@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GamlQuickfixProvider.java, in plugin ummisco.gama.ui.modeling, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * GamlQuickfixProvider.java, in gama.ui.modeling, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ui.modeling.quickfix;
 
@@ -25,16 +24,32 @@ import org.eclipse.xtext.validation.Issue;
 import gama.common.interfaces.IGamlIssue;
 import gama.ui.navigator.commands.FileOpener;
 
+/**
+ * The Class GamlQuickfixProvider.
+ */
 public class GamlQuickfixProvider extends DefaultQuickfixProvider {
 
+	/**
+	 * The Class Replace.
+	 */
 	private static class Replace implements IModification {
 
+		/** The length. */
 		final protected int length;
 
+		/** The offset. */
 		final protected int offset;
 
+		/** The text. */
 		final protected String text;
 
+		/**
+		 * Instantiates a new replace.
+		 *
+		 * @param offset the offset
+		 * @param length the length
+		 * @param text the text
+		 */
 		Replace(final int offset, final int length, final String text) {
 			this.length = length;
 			this.offset = offset;
@@ -49,15 +64,20 @@ public class GamlQuickfixProvider extends DefaultQuickfixProvider {
 
 	}
 
+	/**
+	 * The Class Surround.
+	 */
 	private static class Surround extends Replace {
 
+		/** The suffix. */
 		private final String suffix;
 
 		/**
-		 * @param offset
-		 * @param length
-		 * @param text
-		 *            text used before and after the replaced text
+		 * Instantiates a new surround.
+		 *
+		 * @param offset the offset
+		 * @param length the length
+		 * @param text            text used before and after the replaced text
 		 */
 		Surround(final int offset, final int length, final String text) {
 			super(offset, length, text);
@@ -65,16 +85,12 @@ public class GamlQuickfixProvider extends DefaultQuickfixProvider {
 		}
 
 		/**
-		 * Surrounds text with prefix, suffix
+		 * Surrounds text with prefix, suffix.
 		 *
-		 * @param offset
-		 *            start of section to surround
-		 * @param length
-		 *            length of section to surround
-		 * @param prefix
-		 *            text before the section
-		 * @param suffix
-		 *            text after the section
+		 * @param offset            start of section to surround
+		 * @param length            length of section to surround
+		 * @param prefix            text before the section
+		 * @param suffix            text after the section
 		 */
 		Surround(final int offset, final int length, final String prefix, final String suffix) {
 			super(offset, length, prefix);
@@ -90,6 +106,13 @@ public class GamlQuickfixProvider extends DefaultQuickfixProvider {
 
 	}
 
+	/**
+	 * Removes the issue.
+	 *
+	 * @param label the label
+	 * @param issue the issue
+	 * @param acceptor the acceptor
+	 */
 	public void removeIssue(final String label, final Issue issue, final IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, label, "", "", (IModification) context -> {
 			final IXtextDocument xtextDocument = context.getXtextDocument();
@@ -97,6 +120,12 @@ public class GamlQuickfixProvider extends DefaultQuickfixProvider {
 		});
 	}
 
+	/**
+	 * Should cast.
+	 *
+	 * @param issue the issue
+	 * @param acceptor the acceptor
+	 */
 	@Fix (IGamlIssue.SHOULD_CAST)
 	public void shouldCast(final Issue issue, final IssueResolutionAcceptor acceptor) {
 		final String[] data = issue.getData();
@@ -106,6 +135,12 @@ public class GamlQuickfixProvider extends DefaultQuickfixProvider {
 				new Surround(issue.getOffset(), issue.getLength(), castingString + "(", ")"));
 	}
 
+	/**
+	 * Adds the init.
+	 *
+	 * @param issue the issue
+	 * @param acceptor the acceptor
+	 */
 	@Fix (IGamlIssue.NO_INIT)
 	public void addInit(final Issue issue, final IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Add an init facet...", "", "", (IModification) context -> {
@@ -115,12 +150,24 @@ public class GamlQuickfixProvider extends DefaultQuickfixProvider {
 		});
 	}
 
+	/**
+	 * As array.
+	 *
+	 * @param issue the issue
+	 * @param acceptor the acceptor
+	 */
 	@Fix (IGamlIssue.AS_ARRAY)
 	public void asArray(final Issue issue, final IssueResolutionAcceptor acceptor) {
 		acceptor.accept(issue, "Enclose the skill in a list...", "", "",
 				new Surround(issue.getOffset(), issue.getLength(), "[", "]"));
 	}
 
+	/**
+	 * Goto import.
+	 *
+	 * @param issue the issue
+	 * @param acceptor the acceptor
+	 */
 	@Fix (IGamlIssue.IMPORT_ERROR)
 	public void gotoImport(final Issue issue, final IssueResolutionAcceptor acceptor) {
 		final String[] data = issue.getData();
@@ -132,6 +179,12 @@ public class GamlQuickfixProvider extends DefaultQuickfixProvider {
 
 	}
 
+	/**
+	 * Replace value.
+	 *
+	 * @param issue the issue
+	 * @param acceptor the acceptor
+	 */
 	@Fix (IGamlIssue.WRONG_VALUE)
 	public void replaceValue(final Issue issue, final IssueResolutionAcceptor acceptor) {
 		final String[] data = issue.getData();
@@ -141,6 +194,12 @@ public class GamlQuickfixProvider extends DefaultQuickfixProvider {
 				new Replace(issue.getOffset(), issue.getLength(), value));
 	}
 
+	/**
+	 * Adds the facet.
+	 *
+	 * @param issue the issue
+	 * @param acceptor the acceptor
+	 */
 	@Fix (IGamlIssue.MISSING_FACET)
 	public void addFacet(final Issue issue, final IssueResolutionAcceptor acceptor) {
 		return;

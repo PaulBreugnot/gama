@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.compilation.kernel.GamaClassLoader.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * GamaClassLoader.java, in gama.core.application, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.core.application.bundles;
 
@@ -23,24 +23,36 @@ import java.util.Set;
 import org.osgi.framework.Bundle;
 
 /**
- * The class GamaClassLoader. A custom class loader that can build class loaders
- * for the bundles containing additions to GAML, and keeps a history of them in
- * order to resolve the classes they refer.
- * 
+ * The class GamaClassLoader. A custom class loader that can build class loaders for the bundles containing additions to
+ * GAML, and keeps a history of them in order to resolve the classes they refer.
+ *
  * @author drogoul
  * @since 23 janv. 2012
- * 
+ *
  */
-@SuppressWarnings({ "unchecked", "rawtypes" })
+@SuppressWarnings ({ "unchecked", "rawtypes" })
 public class GamaClassLoader extends ClassLoader {
 
+	/**
+	 * The Class ListBasedLoader.
+	 */
 	public static class ListBasedLoader extends ClassLoader {
 
-		ListBasedLoader() {
-		}
+		/**
+		 * Instantiates a new list based loader.
+		 */
+		ListBasedLoader() {}
 
+		/** The classes. */
 		Set<Class> classes = new LinkedHashSet();
 
+		/**
+		 * Adds the new class.
+		 *
+		 * @param c
+		 *            the c
+		 * @return true, if successful
+		 */
 		public boolean addNewClass(final Class c) {
 			return classes.add(c);
 		}
@@ -48,36 +60,44 @@ public class GamaClassLoader extends ClassLoader {
 		@Override
 		protected synchronized Class loadClass(final String name, final boolean resolve) throws ClassNotFoundException {
 			final Class clazz = findClass(name);
-			if (resolve) {
-				resolveClass(clazz);
-			}
+			if (resolve) { resolveClass(clazz); }
 			return clazz;
 		}
 
 		@Override
 		protected Class findClass(final String name) throws ClassNotFoundException {
 			for (final Class c : classes) {
-				if (c.getCanonicalName().equals(name)) {
-					return c;
-				}
+				if (c.getCanonicalName().equals(name)) return c;
 			}
 			return null;
 		}
 
 	}
 
+	/**
+	 * The Class BundleClassLoader.
+	 */
 	public static class BundleClassLoader extends ClassLoader {
 
+		/** The bundle. */
 		private final Bundle bundle;
 
 		/**
-		 * Constructs a new <code>BundleDelegatingClassLoader</code> instance.
+		 * Constructs a new <code>BundleClassLoader</code> instance.
+		 *
+		 * @param bundle
+		 *            the bundle
 		 */
 		protected BundleClassLoader(final Bundle bundle) {
 			super(null);
 			this.bundle = bundle;
 		}
 
+		/**
+		 * Gets the bundle.
+		 *
+		 * @return the bundle
+		 */
 		public Bundle getBundle() {
 			return bundle;
 		}
@@ -111,41 +131,61 @@ public class GamaClassLoader extends ClassLoader {
 		@Override
 		protected synchronized Class loadClass(final String name, final boolean resolve) throws ClassNotFoundException {
 			final Class clazz = findClass(name);
-			if (resolve) {
-				resolveClass(clazz);
-			}
+			if (resolve) { resolveClass(clazz); }
 			return clazz;
 		}
 
 	}
 
+	/** The loader. */
 	private volatile static GamaClassLoader loader;
+
+	/** The loaders. */
 	private final List<ClassLoader> loaders = new ArrayList<>();
 
+	/**
+	 * Gets the single instance of GamaClassLoader.
+	 *
+	 * @return single instance of GamaClassLoader
+	 */
 	public static GamaClassLoader getInstance() {
-		if (loader == null) {
-			loader = new GamaClassLoader();
-		}
+		if (loader == null) { loader = new GamaClassLoader(); }
 		return loader;
 	}
 
+	/** The Constant customLoader. */
 	private final static ListBasedLoader customLoader = new ListBasedLoader();
 
-	private GamaClassLoader() {
-		super();
-	}
+	/**
+	 * Instantiates a new gama class loader.
+	 */
+	private GamaClassLoader() {}
 
 	//
 	// public boolean addNewClass(final Class c) {
 	// return customLoader.addNewClass(c);
 	// }
 
+	/**
+	 * Adds the bundle.
+	 *
+	 * @param bundle
+	 *            the bundle
+	 * @return the class loader
+	 */
 	public ClassLoader addBundle(final Bundle bundle) {
 		// TODO verify if the bundle is not already known
 		final BundleClassLoader loader = createBundleClassLoaderFor(bundle);
 		return addLoader(loader);
 	}
 
+	/**
+	 * Adds the loader.
+	 *
+	 * @param loader
+	 *            the loader
+	 * @return the class loader
+	 */
 	public ClassLoader addLoader(final ClassLoader loader) {
 		loaders.add(loader);
 		return loader;
@@ -154,27 +194,22 @@ public class GamaClassLoader extends ClassLoader {
 	@Override
 	protected Class findClass(final String name) throws ClassNotFoundException {
 
-		for (int i = 0, n = loaders.size(); i < n; i++) {
+		for (ClassLoader loader2 : loaders) {
 			try {
-				return loaders.get(i).loadClass(name);
-			} catch (final ClassNotFoundException cnfe) {
-			}
+				return loader2.loadClass(name);
+			} catch (final ClassNotFoundException cnfe) {}
 		}
 		final Class c = customLoader.findClass(name);
-		if (c == null) {
-			throw new ClassNotFoundException(name + " not found in GAMA");
-		}
+		if (c == null) throw new ClassNotFoundException(name + " not found in GAMA");
 		return c;
 
 	}
 
 	@Override
 	protected URL findResource(final String name) {
-		for (int i = 0, n = loaders.size(); i < n; i++) {
-			final URL url = loaders.get(i).getResource(name);
-			if (url != null) {
-				return url;
-			}
+		for (ClassLoader loader2 : loaders) {
+			final URL url = loader2.getResource(name);
+			if (url != null) return url;
 		}
 		return null;
 	}
@@ -199,12 +234,17 @@ public class GamaClassLoader extends ClassLoader {
 	@Override
 	protected synchronized Class loadClass(final String name, final boolean resolve) throws ClassNotFoundException {
 		final Class clazz = findClass(name);
-		if (resolve) {
-			resolveClass(clazz);
-		}
+		if (resolve) { resolveClass(clazz); }
 		return clazz;
 	}
 
+	/**
+	 * Creates the bundle class loader for.
+	 *
+	 * @param bundle
+	 *            the bundle
+	 * @return the bundle class loader
+	 */
 	private BundleClassLoader createBundleClassLoaderFor(final Bundle bundle) {
 		return (BundleClassLoader) AccessController
 				.doPrivileged((PrivilegedAction) () -> new BundleClassLoader(bundle));

@@ -1,15 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
+ * PhysicalSimulationAgent.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * 'Physical3DWorldAgent.java', in plugin 'simtools.gaml.extensions.physics', is part of the source code of the GAMA
- * modeling and simulation platform. (v. 1.8.1)
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
- *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.physics.gaml;
 
 import java.util.Collection;
@@ -35,8 +33,8 @@ import gama.metamodel.shape.GamaPoint;
 import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gama.util.Collector;
-import gama.util.IList;
 import gama.util.Collector.AsOrderedSet;
+import gama.util.IList;
 import gama.util.matrix.IField;
 import gaml.species.ISpecies;
 import gaml.types.IType;
@@ -103,23 +101,53 @@ import gaml.types.IType;
 				doc = @doc ("Enables or not a better (but slower) collision detection ")) })
 public class PhysicalSimulationAgent extends SimulationAgent implements IPhysicalConstants {
 
+	/** The population listener. */
 	final BodyPopulationListener populationListener = new BodyPopulationListener();
+	
+	/** The ccd. */
 	Boolean ccd = false;
+	
+	/** The automated registration. */
 	Boolean automatedRegistration = true;
+	
+	/** The gravity. */
 	final GamaPoint gravity = new GamaPoint(0, 0, -9.81d);
+	
+	/** The terrain. */
 	IField terrain;
+	
+	/** The gateway. */
 	IPhysicalWorld gateway;
+	
+	/** The use native library. */
 	Boolean useNativeLibrary = PhysicsActivator.NATIVE_BULLET_LIBRARY_LOADED;
+	
+	/** The library to use. */
 	String libraryToUse = BULLET_LIBRARY_NAME;
 
+	/** The registered agents. */
 	private final AsOrderedSet<IAgent> registeredAgents = Collector.getOrderedSet();
 
+	/** The max sub steps. */
 	private int maxSubSteps;
 
+	/**
+	 * Instantiates a new physical simulation agent.
+	 *
+	 * @param s the s
+	 * @param index the index
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public PhysicalSimulationAgent(final IPopulation<? extends IAgent> s, final int index) throws GamaRuntimeException {
 		super(s, index);
 	}
 
+	/**
+	 * Prim register.
+	 *
+	 * @param scope the scope
+	 * @return the object
+	 */
 	@action (
 			doc = @doc ("An action that allows to register agents in this physical world. Unregistered agents will not be governed by the physical laws of this world. If the world is to play a role in the physical world,"
 					+ "then it needs to register itself (i.e. do register([self]);"),
@@ -138,34 +166,62 @@ public class PhysicalSimulationAgent extends SimulationAgent implements IPhysica
 		return agents;
 	}
 
+	/**
+	 * Register agent.
+	 *
+	 * @param scope the scope
+	 * @param agent the agent
+	 */
 	private void registerAgent(final IScope scope, final IAgent agent) {
 		if (registeredAgents.add(agent)) { getGateway().registerAgent(agent); }
 	}
 
+	/**
+	 * Unregister agent.
+	 *
+	 * @param scope the scope
+	 * @param agent the agent
+	 */
 	private void unregisterAgent(final IScope scope, final IAgent agent) {
 		if (registeredAgents.remove(agent)) { getGateway().unregisterAgent(agent); }
 	}
 
 	/**
-	 * Called whenever an agent wants to update its body
+	 * Called whenever an agent wants to update its body.
 	 *
-	 * @param scope
-	 * @param agent
+	 * @param scope the scope
+	 * @param agent the agent
 	 */
 	public void updateAgent(final IScope scope, final IAgent agent) {
 		getGateway().updateAgentShape(agent);
 	}
 
+	/**
+	 * Gets the terrain.
+	 *
+	 * @return the terrain
+	 */
 	@getter (IPhysicalConstants.TERRAIN)
 	public IField getTerrain() {
 		return terrain;
 	}
 
+	/**
+	 * Sets the terrain.
+	 *
+	 * @param t the new terrain
+	 */
 	@setter (IPhysicalConstants.TERRAIN)
 	public void setTerrain(final IField t) {
 		terrain = t;
 	}
 
+	/**
+	 * Gets the ccd.
+	 *
+	 * @param scope the scope
+	 * @return the ccd
+	 */
 	@getter (
 			value = ACCURATE_COLLISION_DETECTION,
 			initializer = true)
@@ -173,6 +229,12 @@ public class PhysicalSimulationAgent extends SimulationAgent implements IPhysica
 		return ccd;
 	}
 
+	/**
+	 * Sets the CCD.
+	 *
+	 * @param scope the scope
+	 * @param v the v
+	 */
 	@setter (ACCURATE_COLLISION_DETECTION)
 	public void setCCD(final IScope scope, final Boolean v) {
 		ccd = v;
@@ -180,6 +242,12 @@ public class PhysicalSimulationAgent extends SimulationAgent implements IPhysica
 		if (gateway != null) { gateway.setCCD(v); }
 	}
 
+	/**
+	 * Gets the automated registration.
+	 *
+	 * @param scope the scope
+	 * @return the automated registration
+	 */
 	@getter (
 			value = AUTOMATED_REGISTRATION,
 			initializer = true)
@@ -187,11 +255,23 @@ public class PhysicalSimulationAgent extends SimulationAgent implements IPhysica
 		return automatedRegistration;
 	}
 
+	/**
+	 * Sets the automated registration.
+	 *
+	 * @param scope the scope
+	 * @param v the v
+	 */
 	@setter (AUTOMATED_REGISTRATION)
 	public void setAutomatedRegistration(final IScope scope, final Boolean v) {
 		automatedRegistration = v;
 	}
 
+	/**
+	 * Uses native library.
+	 *
+	 * @param scope the scope
+	 * @return the boolean
+	 */
 	@getter (
 			value = USE_NATIVE,
 			initializer = true)
@@ -199,12 +279,24 @@ public class PhysicalSimulationAgent extends SimulationAgent implements IPhysica
 		return useNativeLibrary;
 	}
 
+	/**
+	 * Use native library.
+	 *
+	 * @param scope the scope
+	 * @param v the v
+	 */
 	@setter (USE_NATIVE)
 	public void useNativeLibrary(final IScope scope, final Boolean v) {
 		// If we have not successfully loaded the library, then the setting should remain false.
 		useNativeLibrary = PhysicsActivator.NATIVE_BULLET_LIBRARY_LOADED && v;
 	}
 
+	/**
+	 * Library to use.
+	 *
+	 * @param scope the scope
+	 * @return the string
+	 */
 	@getter (
 			value = LIBRARY_NAME,
 			initializer = true)
@@ -212,11 +304,23 @@ public class PhysicalSimulationAgent extends SimulationAgent implements IPhysica
 		return libraryToUse;
 	}
 
+	/**
+	 * Library to use.
+	 *
+	 * @param scope the scope
+	 * @param v the v
+	 */
 	@setter (LIBRARY_NAME)
 	public void libraryToUse(final IScope scope, final String v) {
 		libraryToUse = v;
 	}
 
+	/**
+	 * Gets the max sub steps.
+	 *
+	 * @param scope the scope
+	 * @return the max sub steps
+	 */
 	@getter (
 			value = MAX_SUBSTEPS,
 			initializer = true)
@@ -224,11 +328,23 @@ public class PhysicalSimulationAgent extends SimulationAgent implements IPhysica
 		return maxSubSteps;
 	}
 
+	/**
+	 * Sets the max sub steps.
+	 *
+	 * @param scope the scope
+	 * @param steps the steps
+	 */
 	@setter (MAX_SUBSTEPS)
 	public void setMaxSubSteps(final IScope scope, final int steps) {
 		maxSubSteps = steps;
 	}
 
+	/**
+	 * Gets the gravity.
+	 *
+	 * @param scope the scope
+	 * @return the gravity
+	 */
 	@getter (
 			value = GRAVITY,
 			initializer = true)
@@ -236,6 +352,12 @@ public class PhysicalSimulationAgent extends SimulationAgent implements IPhysica
 		return gravity;
 	}
 
+	/**
+	 * Sets the gravity.
+	 *
+	 * @param scope the scope
+	 * @param g the g
+	 */
 	@setter (GRAVITY)
 	public void setGravity(final IScope scope, final GamaPoint g) {
 		this.gravity.setLocation(g);
@@ -268,11 +390,17 @@ public class PhysicalSimulationAgent extends SimulationAgent implements IPhysica
 		return true;
 	}
 
+	/**
+	 * Gets the gateway.
+	 *
+	 * @return the gateway
+	 */
 	IPhysicalWorld getGateway() {
 		if (gateway == null) {
 			boolean isBullet = BULLET_LIBRARY_NAME.equals(libraryToUse);
+			boolean nativeIsLoaded = isBullet && useNativeLibrary ? PhysicsActivator.loadLibrary() : false;
 			if (isBullet) {
-				if (useNativeLibrary) {
+				if (useNativeLibrary && nativeIsLoaded) {
 					gateway = new NativeBulletPhysicalWorld(this);
 				} else {
 					gateway = new BulletPhysicalWorld(this);
@@ -284,6 +412,17 @@ public class PhysicalSimulationAgent extends SimulationAgent implements IPhysica
 		return gateway;
 	}
 
+	/**
+	 * The listener interface for receiving bodyPopulation events.
+	 * The class that is interested in processing a bodyPopulation
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addBodyPopulationListener<code> method. When
+	 * the bodyPopulation event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see BodyPopulationEvent
+	 */
 	class BodyPopulationListener implements IPopulation.Listener {
 
 		@Override

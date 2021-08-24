@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ummisco.gama.opengl.scene.ResourceDrawer.java, in plugin ummisco.gama.opengl, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * ResourceDrawer.java, in gama.display.opengl, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.display.opengl.scene.resources;
 
@@ -20,8 +20,16 @@ import gama.display.opengl.scene.ObjectDrawer;
 import gama.metamodel.shape.GamaPoint;
 import gama.util.file.GamaGeometryFile;
 
+/**
+ * The Class ResourceDrawer.
+ */
 public class ResourceDrawer extends ObjectDrawer<ResourceObject> {
 
+	/**
+	 * Instantiates a new resource drawer.
+	 *
+	 * @param gl the gl
+	 */
 	public ResourceDrawer(final OpenGL gl) {
 		super(gl);
 		// TODO Auto-generated constructor stub

@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gama.kernel.batch.ParamSpaceExploAlgorithm.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
- * 
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * ParamSpaceExploAlgorithm.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -40,7 +40,10 @@ import gaml.types.IType;
 		kinds = { ISymbolKind.EXPERIMENT })
 public abstract class ParamSpaceExploAlgorithm extends Symbol implements IExploration {
 
+	/** The Constant COMBINATIONS. */
 	public final static String[] COMBINATIONS = new String[] { "maximum", "minimum", "average" };
+	
+	/** The Constant CLASSES. */
 	@SuppressWarnings ("rawtypes") public static final Class[] CLASSES =
 			{ GeneticAlgorithm.class, SimulatedAnnealing.class, HillClimbing.class, TabuSearch.class,
 					TabuSearchReactive.class, ExhaustiveSearch.class, Swarm.class};
@@ -49,16 +52,36 @@ public abstract class ParamSpaceExploAlgorithm extends Symbol implements IExplor
 		AbstractGamlAdditions._constants(COMBINATIONS);
 	}
 
+	/** The tested solutions. */
 	// private ContinuousUniformGenerator randUniform;
 	protected HashMap<ParametersSet, Double> testedSolutions;
+	
+	/** The fitness expression. */
 	protected IExpression fitnessExpression;
+	
+	/** The is maximize. */
 	protected boolean isMaximize;
+	
+	/** The current experiment. */
 	protected BatchAgent currentExperiment;
+	
+	/** The best solution. */
 	// protected IScope scope;
 	protected ParametersSet bestSolution = null;
+	
+	/** The best fitness. */
 	protected Double bestFitness = null;
+	
+	/** The combination. */
 	protected short combination;
 
+	/**
+	 * Find best solution.
+	 *
+	 * @param scope the scope
+	 * @return the parameters set
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	protected abstract ParametersSet findBestSolution(IScope scope) throws GamaRuntimeException;
 
 	@Override
@@ -74,10 +97,16 @@ public abstract class ParamSpaceExploAlgorithm extends Symbol implements IExplor
 	// return randUniform;
 	// }
 
+	/**
+	 * Initialize tested solutions.
+	 */
 	protected void initializeTestedSolutions() {
 		testedSolutions = new HashMap<ParametersSet, Double>();
 	}
 
+	/**
+	 * Inits the params.
+	 */
 	protected void initParams() {
 		GAMA.run(new InScope.Void() {
 
@@ -88,8 +117,18 @@ public abstract class ParamSpaceExploAlgorithm extends Symbol implements IExplor
 		});
 	}
 
+	/**
+	 * Inits the params.
+	 *
+	 * @param scope the scope
+	 */
 	protected void initParams(final IScope scope) {}
 
+	/**
+	 * Instantiates a new param space explo algorithm.
+	 *
+	 * @param desc the desc
+	 */
 	public ParamSpaceExploAlgorithm(final IDescription desc) {
 		super(desc);
 		initializeTestedSolutions();
@@ -122,6 +161,11 @@ public abstract class ParamSpaceExploAlgorithm extends Symbol implements IExplor
 	@Override
 	public void setChildren(final Iterable<? extends ISymbol> commands) {}
 
+	/**
+	 * Checks if is maximize.
+	 *
+	 * @return true, if is maximize
+	 */
 	public boolean isMaximize() {
 		return isMaximize;
 	}
@@ -166,12 +210,22 @@ public abstract class ParamSpaceExploAlgorithm extends Symbol implements IExplor
 		return combination;
 	}
 
+	/**
+	 * Sets the best solution.
+	 *
+	 * @param bestSolution the new best solution
+	 */
 	protected void setBestSolution(final ParametersSet bestSolution) {
 		// scope.getGui().debug("ParamSpaceExploAlgorithm.setBestSolution : " +
 		// bestSolution);
 		this.bestSolution = new ParametersSet(bestSolution);
 	}
 
+	/**
+	 * Sets the best fitness.
+	 *
+	 * @param bestFitness the new best fitness
+	 */
 	protected void setBestFitness(final Double bestFitness) {
 		// scope.getGui().debug("ParamSpaceExploAlgorithm.setBestFitness : " +
 		// bestFitness);

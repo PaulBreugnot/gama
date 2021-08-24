@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.file.http.RetryManager.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * RetryManager.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -21,9 +21,11 @@ import javax.net.ssl.SSLException;
  * @since 27.04.14.
  */
 public class RetryManager {
-	/** seconds to wait until next retry */
+	
+	/**  seconds to wait until next retry. */
 	protected static final int[] BACKOFF = { 1, 2, 4, 7, 12, 20, 30, 60, 120 };
 
+	/** The Constant DEFAULT. */
 	static final RetryManager DEFAULT = new RetryManager();
 
 	/**

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.metamodel.topology.graph.NBAStarPathfinder.java, in plugin msi.gama.core, is part of the source code of the
- * GAMA modeling and simulation platform (v. 1.8.1)
+ * NBAStarPathfinder.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.metamodel.topology.graph;
 
@@ -39,36 +39,81 @@ import gama.util.graph._Vertex;
  *
  * @author Rodion "rodde" Efremov
  * @version 1.61 (Oct 13, 2016)
+ * @param <V> the value type
+ * @param <E> the element type
  */
 public final class NBAStarPathfinder<V, E> {
 
+	/** The opena. */
 	private final PriorityQueue<HeapEntry<V>> OPENA = new PriorityQueue<>();
+	
+	/** The openb. */
 	private final PriorityQueue<HeapEntry<V>> OPENB = new PriorityQueue<>();
+	
+	/** The parentsa. */
 	private final Map<V, V> PARENTSA = new HashMap<>();
+	
+	/** The parentsb. */
 	private final Map<V, V> PARENTSB = new HashMap<>();
+	
+	/** The distancea. */
 	private final Map<V, Double> DISTANCEA = new HashMap<>();
+	
+	/** The distanceb. */
 	private final Map<V, Double> DISTANCEB = new HashMap<>();
+	
+	/** The closed. */
 	private final Set<V> CLOSED = new HashSet<>();
+	
+	/** The vertices. */
 	private final Map<V, _Vertex<V, E>> vertices = new IdentityHashMap<>();
 
+	/** The stop when path found. */
 	private boolean stopWhenPathFound = false;
 
+	/** The f A. */
 	private double fA;
+	
+	/** The f B. */
 	private double fB;
+	
+	/** The best path length. */
 	private double bestPathLength;
+	
+	/** The touch node. */
 	private V touchNode;
+	
+	/** The source node. */
 	private V sourceNode;
+	
+	/** The target node. */
 	private V targetNode;
 
+	/** The graph. */
 	GamaGraph<V, E> graph;
+	
+	/** The is spatial graph. */
 	boolean isSpatialGraph;
 
+	/**
+	 * Instantiates a new NBA star pathfinder.
+	 *
+	 * @param graph the graph
+	 * @param stopWhenPathFound the stop when path found
+	 */
 	public NBAStarPathfinder(final GamaGraph<V, E> graph, final boolean stopWhenPathFound) {
 		this.graph = graph;
 		isSpatialGraph = graph instanceof GamaSpatialGraph;
 		this.stopWhenPathFound = stopWhenPathFound;
 	}
 
+	/**
+	 * Search.
+	 *
+	 * @param sourceNode the source node
+	 * @param targetNode the target node
+	 * @return the i list
+	 */
 	public IList<E> search(final V sourceNode, final V targetNode) {
 		if (sourceNode.equals(targetNode)) { return GamaListFactory.EMPTY_LIST; }
 
@@ -87,6 +132,9 @@ public final class NBAStarPathfinder<V, E> {
 		return tracebackPath();
 	}
 
+	/**
+	 * Expand in forward direction.
+	 */
 	@SuppressWarnings ("unchecked")
 	private void expandInForwardDirection() {
 		final V currentNode = OPENA.remove().getNode();
@@ -145,6 +193,9 @@ public final class NBAStarPathfinder<V, E> {
 		}
 	}
 
+	/**
+	 * Expand in backward direction.
+	 */
 	@SuppressWarnings ("unchecked")
 	private void expandInBackwardDirection() {
 		final V currentNode = OPENB.remove().getNode();
@@ -207,6 +258,12 @@ public final class NBAStarPathfinder<V, E> {
 		}
 	}
 
+	/**
+	 * Inits the.
+	 *
+	 * @param sourceNode the source node
+	 * @param targetNode the target node
+	 */
 	private void init(final V sourceNode, final V targetNode) {
 		OPENA.clear();
 		OPENB.clear();
@@ -300,21 +357,41 @@ public final class NBAStarPathfinder<V, E> {
 	 *
 	 * @author Rodion "rodde" Efremov
 	 * @version 1.6 (Oct 13, 2016)
+	 * @param <V> the value type
 	 */
 	final class HeapEntry<V> implements Comparable<HeapEntry<V>> {
 
+		/** The node id. */
 		private final V nodeId;
+		
+		/** The distance. */
 		private final double distance; // The priority key.
 
+		/**
+		 * Instantiates a new heap entry.
+		 *
+		 * @param nodeId the node id
+		 * @param distance the distance
+		 */
 		public HeapEntry(final V nodeId, final double distance) {
 			this.nodeId = nodeId;
 			this.distance = distance;
 		}
 
+		/**
+		 * Gets the node.
+		 *
+		 * @return the node
+		 */
 		public V getNode() {
 			return nodeId;
 		}
 
+		/**
+		 * Gets the distance.
+		 *
+		 * @return the distance
+		 */
 		public double getDistance() {
 			return distance;
 		}
@@ -325,6 +402,13 @@ public final class NBAStarPathfinder<V, E> {
 		}
 	}
 
+	/**
+	 * Estimate distance between.
+	 *
+	 * @param node1 the node 1
+	 * @param node2 the node 2
+	 * @return the double
+	 */
 	public double estimateDistanceBetween(final V node1, final V node2) {
 		if (isSpatialGraph) {
 			final GamaPoint pt1 = ((IShape) node1).getLocation();

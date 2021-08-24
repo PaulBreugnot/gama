@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * TimeStamp.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -61,6 +71,8 @@ public class TimeStamp
      * 
      */
     protected String when;
+    
+    /** The time stamp simple extension. */
     @XmlElement(name = "TimeStampSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> timeStampSimpleExtension;
@@ -85,37 +97,40 @@ public class TimeStamp
     @XmlElement(name = "TimeStampObjectExtensionGroup")
     protected List<AbstractObject> timeStampObjectExtension;
 
+    /**
+     * Instantiates a new time stamp.
+     */
     public TimeStamp() {
         super();
     }
 
     /**
-     * @see when
-     * 
-     * @return
-     *     possible object is
+     * Gets the when.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see when
      */
     public String getWhen() {
         return when;
     }
 
     /**
-     * @see when
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the when.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see when
      */
     public void setWhen(String value) {
         this.when = value;
     }
 
     /**
+     * Gets the time stamp simple extension.
+     *
+     * @return the time stamp simple extension
      * @see timeStampSimpleExtension
-     * 
      */
     public List<Object> getTimeStampSimpleExtension() {
         if (timeStampSimpleExtension == null) {
@@ -125,8 +140,10 @@ public class TimeStamp
     }
 
     /**
+     * Gets the time stamp object extension.
+     *
+     * @return the time stamp object extension
      * @see timeStampObjectExtension
-     * 
      */
     public List<AbstractObject> getTimeStampObjectExtension() {
         if (timeStampObjectExtension == null) {
@@ -191,21 +208,20 @@ public class TimeStamp
     }
 
     /**
+     * Sets the time stamp simple extension.
+     *
+     * @param timeStampSimpleExtension the new time stamp simple extension
      * @see timeStampSimpleExtension
-     * 
-     * @param timeStampSimpleExtension
      */
     public void setTimeStampSimpleExtension(final List<Object> timeStampSimpleExtension) {
         this.timeStampSimpleExtension = timeStampSimpleExtension;
     }
 
     /**
-     * add a value to the timeStampSimpleExtension property collection
-     * 
-     * @param timeStampSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the timeStampSimpleExtension property collection.
+     *
+     * @param timeStampSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public TimeStamp addToTimeStampSimpleExtension(final Object timeStampSimpleExtension) {
         this.getTimeStampSimpleExtension().add(timeStampSimpleExtension);
@@ -213,21 +229,20 @@ public class TimeStamp
     }
 
     /**
+     * Sets the time stamp object extension.
+     *
+     * @param timeStampObjectExtension the new time stamp object extension
      * @see timeStampObjectExtension
-     * 
-     * @param timeStampObjectExtension
      */
     public void setTimeStampObjectExtension(final List<AbstractObject> timeStampObjectExtension) {
         this.timeStampObjectExtension = timeStampObjectExtension;
     }
 
     /**
-     * add a value to the timeStampObjectExtension property collection
-     * 
-     * @param timeStampObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the timeStampObjectExtension property collection.
+     *
+     * @param timeStampObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public TimeStamp addToTimeStampObjectExtension(final AbstractObject timeStampObjectExtension) {
         this.getTimeStampObjectExtension().add(timeStampObjectExtension);
@@ -286,11 +301,11 @@ public class TimeStamp
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param when     required parameter
+     * @return the time stamp
      * @see #setWhen(String)
-     * 
-     * @param when
-     *     required parameter
      */
     public TimeStamp withWhen(final String when) {
         this.setWhen(when);
@@ -298,11 +313,11 @@ public class TimeStamp
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param timeStampSimpleExtension     required parameter
+     * @return the time stamp
      * @see #setTimeStampSimpleExtension(List<Object>)
-     * 
-     * @param timeStampSimpleExtension
-     *     required parameter
      */
     public TimeStamp withTimeStampSimpleExtension(final List<Object> timeStampSimpleExtension) {
         this.setTimeStampSimpleExtension(timeStampSimpleExtension);
@@ -310,11 +325,11 @@ public class TimeStamp
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param timeStampObjectExtension     required parameter
+     * @return the time stamp
      * @see #setTimeStampObjectExtension(List<AbstractObject>)
-     * 
-     * @param timeStampObjectExtension
-     *     required parameter
      */
     public TimeStamp withTimeStampObjectExtension(final List<AbstractObject> timeStampObjectExtension) {
         this.setTimeStampObjectExtension(timeStampObjectExtension);

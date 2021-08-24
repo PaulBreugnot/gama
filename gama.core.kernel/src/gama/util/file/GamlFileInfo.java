@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.file.GamlFileInfo.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * GamlFileInfo.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.util.file;
 
@@ -18,17 +18,41 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * The Class GamlFileInfo.
+ */
 public class GamlFileInfo extends GamaFileMetaData {
 
+	/** The batch prefix. */
 	public static String BATCH_PREFIX = "***";
+	
+	/** The errors. */
 	public static String ERRORS = "errors detected";
 
+	/** The experiments. */
 	private final Collection<String> experiments;
+	
+	/** The imports. */
 	private final Collection<String> imports;
+	
+	/** The uses. */
 	private final Collection<String> uses;
+	
+	/** The tags. */
 	private final Collection<String> tags;
+	
+	/** The invalid. */
 	public final boolean invalid;
 
+	/**
+	 * Instantiates a new gaml file info.
+	 *
+	 * @param stamp the stamp
+	 * @param imports the imports
+	 * @param uses the uses
+	 * @param exps the exps
+	 * @param tags the tags
+	 */
 	public GamlFileInfo(final long stamp, final Collection<String> imports, final Collection<String> uses,
 			final Collection<String> exps, final Collection<String> tags) {
 		super(stamp);
@@ -39,22 +63,47 @@ public class GamlFileInfo extends GamaFileMetaData {
 		this.tags = tags;
 	}
 
+	/**
+	 * Gets the imports.
+	 *
+	 * @return the imports
+	 */
 	public Collection<String> getImports() {
 		return imports == null ? Collections.EMPTY_LIST : imports;
 	}
 
+	/**
+	 * Gets the uses.
+	 *
+	 * @return the uses
+	 */
 	public Collection<String> getUses() {
 		return uses == null ? Collections.EMPTY_LIST : uses;
 	}
 
+	/**
+	 * Gets the tags.
+	 *
+	 * @return the tags
+	 */
 	public Collection<String> getTags() {
 		return tags == null ? Collections.EMPTY_LIST : tags;
 	}
 
+	/**
+	 * Gets the experiments.
+	 *
+	 * @return the experiments
+	 */
 	public Collection<String> getExperiments() {
 		return experiments == null ? Collections.EMPTY_LIST : experiments;
 	}
 
+	/**
+	 * Instantiates a new gaml file info.
+	 *
+	 * @param propertyString the property string
+	 */
 	public GamlFileInfo(final String propertyString) {
 		super(propertyString);
 		final String[] values = split(propertyString);

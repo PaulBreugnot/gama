@@ -1,26 +1,13 @@
-/*******************************************************************************
- * Copyright (c) 2013, Daniel Murphy
- * All rights reserved.
+/*******************************************************************************************************
+ *
+ * DebugDraw.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
- * 	* Redistributions of source code must retain the above copyright notice,
- * 	  this list of conditions and the following disclaimer.
- * 	* Redistributions in binary form must reproduce the above copyright notice,
- * 	  this list of conditions and the following disclaimer in the documentation
- * 	  and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
- * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
- * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
- * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- ******************************************************************************/
+ ********************************************************************************************************/
 /**
  * Created at 4:35:29 AM Jul 15, 2010
  */
@@ -40,50 +27,92 @@ import org.jbox2d.particle.ParticleColor;
  */
 public abstract class DebugDraw {
 
-  /** Draw shapes */
+  /**  Draw shapes. */
   public static final int e_shapeBit = 1 << 1;
-  /** Draw joint connections */
+  
+  /**  Draw joint connections. */
   public static final int e_jointBit = 1 << 2;
-  /** Draw axis aligned bounding boxes */
+  
+  /**  Draw axis aligned bounding boxes. */
   public static final int e_aabbBit = 1 << 3;
-  /** Draw pairs of connected objects */
+  
+  /**  Draw pairs of connected objects. */
   public static final int e_pairBit = 1 << 4;
-  /** Draw center of mass frame */
+  
+  /**  Draw center of mass frame. */
   public static final int e_centerOfMassBit = 1 << 5;
-  /** Draw dynamic tree */
+  
+  /**  Draw dynamic tree. */
   public static final int e_dynamicTreeBit = 1 << 6;
-  /** Draw only the wireframe for drawing performance */
+  
+  /**  Draw only the wireframe for drawing performance. */
   public static final int e_wireframeDrawingBit = 1 << 7;
 
 
+  /** The m draw flags. */
   protected int m_drawFlags;
+  
+  /** The viewport transform. */
   protected IViewportTransform viewportTransform;
 
+  /**
+   * Instantiates a new debug draw.
+   */
   public DebugDraw() {
     this(null);
   }
 
+  /**
+   * Instantiates a new debug draw.
+   *
+   * @param viewport the viewport
+   */
   public DebugDraw(IViewportTransform viewport) {
     m_drawFlags = 0;
     viewportTransform = viewport;
   }
 
+  /**
+   * Sets the viewport transform.
+   *
+   * @param viewportTransform the new viewport transform
+   */
   public void setViewportTransform(IViewportTransform viewportTransform) {
     this.viewportTransform = viewportTransform;
   }
 
+  /**
+   * Sets the flags.
+   *
+   * @param flags the new flags
+   */
   public void setFlags(int flags) {
     m_drawFlags = flags;
   }
 
+  /**
+   * Gets the flags.
+   *
+   * @return the flags
+   */
   public int getFlags() {
     return m_drawFlags;
   }
 
+  /**
+   * Append flags.
+   *
+   * @param flags the flags
+   */
   public void appendFlags(int flags) {
     m_drawFlags |= flags;
   }
 
+  /**
+   * Clear flags.
+   *
+   * @param flags the flags
+   */
   public void clearFlags(int flags) {
     m_drawFlags &= ~flags;
   }
@@ -91,10 +120,10 @@ public abstract class DebugDraw {
   /**
    * Draw a closed polygon provided in CCW order. This implementation uses
    * {@link #drawSegment(Vec2, Vec2, Color3f)} to draw each side of the polygon.
-   * 
-   * @param vertices
-   * @param vertexCount
-   * @param color
+   *
+   * @param vertices the vertices
+   * @param vertexCount the vertex count
+   * @param color the color
    */
   public void drawPolygon(Vec2[] vertices, int vertexCount, Color3f color) {
     if (vertexCount == 1) {
@@ -111,97 +140,133 @@ public abstract class DebugDraw {
     }
   }
 
+  /**
+   * Draw point.
+   *
+   * @param argPoint the arg point
+   * @param argRadiusOnScreen the arg radius on screen
+   * @param argColor the arg color
+   */
   public abstract void drawPoint(Vec2 argPoint, float argRadiusOnScreen, Color3f argColor);
 
   /**
    * Draw a solid closed polygon provided in CCW order.
-   * 
-   * @param vertices
-   * @param vertexCount
-   * @param color
+   *
+   * @param vertices the vertices
+   * @param vertexCount the vertex count
+   * @param color the color
    */
   public abstract void drawSolidPolygon(Vec2[] vertices, int vertexCount, Color3f color);
 
   /**
    * Draw a circle.
-   * 
-   * @param center
-   * @param radius
-   * @param color
+   *
+   * @param center the center
+   * @param radius the radius
+   * @param color the color
    */
   public abstract void drawCircle(Vec2 center, float radius, Color3f color);
 
-  /** Draws a circle with an axis */
+  /**
+   *  Draws a circle with an axis.
+   *
+   * @param center the center
+   * @param radius the radius
+   * @param axis the axis
+   * @param color the color
+   */
   public void drawCircle(Vec2 center, float radius, Vec2 axis, Color3f color) {
     drawCircle(center, radius, color);
   }
 
   /**
    * Draw a solid circle.
-   * 
-   * @param center
-   * @param radius
-   * @param axis
-   * @param color
+   *
+   * @param center the center
+   * @param radius the radius
+   * @param axis the axis
+   * @param color the color
    */
   public abstract void drawSolidCircle(Vec2 center, float radius, Vec2 axis, Color3f color);
 
   /**
    * Draw a line segment.
-   * 
-   * @param p1
-   * @param p2
-   * @param color
+   *
+   * @param p1 the p 1
+   * @param p2 the p 2
+   * @param color the color
    */
   public abstract void drawSegment(Vec2 p1, Vec2 p2, Color3f color);
 
   /**
    * Draw a transform. Choose your own length scale
-   * 
-   * @param xf
+   *
+   * @param xf the xf
    */
   public abstract void drawTransform(Transform xf);
 
   /**
    * Draw a string.
-   * 
-   * @param x
-   * @param y
-   * @param s
-   * @param color
+   *
+   * @param x the x
+   * @param y the y
+   * @param s the s
+   * @param color the color
    */
   public abstract void drawString(float x, float y, String s, Color3f color);
 
   /**
-   * Draw a particle array
-   * 
+   * Draw a particle array.
+   *
+   * @param centers the centers
+   * @param radius the radius
    * @param colors can be null
+   * @param count the count
    */
   public abstract void drawParticles(Vec2[] centers, float radius, ParticleColor[] colors, int count);
 
   /**
-   * Draw a particle array
-   * 
+   * Draw a particle array.
+   *
+   * @param centers the centers
+   * @param radius the radius
    * @param colors can be null
+   * @param count the count
    */
   public abstract void drawParticlesWireframe(Vec2[] centers, float radius, ParticleColor[] colors,
       int count);
 
-  /** Called at the end of drawing a world */
+  /**
+   *  Called at the end of drawing a world.
+   */
   public void flush() {}
 
+  /**
+   * Draw string.
+   *
+   * @param pos the pos
+   * @param s the s
+   * @param color the color
+   */
   public void drawString(Vec2 pos, String s, Color3f color) {
     drawString(pos.x, pos.y, s, color);
   }
 
+  /**
+   * Gets the viewport tranform.
+   *
+   * @return the viewport tranform
+   */
   public IViewportTransform getViewportTranform() {
     return viewportTransform;
   }
 
   /**
-   * @param x
-   * @param y
-   * @param scale
+   * Sets the camera.
+   *
+   * @param x the x
+   * @param y the y
+   * @param scale the scale
    * @deprecated use the viewport transform in {@link #getViewportTranform()}
    */
   public void setCamera(float x, float y, float scale) {
@@ -210,16 +275,22 @@ public abstract class DebugDraw {
 
 
   /**
-   * @param argScreen
-   * @param argWorld
+   * Gets the screen to world to out.
+   *
+   * @param argScreen the arg screen
+   * @param argWorld the arg world
+   * @return the screen to world to out
    */
   public void getScreenToWorldToOut(Vec2 argScreen, Vec2 argWorld) {
     viewportTransform.getScreenToWorld(argScreen, argWorld);
   }
 
   /**
-   * @param argWorld
-   * @param argScreen
+   * Gets the world to screen to out.
+   *
+   * @param argWorld the arg world
+   * @param argScreen the arg screen
+   * @return the world to screen to out
    */
   public void getWorldToScreenToOut(Vec2 argWorld, Vec2 argScreen) {
     viewportTransform.getWorldToScreen(argWorld, argScreen);
@@ -227,10 +298,11 @@ public abstract class DebugDraw {
 
   /**
    * Takes the world coordinates and puts the corresponding screen coordinates in argScreen.
-   * 
-   * @param worldX
-   * @param worldY
-   * @param argScreen
+   *
+   * @param worldX the world X
+   * @param worldY the world Y
+   * @param argScreen the arg screen
+   * @return the world to screen to out
    */
   public void getWorldToScreenToOut(float worldX, float worldY, Vec2 argScreen) {
     argScreen.set(worldX, worldY);
@@ -239,8 +311,9 @@ public abstract class DebugDraw {
 
   /**
    * takes the world coordinate (argWorld) and returns the screen coordinates.
-   * 
-   * @param argWorld
+   *
+   * @param argWorld the arg world
+   * @return the world to screen
    */
   public Vec2 getWorldToScreen(Vec2 argWorld) {
     Vec2 screen = new Vec2();
@@ -250,9 +323,10 @@ public abstract class DebugDraw {
 
   /**
    * Takes the world coordinates and returns the screen coordinates.
-   * 
-   * @param worldX
-   * @param worldY
+   *
+   * @param worldX the world X
+   * @param worldY the world Y
+   * @return the world to screen
    */
   public Vec2 getWorldToScreen(float worldX, float worldY) {
     Vec2 argScreen = new Vec2(worldX, worldY);
@@ -262,10 +336,11 @@ public abstract class DebugDraw {
 
   /**
    * takes the screen coordinates and puts the corresponding world coordinates in argWorld.
-   * 
-   * @param screenX
-   * @param screenY
-   * @param argWorld
+   *
+   * @param screenX the screen X
+   * @param screenY the screen Y
+   * @param argWorld the arg world
+   * @return the screen to world to out
    */
   public void getScreenToWorldToOut(float screenX, float screenY, Vec2 argWorld) {
     argWorld.set(screenX, screenY);
@@ -273,9 +348,10 @@ public abstract class DebugDraw {
   }
 
   /**
-   * takes the screen coordinates (argScreen) and returns the world coordinates
-   * 
-   * @param argScreen
+   * takes the screen coordinates (argScreen) and returns the world coordinates.
+   *
+   * @param argScreen the arg screen
+   * @return the screen to world
    */
   public Vec2 getScreenToWorld(Vec2 argScreen) {
     Vec2 world = new Vec2();
@@ -285,9 +361,10 @@ public abstract class DebugDraw {
 
   /**
    * takes the screen coordinates and returns the world coordinates.
-   * 
-   * @param screenX
-   * @param screenY
+   *
+   * @param screenX the screen X
+   * @param screenY the screen Y
+   * @return the screen to world
    */
   public Vec2 getScreenToWorld(float screenX, float screenY) {
     Vec2 screen = new Vec2(screenX, screenY);

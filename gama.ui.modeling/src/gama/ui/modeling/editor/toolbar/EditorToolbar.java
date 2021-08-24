@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'EditorNavigationControls.java, in plugin ummisco.gama.ui.modeling, is part of the source code of the GAMA modeling
- * and simulation platform. (v. 1.8.1)
+ * EditorToolbar.java, in gama.ui.modeling, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.modeling.editor.toolbar;
 
 import static gama.ui.base.utils.WorkbenchHelper.executeCommand;
@@ -43,24 +42,55 @@ import gama.ui.base.toolbar.GamaToolbarSimple;
  */
 public class EditorToolbar {
 
+	/** The previous. */
 	ToolItem next, previous;
+	
+	/** The find. */
 	EditorSearchControls find;
+	
+	/** The editor. */
 	final GamlEditor editor;
+	
+	/** The searching. */
 	volatile boolean searching;
 
+	/**
+	 * Selected.
+	 *
+	 * @param event the event
+	 * @return the selection listener
+	 */
 	static SelectionListener selected(final Consumer<SelectionEvent> event) {
 		return widgetSelectedAdapter(event);
 	}
 
+	/** The global previous. */
 	final SelectionListener globalPrevious = selected(e -> executeCommand(NAVIGATE_BACKWARD_HISTORY));
+	
+	/** The global next. */
 	final SelectionListener globalNext = selected(e -> executeCommand(NAVIGATE_FORWARD_HISTORY));
+	
+	/** The search previous. */
 	final SelectionListener searchPrevious = selected(e -> find.findPrevious());
+	
+	/** The search next. */
 	final SelectionListener searchNext = selected(e -> find.findNext());
 
+	/**
+	 * Instantiates a new editor toolbar.
+	 *
+	 * @param editor the editor
+	 */
 	public EditorToolbar(final GamlEditor editor) {
 		this.editor = editor;
 	}
 
+	/**
+	 * Fill.
+	 *
+	 * @param toolbar the toolbar
+	 * @return the editor search controls
+	 */
 	public EditorSearchControls fill(final GamaToolbarSimple toolbar) {
 
 		previous = toolbar.button("editor.lastedit2", null, "Previous edit location", globalPrevious);
@@ -86,6 +116,12 @@ public class EditorToolbar {
 		return find;
 	}
 
+	/**
+	 * Hook to search.
+	 *
+	 * @param lastEdit the last edit
+	 * @param nextEdit the next edit
+	 */
 	private void hookToSearch(final ToolItem lastEdit, final ToolItem nextEdit) {
 		find.getFindControl().addFocusListener(new FocusListener() {
 
@@ -117,6 +153,12 @@ public class EditorToolbar {
 		});
 	}
 
+	/**
+	 * Hook to commands.
+	 *
+	 * @param lastEdit the last edit
+	 * @param nextEdit the next edit
+	 */
 	private void hookToCommands(final ToolItem lastEdit, final ToolItem nextEdit) {
 		WorkbenchHelper.runInUI("Hooking to commands", 0, m -> {
 			final Command nextCommand = getCommand(NAVIGATE_FORWARD_HISTORY);

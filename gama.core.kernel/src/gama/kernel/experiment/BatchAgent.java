@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.kernel.experiment.BatchAgent.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * BatchAgent.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.kernel.experiment;
 
@@ -40,10 +40,9 @@ import gaml.types.IType;
 import gaml.variables.IVariable;
 
 /**
- * Written by drogoul Modified on 28 mai 2011
+ * Written by drogoul Modified on 28 mai 2011.
  *
  * @todo Description
- *
  */
 
 @experiment (IKeyword.BATCH)
@@ -51,14 +50,34 @@ import gaml.variables.IVariable;
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class BatchAgent extends ExperimentAgent {
 
+	/** The stop condition. */
 	final IExpression stopCondition;
+	
+	/** The run number. */
 	private int runNumber;
+	
+	/** The current solution. */
 	ParametersSet currentSolution;
+	
+	/** The last solution. */
 	ParametersSet lastSolution;
+	
+	/** The last fitness. */
 	Double lastFitness;
+	
+	/** The seeds. */
 	private Double[] seeds;
+	
+	/** The fitness values. */
 	final List<Double> fitnessValues = new ArrayList<>();
 
+	/**
+	 * Instantiates a new batch agent.
+	 *
+	 * @param p the p
+	 * @param index the index
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public BatchAgent(final IPopulation p, final int index) throws GamaRuntimeException {
 		super(p, index);
 		final IScope scope = getSpecies().getExperimentScope();
@@ -75,6 +94,11 @@ public class BatchAgent extends ExperimentAgent {
 
 	}
 
+	/**
+	 * Default stop condition.
+	 *
+	 * @return the i expression
+	 */
 	protected IExpression defaultStopCondition() {
 		return IExpressionFactory.FALSE_EXPR;
 	}
@@ -136,6 +160,11 @@ public class BatchAgent extends ExperimentAgent {
 		ownClock.setLastDuration(lastDuration);
 	}
 
+	/**
+	 * Memorize fitness and close simulation.
+	 *
+	 * @param sim the sim
+	 */
 	public void memorizeFitnessAndCloseSimulation(final IAgent sim) {
 		final IExpression fitness = getSpecies().getExplorationAlgorithm().getFitnessExpression();
 		final FileOutput output = getSpecies().getLog();
@@ -170,14 +199,31 @@ public class BatchAgent extends ExperimentAgent {
 		return true;
 	}
 
+	/**
+	 * End status.
+	 *
+	 * @return the string
+	 */
 	protected String endStatus() {
 		return "Batch over. " + runNumber + " runs, " + runNumber * seeds.length + " simulations.";
 	}
 
+	/**
+	 * Gets the run number.
+	 *
+	 * @return the run number
+	 */
 	public int getRunNumber() {
 		return this.runNumber;
 	}
 
+	/**
+	 * Launch simulations with solution.
+	 *
+	 * @param sol the sol
+	 * @return the double
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public Double launchSimulationsWithSolution(final ParametersSet sol) throws GamaRuntimeException {
 		// We first reset the currentSolution and the fitness values
 		final SimulationPopulation pop = getSimulationPopulation();
@@ -280,6 +326,11 @@ public class BatchAgent extends ExperimentAgent {
 
 	}
 
+	/**
+	 * Gets the parameters to explore.
+	 *
+	 * @return the parameters to explore
+	 */
 	public List<IParameter.Batch> getParametersToExplore() {
 		return new ArrayList(getSpecies().getExplorableParameters().values());
 	}
@@ -302,6 +353,11 @@ public class BatchAgent extends ExperimentAgent {
 		return params;
 	}
 
+	/**
+	 * Adds the specific parameters.
+	 *
+	 * @param params the params
+	 */
 	public void addSpecificParameters(final List<IParameter.Batch> params) {
 		params.add(new ParameterAdapter("Stop condition", IExperimentPlan.BATCH_CATEGORY_NAME, IType.STRING) {
 
@@ -393,10 +449,20 @@ public class BatchAgent extends ExperimentAgent {
 		getSpecies().getExplorationAlgorithm().addParametersTo(params, this);
 	}
 
+	/**
+	 * Gets the seeds.
+	 *
+	 * @return the seeds
+	 */
 	public Double[] getSeeds() {
 		return seeds;
 	}
 
+	/**
+	 * Sets the seeds.
+	 *
+	 * @param seeds the new seeds
+	 */
 	public void setSeeds(final Double[] seeds) {
 		this.seeds = seeds;
 	}

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.ValuedDisplayOutputFactory.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * ValuedDisplayOutputFactory.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs;
 
@@ -23,8 +23,16 @@ import gaml.descriptions.SpeciesDescription;
 import gaml.expressions.IExpression;
 import gaml.species.ISpecies;
 
+/**
+ * A factory for creating ValuedDisplayOutput objects.
+ */
 public class ValuedDisplayOutputFactory {
 
+	/**
+	 * Browse.
+	 *
+	 * @param agents the agents
+	 */
 	public static void browse(final Collection<? extends IAgent> agents) {
 		IPopulation<? extends IAgent> pop = null;
 		IMacroAgent root = null;
@@ -44,6 +52,12 @@ public class ValuedDisplayOutputFactory {
 		}
 	}
 
+	/**
+	 * Browse.
+	 *
+	 * @param root the root
+	 * @param agents the agents
+	 */
 	public static void browse(final IMacroAgent root, final Collection<? extends IAgent> agents) {
 		final IMacroAgent realRoot = findRootOf(root, agents);
 		if (realRoot == null) {
@@ -53,6 +67,13 @@ public class ValuedDisplayOutputFactory {
 		new InspectDisplayOutput(realRoot, agents).launch(realRoot.getScope());
 	}
 
+	/**
+	 * Find root of.
+	 *
+	 * @param root the root
+	 * @param agents the agents
+	 * @return the i macro agent
+	 */
 	private static IMacroAgent findRootOf(final IMacroAgent root, final Collection<? extends IAgent> agents) {
 		if (agents instanceof IPopulation) { return ((IPopulation<? extends IAgent>) agents).getHost(); }
 		IMacroAgent result = null;
@@ -67,6 +88,12 @@ public class ValuedDisplayOutputFactory {
 
 	}
 
+	/**
+	 * Browse.
+	 *
+	 * @param root the root
+	 * @param species the species
+	 */
 	public static void browse(final IMacroAgent root, final ISpecies species) {
 		if (root instanceof IExperimentAgent && species instanceof GamlModelSpecies) {
 			// special case to be able to browse simulations, as their species is not contained in the experiment
@@ -87,6 +114,12 @@ public class ValuedDisplayOutputFactory {
 		new InspectDisplayOutput(root, species).launch(root.getScope());
 	}
 
+	/**
+	 * Browse.
+	 *
+	 * @param root the root
+	 * @param expr the expr
+	 */
 	public static void browse(final IMacroAgent root, final IExpression expr) {
 		final SpeciesDescription species = expr.getGamlType().isContainer()
 				? expr.getGamlType().getContentType().getSpecies() : expr.getGamlType().getSpecies();
@@ -109,6 +142,11 @@ public class ValuedDisplayOutputFactory {
 		new InspectDisplayOutput(root, expr).launch(root.getScope());
 	}
 
+	/**
+	 * Browse simulations.
+	 *
+	 * @param host the host
+	 */
 	public static void browseSimulations(final ExperimentAgent host) {
 		new InspectDisplayOutput(host).launch(host.getScope());
 

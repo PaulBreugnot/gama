@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'MultiPageCSVEditor.java, in plugin ummisco.gama.ui.viewers, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * MultiPageCSVEditor.java, in gama.ui.viewers, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.viewers.csv;
 
 import org.eclipse.core.resources.IFile;
@@ -58,18 +57,20 @@ import gama.ui.base.toolbar.GamaToolbarFactory;
 import gama.ui.base.toolbar.IToolbarDecoratedView;
 
 /**
+ * The Class MultiPageCSVEditor.
  *
  * @author fhenri
- *
  */
 public class MultiPageCSVEditor extends MultiPageEditorPart
 		implements IResourceChangeListener, IToolbarDecoratedView.Sizable {
 
+	/** The is page modified. */
 	private boolean isPageModified;
 
-	/** index of the source page */
+	/**  index of the source page. */
 	public static final int indexSRC = 1;
-	/** index of the table page */
+	
+	/**  index of the table page. */
 	public static final int indexTBL = 0;
 
 	/** The text editor used in page 0. */
@@ -78,10 +79,16 @@ public class MultiPageCSVEditor extends MultiPageEditorPart
 	/** The table viewer used in page 1. */
 	protected TableViewer tableViewer;
 
+	/** The table sorter. */
 	final CSVTableSorter tableSorter;
+	
+	/** The table filter. */
 	final CSVTableFilter tableFilter;
+	
+	/** The model. */
 	CSVModel model;
 
+	/** The csv file listener. */
 	private final ICsvFileModelListener csvFileListener = (row, rowIndex) -> tableModified();
 
 	/**
@@ -120,6 +127,12 @@ public class MultiPageCSVEditor extends MultiPageEditorPart
 		}
 	}
 
+	/**
+	 * Gets the file for.
+	 *
+	 * @param input the input
+	 * @return the file for
+	 */
 	private static IFile getFileFor(final IEditorInput input) {
 		if (input instanceof IFileEditorInput) {
 			return ((IFileEditorInput) input).getFile();
@@ -149,7 +162,7 @@ public class MultiPageCSVEditor extends MultiPageEditorPart
 	}
 
 	/**
-	 *
+	 * Creates the table page.
 	 */
 	private void createTablePage() {
 		final Composite parent = getContainer();
@@ -172,7 +185,7 @@ public class MultiPageCSVEditor extends MultiPageEditorPart
 	}
 
 	/**
-	 * Set Name of the file to the tab
+	 * Set Name of the file to the tab.
 	 */
 	private void updateTitle() {
 		final IEditorInput input = getEditorInput();
@@ -181,7 +194,7 @@ public class MultiPageCSVEditor extends MultiPageEditorPart
 	}
 
 	/**
-	 * @throws Exception
+	 * Populate table page.
 	 */
 	private void populateTablePage() {
 		tableViewer.setContentProvider(new CSVContentProvider());
@@ -191,7 +204,7 @@ public class MultiPageCSVEditor extends MultiPageEditorPart
 	}
 
 	/**
-	 *
+	 * Table modified.
 	 */
 	public void tableModified() {
 		tableViewer.refresh();
@@ -207,7 +220,7 @@ public class MultiPageCSVEditor extends MultiPageEditorPart
 	}
 
 	/**
-	 *
+	 * Update table from text editor.
 	 */
 	void updateTableFromTextEditor() {
 		model.removeModelListener(csvFileListener);
@@ -232,7 +245,7 @@ public class MultiPageCSVEditor extends MultiPageEditorPart
 	}
 
 	/**
-	 *
+	 * Define cell editing.
 	 */
 	void defineCellEditing() {
 		final String[] columnProperties = new String[model.getColumnCount()];
@@ -252,9 +265,9 @@ public class MultiPageCSVEditor extends MultiPageEditorPart
 	}
 
 	/**
-	 * Find a column in the Table by its name
+	 * Find a column in the Table by its name.
 	 *
-	 * @param columnName
+	 * @param columnName the column name
 	 * @return the index of the Column indicated by its name
 	 */
 	int findColumnForName(final String columnName) {
@@ -268,8 +281,10 @@ public class MultiPageCSVEditor extends MultiPageEditorPart
 	}
 
 	/**
-	 * @param column
-	 * @param index
+	 * Adds the menu item to column.
+	 *
+	 * @param column the column
+	 * @param index the index
 	 */
 	void addMenuItemToColumn(final TableColumn column, final int index) {
 		// Setting the right sorter
@@ -407,7 +422,7 @@ public class MultiPageCSVEditor extends MultiPageEditorPart
 	}
 
 	/**
-	 *
+	 * Update text editor from table.
 	 */
 	private void updateTextEditorFromTable() {
 		editor.getDocumentProvider().getDocument(editor.getEditorInput())
@@ -471,6 +486,11 @@ public class MultiPageCSVEditor extends MultiPageEditorPart
 		}
 	}
 
+	/**
+	 * Refresh with delimiter.
+	 *
+	 * @param c the c
+	 */
 	void refreshWithDelimiter(final Character c) {
 		if (c != null) {
 			model.setCustomDelimiter(c);

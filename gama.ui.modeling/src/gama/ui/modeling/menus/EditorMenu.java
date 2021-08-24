@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'EditorMenu.java, in plugin ummisco.gama.ui.modeling, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * EditorMenu.java, in gama.ui.modeling, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.modeling.menus;
 
 import java.util.ArrayList;
@@ -59,13 +58,20 @@ import gama.ui.modeling.reference.TemplateReferenceMenu;
 import gama.util.Collector;
 import gaml.compilation.ast.ISyntacticElement;
 
+/**
+ * The Class EditorMenu.
+ */
 public class EditorMenu extends ContributionItem implements IWorkbenchContribution {
 
 	// private static EditorMenu INSTANCE;
 
+	/** The mark pref. */
 	// MenuItem mark;
 	Pref<Boolean> markPref;
 
+	/**
+	 * Instantiates a new editor menu.
+	 */
 	public EditorMenu() {
 		// INSTANCE = this;
 	}
@@ -82,6 +88,9 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 	// mark.setSelection(markPref.getValue());
 	// }
 
+	/**
+	 * Initialize preferences.
+	 */
 	private void initializePreferences() {
 		// if (markPref == null) {
 		// markPref = GamaPreferences.get("pref_editor_mark_occurrences", Boolean.class);
@@ -156,7 +165,9 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 	}
 
 	/**
-	 * @param menu
+	 * Creates the validate all.
+	 *
+	 * @param menu the menu
 	 */
 	private void createValidateAll(final Menu menu) {
 
@@ -192,7 +203,9 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 	}
 
 	/**
-	 * @param menu
+	 * Creates the reference menus.
+	 *
+	 * @param menu the menu
 	 */
 	private void createReferenceMenus(final Menu menu) {
 		new TemplateReferenceMenu().installSubMenuIn(menu);
@@ -202,7 +215,9 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 	}
 
 	/**
-	 * @param menu
+	 * Creates the other experiments.
+	 *
+	 * @param menu the menu
 	 */
 	private void createOtherExperiments(final Menu menu) {
 
@@ -220,6 +235,13 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 
 	}
 
+	/**
+	 * Creates the other sub menu.
+	 *
+	 * @param parentMenu the parent menu
+	 * @param editor the editor
+	 * @return the menu
+	 */
 	public static Menu createOtherSubMenu(final Menu parentMenu, final GamlEditor editor) {
 		final Map<URI, List<String>> map = grabProjectModelsAndExperiments(editor);
 		if (map.isEmpty()) {
@@ -247,6 +269,12 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 		return parentMenu;
 	}
 
+	/**
+	 * Grab project models and experiments.
+	 *
+	 * @param editor the editor
+	 * @return the map
+	 */
 	private static Map<URI, List<String>> grabProjectModelsAndExperiments(final GamlEditor editor) {
 		final Map<URI, List<String>> map = new LinkedHashMap<>();
 		editor.getDocument().readOnly(new IUnitOfWork.Void<XtextResource>() {
@@ -281,7 +309,9 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 	}
 
 	/**
-	 * @param menu
+	 * Creates the used in.
+	 *
+	 * @param menu the menu
 	 */
 	private void createUsedIn(final Menu menu) {
 		final MenuItem usedIn = new MenuItem(menu, SWT.CASCADE);
@@ -297,6 +327,7 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 		});
 	}
 
+	/** The Constant UsedInAdapter. */
 	private static final SelectionAdapter UsedInAdapter = new SelectionAdapter() {
 
 		@Override
@@ -307,6 +338,7 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 		}
 	};
 
+	/** The Constant OtherAdapter. */
 	private static final SelectionAdapter OtherAdapter = new SelectionAdapter() {
 
 		@Override
@@ -318,6 +350,13 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 		}
 	};
 
+	/**
+	 * Creates the imported sub menu.
+	 *
+	 * @param parentMenu the parent menu
+	 * @param editor the editor
+	 * @return the menu
+	 */
 	public static Menu createImportedSubMenu(final Menu parentMenu, final GamlEditor editor) {
 		final Set<URI> importers = getImporters(editor);
 		if (importers.isEmpty()) {
@@ -336,6 +375,12 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 		return parentMenu;
 	}
 
+	/**
+	 * Gets the importers.
+	 *
+	 * @param editor the editor
+	 * @return the importers
+	 */
 	private static Set<URI> getImporters(final GamlEditor editor) {
 		try (final Collector.AsOrderedSet<URI> map = Collector.getOrderedSet()) {
 			editor.getDocument().readOnly(new IUnitOfWork.Void<XtextResource>() {
@@ -352,7 +397,9 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 	}
 
 	/**
-	 * @param menu
+	 * Creates the validate.
+	 *
+	 * @param menu the menu
 	 */
 	private void createValidate(final Menu menu) {
 		final MenuItem validate = new MenuItem(menu, SWT.PUSH);
@@ -373,7 +420,9 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 	}
 
 	/**
+	 * Creates the box toggle.
 	 *
+	 * @param menu the menu
 	 */
 	private void createBoxToggle(final Menu menu) {
 		final MenuItem box = new MenuItem(menu, SWT.CHECK);
@@ -393,7 +442,9 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 	}
 
 	/**
+	 * Creates the mark toggle.
 	 *
+	 * @param menu the menu
 	 */
 	private void createMarkToggle(final Menu menu) {
 		final MenuItem mark = new MenuItem(menu, SWT.CHECK);
@@ -410,6 +461,11 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 
 	}
 
+	/**
+	 * Creates the overview toggle.
+	 *
+	 * @param menu the menu
+	 */
 	private void createOverviewToggle(final Menu menu) {
 		final MenuItem overview = new MenuItem(menu, SWT.CHECK);
 		overview.setText(" Show markers overview");
@@ -431,7 +487,9 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 	}
 
 	/**
+	 * Creates the folding toggle.
 	 *
+	 * @param menu the menu
 	 */
 	private void createFoldingToggle(final Menu menu) {
 		final MenuItem folding = new MenuItem(menu, SWT.CHECK);
@@ -449,7 +507,9 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 	}
 
 	/**
+	 * Creates the line toggle.
 	 *
+	 * @param menu the menu
 	 */
 	private void createLineToggle(final Menu menu) {
 		final MenuItem line = new MenuItem(menu, SWT.CHECK);
@@ -466,6 +526,11 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 
 	}
 
+	/**
+	 * Gets the editor.
+	 *
+	 * @return the editor
+	 */
 	GamlEditor getEditor() {
 		return (GamlEditor) WorkbenchHelper.getActiveEditor();
 	}

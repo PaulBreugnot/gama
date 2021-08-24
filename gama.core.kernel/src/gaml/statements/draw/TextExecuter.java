@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.statements.draw.TextExecuter.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * TextExecuter.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.statements.draw;
 
@@ -19,10 +19,20 @@ import gama.runtime.exceptions.GamaRuntimeException;
 import gaml.expressions.IExpression;
 import gaml.operators.Cast;
 
+/**
+ * The Class TextExecuter.
+ */
 class TextExecuter extends DrawExecuter {
 
+	/** The const text. */
 	private final String constText;
 
+	/**
+	 * Instantiates a new text executer.
+	 *
+	 * @param item the item
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	TextExecuter(final IExpression item) throws GamaRuntimeException {
 		super(item);
 		constText = item.isConst() ? Cast.asString(null, item.getConstValue()) : null;
@@ -36,6 +46,13 @@ class TextExecuter extends DrawExecuter {
 		return g.drawString(info, attributes);
 	}
 
+	/**
+	 * Compute attributes.
+	 *
+	 * @param scope the scope
+	 * @param data the data
+	 * @return the text drawing attributes
+	 */
 	TextDrawingAttributes computeAttributes(final IScope scope, final DrawingData data) {
 		final TextDrawingAttributes attributes = new TextDrawingAttributes(Scaling3D.of(data.size.get()),
 				data.rotation.get(), data.getLocation(), data.color.get());

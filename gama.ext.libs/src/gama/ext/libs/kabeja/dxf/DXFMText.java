@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * DXFMText.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf;
 
 import gama.ext.libs.kabeja.dxf.helpers.DXFTextParser;
@@ -21,23 +16,53 @@ import gama.ext.libs.kabeja.dxf.helpers.TextDocument;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class DXFMText.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class DXFMText extends DXFText {
+    
+    /** The Constant ATTACHMENT_TOP_LEFT. */
     public static final int ATTACHMENT_TOP_LEFT = 1;
+    
+    /** The Constant ATTACHMENT_TOP_CENTER. */
     public static final int ATTACHMENT_TOP_CENTER = 2;
+    
+    /** The Constant ATTACHMENT_TOP_RIGHT. */
     public static final int ATTACHMENT_TOP_RIGHT = 3;
+    
+    /** The Constant ATTACHMENT_MIDDLE_LEFT. */
     public static final int ATTACHMENT_MIDDLE_LEFT = 4;
+    
+    /** The Constant ATTACHMENT_MIDDLE_CENTER. */
     public static final int ATTACHMENT_MIDDLE_CENTER = 5;
+    
+    /** The Constant ATTACHMENT_MIDDLE_RIGHT. */
     public static final int ATTACHMENT_MIDDLE_RIGHT = 6;
+    
+    /** The Constant ATTACHMENT_BOTTOM_LEFT. */
     public static final int ATTACHMENT_BOTTOM_LEFT = 7;
+    
+    /** The Constant ATTACHMENT_BOTTOM_CENTER. */
     public static final int ATTACHMENT_BOTTOM_CENTER = 8;
+    
+    /** The Constant ATTACHMENT_BOTTOM_RIGHT. */
     public static final int ATTACHMENT_BOTTOM_RIGHT = 9;
+    
+    /** The attachmentpoint location. */
     private int attachmentpointLocation = 1;
+    
+    /** The refwidth. */
     private double refwidth = 0.0;
+    
+    /** The refheight. */
     private double refheight = 0.0;
 
+    /**
+     * Sets the attachment point.
+     *
+     * @param value the new attachment point
+     */
     /*
      * (non-Javadoc)
      *
@@ -48,18 +73,38 @@ public class DXFMText extends DXFText {
         this.attachmentpointLocation = value;
     }
 
+    /**
+     * Sets the reference width.
+     *
+     * @param width the new reference width
+     */
     public void setReferenceWidth(double width) {
         this.refwidth = width;
     }
 
+    /**
+     * Gets the reference width.
+     *
+     * @return the reference width
+     */
     public double getReferenceWidth() {
         return this.refwidth;
     }
 
+    /**
+     * Sets the reference height.
+     *
+     * @param height the new reference height
+     */
     public void setReferenceHeight(double height) {
         this.refheight = height;
     }
 
+    /**
+     * Gets the reference height.
+     *
+     * @return the reference height
+     */
     public double getReferenceHeight() {
         return this.refheight;
     }
@@ -96,6 +141,11 @@ public class DXFMText extends DXFText {
         this.textDoc = DXFTextParser.parseDXFMText(this);
     }
 
+    /**
+     * Gets the alignment.
+     *
+     * @return the alignment
+     */
     public int getAlignment() {
         return attachmentpointLocation;
     }

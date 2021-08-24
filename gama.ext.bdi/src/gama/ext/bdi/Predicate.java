@@ -1,15 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
+ * Predicate.java, in gama.ext.bdi, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * 'Predicate.java', in plugin 'msi.gaml.architecture.simplebdi', is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
- *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.bdi;
 
 import java.util.List;
@@ -29,6 +27,9 @@ import gama.util.GamaMap;
 import gaml.types.IType;
 import gaml.types.Types;
 
+/**
+ * The Class Predicate.
+ */
 @vars ({ @variable (
 		name = "name",
 		type = IType.STRING,
@@ -63,54 +64,115 @@ import gaml.types.Types;
 				doc = @doc ("the agent causing the predicate")) })
 public class Predicate implements IValue {
 
+	/** The name. */
 	String name;
+	
+	/** The values. */
 	Map<String, Object> values;
+	
+	/** The date. */
 	Double date;
+	
+	/** The on hold until. */
 	List<MentalState> onHoldUntil;
+	
+	/** The subintentions. */
 	List<MentalState> subintentions;
+	
+	/** The super intention. */
 	MentalState superIntention;
+	
+	/** The agent cause. */
 	IAgent agentCause;
+	
+	/** The every possible values. */
 	boolean everyPossibleValues = false;
+	
+	/** The is true. */
 	boolean is_true = true;
+
+/** The is updated. */
 //	int lifetime = -1;
 	boolean isUpdated = false;
+	
+	/** The no agent cause. */
 	private boolean noAgentCause = true;
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	@getter ("name")
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Gets the values.
+	 *
+	 * @return the values
+	 */
 	@getter ("values")
 	public Map<String, Object> getValues() {
 		return values;
 	}
 
+	/**
+	 * Gets the checks if is true.
+	 *
+	 * @return the checks if is true
+	 */
 	@getter ("is_true")
 	public Boolean getIs_True() {
 		return is_true;
 	}
 
+	/**
+	 * Gets the date.
+	 *
+	 * @return the date
+	 */
 	@getter ("date")
 	public Double getDate() {
 		return date;
 	}
 
+	/**
+	 * Gets the subintentions.
+	 *
+	 * @return the subintentions
+	 */
 	@getter ("subintentions")
 	public List<MentalState> getSubintentions() {
 		return subintentions;
 	}
 
+	/**
+	 * Gets the super intention.
+	 *
+	 * @return the super intention
+	 */
 	@getter ("superIntention")
 	public MentalState getSuperIntention() {
 		return superIntention;
 	}
 
+	/**
+	 * Gets the agent cause.
+	 *
+	 * @return the agent cause
+	 */
 	@getter ("agentCause")
 	public IAgent getAgentCause() {
 		return agentCause;
 	}
 
+	/**
+	 * Gets the on hold until.
+	 *
+	 * @return the on hold until
+	 */
 	public List<MentalState> getOnHoldUntil() {
 		return onHoldUntil;
 	}
@@ -119,27 +181,57 @@ public class Predicate implements IValue {
 //		return lifetime;
 //	}
 
-	public void setSuperIntention(final MentalState superPredicate) {
+	/**
+ * Sets the super intention.
+ *
+ * @param superPredicate the new super intention
+ */
+public void setSuperIntention(final MentalState superPredicate) {
 		this.superIntention = superPredicate;
 	}
 
+	/**
+	 * Sets the on hold until.
+	 *
+	 * @param onHoldUntil the new on hold until
+	 */
 	public void setOnHoldUntil(final List<MentalState> onHoldUntil) {
 		this.onHoldUntil = onHoldUntil;
 	}
 
+	/**
+	 * Sets the values.
+	 *
+	 * @param values the values
+	 */
 	public void setValues(final Map<String, Object> values) {
 		this.values = values;
 		everyPossibleValues = values == null;
 	}
 
+	/**
+	 * Sets the checks if is true.
+	 *
+	 * @param ist the new checks if is true
+	 */
 	public void setIs_True(final Boolean ist) {
 		this.is_true = ist;
 	}
 
+	/**
+	 * Sets the date.
+	 *
+	 * @param date the new date
+	 */
 	public void setDate(final Double date) {
 		this.date = date;
 	}
 
+	/**
+	 * Sets the subintentions.
+	 *
+	 * @param subintentions the new subintentions
+	 */
 	public void setSubintentions(final List<MentalState> subintentions) {
 		this.subintentions = subintentions;
 	}
@@ -148,11 +240,19 @@ public class Predicate implements IValue {
 //		this.lifetime = lifetime;
 //	}
 
-	public void setAgentCause(final IAgent ag) {
+	/**
+ * Sets the agent cause.
+ *
+ * @param ag the new agent cause
+ */
+public void setAgentCause(final IAgent ag) {
 		this.agentCause = ag;
 		this.noAgentCause = false;
 	}
 
+	/**
+	 * Instantiates a new predicate.
+	 */
 	public Predicate() {
 		super();
 		this.name = "";
@@ -160,6 +260,11 @@ public class Predicate implements IValue {
 		this.agentCause = null;
 	}
 
+	/**
+	 * Instantiates a new predicate.
+	 *
+	 * @param name the name
+	 */
 	public Predicate(final String name) {
 		super();
 		this.name = name;
@@ -167,6 +272,12 @@ public class Predicate implements IValue {
 		this.agentCause = null;
 	}
 
+	/**
+	 * Instantiates a new predicate.
+	 *
+	 * @param name the name
+	 * @param ist the ist
+	 */
 	public Predicate(final String name, final boolean ist) {
 		super();
 		this.name = name;
@@ -184,7 +295,13 @@ public class Predicate implements IValue {
 //		this.agentCause = null;
 //	}
 
-	public Predicate(final String name, final Map<String, Object> values) {
+	/**
+ * Instantiates a new predicate.
+ *
+ * @param name the name
+ * @param values the values
+ */
+public Predicate(final String name, final Map<String, Object> values) {
 		super();
 		this.name = name;
 		this.values = values;
@@ -192,6 +309,12 @@ public class Predicate implements IValue {
 		this.agentCause = null;
 	}
 
+	/**
+	 * Instantiates a new predicate.
+	 *
+	 * @param name the name
+	 * @param ag the ag
+	 */
 	public Predicate(final String name, final IAgent ag) {
 		super();
 		this.name = name;
@@ -200,6 +323,13 @@ public class Predicate implements IValue {
 		everyPossibleValues = true;
 	}
 
+	/**
+	 * Instantiates a new predicate.
+	 *
+	 * @param name the name
+	 * @param values the values
+	 * @param truth the truth
+	 */
 	public Predicate(final String name, final Map<String, Object> values, final Boolean truth) {
 		super();
 		this.name = name;
@@ -219,7 +349,14 @@ public class Predicate implements IValue {
 //	}
 
 
-	public Predicate(final String name, final Map<String, Object> values, final IAgent ag) {
+	/**
+ * Instantiates a new predicate.
+ *
+ * @param name the name
+ * @param values the values
+ * @param ag the ag
+ */
+public Predicate(final String name, final Map<String, Object> values, final IAgent ag) {
 		super();
 		this.name = name;
 		this.values = values;
@@ -237,7 +374,15 @@ public class Predicate implements IValue {
 //		everyPossibleValues = values == null;
 //	}
 
-	public Predicate(final String name, final Map<String, Object> values, final Boolean truth, final IAgent ag) {
+	/**
+ * Instantiates a new predicate.
+ *
+ * @param name the name
+ * @param values the values
+ * @param truth the truth
+ * @param ag the ag
+ */
+public Predicate(final String name, final Map<String, Object> values, final Boolean truth, final IAgent ag) {
 		super();
 		this.name = name;
 		this.values = values;
@@ -269,7 +414,12 @@ public class Predicate implements IValue {
 //		this.noAgentCause = ag == null;
 //	}
 
-	public void setName(final String name) {
+	/**
+ * Sets the name.
+ *
+ * @param name the new name
+ */
+public void setName(final String name) {
 		this.name = name;
 
 	}
@@ -296,6 +446,12 @@ public class Predicate implements IValue {
 		return new Predicate(name, values == null ? null : ((GamaMap<String, Object>) values).copy(scope));
 	}
 
+	/**
+	 * Copy.
+	 *
+	 * @return the predicate
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public Predicate copy() throws GamaRuntimeException {
 		if (values != null && agentCause != null) {
 			return new Predicate(name,((GamaMap<String, Object>) values).copy(GAMA.getRuntimeScope()), is_true, agentCause);
@@ -311,7 +467,13 @@ public class Predicate implements IValue {
 //		}
 //	}
 
-	public boolean isSimilarName(final Predicate other) {
+	/**
+ * Checks if is similar name.
+ *
+ * @param other the other
+ * @return true, if is similar name
+ */
+public boolean isSimilarName(final Predicate other) {
 		if (this == other) { return true; }
 		if (other == null) { return false; }
 		if (name == null) {
@@ -452,6 +614,12 @@ public class Predicate implements IValue {
 	// return true;
 	// }
 
+	/**
+	 * Equals intention plan.
+	 *
+	 * @param obj the obj
+	 * @return true, if successful
+	 */
 	public boolean equalsIntentionPlan(final Object obj) {
 		// Only test case where the parameter is not null
 		if (this == obj) { return true; }
@@ -502,6 +670,12 @@ public class Predicate implements IValue {
 		return true;
 	}
 
+	/**
+	 * Equals but not truth.
+	 *
+	 * @param obj the obj
+	 * @return true, if successful
+	 */
 	public boolean equalsButNotTruth(final Object obj) {
 		// return true if the predicates are equals but one is true and not the
 		// other
@@ -562,6 +736,12 @@ public class Predicate implements IValue {
 		}
 	}
 
+	/**
+	 * Equals emotions.
+	 *
+	 * @param obj the obj
+	 * @return true, if successful
+	 */
 	public boolean equalsEmotions(final Object obj) {
 		// Ne teste pas l'agent cause.
 		if (this == obj) { return true; }

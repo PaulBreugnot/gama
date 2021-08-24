@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'TopLevelFolder.java, in plugin ummisco.gama.ui.navigator, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * TopLevelFolder.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator.contents;
 
 import java.io.IOException;
@@ -44,19 +43,49 @@ import one.util.streamex.StreamEx;
  */
 public class TopLevelFolder extends VirtualContent<NavigatorRoot> implements IGamaIcons, IGamaColors {
 
+	/**
+	 * The Enum Location.
+	 */
 	public enum Location {
-		CoreModels, Plugins, Other, Unknown, Tests
+		
+		/** The Core models. */
+		CoreModels, 
+ /** The Plugins. */
+ Plugins, 
+ /** The Other. */
+ Other, 
+ /** The Unknown. */
+ Unknown, 
+ /** The Tests. */
+ Tests
 	}
 
+	/** The children. */
 	WrappedProject[] children;
+	
+	/** The status icon. */
 	final Image icon, statusIcon;
+	
+	/** The nature. */
 	final String statusMessage, nature;
+	
+	/** The status color. */
 	final GamaUIColor statusColor;
+	
+	/** The location. */
 	final Location location;
 
 	/**
-	 * @param root
-	 * @param name
+	 * Instantiates a new top level folder.
+	 *
+	 * @param root the root
+	 * @param name the name
+	 * @param iconName the icon name
+	 * @param statusIconName the status icon name
+	 * @param statusMessage the status message
+	 * @param statusColor the status color
+	 * @param nature the nature
+	 * @param location the location
 	 */
 	public TopLevelFolder(final NavigatorRoot root, final String name, final String iconName,
 			final String statusIconName, final String statusMessage, final GamaUIColor statusColor, final String nature,
@@ -71,6 +100,9 @@ public class TopLevelFolder extends VirtualContent<NavigatorRoot> implements IGa
 		initializeChildren();
 	}
 
+	/**
+	 * Initialize children.
+	 */
 	public void initializeChildren() {
 		children = StreamEx.of(ResourcesPlugin.getWorkspace().getRoot().getProjects()).filter(this::privateAccepts)
 				.map(p -> (WrappedProject) getManager().wrap(this, p)).toArray(WrappedProject.class);
@@ -103,8 +135,10 @@ public class TopLevelFolder extends VirtualContent<NavigatorRoot> implements IGa
 	}
 
 	/**
-	 * @param desc
-	 * @return
+	 * Private accepts.
+	 *
+	 * @param project the project
+	 * @return true, if successful
 	 */
 	public final boolean privateAccepts(final IProject project) {
 		if ((project == null) || !project.exists()) return false;
@@ -118,6 +152,12 @@ public class TopLevelFolder extends VirtualContent<NavigatorRoot> implements IGa
 		}
 	}
 
+	/**
+	 * Estimate location.
+	 *
+	 * @param location the location
+	 * @return the location
+	 */
 	protected Location estimateLocation(final IPath location) {
 		try {
 			final var old_url = new URL("platform:/plugin/" + GamaBundleLoader.CORE_MODELS.getSymbolicName() + "/");
@@ -140,6 +180,12 @@ public class TopLevelFolder extends VirtualContent<NavigatorRoot> implements IGa
 		}
 	}
 
+	/**
+	 * Accepts.
+	 *
+	 * @param desc the desc
+	 * @return true, if successful
+	 */
 	public final boolean accepts(final IProjectDescription desc) {
 		if (nature != null) return desc.hasNature(nature);
 		return desc.getNatureIds().length < 3;
@@ -187,6 +233,11 @@ public class TopLevelFolder extends VirtualContent<NavigatorRoot> implements IGa
 		return this;
 	}
 
+	/**
+	 * Gets the nature.
+	 *
+	 * @return the nature
+	 */
 	public String getNature() {
 		return nature;
 	}

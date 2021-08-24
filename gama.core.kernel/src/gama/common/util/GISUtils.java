@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.common.util.GISUtils.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * GISUtils.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.common.util;
 
@@ -19,8 +19,17 @@ import java.nio.file.Paths;
 import org.geotools.referencing.CRS;
 import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
+/**
+ * The Class GISUtils.
+ */
 public class GISUtils {
 
+	/**
+	 * Manage google CRS.
+	 *
+	 * @param url the url
+	 * @return the coordinate reference system
+	 */
 	// ugly method to manage Google CRS.... hoping that it is better managed by the next versions of Geotools
 	public static CoordinateReferenceSystem manageGoogleCRS(final URL url) {
 		CoordinateReferenceSystem crs = null;

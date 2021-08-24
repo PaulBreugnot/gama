@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gaml.operators.Points.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * Points.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -36,6 +36,10 @@ import gaml.expressions.IExpression;
  *
  */
 public class Points {
+	
+	/**
+	 * The Class PointValidator.
+	 */
 	public static class PointValidator implements IOperatorValidator {
 
 		@Override
@@ -50,6 +54,14 @@ public class Points {
 		}
 	}
 
+	/**
+	 * To point.
+	 *
+	 * @param scope the scope
+	 * @param xExp the x exp
+	 * @param yExp the y exp
+	 * @return the gama point
+	 */
 	@operator (
 			value = IKeyword.POINT,
 			can_be_const = true,
@@ -69,6 +81,15 @@ public class Points {
 		return new GamaPoint(x, y);
 	}
 
+	/**
+	 * To point.
+	 *
+	 * @param scope the scope
+	 * @param xExp the x exp
+	 * @param yExp the y exp
+	 * @param zExp the z exp
+	 * @return the gama point
+	 */
 	@operator (
 			value = IKeyword.POINT,
 			can_be_const = true,
@@ -90,6 +111,14 @@ public class Points {
 		return new GamaPoint(x, y, z);
 	}
 
+	/**
+	 * Divide.
+	 *
+	 * @param scope the scope
+	 * @param p the p
+	 * @param d the d
+	 * @return the gama point
+	 */
 	@operator (
 			value = IKeyword.DIVIDE,
 			can_be_const = true,
@@ -111,6 +140,14 @@ public class Points {
 		return new GamaPoint(p.x / d, p.y / d, p.z / d);
 	}
 
+	/**
+	 * Divide.
+	 *
+	 * @param scope the scope
+	 * @param p the p
+	 * @param d the d
+	 * @return the gama point
+	 */
 	@operator (
 			value = IKeyword.DIVIDE,
 			can_be_const = true,
@@ -125,6 +162,13 @@ public class Points {
 		return new GamaPoint(p.x / d.doubleValue(), p.y / d.doubleValue(), p.z / d.doubleValue());
 	}
 
+	/**
+	 * Multiply.
+	 *
+	 * @param p1 the p 1
+	 * @param d the d
+	 * @return the gama point
+	 */
 	@operator (
 			value = IKeyword.MULTIPLY,
 			can_be_const = true,
@@ -139,6 +183,13 @@ public class Points {
 		return new GamaPoint(p1.x * d, p1.y * d, p1.z * d);
 	}
 
+	/**
+	 * Multiply.
+	 *
+	 * @param p1 the p 1
+	 * @param d the d
+	 * @return the gama point
+	 */
 	@operator (
 			value = IKeyword.MULTIPLY,
 			can_be_const = true,
@@ -162,6 +213,13 @@ public class Points {
 		return new GamaPoint(p1.x * d.doubleValue(), p1.y * d.doubleValue(), p1.z * d.doubleValue());
 	}
 
+	/**
+	 * Multiply.
+	 *
+	 * @param p1 the p 1
+	 * @param p the p
+	 * @return the double
+	 */
 	// ATTENTION: produit scalaire.
 	@operator (
 			value = IKeyword.MULTIPLY,
@@ -181,6 +239,14 @@ public class Points {
 		return p1.x * p.x + p1.y * p.y + p1.z * p.z;
 	}
 
+	/**
+	 * Norm.
+	 *
+	 * @param scope the scope
+	 * @param p the p
+	 * @return the double
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = "norm",
 			can_be_const = true,
@@ -204,6 +270,13 @@ public class Points {
 		return Maths.sqrt(scope, p.x * p.x + p.y * p.y + p.z * p.z);
 	}
 
+	/**
+	 * Adds the.
+	 *
+	 * @param p1 the p 1
+	 * @param p the p
+	 * @return the gama point
+	 */
 	@operator (
 			value = IKeyword.PLUS,
 			can_be_const = true,
@@ -226,6 +299,13 @@ public class Points {
 		return new GamaPoint(p1.x + p.x, p1.y + p.y, p1.z + p.z);
 	}
 
+	/**
+	 * Adds the.
+	 *
+	 * @param p1 the p 1
+	 * @param p the p
+	 * @return the gama point
+	 */
 	@operator (
 			value = IKeyword.PLUS,
 			can_be_const = true,
@@ -243,6 +323,13 @@ public class Points {
 		return new GamaPoint(p1.x + p, p1.y + p, p1.z + p);
 	}
 
+	/**
+	 * Adds the.
+	 *
+	 * @param p1 the p 1
+	 * @param p the p
+	 * @return the gama point
+	 */
 	@operator (
 			value = IKeyword.PLUS,
 			can_be_const = true,
@@ -258,6 +345,13 @@ public class Points {
 		return new GamaPoint(p1.x + p, p1.y + p, p1.z + p);
 	}
 
+	/**
+	 * Subtract.
+	 *
+	 * @param p1 the p 1
+	 * @param p the p
+	 * @return the gama point
+	 */
 	@operator (
 			value = IKeyword.MINUS,
 			can_be_const = true,
@@ -278,6 +372,12 @@ public class Points {
 		return new GamaPoint(p1.x - p, p1.y - p, p1.z - p);
 	}
 
+	/**
+	 * Subtract.
+	 *
+	 * @param p the p
+	 * @return the gama point
+	 */
 	@operator (
 			value = IKeyword.MINUS,
 			can_be_const = true,
@@ -297,6 +397,13 @@ public class Points {
 		return new GamaPoint(-p.x, -p.y, -p.z);
 	}
 
+	/**
+	 * Subtract.
+	 *
+	 * @param p1 the p 1
+	 * @param p the p
+	 * @return the gama point
+	 */
 	@operator (
 			value = IKeyword.MINUS,
 			can_be_const = true,
@@ -315,6 +422,13 @@ public class Points {
 		return new GamaPoint(p1.x - p.x, p1.y - p.y, p1.z - p.z);
 	}
 
+	/**
+	 * Subtract.
+	 *
+	 * @param p1 the p 1
+	 * @param p the p
+	 * @return the gama point
+	 */
 	@operator (
 			value = IKeyword.MINUS,
 			can_be_const = true,
@@ -331,6 +445,13 @@ public class Points {
 		return new GamaPoint(p1.x - p, p1.y - p, p1.z - p);
 	}
 
+	/**
+	 * Round.
+	 *
+	 * @param v the v
+	 * @param precision the precision
+	 * @return the gama point
+	 */
 	@operator (
 			value = "with_precision",
 			can_be_const = true,
@@ -347,6 +468,12 @@ public class Points {
 				Maths.round(v.getZ(), precision));
 	}
 
+	/**
+	 * Round.
+	 *
+	 * @param v the v
+	 * @return the gama point
+	 */
 	@operator (
 			value = "round",
 			can_be_const = true,

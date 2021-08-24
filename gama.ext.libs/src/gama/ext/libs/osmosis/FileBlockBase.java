@@ -1,17 +1,13 @@
-/**
- * Copyright (c) 2010 Scott A. Crosby. <scott@sacrosby.com>
+/*******************************************************************************************************
+ *
+ * FileBlockBase.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- * 
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License along with this program. If not, see
- * <http://www.gnu.org/licenses/>.
- * 
- */
+ ********************************************************************************************************/
 
 package gama.ext.libs.osmosis;
 
@@ -39,22 +35,38 @@ public class FileBlockBase {
 	 */
 	static final int MAX_BODY_SIZE = 32 * 1024 * 1024;
 
+	/**
+	 * Instantiates a new file block base.
+	 *
+	 * @param type the type
+	 * @param indexdata the indexdata
+	 */
 	protected FileBlockBase(final String type, final ByteString indexdata) {
 		this.type = type;
 		this.indexdata = indexdata;
 	}
 
-	/** Identifies the type of the data within a block */
+	/**  Identifies the type of the data within a block. */
 	protected final String type;
 	/**
 	 * Block metadata, stored in the index block and as a prefix for every block.
 	 */
 	protected final ByteString indexdata;
 
+	/**
+	 * Gets the type.
+	 *
+	 * @return the type
+	 */
 	public String getType() {
 		return type;
 	}
 
+	/**
+	 * Gets the index data.
+	 *
+	 * @return the index data
+	 */
 	public ByteString getIndexData() {
 		return indexdata;
 	}

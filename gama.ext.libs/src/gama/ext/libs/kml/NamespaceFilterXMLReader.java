@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * NamespaceFilterXMLReader.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -14,12 +24,23 @@ import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.XMLReader;
 
+/**
+ * The Class NamespaceFilterXMLReader.
+ */
 final class NamespaceFilterXMLReader
     implements XMLReader
 {
 
+    /** The xml reader. */
     private XMLReader xmlReader;
 
+    /**
+     * Instantiates a new namespace filter XML reader.
+     *
+     * @param validate the validate
+     * @throws ParserConfigurationException the parser configuration exception
+     * @throws SAXException the SAX exception
+     */
     public NamespaceFilterXMLReader(boolean validate)
         throws ParserConfigurationException, SAXException
     {

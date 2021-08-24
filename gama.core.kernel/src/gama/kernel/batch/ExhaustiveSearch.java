@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.kernel.batch.ExhaustiveSearch.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * ExhaustiveSearch.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.kernel.batch;
 
@@ -34,6 +34,9 @@ import gaml.operators.Cast;
 import gaml.types.GamaDateType;
 import gaml.types.IType;
 
+/**
+ * The Class ExhaustiveSearch.
+ */
 @symbol (
 		name = { IKeyword.EXHAUSTIVE },
 		kind = ISymbolKind.BATCH_METHOD,
@@ -79,6 +82,11 @@ import gaml.types.IType;
 								isExecutable = false) }) })
 public class ExhaustiveSearch extends ParamSpaceExploAlgorithm {
 
+	/**
+	 * Instantiates a new exhaustive search.
+	 *
+	 * @param desc the desc
+	 */
 	public ExhaustiveSearch(final IDescription desc) {
 		super(desc);
 	}
@@ -90,6 +98,14 @@ public class ExhaustiveSearch extends ParamSpaceExploAlgorithm {
 		return getBestSolution();
 	}
 
+	/**
+	 * Test solutions.
+	 *
+	 * @param scope the scope
+	 * @param sol the sol
+	 * @param index the index
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	private void testSolutions(final IScope scope, final ParametersSet sol, final int index)
 			throws GamaRuntimeException {
 		final List<IParameter.Batch> variables = currentExperiment.getParametersToExplore();

@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'InsertColumnPage.java, in plugin ummisco.gama.ui.viewers, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * InsertColumnPage.java, in gama.ui.viewers, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.viewers.csv;
 
 import java.util.ArrayList;
@@ -24,19 +23,26 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 /**
+ * The Class InsertColumnPage.
  *
  * @author fhenri
- *
  */
 public class InsertColumnPage extends Dialog {
 
+	/** The column title. */
 	String[] columnTitle;
+	
+	/** The new column name. */
 	String newColumnName;
+	
+	/** The selected column. */
 	ArrayList<String> selectedColumn;
 
 	/**
-	 * @param parentShell
-	 * @param columns
+	 * Instantiates a new insert column page.
+	 *
+	 * @param parentShell the parent shell
+	 * @param columns the columns
 	 */
 	public InsertColumnPage(final Shell parentShell, final String[] columns) {
 		super(parentShell);
@@ -78,14 +84,18 @@ public class InsertColumnPage extends Dialog {
 	}
 
 	/**
-	 * @return
+	 * Gets the column new name.
+	 *
+	 * @return the column new name
 	 */
 	public String getColumnNewName() {
 		return newColumnName;
 	}
 
 	/**
-	 * @return
+	 * Gets the column selected.
+	 *
+	 * @return the column selected
 	 */
 	public String[] getColumnSelected() {
 		return selectedColumn.toArray(new String[selectedColumn.size()]);

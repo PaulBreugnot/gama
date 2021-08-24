@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.compilation.IDescriptionValidator.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * IDescriptionValidator.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.compilation;
 
@@ -31,12 +31,13 @@ import gaml.types.Types;
  * is typically known by a SymbolProto and called after the core of the validation has made its job.
  *
  * @author drogoul
+ * @param <T> the generic type
  * @since 13 sept. 2013
- *
  */
 @SuppressWarnings ({ "rawtypes" })
 public interface IDescriptionValidator<T extends IDescription> extends IValidator {
 
+	/** The reserved. */
 	ImmutableSet<String> RESERVED = ImmutableSet
 			.copyOf(new String[] { IKeyword.THE, IKeyword.FALSE, IKeyword.TRUE, IKeyword.NULL, IKeyword.MYSELF });
 
@@ -48,13 +49,18 @@ public interface IDescriptionValidator<T extends IDescription> extends IValidato
 	 * description instead. Alternatively, developers may want to override validate(IDescription, EObject,
 	 * IExpression[]), which allows to veto the validation by returning false
 	 *
-	 * @param description
+	 * @param description the description
 	 */
 	void validate(T description);
 
 	/**
 	 * In that particular implementation, arguments will always be empty. Returning false will veto the validation
 	 * process
+	 *
+	 * @param description the description
+	 * @param emfContext the emf context
+	 * @param arguments the arguments
+	 * @return true, if successful
 	 */
 	@SuppressWarnings ("unchecked")
 	@Override
@@ -63,8 +69,20 @@ public interface IDescriptionValidator<T extends IDescription> extends IValidato
 		return true;
 	}
 
+	/**
+	 * The Class Assert.
+	 */
 	public static class Assert {
 
+		/**
+		 * Types are compatible for assignment.
+		 *
+		 * @param facetName the facet name
+		 * @param context the context
+		 * @param receiverDescription the receiver description
+		 * @param receiverType the receiver type
+		 * @param assigned the assigned
+		 */
 		public static void typesAreCompatibleForAssignment(final String facetName, final IDescription context,
 				final String receiverDescription, final IType<?> receiverType, final IExpressionDescription assigned) {
 			if (assigned == null) { return; }
@@ -133,6 +151,12 @@ public interface IDescriptionValidator<T extends IDescription> extends IValidato
 			}
 		}
 
+		/**
+		 * Name is valid.
+		 *
+		 * @param cd the cd
+		 * @return true, if successful
+		 */
 		public static boolean nameIsValid(final IDescription cd) {
 			final String name = cd.getName();
 			if (name == null) {
@@ -161,6 +185,9 @@ public interface IDescriptionValidator<T extends IDescription> extends IValidato
 
 	}
 
+	/**
+	 * The Class ValidNameValidator.
+	 */
 	public static class ValidNameValidator implements IDescriptionValidator {
 
 		/**
@@ -174,6 +201,9 @@ public interface IDescriptionValidator<T extends IDescription> extends IValidato
 		}
 	}
 
+	/**
+	 * The Class NullValidator.
+	 */
 	public static class NullValidator implements IDescriptionValidator {
 
 		/**

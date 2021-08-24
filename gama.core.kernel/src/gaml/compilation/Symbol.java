@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.compilation.Symbol.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * Symbol.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.compilation;
 
@@ -22,15 +22,19 @@ import gaml.descriptions.SymbolDescription;
 import gaml.expressions.IExpression;
 
 /**
- * Written by drogoul Modified on 13 mai 2010 A simple class to serve as the root of all Gaml Symbols
+ * Written by drogoul Modified on 13 mai 2010 A simple class to serve as the root of all Gaml Symbols.
  *
  * @todo Description
- *
  */
 public abstract class Symbol implements ISymbol {
 
+	/** The name. */
 	protected String name;
+	
+	/** The description. */
 	protected final IDescription description;
+	
+	/** The order. */
 	protected int order;
 
 	@Override
@@ -55,6 +59,11 @@ public abstract class Symbol implements ISymbol {
 		order = i;
 	}
 
+	/**
+	 * Instantiates a new symbol.
+	 *
+	 * @param desc the desc
+	 */
 	public Symbol(final IDescription desc) {
 		description = desc;
 		if (desc != null) {
@@ -83,10 +92,28 @@ public abstract class Symbol implements ISymbol {
 		return description.getFacetExpr(keys);
 	}
 
+	/**
+	 * Gets the facet value.
+	 *
+	 * @param scope the scope
+	 * @param key the key
+	 * @return the facet value
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public Object getFacetValue(final IScope scope, final String key) throws GamaRuntimeException {
 		return getFacetValue(scope, key, null);
 	}
 
+	/**
+	 * Gets the facet value.
+	 *
+	 * @param <T> the generic type
+	 * @param scope the scope
+	 * @param key the key
+	 * @param defaultValue the default value
+	 * @return the facet value
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@SuppressWarnings ("unchecked")
 	public final <T> T getFacetValue(final IScope scope, final String key, final T defaultValue)
 			throws GamaRuntimeException {
@@ -94,15 +121,34 @@ public abstract class Symbol implements ISymbol {
 		return (T) (exp == null ? defaultValue : exp.value(scope));
 	}
 
+	/**
+	 * Gets the literal.
+	 *
+	 * @param key the key
+	 * @return the literal
+	 */
 	public String getLiteral(final String key) {
 		return getLiteral(key, null);
 	}
 
+	/**
+	 * Gets the literal.
+	 *
+	 * @param key the key
+	 * @param defaultValue the default value
+	 * @return the literal
+	 */
 	public String getLiteral(final String key, final String defaultValue) {
 		final IExpression exp = getFacet(key);
 		return exp == null ? defaultValue : exp.literalValue();
 	}
 
+	/**
+	 * Sets the facet.
+	 *
+	 * @param key the key
+	 * @param expr the expr
+	 */
 	protected void setFacet(final String key, final IExpressionDescription expr) {
 		if (description == null) { return; }
 		description.setFacet(key, expr);

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.descriptions.OperatorExpressionDescription.java, in plugin msi.gama.core, is part of the source code of the
- * GAMA modeling and simulation platform (v. 1.8.1)
+ * OperatorExpressionDescription.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.descriptions;
 
@@ -16,11 +16,23 @@ import gama.common.interfaces.IGamlIssue;
 import gaml.compilation.GAML;
 import gaml.expressions.IExpression;
 
+/**
+ * The Class OperatorExpressionDescription.
+ */
 public class OperatorExpressionDescription extends BasicExpressionDescription {
 
+	/** The operator. */
 	String operator;
+	
+	/** The args. */
 	IExpressionDescription[] args;
 
+	/**
+	 * Instantiates a new operator expression description.
+	 *
+	 * @param operator the operator
+	 * @param exprs the exprs
+	 */
 	public OperatorExpressionDescription(final String operator, final IExpressionDescription... exprs) {
 		super((EObject) null);
 		for (final IExpressionDescription expr : exprs) {

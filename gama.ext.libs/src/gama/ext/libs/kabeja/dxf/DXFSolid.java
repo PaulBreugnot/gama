@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * DXFSolid.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf;
 
 import gama.ext.libs.kabeja.dxf.helpers.Point;
@@ -20,15 +15,27 @@ import gama.ext.libs.kabeja.math.MathUtils;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class DXFSolid.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class DXFSolid extends DXFEntity {
+    
+    /** The point 1. */
     protected Point point1 = new Point();
+    
+    /** The point 2. */
     protected Point point2 = new Point();
+    
+    /** The point 3. */
     protected Point point3 = new Point();
+    
+    /** The point 4. */
     protected Point point4 = new Point();
 
+    /**
+     * Instantiates a new DXF solid.
+     */
     public DXFSolid() {
     }
 
@@ -44,6 +51,8 @@ public class DXFSolid extends DXFEntity {
     }
 
     /**
+     * Gets the point 1.
+     *
      * @return Returns the point1.
      */
     public Point getPoint1() {
@@ -51,14 +60,17 @@ public class DXFSolid extends DXFEntity {
     }
 
     /**
-     * @param point1
-     *            The point1 to set.
+     * Sets the point 1.
+     *
+     * @param point1            The point1 to set.
      */
     public void setPoint1(Point point1) {
         this.point1 = point1;
     }
 
     /**
+     * Gets the point 2.
+     *
      * @return Returns the point2.
      */
     public Point getPoint2() {
@@ -66,14 +78,17 @@ public class DXFSolid extends DXFEntity {
     }
 
     /**
-     * @param point2
-     *            The point2 to set.
+     * Sets the point 2.
+     *
+     * @param point2            The point2 to set.
      */
     public void setPoint2(Point point2) {
         this.point2 = point2;
     }
 
     /**
+     * Gets the point 3.
+     *
      * @return Returns the point3.
      */
     public Point getPoint3() {
@@ -81,14 +96,17 @@ public class DXFSolid extends DXFEntity {
     }
 
     /**
-     * @param point3
-     *            The point3 to set.
+     * Sets the point 3.
+     *
+     * @param point3            The point3 to set.
      */
     public void setPoint3(Point point3) {
         this.point3 = point3;
     }
 
     /**
+     * Gets the point 4.
+     *
      * @return Returns the point4.
      */
     public Point getPoint4() {
@@ -96,8 +114,9 @@ public class DXFSolid extends DXFEntity {
     }
 
     /**
-     * @param point4
-     *            The point4 to set.
+     * Sets the point 4.
+     *
+     * @param point4            The point4 to set.
      */
     public void setPoint4(Point point4) {
         this.point4 = point4;

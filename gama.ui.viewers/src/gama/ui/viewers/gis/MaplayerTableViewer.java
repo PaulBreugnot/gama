@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'MaplayerTableViewer.java, in plugin ummisco.gama.ui.viewers, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * MaplayerTableViewer.java, in gama.ui.viewers, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ui.viewers.gis;
 
@@ -40,29 +39,34 @@ import gama.ui.base.resources.IGamaIcons;
 import gama.ui.viewers.gis.geotools.styling.SimpleConfigurator;
 
 /**
+ * The Class MaplayerTableViewer.
  *
  * @author Andrea Antonello (www.hydrologis.com)
- *
- *
- *
  * @source $URL$
  */
 public class MaplayerTableViewer extends TableViewer implements ISelectionChangedListener {
+	
+	/** The layers list. */
 	private final List<Layer> layersList = new ArrayList<>();
+	
+	/** The selected map layer. */
 	private Layer selectedMapLayer;
 
+	/** The titles. */
 	private final String[] titles = { "Layer name", "Visible", "Style" };
+	
+	/** The pane. */
 	private SwtMapPane pane;
 
 	/**
 	 * Constructor.
-	 *
+	 * 
 	 * <p>
 	 * <b>Note</b> that after the object is built and before actually using it, the has to be set through the method.
 	 * </p>
 	 *
-	 * @param parent
-	 * @param style
+	 * @param parent the parent
+	 * @param style the style
 	 */
 	public MaplayerTableViewer(final Composite parent, final int style) {
 		super(parent, style);
@@ -79,9 +83,9 @@ public class MaplayerTableViewer extends TableViewer implements ISelectionChange
 	}
 
 	/**
+	 * Sets the pane.
 	 *
-	 * @param pane
-	 *            the map pane to use.
+	 * @param pane            the map pane to use.
 	 */
 	public void setPane(final SwtMapPane pane) {
 		this.pane = pane;
@@ -97,6 +101,7 @@ public class MaplayerTableViewer extends TableViewer implements ISelectionChange
 	}
 
 	/**
+	 * Gets the selected map layer.
 	 *
 	 * @return the selected layer or <code>null</code>.
 	 */
@@ -104,6 +109,12 @@ public class MaplayerTableViewer extends TableViewer implements ISelectionChange
 		return selectedMapLayer;
 	}
 
+	/**
+	 * Creates the columns.
+	 *
+	 * @param parent the parent
+	 * @param viewer the viewer
+	 */
 	private void createColumns(final Composite parent, final TableViewer viewer) {
 
 		final int[] bounds = { 120, 50, 50 };
@@ -166,6 +177,14 @@ public class MaplayerTableViewer extends TableViewer implements ISelectionChange
 
 	}
 
+	/**
+	 * Creates the table viewer column.
+	 *
+	 * @param title the title
+	 * @param bound the bound
+	 * @param colNumber the col number
+	 * @return the table viewer column
+	 */
 	private TableViewerColumn createTableViewerColumn(final String title, final int bound, final int colNumber) {
 		final TableViewerColumn viewerColumn = new TableViewerColumn(this, SWT.NONE);
 		final TableColumn column = viewerColumn.getColumn();
@@ -211,11 +230,10 @@ public class MaplayerTableViewer extends TableViewer implements ISelectionChange
 	}
 
 	/**
-	 * Show a style dialog to create a new Style for the layer
+	 * Show a style dialog to create a new Style for the layer.
 	 *
-	 * @param layer
-	 *            the layer to be styled
-	 * @throws IOException
+	 * @param layer            the layer to be styled
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	private void doSetStyle(final Layer layer) throws IOException {
 		if (layer instanceof StyleLayer) {
@@ -228,9 +246,9 @@ public class MaplayerTableViewer extends TableViewer implements ISelectionChange
 	}
 
 	/**
+	 * Adds the layer.
 	 *
-	 * @param layer
-	 *            the layer to add.
+	 * @param layer            the layer to add.
 	 */
 	public void addLayer(final Layer layer) {
 		layersList.add(0, layer);
@@ -238,9 +256,9 @@ public class MaplayerTableViewer extends TableViewer implements ISelectionChange
 	}
 
 	/**
+	 * Removes the layer.
 	 *
-	 * @param layer
-	 *            the layer to remove.
+	 * @param layer            the layer to remove.
 	 */
 	public void removeLayer(final Layer layer) {
 		layersList.remove(layer);

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.layers.charts.ChartJFreeChartOutputHeatmap.java, in plugin msi.gama.core, is part of the source code
- * of the GAMA modeling and simulation platform (v. 1.8.1)
+ * ChartJFreeChartOutputHeatmap.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs.layers.charts;
 
@@ -49,8 +49,18 @@ import gama.common.ui.IDisplaySurface;
 import gama.runtime.IScope;
 import gaml.expressions.IExpression;
 
+/**
+ * The Class ChartJFreeChartOutputHeatmap.
+ */
 public class ChartJFreeChartOutputHeatmap extends ChartJFreeChartOutput {
 
+	/**
+	 * Instantiates a new chart J free chart output heatmap.
+	 *
+	 * @param scope the scope
+	 * @param name the name
+	 * @param typeexp the typeexp
+	 */
 	public ChartJFreeChartOutputHeatmap(final IScope scope, final String name, final IExpression typeexp) {
 		super(scope, name, typeexp);
 		// TODO Auto-generated constructor stub
@@ -132,6 +142,17 @@ public class ChartJFreeChartOutputHeatmap extends ChartJFreeChartOutput {
 		return newr;
 	}
 
+	/**
+	 * Creates the LUT.
+	 *
+	 * @param ncol the ncol
+	 * @param vmin the vmin
+	 * @param vmax the vmax
+	 * @param start the start
+	 * @param med the med
+	 * @param end the end
+	 * @return the lookup paint scale
+	 */
 	protected static final LookupPaintScale createLUT(final int ncol, final float vmin, final float vmax,
 			final Color start, final Color med, final Color end) {
 		final float[][] colors = new float[][] {
@@ -160,6 +181,16 @@ public class ChartJFreeChartOutputHeatmap extends ChartJFreeChartOutput {
 		return lut;
 	}
 
+	/**
+	 * Creates the LUT.
+	 *
+	 * @param ncol the ncol
+	 * @param vmin the vmin
+	 * @param vmax the vmax
+	 * @param start the start
+	 * @param end the end
+	 * @return the lookup paint scale
+	 */
 	protected static final LookupPaintScale createLUT(final int ncol, final float vmin, final float vmax,
 			final Color start, final Color end) {
 		final float[][] colors = new float[][] {
@@ -181,6 +212,12 @@ public class ChartJFreeChartOutputHeatmap extends ChartJFreeChartOutput {
 		return lut;
 	}
 
+	/**
+	 * Reset renderer.
+	 *
+	 * @param scope the scope
+	 * @param serieid the serieid
+	 */
 	protected void resetRenderer(final IScope scope, final String serieid) {
 		final XYBlockRenderer newr = (XYBlockRenderer) this.getOrCreateRenderer(scope, serieid);
 

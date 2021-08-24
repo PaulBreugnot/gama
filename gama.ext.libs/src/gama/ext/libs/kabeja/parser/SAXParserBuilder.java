@@ -1,18 +1,13 @@
-/*
- Copyright 2005 Simon Mieth
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+/*******************************************************************************************************
+ *
+ * SAXParserBuilder.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.parser;
 
 import java.io.IOException;
@@ -73,17 +68,40 @@ import org.xml.sax.helpers.XMLReaderFactory;
  *
  */
 public class SAXParserBuilder implements ContentHandler {
+    
+    /** The element parser. */
     public static String ELEMENT_PARSER = "parser";
+    
+    /** The element handler. */
     public static String ELEMENT_HANDLER = "handler";
+    
+    /** The element handlers. */
     public static String ELEMENT_HANDLERS = "handlers";
+    
+    /** The attribute class. */
     public static String ATTRIBUTE_CLASS = "class";
+    
+    /** The attribute extensions. */
     public static String ATTRIBUTE_EXTENSIONS = "extensions";
+    
+    /** The xmlns kabeja parser. */
     public static String XMLNS_KABEJA_PARSER = "http://kabeja.org/parser/1.0";
+    
+    /** The parser. */
     private Parser parser;
+    
+    /** The stack. */
     private Stack stack = new Stack();
+    
+    /** The current handler manager. */
     private HandlerManager currentHandlerManager;
+    
+    /** The handler. */
     private Handler handler;
 
+    /**
+     * Instantiates a new SAX parser builder.
+     */
     public SAXParserBuilder() {
     }
 
@@ -237,14 +255,19 @@ public class SAXParserBuilder implements ContentHandler {
         // TODO Auto-generated method stub
     }
 
+    /**
+     * Gets the parser.
+     *
+     * @return the parser
+     */
     public Parser getParser() {
         return parser;
     }
 
     /**
+     * Builds the from stream.
      *
-     * @param in
-     *            the InputStream
+     * @param in            the InputStream
      * @return The DXFParser build from the XML description
      */
     public static Parser buildFromStream(InputStream in) {

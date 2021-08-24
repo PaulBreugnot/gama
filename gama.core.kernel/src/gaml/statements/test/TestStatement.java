@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.statements.test.TestStatement.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * TestStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.statements.test;
 
@@ -34,6 +34,9 @@ import gaml.statements.AbstractStatementSequence;
 import gaml.statements.IStatement;
 import gaml.types.IType;
 
+/**
+ * The Class TestStatement.
+ */
 @symbol (
 		name = { "test" },
 		kind = ISymbolKind.BEHAVIOR,
@@ -89,11 +92,21 @@ import gaml.types.IType;
 		see = { "setup", "assert" })
 public class TestStatement extends AbstractStatementSequence implements WithTestSummary<IndividualTestSummary> {
 
+	/** The setup. */
 	SetUpStatement setup = null;
+	
+	/** The assertions. */
 	// Assertions contained in the test.
 	List<AssertStatement> assertions = new ArrayList<>();
+	
+	/** The summary. */
 	IndividualTestSummary summary;
 
+	/**
+	 * Instantiates a new test statement.
+	 *
+	 * @param desc the desc
+	 */
 	public TestStatement(final IDescription desc) {
 		super(desc);
 		if (hasFacet(IKeyword.NAME)) {

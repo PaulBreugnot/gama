@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.statements.draw.AttributeHolder.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * AttributeHolder.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.statements.draw;
 
@@ -21,30 +21,72 @@ import gaml.types.IType;
 import gaml.types.Types;
 
 /**
- * A class that facilitates the development of classes holding attributes declared in symbols' facets
+ * A class that facilitates the development of classes holding attributes declared in symbols' facets.
  *
  * @author drogoul
- *
  */
 public abstract class AttributeHolder {
 
+	/** The attributes. */
 	final Map<String, Attribute<?>> attributes = new HashMap<>(10);
+	
+	/** The symbol. */
 	final ISymbol symbol;
 
+	/**
+	 * The Interface Attribute.
+	 *
+	 * @param <V> the value type
+	 */
 	public interface Attribute<V> extends IExpression {
 
+		/**
+		 * Refresh.
+		 *
+		 * @param scope the scope
+		 */
 		void refresh(final IScope scope);
 
+		/**
+		 * Gets the.
+		 *
+		 * @return the v
+		 */
 		V get();
 	}
 
+	/**
+	 * The Interface IExpressionWrapper.
+	 *
+	 * @param <V> the value type
+	 */
 	public interface IExpressionWrapper<V> {
+		
+		/**
+		 * Value.
+		 *
+		 * @param scope the scope
+		 * @param facet the facet
+		 * @return the v
+		 */
 		V value(IScope scope, IExpression facet);
 	}
 
+	/**
+	 * The Class ConstantAttribute.
+	 *
+	 * @param <V> the value type
+	 */
 	public class ConstantAttribute<V> implements Attribute<V> {
+		
+		/** The value. */
 		private final V value;
 
+		/**
+		 * Instantiates a new constant attribute.
+		 *
+		 * @param value the value
+		 */
 		public ConstantAttribute(final V value) {
 			this.value = value;
 		}
@@ -64,11 +106,29 @@ public abstract class AttributeHolder {
 
 	}
 
+	/**
+	 * The Class ExpressionAttribute.
+	 *
+	 * @param <T> the generic type
+	 * @param <V> the value type
+	 */
 	class ExpressionAttribute<T extends IType<V>, V> implements Attribute<V> {
+		
+		/** The expression. */
 		final IExpression expression;
+		
+		/** The return type. */
 		final T returnType;
+		
+		/** The value. */
 		private V value;
 
+		/**
+		 * Instantiates a new expression attribute.
+		 *
+		 * @param type the type
+		 * @param ev the ev
+		 */
 		public ExpressionAttribute(final T type, final IExpression ev) {
 			expression = ev;
 			returnType = type;
@@ -91,11 +151,28 @@ public abstract class AttributeHolder {
 
 	}
 
+	/**
+	 * The Class ExpressionEvaluator.
+	 *
+	 * @param <V> the value type
+	 */
 	class ExpressionEvaluator<V> implements Attribute<V> {
+		
+		/** The evaluator. */
 		final IExpressionWrapper<V> evaluator;
+		
+		/** The facet. */
 		final IExpression facet;
+		
+		/** The value. */
 		private V value;
 
+		/**
+		 * Instantiates a new expression evaluator.
+		 *
+		 * @param ev the ev
+		 * @param expression the expression
+		 */
 		public ExpressionEvaluator(final IExpressionWrapper<V> ev, final IExpression expression) {
 			evaluator = ev;
 			facet = expression;
@@ -118,26 +195,67 @@ public abstract class AttributeHolder {
 
 	}
 
+	/**
+	 * Refresh.
+	 *
+	 * @param scope the scope
+	 * @return the attribute holder
+	 */
 	public AttributeHolder refresh(final IScope scope) {
 		attributes.forEach((name, attribute) -> attribute.refresh(scope));
 		return this;
 	}
 
+	/**
+	 * Instantiates a new attribute holder.
+	 *
+	 * @param symbol the symbol
+	 */
 	public AttributeHolder(final ISymbol symbol) {
 		this.symbol = symbol;
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param <V> the value type
+	 * @param facet the facet
+	 * @param def the def
+	 * @return the attribute
+	 */
 	protected <V> Attribute<V> create(final String facet, final V def) {
 		final Attribute<V> result = new ConstantAttribute<>(def);
 		attributes.put(facet, result);
 		return result;
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param <T> the generic type
+	 * @param <V> the value type
+	 * @param facet the facet
+	 * @param type the type
+	 * @param def the def
+	 * @return the attribute
+	 */
 	protected <T extends IType<V>, V> Attribute<V> create(final String facet, final T type, final V def) {
 		final IExpression exp = symbol.getFacet(facet);
 		return create(facet, exp, type, def, (e) -> type.cast(null, e.getConstValue(), null, true));
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param <T> the generic type
+	 * @param <V> the value type
+	 * @param facet the facet
+	 * @param exp the exp
+	 * @param type the type
+	 * @param def the def
+	 * @param constCaster the const caster
+	 * @return the attribute
+	 */
 	protected <T extends IType<V>, V> Attribute<V> create(final String facet, final IExpression exp, final T type,
 			final V def, final Function<IExpression, V> constCaster) {
 		Attribute<V> result;
@@ -154,6 +272,18 @@ public abstract class AttributeHolder {
 
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param <T> the generic type
+	 * @param <V> the value type
+	 * @param facet the facet
+	 * @param ev the ev
+	 * @param type the type
+	 * @param def the def
+	 * @param constCaster the const caster
+	 * @return the attribute
+	 */
 	protected <T extends IType<V>, V> Attribute<V> create(final String facet, final IExpressionWrapper<V> ev,
 			final T type, final V def, final Function<IExpression, V> constCaster) {
 		final IExpression exp = symbol.getFacet(facet);

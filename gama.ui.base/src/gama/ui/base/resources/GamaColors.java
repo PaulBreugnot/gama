@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GamaColors.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * GamaColors.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.resources;
 
 import java.util.HashMap;
@@ -28,14 +27,28 @@ import gama.util.GamaColor;
  */
 public class GamaColors {
 
+	/**
+	 * The Class GamaUIColor.
+	 */
 	public static class GamaUIColor {
 
+		/** The reverse. */
 		Color active, inactive, darker, gray, lighter, reverse;
 
+		/**
+		 * Instantiates a new gama UI color.
+		 *
+		 * @param c the c
+		 */
 		public GamaUIColor(final Color c) {
 			active = c;
 		}
 
+		/**
+		 * Validate.
+		 *
+		 * @return the gama UI color
+		 */
 		public GamaUIColor validate() {
 			return this;
 		}
@@ -45,19 +58,40 @@ public class GamaColors {
 			return active.getRed() + ", " + active.getGreen() + ", " + active.getBlue();
 		}
 
+		/**
+		 * Checks if is dark.
+		 *
+		 * @return true, if is dark
+		 */
 		public boolean isDark() {
 			return GamaColors.isDark(active);
 		}
 
+		/**
+		 * Instantiates a new gama UI color.
+		 *
+		 * @param c the c
+		 * @param i the i
+		 */
 		public GamaUIColor(final Color c, final Color i) {
 			active = c;
 			inactive = i;
 		}
 
+		/**
+		 * Color.
+		 *
+		 * @return the color
+		 */
 		public Color color() {
 			return active;
 		}
 
+		/**
+		 * Inactive.
+		 *
+		 * @return the color
+		 */
 		public Color inactive() {
 			if (inactive == null) {
 				inactive = computeInactive(active);
@@ -65,6 +99,11 @@ public class GamaColors {
 			return inactive;
 		}
 
+		/**
+		 * Darker.
+		 *
+		 * @return the color
+		 */
 		public Color darker() {
 			if (darker == null) {
 				darker = computeDarker(active);
@@ -72,6 +111,11 @@ public class GamaColors {
 			return darker;
 		}
 
+		/**
+		 * Lighter.
+		 *
+		 * @return the color
+		 */
 		public Color lighter() {
 			if (lighter == null) {
 				lighter = computeLighter(active);
@@ -79,13 +123,25 @@ public class GamaColors {
 			return lighter;
 		}
 
+		/**
+		 * Gets the rgb.
+		 *
+		 * @return the rgb
+		 */
 		public RGB getRGB() {
 			return active.getRGB();
 		}
 	}
 
+	/** The colors. */
 	static HashMap<RGB, GamaUIColor> colors = new HashMap<>();
 
+	/**
+	 * Compute inactive.
+	 *
+	 * @param c the c
+	 * @return the color
+	 */
 	static Color computeInactive(final Color c) {
 		final var data = c.getRGB();
 		final var hsb = data.getHSB();
@@ -97,6 +153,12 @@ public class GamaColors {
 		return getColor(newData.red, newData.green, newData.blue);
 	}
 
+	/**
+	 * Compute darker.
+	 *
+	 * @param c the c
+	 * @return the color
+	 */
 	static Color computeDarker(final Color c) {
 		final var data = c.getRGB();
 		final var hsb = data.getHSB();
@@ -108,11 +170,23 @@ public class GamaColors {
 		return getColor(newData.red, newData.green, newData.blue);
 	}
 
+	/**
+	 * Compute reverse.
+	 *
+	 * @param c the c
+	 * @return the color
+	 */
 	static Color computeReverse(final Color c) {
 		final var data = c.getRGB();
 		return getColor(255 - data.red, 255 - data.green, 255 - data.blue);
 	}
 
+	/**
+	 * Compute lighter.
+	 *
+	 * @param c the c
+	 * @return the color
+	 */
 	static Color computeLighter(final Color c) {
 		final var data = c.getRGB();
 		final var hsb = data.getHSB();
@@ -124,6 +198,12 @@ public class GamaColors {
 		return getColor(newData.red, newData.green, newData.blue);
 	}
 
+	/**
+	 * Compute gray.
+	 *
+	 * @param c the c
+	 * @return the color
+	 */
 	static Color computeGray(final Color c) {
 		final var data = c.getRGB();
 		final var hsb = data.getHSB();
@@ -135,15 +215,35 @@ public class GamaColors {
 		return getColor(newData.red, newData.green, newData.blue);
 	}
 
+	/**
+	 * Gets the color.
+	 *
+	 * @param r the r
+	 * @param g the g
+	 * @param b the b
+	 * @return the color
+	 */
 	private static Color getColor(final int r, final int g, final int b) {
 		return new Color(WorkbenchHelper.getDisplay(), r, g, b);
 	}
 
+	/**
+	 * Gets the.
+	 *
+	 * @param color the color
+	 * @return the gama UI color
+	 */
 	public static GamaUIColor get(final java.awt.Color color) {
 		if (color == null) { return null; }
 		return get(color.getRed(), color.getGreen(), color.getBlue());
 	}
 
+	/**
+	 * Gets the.
+	 *
+	 * @param rgb the rgb
+	 * @return the gama UI color
+	 */
 	public static GamaUIColor get(final RGB rgb) {
 		if (rgb == null) { return null; }
 		var c = colors.get(rgb);
@@ -155,11 +255,25 @@ public class GamaColors {
 		return c;
 	}
 
+	/**
+	 * Gets the.
+	 *
+	 * @param color the color
+	 * @return the gama UI color
+	 */
 	public static GamaUIColor get(final Color color) {
 		if (color == null) { return null; }
 		return get(color.getRGB());
 	}
 
+	/**
+	 * Gets the.
+	 *
+	 * @param r the r
+	 * @param g the g
+	 * @param b the b
+	 * @return the gama UI color
+	 */
 	public static GamaUIColor get(final int r, final int g, final int b) {
 		final var r1 = r < 0 ? 0 : r > 255 ? 255 : r;
 		final var g1 = g < 0 ? 0 : g > 255 ? 255 : g;
@@ -168,10 +282,22 @@ public class GamaColors {
 		return get(rgb);
 	}
 
+	/**
+	 * System.
+	 *
+	 * @param c the c
+	 * @return the color
+	 */
 	public static Color system(final int c) {
 		return WorkbenchHelper.getDisplay().getSystemColor(c);
 	}
 
+	/**
+	 * Gets the.
+	 *
+	 * @param c the c
+	 * @return the gama UI color
+	 */
 	public static GamaUIColor get(final int... c) {
 		if (c.length >= 3) {
 			return get(c[0], c[1], c[2]);
@@ -185,10 +311,10 @@ public class GamaColors {
 	}
 
 	/**
-	 * Get the color of the icon passed in parameter (supposing it's mono-colored)
+	 * Get the color of the icon passed in parameter (supposing it's mono-colored).
 	 *
-	 * @param create
-	 * @return
+	 * @param icon the icon
+	 * @return the gama UI color
 	 */
 	public static GamaUIColor get(final GamaIcon icon) {
 		final var image = icon.image();
@@ -199,39 +325,73 @@ public class GamaColors {
 	}
 
 	/**
-	 * @param background
-	 * @return
+	 * Checks if is dark.
+	 *
+	 * @param color the color
+	 * @return true, if is dark
 	 */
 	public static boolean isDark(final Color color) {
 		return luminanceOf(color) < 130;
 	}
 
+	/**
+	 * Luminance of.
+	 *
+	 * @param color the color
+	 * @return the int
+	 */
 	public static int luminanceOf(final Color color) {
 		return (int) (0.299 * color.getRed() * color.getRed() / 255 + 0.587 * color.getGreen() * color.getGreen() / 255
 				+ 0.114 * color.getBlue() * color.getBlue() / 255); // http://alienryderflex.com/hsp.html
 	}
 
+	/**
+	 * To awt color.
+	 *
+	 * @param color the color
+	 * @return the java.awt. color
+	 */
 	public static java.awt.Color toAwtColor(final Color color) {
 		return new java.awt.Color(color.getRed(), color.getGreen(), color.getBlue());
 	}
 
+	/**
+	 * To gama color.
+	 *
+	 * @param color the color
+	 * @return the gama color
+	 */
 	public static GamaColor toGamaColor(final Color color) {
 		return new GamaColor(color.getRed(), color.getGreen(), color.getBlue());
 	}
 
+	/**
+	 * To gama color.
+	 *
+	 * @param color the color
+	 * @return the gama color
+	 */
 	public static GamaColor toGamaColor(final RGB color) {
 		if (color == null) { return GamaColor.getInt(0); }
 		return new GamaColor(color.red, color.green, color.blue);
 	}
 
 	/**
-	 * @param background
-	 * @return
+	 * Gets the text color for background.
+	 *
+	 * @param background the background
+	 * @return the text color for background
 	 */
 	public static GamaUIColor getTextColorForBackground(final Color background) {
 		return isDark(background) ? IGamaColors.WHITE : IGamaColors.BLACK;
 	}
 
+	/**
+	 * Gets the text color for background.
+	 *
+	 * @param background the background
+	 * @return the text color for background
+	 */
 	public static GamaUIColor getTextColorForBackground(final GamaUIColor background) {
 		return getTextColorForBackground(background.color());
 	}

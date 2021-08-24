@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
- */
+/*******************************************************************************************************
+ *
+ * DXFText.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf;
 
 import gama.ext.libs.kabeja.dxf.helpers.DXFTextParser;
@@ -21,49 +16,112 @@ import gama.ext.libs.kabeja.dxf.helpers.TextDocument;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class DXFText.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class DXFText extends DXFEntity {
+    
+    /** The Constant DEFAULT_FONT_SIZE. */
     public static final double DEFAULT_FONT_SIZE = 8;
+    
+    /** The Constant VALIGN_BASELINE. */
     public static final int VALIGN_BASELINE = 0;
+    
+    /** The Constant VALIGN_BOTTOM. */
     public static final int VALIGN_BOTTOM = 1;
+    
+    /** The Constant VALIGN_CENTER. */
     public static final int VALIGN_CENTER = 2;
+    
+    /** The Constant VALIGN_TOP. */
     public static final int VALIGN_TOP = 3;
+    
+    /** The Constant ALIGN_LEFT. */
     public static final int ALIGN_LEFT = 0;
+    
+    /** The Constant ALIGN_CENTER. */
     public static final int ALIGN_CENTER = 1;
+    
+    /** The Constant ALIGN_RIGHT. */
     public static final int ALIGN_RIGHT = 2;
+    
+    /** The Constant ALIGN_ALIGNED. */
     public static final int ALIGN_ALIGNED = 3;
+    
+    /** The Constant ALIGN_MIDDLE. */
     public static final int ALIGN_MIDDLE = 4;
+    
+    /** The Constant ALIGN_FIT. */
     public static final int ALIGN_FIT = 5;
+    
+    /** The rotation. */
     protected double rotation = 0.0;
+    
+    /** The height. */
     protected double height = 0.0;
+    
+    /** The scale x. */
     protected double scale_x = 1.0;
+    
+    /** The oblique angle. */
     protected double oblique_angle = 0.0;
+    
+    /** The align x. */
     protected double align_x = 0.0;
+    
+    /** The align y. */
     protected double align_y = 0.0;
+    
+    /** The align z. */
     protected double align_z = 0.0;
 
+    /** The align. */
     // the horizontal align
     protected int align = 0;
 
+    /** The valign. */
     // the vertical align
     protected int valign = 0;
+    
+    /** The text. */
     protected String text = "";
+    
+    /** The text style. */
     protected String textStyle = "";
+    
+    /** The p. */
     protected Point p;
+    
+    /** The align p 1. */
     protected Point align_p1;
+    
+    /** The align p 2. */
     protected Point align_p2;
+    
+    /** The upside down. */
     protected boolean upsideDown = false;
+    
+    /** The backward. */
     protected boolean backward = false;
+    
+    /** The alignment point set. */
     protected boolean alignmentPointSet = false;
+    
+    /** The top. */
     protected boolean top = false;
+    
+    /** The bottom. */
     protected boolean bottom = false;
+    
+    /** The vertical center. */
     protected boolean vertical_center = false;
+    
+    /** The text doc. */
     protected TextDocument textDoc = new TextDocument();
 
     /**
-     *
+     * Instantiates a new DXF text.
      */
     public DXFText() {
         this.p = new Point();
@@ -169,6 +227,8 @@ public class DXFText extends DXFEntity {
     }
 
     /**
+     * Gets the align.
+     *
      * @return Returns the align.
      */
     public int getAlign() {
@@ -176,14 +236,17 @@ public class DXFText extends DXFEntity {
     }
 
     /**
-     * @param align
-     *            The align to set.
+     * Sets the align.
+     *
+     * @param align            The align to set.
      */
     public void setAlign(int align) {
         this.align = align;
     }
 
     /**
+     * Gets the align X.
+     *
      * @return Returns the align_x.
      */
     public double getAlignX() {
@@ -191,14 +254,17 @@ public class DXFText extends DXFEntity {
     }
 
     /**
-     * @param align_x
-     *            The align_x to set.
+     * Sets the align X.
+     *
+     * @param align_x            The align_x to set.
      */
     public void setAlignX(double align_x) {
         align_p1.setX(align_x);
     }
 
     /**
+     * Gets the align Y.
+     *
      * @return Returns the align_y.
      */
     public double getAlignY() {
@@ -206,14 +272,17 @@ public class DXFText extends DXFEntity {
     }
 
     /**
-     * @param align_y
-     *            The align_y to set.
+     * Sets the align Y.
+     *
+     * @param align_y            The align_y to set.
      */
     public void setAlignY(double align_y) {
         align_p1.setY(align_y);
     }
 
     /**
+     * Gets the align Z.
+     *
      * @return Returns the align_z.
      */
     public double getAlignZ() {
@@ -221,14 +290,17 @@ public class DXFText extends DXFEntity {
     }
 
     /**
-     * @param align_z
-     *            The align_z to set.
+     * Sets the align Z.
+     *
+     * @param align_z            The align_z to set.
      */
     public void setAlignZ(double align_z) {
         align_p1.setZ(align_z);
     }
 
     /**
+     * Gets the height.
+     *
      * @return Returns the height.
      */
     public double getHeight() {
@@ -242,14 +314,17 @@ public class DXFText extends DXFEntity {
     }
 
     /**
-     * @param height
-     *            The height to set.
+     * Sets the height.
+     *
+     * @param height            The height to set.
      */
     public void setHeight(double height) {
         this.height = height;
     }
 
     /**
+     * Gets the oblique angle.
+     *
      * @return Returns the oblique_angle.
      */
     public double getObliqueAngle() {
@@ -257,14 +332,17 @@ public class DXFText extends DXFEntity {
     }
 
     /**
-     * @param oblique_angle
-     *            The oblique_angle to set.
+     * Sets the oblique angle.
+     *
+     * @param oblique_angle            The oblique_angle to set.
      */
     public void setObliqueAngle(double oblique_angle) {
         this.oblique_angle = oblique_angle;
     }
 
     /**
+     * Gets the rotation.
+     *
      * @return Returns the rotation.
      */
     public double getRotation() {
@@ -272,14 +350,17 @@ public class DXFText extends DXFEntity {
     }
 
     /**
-     * @param rotation
-     *            The rotation to set.
+     * Sets the rotation.
+     *
+     * @param rotation            The rotation to set.
      */
     public void setRotation(double rotation) {
         this.rotation = rotation;
     }
 
     /**
+     * Gets the scale X.
+     *
      * @return Returns the scale_x.
      */
     public double getScaleX() {
@@ -287,14 +368,17 @@ public class DXFText extends DXFEntity {
     }
 
     /**
-     * @param scale_x
-     *            The scale_x to set.
+     * Sets the scale X.
+     *
+     * @param scale_x            The scale_x to set.
      */
     public void setScaleX(double scale_x) {
         this.scale_x = scale_x;
     }
 
     /**
+     * Gets the text.
+     *
      * @return Returns the text.
      */
     public String getText() {
@@ -302,8 +386,9 @@ public class DXFText extends DXFEntity {
     }
 
     /**
-     * @param text
-     *            The text to set.
+     * Sets the text.
+     *
+     * @param text            The text to set.
      */
     public void setText(String text) {
         this.text = text;
@@ -311,6 +396,8 @@ public class DXFText extends DXFEntity {
     }
 
     /**
+     * Gets the text style.
+     *
      * @return Returns the textStyle.
      */
     public String getTextStyle() {
@@ -318,14 +405,17 @@ public class DXFText extends DXFEntity {
     }
 
     /**
-     * @param textStyle
-     *            The textStyle to set.
+     * Sets the text style.
+     *
+     * @param textStyle            The textStyle to set.
      */
     public void setTextStyle(String textStyle) {
         this.textStyle = textStyle;
     }
 
     /**
+     * Gets the valign.
+     *
      * @return Returns the valign.
      */
     public int getValign() {
@@ -333,37 +423,73 @@ public class DXFText extends DXFEntity {
     }
 
     /**
-     * @param valign
-     *            The valign to set.
+     * Sets the valign.
+     *
+     * @param valign            The valign to set.
      */
     public void setValign(int valign) {
         this.valign = valign;
     }
 
+    /**
+     * Sets the x.
+     *
+     * @param x the new x
+     */
     public void setX(double x) {
         p.setX(x);
     }
 
+    /**
+     * Sets the y.
+     *
+     * @param y the new y
+     */
     public void setY(double y) {
         p.setY(y);
     }
 
+    /**
+     * Sets the z.
+     *
+     * @param z the new z
+     */
     public void setZ(double z) {
         p.setZ(z);
     }
 
+    /**
+     * Checks if is backward.
+     *
+     * @return true, if is backward
+     */
     public boolean isBackward() {
         return backward;
     }
 
+    /**
+     * Sets the backward.
+     *
+     * @param backward the new backward
+     */
     public void setBackward(boolean backward) {
         this.backward = backward;
     }
 
+    /**
+     * Checks if is upside down.
+     *
+     * @return true, if is upside down
+     */
     public boolean isUpsideDown() {
         return upsideDown;
     }
 
+    /**
+     * Sets the upside down.
+     *
+     * @param upsideDown the new upside down
+     */
     public void setUpsideDown(boolean upsideDown) {
         this.upsideDown = upsideDown;
     }
@@ -373,6 +499,8 @@ public class DXFText extends DXFEntity {
     }
 
     /**
+     * Checks if is alignment point set.
+     *
      * @return Returns the alignmentPointSet.
      */
     public boolean isAlignmentPointSet() {
@@ -380,25 +508,46 @@ public class DXFText extends DXFEntity {
     }
 
     /**
-     * @param alignmentPointSet
-     *            The alignmentPointSet to set.
+     * Sets the alignment point.
+     *
+     * @param alignmentPoint the new alignment point
      */
     public void setAlignmentPoint(boolean alignmentPoint) {
         this.alignmentPointSet = alignmentPoint;
     }
 
+    /**
+     * Gets the text document.
+     *
+     * @return the text document
+     */
     public TextDocument getTextDocument() {
         return this.textDoc;
     }
 
+    /**
+     * Gets the insert point.
+     *
+     * @return the insert point
+     */
     public Point getInsertPoint() {
         return p;
     }
 
+    /**
+     * Gets the alignment point.
+     *
+     * @return the alignment point
+     */
     public Point getAlignmentPoint() {
         return align_p1;
     }
 
+    /**
+     * Calculate alignment point.
+     *
+     * @return the point
+     */
     public Point calculateAlignmentPoint() {
         Point alignmentPoint = new Point(p.getX(), p.getY(), p.getZ());
 

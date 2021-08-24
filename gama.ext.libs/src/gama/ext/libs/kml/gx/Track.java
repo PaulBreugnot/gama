@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Track.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.gx;
 import java.util.ArrayList;
@@ -22,7 +32,7 @@ import gama.ext.libs.kml.annotations.Obvious;
 
 
 /**
- * 
+ * The Class Track.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "TrackType", propOrder = {
@@ -42,102 +52,118 @@ public class Track
     implements Cloneable
 {
 
+    /** The extrude. */
     @XmlElement(namespace = "http://www.opengis.net/kml/2.2", defaultValue = "0")
     @XmlJavaTypeAdapter(BooleanConverter.class)
     protected Boolean extrude;
+    
+    /** The tessellate. */
     @XmlElement(namespace = "http://www.opengis.net/kml/2.2", defaultValue = "0")
     @XmlJavaTypeAdapter(BooleanConverter.class)
     protected Boolean tessellate;
+    
+    /** The altitude mode. */
     @XmlElement(defaultValue = "clampToGround")
     protected AltitudeMode altitudeMode;
+    
+    /** The when. */
     @XmlElement(namespace = "http://www.opengis.net/kml/2.2")
     protected List<String> when;
+    
+    /** The coord. */
     protected List<String> coord;
+    
+    /** The angles. */
     protected List<String> angles;
+    
+    /** The model. */
     @XmlElement(name = "Model", namespace = "http://www.opengis.net/kml/2.2")
     protected Model model;
+    
+    /** The extended data. */
     @XmlElement(name = "ExtendedData", namespace = "http://www.opengis.net/kml/2.2")
     protected ExtendedData extendedData;
+    
+    /** The track simple extension. */
     @XmlElement(name = "AbstractTrackSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> trackSimpleExtension;
 
+    /**
+     * Instantiates a new track.
+     */
     public Track() {
         super();
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Checks if is extrude.
+     *
+     * @return     possible object is
      *     {@link Boolean}
-     *     
      */
     public Boolean isExtrude() {
         return extrude;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the extrude.
+     *
+     * @param value     allowed object is
      *     {@link Boolean}
-     *     
      */
     public void setExtrude(Boolean value) {
         this.extrude = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Checks if is tessellate.
+     *
+     * @return     possible object is
      *     {@link Boolean}
-     *     
      */
     public Boolean isTessellate() {
         return tessellate;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the tessellate.
+     *
+     * @param value     allowed object is
      *     {@link Boolean}
-     *     
      */
     public void setTessellate(Boolean value) {
         this.tessellate = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the altitude mode.
+     *
+     * @return     possible object is
      *     {@code <}{@link Object}{@code>}
      *     {@code <}{@link gama.ext.libs.kml.AltitudeMode}{@code>}
      *     {@code <}{@link msi.gama.ext.kml.gx.AltitudeMode}{@code>}
-     *     
      */
     public AltitudeMode getAltitudeMode() {
         return altitudeMode;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the altitude mode.
+     *
+     * @param value     allowed object is
      *     {@code <}{@link Object}{@code>}
      *     {@code <}{@link gama.ext.libs.kml.AltitudeMode}{@code>}
      *     {@code <}{@link msi.gama.ext.kml.gx.AltitudeMode}{@code>}
-     *     
      */
     public void setAltitudeMode(AltitudeMode value) {
         this.altitudeMode = value;
     }
 
     /**
-     * 
+     * Gets the when.
+     *
+     * @return the when
      */
     public List<String> getWhen() {
         if (when == null) {
@@ -147,7 +173,9 @@ public class Track
     }
 
     /**
-     * 
+     * Gets the coord.
+     *
+     * @return the coord
      */
     public List<String> getCoord() {
         if (coord == null) {
@@ -157,7 +185,9 @@ public class Track
     }
 
     /**
-     * 
+     * Gets the angles.
+     *
+     * @return the angles
      */
     public List<String> getAngles() {
         if (angles == null) {
@@ -167,51 +197,49 @@ public class Track
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the model.
+     *
+     * @return     possible object is
      *     {@link Model}
-     *     
      */
     public Model getModel() {
         return model;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the model.
+     *
+     * @param value     allowed object is
      *     {@link Model}
-     *     
      */
     public void setModel(Model value) {
         this.model = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the extended data.
+     *
+     * @return     possible object is
      *     {@link ExtendedData}
-     *     
      */
     public ExtendedData getExtendedData() {
         return extendedData;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the extended data.
+     *
+     * @param value     allowed object is
      *     {@link ExtendedData}
-     *     
      */
     public void setExtendedData(ExtendedData value) {
         this.extendedData = value;
     }
 
     /**
-     * 
+     * Gets the track simple extension.
+     *
+     * @return the track simple extension
      */
     public List<Object> getTrackSimpleExtension() {
         if (trackSimpleExtension == null) {
@@ -342,8 +370,8 @@ public class Track
      * <code>
      * Model model = new Model();
      * this.setModel(model); </code>
-     * 
-     * 
+     *
+     * @return the model
      */
     public Model createAndSetModel() {
         Model newValue = new Model();
@@ -358,8 +386,8 @@ public class Track
      * <code>
      * ExtendedData extendedData = new ExtendedData();
      * this.setExtendedData(extendedData); </code>
-     * 
-     * 
+     *
+     * @return the extended data
      */
     public ExtendedData createAndSetExtendedData() {
         ExtendedData newValue = new ExtendedData();
@@ -371,21 +399,18 @@ public class Track
      * Sets the value of the when property Objects of the following type(s) are allowed in the list List<String>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withWhen} instead.
-     * 
-     * 
-     * @param when
+     *
+     * @param when the new when
      */
     public void setWhen(final List<String> when) {
         this.when = when;
     }
 
     /**
-     * add a value to the when property collection
-     * 
-     * @param when
-     *     Objects of the following type are allowed in the list: {@link String}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the when property collection.
+     *
+     * @param when     Objects of the following type are allowed in the list: {@link String}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Track addToWhen(final String when) {
         this.getWhen().add(when);
@@ -396,21 +421,18 @@ public class Track
      * Sets the value of the coord property Objects of the following type(s) are allowed in the list List<String>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withCoord} instead.
-     * 
-     * 
-     * @param coord
+     *
+     * @param coord the new coord
      */
     public void setCoord(final List<String> coord) {
         this.coord = coord;
     }
 
     /**
-     * add a value to the coord property collection
-     * 
-     * @param coord
-     *     Objects of the following type are allowed in the list: {@link String}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the coord property collection.
+     *
+     * @param coord     Objects of the following type are allowed in the list: {@link String}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Track addToCoord(final String coord) {
         this.getCoord().add(coord);
@@ -421,21 +443,18 @@ public class Track
      * Sets the value of the angles property Objects of the following type(s) are allowed in the list List<String>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAngles} instead.
-     * 
-     * 
-     * @param angles
+     *
+     * @param angles the new angles
      */
     public void setAngles(final List<String> angles) {
         this.angles = angles;
     }
 
     /**
-     * add a value to the angles property collection
-     * 
-     * @param angles
-     *     Objects of the following type are allowed in the list: {@link String}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the angles property collection.
+     *
+     * @param angles     Objects of the following type are allowed in the list: {@link String}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Track addToAngles(final String angles) {
         this.getAngles().add(angles);
@@ -446,21 +465,18 @@ public class Track
      * Sets the value of the trackSimpleExtension property Objects of the following type(s) are allowed in the list List<Object>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withTrackSimpleExtension} instead.
-     * 
-     * 
-     * @param trackSimpleExtension
+     *
+     * @param trackSimpleExtension the new track simple extension
      */
     public void setTrackSimpleExtension(final List<Object> trackSimpleExtension) {
         this.trackSimpleExtension = trackSimpleExtension;
     }
 
     /**
-     * add a value to the trackSimpleExtension property collection
-     * 
-     * @param trackSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the trackSimpleExtension property collection.
+     *
+     * @param trackSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Track addToTrackSimpleExtension(final Object trackSimpleExtension) {
         this.getTrackSimpleExtension().add(trackSimpleExtension);
@@ -507,11 +523,11 @@ public class Track
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param extrude     required parameter
+     * @return the track
      * @see #setExtrude(Boolean)
-     * 
-     * @param extrude
-     *     required parameter
      */
     public Track withExtrude(final Boolean extrude) {
         this.setExtrude(extrude);
@@ -519,11 +535,11 @@ public class Track
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param tessellate     required parameter
+     * @return the track
      * @see #setTessellate(Boolean)
-     * 
-     * @param tessellate
-     *     required parameter
      */
     public Track withTessellate(final Boolean tessellate) {
         this.setTessellate(tessellate);
@@ -531,11 +547,11 @@ public class Track
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param altitudeMode     required parameter
+     * @return the track
      * @see #setAltitudeMode(Object)
-     * 
-     * @param altitudeMode
-     *     required parameter
      */
     public Track withAltitudeMode(final  AltitudeMode altitudeMode) {
         this.setAltitudeMode(altitudeMode);
@@ -543,11 +559,11 @@ public class Track
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param when     required parameter
+     * @return the track
      * @see #setWhen(List<String>)
-     * 
-     * @param when
-     *     required parameter
      */
     public Track withWhen(final List<String> when) {
         this.setWhen(when);
@@ -555,11 +571,11 @@ public class Track
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param coord     required parameter
+     * @return the track
      * @see #setCoord(List<String>)
-     * 
-     * @param coord
-     *     required parameter
      */
     public Track withCoord(final List<String> coord) {
         this.setCoord(coord);
@@ -567,11 +583,11 @@ public class Track
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param angles     required parameter
+     * @return the track
      * @see #setAngles(List<String>)
-     * 
-     * @param angles
-     *     required parameter
      */
     public Track withAngles(final List<String> angles) {
         this.setAngles(angles);
@@ -579,11 +595,11 @@ public class Track
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param model     required parameter
+     * @return the track
      * @see #setModel(Model)
-     * 
-     * @param model
-     *     required parameter
      */
     public Track withModel(final Model model) {
         this.setModel(model);
@@ -591,11 +607,11 @@ public class Track
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param extendedData     required parameter
+     * @return the track
      * @see #setExtendedData(ExtendedData)
-     * 
-     * @param extendedData
-     *     required parameter
      */
     public Track withExtendedData(final ExtendedData extendedData) {
         this.setExtendedData(extendedData);
@@ -603,11 +619,11 @@ public class Track
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param trackSimpleExtension     required parameter
+     * @return the track
      * @see #setTrackSimpleExtension(List<Object>)
-     * 
-     * @param trackSimpleExtension
-     *     required parameter
      */
     public Track withTrackSimpleExtension(final List<Object> trackSimpleExtension) {
         this.setTrackSimpleExtension(trackSimpleExtension);

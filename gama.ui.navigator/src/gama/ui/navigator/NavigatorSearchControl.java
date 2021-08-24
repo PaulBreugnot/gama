@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'EditorSearchControls.java, in plugin ummisco.gama.ui.modeling, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * NavigatorSearchControl.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator;
 
 import java.util.Arrays;
@@ -50,6 +49,12 @@ import one.util.streamex.StreamEx;
  */
 public class NavigatorSearchControl {
 
+	/**
+	 * Should select.
+	 *
+	 * @param o the o
+	 * @return true, if successful
+	 */
 	boolean shouldSelect(final Object o) {
 		if (!(o instanceof WrappedGamaFile)) { return false; }
 		final WrappedGamaFile file = (WrappedGamaFile) o;
@@ -58,14 +63,24 @@ public class NavigatorSearchControl {
 		return false;
 	}
 
+	/**
+	 * The Class NamePatternFilter.
+	 */
 	protected class NamePatternFilter extends ViewerFilter {
 
+		/** The already selected. */
 		@SuppressWarnings ("rawtypes") Set alreadySelected = new HashSet<>();
 
+		/**
+		 * Reset.
+		 */
 		public void reset() {
 			alreadySelected = StreamEx.ofValues(ResourceManager.cache.asMap()).filter(r -> shouldSelect(r)).toSet();
 		}
 
+		/**
+		 * Instantiates a new name pattern filter.
+		 */
 		public NamePatternFilter() {}
 
 		@Override
@@ -73,6 +88,13 @@ public class NavigatorSearchControl {
 			return select((VirtualContent<?>) element, true);
 		}
 
+		/**
+		 * Select.
+		 *
+		 * @param element the element
+		 * @param b the b
+		 * @return true, if successful
+		 */
 		@SuppressWarnings ("unchecked")
 		private boolean select(final VirtualContent<?> element, final boolean b) {
 			if (alreadySelected.contains(element)) { return true; }
@@ -83,6 +105,13 @@ public class NavigatorSearchControl {
 			return false;
 		}
 
+		/**
+		 * Internal select.
+		 *
+		 * @param element the element
+		 * @param considerVirtualContent the consider virtual content
+		 * @return true, if successful
+		 */
 		private boolean internalSelect(final VirtualContent<?> element, final boolean considerVirtualContent) {
 			if (pattern.isEmpty()) { return true; }
 			switch (element.getType()) {
@@ -106,21 +135,46 @@ public class NavigatorSearchControl {
 		}
 	}
 
+	/** The find. */
 	Text find;
+	
+	/** The Constant EMPTY. */
 	private static final String EMPTY = "Find model..."; //$NON-NLS-1$
+	
+	/** The pattern. */
 	String pattern;
+	
+	/** The navigator. */
 	GamaNavigator navigator;
+	
+	/** The tree viewer. */
 	CommonViewer treeViewer;
+	
+	/** The filter. */
 	final NamePatternFilter filter = new NamePatternFilter();
 
+	/**
+	 * Instantiates a new navigator search control.
+	 *
+	 * @param navigator the navigator
+	 */
 	public NavigatorSearchControl(final GamaNavigator navigator) {
 		this.navigator = navigator;
 	}
 
+	/**
+	 * Initialize.
+	 */
 	public void initialize() {
 		treeViewer = navigator.getCommonViewer();
 	}
 
+	/**
+	 * Fill.
+	 *
+	 * @param toolbar the toolbar
+	 * @return the navigator search control
+	 */
 	public NavigatorSearchControl fill(final GamaToolbarSimple toolbar) {
 		Composite parent = toolbar;
 		if (PlatformHelper.isWindows()) {
@@ -162,6 +216,7 @@ public class NavigatorSearchControl {
 		return this;
 	}
 
+	/** The reset job. */
 	UIJob resetJob = new UIJob("Reset") {
 
 		@Override
@@ -171,6 +226,7 @@ public class NavigatorSearchControl {
 		}
 	};
 
+	/** The search job. */
 	UIJob searchJob = new UIJob("Search") {
 
 		@Override
@@ -180,6 +236,7 @@ public class NavigatorSearchControl {
 		}
 	};
 
+	/** The modify listener. */
 	private final ModifyListener modifyListener = e -> {
 		pattern = ((Text) e.widget).getText().toLowerCase();
 		if (pattern.isEmpty()) {
@@ -194,6 +251,9 @@ public class NavigatorSearchControl {
 		}
 	};
 
+	/**
+	 * Do search.
+	 */
 	public void doSearch() {
 		treeViewer.getControl().setRedraw(false);
 		filter.reset();
@@ -206,6 +266,9 @@ public class NavigatorSearchControl {
 		treeViewer.getControl().setRedraw(true);
 	}
 
+	/**
+	 * Reset search.
+	 */
 	public void resetSearch() {
 		treeViewer.getControl().setRedraw(false);
 		if (Arrays.asList(treeViewer.getFilters()).contains(filter)) {
@@ -216,6 +279,11 @@ public class NavigatorSearchControl {
 		treeViewer.getControl().setRedraw(true);
 	}
 
+	/**
+	 * Search for.
+	 *
+	 * @param name the name
+	 */
 	public void searchFor(final String name) {
 		find.setText(name);
 		pattern = name;

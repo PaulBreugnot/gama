@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'IGamlable.java, in plugin ummisco.gama.annotations, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * IGamlable.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- *
- **********************************************************************************************/
+ ********************************************************************************************************/
 package gama.common.interfaces;
 
 /**
@@ -22,10 +21,9 @@ package gama.common.interfaces;
 public interface IGamlable {
 
 	/**
-	 * Returns the serialization in GAML of this object, taking into account (or not) built-in structures
-	 * 
-	 * @param includingBuiltIn
-	 *            whether built-in structures should be part of the serialization in GAML (for instance, built-in
+	 * Returns the serialization in GAML of this object, taking into account (or not) built-in structures.
+	 *
+	 * @param includingBuiltIn            whether built-in structures should be part of the serialization in GAML (for instance, built-in
 	 *            species within a model)
 	 * @return a string that can be reinterpreted in GAML to reproduce the object
 	 */

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * AbstractView.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -17,7 +27,7 @@ import gama.ext.libs.kml.gx.ViewerOptions;
 
 
 /**
- * 
+ * The Class AbstractView.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "AbstractViewType", propOrder = {
@@ -33,18 +43,26 @@ public abstract class AbstractView
     implements Cloneable
 {
 
+    /** The abstract view simple extension. */
     @XmlElement(name = "AbstractViewSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> abstractViewSimpleExtension;
+    
+    /** The abstract view object extension. */
     @XmlElementRef(name = "AbstractViewObjectExtensionGroup", namespace = "http://www.opengis.net/kml/2.2", required = false)
     protected List<AbstractObject> abstractViewObjectExtension;
 
+    /**
+     * Instantiates a new abstract view.
+     */
     public AbstractView() {
         super();
     }
 
     /**
-     * 
+     * Gets the abstract view simple extension.
+     *
+     * @return the abstract view simple extension
      */
     public List<Object> getAbstractViewSimpleExtension() {
         if (abstractViewSimpleExtension == null) {
@@ -54,7 +72,9 @@ public abstract class AbstractView
     }
 
     /**
-     * 
+     * Gets the abstract view object extension.
+     *
+     * @return the abstract view object extension
      */
     public List<AbstractObject> getAbstractViewObjectExtension() {
         if (abstractViewObjectExtension == null) {
@@ -112,21 +132,18 @@ public abstract class AbstractView
      * Sets the value of the abstractViewSimpleExtension property Objects of the following type(s) are allowed in the list List<Object>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAbstractViewSimpleExtension} instead.
-     * 
-     * 
-     * @param abstractViewSimpleExtension
+     *
+     * @param abstractViewSimpleExtension the new abstract view simple extension
      */
     public void setAbstractViewSimpleExtension(final List<Object> abstractViewSimpleExtension) {
         this.abstractViewSimpleExtension = abstractViewSimpleExtension;
     }
 
     /**
-     * add a value to the abstractViewSimpleExtension property collection
-     * 
-     * @param abstractViewSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the abstractViewSimpleExtension property collection.
+     *
+     * @param abstractViewSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public AbstractView addToAbstractViewSimpleExtension(final Object abstractViewSimpleExtension) {
         this.getAbstractViewSimpleExtension().add(abstractViewSimpleExtension);
@@ -137,21 +154,18 @@ public abstract class AbstractView
      * Sets the value of the abstractViewObjectExtension property Objects of the following type(s) are allowed in the list List<AbstractObject>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAbstractViewObjectExtension} instead.
-     * 
-     * 
-     * @param abstractViewObjectExtension
+     *
+     * @param abstractViewObjectExtension the new abstract view object extension
      */
     public void setAbstractViewObjectExtension(final List<AbstractObject> abstractViewObjectExtension) {
         this.abstractViewObjectExtension = abstractViewObjectExtension;
     }
 
     /**
-     * add a value to the abstractViewObjectExtension property collection
-     * 
-     * @param abstractViewObjectExtension
-     *     Objects of the following type are allowed in the list: {@code <}{@link TimeSpan}{@code>}{@link JAXBElement}{@code <}{@link AbstractObject}{@code>}{@link JAXBElement}{@code <}{@link TimeStamp}{@code>}{@link JAXBElement}{@code <}{@link ViewerOptions}{@code>}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the abstractViewObjectExtension property collection.
+     *
+     * @param abstractViewObjectExtension     Objects of the following type are allowed in the list: {@code <}{@link TimeSpan}{@code>}{@link JAXBElement}{@code <}{@link AbstractObject}{@code>}{@link JAXBElement}{@code <}{@link TimeStamp}{@code>}{@link JAXBElement}{@code <}{@link ViewerOptions}{@code>}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public AbstractView addToAbstractViewObjectExtension(final AbstractObject abstractViewObjectExtension) {
         this.getAbstractViewObjectExtension().add(abstractViewObjectExtension);
@@ -172,11 +186,11 @@ public abstract class AbstractView
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param abstractViewSimpleExtension     required parameter
+     * @return the abstract view
      * @see #setAbstractViewSimpleExtension(List<Object>)
-     * 
-     * @param abstractViewSimpleExtension
-     *     required parameter
      */
     public AbstractView withAbstractViewSimpleExtension(final List<Object> abstractViewSimpleExtension) {
         this.setAbstractViewSimpleExtension(abstractViewSimpleExtension);
@@ -184,11 +198,11 @@ public abstract class AbstractView
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param abstractViewObjectExtension     required parameter
+     * @return the abstract view
      * @see #setAbstractViewObjectExtension(List<AbstractObject>)
-     * 
-     * @param abstractViewObjectExtension
-     *     required parameter
      */
     public AbstractView withAbstractViewObjectExtension(final List<AbstractObject> abstractViewObjectExtension) {
         this.setAbstractViewObjectExtension(abstractViewObjectExtension);

@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.layers.AbstractLayerStatement.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
- * 
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * AbstractLayerStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -36,13 +36,27 @@ import gaml.expressions.IExpression;
 		symbols = IKeyword.DISPLAY)
 public abstract class AbstractLayerStatement extends Symbol implements ILayerStatement {
 
+	/** The output. */
 	LayeredDisplayOutput output;
+	
+	/** The layer to create. */
 	protected boolean layerToCreate = true;
 
+	/**
+	 * Checks if is to create.
+	 *
+	 * @return true, if is to create
+	 */
 	public boolean isToCreate() {
 		return layerToCreate;
 	}
 
+	/**
+	 * Instantiates a new abstract layer statement.
+	 *
+	 * @param desc the desc
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public AbstractLayerStatement(final IDescription desc) throws GamaRuntimeException {
 		super(desc);
 		setName(desc.getName());
@@ -63,6 +77,12 @@ public abstract class AbstractLayerStatement extends Symbol implements ILayerSta
 		return _init(scope);
 	}
 
+	/**
+	 * Inits the.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 */
 	protected abstract boolean _init(IScope scope);
 
 	@Override
@@ -70,10 +90,20 @@ public abstract class AbstractLayerStatement extends Symbol implements ILayerSta
 		output = (LayeredDisplayOutput) out;
 	}
 
+	/**
+	 * Gets the display output.
+	 *
+	 * @return the display output
+	 */
 	public LayeredDisplayOutput getDisplayOutput() {
 		return output;
 	}
 
+	/**
+	 * Gets the layered display data.
+	 *
+	 * @return the layered display data
+	 */
 	public LayeredDisplayData getLayeredDisplayData() {
 		if (output == null) { return null; }
 		return output.getData();
@@ -85,6 +115,12 @@ public abstract class AbstractLayerStatement extends Symbol implements ILayerSta
 		return false;
 	}
 
+	/**
+	 * Step.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 */
 	protected abstract boolean _step(IScope scope);
 
 	@Override

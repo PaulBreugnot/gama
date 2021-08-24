@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'EditorsDialog.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * EditorsDialog.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.parameters;
 
 import java.util.List;
@@ -44,12 +43,30 @@ import gama.util.IMap;
  */
 public class EditorsDialog extends Dialog {
 
+	/** The values. */
 	private final IMap<String, Object> values = GamaMapFactory.createUnordered();
+	
+	/** The parameters. */
 	private final List<IParameter> parameters;
+	
+	/** The title. */
 	private final String title;
+	
+	/** The font. */
 	private final GamaFont font;
+	
+	/** The scope. */
 	private final IScope scope;
 
+	/**
+	 * Instantiates a new editors dialog.
+	 *
+	 * @param scope the scope
+	 * @param parentShell the parent shell
+	 * @param parameters the parameters
+	 * @param title the title
+	 * @param font the font
+	 */
 	public EditorsDialog(final IScope scope, final Shell parentShell, final List<IParameter> parameters,
 			final String title, final GamaFont font) {
 		super(parentShell);
@@ -129,6 +146,11 @@ public class EditorsDialog extends Dialog {
 		return true;
 	}
 
+	/**
+	 * Gets the values.
+	 *
+	 * @return the values
+	 */
 	public Map<String, Object> getValues() {
 		return values;
 	}

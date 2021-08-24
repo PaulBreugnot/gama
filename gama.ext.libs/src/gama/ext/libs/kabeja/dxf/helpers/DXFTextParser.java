@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * DXFTextParser.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf.helpers;
 
 import java.util.Stack;
@@ -23,10 +18,18 @@ import gama.ext.libs.kabeja.dxf.DXFText;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class DXFTextParser.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class DXFTextParser {
+    
+    /**
+     * Parses the DXFM text.
+     *
+     * @param text the text
+     * @return the text document
+     */
     public static TextDocument parseDXFMText(DXFMText text) {
         // initialize
         TextDocument doc = new TextDocument();
@@ -348,6 +351,12 @@ public class DXFTextParser {
         return doc;
     }
 
+    /**
+     * Creates the paragraph from parent.
+     *
+     * @param parent the parent
+     * @return the styled text paragraph
+     */
     protected static StyledTextParagraph createParagraphFromParent(
         StyledTextParagraph parent) {
         StyledTextParagraph p = new StyledTextParagraph();
@@ -364,6 +373,12 @@ public class DXFTextParser {
         return p;
     }
 
+    /**
+     * Parses the DXF text.
+     *
+     * @param text the text
+     * @return the text document
+     */
     public static TextDocument parseDXFText(DXFText text) {
         TextDocument doc = new TextDocument();
 
@@ -474,6 +489,13 @@ public class DXFTextParser {
         return doc;
     }
 
+    /**
+     * Parses the styled text paragraph settings.
+     *
+     * @param key the key
+     * @param value the value
+     * @param para the para
+     */
     public static void parseStyledTextParagraphSettings(char key, String value,
         StyledTextParagraph para) {
         switch (key) {
@@ -525,6 +547,12 @@ public class DXFTextParser {
         }
     }
 
+    /**
+     * Parses the font settings.
+     *
+     * @param value the value
+     * @param para the para
+     */
     public static void parseFontSettings(String value, StyledTextParagraph para) {
         StringTokenizer st = new StringTokenizer(value, "|");
         para.setFont(st.nextToken());
@@ -558,6 +586,12 @@ public class DXFTextParser {
         }
     }
 
+    /**
+     * Parses the symbols.
+     *
+     * @param text the text
+     * @return the string
+     */
     public static String parseSymbols(String text) {
         boolean asciicontrol = false;
         StringBuffer buf = new StringBuffer();

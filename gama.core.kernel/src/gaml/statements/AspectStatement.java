@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.statements.AspectStatement.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * AspectStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.statements;
 
@@ -41,6 +41,9 @@ import gaml.statements.draw.ShapeDrawingAttributes;
 import gaml.types.GamaGeometryType;
 import gaml.types.IType;
 
+/**
+ * The Class AspectStatement.
+ */
 @symbol (
 		name = { IKeyword.ASPECT },
 		kind = ISymbolKind.BEHAVIOR,
@@ -86,8 +89,10 @@ import gaml.types.IType;
 								isExecutable = false) }) })
 public class AspectStatement extends AbstractStatementSequence {
 
+	/** The is highlight aspect. */
 	boolean isHighlightAspect;
 
+	/** The Constant SHAPES. */
 	static final Map<String, Integer> SHAPES = new HashMap<>() {
 
 		{
@@ -100,7 +105,10 @@ public class AspectStatement extends AbstractStatementSequence {
 		}
 	};
 
+	/** The border color. */
 	public static GamaColor borderColor = GamaColor.getInt(Color.black.getRGB());
+	
+	/** The default aspect. */
 	public static IExecutable DEFAULT_ASPECT = scope -> {
 		final IAgent agent = scope.getAgent();
 		if (agent != null && !agent.dead()) {
@@ -163,6 +171,11 @@ public class AspectStatement extends AbstractStatementSequence {
 		return null;
 	};
 
+	/**
+	 * Instantiates a new aspect statement.
+	 *
+	 * @param desc the desc
+	 */
 	public AspectStatement(final IDescription desc) {
 		super(desc);
 		setName(getLiteral(IKeyword.NAME, IKeyword.DEFAULT));

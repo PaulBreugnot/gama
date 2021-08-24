@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gaml.statements.ArgStatement.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * ArgStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -25,6 +25,9 @@ import gaml.compilation.annotations.validator;
 import gaml.descriptions.IDescription;
 import gaml.types.IType;
 
+/**
+ * The Class ArgStatement.
+ */
 @facets (
 		value = { @facet (
 				name = IKeyword.NAME,
@@ -111,6 +114,11 @@ import gaml.types.IType;
 		see = { "action", "do" })
 public class ArgStatement extends AbstractPlaceHolderStatement {
 
+	/**
+	 * Instantiates a new arg statement.
+	 *
+	 * @param desc the desc
+	 */
 	// A placeholder for arguments of actions
 	public ArgStatement(final IDescription desc) {
 		super(desc);

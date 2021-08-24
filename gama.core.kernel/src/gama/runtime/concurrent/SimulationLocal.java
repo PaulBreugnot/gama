@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * SimulationLocal.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.runtime.concurrent;
 
 import java.util.HashMap;
@@ -13,14 +23,25 @@ import gama.runtime.IScope;
  * simulation-local variables)
  *
  * @author drogoul
- *
+ * @param <T> the generic type
  */
 public class SimulationLocal<T> {
 
+	/**
+	 * The Class SuppliedSimulationLocal.
+	 *
+	 * @param <T> the generic type
+	 */
 	static final class SuppliedSimulationLocal<T> extends SimulationLocal<T> {
 
+		/** The supplier. */
 		private final GAMA.InScope<? extends T> supplier;
 
+		/**
+		 * Instantiates a new supplied simulation local.
+		 *
+		 * @param supplier the supplier
+		 */
 		SuppliedSimulationLocal(final GAMA.InScope<? extends T> supplier) {
 			this.supplier = Objects.requireNonNull(supplier);
 		}
@@ -31,6 +52,7 @@ public class SimulationLocal<T> {
 		}
 	}
 
+	/** The Constant SIMULATION_LOCAL_MAP. */
 	private static final String SIMULATION_LOCAL_MAP = "**simulation_local_map**";
 
 	/**
@@ -39,18 +61,25 @@ public class SimulationLocal<T> {
 	 * invoked the {@link #set(IScope,T)} method, in which case the {@code initialValue} method will not be invoked for
 	 * the thread. Normally, this method is invoked at most once per simulation or experiment, but it may be invoked
 	 * again in case of subsequent invocations of {@link #remove} followed by {@link #get}.
-	 *
+	 * 
 	 * <p>
 	 * This implementation simply returns {@code null}; if the programmer desires an initial value other than
 	 * {@code null}, {@code SimulationLocal} must be subclassed, and this method overridden. Typically, an anonymous
 	 * inner class will be used.
 	 *
+	 * @param scope the scope
 	 * @return the initial value for this simulation-local
 	 */
 	protected T initialValue(final IScope scope) {
 		return null;
 	}
 
+	/**
+	 * Gets the root of.
+	 *
+	 * @param scope the scope
+	 * @return the root of
+	 */
 	private ITopLevelAgent getRootOf(final IScope scope) {
 		if (scope == null) return null;
 		return scope.getRoot();
@@ -77,6 +106,7 @@ public class SimulationLocal<T> {
 	 * the current simulation/experiment, it is first initialized to the value returned by an invocation of the
 	 * {@link #initialValue} method.
 	 *
+	 * @param scope the scope
 	 * @return the current simulation/experiment value of this thread-local
 	 */
 	public T get(final IScope scope) {
@@ -87,6 +117,12 @@ public class SimulationLocal<T> {
 		return setInitialValue(scope);
 	}
 
+	/**
+	 * Gets the map.
+	 *
+	 * @param sim the sim
+	 * @return the map
+	 */
 	@SuppressWarnings ("unchecked")
 	private Map<SimulationLocal<T>, T> getMap(final ITopLevelAgent sim) {
 		return (Map<SimulationLocal<T>, T>) sim.getAttribute(SIMULATION_LOCAL_MAP);
@@ -95,6 +131,7 @@ public class SimulationLocal<T> {
 	/**
 	 * Variant of set() to establish initialValue. Used instead of set() in case user has overridden the set() method.
 	 *
+	 * @param scope the scope
 	 * @return the initial value
 	 */
 	private T setInitialValue(final IScope scope) {
@@ -115,8 +152,8 @@ public class SimulationLocal<T> {
 	 * need to override this method, relying solely on the {@link #initialValue} method to set the values of
 	 * thread-locals.
 	 *
-	 * @param value
-	 *            the value to be stored in the current thread's copy of this thread-local.
+	 * @param scope the scope
+	 * @param value            the value to be stored in the current thread's copy of this thread-local.
 	 */
 	public void set(final IScope scope, final T value) {
 		ITopLevelAgent sim = getRootOf(scope);
@@ -129,6 +166,12 @@ public class SimulationLocal<T> {
 		}
 	}
 
+	/**
+	 * Creates the map.
+	 *
+	 * @param sim the sim
+	 * @param value the value
+	 */
 	private void createMap(final ITopLevelAgent sim, final T value) {
 		Map<SimulationLocal<T>, T> map = new HashMap<>();
 		sim.setAttribute(SIMULATION_LOCAL_MAP, map);
@@ -137,8 +180,9 @@ public class SimulationLocal<T> {
 	}
 
 	/**
-	 * Returns {@code true} if there is a value in the current simulation copy of this thread-local variable
+	 * Returns {@code true} if there is a value in the current simulation copy of this thread-local variable.
 	 *
+	 * @param scope the scope
 	 * @return {@code true} if current simulation has associated value in this simulation-local variable; {@code false}
 	 *         if not
 	 */
@@ -155,6 +199,7 @@ public class SimulationLocal<T> {
 	 * {@link #initialValue} method, unless its value is {@linkplain #set set} by the current simulation in the interim.
 	 * This may result in multiple invocations of the {@code initialValue} method in the current simulation.
 	 *
+	 * @param scope the scope
 	 */
 	public void remove(final IScope scope) {
 		ITopLevelAgent sim = getRootOf(scope);

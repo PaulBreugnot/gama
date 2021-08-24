@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * XAL.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.xal;
 
@@ -18,7 +28,7 @@ import javax.xml.namespace.QName;
 
 
 /**
- * 
+ * The Class XAL.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -29,21 +39,27 @@ import javax.xml.namespace.QName;
 public class XAL implements Cloneable
 {
 
+    /** The xal address details. */
     @XmlElement(name = "AddressDetails", required = true)
     protected List<AddressDetails> xalAddressDetails;
+    
+    /** The any. */
     @XmlAnyElement(lax = true)
     protected List<Object> any;
+    
+    /** The version. */
     @XmlAttribute(name = "Version")
     @XmlSchemaType(name = "anySimpleType")
     protected String version;
+    
+    /** The other attributes. */
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
     /**
-     * Value constructor with only mandatory fields
-     * 
-     * @param xalAddressDetails
-     *     required parameter
+     * Value constructor with only mandatory fields.
+     *
+     * @param xalAddressDetails     required parameter
      */
     public XAL(final List<AddressDetails> xalAddressDetails) {
         super();
@@ -60,7 +76,9 @@ public class XAL implements Cloneable
     }
 
     /**
-     * 
+     * Gets the xal address details.
+     *
+     * @return the xal address details
      */
     public List<AddressDetails> getXalAddressDetails() {
         if (xalAddressDetails == null) {
@@ -70,7 +88,9 @@ public class XAL implements Cloneable
     }
 
     /**
-     * 
+     * Gets the any.
+     *
+     * @return the any
      */
     public List<Object> getAny() {
         if (any == null) {
@@ -80,31 +100,29 @@ public class XAL implements Cloneable
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the version.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getVersion() {
         return version;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the version.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setVersion(String value) {
         this.version = value;
     }
 
     /**
-     * 
-     * @return
-     *     always non-null
+     * Gets the other attributes.
+     *
+     * @return     always non-null
      */
     public Map<QName, String> getOtherAttributes() {
         return otherAttributes;
@@ -168,20 +186,14 @@ public class XAL implements Cloneable
      * <code>
      * AddressDetails addressDetails = new AddressDetails();
      * this.getXalAddressDetails().add(addressDetails); </code>
-     * 
-     * 
-     * @param xalAddress
-     *     required parameter
-     * @param addressLines
-     *     required parameter
-     * @param country
-     *     required parameter
-     * @param locality
-     *     required parameter
-     * @param administrativeArea
-     *     required parameter
-     * @param thoroughfare
-     *     required parameter
+     *
+     * @param xalAddress     required parameter
+     * @param addressLines     required parameter
+     * @param country     required parameter
+     * @param administrativeArea     required parameter
+     * @param locality     required parameter
+     * @param thoroughfare     required parameter
+     * @return the address details
      */
     public AddressDetails createAndAddXalAddressDetails(final AddressDetails.Address xalAddress, final AddressLines addressLines, final AddressDetails.Country country, final AdministrativeArea administrativeArea, final Locality locality, final Thoroughfare thoroughfare) {
         AddressDetails newValue = new AddressDetails(xalAddress, addressLines, country, administrativeArea, locality, thoroughfare);
@@ -193,21 +205,18 @@ public class XAL implements Cloneable
      * Sets the value of the xalAddressDetails property Objects of the following type(s) are allowed in the list List<AddressDetails>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withXalAddressDetails} instead.
-     * 
-     * 
-     * @param xalAddressDetails
+     *
+     * @param xalAddressDetails the new xal address details
      */
     public void setXalAddressDetails(final List<AddressDetails> xalAddressDetails) {
         this.xalAddressDetails = xalAddressDetails;
     }
 
     /**
-     * add a value to the xalAddressDetails property collection
-     * 
-     * @param xalAddressDetails
-     *     Objects of the following type are allowed in the list: {@link AddressDetails}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the xalAddressDetails property collection.
+     *
+     * @param xalAddressDetails     Objects of the following type are allowed in the list: {@link AddressDetails}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public XAL addToXalAddressDetails(final AddressDetails xalAddressDetails) {
         this.getXalAddressDetails().add(xalAddressDetails);
@@ -218,21 +227,18 @@ public class XAL implements Cloneable
      * Sets the value of the any property Objects of the following type(s) are allowed in the list List<Object>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAny} instead.
-     * 
-     * 
-     * @param any
+     *
+     * @param any the new any
      */
     public void setAny(final List<Object> any) {
         this.any = any;
     }
 
     /**
-     * add a value to the any property collection
-     * 
-     * @param any
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the any property collection.
+     *
+     * @param any     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public XAL addToAny(final Object any) {
         this.getAny().add(any);
@@ -240,11 +246,11 @@ public class XAL implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param any     required parameter
+     * @return the xal
      * @see #setAny(List<Object>)
-     * 
-     * @param any
-     *     required parameter
      */
     public XAL withAny(final List<Object> any) {
         this.setAny(any);
@@ -252,11 +258,11 @@ public class XAL implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param version     required parameter
+     * @return the xal
      * @see #setVersion(String)
-     * 
-     * @param version
-     *     required parameter
      */
     public XAL withVersion(final String version) {
         this.setVersion(version);

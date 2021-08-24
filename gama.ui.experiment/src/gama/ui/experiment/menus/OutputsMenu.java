@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * OutputsMenu.java, in gama.ui.experiment, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.experiment.menus;
 
 import static gama.ui.base.resources.GamaIcons.create;
@@ -23,11 +33,22 @@ import gama.runtime.IScope;
 import gama.ui.base.menus.GamaMenu;
 import gama.ui.base.resources.IGamaIcons;
 
+/**
+ * The Class OutputsMenu.
+ */
 public class OutputsMenu extends ContributionItem {
 
+	/**
+	 * The Interface ISelecter.
+	 */
 	@FunctionalInterface
 	private interface ISelecter extends SelectionListener {
 
+		/**
+		 * Widget default selected.
+		 *
+		 * @param e the e
+		 */
 		@Override
 		default void widgetDefaultSelected(final SelectionEvent e) {
 			widgetSelected(e);
@@ -35,6 +56,9 @@ public class OutputsMenu extends ContributionItem {
 
 	}
 
+	/**
+	 * Instantiates a new outputs menu.
+	 */
 	public OutputsMenu() {
 		super("gama.menu.outputs");
 	}
@@ -60,6 +84,13 @@ public class OutputsMenu extends ContributionItem {
 				create(IGamaIcons.DISPLAY_TOOLBAR_SYNC).disabled(), "Desynchronize all");
 	}
 
+	/**
+	 * Management sub menu.
+	 *
+	 * @param main the main
+	 * @param scope the scope
+	 * @param manager the manager
+	 */
 	public void managementSubMenu(final Menu main, final IScope scope, final IOutputManager manager) {
 		if (Iterables.isEmpty(manager.getDisplayOutputs())) return;
 		final MenuItem item = new MenuItem(main, SWT.CASCADE);
@@ -71,6 +102,14 @@ public class OutputsMenu extends ContributionItem {
 		}
 	}
 
+	/**
+	 * Output sub menu.
+	 *
+	 * @param main the main
+	 * @param scope the scope
+	 * @param manager the manager
+	 * @param output the output
+	 */
 	public void outputSubMenu(final Menu main, final IScope scope, final IOutputManager manager,
 			final IDisplayOutput output) {
 		final MenuItem item = new MenuItem(main, SWT.CASCADE);
@@ -115,6 +154,15 @@ public class OutputsMenu extends ContributionItem {
 		return true;
 	}
 
+	/**
+	 * Menu item.
+	 *
+	 * @param parent the parent
+	 * @param listener the listener
+	 * @param image the image
+	 * @param prefix the prefix
+	 * @return the menu item
+	 */
 	private static MenuItem menuItem(final Menu parent, final ISelecter listener, final Image image,
 			final String prefix) {
 		final MenuItem result = new MenuItem(parent, SWT.PUSH);

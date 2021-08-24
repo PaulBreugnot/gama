@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.layers.GridAgentLayer.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * GridAgentLayer.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -25,8 +25,16 @@ import gaml.statements.IExecutable;
 import gaml.statements.draw.DrawingAttributes;
 import gaml.statements.draw.ShapeDrawingAttributes;
 
+/**
+ * The Class GridAgentLayer.
+ */
 public class GridAgentLayer extends AgentLayer {
 
+	/**
+	 * Instantiates a new grid agent layer.
+	 *
+	 * @param layer the layer
+	 */
 	public GridAgentLayer(final ILayerStatement layer) {
 		super(layer);
 	}

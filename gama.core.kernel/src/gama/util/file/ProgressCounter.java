@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ProgressCounter.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.util.file;
 
 import org.geotools.util.SimpleInternationalString;
@@ -9,17 +19,36 @@ import gama.runtime.GAMA;
 import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 
+/**
+ * The Class ProgressCounter.
+ */
 class ProgressCounter implements ProgressListener {
 
+	/** The scope. */
 	final IScope scope;
+	
+	/** The name. */
 	final String name;
+	
+	/** The progress. */
 	float progress;
 
+	/**
+	 * Instantiates a new progress counter.
+	 *
+	 * @param scope the scope
+	 * @param name the name
+	 */
 	ProgressCounter(final IScope scope, final String name) {
 		this.scope = scope;
 		this.name = name;
 	}
 
+	/**
+	 * Gets the displayer.
+	 *
+	 * @return the displayer
+	 */
 	IStatusDisplayer getDisplayer() {
 		return scope.getGui().getStatus(scope);
 	}

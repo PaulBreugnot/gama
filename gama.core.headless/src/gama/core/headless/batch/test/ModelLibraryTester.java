@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ModelLibraryTester.java, in gama.core.headless, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.core.headless.batch.test;
 
 import java.io.IOException;
@@ -30,14 +40,26 @@ import gaml.compilation.GamlCompilationError;
 import gaml.descriptions.ModelDescription;
 import gaml.statements.test.TestState;
 
+/**
+ * The Class ModelLibraryTester.
+ */
 public class ModelLibraryTester extends AbstractModelLibraryRunner {
 
+	/** The instance. */
 	private static ModelLibraryTester instance;
+	
+	/** The Constant FAILED_PARAMETER. */
 	private final static String FAILED_PARAMETER = "-failed";
 
+	/** The original. */
 	PrintStream original;
+	
+	/** The null stream. */
 	PrintStream nullStream;
 
+	/**
+	 * Instantiates a new model library tester.
+	 */
 	private ModelLibraryTester() {}
 
 	@Override
@@ -84,6 +106,14 @@ public class ModelLibraryTester extends AbstractModelLibraryRunner {
 		return code[0];
 	}
 
+	/**
+	 * Test.
+	 *
+	 * @param builder the builder
+	 * @param count the count
+	 * @param code the code
+	 * @param p the p
+	 */
 	public void test(final GamlModelBuilder builder, final int[] count, final int[] code, final URL p) {
 		// DEBUG.OUT(p);
 		final List<GamlCompilationError> errors = new ArrayList<>();
@@ -120,6 +150,11 @@ public class ModelLibraryTester extends AbstractModelLibraryRunner {
 
 	}
 
+	/**
+	 * Gets the single instance of ModelLibraryTester.
+	 *
+	 * @return single instance of ModelLibraryTester
+	 */
 	public static ModelLibraryTester getInstance() {
 		if (instance == null) { instance = new ModelLibraryTester(); }
 		return instance;

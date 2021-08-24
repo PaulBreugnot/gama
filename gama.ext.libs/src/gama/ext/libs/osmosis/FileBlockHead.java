@@ -1,17 +1,13 @@
-/**
- * Copyright (c) 2010 Scott A. Crosby. <scott@sacrosby.com>
+/*******************************************************************************************************
+ *
+ * FileBlockHead.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * This program is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General
- * Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- * 
- * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License along with this program. If not, see
- * <http://www.gnu.org/licenses/>.
- * 
- */
+ ********************************************************************************************************/
 
 package gama.ext.libs.osmosis;
 
@@ -30,12 +26,23 @@ import com.google.protobuf.ByteString;
  *
  */
 public class FileBlockHead extends FileBlockReference {
+	
+	/**
+	 * Instantiates a new file block head.
+	 *
+	 * @param type the type
+	 * @param indexdata the indexdata
+	 */
 	protected FileBlockHead(final String type, final ByteString indexdata) {
 		super(type, indexdata);
 	}
 
 	/**
 	 * Read the header. After reading the header, either the contents must be skipped or read
+	 *
+	 * @param input the input
+	 * @return the file block head
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	static FileBlockHead readHead(final InputStream input) throws IOException {
 		final DataInputStream datinput = new DataInputStream(input);
@@ -67,8 +74,9 @@ public class FileBlockHead extends FileBlockReference {
 
 	/**
 	 * Assumes the stream is positioned over at the start of the data, skip over it.
-	 * 
-	 * @throws IOException
+	 *
+	 * @param input the input
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	void skipContents(final InputStream input) throws IOException {
 		if (input.skip(getDatasize()) != getDatasize()) {
@@ -77,9 +85,11 @@ public class FileBlockHead extends FileBlockReference {
 	}
 
 	/**
-	 * Assumes the stream is positioned over at the start of the data, read it and return the complete FileBlock
-	 * 
-	 * @throws IOException
+	 * Assumes the stream is positioned over at the start of the data, read it and return the complete FileBlock.
+	 *
+	 * @param input the input
+	 * @return the file block
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	FileBlock readContents(final InputStream input) throws IOException {
 		final DataInputStream datinput = new DataInputStream(input);

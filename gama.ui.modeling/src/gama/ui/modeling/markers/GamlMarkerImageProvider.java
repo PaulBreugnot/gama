@@ -1,15 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GamlMarkerImageProvider.java, in plugin ummisco.gama.ui.modeling, is part of the source code of the
- * GAMA modeling and simulation platform.
- * (v. 1.8.1)
+ * GamlMarkerImageProvider.java, in gama.ui.modeling, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- *
- **********************************************************************************************/
+ ********************************************************************************************************/
 package gama.ui.modeling.markers;
 
 import org.eclipse.core.resources.IMarker;
@@ -18,8 +16,14 @@ import org.eclipse.ui.internal.ide.IMarkerImageProvider;
 import gama.ui.base.resources.GamaIcon;
 import gama.ui.base.resources.GamaIcons;
 
+/**
+ * The Class GamlMarkerImageProvider.
+ */
 public class GamlMarkerImageProvider implements IMarkerImageProvider {
 
+	/**
+	 * Instantiates a new gaml marker image provider.
+	 */
 	public GamlMarkerImageProvider() {}
 
 	/**
@@ -40,6 +44,12 @@ public class GamlMarkerImageProvider implements IMarkerImageProvider {
 		return iconPath + icon.getCode() + ".png";
 	}
 
+	/**
+	 * Gets the image.
+	 *
+	 * @param description the description
+	 * @return the image
+	 */
 	public static GamaIcon getImage(final String description) {
 		if ( description.contains("Errors") ) {
 			return getImage(IMarker.SEVERITY_ERROR);
@@ -54,6 +64,12 @@ public class GamlMarkerImageProvider implements IMarkerImageProvider {
 		}
 	}
 
+	/**
+	 * Gets the image.
+	 *
+	 * @param severity the severity
+	 * @return the image
+	 */
 	public static GamaIcon getImage(final int severity) {
 		switch (severity) {
 			case IMarker.SEVERITY_ERROR:

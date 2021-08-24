@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.variables.Variable.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * Variable.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.variables;
 
@@ -155,9 +155,13 @@ import gaml.types.Types;
 @SuppressWarnings ({ "rawtypes" })
 public class Variable extends Symbol implements IVariable {
 
+	/**
+	 * The Class VarValidator.
+	 */
 	public static class VarValidator implements IDescriptionValidator {
 
 		// public static List<String> valueFacetsList = Arrays.asList(VALUE,
+		/** The assignment facets. */
 		// INIT, FUNCTION, UPDATE, MIN, MAX);
 		public static List<String> assignmentFacets = Arrays.asList(VALUE, INIT, FUNCTION, UPDATE, MIN, MAX);
 
@@ -247,6 +251,11 @@ public class Variable extends Symbol implements IVariable {
 			assertAmongValues(cd);
 		}
 
+		/**
+		 * Assert among values.
+		 *
+		 * @param vd the vd
+		 */
 		public void assertAmongValues(final VariableDescription vd) {
 			// if (vd.isParameter() && vd.getSpeciesContext().isExperiment()
 			// && ((ExperimentDescription) vd.getSpeciesContext()).isBatch())
@@ -272,6 +281,11 @@ public class Variable extends Symbol implements IVariable {
 
 		}
 
+		/**
+		 * Assert assignment facets types.
+		 *
+		 * @param vd the vd
+		 */
 		public void assertAssignmentFacetsTypes(final VariableDescription vd) {
 			for (final String s : assignmentFacets) {
 				Assert.typesAreCompatibleForAssignment(s, vd, vd.getName(), vd.getGamlType(), /* vd.getContentType(), */
@@ -279,6 +293,12 @@ public class Variable extends Symbol implements IVariable {
 			}
 		}
 
+		/**
+		 * Assert value facets types.
+		 *
+		 * @param vd the vd
+		 * @param vType the v type
+		 */
 		public void assertValueFacetsTypes(final VariableDescription vd, final IType<?> vType) {
 
 			// final IType type = null;
@@ -298,6 +318,11 @@ public class Variable extends Symbol implements IVariable {
 			}
 		}
 
+		/**
+		 * Assert can be parameter.
+		 *
+		 * @param cd the cd
+		 */
 		public void assertCanBeParameter(final VariableDescription cd) {
 			if (PARAMETER.equals(cd.getKeyword()) /* facets.equals(KEYWORD, PARAMETER) */) {
 				final String varName = cd.getLitteral(VAR);
@@ -380,18 +405,42 @@ public class Variable extends Symbol implements IVariable {
 
 	}
 
+	/** The init expression. */
 	protected IExpression initExpression;
+	
+	/** The on change expression. */
 	protected final IExpression updateExpression, amongExpression, functionExpression, onChangeExpression;
+	
+	/** The type. */
 	protected IType type;
+	
+	/** The is not modifiable. */
 	protected final boolean isNotModifiable;
+	
+	/** The setter. */
 	public IGamaHelper getter, initer, setter;
+	
+	/** The listeners. */
 	public Map<GamaHelper, IVarAndActionSupport> listeners;
+	
+	/** The s skill. */
 	protected ISkill gSkill, sSkill;
+	
+	/** The on changer. */
 	private IExecutable on_changer;
+	
+	/** The category. */
 	protected String parameter, category;
+	
+	/** The must notify of changes. */
 	protected boolean mustNotifyOfChanges;
 	// private Object speciesWideValue;
 
+	/**
+	 * Instantiates a new variable.
+	 *
+	 * @param sd the sd
+	 */
 	public Variable(final IDescription sd) {
 		super(sd);
 		final VariableDescription desc = (VariableDescription) sd;
@@ -413,6 +462,11 @@ public class Variable extends Symbol implements IVariable {
 	// && setter == null && (initExpression == null || initExpression.isConst());
 	// }
 
+	/**
+	 * Builds the helpers.
+	 *
+	 * @param species the species
+	 */
 	private void buildHelpers(final AbstractSpecies species) {
 		getter = getDescription().getGetter();
 		if (getter != null) { gSkill = species.getSkillInstanceFor(getter.getSkillClass()); }
@@ -425,7 +479,9 @@ public class Variable extends Symbol implements IVariable {
 	}
 
 	/**
-	 * // AD 2021: addition of the listeners
+	 * // AD 2021: addition of the listeners.
+	 *
+	 * @param species the species
 	 */
 	private void addListeners(final AbstractSpecies species) {
 		VariableDescription var = (VariableDescription) description;
@@ -459,6 +515,15 @@ public class Variable extends Symbol implements IVariable {
 
 	}
 
+	/**
+	 * Coerce.
+	 *
+	 * @param agent the agent
+	 * @param scope the scope
+	 * @param v the v
+	 * @return the object
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	protected Object coerce(final IAgent agent, final IScope scope, final Object v) throws GamaRuntimeException {
 		return type.cast(scope, v, null, false);
 	}
@@ -586,6 +651,14 @@ public class Variable extends Symbol implements IVariable {
 		}
 	}
 
+	/**
+	 * Internal notify of value change.
+	 *
+	 * @param scope the scope
+	 * @param agent the agent
+	 * @param oldValue the old value
+	 * @param newValue the new value
+	 */
 	private void internalNotifyOfValueChange(final IScope scope, final IAgent agent, final Object oldValue,
 			final Object newValue) {
 		if (onChangeExpression != null) {
@@ -620,6 +693,14 @@ public class Variable extends Symbol implements IVariable {
 		internalNotifyOfValueChange(scope, agent, oldValue, newValue);
 	}
 
+	/**
+	 * Sets the val.
+	 *
+	 * @param agent the agent
+	 * @param scope the scope
+	 * @param v the v
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	protected void _setVal(final IAgent agent, final IScope scope, final Object v) throws GamaRuntimeException {
 		Object val;
 		val = coerce(agent, scope, v);
@@ -634,6 +715,15 @@ public class Variable extends Symbol implements IVariable {
 		// }
 	}
 
+	/**
+	 * Check among.
+	 *
+	 * @param agent the agent
+	 * @param scope the scope
+	 * @param val the val
+	 * @return the object
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	protected Object checkAmong(final IAgent agent, final IScope scope, final Object val) throws GamaRuntimeException {
 		if (amongExpression == null) return val;
 		final List among = Cast.asList(scope, scope.evaluate(amongExpression, agent).getValue());

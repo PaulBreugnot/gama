@@ -1,18 +1,13 @@
-/*
-   Copyright 2006 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * HatchLineIterator.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf.helpers;
 
 import java.util.ArrayList;
@@ -25,22 +20,49 @@ import gama.ext.libs.kabeja.math.MathUtils;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class HatchLineIterator.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class HatchLineIterator implements Iterator {
+    
+    /** The Constant LIMIT. */
     public static final double LIMIT = 0.00001;
+    
+    /** The angle. */
     protected double angle;
+    
+    /** The hatch bounds. */
     protected Bounds hatchBounds;
+    
+    /** The pattern. */
     protected HatchLineFamily pattern;
+    
+    /** The length. */
     protected double length;
+    
+    /** The v. */
     protected Vector v;
+    
+    /** The r. */
     protected Vector r;
+    
+    /** The boundery edges. */
     protected List bounderyEdges;
+    
+    /** The pattern line. */
     protected ParametricLine patternLine;
+    
+    /** The tmin. */
     protected double tmin = Double.POSITIVE_INFINITY;
+    
+    /** The tmax. */
     protected double tmax = Double.NEGATIVE_INFINITY;
+    
+    /** The walking length. */
     protected double walkingLength;
+    
+    /** The current walking step. */
     protected double currentWalkingStep = 0;
 
     // public HatchLineIterator(List boundaryEdges,DXFHatch
@@ -49,6 +71,12 @@ public class HatchLineIterator implements Iterator {
     // this.hatchBounds = hatch.getBounds();
     // this.pattern=lineFamily;
     // this.initialize();
+    /**
+     * Instantiates a new hatch line iterator.
+     *
+     * @param hatch the hatch
+     * @param pattern the pattern
+     */
     // }
     public HatchLineIterator(DXFHatch hatch, HatchLineFamily pattern) {
         this.angle = Math.toRadians(pattern.getRotationAngle());
@@ -97,6 +125,9 @@ public class HatchLineIterator implements Iterator {
         return this.currentWalkingStep <= this.walkingLength;
     }
 
+    /**
+     * Initialize.
+     */
     protected void initialize() {
         // setup a length
         // this can happen on solid lines
@@ -164,6 +195,12 @@ public class HatchLineIterator implements Iterator {
         this.walkingLength = Math.ceil(Math.abs(this.tmax - this.tmin));
     }
 
+    /**
+     * Calculate intersection.
+     *
+     * @param x the x
+     * @param y the y
+     */
     protected void calculateIntersection(double x, double y) {
         Point s = new Point(x, y, 0);
         ParametricLine line = new ParametricLine(s, this.v);
@@ -181,6 +218,8 @@ public class HatchLineIterator implements Iterator {
     /**
      * calculate the m and n raster values of a given point.
      *
+     * @param x the x
+     * @param y the y
      * @return the raster values, where v[0]=m and v[1]=n
      */
     protected double[] getRasterValues(double x, double y) {
@@ -263,6 +302,13 @@ public class HatchLineIterator implements Iterator {
         // we do nothing here
     }
 
+    /**
+     * Gets the point.
+     *
+     * @param m the m
+     * @param n the n
+     * @return the point
+     */
     protected Point getPoint(double m, double n) {
         Point p = new Point();
         p.setX((n * this.r.getX()) + this.pattern.getBaseX() +

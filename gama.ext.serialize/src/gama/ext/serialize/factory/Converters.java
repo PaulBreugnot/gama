@@ -1,15 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'Converters.java, in plugin ummisco.gama.serialize, is part of the source code of the
- * GAMA modeling and simulation platform.
- * (v. 1.8.1)
+ * Converters.java, in gama.ext.serialize, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- *
- **********************************************************************************************/
+ ********************************************************************************************************/
 package gama.ext.serialize.factory;
 
 import com.thoughtworks.xstream.converters.Converter;
@@ -32,8 +30,17 @@ import gama.ext.serialize.gamaType.converters.LogConverter;
 import gama.ext.serialize.gamaType.converters.ReferenceAgentConverter;
 import gama.ext.serialize.gamaType.converters.SavedAgentConverter;
 
+/**
+ * The Class Converters.
+ */
 public abstract class Converters {
 
+	/**
+	 * Load converter.
+	 *
+	 * @param cs the cs
+	 * @return the converter[]
+	 */
 	private static Converter[] loadConverter(ConverterScope cs)
 	{
 		Converter[] converters= new Converter[14];
@@ -60,6 +67,12 @@ public abstract class Converters {
 	}
 	
 	
+	/**
+	 * Converter factory.
+	 *
+	 * @param cs the cs
+	 * @return the converter[]
+	 */
 	public static Converter[] converterFactory(ConverterScope cs)
 	{
 		return loadConverter(cs);
@@ -67,6 +80,12 @@ public abstract class Converters {
 
 	
 	
+	/**
+	 * Load converter network.
+	 *
+	 * @param cs the cs
+	 * @return the converter[]
+	 */
 	// TODO Remove when possible
 	private static Converter[] loadConverterNetwork(ConverterScope cs)
 	{
@@ -90,6 +109,12 @@ public abstract class Converters {
 		return converters;
 	}
 	
+	/**
+	 * Converter network factory.
+	 *
+	 * @param cs the cs
+	 * @return the converter[]
+	 */
 	public static Converter[] converterNetworkFactory(ConverterScope cs)
 	{
 		return loadConverterNetwork(cs);

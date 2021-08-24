@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * MailStop.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.xal;
 
@@ -19,7 +29,7 @@ import javax.xml.namespace.QName;
 
 
 /**
- * 
+ * The Class MailStop.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "MailStopType", propOrder = {
@@ -32,26 +42,42 @@ import javax.xml.namespace.QName;
 public class MailStop implements Cloneable
 {
 
+    /** The address line. */
     @XmlElement(name = "AddressLine")
     protected List<AddressLine> addressLine;
+    
+    /** The mail stop name. */
     @XmlElement(name = "MailStopName")
     protected MailStop.MailStopName mailStopName;
+    
+    /** The mail stop number. */
     @XmlElement(name = "MailStopNumber")
     protected MailStop.MailStopNumber mailStopNumber;
+    
+    /** The any. */
     @XmlAnyElement(lax = true)
     protected List<Object> any;
+    
+    /** The underscore. */
     @XmlAttribute(name = "Type")
     @XmlSchemaType(name = "anySimpleType")
     protected String underscore;
+    
+    /** The other attributes. */
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+    /**
+     * Instantiates a new mail stop.
+     */
     public MailStop() {
         super();
     }
 
     /**
-     * 
+     * Gets the address line.
+     *
+     * @return the address line
      */
     public List<AddressLine> getAddressLine() {
         if (addressLine == null) {
@@ -61,51 +87,49 @@ public class MailStop implements Cloneable
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the mail stop name.
+     *
+     * @return     possible object is
      *     {@link MailStop.MailStopName}
-     *     
      */
     public MailStop.MailStopName getMailStopName() {
         return mailStopName;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the mail stop name.
+     *
+     * @param value     allowed object is
      *     {@link MailStop.MailStopName}
-     *     
      */
     public void setMailStopName(MailStop.MailStopName value) {
         this.mailStopName = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the mail stop number.
+     *
+     * @return     possible object is
      *     {@link MailStop.MailStopNumber}
-     *     
      */
     public MailStop.MailStopNumber getMailStopNumber() {
         return mailStopNumber;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the mail stop number.
+     *
+     * @param value     allowed object is
      *     {@link MailStop.MailStopNumber}
-     *     
      */
     public void setMailStopNumber(MailStop.MailStopNumber value) {
         this.mailStopNumber = value;
     }
 
     /**
-     * 
+     * Gets the any.
+     *
+     * @return the any
      */
     public List<Object> getAny() {
         if (any == null) {
@@ -115,31 +139,29 @@ public class MailStop implements Cloneable
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the underscore.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getUnderscore() {
         return underscore;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the underscore.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setUnderscore(String value) {
         this.underscore = value;
     }
 
     /**
-     * 
-     * @return
-     *     always non-null
+     * Gets the other attributes.
+     *
+     * @return     always non-null
      */
     public Map<QName, String> getOtherAttributes() {
         return otherAttributes;
@@ -223,8 +245,8 @@ public class MailStop implements Cloneable
      * <code>
      * AddressLine addressLine = new AddressLine();
      * this.getAddressLine().add(addressLine); </code>
-     * 
-     * 
+     *
+     * @return the address line
      */
     public AddressLine createAndAddAddressLine() {
         AddressLine newValue = new AddressLine();
@@ -239,8 +261,8 @@ public class MailStop implements Cloneable
      * <code>
      * MailStopName mailStopName = new MailStopName();
      * this.setMailStopName(mailStopName); </code>
-     * 
-     * 
+     *
+     * @return the mail stop. mail stop name
      */
     public MailStop.MailStopName createAndSetMailStopName() {
         MailStop.MailStopName newValue = new MailStop.MailStopName();
@@ -255,8 +277,8 @@ public class MailStop implements Cloneable
      * <code>
      * MailStopNumber mailStopNumber = new MailStopNumber();
      * this.setMailStopNumber(mailStopNumber); </code>
-     * 
-     * 
+     *
+     * @return the mail stop. mail stop number
      */
     public MailStop.MailStopNumber createAndSetMailStopNumber() {
         MailStop.MailStopNumber newValue = new MailStop.MailStopNumber();
@@ -268,21 +290,18 @@ public class MailStop implements Cloneable
      * Sets the value of the addressLine property Objects of the following type(s) are allowed in the list List<AddressLine>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAddressLine} instead.
-     * 
-     * 
-     * @param addressLine
+     *
+     * @param addressLine the new address line
      */
     public void setAddressLine(final List<AddressLine> addressLine) {
         this.addressLine = addressLine;
     }
 
     /**
-     * add a value to the addressLine property collection
-     * 
-     * @param addressLine
-     *     Objects of the following type are allowed in the list: {@link AddressLine}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the addressLine property collection.
+     *
+     * @param addressLine     Objects of the following type are allowed in the list: {@link AddressLine}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public MailStop addToAddressLine(final AddressLine addressLine) {
         this.getAddressLine().add(addressLine);
@@ -293,21 +312,18 @@ public class MailStop implements Cloneable
      * Sets the value of the any property Objects of the following type(s) are allowed in the list List<Object>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAny} instead.
-     * 
-     * 
-     * @param any
+     *
+     * @param any the new any
      */
     public void setAny(final List<Object> any) {
         this.any = any;
     }
 
     /**
-     * add a value to the any property collection
-     * 
-     * @param any
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the any property collection.
+     *
+     * @param any     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public MailStop addToAny(final Object any) {
         this.getAny().add(any);
@@ -315,11 +331,11 @@ public class MailStop implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param addressLine     required parameter
+     * @return the mail stop
      * @see #setAddressLine(List<AddressLine>)
-     * 
-     * @param addressLine
-     *     required parameter
      */
     public MailStop withAddressLine(final List<AddressLine> addressLine) {
         this.setAddressLine(addressLine);
@@ -327,11 +343,11 @@ public class MailStop implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param mailStopName     required parameter
+     * @return the mail stop
      * @see #setMailStopName(MailStopName)
-     * 
-     * @param mailStopName
-     *     required parameter
      */
     public MailStop withMailStopName(final MailStop.MailStopName mailStopName) {
         this.setMailStopName(mailStopName);
@@ -339,11 +355,11 @@ public class MailStop implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param mailStopNumber     required parameter
+     * @return the mail stop
      * @see #setMailStopNumber(MailStopNumber)
-     * 
-     * @param mailStopNumber
-     *     required parameter
      */
     public MailStop withMailStopNumber(final MailStop.MailStopNumber mailStopNumber) {
         this.setMailStopNumber(mailStopNumber);
@@ -351,11 +367,11 @@ public class MailStop implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param any     required parameter
+     * @return the mail stop
      * @see #setAny(List<Object>)
-     * 
-     * @param any
-     *     required parameter
      */
     public MailStop withAny(final List<Object> any) {
         this.setAny(any);
@@ -363,11 +379,11 @@ public class MailStop implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param underscore     required parameter
+     * @return the mail stop
      * @see #setUnderscore(String)
-     * 
-     * @param underscore
-     *     required parameter
      */
     public MailStop withUnderscore(final String underscore) {
         this.setUnderscore(underscore);
@@ -397,7 +413,7 @@ public class MailStop implements Cloneable
 
 
     /**
-     * 
+     * The Class MailStopName.
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -407,91 +423,95 @@ public class MailStop implements Cloneable
     public static class MailStopName implements Cloneable
     {
 
+        /** The content. */
         @XmlValue
         protected String content;
+        
+        /** The underscore. */
         @XmlAttribute(name = "Type")
         @XmlSchemaType(name = "anySimpleType")
         protected String underscore;
+        
+        /** The code. */
         @XmlAttribute(name = "Code")
         @XmlSchemaType(name = "anySimpleType")
         protected String code;
+        
+        /** The other attributes. */
         @XmlAnyAttribute
         private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+        /**
+         * Instantiates a new mail stop name.
+         */
         public MailStopName() {
             super();
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the content.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getContent() {
             return content;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the content.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setContent(String value) {
             this.content = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the underscore.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getUnderscore() {
             return underscore;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the underscore.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setUnderscore(String value) {
             this.underscore = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the code.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getCode() {
             return code;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the code.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setCode(String value) {
             this.code = value;
         }
 
         /**
-         * 
-         * @return
-         *     always non-null
+         * Gets the other attributes.
+         *
+         * @return     always non-null
          */
         public Map<QName, String> getOtherAttributes() {
             return otherAttributes;
@@ -550,11 +570,11 @@ public class MailStop implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param content     required parameter
+         * @return the mail stop. mail stop name
          * @see #setContent(String)
-         * 
-         * @param content
-         *     required parameter
          */
         public MailStop.MailStopName withContent(final String content) {
             this.setContent(content);
@@ -562,11 +582,11 @@ public class MailStop implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param underscore     required parameter
+         * @return the mail stop. mail stop name
          * @see #setUnderscore(String)
-         * 
-         * @param underscore
-         *     required parameter
          */
         public MailStop.MailStopName withUnderscore(final String underscore) {
             this.setUnderscore(underscore);
@@ -574,11 +594,11 @@ public class MailStop implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param code     required parameter
+         * @return the mail stop. mail stop name
          * @see #setCode(String)
-         * 
-         * @param code
-         *     required parameter
          */
         public MailStop.MailStopName withCode(final String code) {
             this.setCode(code);
@@ -600,7 +620,7 @@ public class MailStop implements Cloneable
 
 
     /**
-     * 
+     * The Class MailStopNumber.
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -610,91 +630,95 @@ public class MailStop implements Cloneable
     public static class MailStopNumber implements Cloneable
     {
 
+        /** The content. */
         @XmlValue
         protected String content;
+        
+        /** The name number separator. */
         @XmlAttribute(name = "NameNumberSeparator")
         @XmlSchemaType(name = "anySimpleType")
         protected String nameNumberSeparator;
+        
+        /** The code. */
         @XmlAttribute(name = "Code")
         @XmlSchemaType(name = "anySimpleType")
         protected String code;
+        
+        /** The other attributes. */
         @XmlAnyAttribute
         private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+        /**
+         * Instantiates a new mail stop number.
+         */
         public MailStopNumber() {
             super();
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the content.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getContent() {
             return content;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the content.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setContent(String value) {
             this.content = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the name number separator.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getNameNumberSeparator() {
             return nameNumberSeparator;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the name number separator.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setNameNumberSeparator(String value) {
             this.nameNumberSeparator = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the code.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getCode() {
             return code;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the code.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setCode(String value) {
             this.code = value;
         }
 
         /**
-         * 
-         * @return
-         *     always non-null
+         * Gets the other attributes.
+         *
+         * @return     always non-null
          */
         public Map<QName, String> getOtherAttributes() {
             return otherAttributes;
@@ -753,11 +777,11 @@ public class MailStop implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param content     required parameter
+         * @return the mail stop. mail stop number
          * @see #setContent(String)
-         * 
-         * @param content
-         *     required parameter
          */
         public MailStop.MailStopNumber withContent(final String content) {
             this.setContent(content);
@@ -765,11 +789,11 @@ public class MailStop implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param nameNumberSeparator     required parameter
+         * @return the mail stop. mail stop number
          * @see #setNameNumberSeparator(String)
-         * 
-         * @param nameNumberSeparator
-         *     required parameter
          */
         public MailStop.MailStopNumber withNameNumberSeparator(final String nameNumberSeparator) {
             this.setNameNumberSeparator(nameNumberSeparator);
@@ -777,11 +801,11 @@ public class MailStop implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param code     required parameter
+         * @return the mail stop. mail stop number
          * @see #setCode(String)
-         * 
-         * @param code
-         *     required parameter
          */
         public MailStop.MailStopNumber withCode(final String code) {
             this.setCode(code);

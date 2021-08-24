@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GamaViewPart.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * GamaViewPart.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.views;
 
 import static com.google.common.collect.Iterables.concat;
@@ -47,6 +46,8 @@ import gama.ui.base.toolbar.GamaToolbarFactory;
 import gama.ui.base.toolbar.IToolbarDecoratedView;
 
 /**
+ * The Class GamaViewPart.
+ *
  * @author drogoul
  */
 public abstract class GamaViewPart extends ViewPart
@@ -56,19 +57,47 @@ public abstract class GamaViewPart extends ViewPart
 		DEBUG.OFF();
 	}
 
+	/** The outputs. */
 	public final List<IDisplayOutput> outputs = new ArrayList<>();
+	
+	/** The parent. */
 	private Composite parent;
+	
+	/** The toolbar. */
 	protected GamaToolbar2 toolbar;
+	
+	/** The update job. */
 	private GamaUIJob updateJob;
+	
+	/** The toolbar updater. */
 	private StateListener toolbarUpdater;
+	
+	/** The root composite. */
 	private Composite rootComposite;
 
+	/**
+	 * The Enum UpdatePriority.
+	 */
 	public enum UpdatePriority {
-		HIGH, LOW, HIGHEST, LOWEST;
+		
+		/** The high. */
+		HIGH, 
+ /** The low. */
+ LOW, 
+ /** The highest. */
+ HIGHEST, 
+ /** The lowest. */
+ LOWEST;
 	}
 
+	/**
+	 * The Class GamaUIJob.
+	 */
 	public abstract class GamaUIJob extends UIJob {
 
+		/**
+		 * Instantiates a new gama UI job.
+		 */
 		public GamaUIJob() {
 			super("Updating " + getPartName());
 			final UpdatePriority p = jobPriority();
@@ -88,8 +117,16 @@ public abstract class GamaViewPart extends ViewPart
 			}
 		}
 
+		/**
+		 * Job priority.
+		 *
+		 * @return the update priority
+		 */
 		protected abstract UpdatePriority jobPriority();
 
+		/**
+		 * Run synchronized.
+		 */
 		public void runSynchronized() {
 			WorkbenchHelper.run(() -> runInUIThread(null));
 		}
@@ -167,12 +204,19 @@ public abstract class GamaViewPart extends ViewPart
 	/**
 	 * Can be redefined by subclasses that accept that their instances remain open when no experiment is running.
 	 *
-	 * @return
+	 * @return true, if successful
 	 */
 	protected boolean shouldBeClosedWhenNoExperiments() {
 		return true;
 	}
 
+	/**
+	 * Contains point.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @return true, if successful
+	 */
 	public boolean containsPoint(final int x, final int y) {
 		final Point o = rootComposite.toDisplay(0, 0);
 		final Point s = rootComposite.getSize();
@@ -190,17 +234,37 @@ public abstract class GamaViewPart extends ViewPart
 		// toggle.run();
 	}
 
+	/**
+	 * Needs output.
+	 *
+	 * @return true, if successful
+	 */
 	protected boolean needsOutput() {
 		return true;
 	}
 
+	/**
+	 * Own create part control.
+	 *
+	 * @param parent the parent
+	 */
 	public abstract void ownCreatePartControl(Composite parent);
 
+	/**
+	 * Gets the update job.
+	 *
+	 * @return the update job
+	 */
 	protected final GamaUIJob getUpdateJob() {
 		if (updateJob == null) { updateJob = createUpdateJob(); }
 		return updateJob;
 	}
 
+	/**
+	 * Creates the update job.
+	 *
+	 * @return the gama UI job
+	 */
 	protected abstract GamaUIJob createUpdateJob();
 
 	@Override
@@ -301,6 +365,15 @@ public abstract class GamaViewPart extends ViewPart
 		}
 	}
 
+	/**
+	 * Overlay.
+	 *
+	 * @param str the str
+	 * @param over the over
+	 * @param s the s
+	 * @param e the e
+	 * @return the string
+	 */
 	// To avoid a dependency towards apache.commons.lang
 	private String overlay(final String str, final String over, final int s, final int e) {
 		String overlay = over;
@@ -328,10 +401,20 @@ public abstract class GamaViewPart extends ViewPart
 
 	}
 
+	/**
+	 * Gets the parent composite.
+	 *
+	 * @return the parent composite
+	 */
 	public Composite getParentComposite() {
 		return parent;
 	}
 
+	/**
+	 * Sets the parent composite.
+	 *
+	 * @param parent the new parent composite
+	 */
 	public void setParentComposite(final Composite parent) {
 		this.parent = parent;
 	}

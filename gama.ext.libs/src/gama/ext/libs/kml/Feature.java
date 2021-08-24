@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Feature.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -288,11 +298,8 @@ public abstract class Feature
      */
     @XmlElement(name = "AddressDetails", namespace = "urn:oasis:names:tc:ciq:xsdschema:xAL:2.0")
     protected AddressDetails xalAddressDetails;
-    /**
-     * <phonenumber>
-     * 
-     * 
-     */
+    
+    /** <phonenumber>. */
     protected String phoneNumber;
     /**
      * <snippet maxlines="2" >
@@ -311,6 +318,8 @@ public abstract class Feature
      */
     @XmlElement(name = "Snippet")
     protected Snippet snippet;
+    
+    /** The snippetd. */
     @XmlElement(name = "snippet")
     protected String snippetd;
     /**
@@ -591,355 +600,332 @@ public abstract class Feature
     @XmlElement(name = "AbstractFeatureObjectExtensionGroup")
     protected List<AbstractObject> featureObjectExtension;
 
+    /**
+     * Instantiates a new feature.
+     */
     public Feature() {
         super();
     }
 
     /**
-     * @see name
-     * 
-     * @return
-     *     possible object is
+     * Gets the name.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @see name
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the name.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see name
      */
     public void setName(String value) {
         this.name = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Checks if is visibility.
+     *
+     * @return     possible object is
      *     {@link Boolean}
-     *     
      */
     public Boolean isVisibility() {
         return visibility;
     }
 
     /**
-     * @see visibility
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the visibility.
+     *
+     * @param value     allowed object is
      *     {@link Boolean}
-     *     
+     * @see visibility
      */
     public void setVisibility(Boolean value) {
         this.visibility = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Checks if is open.
+     *
+     * @return     possible object is
      *     {@link Boolean}
-     *     
      */
     public Boolean isOpen() {
         return open;
     }
 
     /**
-     * @see open
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the open.
+     *
+     * @param value     allowed object is
      *     {@link Boolean}
-     *     
+     * @see open
      */
     public void setOpen(Boolean value) {
         this.open = value;
     }
 
     /**
-     * @see atomAuthor
-     * 
-     * @return
-     *     possible object is
+     * Gets the atom author.
+     *
+     * @return     possible object is
      *     {@link Author}
-     *     
+     * @see atomAuthor
      */
     public Author getAtomAuthor() {
         return atomAuthor;
     }
 
     /**
-     * @see atomAuthor
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the atom author.
+     *
+     * @param value     allowed object is
      *     {@link Author}
-     *     
+     * @see atomAuthor
      */
     public void setAtomAuthor(Author value) {
         this.atomAuthor = value;
     }
 
     /**
-     * @see atomLink
-     * 
-     * @return
-     *     possible object is
+     * Gets the atom link.
+     *
+     * @return     possible object is
      *     {@link Link}
-     *     
+     * @see atomLink
      */
     public Link getAtomLink() {
         return atomLink;
     }
 
     /**
-     * @see atomLink
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the atom link.
+     *
+     * @param value     allowed object is
      *     {@link Link}
-     *     
+     * @see atomLink
      */
     public void setAtomLink(Link value) {
         this.atomLink = value;
     }
 
     /**
-     * @see address
-     * 
-     * @return
-     *     possible object is
+     * Gets the address.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see address
      */
     public String getAddress() {
         return address;
     }
 
     /**
-     * @see address
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the address.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see address
      */
     public void setAddress(String value) {
         this.address = value;
     }
 
     /**
-     * @see xalAddressDetails
-     * 
-     * @return
-     *     possible object is
+     * Gets the xal address details.
+     *
+     * @return     possible object is
      *     {@link AddressDetails}
-     *     
+     * @see xalAddressDetails
      */
     public AddressDetails getXalAddressDetails() {
         return xalAddressDetails;
     }
 
     /**
-     * @see xalAddressDetails
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the xal address details.
+     *
+     * @param value     allowed object is
      *     {@link AddressDetails}
-     *     
+     * @see xalAddressDetails
      */
     public void setXalAddressDetails(AddressDetails value) {
         this.xalAddressDetails = value;
     }
 
     /**
-     * @see phoneNumber
-     * 
-     * @return
-     *     possible object is
+     * Gets the phone number.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see phoneNumber
      */
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
     /**
-     * @see phoneNumber
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the phone number.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see phoneNumber
      */
     public void setPhoneNumber(String value) {
         this.phoneNumber = value;
     }
 
     /**
-     * @see snippet
-     * 
-     * @return
-     *     possible object is
+     * Gets the snippet.
+     *
+     * @return     possible object is
      *     {@link Snippet}
-     *     
+     * @see snippet
      */
     public Snippet getSnippet() {
         return snippet;
     }
 
     /**
-     * @see snippet
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the snippet.
+     *
+     * @param value     allowed object is
      *     {@link Snippet}
-     *     
+     * @see snippet
      */
     public void setSnippet(Snippet value) {
         this.snippet = value;
     }
 
     /**
-     * @see snippetd
-     * 
-     * @return
-     *     possible object is
+     * Gets the snippetd.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see snippetd
      */
     public String getSnippetd() {
         return snippetd;
     }
 
     /**
-     * @see snippetd
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the snippetd.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see snippetd
      */
     public void setSnippetd(String value) {
         this.snippetd = value;
     }
 
     /**
-     * @see description
-     * 
-     * @return
-     *     possible object is
+     * Gets the description.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see description
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * @see description
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the description.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see description
      */
     public void setDescription(String value) {
         this.description = value;
     }
 
     /**
-     * @see abstractView
-     * 
-     * @return
-     *     possible object is
+     * Gets the abstract view.
+     *
+     * @return     possible object is
      *     {@code <}{@link AbstractView}{@code>}
      *     {@code <}{@link LookAt}{@code>}
      *     {@code <}{@link Camera}{@code>}
-     *     
+     * @see abstractView
      */
     public AbstractView getAbstractView() {
         return abstractView;
     }
 
     /**
-     * @see abstractView
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the abstract view.
+     *
+     * @param value     allowed object is
      *     {@code <}{@link AbstractView}{@code>}
      *     {@code <}{@link LookAt}{@code>}
      *     {@code <}{@link Camera}{@code>}
-     *     
+     * @see abstractView
      */
     public void setAbstractView(AbstractView value) {
         this.abstractView = (value);
     }
 
     /**
-     * @see timePrimitive
-     * 
-     * @return
-     *     possible object is
+     * Gets the time primitive.
+     *
+     * @return     possible object is
      *     {@code <}{@link TimeSpan}{@code>}
      *     {@code <}{@link TimeStamp}{@code>}
      *     {@code <}{@link TimePrimitive}{@code>}
-     *     
+     * @see timePrimitive
      */
     public TimePrimitive getTimePrimitive() {
         return timePrimitive;
     }
 
     /**
-     * @see timePrimitive
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the time primitive.
+     *
+     * @param value     allowed object is
      *     {@code <}{@link TimeSpan}{@code>}
      *     {@code <}{@link TimeStamp}{@code>}
      *     {@code <}{@link TimePrimitive}{@code>}
-     *     
+     * @see timePrimitive
      */
     public void setTimePrimitive(TimePrimitive value) {
         this.timePrimitive = (value);
     }
 
     /**
-     * @see styleUrl
-     * 
-     * @return
-     *     possible object is
+     * Gets the style url.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see styleUrl
      */
     public String getStyleUrl() {
         return styleUrl;
     }
 
     /**
-     * @see styleUrl
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the style url.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see styleUrl
      */
     public void setStyleUrl(String value) {
         this.styleUrl = value;
     }
 
     /**
+     * Gets the style selector.
+     *
+     * @return the style selector
      * @see styleSelector
-     * 
      */
     public List<StyleSelector> getStyleSelector() {
         if (styleSelector == null) {
@@ -949,80 +935,76 @@ public abstract class Feature
     }
 
     /**
-     * @see region
-     * 
-     * @return
-     *     possible object is
+     * Gets the region.
+     *
+     * @return     possible object is
      *     {@link Region}
-     *     
+     * @see region
      */
     public Region getRegion() {
         return region;
     }
 
     /**
-     * @see region
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the region.
+     *
+     * @param value     allowed object is
      *     {@link Region}
-     *     
+     * @see region
      */
     public void setRegion(Region value) {
         this.region = value;
     }
 
     /**
-     * @see metadata
-     * 
-     * @return
-     *     possible object is
+     * Gets the metadata.
+     *
+     * @return     possible object is
      *     {@link Metadata}
-     *     
+     * @see metadata
      */
     public Metadata getMetadata() {
         return metadata;
     }
 
     /**
-     * @see metadata
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the metadata.
+     *
+     * @param value     allowed object is
      *     {@link Metadata}
-     *     
+     * @see metadata
      */
     public void setMetadata(Metadata value) {
         this.metadata = value;
     }
 
     /**
-     * @see extendedData
-     * 
-     * @return
-     *     possible object is
+     * Gets the extended data.
+     *
+     * @return     possible object is
      *     {@link ExtendedData}
-     *     
+     * @see extendedData
      */
     public ExtendedData getExtendedData() {
         return extendedData;
     }
 
     /**
-     * @see extendedData
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the extended data.
+     *
+     * @param value     allowed object is
      *     {@link ExtendedData}
-     *     
+     * @see extendedData
      */
     public void setExtendedData(ExtendedData value) {
         this.extendedData = value;
     }
 
     /**
+     * Gets the feature simple extension.
+     *
+     * @return the feature simple extension
      * @see featureSimpleExtension
-     * 
      */
     public List<Object> getFeatureSimpleExtension() {
         if (featureSimpleExtension == null) {
@@ -1032,8 +1014,10 @@ public abstract class Feature
     }
 
     /**
+     * Gets the feature object extension.
+     *
+     * @return the feature object extension
      * @see featureObjectExtension
-     * 
      */
     public List<AbstractObject> getFeatureObjectExtension() {
         if (featureObjectExtension == null) {
@@ -1274,8 +1258,8 @@ public abstract class Feature
      * <code>
      * Author author = new Author();
      * this.setAtomAuthor(author); </code>
-     * 
-     * 
+     *
+     * @return the author
      */
     public Author createAndSetAtomAuthor() {
         Author newValue = new Author();
@@ -1290,10 +1274,9 @@ public abstract class Feature
      * <code>
      * Link link = new Link();
      * this.setAtomLink(link); </code>
-     * 
-     * 
-     * @param href
-     *     required parameter
+     *
+     * @param href     required parameter
+     * @return the link
      */
     public Link createAndSetAtomLink(final String href) {
         Link newValue = new Link(href);
@@ -1308,20 +1291,14 @@ public abstract class Feature
      * <code>
      * AddressDetails addressDetails = new AddressDetails();
      * this.setXalAddressDetails(addressDetails); </code>
-     * 
-     * 
-     * @param xalAddress
-     *     required parameter
-     * @param addressLines
-     *     required parameter
-     * @param country
-     *     required parameter
-     * @param locality
-     *     required parameter
-     * @param administrativeArea
-     *     required parameter
-     * @param thoroughfare
-     *     required parameter
+     *
+     * @param xalAddress     required parameter
+     * @param addressLines     required parameter
+     * @param country     required parameter
+     * @param administrativeArea     required parameter
+     * @param locality     required parameter
+     * @param thoroughfare     required parameter
+     * @return the address details
      */
     public AddressDetails createAndSetXalAddressDetails(final AddressDetails.Address xalAddress, final AddressLines addressLines, final AddressDetails.Country country, final AdministrativeArea administrativeArea, final Locality locality, final Thoroughfare thoroughfare) {
         AddressDetails newValue = new AddressDetails(xalAddress, addressLines, country, administrativeArea, locality, thoroughfare);
@@ -1336,8 +1313,8 @@ public abstract class Feature
      * <code>
      * Snippet snippet = new Snippet();
      * this.setSnippet(snippet); </code>
-     * 
-     * 
+     *
+     * @return the snippet
      */
     public Snippet createAndSetSnippet() {
         Snippet newValue = new Snippet();
@@ -1352,8 +1329,8 @@ public abstract class Feature
      * <code>
      * LookAt lookAt = new LookAt();
      * this.setAbstractView(lookAt); </code>
-     * 
-     * 
+     *
+     * @return the look at
      */
     public LookAt createAndSetLookAt() {
         LookAt newValue = new LookAt();
@@ -1368,8 +1345,8 @@ public abstract class Feature
      * <code>
      * Camera camera = new Camera();
      * this.setAbstractView(camera); </code>
-     * 
-     * 
+     *
+     * @return the camera
      */
     public Camera createAndSetCamera() {
         Camera newValue = new Camera();
@@ -1384,8 +1361,8 @@ public abstract class Feature
      * <code>
      * TimeSpan timeSpan = new TimeSpan();
      * this.setTimePrimitive(timeSpan); </code>
-     * 
-     * 
+     *
+     * @return the time span
      */
     public TimeSpan createAndSetTimeSpan() {
         TimeSpan newValue = new TimeSpan();
@@ -1400,8 +1377,8 @@ public abstract class Feature
      * <code>
      * TimeStamp timeStamp = new TimeStamp();
      * this.setTimePrimitive(timeStamp); </code>
-     * 
-     * 
+     *
+     * @return the time stamp
      */
     public TimeStamp createAndSetTimeStamp() {
         TimeStamp newValue = new TimeStamp();
@@ -1415,8 +1392,8 @@ public abstract class Feature
      * <code>
      * Style style = new Style();
      * this.getStyleSelector().add(style); </code>
-     * 
-     * 
+     *
+     * @return the style
      */
     public Style createAndAddStyle() {
         Style newValue = new Style();
@@ -1430,8 +1407,8 @@ public abstract class Feature
      * <code>
      * StyleMap styleMap = new StyleMap();
      * this.getStyleSelector().add(styleMap); </code>
-     * 
-     * 
+     *
+     * @return the style map
      */
     public StyleMap createAndAddStyleMap() {
         StyleMap newValue = new StyleMap();
@@ -1446,8 +1423,8 @@ public abstract class Feature
      * <code>
      * Region region = new Region();
      * this.setRegion(region); </code>
-     * 
-     * 
+     *
+     * @return the region
      */
     public Region createAndSetRegion() {
         Region newValue = new Region();
@@ -1462,8 +1439,8 @@ public abstract class Feature
      * <code>
      * Metadata metadata = new Metadata();
      * this.setMetadata(metadata); </code>
-     * 
-     * 
+     *
+     * @return the metadata
      */
     public Metadata createAndSetMetadata() {
         Metadata newValue = new Metadata();
@@ -1478,8 +1455,8 @@ public abstract class Feature
      * <code>
      * ExtendedData extendedData = new ExtendedData();
      * this.setExtendedData(extendedData); </code>
-     * 
-     * 
+     *
+     * @return the extended data
      */
     public ExtendedData createAndSetExtendedData() {
         ExtendedData newValue = new ExtendedData();
@@ -1488,21 +1465,20 @@ public abstract class Feature
     }
 
     /**
+     * Sets the style selector.
+     *
+     * @param styleSelector the new style selector
      * @see styleSelector
-     * 
-     * @param styleSelector
      */
     public void setStyleSelector(final List<StyleSelector> styleSelector) {
         this.styleSelector = styleSelector;
     }
 
     /**
-     * add a value to the styleSelector property collection
-     * 
-     * @param styleSelector
-     *     Objects of the following type are allowed in the list: {@code <}{@link Style}{@code>}{@link JAXBElement}{@code <}{@link StyleSelector}{@code>}{@link JAXBElement}{@code <}{@link StyleMap}{@code>}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the styleSelector property collection.
+     *
+     * @param styleSelector     Objects of the following type are allowed in the list: {@code <}{@link Style}{@code>}{@link JAXBElement}{@code <}{@link StyleSelector}{@code>}{@link JAXBElement}{@code <}{@link StyleMap}{@code>}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Feature addToStyleSelector(final StyleSelector styleSelector) {
         this.getStyleSelector().add(styleSelector);
@@ -1510,21 +1486,20 @@ public abstract class Feature
     }
 
     /**
+     * Sets the feature simple extension.
+     *
+     * @param featureSimpleExtension the new feature simple extension
      * @see featureSimpleExtension
-     * 
-     * @param featureSimpleExtension
      */
     public void setFeatureSimpleExtension(final List<Object> featureSimpleExtension) {
         this.featureSimpleExtension = featureSimpleExtension;
     }
 
     /**
-     * add a value to the featureSimpleExtension property collection
-     * 
-     * @param featureSimpleExtension
-     *     Objects of the following type are allowed in the list: {@code <}{@link Double}{@code>}{@link JAXBElement}{@code <}{@link Object}{@code>}{@link JAXBElement}{@code <}{@link Boolean}{@code>}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the featureSimpleExtension property collection.
+     *
+     * @param featureSimpleExtension     Objects of the following type are allowed in the list: {@code <}{@link Double}{@code>}{@link JAXBElement}{@code <}{@link Object}{@code>}{@link JAXBElement}{@code <}{@link Boolean}{@code>}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Feature addToFeatureSimpleExtension(final Object featureSimpleExtension) {
         this.getFeatureSimpleExtension().add(featureSimpleExtension);
@@ -1532,21 +1507,20 @@ public abstract class Feature
     }
 
     /**
+     * Sets the feature object extension.
+     *
+     * @param featureObjectExtension the new feature object extension
      * @see featureObjectExtension
-     * 
-     * @param featureObjectExtension
      */
     public void setFeatureObjectExtension(final List<AbstractObject> featureObjectExtension) {
         this.featureObjectExtension = featureObjectExtension;
     }
 
     /**
-     * add a value to the featureObjectExtension property collection
-     * 
-     * @param featureObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the featureObjectExtension property collection.
+     *
+     * @param featureObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Feature addToFeatureObjectExtension(final AbstractObject featureObjectExtension) {
         this.getFeatureObjectExtension().add(featureObjectExtension);
@@ -1571,11 +1545,11 @@ public abstract class Feature
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param name     required parameter
+     * @return the feature
      * @see #setName(String)
-     * 
-     * @param name
-     *     required parameter
      */
     public Feature withName(final String name) {
         this.setName(name);
@@ -1583,11 +1557,11 @@ public abstract class Feature
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param visibility     required parameter
+     * @return the feature
      * @see #setVisibility(Boolean)
-     * 
-     * @param visibility
-     *     required parameter
      */
     public Feature withVisibility(final Boolean visibility) {
         this.setVisibility(visibility);
@@ -1595,11 +1569,11 @@ public abstract class Feature
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param open     required parameter
+     * @return the feature
      * @see #setOpen(Boolean)
-     * 
-     * @param open
-     *     required parameter
      */
     public Feature withOpen(final Boolean open) {
         this.setOpen(open);
@@ -1607,11 +1581,11 @@ public abstract class Feature
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param atomAuthor     required parameter
+     * @return the feature
      * @see #setAtomAuthor(Author)
-     * 
-     * @param atomAuthor
-     *     required parameter
      */
     public Feature withAtomAuthor(final Author atomAuthor) {
         this.setAtomAuthor(atomAuthor);
@@ -1619,11 +1593,11 @@ public abstract class Feature
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param atomLink     required parameter
+     * @return the feature
      * @see #setAtomLink(Link)
-     * 
-     * @param atomLink
-     *     required parameter
      */
     public Feature withAtomLink(final Link atomLink) {
         this.setAtomLink(atomLink);
@@ -1631,11 +1605,11 @@ public abstract class Feature
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param address     required parameter
+     * @return the feature
      * @see #setAddress(String)
-     * 
-     * @param address
-     *     required parameter
      */
     public Feature withAddress(final String address) {
         this.setAddress(address);
@@ -1643,11 +1617,11 @@ public abstract class Feature
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param xalAddressDetails     required parameter
+     * @return the feature
      * @see #setXalAddressDetails(AddressDetails)
-     * 
-     * @param xalAddressDetails
-     *     required parameter
      */
     public Feature withXalAddressDetails(final AddressDetails xalAddressDetails) {
         this.setXalAddressDetails(xalAddressDetails);
@@ -1655,11 +1629,11 @@ public abstract class Feature
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param phoneNumber     required parameter
+     * @return the feature
      * @see #setPhoneNumber(String)
-     * 
-     * @param phoneNumber
-     *     required parameter
      */
     public Feature withPhoneNumber(final String phoneNumber) {
         this.setPhoneNumber(phoneNumber);
@@ -1667,11 +1641,11 @@ public abstract class Feature
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param snippet     required parameter
+     * @return the feature
      * @see #setSnippet(Snippet)
-     * 
-     * @param snippet
-     *     required parameter
      */
     public Feature withSnippet(final Snippet snippet) {
         this.setSnippet(snippet);
@@ -1679,11 +1653,11 @@ public abstract class Feature
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param snippetd     required parameter
+     * @return the feature
      * @see #setSnippetd(String)
-     * 
-     * @param snippetd
-     *     required parameter
      */
     public Feature withSnippetd(final String snippetd) {
         this.setSnippetd(snippetd);
@@ -1691,11 +1665,11 @@ public abstract class Feature
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param description     required parameter
+     * @return the feature
      * @see #setDescription(String)
-     * 
-     * @param description
-     *     required parameter
      */
     public Feature withDescription(final String description) {
         this.setDescription(description);
@@ -1703,11 +1677,11 @@ public abstract class Feature
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param abstractView     required parameter
+     * @return the feature
      * @see #setAbstractView(AbstractView)
-     * 
-     * @param abstractView
-     *     required parameter
      */
     public Feature withAbstractView(final AbstractView abstractView) {
         this.setAbstractView(abstractView);
@@ -1715,11 +1689,11 @@ public abstract class Feature
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param timePrimitive     required parameter
+     * @return the feature
      * @see #setTimePrimitive(TimePrimitive)
-     * 
-     * @param timePrimitive
-     *     required parameter
      */
     public Feature withTimePrimitive(final TimePrimitive timePrimitive) {
         this.setTimePrimitive(timePrimitive);
@@ -1727,11 +1701,11 @@ public abstract class Feature
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param styleUrl     required parameter
+     * @return the feature
      * @see #setStyleUrl(String)
-     * 
-     * @param styleUrl
-     *     required parameter
      */
     public Feature withStyleUrl(final String styleUrl) {
         this.setStyleUrl(styleUrl);
@@ -1739,11 +1713,11 @@ public abstract class Feature
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param styleSelector     required parameter
+     * @return the feature
      * @see #setStyleSelector(List<StyleSelector>)
-     * 
-     * @param styleSelector
-     *     required parameter
      */
     public Feature withStyleSelector(final List<StyleSelector> styleSelector) {
         this.setStyleSelector(styleSelector);
@@ -1751,11 +1725,11 @@ public abstract class Feature
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param region     required parameter
+     * @return the feature
      * @see #setRegion(Region)
-     * 
-     * @param region
-     *     required parameter
      */
     public Feature withRegion(final Region region) {
         this.setRegion(region);
@@ -1763,11 +1737,11 @@ public abstract class Feature
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param metadata     required parameter
+     * @return the feature
      * @see #setMetadata(Metadata)
-     * 
-     * @param metadata
-     *     required parameter
      */
     public Feature withMetadata(final Metadata metadata) {
         this.setMetadata(metadata);
@@ -1775,11 +1749,11 @@ public abstract class Feature
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param extendedData     required parameter
+     * @return the feature
      * @see #setExtendedData(ExtendedData)
-     * 
-     * @param extendedData
-     *     required parameter
      */
     public Feature withExtendedData(final ExtendedData extendedData) {
         this.setExtendedData(extendedData);
@@ -1787,11 +1761,11 @@ public abstract class Feature
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param featureSimpleExtension     required parameter
+     * @return the feature
      * @see #setFeatureSimpleExtension(List<Object>)
-     * 
-     * @param featureSimpleExtension
-     *     required parameter
      */
     public Feature withFeatureSimpleExtension(final List<Object> featureSimpleExtension) {
         this.setFeatureSimpleExtension(featureSimpleExtension);
@@ -1799,11 +1773,11 @@ public abstract class Feature
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param featureObjectExtension     required parameter
+     * @return the feature
      * @see #setFeatureObjectExtension(List<AbstractObject>)
-     * 
-     * @param featureObjectExtension
-     *     required parameter
      */
     public Feature withFeatureObjectExtension(final List<AbstractObject> featureObjectExtension) {
         this.setFeatureObjectExtension(featureObjectExtension);

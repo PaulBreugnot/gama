@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.metamodel.agent.AbstractAgent.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * AbstractAgent.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.metamodel.agent;
 
@@ -70,10 +70,20 @@ import gaml.variables.IVariable;
  */
 public abstract class AbstractAgent implements IAgent {
 
+	/** The index. */
 	private final int index;
+	
+	/** The dead. */
 	protected volatile boolean dead = false;
+	
+	/** The dying. */
 	protected volatile boolean dying = false;
 
+	/**
+	 * Instantiates a new abstract agent.
+	 *
+	 * @param index the index
+	 */
 	public AbstractAgent(final int index) {
 		this.index = index;
 	}
@@ -287,10 +297,22 @@ public abstract class AbstractAgent implements IAgent {
 		return scope.execute(getSpecies().getArchitecture(), this, null).passed() ? stepSubPopulations(scope) : false;
 	}
 
+	/**
+	 * Inits the sub populations.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 */
 	protected boolean initSubPopulations(final IScope scope) {
 		return true;
 	}
 
+	/**
+	 * Step sub populations.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 */
 	protected boolean stepSubPopulations(final IScope scope) {
 		return true;
 	}
@@ -299,7 +321,7 @@ public abstract class AbstractAgent implements IAgent {
 	 * This method contains everything to do *after* the actual step of the agent has been done. Only called if the
 	 * doStep() method has been successful.
 	 *
-	 * @param scope
+	 * @param scope the scope
 	 */
 	protected void postStep(final IScope scope) {}
 
@@ -491,7 +513,11 @@ public abstract class AbstractAgent implements IAgent {
 	}
 
 	/**
-	 * GAML actions
+	 * GAML actions.
+	 *
+	 * @param scope the scope
+	 * @return the object
+	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 
 	@action (
@@ -507,6 +533,13 @@ public abstract class AbstractAgent implements IAgent {
 		return m;
 	}
 
+	/**
+	 * Prim write.
+	 *
+	 * @param scope the scope
+	 * @return the object
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@action (
 			name = "write",
 			args = { @arg (
@@ -523,6 +556,13 @@ public abstract class AbstractAgent implements IAgent {
 		return s;
 	}
 
+	/**
+	 * Prim error.
+	 *
+	 * @param scope the scope
+	 * @return the object
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@action (
 			name = IKeyword.ERROR,
 			args = { @arg (
@@ -535,6 +575,13 @@ public abstract class AbstractAgent implements IAgent {
 		return error;
 	}
 
+	/**
+	 * Prim tell.
+	 *
+	 * @param scope the scope
+	 * @return the object
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@action (
 			name = "tell",
 			args = { @arg (
@@ -547,6 +594,13 @@ public abstract class AbstractAgent implements IAgent {
 		return s;
 	}
 
+	/**
+	 * Prim die.
+	 *
+	 * @param scope the scope
+	 * @return the object
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@action (
 			name = "die",
 			doc = @doc ("Kills the agent and disposes of it. Once dead, the agent cannot behave anymore"))
@@ -591,6 +645,11 @@ public abstract class AbstractAgent implements IAgent {
 		return get(scope, indices.firstValue(scope));
 	}
 
+	/**
+	 * Sets the defining plugin.
+	 *
+	 * @param plugin the new defining plugin
+	 */
 	public void setDefiningPlugin(final String plugin) {}
 
 	/**

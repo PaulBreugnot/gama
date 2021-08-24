@@ -1,18 +1,13 @@
-/*
-   Copyright 2008 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * AbstractDXFStreamFilter.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.parser.dxf.filter;
 
 import java.util.Map;
@@ -20,8 +15,15 @@ import java.util.Map;
 import gama.ext.libs.kabeja.parser.dxf.DXFHandler;
 
 
+/**
+ * The Class AbstractDXFStreamFilter.
+ */
 public abstract class AbstractDXFStreamFilter implements DXFStreamFilter {
+    
+    /** The properties. */
     protected Map properties;
+    
+    /** The handler. */
     protected DXFHandler handler;
 
     public void setProperties(Map properties) {

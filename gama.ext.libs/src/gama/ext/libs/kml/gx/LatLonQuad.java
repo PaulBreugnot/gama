@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * LatLonQuad.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.gx;
 
@@ -94,13 +104,18 @@ public class LatLonQuad
     @XmlJavaTypeAdapter(CoordinatesConverter.class)
     protected List<Coordinate> coordinates;
 
+    /**
+     * Instantiates a new lat lon quad.
+     */
     public LatLonQuad() {
         super();
     }
 
     /**
+     * Gets the coordinates.
+     *
+     * @return the coordinates
      * @see coordinates
-     * 
      */
     public List<Coordinate> getCoordinates() {
         if (coordinates == null) {
@@ -145,23 +160,21 @@ public class LatLonQuad
     }
 
     /**
+     * Sets the coordinates.
+     *
+     * @param coordinates the new coordinates
      * @see coordinates
-     * 
-     * @param coordinates
      */
     public void setCoordinates(final List<Coordinate> coordinates) {
         this.coordinates = coordinates;
     }
 
     /**
-     * add a value to the coordinates property collection
-     * 
-     * @param longitude
-     *     required parameter
-     * @param latitude
-     *     required parameter
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the coordinates property collection.
+     *
+     * @param longitude     required parameter
+     * @param latitude     required parameter
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LatLonQuad addToCoordinates(final double longitude, final double latitude) {
         this.getCoordinates().add(new Coordinate(longitude, latitude));
@@ -169,16 +182,12 @@ public class LatLonQuad
     }
 
     /**
-     * add a value to the coordinates property collection
-     * 
-     * @param longitude
-     *     required parameter
-     * @param latitude
-     *     required parameter
-     * @param altitude
-     *     required parameter
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the coordinates property collection.
+     *
+     * @param longitude     required parameter
+     * @param latitude     required parameter
+     * @param altitude     required parameter
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LatLonQuad addToCoordinates(final double longitude, final double latitude, final double altitude) {
         this.getCoordinates().add(new Coordinate(longitude, latitude, altitude));
@@ -186,12 +195,10 @@ public class LatLonQuad
     }
 
     /**
-     * add a value to the coordinates property collection
-     * 
-     * @param coordinates
-     *     required parameter
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the coordinates property collection.
+     *
+     * @param coordinates     required parameter
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LatLonQuad addToCoordinates(final String coordinates) {
         this.getCoordinates().add(new Coordinate(coordinates));
@@ -216,11 +223,11 @@ public class LatLonQuad
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param coordinates     required parameter
+     * @return the lat lon quad
      * @see #setCoordinates(List<Coordinate>)
-     * 
-     * @param coordinates
-     *     required parameter
      */
     public LatLonQuad withCoordinates(final List<Coordinate> coordinates) {
         this.setCoordinates(coordinates);
@@ -257,8 +264,8 @@ public class LatLonQuad
      * List<Coordinate> newValue = new List<Coordinate>();
      * this.setCoordinates(newValue); </code>
      * </pre>
-     * 
-     * 
+     *
+     * @return the list
      */
     public List<Coordinate> createAndSetCoordinates() {
         List<Coordinate> newValue = new ArrayList<Coordinate>();

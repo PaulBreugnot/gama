@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.file.http.Request.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * Request.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.ext.libs.webb;
 
@@ -23,29 +23,80 @@ import java.util.Map;
  * @author hgoebl
  */
 public class Request {
+	
+	/**
+	 * The Enum Method.
+	 */
 	public enum Method {
-		GET, POST, PUT, DELETE
+		
+		/** The get. */
+		GET, 
+ /** The post. */
+ POST, 
+ /** The put. */
+ PUT, 
+ /** The delete. */
+ DELETE
 	}
 
+	/** The webb. */
 	private final Webb webb;
+	
+	/** The method. */
 	final Method method;
+	
+	/** The uri. */
 	final String uri;
 
+	/** The params. */
 	Map<String, Object> params;
+	
+	/** The multiple values. */
 	boolean multipleValues;
+	
+	/** The headers. */
 	Map<String, Object> headers;
+	
+	/** The payload. */
 	Object payload;
+	
+	/** The stream payload. */
 	boolean streamPayload;
+	
+	/** The use caches. */
 	boolean useCaches;
+	
+	/** The connect timeout. */
 	Integer connectTimeout;
+	
+	/** The read timeout. */
 	Integer readTimeout;
+	
+	/** The if modified since. */
 	Long ifModifiedSince;
+	
+	/** The follow redirects. */
 	Boolean followRedirects;
+	
+	/** The ensure success. */
 	boolean ensureSuccess;
+	
+	/** The compress. */
 	boolean compress;
+	
+	/** The retry count. */
 	int retryCount;
+	
+	/** The wait exponential. */
 	boolean waitExponential;
 
+	/**
+	 * Instantiates a new request.
+	 *
+	 * @param webb the webb
+	 * @param method the method
+	 * @param uri the uri
+	 */
 	Request(final Webb webb, final Method method, final String uri) {
 		this.webb = webb;
 		this.method = method;
@@ -172,12 +223,8 @@ public class Request {
 	 * is interrupted, there will be an `InterruptedException` in the thrown `WebbException`. You can check this with
 	 * {@link WebbException#getCause()}. The `interrupted` flag will be set to true in this case.
 	 *
-	 * @param retryCount
-	 *            This parameter holds the number of retries that will be made AFTER the initial send in the event of a
-	 *            error. If an error occurs on the last attempt an exception will be raised.<br>
-	 *            Values &gt; 10 are ignored (we're not gatling)
-	 * @param waitExponential
-	 *            sleep during retry attempts (exponential backoff). For retry-counts more than 3, <tt>true</tt> is
+	 * @param rc the rc
+	 * @param waitExponential            sleep during retry attempts (exponential backoff). For retry-counts more than 3, <tt>true</tt> is
 	 *            mandatory.
 	 * @return <code>this</code> for method chaining (fluent API)
 	 */

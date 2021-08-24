@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'StrokeViewer.java, in plugin ummisco.gama.ui.viewers, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * StrokeViewer.java, in gama.ui.viewers, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.viewers.gis.geotools.styling;
 
 import java.awt.Color;
@@ -66,16 +65,33 @@ import org.geotools.styling.StyleBuilder;
  */
 public class StrokeViewer {
 
+	/** The enabled. */
 	boolean enabled = false;
+	
+	/** The color. */
 	Color color = null;
+	
+	/** The width. */
 	double width = Double.NaN;
+	
+	/** The opacity. */
 	double opacity = Double.NaN;
 
+	/** The on. */
 	Button on;
+	
+	/** The chooser. */
 	StolenColorEditor chooser;
+	
+	/** The size. */
 	Combo size;
+	
+	/** The percent. */
 	Combo percent;
 
+	/**
+	 * The Class Listener.
+	 */
 	class Listener implements SelectionListener, ModifyListener {
 
 		@Override
@@ -93,6 +109,11 @@ public class StrokeViewer {
 			sync(SimpleConfigurator.selectionEvent(e));
 		};
 
+		/**
+		 * Sync.
+		 *
+		 * @param cause the cause
+		 */
 		private void sync(final SelectionEvent cause) {
 			try {
 				StrokeViewer.this.enabled = StrokeViewer.this.on.getSelection();
@@ -129,16 +150,17 @@ public class StrokeViewer {
 
 	};
 
+	/** The sync. */
 	Listener sync = new Listener();
 
-	/** TODO: replace w/ support for more then one listener - when needed */
+	/**  TODO: replace w/ support for more then one listener - when needed. */
 	SelectionListener listener = null;
 
 	/**
 	 * TODO summary sentence for createControl ...
 	 *
-	 * @param parent
-	 * @param klisten
+	 * @param parent the parent
+	 * @param klisten the klisten
 	 * @return Generated composite
 	 */
 	public Composite createControl(final Composite parent, final KeyListener klisten) {
@@ -165,7 +187,7 @@ public class StrokeViewer {
 	/**
 	 * Accepts a listener that will be notified when content changes.
 	 *
-	 * @param listener1
+	 * @param listener1 the listener 1
 	 */
 	public void addListener(final SelectionListener listener1) {
 		this.listener = listener1;
@@ -174,7 +196,7 @@ public class StrokeViewer {
 	/**
 	 * Remove listener.
 	 *
-	 * @param listener1
+	 * @param listener1 the listener 1
 	 */
 	public void removeListener(final SelectionListener listener1) {
 		if (this.listener == listener1) {
@@ -185,13 +207,18 @@ public class StrokeViewer {
 	/**
 	 * TODO summary sentence for fire ...
 	 *
-	 * @param event
+	 * @param event the event
 	 */
 	protected void fire(final SelectionEvent event) {
 		if (this.listener == null) { return; }
 		this.listener.widgetSelected(event);
 	}
 
+	/**
+	 * Listen.
+	 *
+	 * @param listen the listen
+	 */
 	void listen(final boolean listen) {
 		if (listen) {
 			this.on.addSelectionListener(this.sync);
@@ -213,9 +240,9 @@ public class StrokeViewer {
 	/**
 	 * TODO summary sentence for setStroke ...
 	 *
-	 * @param line
-	 * @param mode
-	 * @param defaultColor
+	 * @param aLine the a line
+	 * @param mode the mode
+	 * @param defaultColor the default color
 	 */
 	public void setStroke(final Stroke aLine, final Mode mode, final Color defaultColor) {
 		listen(false);
@@ -257,8 +284,7 @@ public class StrokeViewer {
 	/**
 	 * TODO summary sentence for getStroke ...
 	 *
-	 * @param build
-	 *
+	 * @param build the build
 	 * @return Stroke defined by this model
 	 */
 	public Stroke getStroke(final StyleBuilder build) {

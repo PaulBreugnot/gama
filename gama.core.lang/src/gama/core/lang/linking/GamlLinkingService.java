@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GamlLinkingService.java, in plugin msi.gama.lang.gaml, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * GamlLinkingService.java, in gama.core.lang, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- *
- **********************************************************************************************/
+ ********************************************************************************************************/
 package gama.core.lang.linking;
 
 import java.util.Collections;
@@ -51,15 +50,28 @@ public class GamlLinkingService extends DefaultLinkingService {
 	 * Keep stubs so that new ones aren't created for each linking pass.
 	 */
 	private static final Map<String, List<EObject>> stubbedRefs = new Hashtable<>();
+	
+	/** The stubs resource. */
 	private static Resource stubsResource;
 
+	/** The resource set. */
 	@Inject private XtextResourceSet resourceSet;
 
+	/**
+	 * Instantiates a new gaml linking service.
+	 */
 	public GamlLinkingService() {
 		super();
 
 	}
 
+	/**
+	 * Adds the symbol.
+	 *
+	 * @param name the name
+	 * @param clazz the clazz
+	 * @return the list
+	 */
 	public List<EObject> addSymbol(final String name, final EClass clazz) {
 		List<EObject> list = stubbedRefs.get(name);
 		if (list == null) {
@@ -74,12 +86,24 @@ public class GamlLinkingService extends DefaultLinkingService {
 		return list;
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param name the name
+	 * @param clazz the clazz
+	 * @return the e object
+	 */
 	public EObject create(final String name, final EClass clazz) {
 		final GamlDefinition stub = (GamlDefinition) EGaml.getInstance().getFactory().create(clazz);
 		stub.setName(name);
 		return stub;
 	}
 
+	/**
+	 * Gets the resource.
+	 *
+	 * @return the resource
+	 */
 	private Resource getResource() {
 		if (stubsResource == null) {
 			stubsResource = resourceSet.createResource(URI.createURI("gaml:/newSymbols.xmi", false));

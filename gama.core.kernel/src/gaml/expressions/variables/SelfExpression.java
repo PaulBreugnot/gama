@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.expressions.SelfExpression.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * SelfExpression.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.expressions.variables;
 
@@ -18,8 +18,16 @@ import gaml.descriptions.SpeciesDescription;
 import gaml.descriptions.VariableDescription;
 import gaml.types.IType;
 
+/**
+ * The Class SelfExpression.
+ */
 public class SelfExpression extends VariableExpression {
 
+	/**
+	 * Instantiates a new self expression.
+	 *
+	 * @param type the type
+	 */
 	public SelfExpression(final IType<?> type) {
 		super(IKeyword.SELF, type, true, null);
 	}

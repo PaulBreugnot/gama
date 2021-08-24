@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="ummisco.gama.feature.core.extensions"
+      id="gama.feature.extensions"
       label="Core extensions of GAMA"
-      version="1.8.1.qualifier"
-      provider-name="UMMISCO, IRIT &amp; IDEES">
+      version="2.0.0.qualifier"
+      provider-name="UMMISCO, IRIT, ESPACE-DEV &amp; MIAT">
 
    <description url="http://gama-platform.org">
       Direct extensions to the core of GAMA
@@ -18,72 +18,90 @@
    </license>
 
    <url>
-      <update label="Gama 1.7.x Update Site" url="http://updates.gama-platform.org"/>
+      <update label="Gama Update Site" url="http://updates.gama-platform.org/2.0"/>
    </url>
 
    <requires>
-      <import feature="ummisco.gama.feature.core" version="1.8.1.qualifier"/>
+      <import feature="gama.feature.core" version="2.0.0.qualifier"/>
    </requires>
 
    <plugin
-         id="irit.gaml.extensions.database"
+         id="gama.ext.audio"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="gama.ext.bdi"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="msi.gaml.extensions.fipa"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="simtools.gaml.extensions.traffic"
+         id="gama.ext.databases"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="msi.gaml.architecture.simplebdi"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="ummisco.gaml.extensions.maths"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="ummisco.gama.network"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="ummisco.gama.serialize"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="miat.gaml.extension.pedestrian"
+         id="gama.ext.fipa"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="simtools.gaml.extensions.physics"
+         id="gama.ext.genstar"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="gama.ext.maths"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="gama.ext.network"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="gama.ext.pedestrian"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="gama.ext.physics"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
 
    <plugin
-         id="espacedev.gaml.extensions.genstar"
+         id="gama.ext.serialize"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="gama.ext.stats"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="gama.ext.traffic"
          download-size="0"
          install-size="0"
          version="0.0.0"

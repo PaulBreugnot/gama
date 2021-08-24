@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Region.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -113,6 +123,8 @@ public class Region
      */
     @XmlElement(name = "Lod")
     protected Lod lod;
+    
+    /** The region simple extension. */
     @XmlElement(name = "RegionSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> regionSimpleExtension;
@@ -137,61 +149,62 @@ public class Region
     @XmlElement(name = "RegionObjectExtensionGroup")
     protected List<AbstractObject> regionObjectExtension;
 
+    /**
+     * Instantiates a new region.
+     */
     public Region() {
         super();
     }
 
     /**
-     * @see latLonAltBox
-     * 
-     * @return
-     *     possible object is
+     * Gets the lat lon alt box.
+     *
+     * @return     possible object is
      *     {@link LatLonAltBox}
-     *     
+     * @see latLonAltBox
      */
     public LatLonAltBox getLatLonAltBox() {
         return latLonAltBox;
     }
 
     /**
-     * @see latLonAltBox
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the lat lon alt box.
+     *
+     * @param value     allowed object is
      *     {@link LatLonAltBox}
-     *     
+     * @see latLonAltBox
      */
     public void setLatLonAltBox(LatLonAltBox value) {
         this.latLonAltBox = value;
     }
 
     /**
-     * @see lod
-     * 
-     * @return
-     *     possible object is
+     * Gets the lod.
+     *
+     * @return     possible object is
      *     {@link Lod}
-     *     
+     * @see lod
      */
     public Lod getLod() {
         return lod;
     }
 
     /**
-     * @see lod
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the lod.
+     *
+     * @param value     allowed object is
      *     {@link Lod}
-     *     
+     * @see lod
      */
     public void setLod(Lod value) {
         this.lod = value;
     }
 
     /**
+     * Gets the region simple extension.
+     *
+     * @return the region simple extension
      * @see regionSimpleExtension
-     * 
      */
     public List<Object> getRegionSimpleExtension() {
         if (regionSimpleExtension == null) {
@@ -201,8 +214,10 @@ public class Region
     }
 
     /**
+     * Gets the region object extension.
+     *
+     * @return the region object extension
      * @see regionObjectExtension
-     * 
      */
     public List<AbstractObject> getRegionObjectExtension() {
         if (regionObjectExtension == null) {
@@ -283,8 +298,8 @@ public class Region
      * <code>
      * LatLonAltBox latLonAltBox = new LatLonAltBox();
      * this.setLatLonAltBox(latLonAltBox); </code>
-     * 
-     * 
+     *
+     * @return the lat lon alt box
      */
     public LatLonAltBox createAndSetLatLonAltBox() {
         LatLonAltBox newValue = new LatLonAltBox();
@@ -299,8 +314,8 @@ public class Region
      * <code>
      * Lod lod = new Lod();
      * this.setLod(lod); </code>
-     * 
-     * 
+     *
+     * @return the lod
      */
     public Lod createAndSetLod() {
         Lod newValue = new Lod();
@@ -309,21 +324,20 @@ public class Region
     }
 
     /**
+     * Sets the region simple extension.
+     *
+     * @param regionSimpleExtension the new region simple extension
      * @see regionSimpleExtension
-     * 
-     * @param regionSimpleExtension
      */
     public void setRegionSimpleExtension(final List<Object> regionSimpleExtension) {
         this.regionSimpleExtension = regionSimpleExtension;
     }
 
     /**
-     * add a value to the regionSimpleExtension property collection
-     * 
-     * @param regionSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the regionSimpleExtension property collection.
+     *
+     * @param regionSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Region addToRegionSimpleExtension(final Object regionSimpleExtension) {
         this.getRegionSimpleExtension().add(regionSimpleExtension);
@@ -331,21 +345,20 @@ public class Region
     }
 
     /**
+     * Sets the region object extension.
+     *
+     * @param regionObjectExtension the new region object extension
      * @see regionObjectExtension
-     * 
-     * @param regionObjectExtension
      */
     public void setRegionObjectExtension(final List<AbstractObject> regionObjectExtension) {
         this.regionObjectExtension = regionObjectExtension;
     }
 
     /**
-     * add a value to the regionObjectExtension property collection
-     * 
-     * @param regionObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the regionObjectExtension property collection.
+     *
+     * @param regionObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Region addToRegionObjectExtension(final AbstractObject regionObjectExtension) {
         this.getRegionObjectExtension().add(regionObjectExtension);
@@ -370,11 +383,11 @@ public class Region
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param latLonAltBox     required parameter
+     * @return the region
      * @see #setLatLonAltBox(LatLonAltBox)
-     * 
-     * @param latLonAltBox
-     *     required parameter
      */
     public Region withLatLonAltBox(final LatLonAltBox latLonAltBox) {
         this.setLatLonAltBox(latLonAltBox);
@@ -382,11 +395,11 @@ public class Region
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param lod     required parameter
+     * @return the region
      * @see #setLod(Lod)
-     * 
-     * @param lod
-     *     required parameter
      */
     public Region withLod(final Lod lod) {
         this.setLod(lod);
@@ -394,11 +407,11 @@ public class Region
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param regionSimpleExtension     required parameter
+     * @return the region
      * @see #setRegionSimpleExtension(List<Object>)
-     * 
-     * @param regionSimpleExtension
-     *     required parameter
      */
     public Region withRegionSimpleExtension(final List<Object> regionSimpleExtension) {
         this.setRegionSimpleExtension(regionSimpleExtension);
@@ -406,11 +419,11 @@ public class Region
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param regionObjectExtension     required parameter
+     * @return the region
      * @see #setRegionObjectExtension(List<AbstractObject>)
-     * 
-     * @param regionObjectExtension
-     *     required parameter
      */
     public Region withRegionObjectExtension(final List<AbstractObject> regionObjectExtension) {
         this.setRegionObjectExtension(regionObjectExtension);

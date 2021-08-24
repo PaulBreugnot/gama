@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * HomeToTOC.java, in gama.build.documentation, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package msi.gama.doc.util;
 
 import java.io.BufferedReader;
@@ -26,33 +36,69 @@ import org.w3c.dom.Element;
 
 import msi.gama.doc.Constants;
 
+/**
+ * The Class HomeToTOC.
+ */
 public class HomeToTOC {
 	
+	/** The Constant MD_LEVEL_ERR. */
 	public final static  int MD_LEVEL_ERR = -1; // no header
+	
+	/** The Constant MD_LEVEL0. */
 	public final static  int MD_LEVEL0 = 0;   	// empty line
+	
+	/** The Constant MD_LEVEL1. */
 	public final static  int MD_LEVEL1 = 1;   	// #
+	
+	/** The Constant MD_LEVEL2. */
 	public final static  int MD_LEVEL2 = 2;   	// ##
+	
+	/** The Constant MD_LEVEL3. */
 	public final static  int MD_LEVEL3 = 3;   	// 1.  
+	
+	/** The Constant MD_LEVEL4. */
 	public final static  int MD_LEVEL4 = 4;	  	//   1.
 	
+	/** The Constant XML_ELT_TOC. */
 	// XML  Elements
 	public final static String XML_ELT_TOC  	= "toc";
+	
+	/** The Constant XML_ATTR_TITLE. */
 	public final static String XML_ATTR_TITLE 	=  "title"; 
 	
+	/** The Constant XML_ELT_PART. */
 	public final static String XML_ELT_PART  	= "part";
+	
+	/** The Constant XML_ELT_SUBPART. */
 	public final static String XML_ELT_SUBPART  = "subpart";
+	
+	/** The Constant XML_ELT_CHAPTER. */
 	public final static String XML_ELT_CHAPTER  = "chapter";
 
+	/** The Constant XML_ATTR_NAME. */
 	public final static String XML_ATTR_NAME 	= "name"; 
+	
+	/** The Constant XML_ATTR_FILE. */
 	public final static String XML_ATTR_FILE 	= "file"; 
 	
+	/** The Constant TITLE_MESSAGE. */
 	// Toc file  name
 	public final static String TITLE_MESSAGE 	= "Full Documentation of GAMA " + Constants.GAMA_VERSION;
+	
+	/** The Constant DEFAULT_FILE. */
 	public final static String DEFAULT_FILE		= "G__BlankPage";
 	
+	/** The Constant MD_EXTENSION. */
 	public final static String MD_EXTENSION		= ".md";
 	
 	
+	/**
+	 * Md 2 toc.
+	 *
+	 * @param tocMDFile the toc MD file
+	 * @param savePath the save path
+	 * @param wikiFolder the wiki folder
+	 */
 	public static void md2toc(String tocMDFile, String savePath, String wikiFolder) {
 		String  line = "";
 		Document doc = createDocument();
@@ -110,6 +156,11 @@ public class HomeToTOC {
 		} 
 	}
 	
+	/**
+	 * Creates the document.
+	 *
+	 * @return the document
+	 */
 	private static Document createDocument() {
         Document doc = null;
 	
@@ -124,6 +175,12 @@ public class HomeToTOC {
 		return doc;	
 	}
 	
+	/**
+	 * Save document.
+	 *
+	 * @param doc the doc
+	 * @param xmlFilePath the xml file path
+	 */
 	private  static void saveDocument(Document doc, String xmlFilePath) {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = null;
@@ -148,6 +205,12 @@ public class HomeToTOC {
 	
 	
 	// From  a  line of the Home.md  file (e.g. ## [Home](Home)), computes the header level of  the line
+	/**
+	 * Gets the line header.
+	 *
+	 * @param line the line
+	 * @return the line header
+	 */
 	//   or whether it is an empty line.
 	private static int getLineHeader(String line) {
 		if(line.startsWith("## "))  {
@@ -178,6 +241,13 @@ public class HomeToTOC {
 	// From any line such as: ## [Introduction](Overview)
 	//   returns the  title, i.e. the string between brackets (Introduction here)
 	//
+	/**
+	 * Gets the line title.
+	 *
+	 * @param line the line
+	 * @return the line title
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	// ## [Introduction](Overview)   ----->  Introduction	
 	private static String getLineTitle(String line) throws IOException {
 		if( line.contains("[")) {
@@ -192,6 +262,12 @@ public class HomeToTOC {
 	// From any line such as: ## [Introduction](Overview)
 	//   returns the  file name, i.e. the string between parentheses (Overview here)
 	//
+	/**
+	 * Gets the line file.
+	 *
+	 * @param line the line
+	 * @return the line file
+	 */
 	// ## [Introduction](Overview)   ----->  Overview
 	private static String getLineFile(String line) {
 		if( line.contains("[")) {
@@ -209,6 +285,13 @@ public class HomeToTOC {
 	// From any line such as: ## [Introduction](Overview)
 	//   returns the  file relative path
 	//
+	/**
+	 * Gets the line file path.
+	 *
+	 * @param line the line
+	 * @param wikiFolder the wiki folder
+	 * @return the line file path
+	 */
 	// ## [Inspectors and Monitors](InspectorsAndMonitors)   ----->  References/PlatformDocumentation/RunningExperiments/InspectorsAndMonitors
 	private static String getLineFilePath(String line, String wikiFolder) {
 		String lineFile = getLineFile(line);
@@ -217,6 +300,13 @@ public class HomeToTOC {
 	}	
 	
 	
+	/**
+	 * Gets the relative path to wiki.
+	 *
+	 * @param fileName the file name
+	 * @param wikiFolder the wiki folder
+	 * @return the relative path to wiki
+	 */
 	private static String getRelativePathToWiki(String fileName, String wikiFolder) {
 		String resPath = "";
 		
@@ -235,6 +325,11 @@ public class HomeToTOC {
 	}
 		
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		final String tocMDFile = Constants.TOC_SIDEBAR_FILE;
 		

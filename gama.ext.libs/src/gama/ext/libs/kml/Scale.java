@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Scale.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -54,10 +64,16 @@ public class Scale
      */
     @XmlElement(defaultValue = "1.0")
     protected double x;
+    
+    /** The y. */
     @XmlElement(defaultValue = "1.0")
     protected double y;
+    
+    /** The z. */
     @XmlElement(defaultValue = "1.0")
     protected double z;
+    
+    /** The scale simple extension. */
     @XmlElement(name = "ScaleSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> scaleSimpleExtension;
@@ -82,85 +98,84 @@ public class Scale
     @XmlElement(name = "ScaleObjectExtensionGroup")
     protected List<AbstractObject> scaleObjectExtension;
 
+    /**
+     * Instantiates a new scale.
+     */
     public Scale() {
         super();
     }
 
     /**
-     * @see x
-     * 
-     * @return
-     *     possible object is
+     * Gets the x.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see x
      */
     public double getX() {
         return x;
     }
 
     /**
-     * @see x
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the x.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see x
      */
     public void setX(double value) {
         this.x = value;
     }
 
     /**
-     * @see y
-     * 
-     * @return
-     *     possible object is
+     * Gets the y.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see y
      */
     public double getY() {
         return y;
     }
 
     /**
-     * @see y
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the y.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see y
      */
     public void setY(double value) {
         this.y = value;
     }
 
     /**
-     * @see z
-     * 
-     * @return
-     *     possible object is
+     * Gets the z.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see z
      */
     public double getZ() {
         return z;
     }
 
     /**
-     * @see z
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the z.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see z
      */
     public void setZ(double value) {
         this.z = value;
     }
 
     /**
+     * Gets the scale simple extension.
+     *
+     * @return the scale simple extension
      * @see scaleSimpleExtension
-     * 
      */
     public List<Object> getScaleSimpleExtension() {
         if (scaleSimpleExtension == null) {
@@ -170,8 +185,10 @@ public class Scale
     }
 
     /**
+     * Gets the scale object extension.
+     *
+     * @return the scale object extension
      * @see scaleObjectExtension
-     * 
      */
     public List<AbstractObject> getScaleObjectExtension() {
         if (scaleObjectExtension == null) {
@@ -242,21 +259,20 @@ public class Scale
     }
 
     /**
+     * Sets the scale simple extension.
+     *
+     * @param scaleSimpleExtension the new scale simple extension
      * @see scaleSimpleExtension
-     * 
-     * @param scaleSimpleExtension
      */
     public void setScaleSimpleExtension(final List<Object> scaleSimpleExtension) {
         this.scaleSimpleExtension = scaleSimpleExtension;
     }
 
     /**
-     * add a value to the scaleSimpleExtension property collection
-     * 
-     * @param scaleSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the scaleSimpleExtension property collection.
+     *
+     * @param scaleSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Scale addToScaleSimpleExtension(final Object scaleSimpleExtension) {
         this.getScaleSimpleExtension().add(scaleSimpleExtension);
@@ -264,21 +280,20 @@ public class Scale
     }
 
     /**
+     * Sets the scale object extension.
+     *
+     * @param scaleObjectExtension the new scale object extension
      * @see scaleObjectExtension
-     * 
-     * @param scaleObjectExtension
      */
     public void setScaleObjectExtension(final List<AbstractObject> scaleObjectExtension) {
         this.scaleObjectExtension = scaleObjectExtension;
     }
 
     /**
-     * add a value to the scaleObjectExtension property collection
-     * 
-     * @param scaleObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the scaleObjectExtension property collection.
+     *
+     * @param scaleObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Scale addToScaleObjectExtension(final AbstractObject scaleObjectExtension) {
         this.getScaleObjectExtension().add(scaleObjectExtension);
@@ -303,11 +318,11 @@ public class Scale
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param x     required parameter
+     * @return the scale
      * @see #setX(double)
-     * 
-     * @param x
-     *     required parameter
      */
     public Scale withX(final double x) {
         this.setX(x);
@@ -315,11 +330,11 @@ public class Scale
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param y     required parameter
+     * @return the scale
      * @see #setY(double)
-     * 
-     * @param y
-     *     required parameter
      */
     public Scale withY(final double y) {
         this.setY(y);
@@ -327,11 +342,11 @@ public class Scale
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param z     required parameter
+     * @return the scale
      * @see #setZ(double)
-     * 
-     * @param z
-     *     required parameter
      */
     public Scale withZ(final double z) {
         this.setZ(z);
@@ -339,11 +354,11 @@ public class Scale
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param scaleSimpleExtension     required parameter
+     * @return the scale
      * @see #setScaleSimpleExtension(List<Object>)
-     * 
-     * @param scaleSimpleExtension
-     *     required parameter
      */
     public Scale withScaleSimpleExtension(final List<Object> scaleSimpleExtension) {
         this.setScaleSimpleExtension(scaleSimpleExtension);
@@ -351,11 +366,11 @@ public class Scale
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param scaleObjectExtension     required parameter
+     * @return the scale
      * @see #setScaleObjectExtension(List<AbstractObject>)
-     * 
-     * @param scaleObjectExtension
-     *     required parameter
      */
     public Scale withScaleObjectExtension(final List<AbstractObject> scaleObjectExtension) {
         this.setScaleObjectExtension(scaleObjectExtension);

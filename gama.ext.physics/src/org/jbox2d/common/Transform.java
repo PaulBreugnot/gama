@@ -1,26 +1,13 @@
-/*******************************************************************************
- * Copyright (c) 2013, Daniel Murphy
- * All rights reserved.
+/*******************************************************************************************************
+ *
+ * Transform.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
- * 	* Redistributions of source code must retain the above copyright notice,
- * 	  this list of conditions and the following disclaimer.
- * 	* Redistributions in binary form must reproduce the above copyright notice,
- * 	  this list of conditions and the following disclaimer in the documentation
- * 	  and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
- * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
- * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
- * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- ******************************************************************************/
+ ********************************************************************************************************/
 package org.jbox2d.common;
 
 import java.io.Serializable;
@@ -32,12 +19,14 @@ import java.io.Serializable;
  * orientation of rigid frames.
  */
 public class Transform implements Serializable {
+  
+  /** The Constant serialVersionUID. */
   private static final long serialVersionUID = 1L;
 
-  /** The translation caused by the transform */
+  /**  The translation caused by the transform. */
   public final Vec2 p;
 
-  /** A matrix representing a rotation */
+  /**  A matrix representing a rotation. */
   public final Rot q;
 
   /** The default constructor. */
@@ -46,19 +35,33 @@ public class Transform implements Serializable {
     q = new Rot();
   }
 
-  /** Initialize as a copy of another transform. */
+  /**
+   *  Initialize as a copy of another transform.
+   *
+   * @param xf the xf
+   */
   public Transform(final Transform xf) {
     p = xf.p.clone();
     q = xf.q.clone();
   }
 
-  /** Initialize using a position vector and a rotation matrix. */
+  /**
+   *  Initialize using a position vector and a rotation matrix.
+   *
+   * @param _position the position
+   * @param _R the  r
+   */
   public Transform(final Vec2 _position, final Rot _R) {
     p = _position.clone();
     q = _R.clone();
   }
 
-  /** Set this to equal another transform. */
+  /**
+   *  Set this to equal another transform.
+   *
+   * @param xf the xf
+   * @return the transform
+   */
   public final Transform set(final Transform xf) {
     p.set(xf.p);
     q.set(xf.q);
@@ -67,9 +70,9 @@ public class Transform implements Serializable {
 
   /**
    * Set this based on the position and angle.
-   * 
-   * @param p
-   * @param angle
+   *
+   * @param p the p
+   * @param angle the angle
    */
   public final void set(Vec2 p, float angle) {
     this.p.set(p);
@@ -82,28 +85,63 @@ public class Transform implements Serializable {
     q.setIdentity();
   }
 
+  /**
+   * Mul.
+   *
+   * @param T the t
+   * @param v the v
+   * @return the vec 2
+   */
   public final static Vec2 mul(final Transform T, final Vec2 v) {
     return new Vec2((T.q.c * v.x - T.q.s * v.y) + T.p.x, (T.q.s * v.x + T.q.c * v.y) + T.p.y);
   }
 
+  /**
+   * Mul to out.
+   *
+   * @param T the t
+   * @param v the v
+   * @param out the out
+   */
   public final static void mulToOut(final Transform T, final Vec2 v, final Vec2 out) {
     final float tempy = (T.q.s * v.x + T.q.c * v.y) + T.p.y;
     out.x = (T.q.c * v.x - T.q.s * v.y) + T.p.x;
     out.y = tempy;
   }
 
+  /**
+   * Mul to out unsafe.
+   *
+   * @param T the t
+   * @param v the v
+   * @param out the out
+   */
   public final static void mulToOutUnsafe(final Transform T, final Vec2 v, final Vec2 out) {
     assert (v != out);
     out.x = (T.q.c * v.x - T.q.s * v.y) + T.p.x;
     out.y = (T.q.s * v.x + T.q.c * v.y) + T.p.y;
   }
 
+  /**
+   * Mul trans.
+   *
+   * @param T the t
+   * @param v the v
+   * @return the vec 2
+   */
   public final static Vec2 mulTrans(final Transform T, final Vec2 v) {
     final float px = v.x - T.p.x;
     final float py = v.y - T.p.y;
     return new Vec2((T.q.c * px + T.q.s * py), (-T.q.s * px + T.q.c * py));
   }
 
+  /**
+   * Mul trans to out.
+   *
+   * @param T the t
+   * @param v the v
+   * @param out the out
+   */
   public final static void mulTransToOut(final Transform T, final Vec2 v, final Vec2 out) {
     final float px = v.x - T.p.x;
     final float py = v.y - T.p.y;
@@ -112,6 +150,13 @@ public class Transform implements Serializable {
     out.y = tempy;
   }
   
+  /**
+   * Mul trans to out unsafe.
+   *
+   * @param T the t
+   * @param v the v
+   * @param out the out
+   */
   public final static void mulTransToOutUnsafe(final Transform T, final Vec2 v, final Vec2 out) {
     assert(v != out);
     final float px = v.x - T.p.x;
@@ -120,6 +165,13 @@ public class Transform implements Serializable {
     out.y = (-T.q.s * px + T.q.c * py);
   }
 
+  /**
+   * Mul.
+   *
+   * @param A the a
+   * @param B the b
+   * @return the transform
+   */
   public final static Transform mul(final Transform A, final Transform B) {
     Transform C = new Transform();
     Rot.mulUnsafe(A.q, B.q, C.q);
@@ -128,6 +180,13 @@ public class Transform implements Serializable {
     return C;
   }
 
+  /**
+   * Mul to out.
+   *
+   * @param A the a
+   * @param B the b
+   * @param out the out
+   */
   public final static void mulToOut(final Transform A, final Transform B, final Transform out) {
     assert (out != A);
     Rot.mul(A.q, B.q, out.q);
@@ -135,6 +194,13 @@ public class Transform implements Serializable {
     out.p.addLocal(A.p);
   }
 
+  /**
+   * Mul to out unsafe.
+   *
+   * @param A the a
+   * @param B the b
+   * @param out the out
+   */
   public final static void mulToOutUnsafe(final Transform A, final Transform B, final Transform out) {
     assert (out != B);
     assert (out != A);
@@ -143,8 +209,16 @@ public class Transform implements Serializable {
     out.p.addLocal(A.p);
   }
 
+  /** The pool. */
   private static Vec2 pool = new Vec2();
 
+  /**
+   * Mul trans.
+   *
+   * @param A the a
+   * @param B the b
+   * @return the transform
+   */
   public final static Transform mulTrans(final Transform A, final Transform B) {
     Transform C = new Transform();
     Rot.mulTransUnsafe(A.q, B.q, C.q);
@@ -153,6 +227,13 @@ public class Transform implements Serializable {
     return C;
   }
 
+  /**
+   * Mul trans to out.
+   *
+   * @param A the a
+   * @param B the b
+   * @param out the out
+   */
   public final static void mulTransToOut(final Transform A, final Transform B, final Transform out) {
     assert (out != A);
     Rot.mulTrans(A.q, B.q, out.q);
@@ -160,6 +241,13 @@ public class Transform implements Serializable {
     Rot.mulTrans(A.q, pool, out.p);
   }
 
+  /**
+   * Mul trans to out unsafe.
+   *
+   * @param A the a
+   * @param B the b
+   * @param out the out
+   */
   public final static void mulTransToOutUnsafe(final Transform A, final Transform B,
       final Transform out) {
     assert (out != A);

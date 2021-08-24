@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.statements.DoStatement.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * DoStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.statements;
 
@@ -166,6 +166,9 @@ import gaml.types.IType;
 @serializer (DoSerializer.class)
 public class DoStatement extends AbstractStatementSequence implements IStatement.WithArgs {
 
+	/**
+	 * The Class DoSerializer.
+	 */
 	public static class DoSerializer extends StatementSerializer {
 
 		@Override
@@ -190,6 +193,9 @@ public class DoStatement extends AbstractStatementSequence implements IStatement
 
 	}
 
+	/**
+	 * The Class DoValidator.
+	 */
 	public static class DoValidator implements IDescriptionValidator<StatementDescription> {
 
 		/**
@@ -230,12 +236,26 @@ public class DoStatement extends AbstractStatementSequence implements IStatement
 
 	}
 
+	/** The args. */
 	Arguments args;
+	
+	/** The return string. */
 	String returnString;
+	
+	/** The target species. */
 	final String targetSpecies;
+	
+	/** The function. */
 	final IExpression function;
+	
+	/** The Constant DO_FACETS. */
 	public static final Set<String> DO_FACETS = DescriptionFactory.getAllowedFacetsFor(IKeyword.DO, IKeyword.INVOKE);
 
+	/**
+	 * Instantiates a new do statement.
+	 *
+	 * @param desc the desc
+	 */
 	public DoStatement(final IDescription desc) {
 		super(desc);
 
@@ -264,6 +284,12 @@ public class DoStatement extends AbstractStatementSequence implements IStatement
 		this.args = args;
 	}
 
+	/**
+	 * Gets the runtime args.
+	 *
+	 * @param scope the scope
+	 * @return the runtime args
+	 */
 	public Arguments getRuntimeArgs(final IScope scope) {
 		if (args == null) { return null; }
 		// Dynamic arguments necessary (see #2943, #2922, plus issue with multiple parallel simulations)
@@ -273,6 +299,9 @@ public class DoStatement extends AbstractStatementSequence implements IStatement
 	/**
 	 * Returns the species on which to find the action. If a species target (desc) exists, then it is a super invocation
 	 * and we have to find the corresponding action. Otherwise, we return the species of the agent
+	 *
+	 * @param scope the scope
+	 * @return the context
 	 */
 	private ISpecies getContext(final IScope scope) {
 		return targetSpecies != null ? scope.getModel().getSpecies(targetSpecies) : scope.getAgent().getSpecies();

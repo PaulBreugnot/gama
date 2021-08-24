@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * CameraHelper.java, in gama.display.opengl, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.display.opengl.renderer.helpers;
 
 import java.util.LinkedHashMap;
@@ -16,10 +26,21 @@ import gama.display.opengl.renderer.IOpenGLRenderer;
 import gama.metamodel.shape.GamaPoint;
 import gama.ui.base.utils.WorkbenchHelper;
 
+/**
+ * The Class CameraHelper.
+ */
 public class CameraHelper extends AbstractRendererHelper implements ICamera {
+	
+	/** The Constant UNDEFINED. */
 	public final static GamaPoint UNDEFINED = new GamaPoint();
+	
+	/** The Constant NULL_POINT. */
 	public final static GamaPoint NULL_POINT = new GamaPoint();
+	
+	/** The presets. */
 	public static Map<String, CameraPreset> PRESETS = new LinkedHashMap<>();
+	
+	/** The camera. */
 	ICamera camera;
 
 	static {
@@ -58,10 +79,18 @@ public class CameraHelper extends AbstractRendererHelper implements ICamera {
 
 	}
 
+	/**
+	 * Instantiates a new camera helper.
+	 *
+	 * @param renderer the renderer
+	 */
 	public CameraHelper(final IOpenGLRenderer renderer) {
 		super(renderer);
 	}
 
+	/**
+	 * Setup camera.
+	 */
 	public final void setupCamera() {
 		if (!getData().isArcBallCamera()) {
 			camera = new FreeFlyCamera(getRenderer());
@@ -222,6 +251,9 @@ public class CameraHelper extends AbstractRendererHelper implements ICamera {
 		return NULL_POINT;
 	}
 
+	/**
+	 * Hook.
+	 */
 	public void hook() {
 		final GLCanvas canvas = getCanvas();
 		WorkbenchHelper.asyncRun(() -> {
@@ -292,6 +324,9 @@ public class CameraHelper extends AbstractRendererHelper implements ICamera {
 		return 0d;
 	}
 
+	/**
+	 * Dispose.
+	 */
 	public void dispose() {
 		final GLCanvas canvas = getCanvas();
 		WorkbenchHelper.asyncRun(() -> {

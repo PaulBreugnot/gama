@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'AbstractCamera.java, in plugin ummisco.gama.opengl, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * AbstractCamera.java, in gama.display.opengl, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.display.opengl.camera;
 
 import org.eclipse.swt.SWT;
@@ -27,52 +26,107 @@ import gama.outputs.LayeredDisplayData;
 import gama.ui.base.bindings.GamaKeyBindings;
 import gama.ui.base.utils.PlatformHelper;
 
+/**
+ * The Class AbstractCamera.
+ */
 public abstract class AbstractCamera implements ICamera {
 
 	static {
 		DEBUG.OFF();
 	}
 
+	/** The renderer. */
 	protected final IOpenGLRenderer renderer;
+	
+	/** The glu. */
 	private final GLU glu;
+	
+	/** The initialized. */
 	protected boolean initialized;
 
+	/** The mouse position. */
 	// Mouse
 	private final GamaPoint mousePosition = new GamaPoint(0, 0);
+	
+	/** The last mouse pressed position. */
 	protected final GamaPoint lastMousePressedPosition = new GamaPoint(0, 0);
+	
+	/** The first mouse pressed position. */
 	protected final GamaPoint firstMousePressedPosition = new GamaPoint(0, 0);
+	
+	/** The firsttime mouse down. */
 	protected boolean firsttimeMouseDown = true;
+	
+	/** The camera interaction. */
 	protected boolean cameraInteraction = true;
 
+	/** The position. */
 	protected final GamaPoint position = new GamaPoint(0, 0, 0);
+	
+	/** The target. */
 	protected final GamaPoint target = new GamaPoint(0, 0, 0);
+	
+	/** The up vector. */
 	protected final GamaPoint upVector = new GamaPoint(0, 0, 0);
+	
+	/** The initial up vector. */
 	protected GamaPoint initialPosition, initialTarget, initialUpVector;
 
+	/** The theta. */
 	protected double theta;
+	
+	/** The phi. */
 	protected double phi;
+	
+	/** The flipped. */
 	protected boolean flipped = false;
 	// protected double upVectorAngle;
 
+	/** The keyboard sensivity. */
 	private final double _keyboardSensivity = 1d;
+	
+	/** The sensivity. */
 	private final double _sensivity = 1;
 
+	/** The goes forward. */
 	// Mouse and keyboard state
 	private boolean goesForward;
+	
+	/** The goes backward. */
 	private boolean goesBackward;
+	
+	/** The strafe left. */
 	private boolean strafeLeft;
+	
+	/** The strafe right. */
 	private boolean strafeRight;
 
+	/** The ROI currently drawn. */
 	private volatile boolean ROICurrentlyDrawn = false;
 
+	/** The ctrl pressed. */
 	protected boolean ctrlPressed = false;
+	
+	/** The shift pressed. */
 	protected boolean shiftPressed = false;
 
+	/** The keystone mode. */
 	protected boolean keystoneMode = false;
+	
+	/** The z corrector. */
 	protected double zCorrector = 1d;
+	
+	/** The use num keys. */
 	private final boolean useNumKeys = GamaPreferences.Displays.OPENGL_NUM_KEYS_CAM.getValue();
+	
+	/** The Constant UP_Z. */
 	private static final GamaPoint UP_Z = new GamaPoint(0, 0, 1);
 
+	/**
+	 * Instantiates a new abstract camera.
+	 *
+	 * @param renderer2 the renderer 2
+	 */
 	public AbstractCamera(final IOpenGLRenderer renderer2) {
 		this.renderer = renderer2;
 		// LayeredDisplayData data = renderer.getData();
@@ -130,6 +184,9 @@ public abstract class AbstractCamera implements ICamera {
 		initialized = true;
 	}
 
+	/**
+	 * Draw rotation helper.
+	 */
 	protected abstract void drawRotationHelper();
 
 	@Override
@@ -138,6 +195,13 @@ public abstract class AbstractCamera implements ICamera {
 		getRenderer().getData().setCameraPos(new GamaPoint(position));
 	}
 
+	/**
+	 * Sets the target.
+	 *
+	 * @param xLPos the x L pos
+	 * @param yLPos the y L pos
+	 * @param zLPos the z L pos
+	 */
 	public void setTarget(final double xLPos, final double yLPos, final double zLPos) {
 		target.setLocation(xLPos, yLPos, zLPos);
 		getRenderer().getData().setCameraLookPos(new GamaPoint(target));
@@ -175,19 +239,39 @@ public abstract class AbstractCamera implements ICamera {
 
 	/*------------------ Events controls ---------------------*/
 
+	/**
+	 * Sets the shift pressed.
+	 *
+	 * @param value the new shift pressed
+	 */
 	final void setShiftPressed(final boolean value) {
 		shiftPressed = value;
 	}
 
+	/**
+	 * Sets the ctrl pressed.
+	 *
+	 * @param value the new ctrl pressed
+	 */
 	final void setCtrlPressed(final boolean value) {
 		ctrlPressed = value;
 	}
 
+	/**
+	 * Sets the mouse left pressed.
+	 *
+	 * @param b the new mouse left pressed
+	 */
 	protected void setMouseLeftPressed(final boolean b) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * Invoke on GL thread.
+	 *
+	 * @param runnable the runnable
+	 */
 	protected void invokeOnGLThread(final GLRunnable runnable) {
 		// Fixing issue #2224
 		runnable.run(renderer.getCanvas());
@@ -208,6 +292,11 @@ public abstract class AbstractCamera implements ICamera {
 
 	}
 
+	/**
+	 * Internal mouse scrolled.
+	 *
+	 * @param e the e
+	 */
 	protected void internalMouseScrolled(final MouseEvent e) {
 		zoom(e.count > 0);
 	}
@@ -229,6 +318,11 @@ public abstract class AbstractCamera implements ICamera {
 
 	}
 
+	/**
+	 * Internal mouse move.
+	 *
+	 * @param e the e
+	 */
 	protected void internalMouseMove(final MouseEvent e) {
 		mousePosition.x = PlatformHelper.autoScaleUp(e.x);
 		mousePosition.y = PlatformHelper.autoScaleUp(e.y);
@@ -288,6 +382,13 @@ public abstract class AbstractCamera implements ICamera {
 
 	}
 
+	/**
+	 * Gets the normalized coordinates.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @return the normalized coordinates
+	 */
 	protected GamaPoint getNormalizedCoordinates(final double x, final double y) {
 		final double xCoordNormalized = x / getRenderer().getWidth();
 		double yCoordNormalized = y / getRenderer().getHeight();
@@ -295,6 +396,12 @@ public abstract class AbstractCamera implements ICamera {
 		return new GamaPoint(xCoordNormalized, yCoordNormalized);
 	}
 
+	/**
+	 * Click on keystone.
+	 *
+	 * @param e the e
+	 * @return the int
+	 */
 	private int clickOnKeystone(final MouseEvent e) {
 		// int x = e.x;
 		// int y = e.y;
@@ -306,6 +413,12 @@ public abstract class AbstractCamera implements ICamera {
 		return renderer.getKeystoneHelper().cornerSelected(new GamaPoint(x, y));
 	}
 
+	/**
+	 * Hover on keystone.
+	 *
+	 * @param e the e
+	 * @return the int
+	 */
 	protected int hoverOnKeystone(final MouseEvent e) {
 		// int x = e.x;
 		// int y = e.y;
@@ -317,6 +430,11 @@ public abstract class AbstractCamera implements ICamera {
 		return renderer.getKeystoneHelper().cornerHovered(new GamaPoint(x, y));
 	}
 
+	/**
+	 * Internal mouse down.
+	 *
+	 * @param e the e
+	 */
 	protected void internalMouseDown(final MouseEvent e) {
 		final int x = PlatformHelper.autoScaleUp(e.x);
 		final int y = PlatformHelper.autoScaleUp(e.y);
@@ -373,6 +491,11 @@ public abstract class AbstractCamera implements ICamera {
 
 	}
 
+	/**
+	 * Internal mouse up.
+	 *
+	 * @param e the e
+	 */
 	protected void internalMouseUp(final MouseEvent e) {
 		firsttimeMouseDown = true;
 		if (canSelectOnRelease(e) && isViewInXYPlan() && GamaKeyBindings.shift(e)) { finishROISelection(); }
@@ -380,6 +503,11 @@ public abstract class AbstractCamera implements ICamera {
 
 	}
 
+	/**
+	 * Start ROI.
+	 *
+	 * @param e the e
+	 */
 	private void startROI(final org.eclipse.swt.events.MouseEvent e) {
 		getMousePosition().x = PlatformHelper.autoScaleUp(e.x);
 		getMousePosition().y = PlatformHelper.autoScaleUp(e.y);
@@ -387,6 +515,9 @@ public abstract class AbstractCamera implements ICamera {
 		ROICurrentlyDrawn = true;
 	}
 
+	/**
+	 * Finish ROI selection.
+	 */
 	void finishROISelection() {
 		if (ROICurrentlyDrawn) {
 			final Envelope3D env = renderer.getOpenGLHelper().getROIEnvelope();
@@ -394,6 +525,12 @@ public abstract class AbstractCamera implements ICamera {
 		}
 	}
 
+	/**
+	 * Can select on release.
+	 *
+	 * @param arg0 the arg 0
+	 * @return true, if successful
+	 */
 	protected abstract boolean canSelectOnRelease(org.eclipse.swt.events.MouseEvent arg0);
 	//
 	// protected void dump() {
@@ -411,6 +548,11 @@ public abstract class AbstractCamera implements ICamera {
 		return mousePosition;
 	}
 
+	/**
+	 * Checks if is view in XY plan.
+	 *
+	 * @return true, if is view in XY plan
+	 */
 	public boolean isViewInXYPlan() {
 		return true;
 		// return phi > 170 || phi < 10;// && theta > -5 && theta < 5;
@@ -421,30 +563,65 @@ public abstract class AbstractCamera implements ICamera {
 		return lastMousePressedPosition;
 	}
 
+	/**
+	 * Gets the keyboard sensivity.
+	 *
+	 * @return the keyboard sensivity
+	 */
 	protected double getKeyboardSensivity() {
 		return _keyboardSensivity;
 	}
 
+	/**
+	 * Gets the sensivity.
+	 *
+	 * @return the sensivity
+	 */
 	protected double getSensivity() {
 		return _sensivity;
 	}
 
+	/**
+	 * Checks if is forward.
+	 *
+	 * @return true, if is forward
+	 */
 	protected boolean isForward() {
 		return goesForward;
 	}
 
+	/**
+	 * Checks if is backward.
+	 *
+	 * @return true, if is backward
+	 */
 	protected boolean isBackward() {
 		return goesBackward;
 	}
 
+	/**
+	 * Checks if is strafe left.
+	 *
+	 * @return true, if is strafe left
+	 */
 	protected boolean isStrafeLeft() {
 		return strafeLeft;
 	}
 
+	/**
+	 * Checks if is strafe right.
+	 *
+	 * @return true, if is strafe right
+	 */
 	protected boolean isStrafeRight() {
 		return strafeRight;
 	}
 
+	/**
+	 * Gets the renderer.
+	 *
+	 * @return the renderer
+	 */
 	public IOpenGLRenderer getRenderer() {
 		return renderer;
 	}
@@ -516,16 +693,34 @@ public abstract class AbstractCamera implements ICamera {
 		});
 	}
 
+	/**
+	 * Reset pivot.
+	 */
 	protected void resetPivot() {}
 
+	/**
+	 * Quick left turn.
+	 */
 	protected void quickLeftTurn() {}
 
+	/**
+	 * Quick right turn.
+	 */
 	protected void quickRightTurn() {}
 
+	/**
+	 * Quick up turn.
+	 */
 	protected void quickUpTurn() {}
 
+	/**
+	 * Quick down turn.
+	 */
 	protected void quickDownTurn() {}
 
+	/**
+	 * Activate keystone mode.
+	 */
 	protected final void activateKeystoneMode() {
 		if (!keystoneMode) {
 			getRenderer().getSurface().zoomFit();
@@ -577,11 +772,21 @@ public abstract class AbstractCamera implements ICamera {
 		});
 	}
 
+	/**
+	 * Sets the target.
+	 *
+	 * @param centre the new target
+	 */
 	public void setTarget(final GamaPoint centre) {
 		setTarget(centre.x, centre.y, centre.z);
 
 	}
 
+	/**
+	 * Sets the position.
+	 *
+	 * @param centre the new position
+	 */
 	public void setPosition(final GamaPoint centre) {
 		setPosition(centre.x, centre.y, centre.z);
 
@@ -592,6 +797,11 @@ public abstract class AbstractCamera implements ICamera {
 		zCorrector = corrector;
 	}
 
+	/**
+	 * Gets the initial Z factor.
+	 *
+	 * @return the initial Z factor
+	 */
 	public double getInitialZFactor() {
 		if (renderer.getData().isDrawEnv()) return 1.46 / zCorrector;
 		return 1.2 / zCorrector;

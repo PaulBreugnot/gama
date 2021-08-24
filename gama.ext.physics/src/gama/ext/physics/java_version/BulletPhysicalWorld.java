@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * BulletPhysicalWorld.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.physics.java_version;
 
 import javax.vecmath.Vector3f;
@@ -23,12 +33,23 @@ import gama.ext.physics.gaml.PhysicalSimulationAgent;
 import gama.metamodel.agent.IAgent;
 import gama.metamodel.shape.GamaPoint;
 
+/**
+ * The Class BulletPhysicalWorld.
+ */
 public class BulletPhysicalWorld extends AbstractPhysicalWorld<DiscreteDynamicsWorld, CollisionShape, Vector3f>
 		implements IBulletPhysicalEntity {
 
+	/** The config. */
 	private final CollisionConfiguration config = new DefaultCollisionConfiguration();
+	
+	/** The dispatcher. */
 	private final CollisionDispatcher dispatcher = new CollisionDispatcher(config);
 
+	/**
+	 * Instantiates a new bullet physical world.
+	 *
+	 * @param physicalSimulationAgent the physical simulation agent
+	 */
 	public BulletPhysicalWorld(final PhysicalSimulationAgent physicalSimulationAgent) {
 		super(physicalSimulationAgent);
 	}

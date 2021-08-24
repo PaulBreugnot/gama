@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Maths
+Bundle-Name: Maths extensions for GAMA
 Bundle-SymbolicName: gama.ext.maths;singleton:=true
-Bundle-Version: 1.8.1.qualifier
-Require-Bundle: gama.core.kernel,
- gama.ext.libs
+Bundle-Version: 2.0.0.qualifier
+Require-Bundle: gama.core.kernel;bundle-version="2.0.0",
+ gama.ext.libs;bundle-version="2.0.0"
 Bundle-ActivationPolicy: lazy
 Export-Package: gama.ext.maths.ode.statements,
  org.apache.commons.math3.ml.clustering,
@@ -15,7 +15,7 @@ Export-Package: gama.ext.maths.ode.statements,
  org.apache.commons.math3.stat.regression,
  org.apache.commons.math3.util
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Automatic-Module-Name: ummisco.gaml.extensions.maths
+Automatic-Module-Name: gama.ext.maths
 Bundle-ClassPath: lib/commons-math3-3.6.1.jar,
  .
 Import-Package: org.eclipse.emf.ecore

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Delete.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -82,13 +92,18 @@ public class Delete implements Cloneable
     @XmlElementRef(name = "AbstractFeatureGroup", namespace = "http://www.opengis.net/kml/2.2", required = false)
     protected List<Feature> feature;
 
+    /**
+     * Instantiates a new delete.
+     */
     public Delete() {
         super();
     }
 
     /**
+     * Gets the feature.
+     *
+     * @return the feature
      * @see feature
-     * 
      */
     public List<Feature> getFeature() {
         if (feature == null) {
@@ -135,8 +150,8 @@ public class Delete implements Cloneable
      * <code>
      * Tour tour = new Tour();
      * this.getFeature().add(tour); </code>
-     * 
-     * 
+     *
+     * @return the tour
      */
     public Tour createAndAddTour() {
         Tour newValue = new Tour();
@@ -150,8 +165,8 @@ public class Delete implements Cloneable
      * <code>
      * ScreenOverlay screenOverlay = new ScreenOverlay();
      * this.getFeature().add(screenOverlay); </code>
-     * 
-     * 
+     *
+     * @return the screen overlay
      */
     public ScreenOverlay createAndAddScreenOverlay() {
         ScreenOverlay newValue = new ScreenOverlay();
@@ -165,8 +180,8 @@ public class Delete implements Cloneable
      * <code>
      * PhotoOverlay photoOverlay = new PhotoOverlay();
      * this.getFeature().add(photoOverlay); </code>
-     * 
-     * 
+     *
+     * @return the photo overlay
      */
     public PhotoOverlay createAndAddPhotoOverlay() {
         PhotoOverlay newValue = new PhotoOverlay();
@@ -180,8 +195,8 @@ public class Delete implements Cloneable
      * <code>
      * GroundOverlay groundOverlay = new GroundOverlay();
      * this.getFeature().add(groundOverlay); </code>
-     * 
-     * 
+     *
+     * @return the ground overlay
      */
     public GroundOverlay createAndAddGroundOverlay() {
         GroundOverlay newValue = new GroundOverlay();
@@ -195,8 +210,8 @@ public class Delete implements Cloneable
      * <code>
      * NetworkLink networkLink = new NetworkLink();
      * this.getFeature().add(networkLink); </code>
-     * 
-     * 
+     *
+     * @return the network link
      */
     public NetworkLink createAndAddNetworkLink() {
         NetworkLink newValue = new NetworkLink();
@@ -210,8 +225,8 @@ public class Delete implements Cloneable
      * <code>
      * Folder folder = new Folder();
      * this.getFeature().add(folder); </code>
-     * 
-     * 
+     *
+     * @return the folder
      */
     public Folder createAndAddFolder() {
         Folder newValue = new Folder();
@@ -225,8 +240,8 @@ public class Delete implements Cloneable
      * <code>
      * Document document = new Document();
      * this.getFeature().add(document); </code>
-     * 
-     * 
+     *
+     * @return the document
      */
     public Document createAndAddDocument() {
         Document newValue = new Document();
@@ -240,8 +255,8 @@ public class Delete implements Cloneable
      * <code>
      * Placemark placemark = new Placemark();
      * this.getFeature().add(placemark); </code>
-     * 
-     * 
+     *
+     * @return the placemark
      */
     public Placemark createAndAddPlacemark() {
         Placemark newValue = new Placemark();
@@ -250,21 +265,20 @@ public class Delete implements Cloneable
     }
 
     /**
+     * Sets the feature.
+     *
+     * @param feature the new feature
      * @see feature
-     * 
-     * @param feature
      */
     public void setFeature(final List<Feature> feature) {
         this.feature = feature;
     }
 
     /**
-     * add a value to the feature property collection
-     * 
-     * @param feature
-     *     Objects of the following type are allowed in the list: {@code <}{@link Container}{@code>}{@link JAXBElement}{@code <}{@link GroundOverlay}{@code>}{@link JAXBElement}{@code <}{@link NetworkLink}{@code>}{@link JAXBElement}{@code <}{@link Folder}{@code>}{@link JAXBElement}{@code <}{@link PhotoOverlay}{@code>}{@link JAXBElement}{@code <}{@link Document}{@code>}{@link JAXBElement}{@code <}{@link Tour}{@code>}{@link JAXBElement}{@code <}{@link ScreenOverlay}{@code>}{@link JAXBElement}{@code <}{@link Feature}{@code>}{@link JAXBElement}{@code <}{@link Placemark}{@code>}{@link JAXBElement}{@code <}{@link Overlay}{@code>}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the feature property collection.
+     *
+     * @param feature     Objects of the following type are allowed in the list: {@code <}{@link Container}{@code>}{@link JAXBElement}{@code <}{@link GroundOverlay}{@code>}{@link JAXBElement}{@code <}{@link NetworkLink}{@code>}{@link JAXBElement}{@code <}{@link Folder}{@code>}{@link JAXBElement}{@code <}{@link PhotoOverlay}{@code>}{@link JAXBElement}{@code <}{@link Document}{@code>}{@link JAXBElement}{@code <}{@link Tour}{@code>}{@link JAXBElement}{@code <}{@link ScreenOverlay}{@code>}{@link JAXBElement}{@code <}{@link Feature}{@code>}{@link JAXBElement}{@code <}{@link Placemark}{@code>}{@link JAXBElement}{@code <}{@link Overlay}{@code>}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Delete addToFeature(final Feature feature) {
         this.getFeature().add(feature);
@@ -272,11 +286,11 @@ public class Delete implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param feature     required parameter
+     * @return the delete
      * @see #setFeature(List<Feature>)
-     * 
-     * @param feature
-     *     required parameter
      */
     public Delete withFeature(final List<Feature> feature) {
         this.setFeature(feature);

@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * DXFExtrusion.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf;
 
 import gama.ext.libs.kabeja.dxf.helpers.Point;
@@ -27,12 +22,21 @@ import gama.ext.libs.kabeja.math.MathUtils;
  * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class DXFExtrusion {
+    
+    /** The Constant v. */
     private final static double v = 1.0 / 64.0;
+    
+    /** The n. */
     protected Vector n = new Vector(0.0, 0.0, 1.0);
+    
+    /** The x. */
     protected Vector x;
+    
+    /** The y. */
     protected Vector y;
 
     /**
+     * Gets the x.
      *
      * @return the x value of the extrusion direction.
      */
@@ -41,14 +45,16 @@ public class DXFExtrusion {
     }
 
     /**
-     *
      * Set the x value of the extrusion direction.
+     *
+     * @param x the new x
      */
     public void setX(double x) {
         n.setX(x);
     }
 
     /**
+     * Gets the y.
      *
      * @return the y value of the extrusion direction.
      */
@@ -57,14 +63,16 @@ public class DXFExtrusion {
     }
 
     /**
-     *
      * Set the x value of the extrusion direction.
+     *
+     * @param y the new y
      */
     public void setY(double y) {
         n.setY(y);
     }
 
     /**
+     * Gets the z.
      *
      * @return the z value of the extrusion direction.
      */
@@ -73,8 +81,9 @@ public class DXFExtrusion {
     }
 
     /**
-     *
      * Set the x value of the extrusion direction.
+     *
+     * @param z the new z
      */
     public void setZ(double z) {
         n.setZ(z);
@@ -82,7 +91,8 @@ public class DXFExtrusion {
 
     /**
      * Calculate and returns the x direction of the plane.
-     * @return
+     *
+     * @return the direction X
      */
     public Vector getDirectionX() {
         if ((Math.abs(n.getX()) < v) && (Math.abs(n.getY()) < v)) {
@@ -100,21 +110,31 @@ public class DXFExtrusion {
         return MathUtils.crossProduct(n, getDirectionX());
     }
 
+    /**
+     * Extrude point.
+     *
+     * @param basePoint the base point
+     * @param elevation the elevation
+     * @return the point
+     */
     public Point extrudePoint(Point basePoint, double elevation) {
         return MathUtils.getPointOfStraightLine(basePoint, this.n, elevation);
     }
 
     /**
      * Return the normal direction of the plane.
-     * @return
+     *
+     * @return the normal
      */
     public Vector getNormal() {
         return n;
     }
 
     /**
+     * Gets the direction Z.
+     *
+     * @return the direction Z
      * @see getNormal()
-     * @return
      */
     public Vector getDirectionZ() {
         return n;

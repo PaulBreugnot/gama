@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.expressions.IExpressionCompiler.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * IExpressionCompiler.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.expressions;
 
@@ -30,24 +30,54 @@ import gaml.types.Signature;
 /**
  * Written by drogoul Modified on 28 d�c. 2010
  *
+ * @param <T> the generic type
  * @todo Description
- *
  */
 public interface IExpressionCompiler<T> extends IDisposable {
 
+	/** The operators. */
 	IMap<String, IMap<Signature, OperatorProto>> OPERATORS = GamaMapFactory.createUnordered();
+	
+	/** The iterators. */
 	Set<String> ITERATORS = new HashSet<>();
 
+	/**
+	 * Compile.
+	 *
+	 * @param s the s
+	 * @param parsingContext the parsing context
+	 * @return the i expression
+	 */
 	IExpression compile(final IExpressionDescription s, final IDescription parsingContext);
 
+	/**
+	 * Compile.
+	 *
+	 * @param expression the expression
+	 * @param parsingContext the parsing context
+	 * @param tempContext the temp context
+	 * @return the i expression
+	 */
 	IExpression compile(final String expression, final IDescription parsingContext, IExecutionContext tempContext);
 
+	/**
+	 * Parses the arguments.
+	 *
+	 * @param action the action
+	 * @param eObject the e object
+	 * @param context the context
+	 * @param compileArgValues the compile arg values
+	 * @return the arguments
+	 */
 	Arguments parseArguments(ActionDescription action, EObject eObject, IDescription context, boolean compileArgValues);
 
 	/**
-	 * @param context
-	 * @param facet
-	 * @return
+	 * Compile block.
+	 *
+	 * @param string the string
+	 * @param actionContext the action context
+	 * @param tempContext the temp context
+	 * @return the list
 	 */
 
 	List<IDescription> compileBlock(final String string, final IDescription actionContext,

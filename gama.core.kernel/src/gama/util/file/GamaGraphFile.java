@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.file.GamaGraphFile.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * GamaGraphFile.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -26,20 +26,49 @@ import gaml.species.ISpecies;
 import gaml.types.IContainerType;
 import gaml.types.Types;
 
+/**
+ * The Class GamaGraphFile.
+ */
 public abstract class GamaGraphFile extends GamaFile<IGraph<?, ?>, Object> {
+	
+	/** The node S. */
 	ISpecies nodeS = null;
+	
+	/** The edge S. */
 	ISpecies edgeS = null;
 	
+	/**
+	 * Instantiates a new gama graph file.
+	 *
+	 * @param scope the scope
+	 * @param pn the pn
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public GamaGraphFile(final IScope scope, final String pn) throws GamaRuntimeException {
 		super(scope, pn);
 	}
 
 	
+	/**
+	 * Instantiates a new gama graph file.
+	 *
+	 * @param scope the scope
+	 * @param pathName the path name
+	 * @param nodeSpecies the node species
+	 */
 	public GamaGraphFile(final IScope scope, final String pathName, final ISpecies nodeSpecies) {
 		super(scope, pathName);
 		nodeS = nodeSpecies;
 	}
 
+	/**
+	 * Instantiates a new gama graph file.
+	 *
+	 * @param scope the scope
+	 * @param pathName the path name
+	 * @param nodeSpecies the node species
+	 * @param edgeSpecies the edge species
+	 */
 	public GamaGraphFile(final IScope scope, final String pathName,final ISpecies nodeSpecies, final ISpecies edgeSpecies) {
 		super(scope, pathName);
 		nodeS = nodeSpecies;
@@ -62,6 +91,11 @@ public abstract class GamaGraphFile extends GamaFile<IGraph<?, ?>, Object> {
 		setBuffer(new GamaGraph<>(scope, graph, nodeS, edgeS));
 	}
 	
+	/**
+	 * Gets the file type.
+	 *
+	 * @return the file type
+	 */
 	abstract protected String getFileType() ;
 
 	@Override

@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'ApplicationWorkbenchAdvisor.java, in plugin msi.gama.application, is part of the source code of the GAMA modeling
- * and simulation platform. (v. 1.8.1)
+ * GamaWorkbenchAdvisor.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.workbench;
 
 import java.util.ArrayList;
@@ -50,18 +49,30 @@ import gama.ui.base.utils.PerspectiveHelper;
 import gama.ui.base.utils.ThemeHelper;
 import gama.ui.base.workspace.WorkspaceModelsManager;
 
+/**
+ * The Class GamaWorkbenchAdvisor.
+ */
 public class GamaWorkbenchAdvisor extends IDEWorkbenchAdvisor {
 
 	{
 		DEBUG.OFF();
 	}
 
+	/**
+	 * The Class OpenDocumentEventProcessor.
+	 */
 	public static class OpenDocumentEventProcessor extends DelayedEventsProcessor {
 
+		/**
+		 * Instantiates a new open document event processor.
+		 *
+		 * @param display the display
+		 */
 		OpenDocumentEventProcessor(final Display display) {
 			super(display);
 		}
 
+		/** The files to open. */
 		private final ArrayList<String> filesToOpen = new ArrayList<>(1);
 
 		@Override
@@ -85,12 +96,20 @@ public class GamaWorkbenchAdvisor extends IDEWorkbenchAdvisor {
 		}
 	}
 
+	/**
+	 * Creates the processor.
+	 *
+	 * @return the open document event processor
+	 */
 	public static OpenDocumentEventProcessor createProcessor() {
 		final Display display = Display.getDefault();
 		if (display == null) return null;
 		return new OpenDocumentEventProcessor(display);
 	}
 
+	/**
+	 * Instantiates a new gama workbench advisor.
+	 */
 	public GamaWorkbenchAdvisor() {
 		super(createProcessor());
 	}
@@ -153,6 +172,11 @@ public class GamaWorkbenchAdvisor extends IDEWorkbenchAdvisor {
 		}
 	}
 
+	/**
+	 * Check copy of built in models.
+	 *
+	 * @return true, if successful
+	 */
 	protected boolean checkCopyOfBuiltInModels() {
 
 		final IWorkspace workspace = ResourcesPlugin.getWorkspace();

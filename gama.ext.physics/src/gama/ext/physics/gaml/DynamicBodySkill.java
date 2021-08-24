@@ -1,15 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
+ * DynamicBodySkill.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * 'Physics3DSkill.java', in plugin 'simtools.gaml.extensions.physics', is part of the source code of the GAMA modeling
- * and simulation platform. (v. 1.8.1)
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
- *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.physics.gaml;
 
 import gama.core.dev.annotations.IConcept;
@@ -29,6 +27,9 @@ import gama.runtime.IScope;
 import gaml.operators.Cast;
 import gaml.types.IType;
 
+/**
+ * The Class DynamicBodySkill.
+ */
 @vars ({ @variable (
 		name = IPhysicalConstants.DAMPING,
 		type = IType.FLOAT,
@@ -67,6 +68,12 @@ import gaml.types.IType;
  */
 public class DynamicBodySkill extends StaticBodySkill {
 
+	/**
+	 * Gets the velocity.
+	 *
+	 * @param a the a
+	 * @return the velocity
+	 */
 	@getter (VELOCITY)
 	public GamaPoint getVelocity(final IAgent a) {
 		IBody body = getBody(a);
@@ -74,6 +81,12 @@ public class DynamicBodySkill extends StaticBodySkill {
 		return body.getLinearVelocity(null);
 	}
 
+	/**
+	 * Sets the velocity.
+	 *
+	 * @param a the a
+	 * @param velocity the velocity
+	 */
 	@setter (VELOCITY)
 	public void setVelocity(final IAgent a, final GamaPoint velocity) {
 		IBody body = getBody(a);
@@ -81,6 +94,12 @@ public class DynamicBodySkill extends StaticBodySkill {
 		body.setLinearVelocity(velocity);
 	}
 
+	/**
+	 * Gets the damping.
+	 *
+	 * @param a the a
+	 * @return the damping
+	 */
 	@getter (DAMPING)
 	public Double getDamping(final IAgent a) {
 		IBody body = getBody(a);
@@ -88,6 +107,12 @@ public class DynamicBodySkill extends StaticBodySkill {
 		return (double) body.getLinearDamping();
 	}
 
+	/**
+	 * Sets the damping.
+	 *
+	 * @param a the a
+	 * @param damping the damping
+	 */
 	@setter (DAMPING)
 	public void setDamping(final IAgent a, final Double damping) {
 		IBody body = getBody(a);
@@ -95,6 +120,12 @@ public class DynamicBodySkill extends StaticBodySkill {
 		body.setDamping(damping);
 	}
 
+	/**
+	 * Gets the contact damping.
+	 *
+	 * @param a the a
+	 * @return the contact damping
+	 */
 	@getter (CONTACT_DAMPING)
 	public Double getContactDamping(final IAgent a) {
 		IBody body = getBody(a);
@@ -102,6 +133,12 @@ public class DynamicBodySkill extends StaticBodySkill {
 		return (double) body.getContactDamping();
 	}
 
+	/**
+	 * Sets the contact damping.
+	 *
+	 * @param a the a
+	 * @param damping the damping
+	 */
 	@setter (CONTACT_DAMPING)
 	public void setContactDamping(final IAgent a, final Double damping) {
 		IBody body = getBody(a);
@@ -109,6 +146,12 @@ public class DynamicBodySkill extends StaticBodySkill {
 		body.setContactDamping(damping);
 	}
 
+	/**
+	 * Gets the angular damping.
+	 *
+	 * @param a the a
+	 * @return the angular damping
+	 */
 	@getter (ANGULAR_DAMPING)
 	public Double getAngularDamping(final IAgent a) {
 		IBody body = getBody(a);
@@ -132,6 +175,12 @@ public class DynamicBodySkill extends StaticBodySkill {
 		body.setMass(value);
 	}
 
+	/**
+	 * Sets the angular damping.
+	 *
+	 * @param a the a
+	 * @param damping the damping
+	 */
 	@setter (ANGULAR_DAMPING)
 	public void setAngularDamping(final IAgent a, final Double damping) {
 		IBody body = getBody(a);
@@ -139,6 +188,12 @@ public class DynamicBodySkill extends StaticBodySkill {
 		body.setAngularDamping(damping);
 	}
 
+	/**
+	 * Gets the angular velocity.
+	 *
+	 * @param a the a
+	 * @return the angular velocity
+	 */
 	@getter (ANGULAR_VELOCITY)
 	public GamaPoint getAngularVelocity(final IAgent a) {
 		IBody body = getBody(a);
@@ -146,6 +201,12 @@ public class DynamicBodySkill extends StaticBodySkill {
 		return body.getAngularVelocity(null);
 	}
 
+	/**
+	 * Sets the angular velocity.
+	 *
+	 * @param a the a
+	 * @param angularVelocity the angular velocity
+	 */
 	@setter (ANGULAR_VELOCITY)
 	public void setAngularVelocity(final IAgent a, final GamaPoint angularVelocity) {
 		IBody body = getBody(a);
@@ -153,6 +214,12 @@ public class DynamicBodySkill extends StaticBodySkill {
 		body.setAngularVelocity(angularVelocity);
 	}
 
+	/**
+	 * Prim apply.
+	 *
+	 * @param scope the scope
+	 * @return the object
+	 */
 	@action (
 			doc = @doc ("An action that allows to apply different effects to the object, like forces, impulses, etc."),
 			name = APPLY,

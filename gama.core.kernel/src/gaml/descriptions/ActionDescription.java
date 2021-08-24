@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.descriptions.ActionDescription.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * ActionDescription.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.descriptions;
 
@@ -28,12 +28,29 @@ import gaml.statements.Facets.Facet;
 import gaml.types.IType;
 import gaml.types.Types;
 
+/**
+ * The Class ActionDescription.
+ */
 public class ActionDescription extends StatementWithChildrenDescription {
 
+	/** The is abstract. */
 	protected final boolean isAbstract;
+	
+	/** The is synthetic. */
 	protected final boolean isSynthetic;
+	
+	/** The null args. */
 	public static Arguments NULL_ARGS = new Arguments();
 
+	/**
+	 * Instantiates a new action description.
+	 *
+	 * @param keyword the keyword
+	 * @param superDesc the super desc
+	 * @param cp the cp
+	 * @param source the source
+	 * @param facets the facets
+	 */
 	public ActionDescription(final String keyword, final IDescription superDesc, final Iterable<IDescription> cp,
 			final EObject source, final Facets facets) {
 		super(keyword, superDesc, cp, true, source, facets, null);
@@ -49,6 +66,11 @@ public class ActionDescription extends StatementWithChildrenDescription {
 		return desc;
 	}
 
+	/**
+	 * Checks if is abstract.
+	 *
+	 * @return true, if is abstract
+	 */
 	public boolean isAbstract() {
 		return isAbstract;
 	}
@@ -64,12 +86,21 @@ public class ActionDescription extends StatementWithChildrenDescription {
 	}
 
 	/**
-	 * @return
+	 * Gets the arg names.
+	 *
+	 * @return the arg names
 	 */
 	public List<String> getArgNames() {
 		return Lists.newArrayList(Iterables.transform(getFormalArgs(), TO_NAME));
 	}
 
+	/**
+	 * Verify args.
+	 *
+	 * @param caller the caller
+	 * @param args the args
+	 * @return true, if successful
+	 */
 	@SuppressWarnings ("rawtypes")
 	public boolean verifyArgs(final IDescription caller, final Arguments args) {
 		final Arguments names = args == null ? NULL_ARGS : args;
@@ -152,6 +183,12 @@ public class ActionDescription extends StatementWithChildrenDescription {
 		return true;
 	}
 
+	/**
+	 * Contains arg.
+	 *
+	 * @param s the s
+	 * @return true, if successful
+	 */
 	public boolean containsArg(final String s) {
 		final IDescription formalArg = Iterables.find(getFormalArgs(), input -> input.getName().equals(s));
 		return formalArg != null;
@@ -179,6 +216,11 @@ public class ActionDescription extends StatementWithChildrenDescription {
 		return getArgDocumentation() + super.getDocumentation();
 	}
 
+	/**
+	 * Gets the arg documentation.
+	 *
+	 * @return the arg documentation
+	 */
 	public String getArgDocumentation() {
 		final StringBuilder sb = new StringBuilder(200);
 
@@ -214,6 +256,11 @@ public class ActionDescription extends StatementWithChildrenDescription {
 		return super.getTitle() + getShortDescription();
 	}
 
+	/**
+	 * Gets the short description.
+	 *
+	 * @return the short description
+	 */
 	public String getShortDescription() {
 		final String returns = getGamlType().equals(Types.NO_TYPE) ? ", no value returned"
 				: ", returns a result of type " + getGamlType().getTitle();

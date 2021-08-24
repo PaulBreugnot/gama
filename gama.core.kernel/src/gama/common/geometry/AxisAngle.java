@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.common.geometry.AxisAngle.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * AxisAngle.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 
 package gama.common.geometry;
@@ -22,9 +22,7 @@ import gama.metamodel.shape.GamaPoint;
  */
 public class AxisAngle implements java.io.Serializable, Cloneable {
 
-	/**
-	 * The Axis around which the rotation is done
-	 */
+	/** The Axis around which the rotation is done. */
 	public final GamaPoint axis = new GamaPoint(Rotation3D.PLUS_K);
 
 	/**
@@ -52,6 +50,11 @@ public class AxisAngle implements java.io.Serializable, Cloneable {
 		this.angle = angle;
 	}
 
+	/**
+	 * Instantiates a new axis angle.
+	 *
+	 * @param angle the angle
+	 */
 	public AxisAngle(final Double angle) {
 		this.angle = angle == null ? 0 : angle.doubleValue();
 	}
@@ -223,6 +226,11 @@ public class AxisAngle implements java.io.Serializable, Cloneable {
 		axis.z = z;
 	}
 
+	/**
+	 * Gets the axis.
+	 *
+	 * @return the axis
+	 */
 	public GamaPoint getAxis() {
 		return axis;
 	}

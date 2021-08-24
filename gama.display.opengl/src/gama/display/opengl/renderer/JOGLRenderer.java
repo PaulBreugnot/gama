@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ummisco.gama.opengl.renderer.JOGLRenderer.java, in plugin ummisco.gama.opengl, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * JOGLRenderer.java, in gama.display.opengl, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.display.opengl.renderer;
 
@@ -65,19 +65,31 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 		DEBUG.ON();
 	}
 
+	/** The keystone helper. */
 	// Helpers
 	private final KeystoneHelper keystoneHelper = createKeystoneHelper();
+	
+	/** The picking helper. */
 	private final PickingHelper pickingHelper = new PickingHelper(this);
+	
+	/** The light helper. */
 	private final LightHelper lightHelper = new LightHelper(this);
+	
+	/** The camera helper. */
 	private final CameraHelper cameraHelper = new CameraHelper(this);
+	
+	/** The scene helper. */
 	private final SceneHelper sceneHelper = createSceneHelper();
 
+	/** The open GL. */
 	// OpenGL back-end
 	protected OpenGL openGL;
 
+	/** The disposed. */
 	// State
 	protected volatile boolean inited, visible, disposed;
 
+	/** The canvas. */
 	// Canvas
 	protected GLCanvas canvas;
 
@@ -88,10 +100,20 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 		openGL = new OpenGL(this);
 	}
 
+	/**
+	 * Creates the scene helper.
+	 *
+	 * @return the scene helper
+	 */
 	protected SceneHelper createSceneHelper() {
 		return new SceneHelper(this);
 	}
 
+	/**
+	 * Creates the keystone helper.
+	 *
+	 * @return the keystone helper
+	 */
 	protected KeystoneHelper createKeystoneHelper() {
 		return new KeystoneHelper(this);
 	}
@@ -195,6 +217,7 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 
 	}
 
+	/** The first. */
 	boolean first = true;
 
 	@Override
@@ -312,10 +335,21 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 		return rect;
 	}
 
+	/**
+	 * Try to highlight.
+	 *
+	 * @param attributes the attributes
+	 */
 	protected void tryToHighlight(final DrawingAttributes attributes) {
 		if (highlight) { attributes.setHighlighted(data.getHighlightColor()); }
 	}
 
+	/**
+	 * Draw grid line.
+	 *
+	 * @param dimensions the dimensions
+	 * @param lineColor the line color
+	 */
 	public void drawGridLine(final GamaPoint dimensions, final Color lineColor) {
 		final ModelScene scene = sceneHelper.getSceneToUpdate();
 		if (scene == null) return;

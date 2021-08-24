@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.layers.EventLayer.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * EventLayer.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -24,30 +24,56 @@ import gaml.operators.Cast;
 import gaml.statements.IExecutable;
 
 /**
- * Written by marilleau
+ * Written by marilleau.
  */
 
 public class EventLayer extends AbstractLayer implements IEventLayerListener {
 
+	/** The Constant MOUSE_PRESS. */
 	private final static int MOUSE_PRESS = 0;
+	
+	/** The Constant MOUSE_RELEASED. */
 	private final static int MOUSE_RELEASED = 1;
+	
+	/** The Constant MOUSE_CLICKED. */
 	private final static int MOUSE_CLICKED = 2;
+	
+	/** The Constant MOUSE_MOVED. */
 	private final static int MOUSE_MOVED = 4;
+	
+	/** The Constant MOUSE_ENTERED. */
 	private final static int MOUSE_ENTERED = 5;
+	
+	/** The Constant MOUSE_EXITED. */
 	private final static int MOUSE_EXITED = 6;
+	
+	/** The Constant MOUSE_MENU. */
 	private final static int MOUSE_MENU = 7;
+	
+	/** The Constant KEY_PRESSED. */
 	private final static int KEY_PRESSED = 3;
 
 	static {
 		DEBUG.OFF();
 	}
 
+	/** The execution scope. */
 	IScope executionScope;
 
+	/** The listened event. */
 	private int listenedEvent;
+	
+	/** The surface. */
 	private IDisplaySurface surface;
+	
+	/** The event. */
 	private String event;
 
+	/**
+	 * Instantiates a new event layer.
+	 *
+	 * @param layer the layer
+	 */
 	public EventLayer(final ILayerStatement layer) {
 		super(layer);
 	}
@@ -63,6 +89,12 @@ public class EventLayer extends AbstractLayer implements IEventLayerListener {
 		surface.removeListener(this);
 	}
 
+	/**
+	 * Gets the listening event.
+	 *
+	 * @param eventTypeName the event type name
+	 * @return the listening event
+	 */
 	private int getListeningEvent(final String eventTypeName) {
 		if (eventTypeName.equals(IKeyword.MOUSE_DOWN)) return MOUSE_PRESS;
 		if (eventTypeName.equals(IKeyword.MOUSE_UP)) return MOUSE_RELEASED;
@@ -146,6 +178,12 @@ public class EventLayer extends AbstractLayer implements IEventLayerListener {
 		if (MOUSE_MENU == listenedEvent) { executeEvent(x, y); }
 	}
 
+	/**
+	 * Execute event.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	private void executeEvent(final int x, final int y) {
 		final IAgent agent = ((EventLayerStatement) definition).getExecuter(executionScope);
 		if (agent == null) return;
@@ -181,6 +219,11 @@ public class EventLayer extends AbstractLayer implements IEventLayerListener {
 		return false;
 	}
 
+	/**
+	 * Gets the event.
+	 *
+	 * @return the event
+	 */
 	public String getEvent() {
 		return event;
 	}

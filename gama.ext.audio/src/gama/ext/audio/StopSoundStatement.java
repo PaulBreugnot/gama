@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'StopSoundStatement.java, in plugin ummisco.gaml.extensions.sound, is part of the source code of the GAMA modeling
- * and simulation platform. (v. 1.8.1)
+ * StopSoundStatement.java, in gama.ext.audio, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.audio;
 
 import gama.common.interfaces.IKeyword;
@@ -27,6 +26,9 @@ import gaml.compilation.annotations.validator;
 import gaml.descriptions.IDescription;
 import gaml.statements.AbstractStatementSequence;
 
+/**
+ * The Class StopSoundStatement.
+ */
 @symbol (
 		name = IKeyword.STOP_SOUND,
 		kind = ISymbolKind.SEQUENCE_STATEMENT,
@@ -38,6 +40,9 @@ import gaml.statements.AbstractStatementSequence;
 @doc ("Allows to stop the sound output")
 public class StopSoundStatement extends AbstractStatementSequence {
 
+	/**
+	 * The Class StopSoundValidator.
+	 */
 	public static class StopSoundValidator implements IDescriptionValidator<IDescription> {
 
 		/**
@@ -52,8 +57,14 @@ public class StopSoundStatement extends AbstractStatementSequence {
 		}
 	}
 
+	/** The sequence. */
 	private AbstractStatementSequence sequence = null;
 
+	/**
+	 * Instantiates a new stop sound statement.
+	 *
+	 * @param desc the desc
+	 */
 	public StopSoundStatement(final IDescription desc) {
 		super(desc);
 	}

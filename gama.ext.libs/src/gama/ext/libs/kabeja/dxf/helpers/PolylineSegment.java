@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * PolylineSegment.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf.helpers;
 
 import gama.ext.libs.kabeja.dxf.DXFPolyline;
@@ -21,23 +16,55 @@ import gama.ext.libs.kabeja.math.MathUtils;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class PolylineSegment.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class PolylineSegment {
+    
+    /** The delta. */
     public static double DELTA = 0.001;
+    
+    /** The bulged. */
     private boolean bulged = false;
+    
+    /** The point 1. */
     private Point point1 = new Point();
+    
+    /** The point 2. */
     private Point point2 = new Point();
+    
+    /** The point 3. */
     private Point point3 = new Point();
+    
+    /** The point 4. */
     private Point point4 = new Point();
+    
+    /** The radius. */
     private double radius;
+    
+    /** The bulge height. */
     private double bulgeHeight;
+    
+    /** The inner radius. */
     private double innerRadius;
+    
+    /** The outer radius. */
     private double outerRadius;
+    
+    /** The start. */
     private DXFVertex start;
+    
+    /** The p. */
     private DXFPolyline p;
 
+    /**
+     * Instantiates a new polyline segment.
+     *
+     * @param start the start
+     * @param end the end
+     * @param p the p
+     */
     public PolylineSegment(DXFVertex start, DXFVertex end, DXFPolyline p) {
         this.start = start;
 
@@ -57,6 +84,8 @@ public class PolylineSegment {
     }
 
     /**
+     * Gets the bulge.
+     *
      * @return Returns the bulge.
      */
     public double getBulge() {
@@ -64,6 +93,8 @@ public class PolylineSegment {
     }
 
     /**
+     * Checks if is bulged.
+     *
      * @return Returns the bulged.
      */
     public boolean isBulged() {
@@ -71,14 +102,17 @@ public class PolylineSegment {
     }
 
     /**
-     * @param bulged
-     *            The bulged to set.
+     * Sets the bulged.
+     *
+     * @param bulged            The bulged to set.
      */
     public void setBulged(boolean bulged) {
         this.bulged = bulged;
     }
 
     /**
+     * Gets the point 1.
+     *
      * @return Returns the point1.
      */
     public Point getPoint1() {
@@ -86,14 +120,17 @@ public class PolylineSegment {
     }
 
     /**
-     * @param point1
-     *            The point1 to set.
+     * Sets the point 1.
+     *
+     * @param point1            The point1 to set.
      */
     public void setPoint1(Point point1) {
         this.point1 = point1;
     }
 
     /**
+     * Gets the point 2.
+     *
      * @return Returns the point2.
      */
     public Point getPoint2() {
@@ -101,14 +138,17 @@ public class PolylineSegment {
     }
 
     /**
-     * @param point2
-     *            The point2 to set.
+     * Sets the point 2.
+     *
+     * @param point2            The point2 to set.
      */
     public void setPoint2(Point point2) {
         this.point2 = point2;
     }
 
     /**
+     * Gets the point 3.
+     *
      * @return Returns the point3.
      */
     public Point getPoint3() {
@@ -116,14 +156,17 @@ public class PolylineSegment {
     }
 
     /**
-     * @param point3
-     *            The point3 to set.
+     * Sets the point 3.
+     *
+     * @param point3            The point3 to set.
      */
     public void setPoint3(Point point3) {
         this.point3 = point3;
     }
 
     /**
+     * Gets the point 4.
+     *
      * @return Returns the point4.
      */
     public Point getPoint4() {
@@ -131,14 +174,17 @@ public class PolylineSegment {
     }
 
     /**
-     * @param point4
-     *            The point4 to set.
+     * Sets the point 4.
+     *
+     * @param point4            The point4 to set.
      */
     public void setPoint4(Point point4) {
         this.point4 = point4;
     }
 
     /**
+     * Gets the radius.
+     *
      * @return Returns the radius.
      */
     public double getRadius() {
@@ -146,13 +192,22 @@ public class PolylineSegment {
     }
 
     /**
-     * @param radius
-     *            The radius to set.
+     * Sets the radius.
+     *
+     * @param radius            The radius to set.
      */
     public void setRadius(double radius) {
         this.radius = radius;
     }
 
+    /**
+     * Creates the curved trapezium.
+     *
+     * @param start the start
+     * @param end the end
+     * @param radius the radius
+     * @param length the length
+     */
     protected void createCurvedTrapezium(DXFVertex start, DXFVertex end,
         double radius, double length) {
         // first get the center point of the arc
@@ -219,6 +274,12 @@ public class PolylineSegment {
         point4 = MathUtils.getPointOfStraightLine(end.getPoint(), d, c);
     }
 
+    /**
+     * Creates the trapezium.
+     *
+     * @param start the start
+     * @param end the end
+     */
     protected void createTrapezium(DXFVertex start, DXFVertex end) {
         // we start at the start side
         double c = 0.0;
@@ -253,12 +314,11 @@ public class PolylineSegment {
     }
 
     /**
-     * Caculate the radius of a cut circle segment between 2 DXFVertex
+     * Caculate the radius of a cut circle segment between 2 DXFVertex.
      *
-     * @param bulge
-     *            the vertex bulge
-     * @param length
-     *            the length of the circle cut
+     * @param bulge            the vertex bulge
+     * @param length            the length of the circle cut
+     * @return the radius
      */
     protected double getRadius(double bulge, double length) {
         double h = (bulge * length) / 2;
@@ -268,12 +328,19 @@ public class PolylineSegment {
     }
 
     /**
+     * Gets the bulge height.
+     *
      * @return Returns the bulgeHeight.
      */
     public double getBulgeHeight() {
         return bulgeHeight;
     }
 
+    /**
+     * Connect.
+     *
+     * @param next the next
+     */
     public void connect(PolylineSegment next) {
         // connect only if the angle between the
         // segments is > 0
@@ -297,6 +364,11 @@ public class PolylineSegment {
         }
     }
 
+    /**
+     * Gets the inner radius.
+     *
+     * @return the inner radius
+     */
     public double getInnerRadius() {
         double r = (this.start.getStartWidth() + this.start.getEndWidth()) / 2;
 
@@ -307,6 +379,11 @@ public class PolylineSegment {
         return getRadius() - r;
     }
 
+    /**
+     * Gets the outer radius.
+     *
+     * @return the outer radius
+     */
     public double getOuterRadius() {
         double r = (this.start.getStartWidth() + this.start.getEndWidth()) / 2;
 

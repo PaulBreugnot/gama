@@ -1,25 +1,13 @@
-/*
- * Java port of Bullet (c) 2008 Martin Dvorak <jezek2@advel.cz>
+/*******************************************************************************************************
  *
- * Bullet Continuous Collision Detection and Physics Library
- * Copyright (c) 2003-2008 Erwin Coumans  http://www.bulletphysics.com/
+ * QuantizedBvhNodes.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * This software is provided 'as-is', without any express or implied warranty.
- * In no event will the authors be held liable for any damages arising from
- * the use of this software.
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * Permission is granted to anyone to use this software for any purpose, 
- * including commercial applications, and to alter it and redistribute it
- * freely, subject to the following restrictions:
- * 
- * 1. The origin of this software must not be misrepresented; you must not
- *    claim that you wrote the original software. If you use this software
- *    in a product, an acknowledgment in the product documentation would be
- *    appreciated but is not required.
- * 2. Altered source versions must be plainly marked as such, and must not be
- *    misrepresented as being the original software.
- * 3. This notice may not be removed or altered from any source distribution.
- */
+ ********************************************************************************************************/
 
 package com.bulletphysics.collision.shapes;
 
@@ -43,17 +31,30 @@ import java.io.Serializable;
  */
 public class QuantizedBvhNodes implements Serializable {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The Constant STRIDE. */
 	private static final int STRIDE = 4; // 16 bytes
 	
+	/** The buf. */
 	private int[] buf;
+	
+	/** The size. */
 	private int size = 0;
 
+	/**
+	 * Instantiates a new quantized bvh nodes.
+	 */
 	public QuantizedBvhNodes() {
 		resize(16);
 	}
 	
+	/**
+	 * Adds the.
+	 *
+	 * @return the int
+	 */
 	public int add() {
 		while (size+1 >= capacity()) {
 			resize(capacity()*2);
@@ -61,18 +62,36 @@ public class QuantizedBvhNodes implements Serializable {
 		return size++;
 	}
 	
+	/**
+	 * Size.
+	 *
+	 * @return the int
+	 */
 	public int size() {
 		return size;
 	}
 	
+	/**
+	 * Capacity.
+	 *
+	 * @return the int
+	 */
 	public int capacity() {
 		return buf.length / STRIDE;
 	}
 	
+	/**
+	 * Clear.
+	 */
 	public void clear() {
 		size = 0;
 	}
 	
+	/**
+	 * Resize.
+	 *
+	 * @param num the num
+	 */
 	public void resize(int num) {
 		int[] oldBuf = buf;
 		
@@ -82,10 +101,22 @@ public class QuantizedBvhNodes implements Serializable {
 		}
 	}
 	
+	/**
+	 * Gets the node size.
+	 *
+	 * @return the node size
+	 */
 	public static int getNodeSize() {
 		return STRIDE*4;
 	}
 	
+	/**
+	 * Sets the.
+	 *
+	 * @param destId the dest id
+	 * @param srcNodes the src nodes
+	 * @param srcId the src id
+	 */
 	public void set(int destId, QuantizedBvhNodes srcNodes, int srcId) {
 		assert (STRIDE == 4);
 
@@ -99,6 +130,12 @@ public class QuantizedBvhNodes implements Serializable {
 		buf[destId*STRIDE+3] = srcBuf[srcId*STRIDE+3];
 	}
 	
+	/**
+	 * Swap.
+	 *
+	 * @param id1 the id 1
+	 * @param id2 the id 2
+	 */
 	public void swap(int id1, int id2) {
 		assert (STRIDE == 4);
 		
@@ -121,6 +158,13 @@ public class QuantizedBvhNodes implements Serializable {
 		buf[id2*STRIDE+3] = temp3;
 	}
 	
+	/**
+	 * Gets the quantized aabb min.
+	 *
+	 * @param nodeId the node id
+	 * @param index the index
+	 * @return the quantized aabb min
+	 */
 	public int getQuantizedAabbMin(int nodeId, int index) {
 		switch (index) {
 			default:
@@ -130,20 +174,45 @@ public class QuantizedBvhNodes implements Serializable {
 		}
 	}
 
+	/**
+	 * Gets the quantized aabb min.
+	 *
+	 * @param nodeId the node id
+	 * @return the quantized aabb min
+	 */
 	public long getQuantizedAabbMin(int nodeId) {
 		return (buf[nodeId*STRIDE+0] & 0xFFFFFFFFL) | ((buf[nodeId*STRIDE+1] & 0xFFFFL) << 32);
 	}
 
+	/**
+	 * Sets the quantized aabb min.
+	 *
+	 * @param nodeId the node id
+	 * @param value the value
+	 */
 	public void setQuantizedAabbMin(int nodeId, long value) {
 		buf[nodeId*STRIDE+0] = (int)value;
 		setQuantizedAabbMin(nodeId, 2, (short)((value & 0xFFFF00000000L) >>> 32));
 	}
 
+	/**
+	 * Sets the quantized aabb max.
+	 *
+	 * @param nodeId the node id
+	 * @param value the value
+	 */
 	public void setQuantizedAabbMax(int nodeId, long value) {
 		setQuantizedAabbMax(nodeId, 0, (short)value);
 		buf[nodeId*STRIDE+2] = (int)(value >>> 16);
 	}
 
+	/**
+	 * Sets the quantized aabb min.
+	 *
+	 * @param nodeId the node id
+	 * @param index the index
+	 * @param value the value
+	 */
 	public void setQuantizedAabbMin(int nodeId, int index, int value) {
 		switch (index) {
 			case 0: buf[nodeId*STRIDE+0] = (buf[nodeId*STRIDE+0] & 0xFFFF0000) | (value & 0xFFFF); break;
@@ -152,6 +221,13 @@ public class QuantizedBvhNodes implements Serializable {
 		}
 	}
 
+	/**
+	 * Gets the quantized aabb max.
+	 *
+	 * @param nodeId the node id
+	 * @param index the index
+	 * @return the quantized aabb max
+	 */
 	public int getQuantizedAabbMax(int nodeId, int index) {
 		switch (index) {
 			default:
@@ -161,10 +237,23 @@ public class QuantizedBvhNodes implements Serializable {
 		}
 	}
 
+	/**
+	 * Gets the quantized aabb max.
+	 *
+	 * @param nodeId the node id
+	 * @return the quantized aabb max
+	 */
 	public long getQuantizedAabbMax(int nodeId) {
 		return ((buf[nodeId*STRIDE+1] & 0xFFFF0000L) >>> 16) | ((buf[nodeId*STRIDE+2] & 0xFFFFFFFFL) << 16);
 	}
 
+	/**
+	 * Sets the quantized aabb max.
+	 *
+	 * @param nodeId the node id
+	 * @param index the index
+	 * @param value the value
+	 */
 	public void setQuantizedAabbMax(int nodeId, int index, int value) {
 		switch (index) {
 			case 0: buf[nodeId*STRIDE+1] = (buf[nodeId*STRIDE+1] & 0x0000FFFF) | ((value & 0xFFFF) << 16); break;
@@ -173,36 +262,79 @@ public class QuantizedBvhNodes implements Serializable {
 		}
 	}
 	
+	/**
+	 * Gets the escape index or triangle index.
+	 *
+	 * @param nodeId the node id
+	 * @return the escape index or triangle index
+	 */
 	public int getEscapeIndexOrTriangleIndex(int nodeId) {
 		return buf[nodeId*STRIDE+3];
 	}
 	
+	/**
+	 * Sets the escape index or triangle index.
+	 *
+	 * @param nodeId the node id
+	 * @param value the value
+	 */
 	public void setEscapeIndexOrTriangleIndex(int nodeId, int value) {
 		buf[nodeId*STRIDE+3] = value;
 	}
 	
+	/**
+	 * Checks if is leaf node.
+	 *
+	 * @param nodeId the node id
+	 * @return true, if is leaf node
+	 */
 	public boolean isLeafNode(int nodeId) {
 		// skipindex is negative (internal node), triangleindex >=0 (leafnode)
 		return (getEscapeIndexOrTriangleIndex(nodeId) >= 0);
 	}
 
+	/**
+	 * Gets the escape index.
+	 *
+	 * @param nodeId the node id
+	 * @return the escape index
+	 */
 	public int getEscapeIndex(int nodeId) {
 		assert (!isLeafNode(nodeId));
 		return -getEscapeIndexOrTriangleIndex(nodeId);
 	}
 
+	/**
+	 * Gets the triangle index.
+	 *
+	 * @param nodeId the node id
+	 * @return the triangle index
+	 */
 	public int getTriangleIndex(int nodeId) {
 		assert (isLeafNode(nodeId));
 		// Get only the lower bits where the triangle index is stored
 		return (getEscapeIndexOrTriangleIndex(nodeId) & ~((~0) << (31 - OptimizedBvh.MAX_NUM_PARTS_IN_BITS)));
 	}
 
+	/**
+	 * Gets the part id.
+	 *
+	 * @param nodeId the node id
+	 * @return the part id
+	 */
 	public int getPartId(int nodeId) {
 		assert (isLeafNode(nodeId));
 		// Get only the highest bits where the part index is stored
 		return (getEscapeIndexOrTriangleIndex(nodeId) >>> (31 - OptimizedBvh.MAX_NUM_PARTS_IN_BITS));
 	}
 	
+	/**
+	 * Gets the coord.
+	 *
+	 * @param vec the vec
+	 * @param index the index
+	 * @return the coord
+	 */
 	public static int getCoord(long vec, int index) {
 		switch (index) {
 			default:

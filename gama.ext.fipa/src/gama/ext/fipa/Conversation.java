@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.extensions.fipa.Conversation.java, in plugin msi.gaml.extensions.fipa, is part of the source code of the
- * GAMA modeling and simulation platform (v. 1.8.1)
+ * Conversation.java, in gama.ext.fipa, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.ext.fipa;
 
@@ -64,10 +64,19 @@ public class Conversation extends GamaList<FIPAMessage> {
 	/** The protocol. */
 	private FIPAProtocol protocol;
 
+	/** The Constant PROTOCOL. */
 	public final static String PROTOCOL = "protocol";
+	
+	/** The Constant INITIATOR. */
 	public final static String INITIATOR = "initiator";
+	
+	/** The Constant PARTICIPANTS. */
 	public final static String PARTICIPANTS = "participants";
+	
+	/** The Constant ENDED. */
 	public final static String ENDED = "ended";
+	
+	/** The Constant MESSAGES. */
 	public final static String MESSAGES = "messages";
 
 	/** The owner of this conversation. */
@@ -93,22 +102,13 @@ public class Conversation extends GamaList<FIPAMessage> {
 	private boolean ended = false;
 
 	/**
-	 * @throws GamaRuntimeException
-	 *             Method to dynamically load a Conversation instance which follows the given protocol and belongs to
-	 *             the given Agent.
+	 * Instantiates a new conversation.
 	 *
-	 * @param sim
-	 *            the sim
-	 * @param protocolName
-	 *            the protocol name
-	 * @param message
-	 *            the message
-	 *
+	 * @param scope the scope
+	 * @param protocolName            the protocol name
+	 * @param message            the message
 	 * @return The appropriate instance of Conversation for the protocol given
-	 *
-	 * @throws GamaRuntimeException
-	 *             the gaml exception
-	 *
+	 * @throws GamaRuntimeException             the gaml exception
 	 */
 	protected Conversation(final IScope scope, final String protocolName, final FIPAMessage message)
 			throws GamaRuntimeException {
@@ -144,11 +144,10 @@ public class Conversation extends GamaList<FIPAMessage> {
 	/**
 	 * Adds a message to the conversation.
 	 *
-	 * @param message
-	 *            The Message to be added
-	 * @param receiver
-	 *            The agent who receive the message
-	 *
+	 * @param scope the scope
+	 * @param message            The Message to be added
+	 * @param receiver            The agent who receive the message
+	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 	protected void addMessage(final IScope scope, final FIPAMessage message, final IAgent receiver)
 			throws GamaRuntimeException {
@@ -287,6 +286,11 @@ public class Conversation extends GamaList<FIPAMessage> {
 		return ended || areAllNodeEnded();
 	}
 
+	/**
+	 * Are messages read.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean areMessagesRead() {
 		for (final FIPAMessage m : messages) {
 			if (m.isUnread()) { return false; }
@@ -324,6 +328,9 @@ public class Conversation extends GamaList<FIPAMessage> {
 		ended = true;
 	}
 
+	/**
+	 * Dispose.
+	 */
 	public synchronized void dispose() {
 		end();
 		protocolNodeParticipantMap.clear();

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.GAML.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and simulation
- * platform (v. 1.8.1)
+ * GAML.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.compilation;
 
@@ -48,25 +48,60 @@ import gaml.operators.Strings;
  */
 public class GAML {
 
+	/** The expression factory. */
 	public static IExpressionFactory expressionFactory = null;
+	
+	/** The model factory. */
 	public static ModelFactory modelFactory = null;
+	
+	/** The info provider. */
 	private static IGamlResourceInfoProvider infoProvider = null;
+	
+	/** The gaml ecore utils. */
 	private static IGamlEcoreUtils gamlEcoreUtils = null;
+	
+	/** The command index. */
 	public static int COMMAND_INDEX = 0;
 
+	/**
+	 * Not null.
+	 *
+	 * @param <T> the generic type
+	 * @param scope the scope
+	 * @param object the object
+	 * @return the t
+	 */
 	public static <T> T notNull(final IScope scope, final T object) {
 		return notNull(scope, object, "Error: nil value detected");
 	}
 
+	/**
+	 * Not null.
+	 *
+	 * @param <T> the generic type
+	 * @param scope the scope
+	 * @param object the object
+	 * @param error the error
+	 * @return the t
+	 */
 	public static <T> T notNull(final IScope scope, final T object, final String error) {
 		if (object == null) throw GamaRuntimeException.error(error, scope);
 		return object;
 	}
 
+	/** The html tags. */
 	private static String[] HTML_TAGS =
 			{ "<br/>", "<br>", "<b>", "</b>", "<i>", "</i>", "<ul>", "</ul>", "<li>", "</li>" };
+	
+	/** The replacements. */
 	private static String[] REPLACEMENTS = { Strings.LN, Strings.LN, "", "", "", "", "", "", Strings.LN + "- ", "" };
 
+	/**
+	 * To text.
+	 *
+	 * @param s the s
+	 * @return the string
+	 */
 	public static String toText(final String s) {
 		if (s == null) return "";
 		return breakStringToLines(StringUtils.replaceEach(s, HTML_TAGS, REPLACEMENTS), 120, Strings.LN);
@@ -133,12 +168,9 @@ public class GAML {
 	 * Breaks the given string into lines as best possible, each of which no longer than <code>maxLength</code>
 	 * characters. By Tomer Godinger.
 	 *
-	 * @param str
-	 *            The string to break into lines.
-	 * @param maxLength
-	 *            Maximum length of each line.
-	 * @param newLineString
-	 *            The string to use for line breaking.
+	 * @param s the s
+	 * @param maxLength            Maximum length of each line.
+	 * @param newLineString            The string to use for line breaking.
 	 * @return The resulting multi-line string.
 	 */
 	public static String breakStringToLines(final String s, final int maxLength, final String newLineString) {
@@ -169,6 +201,12 @@ public class GAML {
 		return result.toString();
 	}
 
+	/**
+	 * Gets the documentation on.
+	 *
+	 * @param query the query
+	 * @return the documentation on
+	 */
 	public static String getDocumentationOn(final String query) {
 		final String keyword = StringUtils.removeEnd(StringUtils.removeStart(query.trim(), "#"), ":");
 		final Multimap<GamlIdiomsProvider<?>, IGamlDescription> results = GamlIdiomsProvider.forName(keyword);
@@ -191,6 +229,14 @@ public class GAML {
 		//
 	}
 
+	/**
+	 * Empty check.
+	 *
+	 * @param <T> the generic type
+	 * @param scope the scope
+	 * @param container the container
+	 * @return the t
+	 */
 	@SuppressWarnings ("rawtypes")
 	public static <T extends IContainer> T emptyCheck(final IScope scope, final T container) {
 		if (notNull(scope, container).isEmpty(scope))
@@ -199,9 +245,9 @@ public class GAML {
 	}
 
 	/**
+	 * Parsing and compiling GAML utilities.
 	 *
-	 * Parsing and compiling GAML utilities
-	 *
+	 * @return the model factory
 	 */
 
 	public static ModelFactory getModelFactory() {
@@ -209,11 +255,24 @@ public class GAML {
 		return modelFactory;
 	}
 
+	/**
+	 * Gets the expression factory.
+	 *
+	 * @return the expression factory
+	 */
 	public static IExpressionFactory getExpressionFactory() {
 		if (expressionFactory == null) { expressionFactory = new GamlExpressionFactory(); }
 		return expressionFactory;
 	}
 
+	/**
+	 * Evaluate expression.
+	 *
+	 * @param expression the expression
+	 * @param a the a
+	 * @return the object
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public static Object evaluateExpression(final String expression, final IAgent a) throws GamaRuntimeException {
 		if (a == null) return null;
 		if (expression == null || expression.isEmpty())
@@ -226,6 +285,15 @@ public class GAML {
 		return o;
 	}
 
+	/**
+	 * Compile expression.
+	 *
+	 * @param expression the expression
+	 * @param agent the agent
+	 * @param onlyExpression the only expression
+	 * @return the i expression
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public static IExpression compileExpression(final String expression, final IAgent agent,
 			final boolean onlyExpression) throws GamaRuntimeException {
 		if (agent == null) throw GamaRuntimeException.error("Agent is nil", GAMA.getRuntimeScope());
@@ -233,6 +301,16 @@ public class GAML {
 		return compileExpression(expression, agent, tempContext, onlyExpression);
 	}
 
+	/**
+	 * Compile expression.
+	 *
+	 * @param expression the expression
+	 * @param agent the agent
+	 * @param tempContext the temp context
+	 * @param onlyExpression the only expression
+	 * @return the i expression
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public static IExpression compileExpression(final String expression, final IAgent agent,
 			final IExecutionContext tempContext, final boolean onlyExpression) throws GamaRuntimeException {
 		if (agent == null) throw GamaRuntimeException.error("Agent is nil", tempContext.getScope());
@@ -252,11 +330,22 @@ public class GAML {
 		}
 	}
 
+	/**
+	 * Gets the model context.
+	 *
+	 * @return the model context
+	 */
 	public static ModelDescription getModelContext() {
 		if (GAMA.getFrontmostController() == null) return null;
 		return (ModelDescription) GAMA.getFrontmostController().getExperiment().getModel().getDescription();
 	}
 
+	/**
+	 * Gets the experiment context.
+	 *
+	 * @param a the a
+	 * @return the experiment context
+	 */
 	public static ExperimentDescription getExperimentContext(final IAgent a) {
 		if (a == null) return null;
 		final IScope scope = a.getScope();
@@ -265,22 +354,50 @@ public class GAML {
 		return (ExperimentDescription) agent.getSpecies().getDescription();
 	}
 
+	/**
+	 * Register info provider.
+	 *
+	 * @param info the info
+	 */
 	public static void registerInfoProvider(final IGamlResourceInfoProvider info) {
 		infoProvider = info;
 	}
 
+	/**
+	 * Register gaml ecore utils.
+	 *
+	 * @param utils the utils
+	 */
 	public static void registerGamlEcoreUtils(final IGamlEcoreUtils utils) {
 		gamlEcoreUtils = utils;
 	}
 
+	/**
+	 * Gets the ecore utils.
+	 *
+	 * @return the ecore utils
+	 */
 	public static IGamlEcoreUtils getEcoreUtils() {
 		return gamlEcoreUtils;
 	}
 
+	/**
+	 * Gets the info.
+	 *
+	 * @param uri the uri
+	 * @param stamp the stamp
+	 * @return the info
+	 */
 	public static GamlFileInfo getInfo(final URI uri, final long stamp) {
 		return infoProvider.getInfo(uri, stamp);
 	}
 
+	/**
+	 * Gets the contents.
+	 *
+	 * @param uri the uri
+	 * @return the contents
+	 */
 	public static ISyntacticElement getContents(final URI uri) {
 		return infoProvider.getContents(uri);
 	}

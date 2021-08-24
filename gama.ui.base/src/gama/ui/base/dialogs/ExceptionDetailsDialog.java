@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'ExceptionDetailsDialog.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * ExceptionDetailsDialog.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- *
- **********************************************************************************************/
+ ********************************************************************************************************/
 package gama.ui.base.dialogs;
 
 import java.io.PrintWriter;
@@ -48,20 +47,12 @@ public class ExceptionDetailsDialog extends AbstractDetailsDialog {
 	/**
 	 * Construct a new instance with the specified elements. Note that the window will have no visual representation (no
 	 * widgets) until it is told to open. By default, <code>open</code> blocks for dialogs.
-	 * 
-	 * @param parentShell
-	 *            the parent shell, or <code>null</code> to create a top-level shell
-	 * @param title
-	 *            the title for the dialog or <code>null</code> for none
-	 * @param image
-	 *            the image to be displayed
-	 * @param message
-	 *            the message to be displayed
-	 * @param details
-	 *            an object whose content is to be displayed in the details area, or <code>null</code> for none
-	 * @param plugin
-	 *            The plugin triggering this deatils dialog and whose information is to be shown in the details area or
-	 *            <code>null</code> if no plugin details should be shown.
+	 *
+	 * @param parentShell            the parent shell, or <code>null</code> to create a top-level shell
+	 * @param title            the title for the dialog or <code>null</code> for none
+	 * @param image            the image to be displayed
+	 * @param message            the message to be displayed
+	 * @param details            an object whose content is to be displayed in the details area, or <code>null</code> for none
 	 */
 	public ExceptionDetailsDialog(final Shell parentShell, final String title, final Image image, final String message,
 			final Object details) {
@@ -71,20 +62,12 @@ public class ExceptionDetailsDialog extends AbstractDetailsDialog {
 	/**
 	 * Construct a new instance with the specified elements. Note that the window will have no visual representation (no
 	 * widgets) until it is told to open. By default, <code>open</code> blocks for dialogs.
-	 * 
-	 * @param parentShell
-	 *            the parent shell provider (not <code>null</code>)
-	 * @param title
-	 *            the title for the dialog or <code>null</code> for none
-	 * @param image
-	 *            the image to be displayed
-	 * @param message
-	 *            the message to be displayed
-	 * @param details
-	 *            an object whose content is to be displayed in the details area, or <code>null</code> for none
-	 * @param plugin
-	 *            The plugin triggering this deatils dialog and whose information is to be shown in the details area or
-	 *            <code>null</code> if no plugin details should be shown.
+	 *
+	 * @param parentShell            the parent shell provider (not <code>null</code>)
+	 * @param title            the title for the dialog or <code>null</code> for none
+	 * @param image            the image to be displayed
+	 * @param message            the message to be displayed
+	 * @param details            an object whose content is to be displayed in the details area, or <code>null</code> for none
 	 */
 	private ExceptionDetailsDialog(final IShellProvider parentShell, final String title, final Image image,
 			final String message, final Object details) {

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * MultiGeometry.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -83,6 +93,8 @@ public class MultiGeometry
      */
     @XmlElementRef(name = "AbstractGeometryGroup", namespace = "http://www.opengis.net/kml/2.2", required = false)
     protected List<Geometry> geometry;
+    
+    /** The multi geometry simple extension. */
     @XmlElement(name = "MultiGeometrySimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> multiGeometrySimpleExtension;
@@ -107,13 +119,18 @@ public class MultiGeometry
     @XmlElement(name = "MultiGeometryObjectExtensionGroup")
     protected List<AbstractObject> multiGeometryObjectExtension;
 
+    /**
+     * Instantiates a new multi geometry.
+     */
     public MultiGeometry() {
         super();
     }
 
     /**
+     * Gets the geometry.
+     *
+     * @return the geometry
      * @see geometry
-     * 
      */
     public List<Geometry> getGeometry() {
         if (geometry == null) {
@@ -123,8 +140,10 @@ public class MultiGeometry
     }
 
     /**
+     * Gets the multi geometry simple extension.
+     *
+     * @return the multi geometry simple extension
      * @see multiGeometrySimpleExtension
-     * 
      */
     public List<Object> getMultiGeometrySimpleExtension() {
         if (multiGeometrySimpleExtension == null) {
@@ -134,8 +153,10 @@ public class MultiGeometry
     }
 
     /**
+     * Gets the multi geometry object extension.
+     *
+     * @return the multi geometry object extension
      * @see multiGeometryObjectExtension
-     * 
      */
     public List<AbstractObject> getMultiGeometryObjectExtension() {
         if (multiGeometryObjectExtension == null) {
@@ -205,8 +226,8 @@ public class MultiGeometry
      * <code>
      * MultiTrack multiTrack = new MultiTrack();
      * this.getGeometry().add(multiTrack); </code>
-     * 
-     * 
+     *
+     * @return the multi track
      */
     public MultiTrack createAndAddMultiTrack() {
         MultiTrack newValue = new MultiTrack();
@@ -220,8 +241,8 @@ public class MultiGeometry
      * <code>
      * Track track = new Track();
      * this.getGeometry().add(track); </code>
-     * 
-     * 
+     *
+     * @return the track
      */
     public Track createAndAddTrack() {
         Track newValue = new Track();
@@ -235,8 +256,8 @@ public class MultiGeometry
      * <code>
      * LinearRing linearRing = new LinearRing();
      * this.getGeometry().add(linearRing); </code>
-     * 
-     * 
+     *
+     * @return the linear ring
      */
     public LinearRing createAndAddLinearRing() {
         LinearRing newValue = new LinearRing();
@@ -250,8 +271,8 @@ public class MultiGeometry
      * <code>
      * Point point = new Point();
      * this.getGeometry().add(point); </code>
-     * 
-     * 
+     *
+     * @return the point
      */
     public Point createAndAddPoint() {
         Point newValue = new Point();
@@ -265,8 +286,8 @@ public class MultiGeometry
      * <code>
      * Model model = new Model();
      * this.getGeometry().add(model); </code>
-     * 
-     * 
+     *
+     * @return the model
      */
     public Model createAndAddModel() {
         Model newValue = new Model();
@@ -280,8 +301,8 @@ public class MultiGeometry
      * <code>
      * MultiGeometry multiGeometry = new MultiGeometry();
      * this.getGeometry().add(multiGeometry); </code>
-     * 
-     * 
+     *
+     * @return the multi geometry
      */
     public MultiGeometry createAndAddMultiGeometry() {
         MultiGeometry newValue = new MultiGeometry();
@@ -295,8 +316,8 @@ public class MultiGeometry
      * <code>
      * LineString lineString = new LineString();
      * this.getGeometry().add(lineString); </code>
-     * 
-     * 
+     *
+     * @return the line string
      */
     public LineString createAndAddLineString() {
         LineString newValue = new LineString();
@@ -310,8 +331,8 @@ public class MultiGeometry
      * <code>
      * Polygon polygon = new Polygon();
      * this.getGeometry().add(polygon); </code>
-     * 
-     * 
+     *
+     * @return the polygon
      */
     public Polygon createAndAddPolygon() {
         Polygon newValue = new Polygon();
@@ -320,21 +341,20 @@ public class MultiGeometry
     }
 
     /**
+     * Sets the geometry.
+     *
+     * @param geometry the new geometry
      * @see geometry
-     * 
-     * @param geometry
      */
     public void setGeometry(final List<Geometry> geometry) {
         this.geometry = geometry;
     }
 
     /**
-     * add a value to the geometry property collection
-     * 
-     * @param geometry
-     *     Objects of the following type are allowed in the list: {@code <}{@link Geometry}{@code>}{@link JAXBElement}{@code <}{@link Point}{@code>}{@link JAXBElement}{@code <}{@link LinearRing}{@code>}{@link JAXBElement}{@code <}{@link Polygon}{@code>}{@link JAXBElement}{@code <}{@link Track}{@code>}{@link JAXBElement}{@code <}{@link MultiTrack}{@code>}{@link JAXBElement}{@code <}{@link Model}{@code>}{@link JAXBElement}{@code <}{@link LineString}{@code>}{@link JAXBElement}{@code <}{@link MultiGeometry}{@code>}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the geometry property collection.
+     *
+     * @param geometry     Objects of the following type are allowed in the list: {@code <}{@link Geometry}{@code>}{@link JAXBElement}{@code <}{@link Point}{@code>}{@link JAXBElement}{@code <}{@link LinearRing}{@code>}{@link JAXBElement}{@code <}{@link Polygon}{@code>}{@link JAXBElement}{@code <}{@link Track}{@code>}{@link JAXBElement}{@code <}{@link MultiTrack}{@code>}{@link JAXBElement}{@code <}{@link Model}{@code>}{@link JAXBElement}{@code <}{@link LineString}{@code>}{@link JAXBElement}{@code <}{@link MultiGeometry}{@code>}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public MultiGeometry addToGeometry(final Geometry geometry) {
         this.getGeometry().add(geometry);
@@ -342,21 +362,20 @@ public class MultiGeometry
     }
 
     /**
+     * Sets the multi geometry simple extension.
+     *
+     * @param multiGeometrySimpleExtension the new multi geometry simple extension
      * @see multiGeometrySimpleExtension
-     * 
-     * @param multiGeometrySimpleExtension
      */
     public void setMultiGeometrySimpleExtension(final List<Object> multiGeometrySimpleExtension) {
         this.multiGeometrySimpleExtension = multiGeometrySimpleExtension;
     }
 
     /**
-     * add a value to the multiGeometrySimpleExtension property collection
-     * 
-     * @param multiGeometrySimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the multiGeometrySimpleExtension property collection.
+     *
+     * @param multiGeometrySimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public MultiGeometry addToMultiGeometrySimpleExtension(final Object multiGeometrySimpleExtension) {
         this.getMultiGeometrySimpleExtension().add(multiGeometrySimpleExtension);
@@ -364,21 +383,20 @@ public class MultiGeometry
     }
 
     /**
+     * Sets the multi geometry object extension.
+     *
+     * @param multiGeometryObjectExtension the new multi geometry object extension
      * @see multiGeometryObjectExtension
-     * 
-     * @param multiGeometryObjectExtension
      */
     public void setMultiGeometryObjectExtension(final List<AbstractObject> multiGeometryObjectExtension) {
         this.multiGeometryObjectExtension = multiGeometryObjectExtension;
     }
 
     /**
-     * add a value to the multiGeometryObjectExtension property collection
-     * 
-     * @param multiGeometryObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the multiGeometryObjectExtension property collection.
+     *
+     * @param multiGeometryObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public MultiGeometry addToMultiGeometryObjectExtension(final AbstractObject multiGeometryObjectExtension) {
         this.getMultiGeometryObjectExtension().add(multiGeometryObjectExtension);
@@ -437,11 +455,11 @@ public class MultiGeometry
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param geometry     required parameter
+     * @return the multi geometry
      * @see #setGeometry(List<Geometry>)
-     * 
-     * @param geometry
-     *     required parameter
      */
     public MultiGeometry withGeometry(final List<Geometry> geometry) {
         this.setGeometry(geometry);
@@ -449,11 +467,11 @@ public class MultiGeometry
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param multiGeometrySimpleExtension     required parameter
+     * @return the multi geometry
      * @see #setMultiGeometrySimpleExtension(List<Object>)
-     * 
-     * @param multiGeometrySimpleExtension
-     *     required parameter
      */
     public MultiGeometry withMultiGeometrySimpleExtension(final List<Object> multiGeometrySimpleExtension) {
         this.setMultiGeometrySimpleExtension(multiGeometrySimpleExtension);
@@ -461,11 +479,11 @@ public class MultiGeometry
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param multiGeometryObjectExtension     required parameter
+     * @return the multi geometry
      * @see #setMultiGeometryObjectExtension(List<AbstractObject>)
-     * 
-     * @param multiGeometryObjectExtension
-     *     required parameter
      */
     public MultiGeometry withMultiGeometryObjectExtension(final List<AbstractObject> multiGeometryObjectExtension) {
         this.setMultiGeometryObjectExtension(multiGeometryObjectExtension);

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Polygon.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -148,18 +158,8 @@ public class Polygon
     @XmlElement(defaultValue = "0")
     @XmlJavaTypeAdapter(BooleanConverter.class)
     protected Boolean tessellate;
-    /**
-     * AltitudeMode
-     * <p>
-     * clampToGround, relativeToGround, absolute 
-     * </p>
-     * 
-     * See Also: 
-     * See <LookAt> and <Region>
-     * 
-     * 
-     * 
-     */
+    
+    /** AltitudeMode <p> clampToGround, relativeToGround, absolute  </p>  See Also:  See <LookAt> and <Region>. */
     @XmlElement(defaultValue = "clampToGround")
     protected AltitudeMode altitudeMode;
     /**
@@ -183,6 +183,8 @@ public class Polygon
      * 
      */
     protected List<Boundary> innerBoundaryIs;
+    
+    /** The polygon simple extension. */
     @XmlElement(name = "PolygonSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> polygonSimpleExtension;
@@ -207,111 +209,108 @@ public class Polygon
     @XmlElement(name = "PolygonObjectExtensionGroup")
     protected List<AbstractObject> polygonObjectExtension;
 
+    /**
+     * Instantiates a new polygon.
+     */
     public Polygon() {
         super();
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Checks if is extrude.
+     *
+     * @return     possible object is
      *     {@link Boolean}
-     *     
      */
     public Boolean isExtrude() {
         return extrude;
     }
 
     /**
-     * @see extrude
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the extrude.
+     *
+     * @param value     allowed object is
      *     {@link Boolean}
-     *     
+     * @see extrude
      */
     public void setExtrude(Boolean value) {
         this.extrude = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Checks if is tessellate.
+     *
+     * @return     possible object is
      *     {@link Boolean}
-     *     
      */
     public Boolean isTessellate() {
         return tessellate;
     }
 
     /**
-     * @see tessellate
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the tessellate.
+     *
+     * @param value     allowed object is
      *     {@link Boolean}
-     *     
+     * @see tessellate
      */
     public void setTessellate(Boolean value) {
         this.tessellate = value;
     }
 
     /**
-     * @see altitudeMode
-     * 
-     * @return
-     *     possible object is
+     * Gets the altitude mode.
+     *
+     * @return     possible object is
      *     {@code <}{@link Object}{@code>}
      *     {@code <}{@link gama.ext.libs.kml.AltitudeMode}{@code>}
      *     {@code <}{@link msi.gama.ext.kml.gx.AltitudeMode}{@code>}
-     *     
+     * @see altitudeMode
      */
     public AltitudeMode getAltitudeMode() {
         return altitudeMode;
     }
 
     /**
-     * @see altitudeMode
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the altitude mode.
+     *
+     * @param value     allowed object is
      *     {@code <}{@link Object}{@code>}
      *     {@code <}{@link gama.ext.libs.kml.AltitudeMode}{@code>}
      *     {@code <}{@link msi.gama.ext.kml.gx.AltitudeMode}{@code>}
-     *     
+     * @see altitudeMode
      */
     public void setAltitudeMode(AltitudeMode value) {
         this.altitudeMode = value;
     }
 
     /**
-     * @see outerBoundaryIs
-     * 
-     * @return
-     *     possible object is
+     * Gets the outer boundary is.
+     *
+     * @return     possible object is
      *     {@link Boundary}
-     *     
+     * @see outerBoundaryIs
      */
     public Boundary getOuterBoundaryIs() {
         return outerBoundaryIs;
     }
 
     /**
-     * @see outerBoundaryIs
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the outer boundary is.
+     *
+     * @param value     allowed object is
      *     {@link Boundary}
-     *     
+     * @see outerBoundaryIs
      */
     public void setOuterBoundaryIs(Boundary value) {
         this.outerBoundaryIs = value;
     }
 
     /**
+     * Gets the inner boundary is.
+     *
+     * @return the inner boundary is
      * @see innerBoundaryIs
-     * 
      */
     public List<Boundary> getInnerBoundaryIs() {
         if (innerBoundaryIs == null) {
@@ -321,8 +320,10 @@ public class Polygon
     }
 
     /**
+     * Gets the polygon simple extension.
+     *
+     * @return the polygon simple extension
      * @see polygonSimpleExtension
-     * 
      */
     public List<Object> getPolygonSimpleExtension() {
         if (polygonSimpleExtension == null) {
@@ -332,8 +333,10 @@ public class Polygon
     }
 
     /**
+     * Gets the polygon object extension.
+     *
+     * @return the polygon object extension
      * @see polygonObjectExtension
-     * 
      */
     public List<AbstractObject> getPolygonObjectExtension() {
         if (polygonObjectExtension == null) {
@@ -444,8 +447,8 @@ public class Polygon
      * <code>
      * Boundary boundary = new Boundary();
      * this.setOuterBoundaryIs(boundary); </code>
-     * 
-     * 
+     *
+     * @return the boundary
      */
     public Boundary createAndSetOuterBoundaryIs() {
         Boundary newValue = new Boundary();
@@ -459,8 +462,8 @@ public class Polygon
      * <code>
      * Boundary boundary = new Boundary();
      * this.getInnerBoundaryIs().add(boundary); </code>
-     * 
-     * 
+     *
+     * @return the boundary
      */
     public Boundary createAndAddInnerBoundaryIs() {
         Boundary newValue = new Boundary();
@@ -469,21 +472,20 @@ public class Polygon
     }
 
     /**
+     * Sets the inner boundary is.
+     *
+     * @param innerBoundaryIs the new inner boundary is
      * @see innerBoundaryIs
-     * 
-     * @param innerBoundaryIs
      */
     public void setInnerBoundaryIs(final List<Boundary> innerBoundaryIs) {
         this.innerBoundaryIs = innerBoundaryIs;
     }
 
     /**
-     * add a value to the innerBoundaryIs property collection
-     * 
-     * @param innerBoundaryIs
-     *     Objects of the following type are allowed in the list: {@link Boundary}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the innerBoundaryIs property collection.
+     *
+     * @param innerBoundaryIs     Objects of the following type are allowed in the list: {@link Boundary}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Polygon addToInnerBoundaryIs(final Boundary innerBoundaryIs) {
         this.getInnerBoundaryIs().add(innerBoundaryIs);
@@ -491,21 +493,20 @@ public class Polygon
     }
 
     /**
+     * Sets the polygon simple extension.
+     *
+     * @param polygonSimpleExtension the new polygon simple extension
      * @see polygonSimpleExtension
-     * 
-     * @param polygonSimpleExtension
      */
     public void setPolygonSimpleExtension(final List<Object> polygonSimpleExtension) {
         this.polygonSimpleExtension = polygonSimpleExtension;
     }
 
     /**
-     * add a value to the polygonSimpleExtension property collection
-     * 
-     * @param polygonSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the polygonSimpleExtension property collection.
+     *
+     * @param polygonSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Polygon addToPolygonSimpleExtension(final Object polygonSimpleExtension) {
         this.getPolygonSimpleExtension().add(polygonSimpleExtension);
@@ -513,21 +514,20 @@ public class Polygon
     }
 
     /**
+     * Sets the polygon object extension.
+     *
+     * @param polygonObjectExtension the new polygon object extension
      * @see polygonObjectExtension
-     * 
-     * @param polygonObjectExtension
      */
     public void setPolygonObjectExtension(final List<AbstractObject> polygonObjectExtension) {
         this.polygonObjectExtension = polygonObjectExtension;
     }
 
     /**
-     * add a value to the polygonObjectExtension property collection
-     * 
-     * @param polygonObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the polygonObjectExtension property collection.
+     *
+     * @param polygonObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Polygon addToPolygonObjectExtension(final AbstractObject polygonObjectExtension) {
         this.getPolygonObjectExtension().add(polygonObjectExtension);
@@ -586,11 +586,11 @@ public class Polygon
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param extrude     required parameter
+     * @return the polygon
      * @see #setExtrude(Boolean)
-     * 
-     * @param extrude
-     *     required parameter
      */
     public Polygon withExtrude(final Boolean extrude) {
         this.setExtrude(extrude);
@@ -598,11 +598,11 @@ public class Polygon
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param tessellate     required parameter
+     * @return the polygon
      * @see #setTessellate(Boolean)
-     * 
-     * @param tessellate
-     *     required parameter
      */
     public Polygon withTessellate(final Boolean tessellate) {
         this.setTessellate(tessellate);
@@ -610,11 +610,11 @@ public class Polygon
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param altitudeMode     required parameter
+     * @return the polygon
      * @see #setAltitudeMode(Object)
-     * 
-     * @param altitudeMode
-     *     required parameter
      */
     public Polygon withAltitudeMode(final  AltitudeMode altitudeMode) {
         this.setAltitudeMode(altitudeMode);
@@ -622,11 +622,11 @@ public class Polygon
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param outerBoundaryIs     required parameter
+     * @return the polygon
      * @see #setOuterBoundaryIs(Boundary)
-     * 
-     * @param outerBoundaryIs
-     *     required parameter
      */
     public Polygon withOuterBoundaryIs(final Boundary outerBoundaryIs) {
         this.setOuterBoundaryIs(outerBoundaryIs);
@@ -634,11 +634,11 @@ public class Polygon
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param innerBoundaryIs     required parameter
+     * @return the polygon
      * @see #setInnerBoundaryIs(List<Boundary>)
-     * 
-     * @param innerBoundaryIs
-     *     required parameter
      */
     public Polygon withInnerBoundaryIs(final List<Boundary> innerBoundaryIs) {
         this.setInnerBoundaryIs(innerBoundaryIs);
@@ -646,11 +646,11 @@ public class Polygon
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param polygonSimpleExtension     required parameter
+     * @return the polygon
      * @see #setPolygonSimpleExtension(List<Object>)
-     * 
-     * @param polygonSimpleExtension
-     *     required parameter
      */
     public Polygon withPolygonSimpleExtension(final List<Object> polygonSimpleExtension) {
         this.setPolygonSimpleExtension(polygonSimpleExtension);
@@ -658,11 +658,11 @@ public class Polygon
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param polygonObjectExtension     required parameter
+     * @return the polygon
      * @see #setPolygonObjectExtension(List<AbstractObject>)
-     * 
-     * @param polygonObjectExtension
-     *     required parameter
      */
     public Polygon withPolygonObjectExtension(final List<AbstractObject> polygonObjectExtension) {
         this.setPolygonObjectExtension(polygonObjectExtension);

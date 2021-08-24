@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * CodePageParser.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.tools;
 
 import java.io.BufferedReader;
@@ -22,15 +17,30 @@ import gama.ext.libs.kabeja.dxf.DXFConstants;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth</a>
+ * The Class CodePageParser.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth</a>
  */
 public class CodePageParser {
+    
+    /** The Constant CODEPAGE_CODE. */
     public static final String CODEPAGE_CODE = "$DWGCODEPAGE";
+    
+    /** The Constant GROUPCODE. */
     public static final String GROUPCODE = "3";
+    
+    /** The Constant prefix. */
     private static final String[] prefix = { "ansi_", "dos" };
+    
+    /** The Constant javaPrefix. */
     private static final String javaPrefix = "Cp";
 
+    /**
+     * Parses the encoding.
+     *
+     * @param reader the reader
+     * @return the string
+     */
     public String parseEncoding(BufferedReader reader) {
         String encoding = "";
 
@@ -74,6 +84,12 @@ public class CodePageParser {
         return encoding;
     }
 
+    /**
+     * Translate code page.
+     *
+     * @param cp the cp
+     * @return the string
+     */
     public String translateCodePage(String cp) {
         String c = cp.toLowerCase();
 

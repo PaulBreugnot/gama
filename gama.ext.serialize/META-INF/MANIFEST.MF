@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Serialize
+Bundle-Name: Serialization extensions for GAMA
 Bundle-SymbolicName: gama.ext.serialize;singleton:=true
-Bundle-Version: 1.8.1.qualifier
-Require-Bundle: gama.core.kernel,
- gama.ext.libs
+Bundle-Version: 2.0.0.qualifier
+Require-Bundle: gama.core.kernel;bundle-version="2.0.0",
+ gama.ext.libs;bundle-version="2.0.0"
 Bundle-ClassPath: .,
  ext/xstream-1.4.8.jar,
  ext/kxml2-2.3.0.jar,
@@ -39,3 +39,4 @@ Import-Package: gama.core.application.bundles,
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: ummisco.gama.serialize
+Bundle-Vendor: IRIT

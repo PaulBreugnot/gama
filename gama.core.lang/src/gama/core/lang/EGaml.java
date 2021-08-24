@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'EGaml.getInstance().java, in plugin msi.gama.lang.gaml, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * EGaml.java, in gama.core.lang, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.core.lang;
 
 import java.util.Collections;
@@ -81,8 +80,14 @@ import msi.gama.lang.gaml.gaml.util.GamlSwitch;
  */
 public class EGaml implements IGamlEcoreUtils {
 
+	/** The Constant instance. */
 	private static final EGaml instance = new EGaml();
 
+	/**
+	 * Gets the single instance of EGaml.
+	 *
+	 * @return single instance of EGaml
+	 */
 	public static EGaml getInstance() {
 		return instance;
 	}
@@ -419,7 +424,7 @@ public class EGaml implements IGamlEcoreUtils {
 	}
 
 	/**
-	 * Gets the factory for building eObjects
+	 * Gets the factory for building eObjects.
 	 *
 	 * @return the factory
 	 */
@@ -450,12 +455,10 @@ public class EGaml implements IGamlEcoreUtils {
 	}
 
 	/**
-	 * Serialize an expression
+	 * Serialize an expression.
 	 *
-	 * @param serializer
-	 *            a string builder to which the expression should be appended
-	 * @param expr
-	 *            the expr
+	 * @param serializer            a string builder to which the expression should be appended
+	 * @param expr            the expr
 	 */
 	private void serialize(final StringBuilder serializer, final Expression expr) {
 		if (expr == null) {} else if (expr instanceof If) {
@@ -506,12 +509,10 @@ public class EGaml implements IGamlEcoreUtils {
 	}
 
 	/**
-	 * Serializes a function
+	 * Serializes a function.
 	 *
-	 * @param serializer
-	 *            a string builder to which the function should be appended
-	 * @param expr
-	 *            the expr
+	 * @param serializer            a string builder to which the function should be appended
+	 * @param expr            the expr
 	 */
 	private void function(final StringBuilder serializer, final Function expr) {
 		final List<? extends EObject> args = getExprsOf(expr.getRight());
@@ -538,14 +539,11 @@ public class EGaml implements IGamlEcoreUtils {
 	}
 
 	/**
-	 * Serializes a list of arguments
+	 * Serializes a list of arguments.
 	 *
-	 * @param serializer
-	 *            a string builder to which the args should be appended
-	 * @param args
-	 *            the args
-	 * @param arguments
-	 *            the arguments
+	 * @param serializer            a string builder to which the args should be appended
+	 * @param args            the args
+	 * @param arguments            the arguments
 	 */
 	private void array(final StringBuilder serializer, final List<? extends EObject> args, final boolean arguments) {
 		// if arguments is true, parses the list to transform it into a map of

@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * DXFLeaderHandler.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.parser.entities;
 
 import gama.ext.libs.kabeja.dxf.DXFConstants;
@@ -23,29 +18,70 @@ import gama.ext.libs.kabeja.parser.DXFValue;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth</a>
+ * The Class DXFLeaderHandler.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth</a>
  */
 public class DXFLeaderHandler extends AbstractEntityHandler {
+    
+    /** The Constant GROUPCODE_ARROW_HEAD_FLAG. */
     public static final int GROUPCODE_ARROW_HEAD_FLAG = 71;
+    
+    /** The Constant GROUPCODE_LEADER_PATH_TYPE. */
     public static final int GROUPCODE_LEADER_PATH_TYPE = 72;
+    
+    /** The Constant GROUPCODE_LEADER_CREATION_FLAG. */
     public static final int GROUPCODE_LEADER_CREATION_FLAG = 73;
+    
+    /** The Constant GROUPCODE_HOOKLINE_DIRECTION_FLAG. */
     public static final int GROUPCODE_HOOKLINE_DIRECTION_FLAG = 74;
+    
+    /** The Constant GROUPCODE_HOOKLINE_FLAG. */
     public static final int GROUPCODE_HOOKLINE_FLAG = 75;
+    
+    /** The Constant GROUPCODE_TEXT_HEIGHT. */
     public static final int GROUPCODE_TEXT_HEIGHT = 40;
+    
+    /** The Constant GROUPCODE_TEXT_WIDTH. */
     public static final int GROUPCODE_TEXT_WIDTH = 41;
+    
+    /** The Constant GROUPCODE_COLOR_LEADER. */
     public static final int GROUPCODE_COLOR_LEADER = 77;
+    
+    /** The Constant GROUPCODE_TEXT_ENTITY_REFERENCE. */
     public static final int GROUPCODE_TEXT_ENTITY_REFERENCE = 340;
+    
+    /** The Constant GROUPCODE_HORIZONTAL_DIRECTION_X. */
     public static final int GROUPCODE_HORIZONTAL_DIRECTION_X = 211;
+    
+    /** The Constant GROUPCODE_HORIZONTAL_DIRECTION_Y. */
     public static final int GROUPCODE_HORIZONTAL_DIRECTION_Y = 221;
+    
+    /** The Constant GROUPCODE_HORIZONTAL_DIRECTION_Z. */
     public static final int GROUPCODE_HORIZONTAL_DIRECTION_Z = 231;
+    
+    /** The Constant GROUPCODE_OFFSET_LAST_VERTEX_INSERTPOINT_X. */
     public static final int GROUPCODE_OFFSET_LAST_VERTEX_INSERTPOINT_X = 212;
+    
+    /** The Constant GROUPCODE_OFFSET_LAST_VERTEX_INSERTPOINT_Y. */
     public static final int GROUPCODE_OFFSET_LAST_VERTEX_INSERTPOINT_Y = 222;
+    
+    /** The Constant GROUPCODE_OFFSET_LAST_VERTEX_INSERTPOINT_Z. */
     public static final int GROUPCODE_OFFSET_LAST_VERTEX_INSERTPOINT_Z = 232;
+    
+    /** The Constant GROUPCODE_OFFSET_LAST_VERTEX_PLACEMENT_POINT_X. */
     public static final int GROUPCODE_OFFSET_LAST_VERTEX_PLACEMENT_POINT_X = 213;
+    
+    /** The Constant GROUPCODE_OFFSET_LAST_VERTEX_PLACEMENT_POINT_Y. */
     public static final int GROUPCODE_OFFSET_LAST_VERTEX_PLACEMENT_POINT_Y = 223;
+    
+    /** The Constant GROUPCODE_OFFSET_LAST_VERTEX_PLACEMENT_POINT_Z. */
     public static final int GROUPCODE_OFFSET_LAST_VERTEX_PLACEMENT_POINT_Z = 233;
+    
+    /** The leader. */
     protected DXFLeader leader;
+    
+    /** The vertex. */
     protected Point vertex;
 
     /* (non-Javadoc)

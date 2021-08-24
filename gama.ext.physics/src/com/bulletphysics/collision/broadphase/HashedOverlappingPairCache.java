@@ -1,20 +1,13 @@
-/*
- * Java port of Bullet (c) 2008 Martin Dvorak <jezek2@advel.cz>
+/*******************************************************************************************************
  *
- * Bullet Continuous Collision Detection and Physics Library Copyright (c) 2003-2008 Erwin Coumans
- * http://www.bulletphysics.com/
+ * HashedOverlappingPairCache.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the authors be held
- * liable for any damages arising from the use of this software.
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter
- * it and redistribute it freely, subject to the following restrictions:
- *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software.
- * If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not
- * required. 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the
- * original software. 3. This notice may not be removed or altered from any source distribution.
- */
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package com.bulletphysics.collision.broadphase;
 
@@ -31,16 +24,28 @@ public class HashedOverlappingPairCache implements OverlappingPairCache {
 
 	// private final ObjectPool<BroadphasePair> pairsPool = ObjectPool.get(BroadphasePair.class);
 
+	/** The Constant NULL_PAIR. */
 	private static final int NULL_PAIR = 0xffffffff;
 
+	/** The overlapping pair array. */
 	private final ObjectArrayList<BroadphasePair> overlappingPairArray = new ObjectArrayList<>();
+	
+	/** The overlap filter callback. */
 	private OverlapFilterCallback overlapFilterCallback;
 	// private final boolean blockedForChanges = false;
 
+	/** The hash table. */
 	private final IntArrayList hashTable = new IntArrayList();
+	
+	/** The next. */
 	private final IntArrayList next = new IntArrayList();
+	
+	/** The ghost pair callback. */
 	protected OverlappingPairCallback ghostPairCallback;
 
+	/**
+	 * Instantiates a new hashed overlapping pair cache.
+	 */
 	public HashedOverlappingPairCache() {
 		int initialAllocatedSize = 2;
 		// JAVA TODO: overlappingPairArray.ensureCapacity(initialAllocatedSize);
@@ -158,6 +163,13 @@ public class HashedOverlappingPairCache implements OverlappingPairCache {
 		return userData;
 	}
 
+	/**
+	 * Needs broadphase collision.
+	 *
+	 * @param proxy0 the proxy 0
+	 * @param proxy1 the proxy 1
+	 * @return true, if successful
+	 */
 	public boolean needsBroadphaseCollision(final BroadphaseProxy proxy0, final BroadphaseProxy proxy1) {
 		if (overlapFilterCallback != null) return overlapFilterCallback.needBroadphaseCollision(proxy0, proxy1);
 
@@ -238,10 +250,20 @@ public class HashedOverlappingPairCache implements OverlappingPairCache {
 		return overlappingPairArray.getQuick(index);
 	}
 
+	/**
+	 * Gets the count.
+	 *
+	 * @return the count
+	 */
 	public int getCount() {
 		return overlappingPairArray.size();
 	}
 
+	/**
+	 * Gets the overlap filter callback.
+	 *
+	 * @return the overlap filter callback
+	 */
 	// btBroadphasePair* GetPairs() { return m_pairs; }
 	public OverlapFilterCallback getOverlapFilterCallback() {
 		return overlapFilterCallback;
@@ -262,6 +284,13 @@ public class HashedOverlappingPairCache implements OverlappingPairCache {
 		return false;
 	}
 
+	/**
+	 * Internal add pair.
+	 *
+	 * @param proxy0 the proxy 0
+	 * @param proxy1 the proxy 1
+	 * @return the broadphase pair
+	 */
 	private BroadphasePair internalAddPair(BroadphaseProxy proxy0, BroadphaseProxy proxy1) {
 		if (proxy0.getUid() > proxy1.getUid()) {
 			BroadphaseProxy tmp = proxy0;
@@ -313,6 +342,9 @@ public class HashedOverlappingPairCache implements OverlappingPairCache {
 		return pair;
 	}
 
+	/**
+	 * Grow tables.
+	 */
 	private void growTables() {
 		int newCapacity = overlappingPairArray.capacity();
 
@@ -346,10 +378,25 @@ public class HashedOverlappingPairCache implements OverlappingPairCache {
 		}
 	}
 
+	/**
+	 * Equals pair.
+	 *
+	 * @param pair the pair
+	 * @param proxyId1 the proxy id 1
+	 * @param proxyId2 the proxy id 2
+	 * @return true, if successful
+	 */
 	private boolean equalsPair(final BroadphasePair pair, final int proxyId1, final int proxyId2) {
 		return pair.pProxy0.getUid() == proxyId1 && pair.pProxy1.getUid() == proxyId2;
 	}
 
+	/**
+	 * Gets the hash.
+	 *
+	 * @param proxyId1 the proxy id 1
+	 * @param proxyId2 the proxy id 2
+	 * @return the hash
+	 */
 	private int getHash(final int proxyId1, final int proxyId2) {
 		int key = proxyId1 | proxyId2 << 16;
 		// Thomas Wang's hash
@@ -363,6 +410,14 @@ public class HashedOverlappingPairCache implements OverlappingPairCache {
 		return key;
 	}
 
+	/**
+	 * Internal find pair.
+	 *
+	 * @param proxy0 the proxy 0
+	 * @param proxy1 the proxy 1
+	 * @param hash the hash
+	 * @return the broadphase pair
+	 */
 	private BroadphasePair internalFindPair(final BroadphaseProxy proxy0, final BroadphaseProxy proxy1,
 			final int hash) {
 		int proxyId1 = proxy0.getUid();
@@ -392,9 +447,19 @@ public class HashedOverlappingPairCache implements OverlappingPairCache {
 
 	////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * The Class RemovePairCallback.
+	 */
 	private static class RemovePairCallback implements OverlapCallback {
+		
+		/** The obsolete proxy. */
 		private final BroadphaseProxy obsoleteProxy;
 
+		/**
+		 * Instantiates a new removes the pair callback.
+		 *
+		 * @param obsoleteProxy the obsolete proxy
+		 */
 		public RemovePairCallback(final BroadphaseProxy obsoleteProxy) {
 			this.obsoleteProxy = obsoleteProxy;
 		}
@@ -405,11 +470,27 @@ public class HashedOverlappingPairCache implements OverlappingPairCache {
 		}
 	}
 
+	/**
+	 * The Class CleanPairCallback.
+	 */
 	private static class CleanPairCallback implements OverlapCallback {
+		
+		/** The clean proxy. */
 		private final BroadphaseProxy cleanProxy;
+		
+		/** The pair cache. */
 		private final OverlappingPairCache pairCache;
+		
+		/** The dispatcher. */
 		private final Dispatcher dispatcher;
 
+		/**
+		 * Instantiates a new clean pair callback.
+		 *
+		 * @param cleanProxy the clean proxy
+		 * @param pairCache the pair cache
+		 * @param dispatcher the dispatcher
+		 */
 		public CleanPairCallback(final BroadphaseProxy cleanProxy, final OverlappingPairCache pairCache,
 				final Dispatcher dispatcher) {
 			this.cleanProxy = cleanProxy;

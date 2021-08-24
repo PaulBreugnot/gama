@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * StyleSelector.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -57,6 +67,7 @@ public abstract class StyleSelector
     implements Cloneable
 {
 
+    /** The style selector simple extension. */
     @XmlElement(name = "AbstractStyleSelectorSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> styleSelectorSimpleExtension;
@@ -81,13 +92,18 @@ public abstract class StyleSelector
     @XmlElement(name = "AbstractStyleSelectorObjectExtensionGroup")
     protected List<AbstractObject> styleSelectorObjectExtension;
 
+    /**
+     * Instantiates a new style selector.
+     */
     public StyleSelector() {
         super();
     }
 
     /**
+     * Gets the style selector simple extension.
+     *
+     * @return the style selector simple extension
      * @see styleSelectorSimpleExtension
-     * 
      */
     public List<Object> getStyleSelectorSimpleExtension() {
         if (styleSelectorSimpleExtension == null) {
@@ -97,8 +113,10 @@ public abstract class StyleSelector
     }
 
     /**
+     * Gets the style selector object extension.
+     *
+     * @return the style selector object extension
      * @see styleSelectorObjectExtension
-     * 
      */
     public List<AbstractObject> getStyleSelectorObjectExtension() {
         if (styleSelectorObjectExtension == null) {
@@ -153,21 +171,20 @@ public abstract class StyleSelector
     }
 
     /**
+     * Sets the style selector simple extension.
+     *
+     * @param styleSelectorSimpleExtension the new style selector simple extension
      * @see styleSelectorSimpleExtension
-     * 
-     * @param styleSelectorSimpleExtension
      */
     public void setStyleSelectorSimpleExtension(final List<Object> styleSelectorSimpleExtension) {
         this.styleSelectorSimpleExtension = styleSelectorSimpleExtension;
     }
 
     /**
-     * add a value to the styleSelectorSimpleExtension property collection
-     * 
-     * @param styleSelectorSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the styleSelectorSimpleExtension property collection.
+     *
+     * @param styleSelectorSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public StyleSelector addToStyleSelectorSimpleExtension(final Object styleSelectorSimpleExtension) {
         this.getStyleSelectorSimpleExtension().add(styleSelectorSimpleExtension);
@@ -175,21 +192,20 @@ public abstract class StyleSelector
     }
 
     /**
+     * Sets the style selector object extension.
+     *
+     * @param styleSelectorObjectExtension the new style selector object extension
      * @see styleSelectorObjectExtension
-     * 
-     * @param styleSelectorObjectExtension
      */
     public void setStyleSelectorObjectExtension(final List<AbstractObject> styleSelectorObjectExtension) {
         this.styleSelectorObjectExtension = styleSelectorObjectExtension;
     }
 
     /**
-     * add a value to the styleSelectorObjectExtension property collection
-     * 
-     * @param styleSelectorObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the styleSelectorObjectExtension property collection.
+     *
+     * @param styleSelectorObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public StyleSelector addToStyleSelectorObjectExtension(final AbstractObject styleSelectorObjectExtension) {
         this.getStyleSelectorObjectExtension().add(styleSelectorObjectExtension);
@@ -214,11 +230,11 @@ public abstract class StyleSelector
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param styleSelectorSimpleExtension     required parameter
+     * @return the style selector
      * @see #setStyleSelectorSimpleExtension(List<Object>)
-     * 
-     * @param styleSelectorSimpleExtension
-     *     required parameter
      */
     public StyleSelector withStyleSelectorSimpleExtension(final List<Object> styleSelectorSimpleExtension) {
         this.setStyleSelectorSimpleExtension(styleSelectorSimpleExtension);
@@ -226,11 +242,11 @@ public abstract class StyleSelector
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param styleSelectorObjectExtension     required parameter
+     * @return the style selector
      * @see #setStyleSelectorObjectExtension(List<AbstractObject>)
-     * 
-     * @param styleSelectorObjectExtension
-     *     required parameter
      */
     public StyleSelector withStyleSelectorObjectExtension(final List<AbstractObject> styleSelectorObjectExtension) {
         this.setStyleSelectorObjectExtension(styleSelectorObjectExtension);

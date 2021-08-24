@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'MultiThreadedSocketServer.java, in plugin ummisco.gama.network, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * MultiThreadedSocketServer.java, in gama.ext.network, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.network.tcp;
 
 import java.net.ServerSocket;
@@ -21,17 +20,27 @@ import gama.metamodel.agent.IAgent;
 import gama.util.IList;
 import gaml.operators.Cast;
 
+/**
+ * The Class MultiThreadedSocketServer.
+ */
 public class MultiThreadedSocketServer extends Thread {
 
 	static {
 		DEBUG.ON();
 	}
 
+	/** The my agent. */
 	private final IAgent myAgent;
+	
+	/** The my server socket. */
 	private ServerSocket myServerSocket;
+	
+	/** The closed. */
 	private boolean closed = false;
 
 	/**
+	 * Gets the my server socket.
+	 *
 	 * @return the myServerSocket
 	 */
 	public ServerSocket getMyServerSocket() {
@@ -39,8 +48,9 @@ public class MultiThreadedSocketServer extends Thread {
 	}
 
 	/**
-	 * @param myServerSocket
-	 *            the myServerSocket to set
+	 * Sets the my server socket.
+	 *
+	 * @param myServerSocket            the myServerSocket to set
 	 */
 	public void setMyServerSocket(final ServerSocket myServerSocket) {
 		this.myServerSocket = myServerSocket;
@@ -57,6 +67,12 @@ public class MultiThreadedSocketServer extends Thread {
 		super.interrupt();
 	}
 
+	/**
+	 * Instantiates a new multi threaded socket server.
+	 *
+	 * @param a the a
+	 * @param ss the ss
+	 */
 	public MultiThreadedSocketServer(final IAgent a, final ServerSocket ss) {
 		myAgent = a;
 		myServerSocket = ss;

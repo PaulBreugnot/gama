@@ -1,41 +1,59 @@
-/*
-   Copyright 2006 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * HatchLineSegment.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf.helpers;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class HatchLineSegment.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class HatchLineSegment {
+    
+    /** The start point. */
     protected Point startPoint;
+    
+    /** The direction. */
     protected Vector direction;
+    
+    /** The angle. */
     protected double angle;
+    
+    /** The total length. */
     protected double totalLength;
+    
+    /** The length. */
     protected double length;
+    
+    /** The current length. */
     protected double currentLength;
+    
+    /** The pattern. */
     protected double[] pattern;
+    
+    /** The l. */
     protected double l;
+    
+    /** The index. */
     protected int index;
+    
+    /** The line. */
     protected ParametricLine line;
 
     /**
+     * Instantiates a new hatch line segment.
      *
-     * @param startPoint
+     * @param startPoint the start point
      * @param angle the angle in degrees
+     * @param length the length
      */
     public HatchLineSegment(Point startPoint, double angle, double length) {
         this.startPoint = startPoint;
@@ -43,12 +61,27 @@ public class HatchLineSegment {
         this.totalLength = length;
     }
 
+    /**
+     * Instantiates a new hatch line segment.
+     *
+     * @param startPoint the start point
+     * @param direction the direction
+     * @param length the length
+     */
     public HatchLineSegment(Point startPoint, Vector direction, double length) {
         this.startPoint = startPoint;
         this.direction = direction;
         this.totalLength = length;
     }
 
+    /**
+     * Instantiates a new hatch line segment.
+     *
+     * @param line the line
+     * @param length the length
+     * @param startLength the start length
+     * @param pattern the pattern
+     */
     public HatchLineSegment(ParametricLine line, double length,
         double startLength, double[] pattern) {
         this.startPoint = line.getStartPoint();
@@ -60,14 +93,30 @@ public class HatchLineSegment {
         this.initialize(startLength);
     }
 
+    /**
+     * Gets the start point.
+     *
+     * @return the start point
+     */
     public Point getStartPoint() {
         return this.startPoint;
     }
 
+    /**
+     * Gets the length.
+     *
+     * @return the length
+     */
     public double getLength() {
         return this.totalLength;
     }
 
+    /**
+     * Gets the point.
+     *
+     * @param offset the offset
+     * @return the point
+     */
     public Point getPoint(double offset) {
         Point p = new Point();
         p.setX(this.startPoint.getX() +
@@ -78,14 +127,30 @@ public class HatchLineSegment {
         return p;
     }
 
+    /**
+     * Gets the point at.
+     *
+     * @param para the para
+     * @return the point at
+     */
     public Point getPointAt(double para) {
         return line.getPointAt(para);
     }
 
+    /**
+     * Checks for next.
+     *
+     * @return true, if successful
+     */
     public boolean hasNext() {
         return this.length <= totalLength;
     }
 
+    /**
+     * Next.
+     *
+     * @return the double
+     */
     public double next() {
         double l = this.currentLength;
         this.length += Math.abs(this.currentLength);
@@ -100,6 +165,11 @@ public class HatchLineSegment {
         return l;
     }
 
+    /**
+     * Initialize.
+     *
+     * @param startLength the start length
+     */
     protected void initialize(double startLength) {
         double l = 0;
 
@@ -123,6 +193,11 @@ public class HatchLineSegment {
         }
     }
 
+    /**
+     * Checks if is solid.
+     *
+     * @return true, if is solid
+     */
     public boolean isSolid() {
         return pattern.length == 0;
     }

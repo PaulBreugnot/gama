@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'ResumeSoundStatement.java, in plugin ummisco.gaml.extensions.sound, is part of the source code of the GAMA modeling
- * and simulation platform. (v. 1.8.1)
+ * ResumeSoundStatement.java, in gama.ext.audio, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.audio;
 
 import gama.common.interfaces.IKeyword;
@@ -27,6 +26,9 @@ import gaml.compilation.annotations.validator;
 import gaml.descriptions.IDescription;
 import gaml.statements.AbstractStatementSequence;
 
+/**
+ * The Class ResumeSoundStatement.
+ */
 @symbol (
 		name = IKeyword.RESUME_SOUND,
 		kind = ISymbolKind.SEQUENCE_STATEMENT,
@@ -38,6 +40,9 @@ import gaml.statements.AbstractStatementSequence;
 @doc ("Allows to resume the sound output")
 public class ResumeSoundStatement extends AbstractStatementSequence {
 
+	/**
+	 * The Class ResumeSoundValidator.
+	 */
 	public static class ResumeSoundValidator implements IDescriptionValidator<IDescription> {
 
 		/**
@@ -52,8 +57,14 @@ public class ResumeSoundStatement extends AbstractStatementSequence {
 		}
 	}
 
+	/** The sequence. */
 	private AbstractStatementSequence sequence = null;
 
+	/**
+	 * Instantiates a new resume sound statement.
+	 *
+	 * @param desc the desc
+	 */
 	public ResumeSoundStatement(final IDescription desc) {
 		super(desc);
 	}

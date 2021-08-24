@@ -1,26 +1,13 @@
-/*******************************************************************************
- * Copyright (c) 2013, Daniel Murphy
- * All rights reserved.
+/*******************************************************************************************************
+ *
+ * FixtureDef.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
- * 	* Redistributions of source code must retain the above copyright notice,
- * 	  this list of conditions and the following disclaimer.
- * 	* Redistributions in binary form must reproduce the above copyright notice,
- * 	  this list of conditions and the following disclaimer in the documentation
- * 	  and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
- * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
- * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
- * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- ******************************************************************************/
+ ********************************************************************************************************/
 package org.jbox2d.dynamics;
 
 import org.jbox2d.collision.shapes.Shape;
@@ -53,9 +40,7 @@ public class FixtureDef {
    */
   public float restitution;
 
-  /**
-   * The density, usually in kg/m^2
-   */
+  /** The density, usually in kg/m^2. */
   public float density;
 
   /**
@@ -63,11 +48,12 @@ public class FixtureDef {
    */
   public boolean isSensor;
 
-  /**
-   * Contact filtering data;
-   */
+  /** Contact filtering data;. */
   public Filter filter;
 
+  /**
+   * Instantiates a new fixture def.
+   */
   public FixtureDef() {
     shape = null;
     userData = null;
@@ -81,6 +67,8 @@ public class FixtureDef {
   /**
    * The shape, this must be set. The shape will be cloned, so you can create the shape on the
    * stack.
+   *
+   * @return the shape
    */
   public Shape getShape() {
     return shape;
@@ -89,6 +77,8 @@ public class FixtureDef {
   /**
    * The shape, this must be set. The shape will be cloned, so you can create the shape on the
    * stack.
+   *
+   * @param shape the new shape
    */
   public void setShape(Shape shape) {
     this.shape = shape;
@@ -96,6 +86,8 @@ public class FixtureDef {
 
   /**
    * Use this to store application specific fixture data.
+   *
+   * @return the user data
    */
   public Object getUserData() {
     return userData;
@@ -103,6 +95,8 @@ public class FixtureDef {
 
   /**
    * Use this to store application specific fixture data.
+   *
+   * @param userData the new user data
    */
   public void setUserData(Object userData) {
     this.userData = userData;
@@ -110,6 +104,8 @@ public class FixtureDef {
 
   /**
    * The friction coefficient, usually in the range [0,1].
+   *
+   * @return the friction
    */
   public float getFriction() {
     return friction;
@@ -117,6 +113,8 @@ public class FixtureDef {
 
   /**
    * The friction coefficient, usually in the range [0,1].
+   *
+   * @param friction the new friction
    */
   public void setFriction(float friction) {
     this.friction = friction;
@@ -124,6 +122,8 @@ public class FixtureDef {
 
   /**
    * The restitution (elasticity) usually in the range [0,1].
+   *
+   * @return the restitution
    */
   public float getRestitution() {
     return restitution;
@@ -131,20 +131,26 @@ public class FixtureDef {
 
   /**
    * The restitution (elasticity) usually in the range [0,1].
+   *
+   * @param restitution the new restitution
    */
   public void setRestitution(float restitution) {
     this.restitution = restitution;
   }
 
   /**
-   * The density, usually in kg/m^2
+   * The density, usually in kg/m^2.
+   *
+   * @return the density
    */
   public float getDensity() {
     return density;
   }
 
   /**
-   * The density, usually in kg/m^2
+   * The density, usually in kg/m^2.
+   *
+   * @param density the new density
    */
   public void setDensity(float density) {
     this.density = density;
@@ -152,6 +158,8 @@ public class FixtureDef {
 
   /**
    * A sensor shape collects contact information but never generates a collision response.
+   *
+   * @return true, if is sensor
    */
   public boolean isSensor() {
     return isSensor;
@@ -159,20 +167,26 @@ public class FixtureDef {
 
   /**
    * A sensor shape collects contact information but never generates a collision response.
+   *
+   * @param isSensor the new sensor
    */
   public void setSensor(boolean isSensor) {
     this.isSensor = isSensor;
   }
 
   /**
-   * Contact filtering data;
+   * Contact filtering data;.
+   *
+   * @return the filter
    */
   public Filter getFilter() {
     return filter;
   }
 
   /**
-   * Contact filtering data;
+   * Contact filtering data;.
+   *
+   * @param filter the new filter
    */
   public void setFilter(Filter filter) {
     this.filter = filter;

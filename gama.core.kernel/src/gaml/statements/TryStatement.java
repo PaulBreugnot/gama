@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gaml.statements.TryStatement.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
- * 
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * TryStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -78,6 +78,9 @@ import gaml.statements.TryStatement.IfSerializer;
 @serializer (IfSerializer.class)
 public class TryStatement extends AbstractStatementSequence {
 
+	/**
+	 * The Class IfSerializer.
+	 */
 	public static class IfSerializer extends StatementSerializer {
 
 		@Override
@@ -105,13 +108,13 @@ public class TryStatement extends AbstractStatementSequence {
 
 	}
 
+	/** The catch statement. */
 	public IStatement catchStatement;
 
 	/**
 	 * The Constructor.
-	 * 
-	 * @param sim
-	 *            the sim
+	 *
+	 * @param desc the desc
 	 */
 	public TryStatement(final IDescription desc) {
 		super(desc);

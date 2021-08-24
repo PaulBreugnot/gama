@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Department.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.xal;
 
@@ -19,7 +29,7 @@ import javax.xml.namespace.QName;
 
 
 /**
- * 
+ * The Class Department.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
@@ -33,28 +43,46 @@ import javax.xml.namespace.QName;
 public class Department implements Cloneable
 {
 
+    /** The address line. */
     @XmlElement(name = "AddressLine")
     protected List<AddressLine> addressLine;
+    
+    /** The department name. */
     @XmlElement(name = "DepartmentName")
     protected List<Department.DepartmentName> departmentName;
+    
+    /** The mail stop. */
     @XmlElement(name = "MailStop")
     protected MailStop mailStop;
+    
+    /** The postal code. */
     @XmlElement(name = "PostalCode")
     protected PostalCode postalCode;
+    
+    /** The any. */
     @XmlAnyElement(lax = true)
     protected List<Object> any;
+    
+    /** The underscore. */
     @XmlAttribute(name = "Type")
     @XmlSchemaType(name = "anySimpleType")
     protected String underscore;
+    
+    /** The other attributes. */
     @XmlAnyAttribute
     private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+    /**
+     * Instantiates a new department.
+     */
     public Department() {
         super();
     }
 
     /**
-     * 
+     * Gets the address line.
+     *
+     * @return the address line
      */
     public List<AddressLine> getAddressLine() {
         if (addressLine == null) {
@@ -64,7 +92,9 @@ public class Department implements Cloneable
     }
 
     /**
-     * 
+     * Gets the department name.
+     *
+     * @return the department name
      */
     public List<Department.DepartmentName> getDepartmentName() {
         if (departmentName == null) {
@@ -74,51 +104,49 @@ public class Department implements Cloneable
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the mail stop.
+     *
+     * @return     possible object is
      *     {@link MailStop}
-     *     
      */
     public MailStop getMailStop() {
         return mailStop;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the mail stop.
+     *
+     * @param value     allowed object is
      *     {@link MailStop}
-     *     
      */
     public void setMailStop(MailStop value) {
         this.mailStop = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the postal code.
+     *
+     * @return     possible object is
      *     {@link PostalCode}
-     *     
      */
     public PostalCode getPostalCode() {
         return postalCode;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the postal code.
+     *
+     * @param value     allowed object is
      *     {@link PostalCode}
-     *     
      */
     public void setPostalCode(PostalCode value) {
         this.postalCode = value;
     }
 
     /**
-     * 
+     * Gets the any.
+     *
+     * @return the any
      */
     public List<Object> getAny() {
         if (any == null) {
@@ -128,31 +156,29 @@ public class Department implements Cloneable
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the underscore.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getUnderscore() {
         return underscore;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the underscore.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setUnderscore(String value) {
         this.underscore = value;
     }
 
     /**
-     * 
-     * @return
-     *     always non-null
+     * Gets the other attributes.
+     *
+     * @return     always non-null
      */
     public Map<QName, String> getOtherAttributes() {
         return otherAttributes;
@@ -246,8 +272,8 @@ public class Department implements Cloneable
      * <code>
      * AddressLine addressLine = new AddressLine();
      * this.getAddressLine().add(addressLine); </code>
-     * 
-     * 
+     *
+     * @return the address line
      */
     public AddressLine createAndAddAddressLine() {
         AddressLine newValue = new AddressLine();
@@ -261,8 +287,8 @@ public class Department implements Cloneable
      * <code>
      * DepartmentName departmentName = new DepartmentName();
      * this.getDepartmentName().add(departmentName); </code>
-     * 
-     * 
+     *
+     * @return the department. department name
      */
     public Department.DepartmentName createAndAddDepartmentName() {
         Department.DepartmentName newValue = new Department.DepartmentName();
@@ -277,8 +303,8 @@ public class Department implements Cloneable
      * <code>
      * MailStop mailStop = new MailStop();
      * this.setMailStop(mailStop); </code>
-     * 
-     * 
+     *
+     * @return the mail stop
      */
     public MailStop createAndSetMailStop() {
         MailStop newValue = new MailStop();
@@ -293,8 +319,8 @@ public class Department implements Cloneable
      * <code>
      * PostalCode postalCode = new PostalCode();
      * this.setPostalCode(postalCode); </code>
-     * 
-     * 
+     *
+     * @return the postal code
      */
     public PostalCode createAndSetPostalCode() {
         PostalCode newValue = new PostalCode();
@@ -306,21 +332,18 @@ public class Department implements Cloneable
      * Sets the value of the addressLine property Objects of the following type(s) are allowed in the list List<AddressLine>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAddressLine} instead.
-     * 
-     * 
-     * @param addressLine
+     *
+     * @param addressLine the new address line
      */
     public void setAddressLine(final List<AddressLine> addressLine) {
         this.addressLine = addressLine;
     }
 
     /**
-     * add a value to the addressLine property collection
-     * 
-     * @param addressLine
-     *     Objects of the following type are allowed in the list: {@link AddressLine}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the addressLine property collection.
+     *
+     * @param addressLine     Objects of the following type are allowed in the list: {@link AddressLine}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Department addToAddressLine(final AddressLine addressLine) {
         this.getAddressLine().add(addressLine);
@@ -331,21 +354,18 @@ public class Department implements Cloneable
      * Sets the value of the departmentName property Objects of the following type(s) are allowed in the list List<DepartmentName>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withDepartmentName} instead.
-     * 
-     * 
-     * @param departmentName
+     *
+     * @param departmentName the new department name
      */
     public void setDepartmentName(final List<Department.DepartmentName> departmentName) {
         this.departmentName = departmentName;
     }
 
     /**
-     * add a value to the departmentName property collection
-     * 
-     * @param departmentName
-     *     Objects of the following type are allowed in the list: {@link Department.DepartmentName}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the departmentName property collection.
+     *
+     * @param departmentName     Objects of the following type are allowed in the list: {@link Department.DepartmentName}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Department addToDepartmentName(final Department.DepartmentName departmentName) {
         this.getDepartmentName().add(departmentName);
@@ -356,21 +376,18 @@ public class Department implements Cloneable
      * Sets the value of the any property Objects of the following type(s) are allowed in the list List<Object>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withAny} instead.
-     * 
-     * 
-     * @param any
+     *
+     * @param any the new any
      */
     public void setAny(final List<Object> any) {
         this.any = any;
     }
 
     /**
-     * add a value to the any property collection
-     * 
-     * @param any
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the any property collection.
+     *
+     * @param any     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Department addToAny(final Object any) {
         this.getAny().add(any);
@@ -378,11 +395,11 @@ public class Department implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param addressLine     required parameter
+     * @return the department
      * @see #setAddressLine(List<AddressLine>)
-     * 
-     * @param addressLine
-     *     required parameter
      */
     public Department withAddressLine(final List<AddressLine> addressLine) {
         this.setAddressLine(addressLine);
@@ -390,11 +407,11 @@ public class Department implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param departmentName     required parameter
+     * @return the department
      * @see #setDepartmentName(List<DepartmentName>)
-     * 
-     * @param departmentName
-     *     required parameter
      */
     public Department withDepartmentName(final List<Department.DepartmentName> departmentName) {
         this.setDepartmentName(departmentName);
@@ -402,11 +419,11 @@ public class Department implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param mailStop     required parameter
+     * @return the department
      * @see #setMailStop(MailStop)
-     * 
-     * @param mailStop
-     *     required parameter
      */
     public Department withMailStop(final MailStop mailStop) {
         this.setMailStop(mailStop);
@@ -414,11 +431,11 @@ public class Department implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param postalCode     required parameter
+     * @return the department
      * @see #setPostalCode(PostalCode)
-     * 
-     * @param postalCode
-     *     required parameter
      */
     public Department withPostalCode(final PostalCode postalCode) {
         this.setPostalCode(postalCode);
@@ -426,11 +443,11 @@ public class Department implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param any     required parameter
+     * @return the department
      * @see #setAny(List<Object>)
-     * 
-     * @param any
-     *     required parameter
      */
     public Department withAny(final List<Object> any) {
         this.setAny(any);
@@ -438,11 +455,11 @@ public class Department implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param underscore     required parameter
+     * @return the department
      * @see #setUnderscore(String)
-     * 
-     * @param underscore
-     *     required parameter
      */
     public Department withUnderscore(final String underscore) {
         this.setUnderscore(underscore);
@@ -476,7 +493,7 @@ public class Department implements Cloneable
 
 
     /**
-     * 
+     * The Class DepartmentName.
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
@@ -486,91 +503,95 @@ public class Department implements Cloneable
     public static class DepartmentName implements Cloneable
     {
 
+        /** The content. */
         @XmlValue
         protected String content;
+        
+        /** The underscore. */
         @XmlAttribute(name = "Type")
         @XmlSchemaType(name = "anySimpleType")
         protected String underscore;
+        
+        /** The code. */
         @XmlAttribute(name = "Code")
         @XmlSchemaType(name = "anySimpleType")
         protected String code;
+        
+        /** The other attributes. */
         @XmlAnyAttribute
         private Map<QName, String> otherAttributes = new HashMap<QName, String>();
 
+        /**
+         * Instantiates a new department name.
+         */
         public DepartmentName() {
             super();
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the content.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getContent() {
             return content;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the content.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setContent(String value) {
             this.content = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the underscore.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getUnderscore() {
             return underscore;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the underscore.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setUnderscore(String value) {
             this.underscore = value;
         }
 
         /**
-         * 
-         * @return
-         *     possible object is
+         * Gets the code.
+         *
+         * @return     possible object is
          *     {@link String}
-         *     
          */
         public String getCode() {
             return code;
         }
 
         /**
-         * 
-         * @param value
-         *     allowed object is
+         * Sets the code.
+         *
+         * @param value     allowed object is
          *     {@link String}
-         *     
          */
         public void setCode(String value) {
             this.code = value;
         }
 
         /**
-         * 
-         * @return
-         *     always non-null
+         * Gets the other attributes.
+         *
+         * @return     always non-null
          */
         public Map<QName, String> getOtherAttributes() {
             return otherAttributes;
@@ -629,11 +650,11 @@ public class Department implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param content     required parameter
+         * @return the department. department name
          * @see #setContent(String)
-         * 
-         * @param content
-         *     required parameter
          */
         public Department.DepartmentName withContent(final String content) {
             this.setContent(content);
@@ -641,11 +662,11 @@ public class Department implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param underscore     required parameter
+         * @return the department. department name
          * @see #setUnderscore(String)
-         * 
-         * @param underscore
-         *     required parameter
          */
         public Department.DepartmentName withUnderscore(final String underscore) {
             this.setUnderscore(underscore);
@@ -653,11 +674,11 @@ public class Department implements Cloneable
         }
 
         /**
-         * fluent setter
+         * fluent setter.
+         *
+         * @param code     required parameter
+         * @return the department. department name
          * @see #setCode(String)
-         * 
-         * @param code
-         *     required parameter
          */
         public Department.DepartmentName withCode(final String code) {
             this.setCode(code);

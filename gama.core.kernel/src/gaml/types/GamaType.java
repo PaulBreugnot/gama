@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.types.GamaType.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and simulation
- * platform (v. 1.8.1)
+ * GamaType.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.types;
 
@@ -33,27 +33,43 @@ import gaml.expressions.IExpression;
 
 /**
  * Written by drogoul Modified on 25 aout 2010
- *
+ * 
  * The superclass of all types descriptions in GAMA. Provides convenience methods, as well as some basic definitions.
  * Types allow to manipulate any Java class as a type in GAML. To be recognized by GAML, subclasses must be annotated
  * with the @type annotation (see GamlAnnotations).
- *
+ * 
  * Types are primarily used for conversions between values. They are also intended to support the operators specific to
  * the objects they encompass (but this is not mandatory, as these operators need to be defined as static ones (and thus
  * can be defined anywhere)
- *
+ * 
  * Primary (simple) types also serve as the basis of parametric types (see ParametricType).
  *
+ * @param <Support> the generic type
  */
 public abstract class GamaType<Support> implements IType<Support> {
 
+	/** The id. */
 	protected int id;
+	
+	/** The name. */
 	protected String name;
+	
+	/** The support. */
 	protected Class<Support> support;
+	
+	/** The getters. */
 	Map<String, OperatorProto> getters;
+	
+	/** The parent. */
 	protected IType<? super Support> parent;
+	
+	/** The parented. */
 	protected boolean parented;
+	
+	/** The var kind. */
 	protected int varKind;
+	
+	/** The plugin. */
 	protected String plugin;
 
 	@Override
@@ -93,10 +109,20 @@ public abstract class GamaType<Support> implements IType<Support> {
 		return result + getFieldDocumentation();
 	}
 
+	/**
+	 * Gets the support name.
+	 *
+	 * @return the support name
+	 */
 	public String getSupportName() {
 		return ", wraps Java objects of class " + support.getSimpleName();
 	}
 
+	/**
+	 * Gets the field documentation.
+	 *
+	 * @return the field documentation
+	 */
 	public String getFieldDocumentation() {
 		if (getters == null) { return ""; }
 		final StringBuilder sb = new StringBuilder(200);
@@ -111,6 +137,12 @@ public abstract class GamaType<Support> implements IType<Support> {
 		return sb.toString();
 	}
 
+	/**
+	 * Gets the field documentation.
+	 *
+	 * @param prototype the prototype
+	 * @return the field documentation
+	 */
 	private String getFieldDocumentation(final OperatorProto prototype) {
 		final StringBuilder sb = new StringBuilder(200);
 
@@ -279,6 +311,12 @@ public abstract class GamaType<Support> implements IType<Support> {
 		return parented;
 	}
 
+	/**
+	 * Checks if is super type of.
+	 *
+	 * @param type the type
+	 * @return true, if is super type of
+	 */
 	protected boolean isSuperTypeOf(final IType<?> type) {
 		if (type == null) { return false; }
 		if (parented && type.isParented()) { return type == this || isSuperTypeOf(type.getParent()); }
@@ -313,6 +351,8 @@ public abstract class GamaType<Support> implements IType<Support> {
 	}
 
 	/**
+	 * Accept null instances.
+	 *
 	 * @return true if this type can have nil as an instance
 	 */
 	protected boolean acceptNullInstances() {
@@ -363,15 +403,36 @@ public abstract class GamaType<Support> implements IType<Support> {
 		return true;
 	}
 
+	/**
+	 * To type.
+	 *
+	 * @param scope the scope
+	 * @param value the value
+	 * @param type the type
+	 * @param copy the copy
+	 * @return the object
+	 */
 	public static Object toType(final IScope scope, final Object value, final IType<?> type, final boolean copy) {
 		if (type == null || type.id() == IType.NONE) { return value; }
 		return type.cast(scope, value, null, copy);
 	}
 
+	/**
+	 * Key type if casting.
+	 *
+	 * @param exp the exp
+	 * @return the i type
+	 */
 	public IType<?> keyTypeIfCasting(final IExpression exp) {
 		return getKeyType();
 	}
 
+	/**
+	 * Contents type if casting.
+	 *
+	 * @param exp the exp
+	 * @return the i type
+	 */
 	public IType<?> contentsTypeIfCasting(final IExpression exp) {
 		return getContentType();
 	}
@@ -386,10 +447,24 @@ public abstract class GamaType<Support> implements IType<Support> {
 		return from(this, keyTypeIfCasting(exp), contentsTypeIfCasting(exp));
 	}
 
+	/**
+	 * From.
+	 *
+	 * @param species the species
+	 * @return the i type
+	 */
 	public static IType<?> from(final TypeDescription species) {
 		return from(Types.SPECIES, Types.INT, species.getGamlType());
 	}
 
+	/**
+	 * From.
+	 *
+	 * @param t the t
+	 * @param keyType the key type
+	 * @param contentType the content type
+	 * @return the i container type
+	 */
 	public static IContainerType<?> from(final IContainerType<IContainer<?, ?>> t, final IType<?> keyType,
 			final IType<?> contentType) {
 		if ((keyType == null || keyType == Types.NO_TYPE) && (contentType == null || contentType == Types.NO_TYPE)) {
@@ -400,6 +475,14 @@ public abstract class GamaType<Support> implements IType<Support> {
 		return ParametricType.createParametricType(t.getGamlType(), kt, ct);
 	}
 
+	/**
+	 * From.
+	 *
+	 * @param t the t
+	 * @param keyType the key type
+	 * @param contentType the content type
+	 * @return the i type
+	 */
 	@SuppressWarnings ({ "unchecked", "rawtypes" })
 	public static IType<?> from(final IType<?> t, final IType<?> keyType, final IType<?> contentType) {
 		if (keyType == null || contentType == null) { return t; }
@@ -414,11 +497,25 @@ public abstract class GamaType<Support> implements IType<Support> {
 		return t;
 	}
 
+	/** The Constant TYPE. */
 	public static final int TYPE = 0;
+	
+	/** The Constant CONTENT. */
 	public static final int CONTENT = 1;
+	
+	/** The Constant KEY. */
 	public static final int KEY = 2;
+	
+	/** The Constant DENOTED. */
 	public static final int DENOTED = 3;
 
+	/**
+	 * Find common type.
+	 *
+	 * @param elements the elements
+	 * @param kind the kind
+	 * @return the i type
+	 */
 	public static IType<?> findCommonType(final IExpression[] elements, final int kind) {
 		final IType<?> result = Types.NO_TYPE;
 		if (elements.length == 0) { return result; }
@@ -438,6 +535,12 @@ public abstract class GamaType<Support> implements IType<Support> {
 		}
 	}
 
+	/**
+	 * Find common type.
+	 *
+	 * @param types the types
+	 * @return the i type
+	 */
 	public static IType<?> findCommonType(final IType<?>... types) {
 		IType<?> result = Types.NO_TYPE;
 		if (types.length == 0) { return result; }
@@ -457,10 +560,10 @@ public abstract class GamaType<Support> implements IType<Support> {
 	}
 
 	/**
-	 * Return the type of the object passed in parameter
+	 * Return the type of the object passed in parameter.
 	 *
-	 * @param obj
-	 * @return
+	 * @param obj the obj
+	 * @return the i type
 	 */
 	public static IType<?> of(final Object obj) {
 		if (obj instanceof IValue) { return ((IValue) obj).getGamlType(); }
@@ -470,12 +573,23 @@ public abstract class GamaType<Support> implements IType<Support> {
 	}
 
 	/**
-	 * @return
+	 * Find specific type.
+	 *
+	 * @param castingType the casting type
+	 * @param originalType the original type
+	 * @return the i type
 	 */
 	public static IType<?> findSpecificType(final IType<?> castingType, final IType<?> originalType) {
 		return requiresCasting(castingType, originalType) ? castingType : originalType;
 	}
 
+	/**
+	 * Requires casting.
+	 *
+	 * @param castingType the casting type
+	 * @param originalType the original type
+	 * @return true, if successful
+	 */
 	public static boolean requiresCasting(final IType<?> castingType, final IType<?> originalType) {
 		if (castingType == null || castingType == Types.NO_TYPE || castingType.isAssignableFrom(originalType)) {
 			return false;

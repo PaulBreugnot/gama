@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.runtime.concurrent.ParallelAgentStepper.java, in plugin msi.gama.core, is part of the source code of the
- * GAMA modeling and simulation platform (v. 1.8.1)
+ * ParallelAgentStepper.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.runtime.concurrent;
 
@@ -16,8 +16,17 @@ import gama.metamodel.agent.IAgent;
 import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 
+/**
+ * The Class ParallelAgentStepper.
+ */
 public class ParallelAgentStepper extends ParallelAgentRunner<Boolean> {
 
+	/**
+	 * Instantiates a new parallel agent stepper.
+	 *
+	 * @param scope the scope
+	 * @param agents the agents
+	 */
 	public ParallelAgentStepper(final IScope scope, final Spliterator<IAgent> agents) {
 		super(scope, agents);
 	}

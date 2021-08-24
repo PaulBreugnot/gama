@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * PolyStyle.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -27,14 +37,12 @@ import gama.ext.libs.kml.annotations.Obvious;
  *   &lt;outline&gt;1&lt;/outline&gt;               &lt;!-- boolean --&gt;
  * <strong>&lt;/PolyStyle&gt;</strong></pre>
  * 
- * Extends: 
+ * Extends: .
+ *
  * @see: <ColorStyle>
  * 
  * Contained By: 
  * @see: <Style>
- * 
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "PolyStyleType", propOrder = {
@@ -74,6 +82,8 @@ public class PolyStyle
     @XmlElement(defaultValue = "1")
     @XmlJavaTypeAdapter(BooleanConverter.class)
     protected Boolean outline;
+    
+    /** The poly style simple extension. */
     @XmlElement(name = "PolyStyleSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> polyStyleSimpleExtension;
@@ -98,59 +108,60 @@ public class PolyStyle
     @XmlElement(name = "PolyStyleObjectExtensionGroup")
     protected List<AbstractObject> polyStyleObjectExtension;
 
+    /**
+     * Instantiates a new poly style.
+     */
     public PolyStyle() {
         super();
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Checks if is fill.
+     *
+     * @return     possible object is
      *     {@link Boolean}
-     *     
      */
     public Boolean isFill() {
         return fill;
     }
 
     /**
-     * @see fill
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the fill.
+     *
+     * @param value     allowed object is
      *     {@link Boolean}
-     *     
+     * @see fill
      */
     public void setFill(Boolean value) {
         this.fill = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Checks if is outline.
+     *
+     * @return     possible object is
      *     {@link Boolean}
-     *     
      */
     public Boolean isOutline() {
         return outline;
     }
 
     /**
-     * @see outline
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the outline.
+     *
+     * @param value     allowed object is
      *     {@link Boolean}
-     *     
+     * @see outline
      */
     public void setOutline(Boolean value) {
         this.outline = value;
     }
 
     /**
+     * Gets the poly style simple extension.
+     *
+     * @return the poly style simple extension
      * @see polyStyleSimpleExtension
-     * 
      */
     public List<Object> getPolyStyleSimpleExtension() {
         if (polyStyleSimpleExtension == null) {
@@ -160,8 +171,10 @@ public class PolyStyle
     }
 
     /**
+     * Gets the poly style object extension.
+     *
+     * @return the poly style object extension
      * @see polyStyleObjectExtension
-     * 
      */
     public List<AbstractObject> getPolyStyleObjectExtension() {
         if (polyStyleObjectExtension == null) {
@@ -236,21 +249,20 @@ public class PolyStyle
     }
 
     /**
+     * Sets the poly style simple extension.
+     *
+     * @param polyStyleSimpleExtension the new poly style simple extension
      * @see polyStyleSimpleExtension
-     * 
-     * @param polyStyleSimpleExtension
      */
     public void setPolyStyleSimpleExtension(final List<Object> polyStyleSimpleExtension) {
         this.polyStyleSimpleExtension = polyStyleSimpleExtension;
     }
 
     /**
-     * add a value to the polyStyleSimpleExtension property collection
-     * 
-     * @param polyStyleSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the polyStyleSimpleExtension property collection.
+     *
+     * @param polyStyleSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public PolyStyle addToPolyStyleSimpleExtension(final Object polyStyleSimpleExtension) {
         this.getPolyStyleSimpleExtension().add(polyStyleSimpleExtension);
@@ -258,21 +270,20 @@ public class PolyStyle
     }
 
     /**
+     * Sets the poly style object extension.
+     *
+     * @param polyStyleObjectExtension the new poly style object extension
      * @see polyStyleObjectExtension
-     * 
-     * @param polyStyleObjectExtension
      */
     public void setPolyStyleObjectExtension(final List<AbstractObject> polyStyleObjectExtension) {
         this.polyStyleObjectExtension = polyStyleObjectExtension;
     }
 
     /**
-     * add a value to the polyStyleObjectExtension property collection
-     * 
-     * @param polyStyleObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the polyStyleObjectExtension property collection.
+     *
+     * @param polyStyleObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public PolyStyle addToPolyStyleObjectExtension(final AbstractObject polyStyleObjectExtension) {
         this.getPolyStyleObjectExtension().add(polyStyleObjectExtension);
@@ -365,11 +376,11 @@ public class PolyStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param fill     required parameter
+     * @return the poly style
      * @see #setFill(Boolean)
-     * 
-     * @param fill
-     *     required parameter
      */
     public PolyStyle withFill(final Boolean fill) {
         this.setFill(fill);
@@ -377,11 +388,11 @@ public class PolyStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param outline     required parameter
+     * @return the poly style
      * @see #setOutline(Boolean)
-     * 
-     * @param outline
-     *     required parameter
      */
     public PolyStyle withOutline(final Boolean outline) {
         this.setOutline(outline);
@@ -389,11 +400,11 @@ public class PolyStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param polyStyleSimpleExtension     required parameter
+     * @return the poly style
      * @see #setPolyStyleSimpleExtension(List<Object>)
-     * 
-     * @param polyStyleSimpleExtension
-     *     required parameter
      */
     public PolyStyle withPolyStyleSimpleExtension(final List<Object> polyStyleSimpleExtension) {
         this.setPolyStyleSimpleExtension(polyStyleSimpleExtension);
@@ -401,11 +412,11 @@ public class PolyStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param polyStyleObjectExtension     required parameter
+     * @return the poly style
      * @see #setPolyStyleObjectExtension(List<AbstractObject>)
-     * 
-     * @param polyStyleObjectExtension
-     *     required parameter
      */
     public PolyStyle withPolyStyleObjectExtension(final List<AbstractObject> polyStyleObjectExtension) {
         this.setPolyStyleObjectExtension(polyStyleObjectExtension);

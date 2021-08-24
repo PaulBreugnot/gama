@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
- */
+/*******************************************************************************************************
+ *
+ * DXFMLine.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf;
 
 import java.util.ArrayList;
@@ -24,19 +19,40 @@ import gama.ext.libs.kabeja.dxf.helpers.Point;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class DXFMLine.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class DXFMLine extends DXFEntity {
+    
+    /** The Constant JUSTIFICATION_TOP. */
     public final static int JUSTIFICATION_TOP = 0;
+    
+    /** The Constant JUSTIFICATION_ZERO. */
     public final static int JUSTIFICATION_ZERO = 1;
+    
+    /** The Constant JUSTIFICATION_BOTTOM. */
     public final static int JUSTIFICATION_BOTTOM = 2;
+    
+    /** The scale. */
     protected double scale = 1.0;
+    
+    /** The start point. */
     protected Point startPoint = new Point();
+    
+    /** The mline segments. */
     protected List mlineSegments = new ArrayList();
+    
+    /** The line count. */
     protected int lineCount = 0;
+    
+    /** The justification. */
     protected int justification = 0;
+    
+    /** The m line style ID. */
     protected String mLineStyleID = "";
+    
+    /** The m line style name. */
     protected String mLineStyleName = "";
 
     /*
@@ -77,70 +93,156 @@ public class DXFMLine extends DXFEntity {
         return l;
     }
 
+    /**
+     * Adds the DXFM line segement.
+     *
+     * @param seg the seg
+     */
     public void addDXFMLineSegement(DXFMLineSegment seg) {
         this.mlineSegments.add(seg);
     }
 
+    /**
+     * Gets the DXFM line segment count.
+     *
+     * @return the DXFM line segment count
+     */
     public int getDXFMLineSegmentCount() {
         return this.mlineSegments.size();
     }
 
+    /**
+     * Gets the DXFM line segment.
+     *
+     * @param index the index
+     * @return the DXFM line segment
+     */
     public DXFMLineSegment getDXFMLineSegment(int index) {
         return (DXFMLineSegment) this.mlineSegments.get(index);
     }
 
+    /**
+     * Gets the scale.
+     *
+     * @return the scale
+     */
     public double getScale() {
         return scale;
     }
 
+    /**
+     * Sets the scale.
+     *
+     * @param scale the new scale
+     */
     public void setScale(double scale) {
         this.scale = scale;
     }
 
+    /**
+     * Gets the start point.
+     *
+     * @return the start point
+     */
     public Point getStartPoint() {
         return startPoint;
     }
 
+    /**
+     * Sets the start point.
+     *
+     * @param startPoint the new start point
+     */
     public void setStartPoint(Point startPoint) {
         this.startPoint = startPoint;
     }
 
+    /**
+     * Gets the line count.
+     *
+     * @return the line count
+     */
     public int getLineCount() {
         return lineCount;
     }
 
+    /**
+     * Sets the line count.
+     *
+     * @param lineCount the new line count
+     */
     public void setLineCount(int lineCount) {
         this.lineCount = lineCount;
     }
 
+    /**
+     * Gets the m line style ID.
+     *
+     * @return the m line style ID
+     */
     public String getMLineStyleID() {
         return mLineStyleID;
     }
 
+    /**
+     * Sets the m line style ID.
+     *
+     * @param lineStyleID the new m line style ID
+     */
     public void setMLineStyleID(String lineStyleID) {
         mLineStyleID = lineStyleID;
     }
 
+    /**
+     * Gets the justification.
+     *
+     * @return the justification
+     */
     public int getJustification() {
         return justification;
     }
 
+    /**
+     * Sets the justification.
+     *
+     * @param justification the new justification
+     */
     public void setJustification(int justification) {
         this.justification = justification;
     }
 
+    /**
+     * Gets the m line style name.
+     *
+     * @return the m line style name
+     */
     public String getMLineStyleName() {
         return mLineStyleName;
     }
 
+    /**
+     * Sets the m line style name.
+     *
+     * @param lineStyleName the new m line style name
+     */
     public void setMLineStyleName(String lineStyleName) {
         mLineStyleName = lineStyleName;
     }
 
+    /**
+     * To DXF polylines.
+     *
+     * @return the DXF polyline[]
+     */
     protected DXFPolyline[] toDXFPolylines() {
         return MLineConverter.toDXFPolyline(this);
     }
 
+    /**
+     * Checks if is closed.
+     *
+     * @return true, if is closed
+     */
     public boolean isClosed() {
         return (this.flags & 2) == 2;
     }

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * WrappedLink.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator.contents;
 
 import static gama.common.util.FileUtils.SEPARATOR;
@@ -8,10 +18,20 @@ import org.eclipse.jface.dialogs.MessageDialog;
 
 import gama.ui.base.utils.WorkbenchHelper;
 
+/**
+ * The Class WrappedLink.
+ */
 public class WrappedLink extends WrappedFile {
 
+	/** The is web. */
 	final boolean isWeb;
 
+	/**
+	 * Instantiates a new wrapped link.
+	 *
+	 * @param root the root
+	 * @param wrapped the wrapped
+	 */
 	public WrappedLink(final WrappedContainer<?> root, final IFile wrapped) {
 		super(root, wrapped);
 		isWeb = getResource().getLocation().toString().contains(URL_SEPARATOR_REPLACEMENT);
@@ -58,6 +78,11 @@ public class WrappedLink extends WrappedFile {
 
 	}
 
+	/**
+	 * Reconstruct target name.
+	 *
+	 * @return the string
+	 */
 	String reconstructTargetName() {
 		// if the file points to an internet address
 		String loc = getResource().getLocation().toString();

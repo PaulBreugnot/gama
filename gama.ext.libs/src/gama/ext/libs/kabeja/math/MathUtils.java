@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * MathUtils.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.math;
 
 import gama.ext.libs.kabeja.dxf.helpers.Point;
@@ -20,17 +15,20 @@ import gama.ext.libs.kabeja.dxf.helpers.Vector;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class MathUtils.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class MathUtils {
+    
+    /** The Constant DISTANCE_DELTA. */
     public final static double DISTANCE_DELTA = 0.00001;
 
     /**
-     * Calculate the scalar product of vector a and vector b
+     * Calculate the scalar product of vector a and vector b.
      *
-     * @param a
-     * @param b
+     * @param a the a
+     * @param b the b
      * @return the result of the scalar product
      */
     public static double scalarProduct(Vector a, Vector b) {
@@ -41,10 +39,10 @@ public class MathUtils {
     }
 
     /**
-     * Returns the absalute value (or length) of the vector
+     * Returns the absalute value (or length) of the vector.
      *
-     * @param v
-     * @return
+     * @param v the v
+     * @return the double
      */
     public static double absoluteValue(Vector v) {
         double r = Math.sqrt(Math.pow(v.getX(), 2) + Math.pow(v.getY(), 2) +
@@ -56,8 +54,8 @@ public class MathUtils {
     /**
      * Calculate the cross product of 2 vectors.
      *
-     * @param a
-     * @param b
+     * @param a the a
+     * @param b the b
      * @return a new vector as result of the cross product of a and b
      */
     public static Vector crossProduct(Vector a, Vector b) {
@@ -70,12 +68,10 @@ public class MathUtils {
     }
 
     /**
-     * Scale a vector with the given value
+     * Scale a vector with the given value.
      *
-     * @param a
-     *            the vector
-     * @param scale
-     *            the value to scale
+     * @param a            the vector
+     * @param scale            the value to scale
      * @return a new vector scaled with the given
      */
     public static Vector scaleVector(Vector a, double scale) {
@@ -113,10 +109,10 @@ public class MathUtils {
     }
 
     /**
-     * Calculate the vector from point a to point b
+     * Calculate the vector from point a to point b.
      *
-     * @param a
-     * @param b
+     * @param a the a
+     * @param b the b
      * @return the vector from a to b
      */
     public static Vector getVector(Point a, Point b) {
@@ -129,6 +125,15 @@ public class MathUtils {
         return v;
     }
 
+    /**
+     * Gets the intersection.
+     *
+     * @param a the a
+     * @param u the u
+     * @param b the b
+     * @param v the v
+     * @return the intersection
+     */
     public static Point getIntersection(Point a, Vector u, Point b, Vector v) {
         //u = normalize(u);
         //v = normalize(v);
@@ -149,6 +154,13 @@ public class MathUtils {
         return p;
     }
 
+    /**
+     * Distance.
+     *
+     * @param start the start
+     * @param end the end
+     * @return the double
+     */
     public static double distance(Point start, Point end) {
         double length = Math.sqrt(Math.pow((end.getX() - start.getX()), 2) +
                 Math.pow((end.getY() - start.getY()), 2) +
@@ -158,10 +170,10 @@ public class MathUtils {
     }
 
     /**
-     * Calculate the angle between vector a vector b
+     * Calculate the angle between vector a vector b.
      *
-     * @param a
-     * @param b
+     * @param a the a
+     * @param b the b
      * @return the angle in radian
      */
     public static double getAngle(Vector a, Vector b) {
@@ -193,6 +205,12 @@ public class MathUtils {
         return r;
     }
 
+    /**
+     * Normalize.
+     *
+     * @param v the v
+     * @return the vector
+     */
     public static Vector normalize(Vector v) {
         double l = absoluteValue(v);
 
@@ -201,10 +219,11 @@ public class MathUtils {
 
     /**
      * Returns the qaudrant:<br/>
-     * 0,1,2 or 3
-     * @param p
-     * @param center
-     * @return
+     * 0,1,2 or 3.
+     *
+     * @param p the p
+     * @param center the center
+     * @return the quadrant
      */
     public static int getQuadrant(Point p, Point center) {
         if (p.getX() < center.getX()) {
@@ -224,7 +243,8 @@ public class MathUtils {
 
     /**
      * Returns the qaudrant for the given angle:<br/>
-     * 0,1,2 or 3
+     * 0,1,2 or 3.
+     *
      * @param angle in degree
      * @return the quadrant
      */
@@ -245,7 +265,8 @@ public class MathUtils {
     }
 
     /**
-     * Returns the angle of the vector again the x-axis
+     * Returns the angle of the vector again the x-axis.
+     *
      * @param v the vector
      * @return the angle in degree
      */
@@ -262,14 +283,23 @@ public class MathUtils {
     }
 
     /**
-     * Invert the direction of the given vector
-     * @param the vector to invert
+     * Invert the direction of the given vector.
+     *
+     * @param v the v
      * @return new inverted vector
      */
     public static Vector invertDirection(Vector v) {
         return scaleVector(v, -1);
     }
 
+    /**
+     * Multiply matrix by matrix.
+     *
+     * @param a the a
+     * @param b the b
+     * @return the double[][]
+     * @throws IllegalArgumentException the illegal argument exception
+     */
     public static double[][] multiplyMatrixByMatrix(double[][] a, double[][] b)
         throws IllegalArgumentException {
         if (a[0].length != b.length) {
@@ -290,6 +320,14 @@ public class MathUtils {
         return c;
     }
 
+    /**
+     * Multiply matrix by vector.
+     *
+     * @param a the a
+     * @param v the v
+     * @return the double[]
+     * @throws IllegalArgumentException the illegal argument exception
+     */
     public static double[] multiplyMatrixByVector(double[][] a, double[] v)
         throws IllegalArgumentException {
         if (a[0].length != v.length) {
@@ -323,6 +361,13 @@ public class MathUtils {
         return result;
     }
 
+    /**
+     * Adds the vector to vector.
+     *
+     * @param a the a
+     * @param b the b
+     * @return the vector
+     */
     public static Vector addVectorToVector(Vector a, Vector b) {
         Vector result = new Vector();
         result.setX(a.getX() + b.getX());

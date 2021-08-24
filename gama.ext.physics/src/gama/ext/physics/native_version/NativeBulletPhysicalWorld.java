@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * NativeBulletPhysicalWorld.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.physics.native_version;
 
 import com.google.common.collect.Multimap;
@@ -13,9 +23,17 @@ import gama.ext.physics.gaml.PhysicalSimulationAgent;
 import gama.metamodel.agent.IAgent;
 import gama.metamodel.shape.GamaPoint;
 
+/**
+ * The Class NativeBulletPhysicalWorld.
+ */
 public class NativeBulletPhysicalWorld extends AbstractPhysicalWorld<PhysicsSpace, CollisionShape, Vector3f>
 		implements INativeBulletPhysicalEntity {
 
+	/**
+	 * Instantiates a new native bullet physical world.
+	 *
+	 * @param physicalSimulationAgent the physical simulation agent
+	 */
 	public NativeBulletPhysicalWorld(final PhysicalSimulationAgent physicalSimulationAgent) {
 		super(physicalSimulationAgent);
 	}

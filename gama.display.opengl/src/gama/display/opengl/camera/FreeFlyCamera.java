@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'FreeFlyCamera.java, in plugin ummisco.gama.opengl, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * FreeFlyCamera.java, in gama.display.opengl, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.display.opengl.camera;
 
 import org.eclipse.swt.SWT;
@@ -20,13 +19,28 @@ import gama.outputs.LayeredDisplayData;
 import gama.ui.base.bindings.GamaKeyBindings;
 import gaml.operators.Maths;
 
+/**
+ * The Class FreeFlyCamera.
+ */
 public class FreeFlyCamera extends AbstractCamera {
 
+	/** The Constant up. */
 	private static final GamaPoint up = new GamaPoint(0.0f, 0.0f, 1.0f);
+	
+	/** The forward. */
 	private final GamaPoint forward = new GamaPoint(0, 0, 0);
+	
+	/** The left. */
 	private final GamaPoint left = new GamaPoint(0, 0, 0);
+	
+	/** The speed. */
 	private final double speed = getRenderer().getMaxEnvDim() * 0.0001;
 
+	/**
+	 * Instantiates a new free fly camera.
+	 *
+	 * @param renderer the renderer
+	 */
 	public FreeFlyCamera(final IOpenGLRenderer renderer) {
 		super(renderer);
 		initialize();

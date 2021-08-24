@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * MotorJoint.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package org.jbox2d.dynamics.joints;
 
 import org.jbox2d.common.Mat22;
@@ -27,31 +37,77 @@ import org.jbox2d.pooling.IWorldPool;
  */
 public class MotorJoint extends Joint {
 
+  /** The m linear offset. */
   // Solver shared
   private final Vec2 m_linearOffset = new Vec2();
+  
+  /** The m angular offset. */
   private float m_angularOffset;
+  
+  /** The m linear impulse. */
   private final Vec2 m_linearImpulse = new Vec2();
+  
+  /** The m angular impulse. */
   private float m_angularImpulse;
+  
+  /** The m max force. */
   private float m_maxForce;
+  
+  /** The m max torque. */
   private float m_maxTorque;
+  
+  /** The m correction factor. */
   private float m_correctionFactor;
 
+  /** The m index A. */
   // Solver temp
   private int m_indexA;
+  
+  /** The m index B. */
   private int m_indexB;
+  
+  /** The m r A. */
   private final Vec2 m_rA = new Vec2();
+  
+  /** The m r B. */
   private final Vec2 m_rB = new Vec2();
+  
+  /** The m local center A. */
   private final Vec2 m_localCenterA = new Vec2();
+  
+  /** The m local center B. */
   private final Vec2 m_localCenterB = new Vec2();
+  
+  /** The m linear error. */
   private final Vec2 m_linearError = new Vec2();
+  
+  /** The m angular error. */
   private float m_angularError;
+  
+  /** The m inv mass A. */
   private float m_invMassA;
+  
+  /** The m inv mass B. */
   private float m_invMassB;
+  
+  /** The m inv IA. */
   private float m_invIA;
+  
+  /** The m inv IB. */
   private float m_invIB;
+  
+  /** The m linear mass. */
   private final Mat22 m_linearMass = new Mat22();
+  
+  /** The m angular mass. */
   private float m_angularMass;
 
+  /**
+   * Instantiates a new motor joint.
+   *
+   * @param pool the pool
+   * @param def the def
+   */
   public MotorJoint(IWorldPool pool, MotorJointDef def) {
     super(pool, def);
     m_linearOffset.set(def.linearOffset);
@@ -82,16 +138,28 @@ public class MotorJoint extends Joint {
     return m_angularImpulse * inv_dt;
   }
 
+  /**
+   * Gets the correction factor.
+   *
+   * @return the correction factor
+   */
   public float getCorrectionFactor() {
     return m_correctionFactor;
   }
 
+  /**
+   * Sets the correction factor.
+   *
+   * @param correctionFactor the new correction factor
+   */
   public void setCorrectionFactor(float correctionFactor) {
     this.m_correctionFactor = correctionFactor;
   }
 
   /**
    * Set the target linear offset, in frame A, in meters.
+   *
+   * @param linearOffset the new linear offset
    */
   public void setLinearOffset(Vec2 linearOffset) {
     if (linearOffset.x != m_linearOffset.x || linearOffset.y != m_linearOffset.y) {
@@ -103,6 +171,9 @@ public class MotorJoint extends Joint {
 
   /**
    * Get the target linear offset, in frame A, in meters.
+   *
+   * @param out the out
+   * @return the linear offset
    */
   public void getLinearOffset(Vec2 out) {
     out.set(m_linearOffset);
@@ -110,6 +181,8 @@ public class MotorJoint extends Joint {
 
   /**
    * Get the target linear offset, in frame A, in meters. Do not modify.
+   *
+   * @return the linear offset
    */
   public Vec2 getLinearOffset() {
     return m_linearOffset;
@@ -117,8 +190,8 @@ public class MotorJoint extends Joint {
 
   /**
    * Set the target angular offset, in radians.
-   * 
-   * @param angularOffset
+   *
+   * @param angularOffset the new angular offset
    */
   public void setAngularOffset(float angularOffset) {
     if (angularOffset != m_angularOffset) {
@@ -128,14 +201,19 @@ public class MotorJoint extends Joint {
     }
   }
 
+  /**
+   * Gets the angular offset.
+   *
+   * @return the angular offset
+   */
   public float getAngularOffset() {
     return m_angularOffset;
   }
 
   /**
    * Set the maximum friction force in N.
-   * 
-   * @param force
+   *
+   * @param force the new max force
    */
   public void setMaxForce(float force) {
     assert (force >= 0.0f);
@@ -144,6 +222,8 @@ public class MotorJoint extends Joint {
 
   /**
    * Get the maximum friction force in N.
+   *
+   * @return the max force
    */
   public float getMaxForce() {
     return m_maxForce;
@@ -151,6 +231,8 @@ public class MotorJoint extends Joint {
 
   /**
    * Set the maximum friction torque in N*m.
+   *
+   * @param torque the new max torque
    */
   public void setMaxTorque(float torque) {
     assert (torque >= 0.0f);
@@ -159,6 +241,8 @@ public class MotorJoint extends Joint {
 
   /**
    * Get the maximum friction torque in N*m.
+   *
+   * @return the max torque
    */
   public float getMaxTorque() {
     return m_maxTorque;

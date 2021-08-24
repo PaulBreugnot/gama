@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ViewerOptions.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.gx;
 
@@ -14,7 +24,7 @@ import gama.ext.libs.kml.annotations.Obvious;
 
 
 /**
- * 
+ * The Class ViewerOptions.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ViewerOptionsType", propOrder = {
@@ -26,14 +36,14 @@ public class ViewerOptions
     implements Cloneable
 {
 
+    /** The option. */
     @XmlElement(required = true)
     protected List<Option> option;
 
     /**
-     * Value constructor with only mandatory fields
-     * 
-     * @param option
-     *     required parameter
+     * Value constructor with only mandatory fields.
+     *
+     * @param option     required parameter
      */
     public ViewerOptions(final List<Option> option) {
         super();
@@ -50,7 +60,9 @@ public class ViewerOptions
     }
 
     /**
-     * 
+     * Gets the option.
+     *
+     * @return the option
      */
     public List<Option> getOption() {
         if (option == null) {
@@ -100,8 +112,8 @@ public class ViewerOptions
      * <code>
      * Option option = new Option();
      * this.getOption().add(option); </code>
-     * 
-     * 
+     *
+     * @return the option
      */
     public Option createAndAddOption() {
         Option newValue = new Option();
@@ -113,21 +125,18 @@ public class ViewerOptions
      * Sets the value of the option property Objects of the following type(s) are allowed in the list List<Option>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withOption} instead.
-     * 
-     * 
-     * @param option
+     *
+     * @param option the new option
      */
     public void setOption(final List<Option> option) {
         this.option = option;
     }
 
     /**
-     * add a value to the option property collection
-     * 
-     * @param option
-     *     Objects of the following type are allowed in the list: {@link Option}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the option property collection.
+     *
+     * @param option     Objects of the following type are allowed in the list: {@link Option}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public ViewerOptions addToOption(final Option option) {
         this.getOption().add(option);

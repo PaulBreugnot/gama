@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.metamodel.shape.GamaShape.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * GamaShape.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.metamodel.shape;
 
@@ -46,23 +46,37 @@ import gaml.types.IType;
 import gaml.types.Types;
 
 /**
- * Written by drogoul Modified on 25 ao�t 2010
- *
- *
- *
+ * Written by drogoul Modified on 25 ao�t 2010.
  */
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class GamaShape implements IShape {
 
+	/**
+	 * The Class ShapeData.
+	 */
 	class ShapeData {
+		
+		/** The depth. */
 		private Double depth;
+		
+		/** The type. */
 		private Type type;
 	}
 
+	/** The geometry. */
 	protected Geometry geometry;
+	
+	/** The agent. */
 	private IAgent agent;
+	
+	/** The attributes. */
 	protected IMap<String, Object> attributes;
 
+	/**
+	 * Instantiates a new gama shape.
+	 *
+	 * @param geom the geom
+	 */
 	public GamaShape(final Geometry geom) {
 		setInnerGeometry(geom);
 	}
@@ -72,10 +86,20 @@ public class GamaShape implements IShape {
 		return Types.GEOMETRY;
 	}
 
+	/**
+	 * Instantiates a new gama shape.
+	 *
+	 * @param env the env
+	 */
 	public GamaShape(final Envelope3D env) {
 		this(env == null ? null : env.toGeometry());
 	}
 
+	/**
+	 * Instantiates a new gama shape.
+	 *
+	 * @param geom the geom
+	 */
 	public GamaShape(final IShape geom) {
 		this(geom, null);
 
@@ -85,9 +109,8 @@ public class GamaShape implements IShape {
 	 * Creates a GamaShape from a source and a (optional) geometry. If the geometry is null, the geometry of the source
 	 * is used. In any case, we copy its attributes if present and if copyAttributes is true
 	 *
-	 * @param source
-	 * @param geom
-	 * @param copyAttributes
+	 * @param source the source
+	 * @param geom the geom
 	 */
 
 	public GamaShape(final IShape source, final Geometry geom) {
@@ -99,7 +122,7 @@ public class GamaShape implements IShape {
 	 * This is where the attributes of this shape and the attributes of an incoming shape are mixed. The default
 	 * strategy is to copy all the attributes to this
 	 *
-	 * @param source
+	 * @param source the source
 	 */
 	private void mixAttributes(final IShape source) {
 		if (source == null) return;
@@ -142,16 +165,12 @@ public class GamaShape implements IShape {
 	}
 
 	/**
-	 * Same as above, but applies a (optional) rotation around a given vector and (optional) translation to the geometry
+	 * Same as above, but applies a (optional) rotation around a given vector and (optional) translation to the geometry.
 	 *
-	 * @param source
-	 *            cannot be null
-	 * @param geom
-	 *            can be null
-	 * @param rotation
-	 *            can be null, expressed in degrees
-	 * @param newLocation
-	 *            can be null
+	 * @param source            cannot be null
+	 * @param geom            can be null
+	 * @param rotation            can be null, expressed in degrees
+	 * @param newLocation            can be null
 	 */
 
 	public GamaShape(final IShape source, final Geometry geom, final AxisAngle rotation, final GamaPoint newLocation) {
@@ -172,16 +191,12 @@ public class GamaShape implements IShape {
 	 * Same as above, but applies a (optional) scaling to the geometry by specifying a bounding box or a set of
 	 * coefficients.
 	 *
-	 * @param source
-	 *            cannot be null
-	 * @param geom
-	 *            can be null
-	 * @param rotation
-	 *            can be null, expressed in degrees
-	 * @param newLocation
-	 *            can be null
-	 * @param isBoundingBox
-	 *            indicates whether the previous parameter should be considered as an absolute bounding box (width,
+	 * @param source            cannot be null
+	 * @param geom            can be null
+	 * @param rotation            can be null, expressed in degrees
+	 * @param newLocation            can be null
+	 * @param bounds the bounds
+	 * @param isBoundingBox            indicates whether the previous parameter should be considered as an absolute bounding box (width,
 	 *            height, ) or as a set of coefficients.
 	 */
 	public GamaShape(final IShape source, final Geometry geom, final AxisAngle rotation, final GamaPoint newLocation,
@@ -202,16 +217,13 @@ public class GamaShape implements IShape {
 	}
 
 	/**
-	 * Same as above, but applies a (optional) scaling to the geometry by a given coefficient
+	 * Same as above, but applies a (optional) scaling to the geometry by a given coefficient.
 	 *
-	 * @param source
-	 *            cannot be null
-	 * @param geom
-	 *            can be null
-	 * @param rotation
-	 *            can be null, expressed in degrees
-	 * @param newLocation
-	 *            can be null
+	 * @param source            cannot be null
+	 * @param geom            can be null
+	 * @param rotation            can be null, expressed in degrees
+	 * @param newLocation            can be null
+	 * @param scaling the scaling
 	 */
 	public GamaShape(final IShape source, final Geometry geom, final AxisAngle rotation, final GamaPoint newLocation,
 			final Double scaling) {
@@ -229,6 +241,11 @@ public class GamaShape implements IShape {
 		return getInnerGeometry() instanceof GeometryCollection;
 	}
 
+	/**
+	 * Checks if is 3d.
+	 *
+	 * @return true, if is 3d
+	 */
 	public boolean is3D() {
 		return getDepth() != null;
 	}
@@ -302,12 +319,20 @@ public class GamaShape implements IShape {
 		return l;
 	}
 
+	/**
+	 * Translated to.
+	 *
+	 * @param scope the scope
+	 * @param target the target
+	 * @return the gama shape
+	 */
 	public GamaShape translatedTo(final IScope scope, final GamaPoint target) {
 		final GamaShape result = copy(scope);
 		result.setLocation(target);
 		return result;
 	}
 
+	/** The Constant pl. */
 	public final static PointLocator pl = new PointLocator();
 
 	@Override
@@ -402,6 +427,12 @@ public class GamaShape implements IShape {
 		return new GamaShape(result);
 	}
 
+	/**
+	 * Gets the data.
+	 *
+	 * @param createIt the create it
+	 * @return the data
+	 */
 	private ShapeData getData(final boolean createIt) {
 		final Geometry g = getInnerGeometry();
 		if (g == null) return null;
@@ -487,6 +518,11 @@ public class GamaShape implements IShape {
 		mixAttributes(geom);
 	}
 
+	/**
+	 * Compute average Z ordinate.
+	 *
+	 * @return the double
+	 */
 	private double computeAverageZOrdinate() {
 		double z = 0d;
 		final Coordinate[] coords = geometry.getCoordinates();
@@ -726,7 +762,7 @@ public class GamaShape implements IShape {
 	}
 
 	/**
-	 * Invoked when a geometrical primitive undergoes an operation (like minus(), plus()) that makes it change
+	 * Invoked when a geometrical primitive undergoes an operation (like minus(), plus()) that makes it change.
 	 */
 	public void losePredefinedProperty() {
 		if (THREED_TYPES.contains(getGeometricalType())) { setGeometricalType(Type.POLYHEDRON); }

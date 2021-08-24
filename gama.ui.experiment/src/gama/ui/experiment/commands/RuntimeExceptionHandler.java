@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'RuntimeExceptionHandler.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the GAMA modeling
- * and simulation platform. (v. 1.8.1)
+ * RuntimeExceptionHandler.java, in gama.ui.experiment, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.experiment.commands;
 
 import java.util.ArrayList;
@@ -27,15 +26,28 @@ import gama.common.ui.IRuntimeExceptionHandler;
 import gama.runtime.GAMA;
 import gama.runtime.exceptions.GamaRuntimeException;
 
+/**
+ * The Class RuntimeExceptionHandler.
+ */
 public class RuntimeExceptionHandler extends Job implements IRuntimeExceptionHandler {
 
+	/**
+	 * Instantiates a new runtime exception handler.
+	 */
 	public RuntimeExceptionHandler() {
 		super("Runtime error collector");
 	}
 
+	/** The incoming exceptions. */
 	volatile BlockingQueue<GamaRuntimeException> incomingExceptions = new LinkedBlockingQueue<>();
+	
+	/** The clean exceptions. */
 	volatile List<GamaRuntimeException> cleanExceptions = new ArrayList<>();
+	
+	/** The running. */
 	volatile boolean running;
+	
+	/** The remaining time. */
 	volatile int remainingTime = 5000;
 
 	@Override
@@ -77,6 +89,9 @@ public class RuntimeExceptionHandler extends Job implements IRuntimeExceptionHan
 		running = false;
 	}
 
+	/**
+	 * Process.
+	 */
 	private void process() {
 		final ArrayList<GamaRuntimeException> array = new ArrayList<>(incomingExceptions);
 		// DEBUG.LOG("Processing " + array.size() + " exceptions");
@@ -120,6 +135,11 @@ public class RuntimeExceptionHandler extends Job implements IRuntimeExceptionHan
 
 	}
 
+	/**
+	 * Update UI.
+	 *
+	 * @param newExceptions the new exceptions
+	 */
 	public void updateUI(final List<GamaRuntimeException> newExceptions) {
 		if (newExceptions != null) {
 			newExceptions.removeIf((e) -> e.isInvalid());

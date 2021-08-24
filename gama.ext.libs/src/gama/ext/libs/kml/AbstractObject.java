@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * AbstractObject.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -74,26 +84,36 @@ import gama.ext.libs.kml.gx.ViewerOptions;
 public abstract class AbstractObject implements Cloneable
 {
 
+    /** The object simple extension. */
     @XmlElement(name = "ObjectSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> objectSimpleExtension;
+    
+    /** The id. */
     @XmlAttribute(name = "id")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     @XmlID
     @XmlSchemaType(name = "ID")
     protected String id;
+    
+    /** The target id. */
     @XmlAttribute(name = "targetId")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     @XmlSchemaType(name = "NCName")
     protected String targetId;
 
+    /**
+     * Instantiates a new abstract object.
+     */
     public AbstractObject() {
         super();
     }
 
     /**
+     * Gets the object simple extension.
+     *
+     * @return the object simple extension
      * @see objectSimpleExtension
-     * 
      */
     public List<Object> getObjectSimpleExtension() {
         if (objectSimpleExtension == null) {
@@ -103,48 +123,44 @@ public abstract class AbstractObject implements Cloneable
     }
 
     /**
-     * @see id
-     * 
-     * @return
-     *     possible object is
+     * Gets the id.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see id
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @see id
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the id.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see id
      */
     public void setId(String value) {
         this.id = value;
     }
 
     /**
-     * @see targetId
-     * 
-     * @return
-     *     possible object is
+     * Gets the target id.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see targetId
      */
     public String getTargetId() {
         return targetId;
     }
 
     /**
-     * @see targetId
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the target id.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see targetId
      */
     public void setTargetId(String value) {
         this.targetId = value;
@@ -203,21 +219,20 @@ public abstract class AbstractObject implements Cloneable
     }
 
     /**
+     * Sets the object simple extension.
+     *
+     * @param objectSimpleExtension the new object simple extension
      * @see objectSimpleExtension
-     * 
-     * @param objectSimpleExtension
      */
     public void setObjectSimpleExtension(final List<Object> objectSimpleExtension) {
         this.objectSimpleExtension = objectSimpleExtension;
     }
 
     /**
-     * add a value to the objectSimpleExtension property collection
-     * 
-     * @param objectSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the objectSimpleExtension property collection.
+     *
+     * @param objectSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public AbstractObject addToObjectSimpleExtension(final Object objectSimpleExtension) {
         this.getObjectSimpleExtension().add(objectSimpleExtension);
@@ -225,11 +240,11 @@ public abstract class AbstractObject implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param objectSimpleExtension     required parameter
+     * @return the abstract object
      * @see #setObjectSimpleExtension(List<Object>)
-     * 
-     * @param objectSimpleExtension
-     *     required parameter
      */
     public AbstractObject withObjectSimpleExtension(final List<Object> objectSimpleExtension) {
         this.setObjectSimpleExtension(objectSimpleExtension);
@@ -237,11 +252,11 @@ public abstract class AbstractObject implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param id     required parameter
+     * @return the abstract object
      * @see #setId(String)
-     * 
-     * @param id
-     *     required parameter
      */
     public AbstractObject withId(final String id) {
         this.setId(id);
@@ -249,11 +264,11 @@ public abstract class AbstractObject implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param targetId     required parameter
+     * @return the abstract object
      * @see #setTargetId(String)
-     * 
-     * @param targetId
-     *     required parameter
      */
     public AbstractObject withTargetId(final String targetId) {
         this.setTargetId(targetId);

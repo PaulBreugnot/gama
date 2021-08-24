@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.layers.GisLayer.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * GisLayer.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -28,10 +28,19 @@ import gaml.statements.draw.DrawingAttributes;
 import gaml.statements.draw.ShapeDrawingAttributes;
 import gaml.types.IType;
 
+/**
+ * The Class GisLayer.
+ */
 public class GisLayer extends AbstractLayer {
 
+	/** The color expression. */
 	IExpression gisExpression, colorExpression;
 
+	/**
+	 * Instantiates a new gis layer.
+	 *
+	 * @param layer the layer
+	 */
 	public GisLayer(final ILayerStatement layer) {
 		super(layer);
 		gisExpression = layer.getFacet(IKeyword.GIS);
@@ -55,12 +64,25 @@ public class GisLayer extends AbstractLayer {
 		}
 	}
 
+	/**
+	 * Builds the gis layer.
+	 *
+	 * @param scope the scope
+	 * @return the list
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public List<IShape> buildGisLayer(final IScope scope) throws GamaRuntimeException {
 		final GamaShapeFile file = getShapeFile(scope);
 		if (file == null) { return null; }
 		return file.getContents(scope);
 	}
 
+	/**
+	 * Gets the shape file.
+	 *
+	 * @param scope the scope
+	 * @return the shape file
+	 */
 	private GamaShapeFile getShapeFile(final IScope scope) {
 		if (gisExpression == null) { return null; }
 		if (gisExpression.getGamlType().id() == IType.STRING) {

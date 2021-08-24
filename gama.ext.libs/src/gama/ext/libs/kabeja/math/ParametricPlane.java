@@ -1,18 +1,13 @@
-/*
-   Copyright 2008 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * ParametricPlane.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.math;
 
 import gama.ext.libs.kabeja.dxf.DXFExtrusion;
@@ -20,22 +15,30 @@ import gama.ext.libs.kabeja.dxf.helpers.Point;
 import gama.ext.libs.kabeja.dxf.helpers.Vector;
 
 
+/**
+ * The Class ParametricPlane.
+ */
 public class ParametricPlane {
+    
+    /** The base. */
     protected Point base;
+    
+    /** The direction X. */
     protected Vector directionX;
+    
+    /** The direction Y. */
     protected Vector directionY;
+    
+    /** The normal. */
     protected Vector normal;
 
     /**
+     * Instantiates a new parametric plane.
      *
-     * @param basePoint
-     *            The base point of this plane
-     * @param directionX
-     *            the x direction of this plane
-     * @param directionY
-     *            the y direction of this plane
-     * @param normal
-     *            the normal direction of this plane
+     * @param basePoint            The base point of this plane
+     * @param directionX            the x direction of this plane
+     * @param directionY            the y direction of this plane
+     * @param normal            the normal direction of this plane
      */
     public ParametricPlane(Point basePoint, Vector directionX,
         Vector directionY, Vector normal) {
@@ -46,13 +49,11 @@ public class ParametricPlane {
     }
 
     /**
+     * Instantiates a new parametric plane.
      *
-     * @param basePoint
-     *            The base point of this plane
-     * @param directionX
-     *            the x direction of this plane
-     * @param directionY
-     *            the y direction of this plane
+     * @param basePoint            The base point of this plane
+     * @param directionX            the x direction of this plane
+     * @param directionY            the y direction of this plane
      */
     public ParametricPlane(Point basePoint, Vector directionX, Vector directionY) {
         this(basePoint, directionX, directionY,
@@ -64,9 +65,9 @@ public class ParametricPlane {
      * to b as x direction. The y direction is generated with the cross product
      * of the normal with the x direction.
      *
-     * @param basePoint
-     * @param b
-     * @param normal
+     * @param basePoint the base point
+     * @param b the b
+     * @param normal the normal
      */
     public ParametricPlane(Point basePoint, Point b, Vector normal) {
         this(basePoint, MathUtils.normalize(MathUtils.getVector(basePoint, b)),
@@ -75,22 +76,34 @@ public class ParametricPlane {
             normal);
     }
 
+    /**
+     * Instantiates a new parametric plane.
+     *
+     * @param basePoint the base point
+     * @param b the b
+     * @param c the c
+     */
     public ParametricPlane(Point basePoint, Point b, Point c) {
         this(basePoint, MathUtils.normalize(MathUtils.getVector(basePoint, b)),
             MathUtils.normalize(MathUtils.getVector(basePoint, c)));
     }
 
+    /**
+     * Instantiates a new parametric plane.
+     *
+     * @param e the e
+     */
     public ParametricPlane(DXFExtrusion e) {
         this(new Point(0.0, 0.0, 0.0), e.getDirectionX(), e.getDirectionY(),
             e.getNormal());
     }
 
     /**
-     * Calculate the point in world coordinates for the given parameters
+     * Calculate the point in world coordinates for the given parameters.
      *
-     * @param x
-     * @param y
-     * @return
+     * @param x the x
+     * @param y the y
+     * @return the point
      */
     public Point getPoint(double x, double y) {
         Point p = new Point();
@@ -104,15 +117,21 @@ public class ParametricPlane {
         return p;
     }
 
+    /**
+     * Gets the point.
+     *
+     * @param point the point
+     * @return the point
+     */
     public Point getPoint(Point point) {
         return getPoint(point.getX(), point.getY());
     }
 
     /**
      * Calculates the plane parameters of the given point relative to the base
-     * point of the plane
+     * point of the plane.
      *
-     * @param p
+     * @param p the p
      * @return double[]{parameter x direction, parameter y direction}
      */
     public double[] getParameter(Point p) {
@@ -171,34 +190,69 @@ public class ParametricPlane {
         return true;
     }
 
+    /**
+     * Gets the base point.
+     *
+     * @return the base point
+     */
     public Point getBasePoint() {
         return base;
     }
 
+    /**
+     * Sets the base point.
+     *
+     * @param base the new base point
+     */
     public void setBasePoint(Point base) {
         this.base = base;
     }
 
+    /**
+     * Gets the direction X.
+     *
+     * @return the direction X
+     */
     public Vector getDirectionX() {
         return directionX;
     }
 
+    /**
+     * Sets the direction X.
+     *
+     * @param directionX the new direction X
+     */
     public void setDirectionX(Vector directionX) {
         this.directionX = directionX;
         this.normal = MathUtils.crossProduct(this.directionX, this.directionY);
         this.normal.normalize();
     }
 
+    /**
+     * Gets the direction Y.
+     *
+     * @return the direction Y
+     */
     public Vector getDirectionY() {
         return directionY;
     }
 
+    /**
+     * Sets the direction Y.
+     *
+     * @param directionY the new direction Y
+     */
     public void setDirectionY(Vector directionY) {
         this.directionY = directionY;
         this.normal = MathUtils.crossProduct(this.directionX, this.directionY);
         this.normal.normalize();
     }
 
+    /**
+     * Gets the normal.
+     *
+     * @return the normal
+     */
     public Vector getNormal() {
         return normal;
     }

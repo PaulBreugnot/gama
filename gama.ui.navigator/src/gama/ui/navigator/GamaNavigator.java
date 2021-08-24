@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ummisco.gama.ui.navigator.GamaNavigator.java, in plugin ummisco.gama.ui.navigator, is part of the source code of the
- * GAMA modeling and simulation platform (v. 1.8.1)
+ * GamaNavigator.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.ui.navigator;
 
@@ -48,6 +48,11 @@ import org.eclipse.ui.navigator.CommonViewer;
 
 import gama.common.preferences.GamaPreferences;
 import gama.ui.base.resources.GamaColors.GamaUIColor;
+import gama.ui.base.toolbar.GamaCommand;
+import gama.ui.base.toolbar.GamaToolbar2;
+import gama.ui.base.toolbar.GamaToolbarFactory;
+import gama.ui.base.toolbar.IToolbarDecoratedView;
+import gama.ui.base.toolbar.Selector;
 import gama.ui.base.utils.PlatformHelper;
 import gama.ui.navigator.contents.NavigatorRoot;
 import gama.ui.navigator.contents.Tag;
@@ -57,19 +62,29 @@ import gama.ui.navigator.contents.WrappedContainer;
 import gama.ui.navigator.contents.WrappedFile;
 import gama.ui.navigator.contents.WrappedResource;
 import gama.ui.navigator.contents.WrappedSyntacticContent;
-import gama.ui.base.toolbar.GamaCommand;
-import gama.ui.base.toolbar.GamaToolbar2;
-import gama.ui.base.toolbar.GamaToolbarFactory;
-import gama.ui.base.toolbar.IToolbarDecoratedView;
-import gama.ui.base.toolbar.Selector;
 
+/**
+ * The Class GamaNavigator.
+ */
 public class GamaNavigator extends CommonNavigator
 		implements IToolbarDecoratedView, ISelectionChangedListener, IToolbarDecoratedView.Expandable {
+
+	/** The link. */
 	IAction link;
+
+	/** The link item. */
 	ToolItem linkItem;
+
+	/** The parent. */
 	protected Composite parent;
+
+	/** The toolbar. */
 	protected GamaToolbar2 toolbar;
+
+	/** The properties. */
 	private PropertyDialogAction properties;
+
+	/** The find control. */
 	private NavigatorSearchControl findControl;
 
 	@Override
@@ -134,6 +149,9 @@ public class GamaNavigator extends CommonNavigator
 		super.saveState(newMemento);
 	}
 
+	/**
+	 * Restore state.
+	 */
 	private void restoreState() {
 		if (memento == null) return;
 		final String saved = memento.getString("EXPANDED_STATE");
@@ -234,6 +252,7 @@ public class GamaNavigator extends CommonNavigator
 		};
 	}
 
+	/** The by date. */
 	final GamaCommand byDate = new GamaCommand("action.toolbar.sort2", "", "Sort by modification date", trigger -> {
 		final boolean enabled = ((ToolItem) trigger.widget).getSelection();
 
@@ -249,14 +268,14 @@ public class GamaNavigator extends CommonNavigator
 
 	});
 
+	/** The link command. */
 	final GamaCommand linkCommand =
 			new GamaCommand("navigator/navigator.link3", "", "Stay in sync with the editor", e -> link.run());
 
 	/**
 	 * Method createToolItem()
 	 *
-	 * @see gama.ui.views.toolbar.IToolbarDecoratedView#createToolItem(int,
-	 *      gama.ui.views.toolbar.GamaToolbar2)
+	 * @see gama.ui.views.toolbar.IToolbarDecoratedView#createToolItem(int, gama.ui.views.toolbar.GamaToolbar2)
 	 */
 	@Override
 	public void createToolItems(final GamaToolbar2 tb) {
@@ -290,6 +309,12 @@ public class GamaNavigator extends CommonNavigator
 		showStatus(element);
 	}
 
+	/**
+	 * Show status.
+	 *
+	 * @param element
+	 *            the element
+	 */
 	private void showStatus(final VirtualContent<?> element) {
 		final String message = element.getStatusMessage();
 		final String tooltip = element.getStatusTooltip();

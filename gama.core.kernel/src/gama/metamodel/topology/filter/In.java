@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.metamodel.topology.filter.In.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * In.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.metamodel.topology.filter;
 
@@ -29,9 +29,19 @@ import gaml.operators.Cast;
 import gaml.species.ISpecies;
 import gaml.types.Types;
 
+/**
+ * The Class In.
+ */
 @SuppressWarnings ({ "rawtypes" })
 public abstract class In implements IAgentFilter {
 
+	/**
+	 * List.
+	 *
+	 * @param scope the scope
+	 * @param targets the targets
+	 * @return the i agent filter
+	 */
 	public static IAgentFilter list(final IScope scope, final IContainer<?, ? extends IShape> targets) {
 		if (targets.isEmpty(scope)) { return null; }
 		if (targets instanceof IPopulationSet) { return (IPopulationSet) targets; }
@@ -40,15 +50,33 @@ public abstract class In implements IAgentFilter {
 		return new InList(targets.listValue(scope, Types.NO_TYPE, false), species);
 	}
 
+	/**
+	 * Edges of.
+	 *
+	 * @param graph the graph
+	 * @return the i agent filter
+	 */
 	public static IAgentFilter edgesOf(final ISpatialGraph graph) {
 		return graph;
 	}
 
+	/**
+	 * The Class InList.
+	 */
 	private static class InList extends In {
 
+		/** The agents. */
 		final Set<IShape> agents;
+		
+		/** The species. */
 		ISpecies species;
 
+		/**
+		 * Instantiates a new in list.
+		 *
+		 * @param list the list
+		 * @param species the species
+		 */
 		InList(final IList<? extends IShape> list, final ISpecies species) {
 			agents = new LinkedHashSet<>(list);
 			this.species = species;

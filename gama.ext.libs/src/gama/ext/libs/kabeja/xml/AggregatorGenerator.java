@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * AggregatorGenerator.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.xml;
 
 import java.util.ArrayList;
@@ -27,11 +22,22 @@ import org.xml.sax.helpers.AttributesImpl;
 import gama.ext.libs.kabeja.dxf.DXFDocument;
 
 
+/**
+ * The Class AggregatorGenerator.
+ */
 public class AggregatorGenerator extends AbstractSAXFilter
     implements SAXGenerator {
+    
+    /** The Constant ROOT_ELEMENT. */
     public final static String ROOT_ELEMENT = "aggregate";
+    
+    /** The Constant NAMESPACE. */
     public final static String NAMESPACE = "http://kabeja.org/aggregate";
+    
+    /** The generators. */
     protected List generators = new ArrayList();
+    
+    /** The doc. */
     protected DXFDocument doc;
 
     public void generate(DXFDocument doc, ContentHandler handler, Map context)
@@ -53,6 +59,11 @@ public class AggregatorGenerator extends AbstractSAXFilter
         }
     }
 
+    /**
+     * Do generate.
+     *
+     * @throws SAXException the SAX exception
+     */
     protected void doGenerate() throws SAXException {
         Iterator i = this.generators.iterator();
 
@@ -70,6 +81,11 @@ public class AggregatorGenerator extends AbstractSAXFilter
         // ignore
     }
 
+    /**
+     * Adds the SAX generator.
+     *
+     * @param generator the generator
+     */
     public void addSAXGenerator(SAXGenerator generator) {
         this.generators.add(generator);
     }

@@ -1,7 +1,13 @@
-/*
- * Created on Jul 15, 2004
+/*******************************************************************************************************
  *
- */
+ * DXFEllipse.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf;
 
 import gama.ext.libs.kabeja.dxf.helpers.Point;
@@ -11,22 +17,41 @@ import gama.ext.libs.kabeja.math.ParametricPlane;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class DXFEllipse.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class DXFEllipse extends DXFEntity {
+    
+    /** The Constant DEFAULT_END_PARAMETER. */
     public static final double DEFAULT_END_PARAMETER = Math.PI * 2;
+    
+    /** The Constant DEFAULT_START_PARAMETER. */
     public static final double DEFAULT_START_PARAMETER = 0.0;
+    
+    /** The Constant INTEGRATION_STEPS. */
     public static final int INTEGRATION_STEPS = 15;
+    
+    /** The ratio. */
     private double ratio = 1.0;
+    
+    /** The start parameter. */
     private double startParameter = DEFAULT_START_PARAMETER;
+    
+    /** The end parameter. */
     private double endParameter = DEFAULT_END_PARAMETER;
+    
+    /** The center. */
     private Point center = new Point();
+    
+    /** The major axis direction. */
     private Vector majorAxisDirection = new Vector();
+    
+    /** The counterclockwise. */
     private boolean counterclockwise;
 
     /**
-     *
+     * Instantiates a new DXF ellipse.
      */
     public DXFEllipse() {
         center = new Point();
@@ -88,26 +113,56 @@ public class DXFEllipse extends DXFEntity {
         return bounds;
     }
 
+    /**
+     * Gets the center point.
+     *
+     * @return the center point
+     */
     public Point getCenterPoint() {
         return center;
     }
 
+    /**
+     * Sets the center point.
+     *
+     * @param center the new center point
+     */
     public void setCenterPoint(Point center) {
         this.center = center;
     }
 
+    /**
+     * Gets the major axis direction.
+     *
+     * @return the major axis direction
+     */
     public Vector getMajorAxisDirection() {
         return majorAxisDirection;
     }
 
+    /**
+     * Sets the major axis direction.
+     *
+     * @param d the new major axis direction
+     */
     public void setMajorAxisDirection(Vector d) {
         this.majorAxisDirection = d;
     }
 
+    /**
+     * Gets the end parameter.
+     *
+     * @return the end parameter
+     */
     public double getEndParameter() {
         return endParameter;
     }
 
+    /**
+     * Sets the end parameter.
+     *
+     * @param endParameter the new end parameter
+     */
     public void setEndParameter(double endParameter) {
         if (endParameter < 0) {
             this.endParameter = (Math.PI * 2) + endParameter;
@@ -116,18 +171,38 @@ public class DXFEllipse extends DXFEntity {
         }
     }
 
+    /**
+     * Gets the ratio.
+     *
+     * @return the ratio
+     */
     public double getRatio() {
         return ratio;
     }
 
+    /**
+     * Sets the ratio.
+     *
+     * @param ratio the new ratio
+     */
     public void setRatio(double ratio) {
         this.ratio = ratio;
     }
 
+    /**
+     * Gets the start parameter.
+     *
+     * @return the start parameter
+     */
     public double getStartParameter() {
         return startParameter;
     }
 
+    /**
+     * Sets the start parameter.
+     *
+     * @param startParameter the new start parameter
+     */
     public void setStartParameter(double startParameter) {
         if (startParameter < 0) {
             this.startParameter = (Math.PI * 2) + startParameter;
@@ -140,10 +215,21 @@ public class DXFEllipse extends DXFEntity {
         return DXFConstants.ENTITY_TYPE_ELLIPSE;
     }
 
+    /**
+     * Gets the half major axis length.
+     *
+     * @return the half major axis length
+     */
     public double getHalfMajorAxisLength() {
         return this.majorAxisDirection.getLength();
     }
 
+    /**
+     * Gets the local point at.
+     *
+     * @param para the para
+     * @return the local point at
+     */
     public Point getLocalPointAt(double para) {
         Point p = new Point();
         double major = getHalfMajorAxisLength();
@@ -190,14 +276,29 @@ public class DXFEllipse extends DXFEntity {
         return p;
     }
 
+    /**
+     * Gets the local start point.
+     *
+     * @return the local start point
+     */
     public Point getLocalStartPoint() {
         return this.getLocalPointAt(this.startParameter);
     }
 
+    /**
+     * Gets the local end point.
+     *
+     * @return the local end point
+     */
     public Point getLocalEndPoint() {
         return this.getLocalPointAt(this.endParameter);
     }
 
+    /**
+     * Gets the rotation angle.
+     *
+     * @return the rotation angle
+     */
     public double getRotationAngle() {
         return MathUtils.getAngle(DXFConstants.DEFAULT_X_AXIS_VECTOR,
             majorAxisDirection);
@@ -233,10 +334,20 @@ public class DXFEllipse extends DXFEntity {
         return length;
     }
 
+    /**
+     * Checks if is counter clockwise.
+     *
+     * @return true, if is counter clockwise
+     */
     public boolean isCounterClockwise() {
         return counterclockwise;
     }
 
+    /**
+     * Sets the counter clockwise.
+     *
+     * @param counterclockwise the new counter clockwise
+     */
     public void setCounterClockwise(boolean counterclockwise) {
         this.counterclockwise = counterclockwise;
     }

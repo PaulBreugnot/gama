@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'UserControlDialog.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * UserControlDialog.java, in gama.ui.experiment, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.experiment.views.user;
 
 import java.util.ArrayList;
@@ -57,13 +56,28 @@ import gaml.statements.UserCommandStatement;
  */
 public class UserControlDialog extends AbstractDetailsDialog {
 
+	/**
+	 * The Class PreviousDialog.
+	 */
 	public static class PreviousDialog {
 
+		/** The location. */
 		final Point location;
+		
+		/** The extent. */
 		final Point extent;
+		
+		/** The toggled. */
 		final boolean toggled;
+		
+		/** The name. */
 		final String name;
 
+		/**
+		 * Instantiates a new previous dialog.
+		 *
+		 * @param d the d
+		 */
 		PreviousDialog(final UserControlDialog d) {
 			location = d.getShell().getLocation();
 			extent = d.getShell().getSize();
@@ -73,12 +87,24 @@ public class UserControlDialog extends AbstractDetailsDialog {
 
 	}
 
+	/** The current. */
 	public static UserControlDialog current = null;
+	
+	/** The previous. */
 	private static PreviousDialog previous = null;
 
+	/** The user commands. */
 	private final List<IStatement> userCommands;
+	
+	/** The scope. */
 	final IScope scope;
 
+	/**
+	 * Instantiates a new user control dialog.
+	 *
+	 * @param scope the scope
+	 * @param panel the panel
+	 */
 	public UserControlDialog(final IScope scope, final UserPanelStatement panel) {
 		super((Shell) null, "[" + scope.getAgent().getName() + "] " + panel.getName(), null, null);
 		setShellStyle(SWT.CLOSE | SWT.BORDER | SWT.TOOL | SWT.MODELESS | SWT.RESIZE);

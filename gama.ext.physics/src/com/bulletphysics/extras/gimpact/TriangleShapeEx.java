@@ -1,23 +1,13 @@
-/*
- * Java port of Bullet (c) 2008 Martin Dvorak <jezek2@advel.cz>
+/*******************************************************************************************************
  *
- * This source file is part of GIMPACT Library.
+ * TriangleShapeEx.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * For the latest info, see http://gimpact.sourceforge.net/
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Copyright (c) 2007 Francisco Leon Najera. C.C. 80087371. email: projectileman@yahoo.com
- *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the authors be held
- * liable for any damages arising from the use of this software.
- *
- * Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter
- * it and redistribute it freely, subject to the following restrictions:
- *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software.
- * If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not
- * required. 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the
- * original software. 3. This notice may not be removed or altered from any source distribution.
- */
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package com.bulletphysics.extras.gimpact;
 
@@ -33,15 +23,26 @@ import com.bulletphysics.extras.gimpact.BoxCollision.AABB;
 import com.bulletphysics.linearmath.Transform;
 
 /**
+ * The Class TriangleShapeEx.
  *
  * @author jezek2
  */
 public class TriangleShapeEx extends TriangleShape {
 
+	/**
+	 * Instantiates a new triangle shape ex.
+	 */
 	public TriangleShapeEx() {
 		super();
 	}
 
+	/**
+	 * Instantiates a new triangle shape ex.
+	 *
+	 * @param p0 the p 0
+	 * @param p1 the p 1
+	 * @param p2 the p 2
+	 */
 	public TriangleShapeEx(final Vector3f p0, final Vector3f p1, final Vector3f p2) {
 		super(p0, p1, p2);
 	}
@@ -63,12 +64,22 @@ public class TriangleShapeEx extends TriangleShape {
 		VECTORS.release(tv1, tv2, tv0);
 	}
 
+	/**
+	 * Apply transform.
+	 *
+	 * @param t the t
+	 */
 	public void applyTransform(final Transform t) {
 		t.transform(vertices1[0]);
 		t.transform(vertices1[1]);
 		t.transform(vertices1[2]);
 	}
 
+	/**
+	 * Builds the tri plane.
+	 *
+	 * @param plane the plane
+	 */
 	public void buildTriPlane(final Vector4f plane) {
 		Vector3f tmp1 = VECTORS.get();
 		Vector3f tmp2 = VECTORS.get();
@@ -83,6 +94,12 @@ public class TriangleShapeEx extends TriangleShape {
 		VECTORS.release(tmp1, tmp2, normal);
 	}
 
+	/**
+	 * Overlap test conservative.
+	 *
+	 * @param other the other
+	 * @return true, if successful
+	 */
 	public boolean overlap_test_conservative(final TriangleShapeEx other) {
 		float total_margin = getMargin() + other.getMargin();
 

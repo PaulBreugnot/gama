@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'MapLayerComposite.java, in plugin ummisco.gama.ui.viewers, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * MapLayerComposite.java, in gama.ui.viewers, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ui.viewers.gis;
 
@@ -46,10 +45,17 @@ import gama.ui.base.resources.IGamaIcons;
  */
 public class MapLayerComposite extends Composite {
 
+	/** The pane. */
 	protected SwtMapPane pane;
+	
+	/** The map layer table viewer. */
 	protected MaplayerTableViewer mapLayerTableViewer;
 
 	/**
+	 * Instantiates a new map layer composite.
+	 *
+	 * @param parent the parent
+	 * @param style the style
 	 */
 	public MapLayerComposite(final Composite parent, final int style) {
 		super(parent, style);
@@ -100,10 +106,9 @@ public class MapLayerComposite extends Composite {
 	}
 
 	/**
-	 * Repaint the list item associated with the specified MapLayer object
+	 * Repaint the list item associated with the specified MapLayer object.
 	 *
-	 * @param layer
-	 *            the map layer
+	 * @param layer            the map layer
 	 */
 	public void repaint(final Layer layer) {
 		mapLayerTableViewer.refresh(layer, true);
@@ -182,8 +187,7 @@ public class MapLayerComposite extends Composite {
 	 * Handle a ListDataEvent signallying a drag-reordering of the map layers. The event is published by the list model
 	 * after the layers have been reordered there.
 	 *
-	 * @param ev
-	 *            the event
+	 * @param delta the delta
 	 */
 	void moveLayer(final int delta) {
 		final Layer selectedMapLayer = mapLayerTableViewer.getSelectedMapLayer();
@@ -213,6 +217,9 @@ public class MapLayerComposite extends Composite {
 
 	}
 
+	/**
+	 * On show all layers.
+	 */
 	void onShowAllLayers() {
 		if (pane != null && pane.getMapContent() != null) {
 			for (final Layer layer : pane.getMapContent().layers()) {
@@ -225,6 +232,9 @@ public class MapLayerComposite extends Composite {
 		}
 	}
 
+	/**
+	 * On hide all layers.
+	 */
 	void onHideAllLayers() {
 		if (pane != null && pane.getMapContent() != null) {
 			for (final Layer layer : pane.getMapContent().layers()) {
@@ -237,6 +247,11 @@ public class MapLayerComposite extends Composite {
 		}
 	}
 
+	/**
+	 * Gets the map layer table viewer.
+	 *
+	 * @return the map layer table viewer
+	 */
 	public MaplayerTableViewer getMapLayerTableViewer() {
 		return mapLayerTableViewer;
 	}

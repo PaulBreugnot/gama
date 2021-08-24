@@ -1,15 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GamaShapeFileConverter.java, in plugin ummisco.gama.serialize, is part of the source code of the
- * GAMA modeling and simulation platform.
- * (v. 1.8.1)
+ * GamaShapeFileConverter.java, in gama.ext.serialize, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- *
- **********************************************************************************************/
+ ********************************************************************************************************/
 package gama.ext.serialize.gamaType.converters;
 
 import com.thoughtworks.xstream.converters.Converter;
@@ -21,10 +19,22 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import gama.core.dev.utils.DEBUG;
 import gama.util.file.GamaShapeFile;
 
+/**
+ * The Class GamaShapeFileConverter.
+ */
 public class GamaShapeFileConverter implements Converter {
+	
+	/** The Constant TAG. */
 	private final static String TAG = "GamaShapeFile";
+	
+	/** The scope. */
 	private final ConverterScope scope;
 
+	/**
+	 * Instantiates a new gama shape file converter.
+	 *
+	 * @param s the s
+	 */
 	public GamaShapeFileConverter(final ConverterScope s) {
 		scope = s;
 	}

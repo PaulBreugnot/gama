@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.common.util.OldFileUtils.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * OldFileUtils.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.common.util;
 
@@ -24,8 +24,17 @@ import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gama.runtime.exceptions.GamaRuntimeException.GamaRuntimeFileException;
 
+/**
+ * The Class OldFileUtils.
+ */
 public class OldFileUtils {
 
+	/**
+	 * With trailing sep.
+	 *
+	 * @param path the path
+	 * @return the string
+	 */
 	private static String withTrailingSep(final String path) {
 		if (path.endsWith("/")) { return path; }
 		return path + "/";
@@ -143,6 +152,10 @@ public class OldFileUtils {
 
 	/**
 	 * Guess whether given file is binary. Just checks for anything under 0x09.
+	 *
+	 * @param scope the scope
+	 * @param f the f
+	 * @return true, if is binary file
 	 */
 	public static boolean isBinaryFile(final IScope scope, final File f) {
 		if (f == null || !f.exists()) { return false; }

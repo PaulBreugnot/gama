@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * MainGenerateTOC.java, in gama.build.documentation, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package msi.gama.doc;
 
 import java.io.IOException;
@@ -5,8 +15,16 @@ import java.io.IOException;
 import msi.gama.doc.util.HomeToTOC;
 import msi.gama.doc.util.PrepareEnv;
 
+/**
+ * The Class MainGenerateTOC.
+ */
 public class MainGenerateTOC {
 	
+	/**
+	 * The main method.
+	 *
+	 * @param argc the arguments
+	 */
 	public static void  main(String[] argc) {
 		try {		
 			final String tocMDFile = Constants.TOC_SIDEBAR_FILE;

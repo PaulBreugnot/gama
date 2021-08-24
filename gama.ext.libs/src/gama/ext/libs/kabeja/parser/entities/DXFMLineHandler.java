@@ -1,18 +1,13 @@
-/*
-   Copyright 2008 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * DXFMLineHandler.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.parser.entities;
 
 import gama.ext.libs.kabeja.dxf.DXFConstants;
@@ -23,30 +18,81 @@ import gama.ext.libs.kabeja.dxf.helpers.DXFMLineSegmentElement;
 import gama.ext.libs.kabeja.parser.DXFValue;
 
 
+/**
+ * The Class DXFMLineHandler.
+ */
 public class DXFMLineHandler extends AbstractEntityHandler {
+    
+    /** The Constant GROUPCODE_MLINE_STYLENAME. */
     public final static int GROUPCODE_MLINE_STYLENAME = 2;
+    
+    /** The Constant GROUPCODE_MLINE_STYLE_ID. */
     public final static int GROUPCODE_MLINE_STYLE_ID = 340;
+    
+    /** The Constant GROUPCODE_MLINE_SCALE_FACTOR. */
     public final static int GROUPCODE_MLINE_SCALE_FACTOR = 40;
+    
+    /** The Constant GROUPCODE_MLINE_JUSTIFICATION. */
     public final static int GROUPCODE_MLINE_JUSTIFICATION = 70;
+    
+    /** The Constant GROUPCODE_MLINE_FLAGS. */
     public final static int GROUPCODE_MLINE_FLAGS = 71;
+    
+    /** The Constant GROUPCODE_MLINE_NUMBER_OF_VERTICES. */
     public final static int GROUPCODE_MLINE_NUMBER_OF_VERTICES = 72;
+    
+    /** The Constant GROUPCODE_MLINE_NUMBER_OF_LINESTYLEELEMENTS. */
     public final static int GROUPCODE_MLINE_NUMBER_OF_LINESTYLEELEMENTS = 73;
+    
+    /** The Constant GROUPCODE_MLINE_VERTEX_X. */
     public final static int GROUPCODE_MLINE_VERTEX_X = 11;
+    
+    /** The Constant GROUPCODE_MLINE_VERTEX_Y. */
     public final static int GROUPCODE_MLINE_VERTEX_Y = 21;
+    
+    /** The Constant GROUPCODE_MLINE_VERTEX_Z. */
     public final static int GROUPCODE_MLINE_VERTEX_Z = 31;
+    
+    /** The Constant GROUPCODE_MLINE_DIRECTION_X. */
     public final static int GROUPCODE_MLINE_DIRECTION_X = 12;
+    
+    /** The Constant GROUPCODE_MLINE_DIRECTION_Y. */
     public final static int GROUPCODE_MLINE_DIRECTION_Y = 22;
+    
+    /** The Constant GROUPCODE_MLINE_DIRECTION_Z. */
     public final static int GROUPCODE_MLINE_DIRECTION_Z = 32;
+    
+    /** The Constant GROUPCODE_MLINE_MITER_DIRECTION_X. */
     public final static int GROUPCODE_MLINE_MITER_DIRECTION_X = 13;
+    
+    /** The Constant GROUPCODE_MLINE_MITER_DIRECTION_Y. */
     public final static int GROUPCODE_MLINE_MITER_DIRECTION_Y = 23;
+    
+    /** The Constant GROUPCODE_MLINE_MITER_DIRECTION_Z. */
     public final static int GROUPCODE_MLINE_MITER_DIRECTION_Z = 33;
+    
+    /** The Constant GROUPCODE_MLINE_ELEMENT_PARAMETER_COUNT. */
     public final static int GROUPCODE_MLINE_ELEMENT_PARAMETER_COUNT = 74;
+    
+    /** The Constant GROUPCODE_MLINE_ELEMENT_PARAMETER. */
     public final static int GROUPCODE_MLINE_ELEMENT_PARAMETER = 41;
+    
+    /** The Constant GROUPCODE_MLINE_FILL_PARAMETER_COUNT. */
     public final static int GROUPCODE_MLINE_FILL_PARAMETER_COUNT = 75;
+    
+    /** The Constant GROUPCODE_MLINE_FILL_PARAMETER. */
     public final static int GROUPCODE_MLINE_FILL_PARAMETER = 42;
+    
+    /** The m line. */
     protected DXFMLine mLine;
+    
+    /** The seg. */
     protected DXFMLineSegment seg;
+    
+    /** The el. */
     protected DXFMLineSegmentElement el;
+    
+    /** The index. */
     protected int index = 0;
 
     public String getDXFEntityName() {

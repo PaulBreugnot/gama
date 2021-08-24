@@ -1,22 +1,13 @@
-/*
- * Copyright 1997-2008 Sun Microsystems, Inc. All Rights Reserved. DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE
- * HEADER.
+/*******************************************************************************************************
  *
- * This code is free software; you can redistribute it and/or modify it under the terms of the GNU General Public
- * License version 2 only, as published by the Free Software Foundation. Sun designates this particular file as subject
- * to the "Classpath" exception as provided by Sun in the LICENSE file that accompanied this code.
+ * Tuple3d.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License version 2 for
- * more details (a copy is included in the LICENSE file that accompanied this code).
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * You should have received a copy of the GNU General Public License version 2 along with this work; if not, write to
- * the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
- *
- * Please contact Sun Microsystems, Inc., 4150 Network Circle, Santa Clara, CA 95054 USA or visit www.sun.com if you
- * need additional information or have any questions.
- *
- */
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package javax.vecmath;
 
@@ -26,6 +17,7 @@ package javax.vecmath;
  */
 public abstract class Tuple3d implements java.io.Serializable, Cloneable {
 
+	/** The Constant serialVersionUID. */
 	static final long serialVersionUID = 5542096614926168415L;
 
 	/**
@@ -296,6 +288,10 @@ public abstract class Tuple3d implements java.io.Serializable, Cloneable {
 	}
 
 	/**
+	 * Scale add.
+	 *
+	 * @param s the s
+	 * @param t1 the t 1
 	 * @deprecated Use scaleAdd(double,Tuple3d) instead
 	 */
 	@Deprecated
@@ -407,6 +403,11 @@ public abstract class Tuple3d implements java.io.Serializable, Cloneable {
 	}
 
 	/**
+	 * Clamp.
+	 *
+	 * @param min the min
+	 * @param max the max
+	 * @param t the t
 	 * @deprecated Use clamp(double,double,Tuple3d) instead
 	 */
 	@Deprecated
@@ -452,6 +453,10 @@ public abstract class Tuple3d implements java.io.Serializable, Cloneable {
 	}
 
 	/**
+	 * Clamp min.
+	 *
+	 * @param min the min
+	 * @param t the t
 	 * @deprecated Use clampMin(double,Tuple3d) instead
 	 */
 	@Deprecated
@@ -489,6 +494,10 @@ public abstract class Tuple3d implements java.io.Serializable, Cloneable {
 	}
 
 	/**
+	 * Clamp max.
+	 *
+	 * @param max the max
+	 * @param t the t
 	 * @deprecated Use clampMax(double,Tuple3d) instead
 	 */
 	@Deprecated
@@ -539,6 +548,10 @@ public abstract class Tuple3d implements java.io.Serializable, Cloneable {
 	}
 
 	/**
+	 * Clamp.
+	 *
+	 * @param min the min
+	 * @param max the max
 	 * @deprecated Use clamp(double,double) instead
 	 */
 	@Deprecated
@@ -570,6 +583,9 @@ public abstract class Tuple3d implements java.io.Serializable, Cloneable {
 	}
 
 	/**
+	 * Clamp min.
+	 *
+	 * @param min the min
 	 * @deprecated Use clampMin(double) instead
 	 */
 	@Deprecated
@@ -591,6 +607,9 @@ public abstract class Tuple3d implements java.io.Serializable, Cloneable {
 	}
 
 	/**
+	 * Clamp max.
+	 *
+	 * @param max the max
 	 * @deprecated Use clampMax(double) instead
 	 */
 	@Deprecated
@@ -620,6 +639,11 @@ public abstract class Tuple3d implements java.io.Serializable, Cloneable {
 	}
 
 	/**
+	 * Interpolate.
+	 *
+	 * @param t1 the t 1
+	 * @param t2 the t 2
+	 * @param alpha the alpha
 	 * @deprecated Use interpolate(Tuple3d,Tuple3d,double) instead
 	 */
 	@Deprecated
@@ -645,6 +669,10 @@ public abstract class Tuple3d implements java.io.Serializable, Cloneable {
 	}
 
 	/**
+	 * Interpolate.
+	 *
+	 * @param t1 the t 1
+	 * @param alpha the alpha
 	 * @deprecated Use interpolate(Tuple3d,double) instead
 	 */
 	@Deprecated

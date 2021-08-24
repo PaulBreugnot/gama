@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Box2DPhysicalWorld.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.physics.box2d_version;
 
 import org.jbox2d.collision.shapes.Shape;
@@ -12,8 +22,16 @@ import gama.ext.physics.gaml.PhysicalSimulationAgent;
 import gama.metamodel.agent.IAgent;
 import gama.metamodel.shape.GamaPoint;
 
+/**
+ * The Class Box2DPhysicalWorld.
+ */
 public class Box2DPhysicalWorld extends AbstractPhysicalWorld<World, Shape, Vec2> implements IBox2DPhysicalEntity {
 
+	/**
+	 * Instantiates a new box 2 D physical world.
+	 *
+	 * @param physicalSimulationAgent the physical simulation agent
+	 */
 	public Box2DPhysicalWorld(final PhysicalSimulationAgent physicalSimulationAgent) {
 		super(physicalSimulationAgent);
 	}

@@ -1,20 +1,13 @@
-/*
- * Java port of Bullet (c) 2008 Martin Dvorak <jezek2@advel.cz>
+/*******************************************************************************************************
  *
- * Bullet Continuous Collision Detection and Physics Library Copyright (c) 2003-2008 Erwin Coumans
- * http://www.bulletphysics.com/
+ * ByteBufferVertexData.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the authors be held
- * liable for any damages arising from the use of this software.
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter
- * it and redistribute it freely, subject to the following restrictions:
- *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software.
- * If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not
- * required. 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the
- * original software. 3. This notice may not be removed or altered from any source distribution.
- */
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package com.bulletphysics.collision.shapes;
 
@@ -23,19 +16,34 @@ import java.nio.ByteBuffer;
 import javax.vecmath.Tuple3f;
 
 /**
+ * The Class ByteBufferVertexData.
  *
  * @author jezek2
  */
 public class ByteBufferVertexData implements VertexData {
 
+	/** The vertex data. */
 	public ByteBuffer vertexData;
+	
+	/** The vertex count. */
 	public int vertexCount;
+	
+	/** The vertex stride. */
 	public int vertexStride;
+	
+	/** The vertex type. */
 	public ScalarType vertexType;
 
+	/** The index data. */
 	public ByteBuffer indexData;
+	
+	/** The index count. */
 	public int indexCount;
+	
+	/** The index stride. */
 	public int indexStride;
+	
+	/** The index type. */
 	public ScalarType indexType;
 
 	@Override

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * TimeSpan.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -80,6 +90,8 @@ public class TimeSpan
      * 
      */
     protected String end;
+    
+    /** The time span simple extension. */
     @XmlElement(name = "TimeSpanSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> timeSpanSimpleExtension;
@@ -104,61 +116,62 @@ public class TimeSpan
     @XmlElement(name = "TimeSpanObjectExtensionGroup")
     protected List<AbstractObject> timeSpanObjectExtension;
 
+    /**
+     * Instantiates a new time span.
+     */
     public TimeSpan() {
         super();
     }
 
     /**
-     * @see begin
-     * 
-     * @return
-     *     possible object is
+     * Gets the begin.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see begin
      */
     public String getBegin() {
         return begin;
     }
 
     /**
-     * @see begin
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the begin.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see begin
      */
     public void setBegin(String value) {
         this.begin = value;
     }
 
     /**
-     * @see end
-     * 
-     * @return
-     *     possible object is
+     * Gets the end.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see end
      */
     public String getEnd() {
         return end;
     }
 
     /**
-     * @see end
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the end.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see end
      */
     public void setEnd(String value) {
         this.end = value;
     }
 
     /**
+     * Gets the time span simple extension.
+     *
+     * @return the time span simple extension
      * @see timeSpanSimpleExtension
-     * 
      */
     public List<Object> getTimeSpanSimpleExtension() {
         if (timeSpanSimpleExtension == null) {
@@ -168,8 +181,10 @@ public class TimeSpan
     }
 
     /**
+     * Gets the time span object extension.
+     *
+     * @return the time span object extension
      * @see timeSpanObjectExtension
-     * 
      */
     public List<AbstractObject> getTimeSpanObjectExtension() {
         if (timeSpanObjectExtension == null) {
@@ -244,21 +259,20 @@ public class TimeSpan
     }
 
     /**
+     * Sets the time span simple extension.
+     *
+     * @param timeSpanSimpleExtension the new time span simple extension
      * @see timeSpanSimpleExtension
-     * 
-     * @param timeSpanSimpleExtension
      */
     public void setTimeSpanSimpleExtension(final List<Object> timeSpanSimpleExtension) {
         this.timeSpanSimpleExtension = timeSpanSimpleExtension;
     }
 
     /**
-     * add a value to the timeSpanSimpleExtension property collection
-     * 
-     * @param timeSpanSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the timeSpanSimpleExtension property collection.
+     *
+     * @param timeSpanSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public TimeSpan addToTimeSpanSimpleExtension(final Object timeSpanSimpleExtension) {
         this.getTimeSpanSimpleExtension().add(timeSpanSimpleExtension);
@@ -266,21 +280,20 @@ public class TimeSpan
     }
 
     /**
+     * Sets the time span object extension.
+     *
+     * @param timeSpanObjectExtension the new time span object extension
      * @see timeSpanObjectExtension
-     * 
-     * @param timeSpanObjectExtension
      */
     public void setTimeSpanObjectExtension(final List<AbstractObject> timeSpanObjectExtension) {
         this.timeSpanObjectExtension = timeSpanObjectExtension;
     }
 
     /**
-     * add a value to the timeSpanObjectExtension property collection
-     * 
-     * @param timeSpanObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the timeSpanObjectExtension property collection.
+     *
+     * @param timeSpanObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public TimeSpan addToTimeSpanObjectExtension(final AbstractObject timeSpanObjectExtension) {
         this.getTimeSpanObjectExtension().add(timeSpanObjectExtension);
@@ -339,11 +352,11 @@ public class TimeSpan
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param begin     required parameter
+     * @return the time span
      * @see #setBegin(String)
-     * 
-     * @param begin
-     *     required parameter
      */
     public TimeSpan withBegin(final String begin) {
         this.setBegin(begin);
@@ -351,11 +364,11 @@ public class TimeSpan
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param end     required parameter
+     * @return the time span
      * @see #setEnd(String)
-     * 
-     * @param end
-     *     required parameter
      */
     public TimeSpan withEnd(final String end) {
         this.setEnd(end);
@@ -363,11 +376,11 @@ public class TimeSpan
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param timeSpanSimpleExtension     required parameter
+     * @return the time span
      * @see #setTimeSpanSimpleExtension(List<Object>)
-     * 
-     * @param timeSpanSimpleExtension
-     *     required parameter
      */
     public TimeSpan withTimeSpanSimpleExtension(final List<Object> timeSpanSimpleExtension) {
         this.setTimeSpanSimpleExtension(timeSpanSimpleExtension);
@@ -375,11 +388,11 @@ public class TimeSpan
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param timeSpanObjectExtension     required parameter
+     * @return the time span
      * @see #setTimeSpanObjectExtension(List<AbstractObject>)
-     * 
-     * @param timeSpanObjectExtension
-     *     required parameter
      */
     public TimeSpan withTimeSpanObjectExtension(final List<AbstractObject> timeSpanObjectExtension) {
         this.setTimeSpanObjectExtension(timeSpanObjectExtension);

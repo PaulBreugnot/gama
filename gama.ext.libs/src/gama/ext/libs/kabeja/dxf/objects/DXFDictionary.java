@@ -1,18 +1,13 @@
-/*
-   Copyright 2007 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
- */
+/*******************************************************************************************************
+ *
+ * DXFDictionary.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf.objects;
 
 import java.util.ArrayList;
@@ -23,27 +18,44 @@ import java.util.Set;
 import gama.ext.libs.kabeja.dxf.DXFConstants;
 
 
+/**
+ * The Class DXFDictionary.
+ */
 public class DXFDictionary extends DXFObject {
+    
+    /** The records. */
     protected ArrayList records = new ArrayList();
 
     public String getObjectType() {
         return DXFConstants.OBJECT_TYPE_DICTIONARY;
     }
 
+    /**
+     * Checks for DXF object by ID.
+     *
+     * @param id the id
+     * @return true, if successful
+     */
     public boolean hasDXFObjectByID(String id) {
         return findByID(id) != null;
     }
 
+    /**
+     * Gets the name for DXF object ID.
+     *
+     * @param id the id
+     * @return the name for DXF object ID
+     */
     public String getNameForDXFObjectID(String id) {
         return findByID(id).getName();
     }
 
     /**
-     * Gets the
+     * Gets the.
      *
-     * @see DXFObject with the specified ID.
-     * @param id
+     * @param id the id
      * @return the DXFObject or null if there is no such DXFObject
+     * @see DXFObject with the specified ID.
      */
     public DXFObject getDXFObjectByID(String id) {
         //search for child dictionaries
@@ -60,6 +72,12 @@ public class DXFDictionary extends DXFObject {
         return null;
     }
 
+    /**
+     * Gets the DXF object by name.
+     *
+     * @param name the name
+     * @return the DXF object by name
+     */
     public DXFObject getDXFObjectByName(String name) {
         DXFDictionaryRecord record = findByName(name);
 
@@ -70,10 +88,21 @@ public class DXFDictionary extends DXFObject {
         return null;
     }
 
+    /**
+     * Put DXF object.
+     *
+     * @param obj the obj
+     */
     public void putDXFObject(DXFObject obj) {
         findByID(obj.getID()).setDXFObject(obj);
     }
 
+    /**
+     * Put DXF object relation.
+     *
+     * @param name the name
+     * @param id the id
+     */
     public void putDXFObjectRelation(String name, String id) {
         DXFDictionaryRecord record = null;
 
@@ -85,6 +114,12 @@ public class DXFDictionary extends DXFObject {
         }
     }
 
+    /**
+     * Find by name.
+     *
+     * @param name the name
+     * @return the DXF dictionary record
+     */
     protected DXFDictionaryRecord findByName(String name) {
         for (int i = 0; i < this.records.size(); i++) {
             DXFDictionaryRecord record = (DXFDictionaryRecord) records.get(i);
@@ -97,6 +132,12 @@ public class DXFDictionary extends DXFObject {
         return null;
     }
 
+    /**
+     * Find by ID.
+     *
+     * @param id the id
+     * @return the DXF dictionary record
+     */
     protected DXFDictionaryRecord findByID(String id) {
         for (int i = 0; i < this.records.size(); i++) {
             DXFDictionaryRecord record = (DXFDictionaryRecord) records.get(i);
@@ -110,9 +151,9 @@ public class DXFDictionary extends DXFObject {
     }
 
     /**
-     * Searches recursive for the dictionary which holds the ID
+     * Searches recursive for the dictionary which holds the ID.
      *
-     * @param id
+     * @param id the id
      * @return the dictionary or null
      */
     public DXFDictionary getDXFDictionaryForID(String id) {
@@ -146,6 +187,7 @@ public class DXFDictionary extends DXFObject {
     }
 
     /**
+     * Gets the DXF object iterator.
      *
      * @return iterator over all DXFObjects in this dictionary
      */
@@ -169,32 +211,72 @@ public class DXFDictionary extends DXFObject {
         return i;
     }
 
+    /**
+     * The Class DXFDictionaryRecord.
+     */
     private class DXFDictionaryRecord {
+        
+        /** The id. */
         private String id;
+        
+        /** The name. */
         private String name;
+        
+        /** The obj. */
         private DXFObject obj;
 
+        /**
+         * Instantiates a new DXF dictionary record.
+         *
+         * @param name the name
+         * @param id the id
+         */
         public DXFDictionaryRecord(String name, String id) {
             this.id = id;
             this.name = name;
         }
 
+        /**
+         * Gets the name.
+         *
+         * @return the name
+         */
         public String getName() {
             return this.name;
         }
 
+        /**
+         * Gets the id.
+         *
+         * @return the id
+         */
         public String getID() {
             return this.id;
         }
 
+        /**
+         * Sets the id.
+         *
+         * @param id the new id
+         */
         public void setID(String id) {
             this.id = id;
         }
 
+        /**
+         * Sets the DXF object.
+         *
+         * @param obj the new DXF object
+         */
         public void setDXFObject(DXFObject obj) {
             this.obj = obj;
         }
 
+        /**
+         * Gets the DXF object.
+         *
+         * @return the DXF object
+         */
         public DXFObject getDXFObject() {
             return this.obj;
         }

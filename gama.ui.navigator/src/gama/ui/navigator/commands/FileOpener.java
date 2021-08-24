@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'FileOpener.java, in plugin ummisco.gama.ui.modeling, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * FileOpener.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator.commands;
 
 import org.eclipse.core.filesystem.EFS;
@@ -34,8 +33,15 @@ import gama.ui.navigator.contents.NavigatorRoot;
  */
 public class FileOpener {
 
+	/** The Constant PAGE. */
 	static final IWorkbenchPage PAGE = WorkbenchHelper.getPage();
 
+	/**
+	 * Open file.
+	 *
+	 * @param uri the uri
+	 * @return the i editor part
+	 */
 	public static IEditorPart openFile(final URI uri) {
 		if (uri == null) {
 			MessageDialog.openWarning(WorkbenchHelper.getShell(), "No file found", "Trying to open a null file");
@@ -53,6 +59,13 @@ public class FileOpener {
 		return null;
 	}
 
+	/**
+	 * Open file in workspace.
+	 *
+	 * @param uri the uri
+	 * @return the i editor part
+	 * @throws PartInitException the part init exception
+	 */
 	public static IEditorPart openFileInWorkspace(final URI uri) throws PartInitException {
 		final IFile file = FileUtils.getWorkspaceFile(uri);
 		if (file == null) {
@@ -70,6 +83,13 @@ public class FileOpener {
 		return IDE.openEditor(PAGE, file);
 	}
 
+	/**
+	 * Open file in file system.
+	 *
+	 * @param uri the uri
+	 * @return the i editor part
+	 * @throws PartInitException the part init exception
+	 */
 	public static IEditorPart openFileInFileSystem(final URI uri) throws PartInitException {
 		if (uri == null) { return null; }
 		IFileStore fileStore;

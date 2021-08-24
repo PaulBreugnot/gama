@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * StyleMap.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -69,6 +79,8 @@ public class StyleMap
      */
     @XmlElement(name = "Pair")
     protected List<Pair> pair;
+    
+    /** The style map simple extension. */
     @XmlElement(name = "StyleMapSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> styleMapSimpleExtension;
@@ -93,13 +105,18 @@ public class StyleMap
     @XmlElement(name = "StyleMapObjectExtensionGroup")
     protected List<AbstractObject> styleMapObjectExtension;
 
+    /**
+     * Instantiates a new style map.
+     */
     public StyleMap() {
         super();
     }
 
     /**
+     * Gets the pair.
+     *
+     * @return the pair
      * @see pair
-     * 
      */
     public List<Pair> getPair() {
         if (pair == null) {
@@ -109,8 +126,10 @@ public class StyleMap
     }
 
     /**
+     * Gets the style map simple extension.
+     *
+     * @return the style map simple extension
      * @see styleMapSimpleExtension
-     * 
      */
     public List<Object> getStyleMapSimpleExtension() {
         if (styleMapSimpleExtension == null) {
@@ -120,8 +139,10 @@ public class StyleMap
     }
 
     /**
+     * Gets the style map object extension.
+     *
+     * @return the style map object extension
      * @see styleMapObjectExtension
-     * 
      */
     public List<AbstractObject> getStyleMapObjectExtension() {
         if (styleMapObjectExtension == null) {
@@ -191,8 +212,8 @@ public class StyleMap
      * <code>
      * Pair pair = new Pair();
      * this.getPair().add(pair); </code>
-     * 
-     * 
+     *
+     * @return the pair
      */
     public Pair createAndAddPair() {
         Pair newValue = new Pair();
@@ -201,21 +222,20 @@ public class StyleMap
     }
 
     /**
+     * Sets the pair.
+     *
+     * @param pair the new pair
      * @see pair
-     * 
-     * @param pair
      */
     public void setPair(final List<Pair> pair) {
         this.pair = pair;
     }
 
     /**
-     * add a value to the pair property collection
-     * 
-     * @param pair
-     *     Objects of the following type are allowed in the list: {@link Pair}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the pair property collection.
+     *
+     * @param pair     Objects of the following type are allowed in the list: {@link Pair}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public StyleMap addToPair(final Pair pair) {
         this.getPair().add(pair);
@@ -223,21 +243,20 @@ public class StyleMap
     }
 
     /**
+     * Sets the style map simple extension.
+     *
+     * @param styleMapSimpleExtension the new style map simple extension
      * @see styleMapSimpleExtension
-     * 
-     * @param styleMapSimpleExtension
      */
     public void setStyleMapSimpleExtension(final List<Object> styleMapSimpleExtension) {
         this.styleMapSimpleExtension = styleMapSimpleExtension;
     }
 
     /**
-     * add a value to the styleMapSimpleExtension property collection
-     * 
-     * @param styleMapSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the styleMapSimpleExtension property collection.
+     *
+     * @param styleMapSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public StyleMap addToStyleMapSimpleExtension(final Object styleMapSimpleExtension) {
         this.getStyleMapSimpleExtension().add(styleMapSimpleExtension);
@@ -245,21 +264,20 @@ public class StyleMap
     }
 
     /**
+     * Sets the style map object extension.
+     *
+     * @param styleMapObjectExtension the new style map object extension
      * @see styleMapObjectExtension
-     * 
-     * @param styleMapObjectExtension
      */
     public void setStyleMapObjectExtension(final List<AbstractObject> styleMapObjectExtension) {
         this.styleMapObjectExtension = styleMapObjectExtension;
     }
 
     /**
-     * add a value to the styleMapObjectExtension property collection
-     * 
-     * @param styleMapObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the styleMapObjectExtension property collection.
+     *
+     * @param styleMapObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public StyleMap addToStyleMapObjectExtension(final AbstractObject styleMapObjectExtension) {
         this.getStyleMapObjectExtension().add(styleMapObjectExtension);
@@ -318,11 +336,11 @@ public class StyleMap
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param pair     required parameter
+     * @return the style map
      * @see #setPair(List<Pair>)
-     * 
-     * @param pair
-     *     required parameter
      */
     public StyleMap withPair(final List<Pair> pair) {
         this.setPair(pair);
@@ -330,11 +348,11 @@ public class StyleMap
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param styleMapSimpleExtension     required parameter
+     * @return the style map
      * @see #setStyleMapSimpleExtension(List<Object>)
-     * 
-     * @param styleMapSimpleExtension
-     *     required parameter
      */
     public StyleMap withStyleMapSimpleExtension(final List<Object> styleMapSimpleExtension) {
         this.setStyleMapSimpleExtension(styleMapSimpleExtension);
@@ -342,11 +360,11 @@ public class StyleMap
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param styleMapObjectExtension     required parameter
+     * @return the style map
      * @see #setStyleMapObjectExtension(List<AbstractObject>)
-     * 
-     * @param styleMapObjectExtension
-     *     required parameter
      */
     public StyleMap withStyleMapObjectExtension(final List<AbstractObject> styleMapObjectExtension) {
         this.setStyleMapObjectExtension(styleMapObjectExtension);

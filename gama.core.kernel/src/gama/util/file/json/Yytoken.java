@@ -1,11 +1,13 @@
-/*
- * Copyright 2016 Clifton Labs Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
- * except in compliance with the License. You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific language governing permissions and limitations under the
- * License.
- */
+/*******************************************************************************************************
+ *
+ * Yytoken.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.util.file.json;
 
 /**
@@ -16,32 +18,42 @@ package gama.util.file.json;
 class Yytoken {
 	/** Represents the different kinds of tokens. */
 	enum Types {
-		/** Tokens of this type will always have a value of ":" */
+		
+		/**  Tokens of this type will always have a value of ":". */
 		COLON,
-		/** Tokens of this type will always have a value of "," */
+		
+		/**  Tokens of this type will always have a value of ",". */
 		COMMA,
 		/** Tokens of this type will always have a value that is a boolean, null, number, or string. */
 		DATUM,
-		/** Tokens of this type will always have a value of "" */
+		
+		/**  Tokens of this type will always have a value of "". */
 		END,
-		/** Tokens of this type will always have a value of "{" */
+		
+		/**  Tokens of this type will always have a value of "{". */
 		LEFT_BRACE,
-		/** Tokens of this type will always have a value of "[" */
+		
+		/**  Tokens of this type will always have a value of "[". */
 		LEFT_SQUARE,
-		/** Tokens of this type will always have a value of "}" */
+		
+		/**  Tokens of this type will always have a value of "}". */
 		RIGHT_BRACE,
-		/** Tokens of this type will always have a value of "]" */
+		
+		/**  Tokens of this type will always have a value of "]". */
 		RIGHT_SQUARE;
 	}
 
+	/** The type. */
 	private final Types type;
+	
+	/** The value. */
 	private final Object value;
 
 	/**
-	 * @param type
-	 *            represents the kind of token the instantiated token will be.
-	 * @param value
-	 *            represents the value the token is associated with, will be ignored unless type is equal to
+	 * Instantiates a new yytoken.
+	 *
+	 * @param type            represents the kind of token the instantiated token will be.
+	 * @param value            represents the value the token is associated with, will be ignored unless type is equal to
 	 *            Types.DATUM.
 	 * @see Types
 	 */
@@ -77,6 +89,8 @@ class Yytoken {
 	}
 
 	/**
+	 * Gets the type.
+	 *
 	 * @return which of the Types the token is.
 	 * @see Types
 	 */
@@ -85,6 +99,8 @@ class Yytoken {
 	}
 
 	/**
+	 * Gets the value.
+	 *
 	 * @return what the token is.
 	 * @see Types
 	 */

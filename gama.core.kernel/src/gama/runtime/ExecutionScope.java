@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.runtime.ExecutionScope.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * ExecutionScope.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.runtime;
 
@@ -55,27 +55,63 @@ import gaml.types.Types;
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class ExecutionScope implements IScope {
 
+	/** The Constant ATTRIBUTES. */
 	private static final String ATTRIBUTES = "%_attributes_%";
+	
+	/** The scope number. */
 	private static int SCOPE_NUMBER = 0;
 
+	/** The scope name. */
 	private final String scopeName;
+	
+	/** The execution context. */
 	protected IExecutionContext executionContext;
+	
+	/** The agent context. */
 	protected AgentExecutionContext agentContext;
+	
+	/** The additional context. */
 	protected final SpecialContext additionalContext = new SpecialContext();
+	
+	/** The errors disabled. */
 	private volatile boolean _action_halted, _loop_halted, _agent_halted, _trace, _in_try_mode, _interrupted,
 			_errors_disabled;
+	
+	/** The current symbol. */
 	private ISymbol currentSymbol;
 
+	/**
+	 * The Class SpecialContext.
+	 */
 	class SpecialContext {
+		
+		/** The each. */
 		Object each;
+		
+		/** The graphics. */
 		IGraphics graphics;
+		
+		/** The topology. */
 		public ITopology topology;
+		
+		/** The root agent. */
 		ITopLevelAgent rootAgent;
+		
+		/** The gui. */
 		IGui gui;
+		
+		/** The types. */
 		ITypesManager types;
+		
+		/** The current error. */
 		GamaRuntimeException currentError;
+		
+		/** The horizontal pixel context. */
 		boolean horizontalPixelContext = false;
 
+		/**
+		 * Clear.
+		 */
 		void clear() {
 			each = null;
 			graphics = null;
@@ -86,6 +122,11 @@ public class ExecutionScope implements IScope {
 			currentError = null;
 		}
 
+		/**
+		 * Copy from.
+		 *
+		 * @param specialContext the special context
+		 */
 		public void copyFrom(final SpecialContext specialContext) {
 			if (specialContext == null) return;
 			each = specialContext.each;
@@ -99,18 +140,45 @@ public class ExecutionScope implements IScope {
 
 	}
 
+	/**
+	 * Instantiates a new execution scope.
+	 *
+	 * @param root the root
+	 */
 	public ExecutionScope(final ITopLevelAgent root) {
 		this(root, null);
 	}
 
+	/**
+	 * Instantiates a new execution scope.
+	 *
+	 * @param root the root
+	 * @param otherName the other name
+	 */
 	public ExecutionScope(final ITopLevelAgent root, final String otherName) {
 		this(root, otherName, null);
 	}
 
+	/**
+	 * Instantiates a new execution scope.
+	 *
+	 * @param root the root
+	 * @param otherName the other name
+	 * @param context the context
+	 */
 	public ExecutionScope(final ITopLevelAgent root, final String otherName, final IExecutionContext context) {
 		this(root, otherName, context, null, null);
 	}
 
+	/**
+	 * Instantiates a new execution scope.
+	 *
+	 * @param root the root
+	 * @param otherName the other name
+	 * @param context the context
+	 * @param agentContext the agent context
+	 * @param specialContext the special context
+	 */
 	public ExecutionScope(final ITopLevelAgent root, final String otherName, final IExecutionContext context,
 			final AgentExecutionContext agentContext, final SpecialContext specialContext) {
 		String name = "Scope #" + ++SCOPE_NUMBER;
@@ -123,6 +191,12 @@ public class ExecutionScope implements IScope {
 		this.additionalContext.copyFrom(specialContext);
 	}
 
+	/**
+	 * Creates the child context.
+	 *
+	 * @param agent the agent
+	 * @return the agent execution context
+	 */
 	public AgentExecutionContext createChildContext(final IAgent agent) {
 		return AgentExecutionContext.create(agent, agentContext);
 	}
@@ -197,6 +271,8 @@ public class ExecutionScope implements IScope {
 	}
 
 	/**
+	 * Root interrupted.
+	 *
 	 * @return true if the root agent of the scope is marked as interrupted (i.e. dead)
 	 */
 
@@ -254,6 +330,11 @@ public class ExecutionScope implements IScope {
 		return true;
 	}
 
+	/**
+	 * Sets the root.
+	 *
+	 * @param agent the new root
+	 */
 	protected void setRoot(final ITopLevelAgent agent) {
 		additionalContext.rootAgent = agent;
 	}
@@ -295,7 +376,7 @@ public class ExecutionScope implements IScope {
 	}
 
 	/**
-	 *
+	 * Write trace.
 	 */
 	private void writeTrace() {
 		final StringBuilder sb = new StringBuilder();

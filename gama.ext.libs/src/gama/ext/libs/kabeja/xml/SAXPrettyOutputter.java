@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * SAXPrettyOutputter.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.xml;
 
 import java.io.BufferedOutputStream;
@@ -45,33 +40,72 @@ import org.xml.sax.SAXException;
  */
 public class SAXPrettyOutputter extends AbstractSAXSerializer
     implements SAXSerializer {
+    
+    /** The Constant DEFAULT_ENCODING. */
     public static final String DEFAULT_ENCODING = "UTF-8";
+    
+    /** The Constant SUFFIX. */
     public static final String SUFFIX = "svg";
+    
+    /** The Constant SUFFIX_GZIP. */
     public static final String SUFFIX_GZIP = "svgz";
+    
+    /** The Constant MIMETYPE. */
     public static final String MIMETYPE = "text/svg";
+    
+    /** The Constant PROPERTY_ENCODING. */
     public static final String PROPERTY_ENCODING = "encoding";
+    
+    /** The Constant PROPERTY_GZIP. */
     public static final String PROPERTY_GZIP = "gzip";
+    
+    /** The out. */
     private OutputStreamWriter out;
+    
+    /** The encoding. */
     private String encoding;
+    
+    /** The dtd. */
     private String dtd;
+    
+    /** The indent. */
     private int indent = 0;
+    
+    /** The parent. */
     private boolean parent = false;
+    
+    /** The text content list. */
     private ArrayList textContentList = new ArrayList();
+    
+    /** The rootxmlns. */
     protected HashMap rootxmlns = new HashMap();
+    
+    /** The gzip. */
     protected boolean gzip = false;
 
+    /**
+     * Instantiates a new SAX pretty outputter.
+     *
+     * @param output the output
+     * @param encoding the encoding
+     */
     public SAXPrettyOutputter(OutputStream output, String encoding) {
         this.encoding = encoding;
         this.setOutput(output);
     }
 
     /**
+     * Instantiates a new SAX pretty outputter.
      *
+     * @param out the out
      */
     public SAXPrettyOutputter(OutputStream out) {
         this(out, DEFAULT_ENCODING);
     }
 
+    /**
+     * Instantiates a new SAX pretty outputter.
+     */
     public SAXPrettyOutputter() {
         this.encoding = DEFAULT_ENCODING;
     }
@@ -226,9 +260,9 @@ public class SAXPrettyOutputter extends AbstractSAXSerializer
     }
 
     /**
-     * Indent the output
+     * Indent the output.
      *
-     * @param indentSize
+     * @param indentSize the indent size
      */
     private void indentOutput(int indentSize) {
         try {
@@ -240,6 +274,12 @@ public class SAXPrettyOutputter extends AbstractSAXSerializer
         }
     }
 
+    /**
+     * Encode XML.
+     *
+     * @param text the text
+     * @return the string
+     */
     public static String encodeXML(String text) {
         int length = text.length();
         StringBuffer work = new StringBuffer(length);
@@ -261,10 +301,20 @@ public class SAXPrettyOutputter extends AbstractSAXSerializer
         return work.toString();
     }
 
+    /**
+     * Sets the dtd.
+     *
+     * @param dtd the new dtd
+     */
     public void setDTD(String dtd) {
         this.dtd = dtd;
     }
 
+    /**
+     * Query XMLNS.
+     *
+     * @param atts the atts
+     */
     protected void queryXMLNS(Attributes atts) {
         for (int i = 0; i < atts.getLength(); i++) {
             String qname = atts.getQName(i);

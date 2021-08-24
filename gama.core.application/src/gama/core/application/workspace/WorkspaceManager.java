@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'WorkspacePreferences.java, in plugin msi.gama.application, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * WorkspaceManager.java, in gama.core.application, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  *
- *
- **********************************************************************************************/
+ ********************************************************************************************************/
 package gama.core.application.workspace;
 
 import static gama.common.preferences.GamaPreferenceStore.getStore;
@@ -30,46 +29,87 @@ import gama.common.preferences.GamaPreferenceStore;
 import gama.common.ui.IApplicationControl;
 import gama.core.dev.utils.DEBUG;
 
+/**
+ * The Class WorkspaceManager.
+ */
 public class WorkspaceManager {
 
+	/** The Constant KEY_WORSPACE_PATH. */
 	private static final String KEY_WORSPACE_PATH = "pref_workspace_path";
+
+	/** The Constant KEY_CLEAR_WORKSPACE. */
 	public static final String KEY_CLEAR_WORKSPACE = "pref_clear_workspace";
+
+	/** The Constant KEY_WORKSPACE_REMEMBER. */
 	private static final String KEY_WORKSPACE_REMEMBER = "pref_workspace_remember";
+
+	/** The Constant KEY_WORKSPACE_LIST. */
 	private static final String KEY_WORKSPACE_LIST = "pref_workspace_list";
+
+	/** The Constant KEY_ASK_REBUILD. */
 	private static final String KEY_ASK_REBUILD = "pref_ask_rebuild";
+
+	/** The Constant KEY_ASK_OUTDATED. */
 	private static final String KEY_ASK_OUTDATED = "pref_ask_outdated";
+
+	/** The Constant WORKSPACE_IDENTIFIER. */
 	public static final String WORKSPACE_IDENTIFIER = ".gama_application_workspace";
+
+	/** The Constant MODELS_PATH. */
+	public static final String MODELS_PATH = "gama.models.library";
 
 	/**
 	 * The argument for whether the persisted state should be cleared on startup. Copied from IWorkbench <br>
 	 *
 	 */
 	public static final String CLEAR_PERSISTED_STATE = "clearPersistedState";
+
+	/** The model identifier. */
 	private static String MODEL_IDENTIFIER = null;
 
+	/** The selected workspace root location. */
 	static String selectedWorkspaceRootLocation;
 
 	/**
-	 * Returns whether the user selected "remember workspace" in the preferences
+	 * Returns whether the user selected "remember workspace" in the preferences.
+	 *
+	 * @return true, if is remember workspace
 	 */
 	public static boolean isRememberWorkspace() {
 		return getStore().getBoolean(KEY_WORKSPACE_REMEMBER, false);
 	}
 
+	/**
+	 * Checks if is remember workspace.
+	 *
+	 * @param remember
+	 *            the remember
+	 */
 	public static void isRememberWorkspace(final boolean remember) {
 		getStore().putBoolean(KEY_WORKSPACE_REMEMBER, remember);
 	}
 
+	/**
+	 * Gets the last used workspaces.
+	 *
+	 * @return the last used workspaces
+	 */
 	public static String getLastUsedWorkspaces() {
 		return getStore().get(KEY_WORKSPACE_LIST, "");
 	}
 
+	/**
+	 * Sets the last used workspaces.
+	 *
+	 * @param used
+	 *            the new last used workspaces
+	 */
 	public static void setLastUsedWorkspaces(final String used) {
 		getStore().put(KEY_WORKSPACE_LIST, used);
 	}
 
 	/**
-	 * Returns the last set workspace directory from the preferences
+	 * Returns the last set workspace directory from the preferences.
 	 *
 	 * @return null if none
 	 */
@@ -77,42 +117,86 @@ public class WorkspaceManager {
 		return getStore().get(KEY_WORSPACE_PATH, "");
 	}
 
+	/**
+	 * Sets the last set workspace directory.
+	 *
+	 * @param last
+	 *            the new last set workspace directory
+	 */
 	public static void setLastSetWorkspaceDirectory(final String last) {
 		getStore().put(KEY_WORSPACE_PATH, last);
 	}
 
+	/**
+	 * Ask before rebuilding workspace.
+	 *
+	 * @return true, if successful
+	 */
 	public static boolean askBeforeRebuildingWorkspace() {
 		// true by default
 		return getStore().getBoolean(KEY_ASK_REBUILD, true);
 	}
 
+	/**
+	 * Ask before rebuilding workspace.
+	 *
+	 * @param ask
+	 *            the ask
+	 */
 	public static void askBeforeRebuildingWorkspace(final boolean ask) {
 		// true by default
 		getStore().putBoolean(KEY_ASK_REBUILD, ask);
 	}
 
+	/**
+	 * Ask before using outdated workspace.
+	 *
+	 * @return true, if successful
+	 */
 	public static boolean askBeforeUsingOutdatedWorkspace() {
 		// true by default
 		return getStore().getBoolean(KEY_ASK_OUTDATED, true);
 	}
 
+	/**
+	 * Ask before using outdated workspace.
+	 *
+	 * @param ask
+	 *            the ask
+	 */
 	public static void askBeforeUsingOutdatedWorkspace(final boolean ask) {
 		// true by default
 		getStore().putBoolean(KEY_ASK_OUTDATED, ask);
 	}
 
+	/**
+	 * Gets the selected workspace root location.
+	 *
+	 * @return the selected workspace root location
+	 */
 	public static String getSelectedWorkspaceRootLocation() {
 		return selectedWorkspaceRootLocation;
 	}
 
+	/**
+	 * Sets the selected workspace root location.
+	 *
+	 * @param s
+	 *            the new selected workspace root location
+	 */
 	public static void setSelectedWorkspaceRootLocation(final String s) {
 		selectedWorkspaceRootLocation = s;
 	}
 
+	/**
+	 * Gets the current gama stamp string.
+	 *
+	 * @return the current gama stamp string
+	 */
 	public static String getCurrentGamaStampString() {
 		String gamaStamp = null;
 		try {
-			final URL tmpURL = new URL("platform:/plugin/msi.gama.models/models/");
+			final URL tmpURL = new URL("platform:/plugin/" + MODELS_PATH + "/models/");
 			final URL resolvedFileURL = FileLocator.toFileURL(tmpURL);
 			// We need to use the 3-arg constructor of URI in order to properly escape file system chars
 			final URI resolvedURI = new URI(resolvedFileURL.getProtocol(), resolvedFileURL.getPath(), null).normalize();
@@ -136,14 +220,16 @@ public class WorkspaceManager {
 	 * Ensures a workspace directory is OK in regards of reading/writing, etc. This method will get called externally as
 	 * well.
 	 *
-	 * @param parentShell
-	 *            Shell parent shell
+	 * @param ui
+	 *            the ui
 	 * @param workspaceLocation
 	 *            Directory the user wants to use
 	 * @param askCreate
 	 *            Whether to ask if to create the workspace or not in this location if it does not exist already
 	 * @param fromDialog
 	 *            Whether this method was called from our dialog or from somewhere else just to check a location
+	 * @param cloning
+	 *            the cloning
 	 * @return null if everything is ok, or an error message if not
 	 */
 	public static String checkWorkspaceDirectory(final IApplicationControl ui, final String workspaceLocation,
@@ -221,6 +307,15 @@ public class WorkspaceManager {
 		return null;
 	}
 
+	/**
+	 * Test workspace sanity.
+	 *
+	 * @param ui
+	 *            the ui
+	 * @param workspace
+	 *            the workspace
+	 * @return true, if successful
+	 */
 	public static boolean testWorkspaceSanity(final IApplicationControl ui, final File workspace) {
 		DEBUG.OUT("[GAMA] Checking for workspace sanity");
 		File[] files = workspace.listFiles((FileFilter) file -> ".metadata".equals(file.getName()));
@@ -256,11 +351,27 @@ public class WorkspaceManager {
 		return true;
 	}
 
+	/**
+	 * Gets the model identifier.
+	 *
+	 * @return the model identifier
+	 */
 	public static String getModelIdentifier() {
 		if (MODEL_IDENTIFIER == null) { MODEL_IDENTIFIER = getCurrentGamaStampString(); }
 		return MODEL_IDENTIFIER;
 	}
 
+	/**
+	 * Check workspace.
+	 *
+	 * @param ui
+	 *            the ui
+	 * @return true, if successful
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws MalformedURLException
+	 *             the malformed URL exception
+	 */
 	public static boolean checkWorkspace(final IApplicationControl ui) throws IOException, MalformedURLException {
 		try {
 			final Location instanceLoc = Platform.getInstanceLocation();

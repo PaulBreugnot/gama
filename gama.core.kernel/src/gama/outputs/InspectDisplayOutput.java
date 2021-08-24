@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.InspectDisplayOutput.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * InspectDisplayOutput.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs;
 
@@ -109,18 +109,35 @@ import gaml.types.Types;
 @SuppressWarnings ({ "rawtypes" })
 public class InspectDisplayOutput extends AbstractValuedDisplayOutput implements IStatement {
 
+	/** The Constant INSPECT_AGENT. */
 	public static final short INSPECT_AGENT = 0;
+	
+	/** The Constant INSPECT_TABLE. */
 	public static final short INSPECT_TABLE = 3;
 
+	/** The count. */
 	static int count = 0;
 
+	/** The Constant types. */
 	static final List<String> types = Arrays.asList(IKeyword.AGENT, IKeyword.DYNAMIC, IKeyword.SPECIES, IKeyword.TABLE);
 
+	/** The type. */
 	String type;
+	
+	/** The attributes. */
 	IExpression attributes;
+	
+	/** The list of attributes. */
 	private Map<String, String> listOfAttributes;
+	
+	/** The root agent. */
 	IMacroAgent rootAgent;
 
+	/**
+	 * Instantiates a new inspect display output.
+	 *
+	 * @param desc the desc
+	 */
 	public InspectDisplayOutput(final IDescription desc) {
 		super(desc);
 		if (getValue() == null) {
@@ -150,6 +167,11 @@ public class InspectDisplayOutput extends AbstractValuedDisplayOutput implements
 		return true;
 	}
 
+	/**
+	 * Instantiates a new inspect display output.
+	 *
+	 * @param a the a
+	 */
 	public InspectDisplayOutput(final IAgent a) {
 		// Opens directly an inspector
 		this(DescriptionFactory.create(IKeyword.INSPECT, IKeyword.NAME, StringUtils.toGamlString("Inspect: "),
@@ -160,6 +182,11 @@ public class InspectDisplayOutput extends AbstractValuedDisplayOutput implements
 		lastValue = a;
 	}
 
+	/**
+	 * Instantiates a new inspect display output.
+	 *
+	 * @param a the a
+	 */
 	public InspectDisplayOutput(final IExperimentAgent a) {
 		// Opens directly an inspector
 		this(DescriptionFactory.create(IKeyword.INSPECT, IKeyword.NAME, StringUtils.toGamlString("Inspect: "),
@@ -171,6 +198,12 @@ public class InspectDisplayOutput extends AbstractValuedDisplayOutput implements
 		rootAgent = a;
 	}
 
+	/**
+	 * Instantiates a new inspect display output.
+	 *
+	 * @param rootAgent the root agent
+	 * @param species the species
+	 */
 	InspectDisplayOutput(final IMacroAgent rootAgent, final ISpecies species) {
 		// Opens a table inspector on the agents of this species
 		this(DescriptionFactory
@@ -181,6 +214,12 @@ public class InspectDisplayOutput extends AbstractValuedDisplayOutput implements
 		this.rootAgent = rootAgent;
 	}
 
+	/**
+	 * Instantiates a new inspect display output.
+	 *
+	 * @param agent the agent
+	 * @param agents the agents
+	 */
 	InspectDisplayOutput(final IMacroAgent agent, final Collection<? extends IAgent> agents) {
 		// Opens a table inspector on the agents of this container
 		this(DescriptionFactory.create(IKeyword.INSPECT, GAML.getExperimentContext(agent), IKeyword.NAME,
@@ -190,6 +229,12 @@ public class InspectDisplayOutput extends AbstractValuedDisplayOutput implements
 		this.rootAgent = agent;
 	}
 
+	/**
+	 * Instantiates a new inspect display output.
+	 *
+	 * @param agent the agent
+	 * @param agents the agents
+	 */
 	InspectDisplayOutput(final IMacroAgent agent, final IExpression agents) {
 		// Opens a table inspector on the agents of this container
 		this(DescriptionFactory.create(IKeyword.INSPECT, GAML.getExperimentContext(agent), IKeyword.NAME,
@@ -199,6 +244,12 @@ public class InspectDisplayOutput extends AbstractValuedDisplayOutput implements
 		this.rootAgent = agent;
 	}
 
+	/**
+	 * Launch.
+	 *
+	 * @param scope the scope
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public void launch(final IScope scope) throws GamaRuntimeException {
 		if (!scope.init(InspectDisplayOutput.this).passed()) return;
 		// TODO What to do in case of multi-simulations ???
@@ -243,6 +294,7 @@ public class InspectDisplayOutput extends AbstractValuedDisplayOutput implements
 
 	}
 
+	/** The Constant EMPTY. */
 	final static IAgent[] EMPTY = {};
 
 	@Override
@@ -259,6 +311,11 @@ public class InspectDisplayOutput extends AbstractValuedDisplayOutput implements
 		return EMPTY;
 	}
 
+	/**
+	 * Gets the species.
+	 *
+	 * @return the species
+	 */
 	public ISpecies getSpecies() {
 		final IExpression valueExpr = getValue();
 		if (valueExpr == null) return null;
@@ -272,10 +329,20 @@ public class InspectDisplayOutput extends AbstractValuedDisplayOutput implements
 		return rootAgent.getSpecies().getMicroSpecies(speciesName);
 	}
 
+	/**
+	 * Gets the attributes.
+	 *
+	 * @return the attributes
+	 */
 	public Map<String, String> getAttributes() {
 		return listOfAttributes;
 	}
 
+	/**
+	 * Gets the root agent.
+	 *
+	 * @return the root agent
+	 */
 	public IMacroAgent getRootAgent() {
 		return rootAgent;
 	}

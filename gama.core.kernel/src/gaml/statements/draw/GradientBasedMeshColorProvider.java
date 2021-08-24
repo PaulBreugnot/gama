@@ -1,13 +1,34 @@
+/*******************************************************************************************************
+ *
+ * GradientBasedMeshColorProvider.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gaml.statements.draw;
 
 import gama.util.GamaColor;
 import gaml.operators.Colors.GamaGradient;
 
+/**
+ * The Class GradientBasedMeshColorProvider.
+ */
 public class GradientBasedMeshColorProvider implements IMeshColorProvider {
 
+	/** The components. */
 	final double[] components;
+	
+	/** The size. */
 	final int size;
 
+	/**
+	 * Instantiates a new gradient based mesh color provider.
+	 *
+	 * @param palette the palette
+	 */
 	public GradientBasedMeshColorProvider(final GamaGradient palette) {
 		// each pair color::float represents an interval
 		this.size = palette.size();

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.descriptions.StringBasedExpressionDescription.java, in plugin msi.gama.core, is part of the source code of
- * the GAMA modeling and simulation platform (v. 1.8.1)
+ * StringBasedExpressionDescription.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.descriptions;
 
@@ -30,8 +30,14 @@ import gaml.types.Types;
 @SuppressWarnings ({ "rawtypes" })
 public class StringBasedExpressionDescription extends BasicExpressionDescription {
 
+	/** The string. */
 	String string;
 
+	/**
+	 * Instantiates a new string based expression description.
+	 *
+	 * @param s the s
+	 */
 	private StringBasedExpressionDescription(final String s) {
 		super((EObject) null);
 		string = s;
@@ -82,6 +88,12 @@ public class StringBasedExpressionDescription extends BasicExpressionDescription
 		return copy;
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param string the string
+	 * @return the i expression description
+	 */
 	public static IExpressionDescription create(final String string) {
 		if (string == null) { return null; }
 		final String s = string.trim();

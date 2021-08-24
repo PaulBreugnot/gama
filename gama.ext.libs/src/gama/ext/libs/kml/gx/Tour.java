@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Tour.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.gx;
 
@@ -63,32 +73,34 @@ public class Tour
     implements Cloneable
 {
 
+    /** The playlist. */
     @XmlElement(name = "Playlist")
     protected Playlist playlist;
 
+    /**
+     * Instantiates a new tour.
+     */
     public Tour() {
         super();
     }
 
     /**
-     * @see playlist
-     * 
-     * @return
-     *     possible object is
+     * Gets the playlist.
+     *
+     * @return     possible object is
      *     {@link Playlist}
-     *     
+     * @see playlist
      */
     public Playlist getPlaylist() {
         return playlist;
     }
 
     /**
-     * @see playlist
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the playlist.
+     *
+     * @param value     allowed object is
      *     {@link Playlist}
-     *     
+     * @see playlist
      */
     public void setPlaylist(Playlist value) {
         this.playlist = value;
@@ -136,8 +148,8 @@ public class Tour
      * <code>
      * Playlist playlist = new Playlist();
      * this.setPlaylist(playlist); </code>
-     * 
-     * 
+     *
+     * @return the playlist
      */
     public Playlist createAndSetPlaylist() {
         Playlist newValue = new Playlist();
@@ -146,11 +158,11 @@ public class Tour
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param playlist     required parameter
+     * @return the tour
      * @see #setPlaylist(Playlist)
-     * 
-     * @param playlist
-     *     required parameter
      */
     public Tour withPlaylist(final Playlist playlist) {
         this.setPlaylist(playlist);

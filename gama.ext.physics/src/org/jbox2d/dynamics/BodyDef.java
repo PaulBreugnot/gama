@@ -1,26 +1,13 @@
-/*******************************************************************************
- * Copyright (c) 2013, Daniel Murphy
- * All rights reserved.
+/*******************************************************************************************************
+ *
+ * BodyDef.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
- * 	* Redistributions of source code must retain the above copyright notice,
- * 	  this list of conditions and the following disclaimer.
- * 	* Redistributions in binary form must reproduce the above copyright notice,
- * 	  this list of conditions and the following disclaimer in the documentation
- * 	  and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
- * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
- * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
- * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- ******************************************************************************/
+ ********************************************************************************************************/
 package org.jbox2d.dynamics;
 
 import org.jbox2d.common.Vec2;
@@ -85,9 +72,7 @@ public class BodyDef {
    */
   public boolean allowSleep;
 
-  /**
-   * Is this body initially sleeping?
-   */
+  /** Is this body initially sleeping?. */
   public boolean awake;
 
   /**
@@ -104,9 +89,7 @@ public class BodyDef {
    */
   public boolean bullet;
 
-  /**
-   * Does this body start out active?
-   */
+  /** Does this body start out active?. */
   public boolean active;
 
   /**
@@ -114,6 +97,9 @@ public class BodyDef {
    */
   public float gravityScale;
 
+  /**
+   * Instantiates a new body def.
+   */
   public BodyDef() {
     userData = null;
     position = new Vec2();
@@ -134,6 +120,8 @@ public class BodyDef {
   /**
    * The body type: static, kinematic, or dynamic. Note: if a dynamic body would have zero mass, the
    * mass is set to one.
+   *
+   * @return the type
    */
   public BodyType getType() {
     return type;
@@ -142,6 +130,8 @@ public class BodyDef {
   /**
    * The body type: static, kinematic, or dynamic. Note: if a dynamic body would have zero mass, the
    * mass is set to one.
+   *
+   * @param type the new type
    */
   public void setType(BodyType type) {
     this.type = type;
@@ -149,6 +139,8 @@ public class BodyDef {
 
   /**
    * Use this to store application specific body data.
+   *
+   * @return the user data
    */
   public Object getUserData() {
     return userData;
@@ -156,6 +148,8 @@ public class BodyDef {
 
   /**
    * Use this to store application specific body data.
+   *
+   * @param userData the new user data
    */
   public void setUserData(Object userData) {
     this.userData = userData;
@@ -164,6 +158,8 @@ public class BodyDef {
   /**
    * The world position of the body. Avoid creating bodies at the origin since this can lead to many
    * overlapping shapes.
+   *
+   * @return the position
    */
   public Vec2 getPosition() {
     return position;
@@ -172,6 +168,8 @@ public class BodyDef {
   /**
    * The world position of the body. Avoid creating bodies at the origin since this can lead to many
    * overlapping shapes.
+   *
+   * @param position the new position
    */
   public void setPosition(Vec2 position) {
     this.position = position;
@@ -179,6 +177,8 @@ public class BodyDef {
 
   /**
    * The world angle of the body in radians.
+   *
+   * @return the angle
    */
   public float getAngle() {
     return angle;
@@ -186,6 +186,8 @@ public class BodyDef {
 
   /**
    * The world angle of the body in radians.
+   *
+   * @param angle the new angle
    */
   public void setAngle(float angle) {
     this.angle = angle;
@@ -193,6 +195,8 @@ public class BodyDef {
 
   /**
    * The linear velocity of the body in world co-ordinates.
+   *
+   * @return the linear velocity
    */
   public Vec2 getLinearVelocity() {
     return linearVelocity;
@@ -200,6 +204,8 @@ public class BodyDef {
 
   /**
    * The linear velocity of the body in world co-ordinates.
+   *
+   * @param linearVelocity the new linear velocity
    */
   public void setLinearVelocity(Vec2 linearVelocity) {
     this.linearVelocity = linearVelocity;
@@ -207,6 +213,8 @@ public class BodyDef {
 
   /**
    * The angular velocity of the body.
+   *
+   * @return the angular velocity
    */
   public float getAngularVelocity() {
     return angularVelocity;
@@ -214,6 +222,8 @@ public class BodyDef {
 
   /**
    * The angular velocity of the body.
+   *
+   * @param angularVelocity the new angular velocity
    */
   public void setAngularVelocity(float angularVelocity) {
     this.angularVelocity = angularVelocity;
@@ -223,6 +233,8 @@ public class BodyDef {
    * Linear damping is use to reduce the linear velocity. The damping parameter can be larger than
    * 1.0f but the damping effect becomes sensitive to the time step when the damping parameter is
    * large.
+   *
+   * @return the linear damping
    */
   public float getLinearDamping() {
     return linearDamping;
@@ -232,6 +244,8 @@ public class BodyDef {
    * Linear damping is use to reduce the linear velocity. The damping parameter can be larger than
    * 1.0f but the damping effect becomes sensitive to the time step when the damping parameter is
    * large.
+   *
+   * @param linearDamping the new linear damping
    */
   public void setLinearDamping(float linearDamping) {
     this.linearDamping = linearDamping;
@@ -241,6 +255,8 @@ public class BodyDef {
    * Angular damping is use to reduce the angular velocity. The damping parameter can be larger than
    * 1.0f but the damping effect becomes sensitive to the time step when the damping parameter is
    * large.
+   *
+   * @return the angular damping
    */
   public float getAngularDamping() {
     return angularDamping;
@@ -250,6 +266,8 @@ public class BodyDef {
    * Angular damping is use to reduce the angular velocity. The damping parameter can be larger than
    * 1.0f but the damping effect becomes sensitive to the time step when the damping parameter is
    * large.
+   *
+   * @param angularDamping the new angular damping
    */
   public void setAngularDamping(float angularDamping) {
     this.angularDamping = angularDamping;
@@ -258,6 +276,8 @@ public class BodyDef {
   /**
    * Set this flag to false if this body should never fall asleep. Note that this increases CPU
    * usage.
+   *
+   * @return true, if is allow sleep
    */
   public boolean isAllowSleep() {
     return allowSleep;
@@ -266,20 +286,26 @@ public class BodyDef {
   /**
    * Set this flag to false if this body should never fall asleep. Note that this increases CPU
    * usage.
+   *
+   * @param allowSleep the new allow sleep
    */
   public void setAllowSleep(boolean allowSleep) {
     this.allowSleep = allowSleep;
   }
 
   /**
-   * Is this body initially sleeping?
+   * Is this body initially sleeping?.
+   *
+   * @return true, if is awake
    */
   public boolean isAwake() {
     return awake;
   }
 
   /**
-   * Is this body initially sleeping?
+   * Is this body initially sleeping?.
+   *
+   * @param awake the new awake
    */
   public void setAwake(boolean awake) {
     this.awake = awake;
@@ -287,6 +313,8 @@ public class BodyDef {
 
   /**
    * Should this body be prevented from rotating? Useful for characters.
+   *
+   * @return true, if is fixed rotation
    */
   public boolean isFixedRotation() {
     return fixedRotation;
@@ -294,6 +322,8 @@ public class BodyDef {
 
   /**
    * Should this body be prevented from rotating? Useful for characters.
+   *
+   * @param fixedRotation the new fixed rotation
    */
   public void setFixedRotation(boolean fixedRotation) {
     this.fixedRotation = fixedRotation;
@@ -303,7 +333,8 @@ public class BodyDef {
    * Is this a fast moving body that should be prevented from tunneling through other moving bodies?
    * Note that all bodies are prevented from tunneling through kinematic and static bodies. This
    * setting is only considered on dynamic bodies.
-   * 
+   *
+   * @return true, if is bullet
    * @warning You should use this flag sparingly since it increases processing time.
    */
   public boolean isBullet() {
@@ -314,7 +345,8 @@ public class BodyDef {
    * Is this a fast moving body that should be prevented from tunneling through other moving bodies?
    * Note that all bodies are prevented from tunneling through kinematic and static bodies. This
    * setting is only considered on dynamic bodies.
-   * 
+   *
+   * @param bullet the new bullet
    * @warning You should use this flag sparingly since it increases processing time.
    */
   public void setBullet(boolean bullet) {
@@ -322,14 +354,18 @@ public class BodyDef {
   }
 
   /**
-   * Does this body start out active?
+   * Does this body start out active?.
+   *
+   * @return true, if is active
    */
   public boolean isActive() {
     return active;
   }
 
   /**
-   * Does this body start out active?
+   * Does this body start out active?.
+   *
+   * @param active the new active
    */
   public void setActive(boolean active) {
     this.active = active;
@@ -337,6 +373,8 @@ public class BodyDef {
 
   /**
    * Experimental: scales the inertia tensor.
+   *
+   * @return the gravity scale
    */
   public float getGravityScale() {
     return gravityScale;
@@ -344,6 +382,8 @@ public class BodyDef {
 
   /**
    * Experimental: scales the inertia tensor.
+   *
+   * @param gravityScale the new gravity scale
    */
   public void setGravityScale(float gravityScale) {
     this.gravityScale = gravityScale;

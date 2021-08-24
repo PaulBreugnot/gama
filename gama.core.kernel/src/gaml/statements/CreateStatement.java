@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.statements.CreateStatement.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * CreateStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.statements;
 
@@ -241,6 +241,9 @@ import gaml.types.Types;
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class CreateStatement extends AbstractStatementSequence implements IStatement.WithArgs {
 
+	/**
+	 * The Class CreateValidator.
+	 */
 	public static class CreateValidator implements IDescriptionValidator<StatementDescription> {
 
 		/**
@@ -323,6 +326,9 @@ public class CreateStatement extends AbstractStatementSequence implements IState
 
 	}
 
+	/**
+	 * The Class CreateSerializer.
+	 */
 	public static class CreateSerializer extends StatementSerializer {
 
 		@Override
@@ -341,16 +347,29 @@ public class CreateStatement extends AbstractStatementSequence implements IState
 		}
 	}
 
+	/** The init. */
 	// private final ThreadLocal<Arguments> init = new ThreadLocal();
 	private Arguments init;
+	
+	/** The header. */
 	private final IExpression from, number, species, header;
+	
+	/** The returns. */
 	private final String returns;
+	
+	/** The sequence. */
 	private final RemoteSequence sequence;
+	
+	/** The delegates. */
 	static List<ICreateDelegate> delegates = new ArrayList<>();
+	
+	/** The delegate types. */
 	static List<IType> delegateTypes = new ArrayList<>();
 
 	/**
-	 * @param createExecutableExtension
+	 * Adds the delegate.
+	 *
+	 * @param delegate the delegate
 	 */
 	public static void addDelegate(final ICreateDelegate delegate) {
 		delegates.add(delegate);
@@ -358,10 +377,20 @@ public class CreateStatement extends AbstractStatementSequence implements IState
 		if (delegateType != null && delegateType != Types.NO_TYPE) { delegateTypes.add(delegate.fromFacetType()); }
 	}
 
+	/**
+	 * Removes the delegate.
+	 *
+	 * @param cd the cd
+	 */
 	public static void removeDelegate(final ICreateDelegate cd) {
 		delegates.remove(cd);
 	}
 
+	/**
+	 * Instantiates a new creates the statement.
+	 *
+	 * @param desc the desc
+	 */
 	public CreateStatement(final IDescription desc) {
 		super(desc);
 		returns = getLiteral(RETURNS);
@@ -385,6 +414,12 @@ public class CreateStatement extends AbstractStatementSequence implements IState
 		super.enterScope(scope);
 	}
 
+	/**
+	 * Find population.
+	 *
+	 * @param scope the scope
+	 * @return the i population
+	 */
 	IPopulation findPopulation(final IScope scope) {
 		final IAgent executor = scope.getAgent();
 		if (species == null) return executor.getPopulationFor(description.getSpeciesContext().getName());
@@ -438,11 +473,11 @@ public class CreateStatement extends AbstractStatementSequence implements IState
 	}
 
 	/**
-	 * A check made in order to address issues #2621 and #2611
+	 * A check made in order to address issues #2621 and #2611.
 	 *
-	 * @param pop
-	 * @param scope
-	 * @throws GamaRuntimeException
+	 * @param pop the pop
+	 * @param scope the scope
+	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 	private void checkPopulationValidity(final IPopulation pop, final IScope scope) throws GamaRuntimeException {
 		if (pop instanceof SimulationPopulation && !(scope.getAgent() instanceof ExperimentAgent))
@@ -453,6 +488,12 @@ public class CreateStatement extends AbstractStatementSequence implements IState
 		if (error != null) throw error(sd.getName() + "is " + error + " and cannot be instantiated.", scope);
 	}
 
+	/**
+	 * Gets the source.
+	 *
+	 * @param scope the scope
+	 * @return the source
+	 */
 	private Object getSource(final IScope scope) {
 		Object source = from == null ? null : from.value(scope);
 		if (source instanceof String) {
@@ -461,6 +502,14 @@ public class CreateStatement extends AbstractStatementSequence implements IState
 		return source;
 	}
 
+	/**
+	 * Creates the agents.
+	 *
+	 * @param scope the scope
+	 * @param population the population
+	 * @param inits the inits
+	 * @return the i list<? extends I agent>
+	 */
 	private IList<? extends IAgent> createAgents(final IScope scope, final IPopulation<? extends IAgent> population,
 			final List<Map<String, Object>> inits) {
 		if (population == null) return GamaListFactory.EMPTY_LIST;
@@ -509,6 +558,12 @@ public class CreateStatement extends AbstractStatementSequence implements IState
 		return list;
 	}
 
+	/**
+	 * Fill with user init.
+	 *
+	 * @param scope the scope
+	 * @param values the values
+	 */
 	// TODO Call it before calling the ICreateDelegate createFrom method !
 	public void fillWithUserInit(final IScope scope, final Map values) {
 		if (init == null) return;
@@ -532,7 +587,9 @@ public class CreateStatement extends AbstractStatementSequence implements IState
 	public void setRuntimeArgs(final IScope scope, final Arguments args) {}
 
 	/**
-	 * @return
+	 * Gets the header.
+	 *
+	 * @return the header
 	 */
 	public IExpression getHeader() {
 		return header;

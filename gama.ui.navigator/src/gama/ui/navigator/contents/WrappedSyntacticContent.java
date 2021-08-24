@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'WrappedSyntacticContent.java, in plugin ummisco.gama.ui.navigator, is part of the source code of the GAMA modeling
- * and simulation platform. (v. 1.8.1)
+ * WrappedSyntacticContent.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- *
- **********************************************************************************************/
+ ********************************************************************************************************/
 package gama.ui.navigator.contents;
 
 import java.util.ArrayList;
@@ -27,22 +26,46 @@ import gama.ui.base.resources.GamaColors.GamaUIColor;
 import gama.ui.base.utils.ThemeHelper;
 import gaml.compilation.ast.ISyntacticElement;
 
+/**
+ * The Class WrappedSyntacticContent.
+ */
 public class WrappedSyntacticContent extends VirtualContent<VirtualContent<?>>
 		implements Comparable<WrappedSyntacticContent> {
 
+	/** The element. */
 	public final ISyntacticElement element;
+	
+	/** The uri. */
 	final URI uri;
 
+	/**
+	 * Instantiates a new wrapped syntactic content.
+	 *
+	 * @param parent the parent
+	 * @param e the e
+	 */
 	private WrappedSyntacticContent(final WrappedSyntacticContent parent, final ISyntacticElement e) {
 		this(parent, e, GAMA.getGui().getGamlLabelProvider().getText(e));
 	}
 
+	/**
+	 * Instantiates a new wrapped syntactic content.
+	 *
+	 * @param root the root
+	 * @param e the e
+	 * @param name the name
+	 */
 	public WrappedSyntacticContent(final VirtualContent<?> root, final ISyntacticElement e, final String name) {
 		super(root, name == null ? GAMA.getGui().getGamlLabelProvider().getText(e) : name);
 		element = e;
 		uri = element == null || element.getElement() == null ? null : EcoreUtil.getURI(element.getElement());
 	}
 
+	/**
+	 * Gets the file.
+	 *
+	 * @return the file
+	 */
 	public WrappedGamaFile getFile() {
 		return ((WrappedSyntacticContent) getParent()).getFile();
 	}
@@ -88,6 +111,11 @@ public class WrappedSyntacticContent extends VirtualContent<VirtualContent<?>>
 		return true;
 	}
 
+	/**
+	 * Gets the element.
+	 *
+	 * @return the element
+	 */
 	public ISyntacticElement getElement() {
 		return element;
 	}
@@ -108,6 +136,12 @@ public class WrappedSyntacticContent extends VirtualContent<VirtualContent<?>>
 
 	}
 
+	/**
+	 * Gets the URI problem.
+	 *
+	 * @param fragment the fragment
+	 * @return the URI problem
+	 */
 	public int getURIProblem(final URI fragment) {
 		return getFile().getURIProblem(fragment);
 	}

@@ -1,18 +1,13 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * FontManager.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.tools;
 
 import java.io.BufferedReader;
@@ -24,23 +19,41 @@ import java.util.Hashtable;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth</a>
+ * The Class FontManager.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de">Simon Mieth</a>
  */
 public class FontManager {
+    
+    /** The instance. */
     private static FontManager instance = new FontManager();
+    
+    /** The font description. */
     private String fontDescription = "conf/font.properties";
+    
+    /** The font properties. */
     private Hashtable fontProperties = new Hashtable();
 
+    /**
+     * Instantiates a new font manager.
+     */
     private FontManager() {
         loadFontDescription();
     }
 
+    /**
+     * Sets the font description.
+     *
+     * @param file the new font description
+     */
     public void setFontDescription(String file) {
         this.fontDescription = file;
         loadFontDescription();
     }
 
+    /**
+     * Load font description.
+     */
     private void loadFontDescription() {
         fontProperties.clear();
 
@@ -78,6 +91,11 @@ public class FontManager {
         }
     }
 
+    /**
+     * Gets the single instance of FontManager.
+     *
+     * @return single instance of FontManager
+     */
     public static FontManager getInstance() {
         return instance;
     }
@@ -85,9 +103,8 @@ public class FontManager {
     /**
      * Query if a SVG font description exists for the given shx font.
      *
-     * @param font
-     *            The font.shx or font
-     * @return
+     * @param font            The font.shx or font
+     * @return true, if successful
      */
     public boolean hasFontDescription(String font) {
         font = getFontKey(font);
@@ -99,10 +116,22 @@ public class FontManager {
         return false;
     }
 
+    /**
+     * Gets the font description.
+     *
+     * @param font the font
+     * @return the font description
+     */
     public String getFontDescription(String font) {
         return (String) fontProperties.get(getFontKey(font));
     }
 
+    /**
+     * Gets the font key.
+     *
+     * @param font the font
+     * @return the font key
+     */
     private String getFontKey(String font) {
         font = font.toLowerCase();
 

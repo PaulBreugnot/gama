@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'NewFileWizardPage.java, in plugin ummisco.gama.ui.navigator, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * NewExperimentWizardPage.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator.wizards;
 
 import java.util.Arrays;
@@ -37,9 +36,17 @@ import org.eclipse.ui.dialogs.FilteredResourcesSelectionDialog;
 
 public class NewExperimentWizardPage extends AbstractNewModelWizardPage {
 
+	/** The model chooser. */
 	Text modelChooser;
+	
+	/** The type of experiment. */
 	String typeOfExperiment = AbstractNewModelWizard.GUI;
 
+	/**
+	 * Instantiates a new new experiment wizard page.
+	 *
+	 * @param selection the selection
+	 */
 	public NewExperimentWizardPage(final ISelection selection) {
 		super(selection);
 		setTitle("Experiment file");
@@ -113,16 +120,20 @@ public class NewExperimentWizardPage extends AbstractNewModelWizardPage {
 		modelChooser.setText("");
 	}
 
+	/**
+	 * Gets the type.
+	 *
+	 * @return the type
+	 */
 	String getType() {
 		return typeOfExperiment;
 	}
 
+	/** The dialog. */
 	private FilteredResourcesSelectionDialog dialog;
 
 	/**
 	 * Uses the standard container selection dialog to choose the new value for the container field.
-	 *
-	 * @throws CoreException
 	 */
 	void handleBrowse() {
 		final IContainer p = ResourcesPlugin.getWorkspace().getRoot();
@@ -138,6 +149,11 @@ public class NewExperimentWizardPage extends AbstractNewModelWizardPage {
 		}
 	}
 
+	/**
+	 * Gets the experimented model path.
+	 *
+	 * @return the experimented model path
+	 */
 	public String getExperimentedModelPath() {
 		return modelChooser.getText();
 	}

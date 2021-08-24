@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.descriptions.SymbolDescription.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * SymbolDescription.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.descriptions;
 
@@ -37,29 +37,57 @@ import gaml.types.IType;
 import gaml.types.Types;
 
 /**
- * Written by drogoul Modified on 16 mars 2010
+ * Written by drogoul Modified on 16 mars 2010.
  *
  * @todo Description
- *
  */
 public abstract class SymbolDescription implements IDescription {
 
+	/** The type provider facets. */
 	protected static Set<String> typeProviderFacets = ImmutableSet
 			.copyOf(Arrays.asList(VALUE, TYPE, AS, SPECIES, OF, OVER, FROM, INDEX, FUNCTION, UPDATE, INIT, DEFAULT));
 
+	/** The order. */
 	public static int ORDER = 0;
+	
+	/** The order. */
 	private final int order = ORDER++;
 
+	/** The facets. */
 	private Facets facets;
+	
+	/** The element. */
 	protected final EObject element;
+	
+	/** The enclosing. */
 	protected IDescription enclosing;
+	
+	/** The origin name. */
 	protected String originName;
+	
+	/** The name. */
 	protected String name;
+	
+	/** The keyword. */
 	protected final String keyword;
+	
+	/** The type. */
 	private IType<?> type;
+	
+	/** The validated. */
 	protected boolean validated;
+	
+	/** The proto. */
 	final SymbolProto proto;
 
+	/**
+	 * Instantiates a new symbol description.
+	 *
+	 * @param keyword the keyword
+	 * @param superDesc the super desc
+	 * @param source the source
+	 * @param facets the facets
+	 */
 	public SymbolDescription(final String keyword, final IDescription superDesc, final EObject source,
 			final Facets facets) {
 		this.keyword = keyword;
@@ -75,10 +103,21 @@ public abstract class SymbolDescription implements IDescription {
 		return order;
 	}
 
+	/**
+	 * Checks for facets.
+	 *
+	 * @return true, if successful
+	 */
 	protected boolean hasFacets() {
 		return facets != null;
 	}
 
+	/**
+	 * Checks for facets not in.
+	 *
+	 * @param others the others
+	 * @return true, if successful
+	 */
 	protected boolean hasFacetsNotIn(final Set<String> others) {
 		if (facets == null) return false;
 		return !visitFacets((facetName, exp) -> others.contains(facetName));
@@ -147,6 +186,12 @@ public abstract class SymbolDescription implements IDescription {
 		return facets.forEachFacetIn(names, visitor);
 	}
 
+	/**
+	 * Gets the type denoted by facet.
+	 *
+	 * @param s the s
+	 * @return the type denoted by facet
+	 */
 	public IType<?> getTypeDenotedByFacet(final String... s) {
 		if (!hasFacets()) return Types.NO_TYPE;
 		return getTypeDenotedByFacet(facets.getFirstExistingAmong(s), Types.NO_TYPE);
@@ -158,17 +203,31 @@ public abstract class SymbolDescription implements IDescription {
 		return facets.getFirstExistingAmong(strings);
 	}
 
+	/**
+	 * Gets the type denoted by facet.
+	 *
+	 * @param s the s
+	 * @param defaultType the default type
+	 * @return the type denoted by facet
+	 */
 	public IType<?> getTypeDenotedByFacet(final String s, final IType<?> defaultType) {
 		if (!hasFacets()) return defaultType;
 		return facets.getTypeDenotedBy(s, this, defaultType);
 	}
 
+	/**
+	 * Gets the facets copy.
+	 *
+	 * @return the facets copy
+	 */
 	public Facets getFacetsCopy() {
 		return !hasFacets() ? null : facets.cleanCopy();
 	}
 
 	/**
-	 * @return
+	 * Creates the serializer.
+	 *
+	 * @return the symbol serializer<? extends symbol description>
 	 */
 	protected SymbolSerializer<? extends SymbolDescription> createSerializer() {
 		return SYMBOL_SERIALIZER;
@@ -194,6 +253,9 @@ public abstract class SymbolDescription implements IDescription {
 		return getMeta().getKind();
 	}
 
+	/**
+	 * Compile type provider facets.
+	 */
 	protected void compileTypeProviderFacets() {
 		visitFacets((facetName, exp) -> {
 			if (typeProviderFacets.contains(facetName)) { exp.compile(SymbolDescription.this); }
@@ -207,6 +269,17 @@ public abstract class SymbolDescription implements IDescription {
 		return proto;
 	}
 
+	/**
+	 * Flag error.
+	 *
+	 * @param s the s
+	 * @param code the code
+	 * @param warning the warning
+	 * @param info the info
+	 * @param source the source
+	 * @param data the data
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	private void flagError(final String s, final String code, final boolean warning, final boolean info,
 			final EObject source, final String... data) throws GamaRuntimeException {
 
@@ -336,6 +409,11 @@ public abstract class SymbolDescription implements IDescription {
 	}
 
 	// To add children from outside
+	/**
+	 * Adds the children.
+	 *
+	 * @param originalChildren the original children
+	 */
 	// @Override
 	public final void addChildren(final Iterable<? extends IDescription> originalChildren) {
 		if (originalChildren == null /* || !getMeta().hasSequence() */) return;
@@ -344,6 +422,12 @@ public abstract class SymbolDescription implements IDescription {
 		}
 	}
 
+	/**
+	 * Adds the child.
+	 *
+	 * @param child the child
+	 * @return the i description
+	 */
 	// @Override
 	public IDescription addChild(final IDescription child) {
 		if (child == null) return null;
@@ -418,6 +502,13 @@ public abstract class SymbolDescription implements IDescription {
 		return false;
 	}
 
+	/**
+	 * Checks for action.
+	 *
+	 * @param aName the a name
+	 * @param superInvocation the super invocation
+	 * @return true, if successful
+	 */
 	protected boolean hasAction(final String aName, final boolean superInvocation) {
 		return false;
 	}
@@ -450,6 +541,11 @@ public abstract class SymbolDescription implements IDescription {
 		return type;
 	}
 
+	/**
+	 * Compute type.
+	 *
+	 * @return the i type
+	 */
 	protected IType<?> computeType() {
 
 		// Adapter ca pour prendre ne ocmpte les ITypeProvider
@@ -535,6 +631,11 @@ public abstract class SymbolDescription implements IDescription {
 		return element == null;
 	}
 
+	/**
+	 * Checks if is synthetic.
+	 *
+	 * @return true, if is synthetic
+	 */
 	protected boolean isSynthetic() {
 		return false;
 	}
@@ -604,10 +705,21 @@ public abstract class SymbolDescription implements IDescription {
 		return this;
 	}
 
+	/**
+	 * Can be defined in.
+	 *
+	 * @param sd the sd
+	 * @return true, if successful
+	 */
 	protected boolean canBeDefinedIn(final IDescription sd) {
 		return getMeta().canBeDefinedIn(sd);
 	}
 
+	/**
+	 * Validate facets.
+	 *
+	 * @return true, if successful
+	 */
 	private final boolean validateFacets() {
 		// Special case for "do", which can accept (at parsing time) any facet
 		final boolean isDo = DO.equals(getKeyword()) || INVOKE.equals(getKeyword());
@@ -710,11 +822,22 @@ public abstract class SymbolDescription implements IDescription {
 
 	}
 
+	/**
+	 * Creates the var with types.
+	 *
+	 * @param tag the tag
+	 * @return the i expression
+	 */
 	// Nothing to do here
 	protected IExpression createVarWithTypes(final String tag) {
 		return null;
 	}
 
+	/**
+	 * Validate children.
+	 *
+	 * @return true, if successful
+	 */
 	protected boolean validateChildren() {
 		return visitOwnChildren(VALIDATING_VISITOR);
 	}
@@ -742,8 +865,9 @@ public abstract class SymbolDescription implements IDescription {
 	}
 
 	/**
-	 * Method compileChildren()
+	 * Method compileChildren().
 	 *
+	 * @return the iterable<? extends I symbol>
 	 * @see gaml.descriptions.IDescription#compileChildren()
 	 */
 	protected Iterable<? extends ISymbol> compileChildren() {
@@ -802,6 +926,13 @@ public abstract class SymbolDescription implements IDescription {
 
 	}
 
+	/**
+	 * Gets the similar child.
+	 *
+	 * @param container the container
+	 * @param desc the desc
+	 * @return the similar child
+	 */
 	public static IDescription getSimilarChild(final IDescription container, final IDescription desc) {
 		final IDescription[] found = new IDescription[1];
 		container.visitChildren(d -> {

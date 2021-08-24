@@ -1,37 +1,53 @@
-/*
-   Copyright 2005 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * DXFStyle.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.dxf;
 
 
 /**
- * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
+ * The Class DXFStyle.
  *
+ * @author <a href="mailto:simon.mieth@gmx.de>Simon Mieth</a>
  */
 public class DXFStyle {
+    
+    /** The name. */
     private String name = "";
+    
+    /** The font file. */
     private String fontFile = "";
+    
+    /** The big font file. */
     private String bigFontFile = "";
+    
+    /** The text height. */
     private double textHeight = 0.0;
+    
+    /** The width factor. */
     private double widthFactor = 1.0;
+    
+    /** The oblique angle. */
     private double obliqueAngle = 0.0;
+    
+    /** The text generation flag. */
     private int textGenerationFlag = 0;
+    
+    /** The flags. */
     private int flags = 0;
+    
+    /** The last height. */
     private double lastHeight = 0.0;
 
     /**
+     * Gets the big font file.
+     *
      * @return Returns the bigFontFile.
      */
     public String getBigFontFile() {
@@ -39,14 +55,17 @@ public class DXFStyle {
     }
 
     /**
-     * @param bigFontFile
-     *            The bigFontFile to set.
+     * Sets the big font file.
+     *
+     * @param bigFontFile            The bigFontFile to set.
      */
     public void setBigFontFile(String bigFontFile) {
         this.bigFontFile = bigFontFile;
     }
 
     /**
+     * Gets the font file.
+     *
      * @return Returns the fontFile.
      */
     public String getFontFile() {
@@ -54,14 +73,17 @@ public class DXFStyle {
     }
 
     /**
-     * @param fontFile
-     *            The fontFile to set.
+     * Sets the font file.
+     *
+     * @param fontFile            The fontFile to set.
      */
     public void setFontFile(String fontFile) {
         this.fontFile = fontFile;
     }
 
     /**
+     * Gets the last height.
+     *
      * @return Returns the lastHeight.
      */
     public double getLastHeight() {
@@ -69,14 +91,17 @@ public class DXFStyle {
     }
 
     /**
-     * @param lastHeight
-     *            The lastHeight to set.
+     * Sets the last height.
+     *
+     * @param lastHeight            The lastHeight to set.
      */
     public void setLastHeight(double lastHeight) {
         this.lastHeight = lastHeight;
     }
 
     /**
+     * Gets the name.
+     *
      * @return Returns the name.
      */
     public String getName() {
@@ -84,14 +109,17 @@ public class DXFStyle {
     }
 
     /**
-     * @param name
-     *            The name to set.
+     * Sets the name.
+     *
+     * @param name            The name to set.
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
+     * Gets the oblique angle.
+     *
      * @return Returns the obliqueAngle.
      */
     public double getObliqueAngle() {
@@ -99,14 +127,17 @@ public class DXFStyle {
     }
 
     /**
-     * @param obliqueAngle
-     *            The obliqueAngle to set.
+     * Sets the oblique angle.
+     *
+     * @param obliqueAngle            The obliqueAngle to set.
      */
     public void setObliqueAngle(double obliqueAngle) {
         this.obliqueAngle = obliqueAngle;
     }
 
     /**
+     * Gets the text generation flag.
+     *
      * @return Returns the textGenerationFlag.
      */
     public int getTextGenerationFlag() {
@@ -114,14 +145,17 @@ public class DXFStyle {
     }
 
     /**
-     * @param textGenerationFlag
-     *            The textGenerationFlag to set.
+     * Sets the text generation flag.
+     *
+     * @param textGenerationFlag            The textGenerationFlag to set.
      */
     public void setTextGenerationFlag(int textGenerationFlag) {
         this.textGenerationFlag = textGenerationFlag;
     }
 
     /**
+     * Gets the text height.
+     *
      * @return Returns the textHeight.
      */
     public double getTextHeight() {
@@ -129,14 +163,17 @@ public class DXFStyle {
     }
 
     /**
-     * @param textHeight
-     *            The textHeight to set.
+     * Sets the text height.
+     *
+     * @param textHeight            The textHeight to set.
      */
     public void setTextHeight(double textHeight) {
         this.textHeight = textHeight;
     }
 
     /**
+     * Gets the width factor.
+     *
      * @return Returns the widthFactor.
      */
     public double getWidthFactor() {
@@ -144,14 +181,17 @@ public class DXFStyle {
     }
 
     /**
-     * @param widthFactor
-     *            The widthFactor to set.
+     * Sets the width factor.
+     *
+     * @param widthFactor            The widthFactor to set.
      */
     public void setWidthFactor(double widthFactor) {
         this.widthFactor = widthFactor;
     }
 
     /**
+     * Gets the flags.
+     *
      * @return Returns the flags.
      */
     public int getFlags() {
@@ -159,17 +199,28 @@ public class DXFStyle {
     }
 
     /**
-     * @param flags
-     *            The flags to set.
+     * Sets the flags.
+     *
+     * @param flags            The flags to set.
      */
     public void setFlags(int flags) {
         this.flags = flags;
     }
 
+    /**
+     * Checks if is backward.
+     *
+     * @return true, if is backward
+     */
     public boolean isBackward() {
         return this.textGenerationFlag == 2;
     }
 
+    /**
+     * Sets the backward.
+     *
+     * @param b the new backward
+     */
     public void setBackward(boolean b) {
         if (b) {
             this.textGenerationFlag = 2;
@@ -178,10 +229,20 @@ public class DXFStyle {
         }
     }
 
+    /**
+     * Checks if is upside down.
+     *
+     * @return true, if is upside down
+     */
     public boolean isUpsideDown() {
         return this.textGenerationFlag == 4;
     }
 
+    /**
+     * Sets the upside down.
+     *
+     * @param b the new upside down
+     */
     public void setUpsideDown(boolean b) {
         if (b) {
             this.textGenerationFlag = 4;

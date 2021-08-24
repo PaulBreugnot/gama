@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ummisco.gama.opengl.scene.StringDrawer.java, in plugin ummisco.gama.opengl, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * TextDrawer.java, in gama.display.opengl, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.display.opengl.scene.text;
 
@@ -53,30 +53,60 @@ import gaml.statements.draw.TextDrawingAttributes;
 
 public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselator {
 
+	/** The temp. */
 	// Utilities
 	ICoordinates temp = ICoordinates.ofLength(4);
+	
+	/** The normal. */
 	GamaPoint normal = new GamaPoint();
 
+	/** The tobj. */
 	final GLUtessellator tobj = GLU.gluNewTess();
+	
+	/** The previous Y. */
 	double previousX = Double.MIN_VALUE, previousY = Double.MIN_VALUE;
+	
+	/** The current index. */
 	int currentIndex = -1;
 
+	/** The Constant BUFFER_SIZE. */
 	// Constants
 	private static final int BUFFER_SIZE = 1000000;
+	
+	/** The Constant AT. */
 	private final static AffineTransform AT = AffineTransform.getScaleInstance(1.0, -1.0);
+	
+	/** The Constant context. */
 	private static final FontRenderContext context = new FontRenderContext(new AffineTransform(), true, true);
 
+	/** The face vertex buffer. */
 	// Buffers
 	final DoubleBuffer faceVertexBuffer = newDirectDoubleBuffer(BUFFER_SIZE);
+	
+	/** The face texture buffer. */
 	final DoubleBuffer faceTextureBuffer = newDirectDoubleBuffer(BUFFER_SIZE * 2 / 3);
+	
+	/** The indices. */
 	int[] indices = new int[1000]; // Indices of the "move_to" or "close"
+	
+	/** The side normal buffer. */
 	private final DoubleBuffer sideNormalBuffer = newDirectDoubleBuffer(BUFFER_SIZE);
+	
+	/** The side quads buffer. */
 	private final DoubleBuffer sideQuadsBuffer = newDirectDoubleBuffer(BUFFER_SIZE); // Contains the sides
 
+	/** The border. */
 	// Properties
 	Color border;
+	
+	/** The depth. */
 	double width, height, depth;
 
+	/**
+	 * Instantiates a new text drawer.
+	 *
+	 * @param gl the gl
+	 */
 	public TextDrawer(final OpenGL gl) {
 		super(gl);
 		GLU.gluTessCallback(tobj, GLU.GLU_TESS_BEGIN, this);
@@ -113,6 +143,12 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 
 	}
 
+	/**
+	 * Draw bitmap.
+	 *
+	 * @param object the object
+	 * @param attributes the attributes
+	 */
 	private void drawBitmap(final String object, final TextDrawingAttributes attributes) {
 		int fontToUse = GLUT.BITMAP_HELVETICA_18;
 		final Font f = attributes.getFont();
@@ -138,6 +174,11 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 		gl.popMatrix();
 	}
 
+	/**
+	 * Process.
+	 *
+	 * @param pi the pi
+	 */
 	void process(final PathIterator pi) {
 		boolean wireframe = gl.isWireframe();
 		if (!wireframe) {
@@ -184,6 +225,12 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 		if (faceTextureBuffer != null) { faceTextureBuffer.flip(); }
 	}
 
+	/**
+	 * Draw text.
+	 *
+	 * @param attributes the attributes
+	 * @param y the y
+	 */
 	void drawText(final TextDrawingAttributes attributes, final double y) {
 		final AxisAngle rotation = attributes.getRotation();
 		final GamaPoint p = attributes.getLocation();
@@ -238,20 +285,25 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 		}
 	}
 
+	/**
+	 * End contour.
+	 */
 	public void endContour() {
 		indices[++currentIndex] = sideQuadsBuffer.position();
 	}
 
+	/**
+	 * Begin new contour.
+	 */
 	public void beginNewContour() {
 		indices[++currentIndex] = sideQuadsBuffer.position();
 	}
 
 	/**
-	 * Add a point at altitude zero: creates automatically a point at altitude "depth" if depth > 0 in the quads
+	 * Add a point at altitude zero: creates automatically a point at altitude "depth" if depth > 0 in the quads.
 	 *
-	 * @param x
-	 *            and y represent the new vertex to be added
-	 *
+	 * @param x            and y represent the new vertex to be added
+	 * @param y the y
 	 */
 	public void addContourVertex0(final double x, final double y) {
 		sideQuadsBuffer.put(x).put(y).put(0);
@@ -273,6 +325,9 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 	@Override
 	public void dispose() {}
 
+	/**
+	 * Draw side.
+	 */
 	public void drawSide() {
 		if (sideQuadsBuffer.limit() == 0) return;
 		// AD - See issue #3125
@@ -292,6 +347,9 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 		gl.disable(GLPointerFunc.GL_VERTEX_ARRAY);
 	}
 
+	/**
+	 * Draw border.
+	 */
 	public void drawBorder() {
 		if (gl.isRenderingKeystone()) {
 			drawBorderFallback();
@@ -312,6 +370,11 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 		gl.disable(GLPointerFunc.GL_VERTEX_ARRAY);
 	}
 
+	/**
+	 * Draw face.
+	 *
+	 * @param up the up
+	 */
 	void drawFace(final boolean up) {
 		if (faceVertexBuffer.limit() == 0) return;
 		if (gl.isRenderingKeystone()) {
@@ -343,6 +406,8 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 
 	/**
 	 * Fallback methods: use direct draw to OpenGL.
+	 *
+	 * @param up the up
 	 */
 
 	public void drawFaceFallback(final boolean up) {
@@ -357,6 +422,11 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 		gl.endDrawing();
 	}
 
+	/**
+	 * Draw side fallback.
+	 *
+	 * @param openGL the open GL
+	 */
 	public void drawSideFallback(final OpenGL openGL) {
 		var i = -1;
 		while (i < currentIndex) {
@@ -374,6 +444,9 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 
 	}
 
+	/**
+	 * Draw border fallback.
+	 */
 	public void drawBorderFallback() {
 		var stride = depth == 0 ? 3 : 6;
 		var i = -1;

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Overlay.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -176,6 +186,8 @@ public abstract class Overlay
      */
     @XmlElement(name = "Icon")
     protected Icon icon;
+    
+    /** The overlay simple extension. */
     @XmlElement(name = "AbstractOverlaySimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> overlaySimpleExtension;
@@ -200,85 +212,84 @@ public abstract class Overlay
     @XmlElement(name = "AbstractOverlayObjectExtensionGroup")
     protected List<AbstractObject> overlayObjectExtension;
 
+    /**
+     * Instantiates a new overlay.
+     */
     public Overlay() {
         super();
     }
 
     /**
-     * @see color
-     * 
-     * @return
-     *     possible object is
+     * Gets the color.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see color
      */
     public String getColor() {
         return color;
     }
 
     /**
-     * @see color
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the color.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see color
      */
     public void setColor(String value) {
         this.color =  value;
     }
 
     /**
-     * @see drawOrder
-     * 
-     * @return
-     *     possible object is
+     * Gets the draw order.
+     *
+     * @return     possible object is
      *     {@link Integer}
-     *     
+     * @see drawOrder
      */
     public int getDrawOrder() {
         return drawOrder;
     }
 
     /**
-     * @see drawOrder
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the draw order.
+     *
+     * @param value     allowed object is
      *     {@link Integer}
-     *     
+     * @see drawOrder
      */
     public void setDrawOrder(int value) {
         this.drawOrder = value;
     }
 
     /**
-     * @see icon
-     * 
-     * @return
-     *     possible object is
+     * Gets the icon.
+     *
+     * @return     possible object is
      *     {@link gama.ext.libs.kml.Link}
-     *     
+     * @see icon
      */
     public Icon getIcon() {
         return icon;
     }
 
     /**
-     * @see icon
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the icon.
+     *
+     * @param value     allowed object is
      *     {@link gama.ext.libs.kml.Link}
-     *     
+     * @see icon
      */
     public void setIcon(Icon value) {
         this.icon = value;
     }
 
     /**
+     * Gets the overlay simple extension.
+     *
+     * @return the overlay simple extension
      * @see overlaySimpleExtension
-     * 
      */
     public List<Object> getOverlaySimpleExtension() {
         if (overlaySimpleExtension == null) {
@@ -288,8 +299,10 @@ public abstract class Overlay
     }
 
     /**
+     * Gets the overlay object extension.
+     *
+     * @return the overlay object extension
      * @see overlayObjectExtension
-     * 
      */
     public List<AbstractObject> getOverlayObjectExtension() {
         if (overlayObjectExtension == null) {
@@ -374,8 +387,8 @@ public abstract class Overlay
      * <code>
      * Icon icon = new Icon();
      * this.setIcon(icon); </code>
-     * 
-     * 
+     *
+     * @return the icon
      */
     public Icon createAndSetIcon() {
         Icon newValue = new Icon();
@@ -384,21 +397,20 @@ public abstract class Overlay
     }
 
     /**
+     * Sets the overlay simple extension.
+     *
+     * @param overlaySimpleExtension the new overlay simple extension
      * @see overlaySimpleExtension
-     * 
-     * @param overlaySimpleExtension
      */
     public void setOverlaySimpleExtension(final List<Object> overlaySimpleExtension) {
         this.overlaySimpleExtension = overlaySimpleExtension;
     }
 
     /**
-     * add a value to the overlaySimpleExtension property collection
-     * 
-     * @param overlaySimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the overlaySimpleExtension property collection.
+     *
+     * @param overlaySimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Overlay addToOverlaySimpleExtension(final Object overlaySimpleExtension) {
         this.getOverlaySimpleExtension().add(overlaySimpleExtension);
@@ -406,21 +418,20 @@ public abstract class Overlay
     }
 
     /**
+     * Sets the overlay object extension.
+     *
+     * @param overlayObjectExtension the new overlay object extension
      * @see overlayObjectExtension
-     * 
-     * @param overlayObjectExtension
      */
     public void setOverlayObjectExtension(final List<AbstractObject> overlayObjectExtension) {
         this.overlayObjectExtension = overlayObjectExtension;
     }
 
     /**
-     * add a value to the overlayObjectExtension property collection
-     * 
-     * @param overlayObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the overlayObjectExtension property collection.
+     *
+     * @param overlayObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Overlay addToOverlayObjectExtension(final AbstractObject overlayObjectExtension) {
         this.getOverlayObjectExtension().add(overlayObjectExtension);
@@ -496,11 +507,11 @@ public abstract class Overlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param color     required parameter
+     * @return the overlay
      * @see #setColor(String)
-     * 
-     * @param color
-     *     required parameter
      */
     public Overlay withColor(final String color) {
         this.setColor(color);
@@ -508,11 +519,11 @@ public abstract class Overlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param drawOrder     required parameter
+     * @return the overlay
      * @see #setDrawOrder(int)
-     * 
-     * @param drawOrder
-     *     required parameter
      */
     public Overlay withDrawOrder(final int drawOrder) {
         this.setDrawOrder(drawOrder);
@@ -520,11 +531,11 @@ public abstract class Overlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param icon     required parameter
+     * @return the overlay
      * @see #setIcon(Icon)
-     * 
-     * @param icon
-     *     required parameter
      */
     public Overlay withIcon(final Icon icon) {
         this.setIcon(icon);
@@ -532,11 +543,11 @@ public abstract class Overlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param overlaySimpleExtension     required parameter
+     * @return the overlay
      * @see #setOverlaySimpleExtension(List<Object>)
-     * 
-     * @param overlaySimpleExtension
-     *     required parameter
      */
     public Overlay withOverlaySimpleExtension(final List<Object> overlaySimpleExtension) {
         this.setOverlaySimpleExtension(overlaySimpleExtension);
@@ -544,11 +555,11 @@ public abstract class Overlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param overlayObjectExtension     required parameter
+     * @return the overlay
      * @see #setOverlayObjectExtension(List<AbstractObject>)
-     * 
-     * @param overlayObjectExtension
-     *     required parameter
      */
     public Overlay withOverlayObjectExtension(final List<AbstractObject> overlayObjectExtension) {
         this.setOverlayObjectExtension(overlayObjectExtension);

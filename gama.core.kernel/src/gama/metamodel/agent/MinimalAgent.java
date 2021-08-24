@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.metamodel.agent.MinimalAgent.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * MinimalAgent.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.metamodel.agent;
 
@@ -32,6 +32,9 @@ import gaml.species.GamlSpecies;
 import gaml.species.ISpecies;
 import gaml.types.GamaGeometryType;
 
+/**
+ * The Class MinimalAgent.
+ */
 @species (
 		name = IKeyword.AGENT,
 		doc = @doc ("The species parent of all agent species"))
@@ -46,18 +49,33 @@ public class MinimalAgent extends AbstractAgent {
 
 	/** The population that this agent belongs to. */
 	protected final IPopulation<? extends IAgent> population;
+	
+	/** The name. */
 	protected String name;
+	
+	/** The geometry. */
 	protected final IShape geometry;
+	
+	/** The hash code. */
 	private final int hashCode;
 
 	/**
-	 * @param s
-	 *            the population used to prototype the agent.
+	 * Instantiates a new minimal agent.
+	 *
+	 * @param s            the population used to prototype the agent.
+	 * @param index the index
 	 */
 	public MinimalAgent(final IPopulation<? extends IAgent> s, final int index) {
 		this(s, index, new GamaShape((Geometry) null));
 	}
 
+	/**
+	 * Instantiates a new minimal agent.
+	 *
+	 * @param population the population
+	 * @param index the index
+	 * @param geometry the geometry
+	 */
 	protected MinimalAgent(final IPopulation<? extends IAgent> population, final int index, final IShape geometry) {
 		super(index);
 		this.population = population;
@@ -239,10 +257,10 @@ public class MinimalAgent extends AbstractAgent {
 
 	/**
 	 * The default init of agents consists in calling the super implementation of init() in order to realize the default
-	 * init sequence
+	 * init sequence.
 	 *
-	 * @param scope
-	 * @return
+	 * @param scope the scope
+	 * @return the object
 	 */
 	@action (
 			name = ISpecies.initActionName)
@@ -252,10 +270,10 @@ public class MinimalAgent extends AbstractAgent {
 
 	/**
 	 * The default step of agents consists in calling the super implementation of doStep() in order to realize the
-	 * default step sequence
+	 * default step sequence.
 	 *
-	 * @param scope
-	 * @return
+	 * @param scope the scope
+	 * @return the object
 	 */
 	@action (
 			name = ISpecies.stepActionName)

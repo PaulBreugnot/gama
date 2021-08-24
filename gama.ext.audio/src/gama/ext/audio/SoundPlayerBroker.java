@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'SoundPlayerBroker.java, in plugin ummisco.gaml.extensions.sound, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * SoundPlayerBroker.java, in gama.ext.audio, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.audio;
 
 import java.util.ArrayList;
@@ -22,20 +21,32 @@ import gama.metamodel.agent.IAgent;
 import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 
+/**
+ * The Class SoundPlayerBroker.
+ */
 public class SoundPlayerBroker {
 
 	// the maximum number of BasicPlayer instant can only be 2. Increase this
+	/** The Constant MAX_NB_OF_MUSIC_PLAYERS. */
 	// number will raise error.
 	private static final int MAX_NB_OF_MUSIC_PLAYERS = 2;
 
+	/** The sound player pools. */
 	private final List<GamaSoundPlayer> soundPlayerPools =
 			Collections.synchronizedList(new ArrayList<GamaSoundPlayer>(MAX_NB_OF_MUSIC_PLAYERS));
 
+	/** The sound player of agents. */
 	private static Map<SimulationAgent, Map<IAgent, GamaSoundPlayer>> soundPlayerOfAgents =
 			new HashMap<>();
 
+	/** The broker. */
 	private static volatile SoundPlayerBroker broker = null;
 
+	/**
+	 * Gets the single instance of SoundPlayerBroker.
+	 *
+	 * @return single instance of SoundPlayerBroker
+	 */
 	public static SoundPlayerBroker getInstance() {
 
 		if (broker == null) {
@@ -45,6 +56,9 @@ public class SoundPlayerBroker {
 		return broker;
 	}
 
+	/**
+	 * Initialize gama sound player.
+	 */
 	private void initializeGamaSoundPlayer() {
 		synchronized (soundPlayerPools) {
 			for (int i = 0; i < MAX_NB_OF_MUSIC_PLAYERS; i++) {
@@ -53,10 +67,19 @@ public class SoundPlayerBroker {
 		}
 	}
 
+	/**
+	 * Instantiates a new sound player broker.
+	 */
 	private SoundPlayerBroker() {
 		initializeGamaSoundPlayer();
 	}
 
+	/**
+	 * Gets the sound player.
+	 *
+	 * @param agent the agent
+	 * @return the sound player
+	 */
 	public GamaSoundPlayer getSoundPlayer(final IAgent agent) {
 
 		synchronized (soundPlayerOfAgents) {
@@ -95,6 +118,12 @@ public class SoundPlayerBroker {
 		}
 	}
 
+	/**
+	 * Manage music players.
+	 *
+	 * @param simulation the simulation
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public void manageMusicPlayers(final SimulationAgent simulation) throws GamaRuntimeException {
 		GamaSoundPlayer soundPlayer;
 
@@ -139,6 +168,12 @@ public class SoundPlayerBroker {
 		}
 	}
 
+	/**
+	 * Scheduler disposed.
+	 *
+	 * @param simulation the simulation
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public void schedulerDisposed(final SimulationAgent simulation) throws GamaRuntimeException {
 
 		final Map<IAgent, GamaSoundPlayer> soundPlayersOfSimulation = soundPlayerOfAgents.get(simulation);

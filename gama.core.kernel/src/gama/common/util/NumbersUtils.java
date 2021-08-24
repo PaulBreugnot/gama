@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.operators.fastmaths.NumbersUtils.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * NumbersUtils.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.common.util;
 
@@ -39,7 +39,10 @@ public final class NumbersUtils {
 	 */
 	public static final float FLOAT_MIN_NORMAL = Float.intBitsToFloat(0x00800000); // 1.17549435E-38f
 
+	/** The Constant MIN_DOUBLE_EXPONENT. */
 	private static final int MIN_DOUBLE_EXPONENT = -1074;
+	
+	/** The Constant MAX_DOUBLE_EXPONENT. */
 	private static final int MAX_DOUBLE_EXPONENT = 1023;
 
 	/**
@@ -75,7 +78,10 @@ public final class NumbersUtils {
 		}
 	}
 
+	/** The Constant MAX_NBR_OF_NEG_INT_DIGITS_BY_RADIX. */
 	private final static int[] MAX_NBR_OF_NEG_INT_DIGITS_BY_RADIX = new int[Character.MAX_RADIX + 1];
+	
+	/** The Constant MAX_NBR_OF_NEG_LONG_DIGITS_BY_RADIX. */
 	private final static int[] MAX_NBR_OF_NEG_LONG_DIGITS_BY_RADIX = new int[Character.MAX_RADIX + 1];
 	static {
 		for (int radix = Character.MIN_RADIX; radix <= Character.MAX_RADIX; radix++) {
@@ -87,16 +93,30 @@ public final class NumbersUtils {
 		}
 	}
 
+	/** The Constant NO_CSN_MIN_BOUND_INCL. */
 	static final double NO_CSN_MIN_BOUND_INCL = 1e-3;
+	
+	/** The Constant NO_CSN_MAX_BOUND_EXCL. */
 	static final double NO_CSN_MAX_BOUND_EXCL = 1e7;
 
+	/** The Constant PIO2_HI. */
 	private static final double PIO2_HI = Double.longBitsToDouble(0x3FF921FB54400000L); // 1.57079632673412561417e+00
+																						
+																						/** The Constant PIO2_LO. */
 																						// first 33 bits of pi/2
 	private static final double PIO2_LO = Double.longBitsToDouble(0x3DD0B4611A626331L); // 6.07710050650619224932e-11
+																						
+																						/** The Constant PI_HI. */
 																						// pi/2 - PIO2_HI
 	private static final double PI_HI = 2 * PIO2_HI;
+	
+	/** The Constant PI_LO. */
 	private static final double PI_LO = 2 * PIO2_LO;
+	
+	/** The Constant TWOPI_HI. */
 	private static final double TWOPI_HI = 4 * PIO2_HI;
+	
+	/** The Constant TWOPI_LO. */
 	private static final double TWOPI_LO = 4 * PIO2_LO;
 
 	// --------------------------------------------------------------------------
@@ -104,6 +124,10 @@ public final class NumbersUtils {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Equal.
+	 *
+	 * @param a the a
+	 * @param b the b
 	 * @return True if the specified values are equal or both NaN, false otherwise.
 	 */
 	public static boolean equal(final float a, final float b) {
@@ -112,6 +136,10 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Equal.
+	 *
+	 * @param a the a
+	 * @param b the b
 	 * @return True if the specified values are equal or both NaN, false otherwise.
 	 */
 	public static boolean equal(final double a, final double b) {
@@ -120,6 +148,9 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Checks if is mathematical integer.
+	 *
+	 * @param val the val
 	 * @return True if the specified value is a mathematical integer, false otherwise (which includes NaN and
 	 *         +-Infinity).
 	 */
@@ -134,6 +165,9 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Checks if is mathematical integer.
+	 *
+	 * @param val the val
 	 * @return True if the specified value is a mathematical integer, false otherwise (which includes NaN and
 	 *         +-Infinity).
 	 */
@@ -148,8 +182,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param value
-	 *            A float value.
+	 * Checks if is equidistant.
+	 *
+	 * @param value            A float value.
 	 * @return True if the specified value is equidistant from two adjacent mathematical integers, false otherwise
 	 *         (which includes NaN and +-Infinity).
 	 */
@@ -165,8 +200,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param value
-	 *            A double value.
+	 * Checks if is equidistant.
+	 *
+	 * @param value            A double value.
 	 * @return True if the specified value is equidistant from two adjacent mathematical integers, false otherwise
 	 *         (which includes NaN and +-Infinity).
 	 */
@@ -179,8 +215,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param value
-	 *            A float value.
+	 * Checks if is na N or infinite.
+	 *
+	 * @param a the a
 	 * @return True if the specified value is NaN or +-Infinity, false otherwise.
 	 */
 	public static boolean isNaNOrInfinite(final float a) {
@@ -189,8 +226,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param value
-	 *            A double value.
+	 * Checks if is na N or infinite.
+	 *
+	 * @param a the a
 	 * @return True if the specified value is NaN or +-Infinity, false otherwise.
 	 */
 	public static boolean isNaNOrInfinite(final double a) {
@@ -199,8 +237,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param value
-	 *            A float value.
+	 * Sign from bit.
+	 *
+	 * @param value            A float value.
 	 * @return -1 if sign bit is 1, 1 if sign bit is 0.
 	 */
 	public static int signFromBit(final float value) {
@@ -208,8 +247,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param value
-	 *            A double value.
+	 * Sign from bit.
+	 *
+	 * @param value            A double value.
 	 * @return -1 if sign bit is 1, 1 if sign bit is 0.
 	 */
 	public static long signFromBit(final double value) {
@@ -222,6 +262,11 @@ public final class NumbersUtils {
 	 */
 
 	/**
+	 * Checks if is in range.
+	 *
+	 * @param min the min
+	 * @param max the max
+	 * @param a the a
 	 * @return True if the specified value is in the specified range (inclusive), false otherwise.
 	 */
 	public static boolean isInRange(final int min, final int max, final int a) {
@@ -229,6 +274,11 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Checks if is in range.
+	 *
+	 * @param min the min
+	 * @param max the max
+	 * @param a the a
 	 * @return True if the specified value is in the specified range (inclusive), false otherwise.
 	 */
 	public static boolean isInRange(final long min, final long max, final long a) {
@@ -238,6 +288,9 @@ public final class NumbersUtils {
 	/**
 	 * Returns false if any value is NaN.
 	 *
+	 * @param min the min
+	 * @param max the max
+	 * @param a the a
 	 * @return True if the specified value is in the specified range (inclusive), false otherwise.
 	 */
 	public static boolean isInRange(final float min, final float max, final float a) {
@@ -247,6 +300,9 @@ public final class NumbersUtils {
 	/**
 	 * Returns false if any value is NaN.
 	 *
+	 * @param min the min
+	 * @param max the max
+	 * @param a the a
 	 * @return True if the specified value is in the specified range (inclusive), false otherwise.
 	 */
 	public static boolean isInRange(final double min, final double max, final double a) {
@@ -258,9 +314,13 @@ public final class NumbersUtils {
 	 */
 
 	/**
+	 * Check is in range.
+	 *
+	 * @param min the min
+	 * @param max the max
+	 * @param a the a
 	 * @return True if does not throw.
-	 * @throws IllegalArgumentException
-	 *             if the specified value is not in the specified range (inclusive).
+	 * @throws IllegalArgumentException             if the specified value is not in the specified range (inclusive).
 	 */
 	public static boolean checkIsInRange(final int min, final int max, final int a) {
 		if (!isInRange(min, max, a)) { throw new IllegalArgumentException(a + " not in [" + min + "," + max + "]"); }
@@ -268,9 +328,13 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Check is in range.
+	 *
+	 * @param min the min
+	 * @param max the max
+	 * @param a the a
 	 * @return True if does not throw.
-	 * @throws IllegalArgumentException
-	 *             if the specified value is not in the specified range (inclusive).
+	 * @throws IllegalArgumentException             if the specified value is not in the specified range (inclusive).
 	 */
 	public static boolean checkIsInRange(final long min, final long max, final long a) {
 		if (!isInRange(min, max, a)) { throw new IllegalArgumentException(a + " not in [" + min + "," + max + "]"); }
@@ -278,9 +342,13 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Check is in range.
+	 *
+	 * @param min the min
+	 * @param max the max
+	 * @param a the a
 	 * @return True if does not throw.
-	 * @throws IllegalArgumentException
-	 *             if the specified value is not in the specified range (inclusive) or any parameter is NaN.
+	 * @throws IllegalArgumentException             if the specified value is not in the specified range (inclusive) or any parameter is NaN.
 	 */
 	public static boolean checkIsInRange(final float min, final float max, final float a) {
 		if (!isInRange(min, max, a)) { throw new IllegalArgumentException(a + " not in [" + min + "," + max + "]"); }
@@ -288,9 +356,13 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Check is in range.
+	 *
+	 * @param min the min
+	 * @param max the max
+	 * @param a the a
 	 * @return True if does not throw.
-	 * @throws IllegalArgumentException
-	 *             if the specified value is not in the specified range (inclusive) or any parameter is NaN.
+	 * @throws IllegalArgumentException             if the specified value is not in the specified range (inclusive) or any parameter is NaN.
 	 */
 	public static boolean checkIsInRange(final double min, final double max, final double a) {
 		if (!isInRange(min, max, a)) { throw new IllegalArgumentException(a + " not in [" + min + "," + max + "]"); }
@@ -302,12 +374,11 @@ public final class NumbersUtils {
 	 */
 
 	/**
-	 * @param min
-	 *            A value.
-	 * @param max
-	 *            A value.
-	 * @param a
-	 *            A value.
+	 * To range.
+	 *
+	 * @param min            A value.
+	 * @param max            A value.
+	 * @param a            A value.
 	 * @return min if a <= min, else max if a >= max, else a.
 	 */
 	public static int toRange(final int min, final int max, final int a) {
@@ -321,12 +392,11 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param min
-	 *            A value.
-	 * @param max
-	 *            A value.
-	 * @param a
-	 *            A value.
+	 * To range.
+	 *
+	 * @param min            A value.
+	 * @param max            A value.
+	 * @param a            A value.
 	 * @return min if a <= min, else max if a >= max, else a.
 	 */
 	public static long toRange(final long min, final long max, final long a) {
@@ -340,12 +410,11 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param min
-	 *            A value.
-	 * @param max
-	 *            A value.
-	 * @param a
-	 *            A value.
+	 * To range.
+	 *
+	 * @param min            A value.
+	 * @param max            A value.
+	 * @param a            A value.
 	 * @return min if a <= min, else max if a >= max, else a.
 	 */
 	public static float toRange(final float min, final float max, final float a) {
@@ -359,12 +428,11 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param min
-	 *            A value.
-	 * @param max
-	 *            A value.
-	 * @param a
-	 *            A value.
+	 * To range.
+	 *
+	 * @param min            A value.
+	 * @param max            A value.
+	 * @param a            A value.
 	 * @return min if a <= min, else max if a >= max, else a.
 	 */
 	public static double toRange(final double min, final double max, final double a) {
@@ -382,11 +450,12 @@ public final class NumbersUtils {
 	 */
 
 	/**
-	 * @param bitSize
-	 *            A number of bits, in [1,32].
+	 * Checks if is in range signed.
+	 *
+	 * @param a the a
+	 * @param bitSize            A number of bits, in [1,32].
 	 * @return True if the specified value fits as a signed integer over the specified number of bits, false otherwise.
-	 * @throws IllegalArgumentException
-	 *             if the specified number of bits is not in [1,32].
+	 * @throws IllegalArgumentException             if the specified number of bits is not in [1,32].
 	 */
 	public static boolean isInRangeSigned(final int a, final int bitSize) {
 		checkBitSizeForSignedInt(bitSize);
@@ -394,11 +463,12 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param bitSize
-	 *            A number of bits, in [1,64].
+	 * Checks if is in range signed.
+	 *
+	 * @param a the a
+	 * @param bitSize            A number of bits, in [1,64].
 	 * @return True if the specified value fits as a signed integer over the specified number of bits, false otherwise.
-	 * @throws IllegalArgumentException
-	 *             if the specified number of bits is not in [1,64].
+	 * @throws IllegalArgumentException             if the specified number of bits is not in [1,64].
 	 */
 	public static boolean isInRangeSigned(final long a, final int bitSize) {
 		checkBitSizeForSignedLong(bitSize);
@@ -406,24 +476,26 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param bitSize
-	 *            A number of bits, in [1,31].
+	 * Checks if is in range unsigned.
+	 *
+	 * @param a the a
+	 * @param bitSize            A number of bits, in [1,31].
 	 * @return True if the specified value fits as an unsigned integer over the specified number of bits, false
 	 *         otherwise.
-	 * @throws IllegalArgumentException
-	 *             if the specified number of bits is not in [1,31].
+	 * @throws IllegalArgumentException             if the specified number of bits is not in [1,31].
 	 */
 	public static boolean isInRangeUnsigned(final int a, final int bitSize) {
 		return isInRange(0, maxUnsignedIntForBitSize(bitSize), a);
 	}
 
 	/**
-	 * @param bitSize
-	 *            A number of bits, in [1,63].
+	 * Checks if is in range unsigned.
+	 *
+	 * @param a the a
+	 * @param bitSize            A number of bits, in [1,63].
 	 * @return True if the specified value fits as an unsigned integer over the specified number of bits, false
 	 *         otherwise.
-	 * @throws IllegalArgumentException
-	 *             if the specified number of bits is not in [1,63].
+	 * @throws IllegalArgumentException             if the specified number of bits is not in [1,63].
 	 */
 	public static boolean isInRangeUnsigned(final long a, final int bitSize) {
 		return isInRange(0, maxUnsignedLongForBitSize(bitSize), a);
@@ -434,11 +506,12 @@ public final class NumbersUtils {
 	 */
 
 	/**
-	 * @param bitSize
-	 *            A number of bits, in [1,32].
+	 * Check is in range signed.
+	 *
+	 * @param a the a
+	 * @param bitSize            A number of bits, in [1,32].
 	 * @return True if does not throw.
-	 * @throws IllegalArgumentException
-	 *             if the specified value does not fit as a signed integer over the specified number of bits.
+	 * @throws IllegalArgumentException             if the specified value does not fit as a signed integer over the specified number of bits.
 	 */
 	public static boolean checkIsInRangeSigned(final int a, final int bitSize) {
 		if (!isInRangeSigned(a, bitSize)) {
@@ -448,11 +521,12 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param bitSize
-	 *            A number of bits, in [1,64].
+	 * Check is in range signed.
+	 *
+	 * @param a the a
+	 * @param bitSize            A number of bits, in [1,64].
 	 * @return True if does not throw.
-	 * @throws IllegalArgumentException
-	 *             if the specified value does not fit as a signed integer over the specified number of bits.
+	 * @throws IllegalArgumentException             if the specified value does not fit as a signed integer over the specified number of bits.
 	 */
 	public static boolean checkIsInRangeSigned(final long a, final int bitSize) {
 		if (!isInRangeSigned(a, bitSize)) {
@@ -462,11 +536,12 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param bitSize
-	 *            A number of bits, in [1,31].
+	 * Check is in range unsigned.
+	 *
+	 * @param a the a
+	 * @param bitSize            A number of bits, in [1,31].
 	 * @return True if does not throw.
-	 * @throws IllegalArgumentException
-	 *             if the specified value does not fit as an unsigned integer over the specified number of bits.
+	 * @throws IllegalArgumentException             if the specified value does not fit as an unsigned integer over the specified number of bits.
 	 */
 	public static boolean checkIsInRangeUnsigned(final int a, final int bitSize) {
 		if (!isInRangeUnsigned(a, bitSize)) {
@@ -476,11 +551,12 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param bitSize
-	 *            A number of bits, in [1,63].
+	 * Check is in range unsigned.
+	 *
+	 * @param a the a
+	 * @param bitSize            A number of bits, in [1,63].
 	 * @return True if does not throw.
-	 * @throws IllegalArgumentException
-	 *             if the specified value does not fit as an unsigned integer over the specified number of bits.
+	 * @throws IllegalArgumentException             if the specified value does not fit as an unsigned integer over the specified number of bits.
 	 */
 	public static boolean checkIsInRangeUnsigned(final long a, final int bitSize) {
 		if (!isInRangeUnsigned(a, bitSize)) {
@@ -494,8 +570,9 @@ public final class NumbersUtils {
 	 */
 
 	/**
-	 * @param bitSize
-	 *            A number of bits, in [0,32].
+	 * Int mask MS bits 0.
+	 *
+	 * @param bitSize            A number of bits, in [0,32].
 	 * @return Mask with the specified number of left bits set with 0, and other bits set with 1.
 	 */
 	public static int intMaskMSBits0(final int bitSize) {
@@ -506,8 +583,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param bitSize
-	 *            A number of bits, in [0,32].
+	 * Int mask MS bits 1.
+	 *
+	 * @param bitSize            A number of bits, in [0,32].
 	 * @return Mask with the specified number of left bits set with 1, and other bits set with 0.
 	 */
 	public static int intMaskMSBits1(final int bitSize) {
@@ -515,8 +593,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param bitSize
-	 *            A number of bits, in [0,32].
+	 * Int mask LS bits 0.
+	 *
+	 * @param bitSize            A number of bits, in [0,32].
 	 * @return Mask with the specified number of right bits set with 0, and other bits set with 1.
 	 */
 	public static int intMaskLSBits0(final int bitSize) {
@@ -524,8 +603,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param bitSize
-	 *            A number of bits, in [0,32].
+	 * Int mask LS bits 1.
+	 *
+	 * @param bitSize            A number of bits, in [0,32].
 	 * @return Mask with the specified number of right bits set with 1, and other bits set with 0.
 	 */
 	public static int intMaskLSBits1(final int bitSize) {
@@ -537,8 +617,9 @@ public final class NumbersUtils {
 	 */
 
 	/**
-	 * @param bitSize
-	 *            A number of bits, in [0,64].
+	 * Long mask MS bits 0.
+	 *
+	 * @param bitSize            A number of bits, in [0,64].
 	 * @return Mask with the specified number of left bits set with 0, and other bits set with 1.
 	 */
 	public static long longMaskMSBits0(final int bitSize) {
@@ -549,8 +630,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param bitSize
-	 *            A number of bits, in [0,64].
+	 * Long mask MS bits 1.
+	 *
+	 * @param bitSize            A number of bits, in [0,64].
 	 * @return Mask with the specified number of left bits set with 1, and other bits set with 0.
 	 */
 	public static long longMaskMSBits1(final int bitSize) {
@@ -558,8 +640,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param bitSize
-	 *            A number of bits, in [0,64].
+	 * Long mask LS bits 0.
+	 *
+	 * @param bitSize            A number of bits, in [0,64].
 	 * @return Mask with the specified number of right bits set with 0, and other bits set with 1.
 	 */
 	public static long longMaskLSBits0(final int bitSize) {
@@ -567,8 +650,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param bitSize
-	 *            A number of bits, in [0,64].
+	 * Long mask LS bits 1.
+	 *
+	 * @param bitSize            A number of bits, in [0,64].
 	 * @return Mask with the specified number of right bits set with 1, and other bits set with 0.
 	 */
 	public static long longMaskLSBits1(final int bitSize) {
@@ -580,6 +664,9 @@ public final class NumbersUtils {
 	 */
 
 	/**
+	 * Byte as unsigned.
+	 *
+	 * @param value the value
 	 * @return Unsigned value corresponding to bits of the specified byte.
 	 */
 	public static short byteAsUnsigned(final byte value) {
@@ -587,6 +674,9 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Short as unsigned.
+	 *
+	 * @param value the value
 	 * @return Unsigned value corresponding to bits of the specified short.
 	 */
 	public static int shortAsUnsigned(final short value) {
@@ -594,6 +684,9 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Int as unsigned.
+	 *
+	 * @param value the value
 	 * @return Unsigned value corresponding to bits of the specified int.
 	 */
 	public static long intAsUnsigned(final int value) {
@@ -605,6 +698,9 @@ public final class NumbersUtils {
 	 */
 
 	/**
+	 * Checks if is valid bit size for signed int.
+	 *
+	 * @param bitSize the bit size
 	 * @return True if a signed int value can be read over the specified number of bits, i.e. if it is in [1,32], false
 	 *         otherwise.
 	 */
@@ -613,6 +709,9 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Checks if is valid bit size for signed long.
+	 *
+	 * @param bitSize the bit size
 	 * @return True if a signed long value can be read over the specified number of bits, i.e. if it is in [1,64], false
 	 *         otherwise.
 	 */
@@ -621,6 +720,9 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Checks if is valid bit size for unsigned int.
+	 *
+	 * @param bitSize the bit size
 	 * @return True if an unsigned int value can be read over the specified number of bits, i.e. if it is in [1,31],
 	 *         false otherwise.
 	 */
@@ -629,6 +731,9 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Checks if is valid bit size for unsigned long.
+	 *
+	 * @param bitSize the bit size
 	 * @return True if an unsigned long value can be read over the specified number of bits, i.e. if it is in [1,63],
 	 *         false otherwise.
 	 */
@@ -641,9 +746,11 @@ public final class NumbersUtils {
 	 */
 
 	/**
+	 * Check bit size for signed int.
+	 *
+	 * @param bitSize the bit size
 	 * @return True if does not throw.
-	 * @throws IllegalArgumentException
-	 *             if a signed int value can't be read over the specified number of bits, i.e. if it is not in [1,32].
+	 * @throws IllegalArgumentException             if a signed int value can't be read over the specified number of bits, i.e. if it is not in [1,32].
 	 */
 	public static boolean checkBitSizeForSignedInt(final int bitSize) {
 		if (!isValidBitSizeForSignedInt(bitSize)) {
@@ -653,9 +760,11 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Check bit size for signed long.
+	 *
+	 * @param bitSize the bit size
 	 * @return True if does not throw.
-	 * @throws IllegalArgumentException
-	 *             if a signed long value can't be read over the specified number of bits, i.e. if it is not in [1,64].
+	 * @throws IllegalArgumentException             if a signed long value can't be read over the specified number of bits, i.e. if it is not in [1,64].
 	 */
 	public static boolean checkBitSizeForSignedLong(final int bitSize) {
 		if (!isValidBitSizeForSignedLong(bitSize)) {
@@ -665,9 +774,11 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Check bit size for unsigned int.
+	 *
+	 * @param bitSize the bit size
 	 * @return True if does not throw.
-	 * @throws IllegalArgumentException
-	 *             if an unsigned int value can't be read over the specified number of bits, i.e. if it is not in
+	 * @throws IllegalArgumentException             if an unsigned int value can't be read over the specified number of bits, i.e. if it is not in
 	 *             [1,31].
 	 */
 	public static boolean checkBitSizeForUnsignedInt(final int bitSize) {
@@ -678,9 +789,11 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Check bit size for unsigned long.
+	 *
+	 * @param bitSize the bit size
 	 * @return True if does not throw.
-	 * @throws IllegalArgumentException
-	 *             if an unsigned long value can't be read over the specified number of bits, i.e. if it is not in
+	 * @throws IllegalArgumentException             if an unsigned long value can't be read over the specified number of bits, i.e. if it is not in
 	 *             [1,63].
 	 */
 	public static boolean checkBitSizeForUnsignedLong(final int bitSize) {
@@ -695,11 +808,11 @@ public final class NumbersUtils {
 	 */
 
 	/**
-	 * @param bitSize
-	 *            A number of bits in [1,32].
+	 * Min signed int for bit size.
+	 *
+	 * @param bitSize            A number of bits in [1,32].
 	 * @return The min signed int value that can be stored over the specified number of bits.
-	 * @throws IllegalArgumentException
-	 *             if the specified number of bits is out of range.
+	 * @throws IllegalArgumentException             if the specified number of bits is out of range.
 	 */
 	public static int minSignedIntForBitSize(final int bitSize) {
 		checkBitSizeForSignedInt(bitSize);
@@ -707,11 +820,11 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param bitSize
-	 *            A number of bits in [1,64].
+	 * Min signed long for bit size.
+	 *
+	 * @param bitSize            A number of bits in [1,64].
 	 * @return The min signed long value that can be stored over the specified number of bits.
-	 * @throws IllegalArgumentException
-	 *             if the specified number of bits is out of range.
+	 * @throws IllegalArgumentException             if the specified number of bits is out of range.
 	 */
 	public static long minSignedLongForBitSize(final int bitSize) {
 		checkBitSizeForSignedLong(bitSize);
@@ -719,11 +832,11 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param bitSize
-	 *            A number of bits in [1,32].
+	 * Max signed int for bit size.
+	 *
+	 * @param bitSize            A number of bits in [1,32].
 	 * @return The max signed int value that can be stored over the specified number of bits.
-	 * @throws IllegalArgumentException
-	 *             if the specified number of bits is out of range.
+	 * @throws IllegalArgumentException             if the specified number of bits is out of range.
 	 */
 	public static int maxSignedIntForBitSize(final int bitSize) {
 		checkBitSizeForSignedInt(bitSize);
@@ -731,11 +844,11 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param bitSize
-	 *            A number of bits in [1,64].
+	 * Max signed long for bit size.
+	 *
+	 * @param bitSize            A number of bits in [1,64].
 	 * @return The max signed long value that can be stored over the specified number of bits.
-	 * @throws IllegalArgumentException
-	 *             if the specified number of bits is out of range.
+	 * @throws IllegalArgumentException             if the specified number of bits is out of range.
 	 */
 	public static long maxSignedLongForBitSize(final int bitSize) {
 		checkBitSizeForSignedLong(bitSize);
@@ -743,11 +856,11 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param bitSize
-	 *            A number of bits in [1,31].
+	 * Max unsigned int for bit size.
+	 *
+	 * @param bitSize            A number of bits in [1,31].
 	 * @return The max unsigned int value that can be stored over the specified number of bits.
-	 * @throws IllegalArgumentException
-	 *             if the specified number of bits is out of range.
+	 * @throws IllegalArgumentException             if the specified number of bits is out of range.
 	 */
 	public static int maxUnsignedIntForBitSize(final int bitSize) {
 		checkBitSizeForUnsignedInt(bitSize);
@@ -756,11 +869,11 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param bitSize
-	 *            A number of bits in [1,63].
+	 * Max unsigned long for bit size.
+	 *
+	 * @param bitSize            A number of bits in [1,63].
 	 * @return The max unsigned long value that can be stored over the specified number of bits.
-	 * @throws IllegalArgumentException
-	 *             if the specified number of bits is out of range.
+	 * @throws IllegalArgumentException             if the specified number of bits is out of range.
 	 */
 	public static long maxUnsignedLongForBitSize(final int bitSize) {
 		checkBitSizeForUnsignedLong(bitSize);
@@ -773,6 +886,9 @@ public final class NumbersUtils {
 	 */
 
 	/**
+	 * Bit size for signed value.
+	 *
+	 * @param value the value
 	 * @return The number of bits required to store the specified value as a signed integer, i.e. a result in [1,32].
 	 */
 	public static int bitSizeForSignedValue(final int value) {
@@ -787,6 +903,9 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Bit size for signed value.
+	 *
+	 * @param value the value
 	 * @return The number of bits required to store the specified value as a signed integer, i.e. a result in [1,64].
 	 */
 	public static int bitSizeForSignedValue(final long value) {
@@ -801,11 +920,11 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param value
-	 *            An integer value in [0,Integer.MAX_VALUE].
+	 * Bit size for unsigned value.
+	 *
+	 * @param value            An integer value in [0,Integer.MAX_VALUE].
 	 * @return The number of bits required to store the specified value as an unsigned integer, i.e. a result in [1,31].
-	 * @throws IllegalArgumentException
-	 *             if the specified value is < 0.
+	 * @throws IllegalArgumentException             if the specified value is < 0.
 	 */
 	public static int bitSizeForUnsignedValue(final int value) {
 		if (value > 0) {
@@ -820,11 +939,11 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param value
-	 *            An integer value in [0,Long.MAX_VALUE].
+	 * Bit size for unsigned value.
+	 *
+	 * @param value            An integer value in [0,Long.MAX_VALUE].
 	 * @return The number of bits required to store the specified value as an unsigned integer, i.e. a result in [1,63].
-	 * @throws IllegalArgumentException
-	 *             if the specified value is < 0.
+	 * @throws IllegalArgumentException             if the specified value is < 0.
 	 */
 	public static int bitSizeForUnsignedValue(final long value) {
 		if (value > 0) {
@@ -843,6 +962,9 @@ public final class NumbersUtils {
 	 */
 
 	/**
+	 * Signum.
+	 *
+	 * @param a the a
 	 * @return 1 if the specified value is > 0, 0 if it is 0, -1 otherwise.
 	 */
 	public static int signum(final int a) {
@@ -850,6 +972,9 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Signum.
+	 *
+	 * @param a the a
 	 * @return 1 if the specified value is > 0, 0 if it is 0, -1 otherwise.
 	 */
 	public static int signum(final long a) {
@@ -857,6 +982,9 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Checks if is even.
+	 *
+	 * @param a the a
 	 * @return True if the specified value is even, false otherwise.
 	 */
 	public static boolean isEven(final int a) {
@@ -864,6 +992,9 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Checks if is even.
+	 *
+	 * @param a the a
 	 * @return True if the specified value is even, false otherwise.
 	 */
 	public static boolean isEven(final long a) {
@@ -872,6 +1003,9 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Checks if is odd.
+	 *
+	 * @param a the a
 	 * @return True if the specified value is odd, false otherwise.
 	 */
 	public static boolean isOdd(final int a) {
@@ -879,6 +1013,9 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Checks if is odd.
+	 *
+	 * @param a the a
 	 * @return True if the specified value is odd, false otherwise.
 	 */
 	public static boolean isOdd(final long a) {
@@ -887,6 +1024,10 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Have same evenness.
+	 *
+	 * @param a the a
+	 * @param b the b
 	 * @return True if the specified values are both even or both odd, false otherwise.
 	 */
 	public static boolean haveSameEvenness(final int a, final int b) {
@@ -894,6 +1035,10 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Have same evenness.
+	 *
+	 * @param a the a
+	 * @param b the b
 	 * @return True if the specified values are both even or both odd, false otherwise.
 	 */
 	public static boolean haveSameEvenness(final long a, final long b) {
@@ -902,6 +1047,10 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Have same sign.
+	 *
+	 * @param a the a
+	 * @param b the b
 	 * @return True if the specified values are both >= 0 or both < 0, false otherwise.
 	 */
 	public static boolean haveSameSign(final int a, final int b) {
@@ -909,6 +1058,10 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Have same sign.
+	 *
+	 * @param a the a
+	 * @param b the b
 	 * @return True if the specified values are both >= 0 or both < 0, false otherwise.
 	 */
 	public static boolean haveSameSign(final long a, final long b) {
@@ -916,6 +1069,9 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Checks if is power of two.
+	 *
+	 * @param a the a
 	 * @return True if the specified value is a power of two, i.e. a value of the form 2^k, with k >= 0.
 	 */
 	public static boolean isPowerOfTwo(final int a) {
@@ -924,6 +1080,9 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Checks if is power of two.
+	 *
+	 * @param a the a
 	 * @return True if the specified value is a power of two, i.e. a value of the form 2^k, with k >= 0.
 	 */
 	public static boolean isPowerOfTwo(final long a) {
@@ -932,6 +1091,9 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Checks if is signed power of two.
+	 *
+	 * @param a the a
 	 * @return True if the specified value is a signed power of two, i.e. a value of the form +-2^k, with k >= 0.
 	 */
 	public static boolean isSignedPowerOfTwo(final int a) {
@@ -947,6 +1109,9 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Checks if is signed power of two.
+	 *
+	 * @param a the a
 	 * @return True if the specified value is a signed power of two, i.e. a value of the form +-2^k, with k >= 0.
 	 */
 	public static boolean isSignedPowerOfTwo(final long a) {
@@ -962,8 +1127,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            A value in [1,Integer.MAX_VALUE].
+	 * Floor power of two.
+	 *
+	 * @param a            A value in [1,Integer.MAX_VALUE].
 	 * @return The highest power of two <= a.
 	 */
 	public static int floorPowerOfTwo(final int a) {
@@ -972,8 +1138,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            A value in [1,Long.MAX_VALUE].
+	 * Floor power of two.
+	 *
+	 * @param a            A value in [1,Long.MAX_VALUE].
 	 * @return The highest power of two <= a.
 	 */
 	public static long floorPowerOfTwo(final long a) {
@@ -984,8 +1151,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            A value in [0,2^30].
+	 * Ceiling power of two.
+	 *
+	 * @param a            A value in [0,2^30].
 	 * @return The lowest power of two >= a.
 	 */
 	public static int ceilingPowerOfTwo(final int a) {
@@ -994,8 +1162,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            A value in [0,2^62].
+	 * Ceiling power of two.
+	 *
+	 * @param a            A value in [0,2^62].
 	 * @return The lowest power of two >= a.
 	 */
 	public static long ceilingPowerOfTwo(final long a) {
@@ -1006,6 +1175,10 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Mean low.
+	 *
+	 * @param a the a
+	 * @param b the b
 	 * @return Mean without overflow, rounded to the lowest value (i.e. mathematical floor((a+b)/2), using floating
 	 *         point division).
 	 */
@@ -1014,6 +1187,10 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Mean low.
+	 *
+	 * @param a the a
+	 * @param b the b
 	 * @return Mean without overflow, rounded to the lowest value (i.e. mathematical floor((a+b)/2), using floating
 	 *         point division).
 	 */
@@ -1022,6 +1199,10 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Mean sml.
+	 *
+	 * @param a the a
+	 * @param b the b
 	 * @return Mean without overflow, rounded to the value of smallest magnitude (i.e. mathematical (a+b)/2, using
 	 *         integer division).
 	 */
@@ -1038,6 +1219,10 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Mean sml.
+	 *
+	 * @param a the a
+	 * @param b the b
 	 * @return Mean without overflow, rounded to the value of smallest magnitude (i.e. mathematical (a+b)/2, using
 	 *         integer division).
 	 */
@@ -1057,10 +1242,11 @@ public final class NumbersUtils {
 	 * Useful because a positive int value could not represent half the width of full int range width, which is
 	 * mathematically Integer.MAX_VALUE+1.
 	 *
+	 * @param min the min
+	 * @param max the max
 	 * @return Minus half the range width (inclusive, and rounded to the value of smaller magnitude) between the
 	 *         specified bounds.
-	 * @throws IllegalArgumentException
-	 *             if min > max.
+	 * @throws IllegalArgumentException             if min > max.
 	 */
 	public static int negHalfWidth(final int min, final int max) {
 		if (min > max) { throw new IllegalArgumentException("min [" + min + "] must be <= max [" + max + "]"); }
@@ -1072,10 +1258,11 @@ public final class NumbersUtils {
 	 * Useful because a positive long value could not represent half the width of full long range width, which is
 	 * mathematically Long.MAX_VALUE+1.
 	 *
+	 * @param min the min
+	 * @param max the max
 	 * @return Minus half the range width (inclusive, and rounded to the value of smaller magnitude) between the
 	 *         specified bounds.
-	 * @throws IllegalArgumentException
-	 *             if min > max.
+	 * @throws IllegalArgumentException             if min > max.
 	 */
 	public static long negHalfWidth(final long min, final long max) {
 		if (min > max) { throw new IllegalArgumentException("min [" + min + "] must be <= max [" + max + "]"); }
@@ -1120,11 +1307,11 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param value
-	 *            An integer value > 0.
+	 * Log 2.
+	 *
+	 * @param value            An integer value > 0.
 	 * @return The integer part of the logarithm, in base 2, of the specified value, i.e. a result in [0,30]
-	 * @throws IllegalArgumentException
-	 *             if the specified value is <= 0.
+	 * @throws IllegalArgumentException             if the specified value is <= 0.
 	 */
 	public static int log2(final int value) {
 		if (value <= 0) { throw new IllegalArgumentException("value [" + value + "] must be > 0"); }
@@ -1132,11 +1319,11 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param value
-	 *            An integer value > 0.
+	 * Log 2.
+	 *
+	 * @param value            An integer value > 0.
 	 * @return The integer part of the logarithm, in base 2, of the specified value, i.e. a result in [0,62]
-	 * @throws IllegalArgumentException
-	 *             if the specified value is <= 0.
+	 * @throws IllegalArgumentException             if the specified value is <= 0.
 	 */
 	public static int log2(final long value) {
 		if (value <= 0) { throw new IllegalArgumentException("value [" + value + "] must be > 0"); }
@@ -1146,6 +1333,7 @@ public final class NumbersUtils {
 	/**
 	 * Possibly faster than java.lang.Math.abs(int).
 	 *
+	 * @param a the a
 	 * @return The absolute value, except if value is Integer.MIN_VALUE, for which it returns Integer.MIN_VALUE.
 	 */
 	public static int abs(final int a) {
@@ -1155,6 +1343,7 @@ public final class NumbersUtils {
 	/**
 	 * Possibly faster than java.lang.Math.abs(long).
 	 *
+	 * @param a the a
 	 * @return The absolute value, except if value is Long.MIN_VALUE, for which it returns Long.MIN_VALUE.
 	 */
 	public static long abs(final long a) {
@@ -1162,6 +1351,9 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Abs neg.
+	 *
+	 * @param a the a
 	 * @return The negative of the absolute value (always exact).
 	 */
 	public static int absNeg(final int a) {
@@ -1169,6 +1361,9 @@ public final class NumbersUtils {
 	}
 
 	/**
+	 * Abs neg.
+	 *
+	 * @param a the a
 	 * @return The negative of the absolute value (always exact).
 	 */
 	public static long absNeg(final long a) {
@@ -1178,6 +1373,7 @@ public final class NumbersUtils {
 	/**
 	 * If the specified value is in int range, the returned value is identical.
 	 *
+	 * @param a the a
 	 * @return An int hash of the specified value.
 	 */
 	public static int intHash(final long a) {
@@ -1203,11 +1399,11 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            A long value.
+	 * As int.
+	 *
+	 * @param a            A long value.
 	 * @return The specified value as int.
-	 * @throws ArithmeticException
-	 *             if the specified value is not in [Integer.MIN_VALUE,Integer.MAX_VALUE] range.
+	 * @throws ArithmeticException             if the specified value is not in [Integer.MIN_VALUE,Integer.MAX_VALUE] range.
 	 */
 	public static int asInt(final long a) {
 		if (a != (int) a) { throw new ArithmeticException("overflow: " + a); }
@@ -1215,8 +1411,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            A long value.
+	 * To int.
+	 *
+	 * @param a            A long value.
 	 * @return The closest int value in [Integer.MIN_VALUE,Integer.MAX_VALUE] range.
 	 */
 	public static int toInt(final long a) {
@@ -1225,13 +1422,12 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            An int value.
-	 * @param b
-	 *            An int value.
+	 * Plus exact.
+	 *
+	 * @param a            An int value.
+	 * @param b            An int value.
 	 * @return The mathematical result of a+b.
-	 * @throws ArithmeticException
-	 *             if the mathematical result of a+b is not in [Integer.MIN_VALUE,Integer.MAX_VALUE] range.
+	 * @throws ArithmeticException             if the mathematical result of a+b is not in [Integer.MIN_VALUE,Integer.MAX_VALUE] range.
 	 */
 	public static int plusExact(final int a, final int b) {
 		final int sum = a + b;
@@ -1242,13 +1438,12 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            A long value.
-	 * @param b
-	 *            A long value.
+	 * Plus exact.
+	 *
+	 * @param a            A long value.
+	 * @param b            A long value.
 	 * @return The mathematical result of a+b.
-	 * @throws ArithmeticException
-	 *             if the mathematical result of a+b is not in [Long.MIN_VALUE,Long.MAX_VALUE] range.
+	 * @throws ArithmeticException             if the mathematical result of a+b is not in [Long.MIN_VALUE,Long.MAX_VALUE] range.
 	 */
 	public static long plusExact(final long a, final long b) {
 		final long sum = a + b;
@@ -1259,10 +1454,10 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            An int value.
-	 * @param b
-	 *            An int value.
+	 * Plus bounded.
+	 *
+	 * @param a            An int value.
+	 * @param b            An int value.
 	 * @return The int value of [Integer.MIN_VALUE,Integer.MAX_VALUE] range which is the closest to mathematical result
 	 *         of a+b.
 	 */
@@ -1271,10 +1466,10 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            A long value.
-	 * @param b
-	 *            A long value.
+	 * Plus bounded.
+	 *
+	 * @param a            A long value.
+	 * @param b            A long value.
 	 * @return The long value of [Long.MIN_VALUE,Long.MAX_VALUE] range which is the closest to mathematical result of
 	 *         a+b.
 	 */
@@ -1285,13 +1480,12 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            An int value.
-	 * @param b
-	 *            An int value.
+	 * Minus exact.
+	 *
+	 * @param a            An int value.
+	 * @param b            An int value.
 	 * @return The mathematical result of a-b.
-	 * @throws ArithmeticException
-	 *             if the mathematical result of a-b is not in [Integer.MIN_VALUE,Integer.MAX_VALUE] range.
+	 * @throws ArithmeticException             if the mathematical result of a-b is not in [Integer.MIN_VALUE,Integer.MAX_VALUE] range.
 	 */
 	public static int minusExact(final int a, final int b) {
 		final int diff = a - b;
@@ -1302,13 +1496,12 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            A long value.
-	 * @param b
-	 *            A long value.
+	 * Minus exact.
+	 *
+	 * @param a            A long value.
+	 * @param b            A long value.
 	 * @return The mathematical result of a-b.
-	 * @throws ArithmeticException
-	 *             if the mathematical result of a-b is not in [Long.MIN_VALUE,Long.MAX_VALUE] range.
+	 * @throws ArithmeticException             if the mathematical result of a-b is not in [Long.MIN_VALUE,Long.MAX_VALUE] range.
 	 */
 	public static long minusExact(final long a, final long b) {
 		final long diff = a - b;
@@ -1319,10 +1512,10 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            An int value.
-	 * @param b
-	 *            An int value.
+	 * Minus bounded.
+	 *
+	 * @param a            An int value.
+	 * @param b            An int value.
 	 * @return The int value of [Integer.MIN_VALUE,Integer.MAX_VALUE] range which is the closest to mathematical result
 	 *         of a-b.
 	 */
@@ -1331,10 +1524,10 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            A long value.
-	 * @param b
-	 *            A long value.
+	 * Minus bounded.
+	 *
+	 * @param a            A long value.
+	 * @param b            A long value.
 	 * @return The long value of [Long.MIN_VALUE,Long.MAX_VALUE] range which is the closest to mathematical result of
 	 *         a-b.
 	 */
@@ -1345,13 +1538,12 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            An int value.
-	 * @param b
-	 *            An int value.
+	 * Times exact.
+	 *
+	 * @param a            An int value.
+	 * @param b            An int value.
 	 * @return The mathematical result of a*b.
-	 * @throws ArithmeticException
-	 *             if the mathematical result of a*b is not in [Integer.MIN_VALUE,Integer.MAX_VALUE] range.
+	 * @throws ArithmeticException             if the mathematical result of a*b is not in [Integer.MIN_VALUE,Integer.MAX_VALUE] range.
 	 */
 	public static int timesExact(final int a, final int b) {
 		final long prod = a * (long) b;
@@ -1360,13 +1552,12 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            A long value.
-	 * @param b
-	 *            A long value.
+	 * Times exact.
+	 *
+	 * @param a            A long value.
+	 * @param b            A long value.
 	 * @return The mathematical result of a*b.
-	 * @throws ArithmeticException
-	 *             if the mathematical result of a*b is not in [Long.MIN_VALUE,Long.MAX_VALUE] range.
+	 * @throws ArithmeticException             if the mathematical result of a*b is not in [Long.MIN_VALUE,Long.MAX_VALUE] range.
 	 */
 	public static long timesExact(final long a, final long b) {
 		final long prod = a * b;
@@ -1384,10 +1575,10 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            An int value.
-	 * @param b
-	 *            An int value.
+	 * Times bounded.
+	 *
+	 * @param a            An int value.
+	 * @param b            An int value.
 	 * @return The int value of [Integer.MIN_VALUE,Integer.MAX_VALUE] range which is the closest to mathematical result
 	 *         of a*b.
 	 */
@@ -1396,10 +1587,10 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            A long value.
-	 * @param b
-	 *            A long value.
+	 * Times bounded.
+	 *
+	 * @param a            A long value.
+	 * @param b            A long value.
 	 * @return The long value of [Long.MIN_VALUE,Long.MAX_VALUE] range which is the closest to mathematical result of
 	 *         a*b.
 	 */
@@ -1444,11 +1635,11 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param power
-	 *            An int power.
+	 * Two pow as int exact.
+	 *
+	 * @param power            An int power.
 	 * @return 2^power as an int.
-	 * @throws ArithmeticException
-	 *             if the mathematical result is not in int range, i.e. if power is not in [0,30].
+	 * @throws ArithmeticException             if the mathematical result is not in int range, i.e. if power is not in [0,30].
 	 */
 	public static int twoPowAsIntExact(final int power) {
 		if (power < 0 || power > 30) { throw new ArithmeticException("integer overflow"); }
@@ -1456,8 +1647,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param power
-	 *            An int power.
+	 * Two pow as int bounded.
+	 *
+	 * @param p the p
 	 * @return 2^power as an int, or the closest power of two in int range in case of overflow, i.e. if power is not in
 	 *         [0,30].
 	 */
@@ -1467,11 +1659,11 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param power
-	 *            An int power.
+	 * Two pow as long exact.
+	 *
+	 * @param power            An int power.
 	 * @return 2^power as a long.
-	 * @throws ArithmeticException
-	 *             if the mathematical result is not in long range, i.e. if power is not in [0,62].
+	 * @throws ArithmeticException             if the mathematical result is not in long range, i.e. if power is not in [0,62].
 	 */
 	public static long twoPowAsLongExact(final int power) {
 		if (power < 0 || power > 62) { throw new ArithmeticException("long overflow"); }
@@ -1479,8 +1671,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param power
-	 *            An int power.
+	 * Two pow as long bounded.
+	 *
+	 * @param p the p
 	 * @return 2^power as a long, or the closest power of two in long range in case of overflow, i.e. if power is not in
 	 *         [0,62].
 	 */
@@ -1490,8 +1683,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            A value.
+	 * Pow 2.
+	 *
+	 * @param a            A value.
 	 * @return a*a.
 	 */
 	public static int pow2(final int a) {
@@ -1499,8 +1693,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            A value.
+	 * Pow 2.
+	 *
+	 * @param a            A value.
 	 * @return a*a.
 	 */
 	public static long pow2(final long a) {
@@ -1508,8 +1703,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            A value.
+	 * Pow 2.
+	 *
+	 * @param a            A value.
 	 * @return a*a.
 	 */
 	public static float pow2(final float a) {
@@ -1528,8 +1724,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            A value.
+	 * Pow 2.
+	 *
+	 * @param a            A value.
 	 * @return a*a.
 	 */
 	public static double pow2(final double a) {
@@ -1548,8 +1745,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            A value.
+	 * Pow 3.
+	 *
+	 * @param a            A value.
 	 * @return a*a*a.
 	 */
 	public static int pow3(final int a) {
@@ -1557,8 +1755,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            A value.
+	 * Pow 3.
+	 *
+	 * @param a            A value.
 	 * @return a*a*a.
 	 */
 	public static long pow3(final long a) {
@@ -1566,8 +1765,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            A value.
+	 * Pow 3.
+	 *
+	 * @param a            A value.
 	 * @return a*a*a.
 	 */
 	public static float pow3(final float a) {
@@ -1586,8 +1786,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param a
-	 *            A value.
+	 * Pow 3.
+	 *
+	 * @param a            A value.
 	 * @return a*a*a.
 	 */
 	public static double pow3(final double a) {
@@ -1610,8 +1811,9 @@ public final class NumbersUtils {
 	 */
 
 	/**
-	 * @param angRad
-	 *            An angle, in radians.
+	 * Plus 2 PI.
+	 *
+	 * @param angRad            An angle, in radians.
 	 * @return angRad + 2*PI, accurately computed.
 	 */
 	public static double plus2PI(final double angRad) {
@@ -1642,8 +1844,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param angRad
-	 *            An angle, in radians.
+	 * Minus 2 PI.
+	 *
+	 * @param angRad            An angle, in radians.
 	 * @return angRad - 2*PI, accurately computed.
 	 */
 	public static double minus2PI(final double angRad) {
@@ -1674,8 +1877,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param angRad
-	 *            An angle, in radians.
+	 * Plus PI.
+	 *
+	 * @param angRad            An angle, in radians.
 	 * @return angRad + PI, accurately computed.
 	 */
 	public static double plusPI(final double angRad) {
@@ -1706,8 +1910,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param angRad
-	 *            An angle, in radians.
+	 * Minus PI.
+	 *
+	 * @param angRad            An angle, in radians.
 	 * @return angRad - PI, accurately computed.
 	 */
 	public static double minusPI(final double angRad) {
@@ -1738,8 +1943,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param angRad
-	 *            An angle, in radians.
+	 * Plus PIO 2.
+	 *
+	 * @param angRad            An angle, in radians.
 	 * @return angRad + PI/2, accurately computed.
 	 */
 	public static double plusPIO2(final double angRad) {
@@ -1770,8 +1976,9 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param angRad
-	 *            An angle, in radians.
+	 * Minus PIO 2.
+	 *
+	 * @param angRad            An angle, in radians.
 	 * @return angRad - PI/2, accurately computed.
 	 */
 	public static double minusPIO2(final double angRad) {
@@ -1806,11 +2013,11 @@ public final class NumbersUtils {
 	 */
 
 	/**
-	 * @param radix
-	 *            Radix to be checked.
+	 * Check radix.
+	 *
+	 * @param radix            Radix to be checked.
 	 * @return True if does not throw.
-	 * @throws IllegalArgumentException
-	 *             if the specified radix is not in [2,36].
+	 * @throws IllegalArgumentException             if the specified radix is not in [2,36].
 	 */
 	public static boolean checkRadix(final int radix) {
 		if (!isInRange(Character.MIN_RADIX, Character.MAX_RADIX, radix)) {
@@ -1821,8 +2028,10 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param radix
-	 *            A radix in [2,36].
+	 * Compute nbr of chars.
+	 *
+	 * @param value the value
+	 * @param radix            A radix in [2,36].
 	 * @return Number of characters (minus sign included) to represent the specified value in the specified radix.
 	 */
 	public static int computeNbrOfChars(final int value, final int radix) {
@@ -1835,8 +2044,10 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param radix
-	 *            A radix in [2,36].
+	 * Compute nbr of chars.
+	 *
+	 * @param value the value
+	 * @param radix            A radix in [2,36].
 	 * @return Number of characters (minus sign included) to represent the specified value in the specified radix.
 	 */
 	public static int computeNbrOfChars(final long value, final int radix) {
@@ -1849,10 +2060,11 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param radix
-	 *            A radix in [2,36].
-	 * @param paddingUpTo
-	 *            Number of digits (sign excluded) up to which left-padding with zeros is done.
+	 * Compute nbr of chars.
+	 *
+	 * @param value the value
+	 * @param radix            A radix in [2,36].
+	 * @param paddingUpTo            Number of digits (sign excluded) up to which left-padding with zeros is done.
 	 * @return Number of characters (minus sign included) to represent the specified value in the specified radix.
 	 */
 	public static int computeNbrOfChars(final int value, final int radix, final int paddingUpTo) {
@@ -1865,10 +2077,11 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param radix
-	 *            A radix in [2,36].
-	 * @param paddingUpTo
-	 *            Number of digits (sign excluded) up to which left-padding with zeros is done.
+	 * Compute nbr of chars.
+	 *
+	 * @param value the value
+	 * @param radix            A radix in [2,36].
+	 * @param paddingUpTo            Number of digits (sign excluded) up to which left-padding with zeros is done.
 	 * @return Number of characters (minus sign included) to represent the specified value in the specified radix.
 	 */
 	public static int computeNbrOfChars(final long value, final int radix, final int paddingUpTo) {
@@ -1881,8 +2094,10 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param radix
-	 *            A radix in [2,36].
+	 * Compute nbr of digits.
+	 *
+	 * @param value the value
+	 * @param radix            A radix in [2,36].
 	 * @return Number of digits of the specified value in the specified radix.
 	 */
 	public static int computeNbrOfDigits(final int value, final int radix) {
@@ -1890,8 +2105,10 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param radix
-	 *            A radix in [2,36].
+	 * Compute nbr of digits.
+	 *
+	 * @param value the value
+	 * @param radix            A radix in [2,36].
 	 * @return Number of digits of the specified value in the specified radix.
 	 */
 	public static int computeNbrOfDigits(final long value, final int radix) {
@@ -1899,10 +2116,11 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param radix
-	 *            A radix in [2,36].
-	 * @param paddingUpTo
-	 *            Number of digits (sign excluded) up to which left-padding with zeros is done.
+	 * Compute nbr of digits.
+	 *
+	 * @param value the value
+	 * @param radix            A radix in [2,36].
+	 * @param paddingUpTo            Number of digits (sign excluded) up to which left-padding with zeros is done.
 	 * @return Number of digits of the specified value in the specified radix, including the specified padding.
 	 */
 	public static int computeNbrOfDigits(final int value, final int radix, final int paddingUpTo) {
@@ -1910,10 +2128,11 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param radix
-	 *            A radix in [2,36].
-	 * @param paddingUpTo
-	 *            Number of digits (sign excluded) up to which left-padding with zeros is done.
+	 * Compute nbr of digits.
+	 *
+	 * @param value the value
+	 * @param radix            A radix in [2,36].
+	 * @param paddingUpTo            Number of digits (sign excluded) up to which left-padding with zeros is done.
 	 * @return Number of digits of the specified value in the specified radix, including the specified padding.
 	 */
 	public static int computeNbrOfDigits(final long value, final int radix, final int paddingUpTo) {
@@ -1923,6 +2142,7 @@ public final class NumbersUtils {
 	/**
 	 * This method just delegates to Integer.toString(int), but is defined here to complete the API.
 	 *
+	 * @param value the value
 	 * @return String representation of the specified value in base 10.
 	 */
 	public static String toString(final int value) {
@@ -1932,6 +2152,7 @@ public final class NumbersUtils {
 	/**
 	 * This method just delegates to Long.toString(long), but is defined here to complete the API.
 	 *
+	 * @param value the value
 	 * @return String representation of the specified value in base 10.
 	 */
 	public static String toString(final long value) {
@@ -1939,35 +2160,37 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param radix
-	 *            A radix in [2,36].
+	 * To string.
+	 *
+	 * @param value the value
+	 * @param radix            A radix in [2,36].
 	 * @return String representation of the specified value in the specified radix.
-	 * @throws IllegalArgumentException
-	 *             if the specified radix is out of range.
+	 * @throws IllegalArgumentException             if the specified radix is out of range.
 	 */
 	public static String toString(final int value, final int radix) {
 		return toString(value, radix, 0);
 	}
 
 	/**
-	 * @param radix
-	 *            A radix in [2,36].
+	 * To string.
+	 *
+	 * @param value the value
+	 * @param radix            A radix in [2,36].
 	 * @return String representation of the specified value in the specified radix.
-	 * @throws IllegalArgumentException
-	 *             if the specified radix is out of range.
+	 * @throws IllegalArgumentException             if the specified radix is out of range.
 	 */
 	public static String toString(final long value, final int radix) {
 		return toString(value, radix, 0);
 	}
 
 	/**
-	 * @param radix
-	 *            A radix in [2,36].
-	 * @param paddingUpTo
-	 *            Number of digits (sign excluded) up to which left-padding with zeros is done.
+	 * To string.
+	 *
+	 * @param value the value
+	 * @param radix            A radix in [2,36].
+	 * @param paddingUpTo            Number of digits (sign excluded) up to which left-padding with zeros is done.
 	 * @return String representation of the specified value in the specified radix.
-	 * @throws IllegalArgumentException
-	 *             if the specified radix is out of range.
+	 * @throws IllegalArgumentException             if the specified radix is out of range.
 	 */
 	public static String toString(final int value, final int radix, final int paddingUpTo) {
 		// Only one test if radix+paddingUpTo != 10.
@@ -2024,13 +2247,13 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @param radix
-	 *            A radix in [2,36].
-	 * @param paddingUpTo
-	 *            Number of digits (sign excluded) up to which left-padding with zeros is done.
+	 * To string.
+	 *
+	 * @param value the value
+	 * @param radix            A radix in [2,36].
+	 * @param paddingUpTo            Number of digits (sign excluded) up to which left-padding with zeros is done.
 	 * @return String representation of the specified value in the specified radix.
-	 * @throws IllegalArgumentException
-	 *             if the specified radix is out of range.
+	 * @throws IllegalArgumentException             if the specified radix is out of range.
 	 */
 	public static String toString(final long value, final int radix, final int paddingUpTo) {
 		// Only one test if radix+paddingUpTo != 10.
@@ -2089,74 +2312,97 @@ public final class NumbersUtils {
 	 */
 
 	/**
-	 * @param firstBitPos
-	 *            First bit position (inclusive).
-	 * @param lastBitPosExcl
-	 *            Last bit position (exclusive).
+	 * Check bit positions byte.
+	 *
+	 * @param firstBitPos            First bit position (inclusive).
+	 * @param lastBitPosExcl            Last bit position (exclusive).
 	 * @return True if does not throw.
-	 * @throws IllegalArgumentException
-	 *             if the specified bit range does not fit in a byte.
+	 * @throws IllegalArgumentException             if the specified bit range does not fit in a byte.
 	 */
 	public static boolean checkBitPositionsByte(final int firstBitPos, final int lastBitPosExcl) {
 		return checkBitPositions(firstBitPos, lastBitPosExcl, 8);
 	}
 
 	/**
-	 * @param firstBitPos
-	 *            First bit position (inclusive).
-	 * @param lastBitPosExcl
-	 *            Last bit position (exclusive).
+	 * Check bit positions short.
+	 *
+	 * @param firstBitPos            First bit position (inclusive).
+	 * @param lastBitPosExcl            Last bit position (exclusive).
 	 * @return True if does not throw.
-	 * @throws IllegalArgumentException
-	 *             if the specified bit range does not fit in a short.
+	 * @throws IllegalArgumentException             if the specified bit range does not fit in a short.
 	 */
 	public static boolean checkBitPositionsShort(final int firstBitPos, final int lastBitPosExcl) {
 		return checkBitPositions(firstBitPos, lastBitPosExcl, 16);
 	}
 
 	/**
-	 * @param firstBitPos
-	 *            First bit position (inclusive).
-	 * @param lastBitPosExcl
-	 *            Last bit position (exclusive).
+	 * Check bit positions int.
+	 *
+	 * @param firstBitPos            First bit position (inclusive).
+	 * @param lastBitPosExcl            Last bit position (exclusive).
 	 * @return True if does not throw.
-	 * @throws IllegalArgumentException
-	 *             if the specified bit range does not fit in an int.
+	 * @throws IllegalArgumentException             if the specified bit range does not fit in an int.
 	 */
 	public static boolean checkBitPositionsInt(final int firstBitPos, final int lastBitPosExcl) {
 		return checkBitPositions(firstBitPos, lastBitPosExcl, 32);
 	}
 
 	/**
-	 * @param firstBitPos
-	 *            First bit position (inclusive).
-	 * @param lastBitPosExcl
-	 *            Last bit position (exclusive).
+	 * Check bit positions long.
+	 *
+	 * @param firstBitPos            First bit position (inclusive).
+	 * @param lastBitPosExcl            Last bit position (exclusive).
 	 * @return True if does not throw.
-	 * @throws IllegalArgumentException
-	 *             if the specified bit range does not fit in a long.
+	 * @throws IllegalArgumentException             if the specified bit range does not fit in a long.
 	 */
 	public static boolean checkBitPositionsLong(final int firstBitPos, final int lastBitPosExcl) {
 		return checkBitPositions(firstBitPos, lastBitPosExcl, 64);
 	}
 
+	/**
+	 * Instantiates a new numbers utils.
+	 */
 	private NumbersUtils() {}
 
+	/**
+	 * Min signed int for bit size no check.
+	 *
+	 * @param bitSize the bit size
+	 * @return the int
+	 */
 	private static int minSignedIntForBitSize_noCheck(final int bitSize) {
 		// i.e. (-1<<(bitSize-1))
 		return Integer.MIN_VALUE >> 32 - bitSize;
 	}
 
+	/**
+	 * Min signed long for bit size no check.
+	 *
+	 * @param bitSize the bit size
+	 * @return the long
+	 */
 	private static long minSignedLongForBitSize_noCheck(final int bitSize) {
 		// i.e. (-1L<<(bitSize-1))
 		return Long.MIN_VALUE >> 64 - bitSize;
 	}
 
+	/**
+	 * Max signed int for bit size no check.
+	 *
+	 * @param bitSize the bit size
+	 * @return the int
+	 */
 	private static int maxSignedIntForBitSize_noCheck(final int bitSize) {
 		// i.e. (1<<(bitSize-1))-1
 		return Integer.MAX_VALUE >> 32 - bitSize;
 	}
 
+	/**
+	 * Max signed long for bit size no check.
+	 *
+	 * @param bitSize the bit size
+	 * @return the long
+	 */
 	private static long maxSignedLongForBitSize_noCheck(final int bitSize) {
 		// i.e. (1L<<(bitSize-1))-1
 		return Long.MAX_VALUE >> 64 - bitSize;
@@ -2167,8 +2413,12 @@ public final class NumbersUtils {
 	 */
 
 	/**
-	 * @throws IllegalArgumentException
-	 *             if the specified radix is out of range.
+	 * Compute nbr of digits neg value.
+	 *
+	 * @param negValue the neg value
+	 * @param radix the radix
+	 * @return the int
+	 * @throws IllegalArgumentException             if the specified radix is out of range.
 	 */
 	private static int computeNbrOfDigits_negValue(final int negValue, final int radix) {
 		checkRadix(radix);
@@ -2182,8 +2432,12 @@ public final class NumbersUtils {
 	}
 
 	/**
-	 * @throws IllegalArgumentException
-	 *             if the specified radix is out of range.
+	 * Compute nbr of digits neg value.
+	 *
+	 * @param negValue the neg value
+	 * @param radix the radix
+	 * @return the int
+	 * @throws IllegalArgumentException             if the specified radix is out of range.
 	 */
 	private static int computeNbrOfDigits_negValue(final long negValue, final int radix) {
 		checkRadix(radix);
@@ -2200,6 +2454,14 @@ public final class NumbersUtils {
 	 *
 	 */
 
+	/**
+	 * Check bit positions.
+	 *
+	 * @param firstBitPos the first bit pos
+	 * @param lastBitPosExcl the last bit pos excl
+	 * @param bitSize the bit size
+	 * @return true, if successful
+	 */
 	private static boolean checkBitPositions(final int firstBitPos, final int lastBitPosExcl, final int bitSize) {
 		if (firstBitPos < 0 || firstBitPos > lastBitPosExcl || lastBitPosExcl > bitSize) {
 			throw new IllegalArgumentException("bit positions (first=" + firstBitPos + ",lastExcl=" + lastBitPosExcl
@@ -2212,8 +2474,13 @@ public final class NumbersUtils {
 	 * Common method for byte, short and int. Could be a bit faster to have specific methods for byte and short, but not
 	 * much, and that would also make more messy (byte-)code.
 	 *
-	 * @param bitSize
-	 *            Must be in [0,32].
+	 * @param bitSize            Must be in [0,32].
+	 * @param bits the bits
+	 * @param firstBitPos the first bit pos
+	 * @param lastBitPosExcl the last bit pos excl
+	 * @param bigEndian the big endian
+	 * @param padding the padding
+	 * @return the string
 	 */
 	private static String toStringBits_0_32_bitPosAlreadyChecked(final int bitSize, final int bits,
 			final int firstBitPos, final int lastBitPosExcl, final boolean bigEndian, final boolean padding) {

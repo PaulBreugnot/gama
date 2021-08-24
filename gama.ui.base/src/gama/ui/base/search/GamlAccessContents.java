@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GamlAccessContents.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * GamlAccessContents.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.search;
 
 import java.util.ArrayList;
@@ -44,12 +43,18 @@ import gama.ui.base.controls.Popup2;
 import gama.ui.base.resources.IGamaColors;
 import gaml.compilation.GamlIdiomsProvider;
 
+/**
+ * The Class GamlAccessContents.
+ */
 public abstract class GamlAccessContents implements IPopupProvider {
 
+	/** The Constant EMPTY_INDICES. */
 	private static final int[][] EMPTY_INDICES = {};
 
+	/** The filter text. */
 	protected Text filterText;
 
+	/** The table. */
 	protected Table table;
 
 	/**
@@ -58,18 +63,19 @@ public abstract class GamlAccessContents implements IPopupProvider {
 	 */
 	TextLayout textLayout;
 
+	/** The popup. */
 	Popup2 popup;
 
+	/** The max provider width. */
 	public int maxProviderWidth = 145;
 
+	/** The max definition width. */
 	public int maxDefinitionWidth = 1000;
 
 	/**
-	 * Refreshes the contents of the quick access shell
+	 * Refreshes the contents of the quick access shell.
 	 *
-	 * @param filter
-	 *            The filter text to apply to results
-	 *
+	 * @param filter            The filter text to apply to results
 	 */
 	public void refresh(final String filter) {
 		if (table != null) {
@@ -94,6 +100,12 @@ public abstract class GamlAccessContents implements IPopupProvider {
 		}
 	}
 
+	/**
+	 * Refresh table.
+	 *
+	 * @param entries the entries
+	 * @return the int
+	 */
 	private int refreshTable(final List<GamlAccessEntry>[] entries) {
 		if (table.getItemCount() > entries.length && table.getItemCount() - entries.length > 20) { table.removeAll(); }
 		final TableItem[] items = table.getItems();
@@ -134,10 +146,7 @@ public abstract class GamlAccessContents implements IPopupProvider {
 	 * given a text filter and a perfect match entry that should be given priority. The number of items returned is
 	 * affected by {@link #getShowAllMatches()} and the size of the table's composite.
 	 *
-	 * @param filter
-	 *            the string text filter to apply, possibly empty
-	 * @param perfectMatch
-	 *            a quick access element that should be given priority or <code>null</code>
+	 * @param filter            the string text filter to apply, possibly empty
 	 * @return the array of lists (one per provider) containg the quick access entries that should be added to the
 	 *         table, possibly empty
 	 */
@@ -202,6 +211,14 @@ public abstract class GamlAccessContents implements IPopupProvider {
 		return entries;
 	}
 
+	/**
+	 * Match.
+	 *
+	 * @param element the element
+	 * @param filter the filter
+	 * @param providerForMatching the provider for matching
+	 * @return the gaml access entry
+	 */
 	public GamlAccessEntry match(final IGamlDescription element, final String filter,
 			final GamlIdiomsProvider<?> providerForMatching) {
 		final String sortLabel = element.getTitle();
@@ -227,8 +244,10 @@ public abstract class GamlAccessContents implements IPopupProvider {
 	}
 
 	/**
-	 * @param provider
-	 * @param entry
+	 * Entry enabled.
+	 *
+	 * @param provider the provider
+	 * @param entry the entry
 	 * @return <code>true</code> if the entry is enabled
 	 */
 	private boolean entryEnabled(final GamlIdiomsProvider<?> provider, final GamlAccessEntry entry) {
@@ -236,16 +255,31 @@ public abstract class GamlAccessContents implements IPopupProvider {
 		return true;
 	}
 
+	/**
+	 * Do dispose.
+	 */
 	private void doDispose() {
 		if (textLayout != null && !textLayout.isDisposed()) { textLayout.dispose(); }
 	}
 
+	/**
+	 * Handle element selected.
+	 *
+	 * @param text the text
+	 * @param selectedElement the selected element
+	 */
 	protected abstract void handleElementSelected(String text, GamlAccessEntry selectedElement);
 
+	/**
+	 * Handle click.
+	 */
 	void handleClick() {
 
 	}
 
+	/**
+	 * Handle selection.
+	 */
 	void handleSelection() {
 		final String text = filterText.getText().toLowerCase();
 		if (table.getSelectionCount() == 1) {
@@ -259,15 +293,14 @@ public abstract class GamlAccessContents implements IPopupProvider {
 	}
 
 	/**
-	 * Informs the owner of the parent composite that the quick access dialog should be closed
+	 * Informs the owner of the parent composite that the quick access dialog should be closed.
 	 */
 	protected abstract void doClose();
 
 	/**
-	 * Allows the dialog contents to interact correctly with the text box used to open it
+	 * Allows the dialog contents to interact correctly with the text box used to open it.
 	 *
-	 * @param filterText
-	 *            text box to hook up
+	 * @param filterText            text box to hook up
 	 */
 	public void hookFilterText(final Text filterText) {
 		this.filterText = filterText;
@@ -305,12 +338,10 @@ public abstract class GamlAccessContents implements IPopupProvider {
 	}
 
 	/**
-	 * Creates the table providing the contents for the quick access dialog
+	 * Creates the table providing the contents for the quick access dialog.
 	 *
-	 * @param composite
-	 *            parent composite with {@link GridLayout}
-	 * @param defaultOrientation
-	 *            the window orientation to use for the table {@link SWT#RIGHT_TO_LEFT} or {@link SWT#LEFT_TO_RIGHT}
+	 * @param composite            parent composite with {@link GridLayout}
+	 * @param defaultOrientation            the window orientation to use for the table {@link SWT#RIGHT_TO_LEFT} or {@link SWT#LEFT_TO_RIGHT}
 	 * @return the created table
 	 */
 	public Table createTable(final Composite composite, final int defaultOrientation) {

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * AnimatedUpdate.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.gx;
 
@@ -138,80 +148,79 @@ public class AnimatedUpdate
      */
     @XmlElement(name = "Update", namespace = "http://www.opengis.net/kml/2.2")
     protected Update update;
+    
+    /** The delayed start. */
     @XmlElement(defaultValue = "0.0")
     protected double delayedStart;
 
+    /**
+     * Instantiates a new animated update.
+     */
     public AnimatedUpdate() {
         super();
     }
 
     /**
-     * @see duration
-     * 
-     * @return
-     *     possible object is
+     * Gets the duration.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see duration
      */
     public double getDuration() {
         return duration;
     }
 
     /**
-     * @see duration
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the duration.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see duration
      */
     public void setDuration(double value) {
         this.duration = value;
     }
 
     /**
-     * @see update
-     * 
-     * @return
-     *     possible object is
+     * Gets the update.
+     *
+     * @return     possible object is
      *     {@link Update}
-     *     
+     * @see update
      */
     public Update getUpdate() {
         return update;
     }
 
     /**
-     * @see update
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the update.
+     *
+     * @param value     allowed object is
      *     {@link Update}
-     *     
+     * @see update
      */
     public void setUpdate(Update value) {
         this.update = value;
     }
 
     /**
-     * @see delayedStart
-     * 
-     * @return
-     *     possible object is
+     * Gets the delayed start.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see delayedStart
      */
     public double getDelayedStart() {
         return delayedStart;
     }
 
     /**
-     * @see delayedStart
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the delayed start.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see delayedStart
      */
     public void setDelayedStart(double value) {
         this.delayedStart = value;
@@ -267,12 +276,10 @@ public class AnimatedUpdate
      * <code>
      * Update update = new Update();
      * this.setUpdate(update); </code>
-     * 
-     * 
-     * @param createOrDeleteOrChange
-     *     required parameter
-     * @param targetHref
-     *     required parameter
+     *
+     * @param targetHref     required parameter
+     * @param createOrDeleteOrChange     required parameter
+     * @return the update
      */
     public Update createAndSetUpdate(final String targetHref, final List<Object> createOrDeleteOrChange) {
         Update newValue = new Update(targetHref, createOrDeleteOrChange);
@@ -281,11 +288,11 @@ public class AnimatedUpdate
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param duration     required parameter
+     * @return the animated update
      * @see #setDuration(double)
-     * 
-     * @param duration
-     *     required parameter
      */
     public AnimatedUpdate withDuration(final double duration) {
         this.setDuration(duration);
@@ -293,11 +300,11 @@ public class AnimatedUpdate
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param update     required parameter
+     * @return the animated update
      * @see #setUpdate(Update)
-     * 
-     * @param update
-     *     required parameter
      */
     public AnimatedUpdate withUpdate(final Update update) {
         this.setUpdate(update);
@@ -305,11 +312,11 @@ public class AnimatedUpdate
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param delayedStart     required parameter
+     * @return the animated update
      * @see #setDelayedStart(double)
-     * 
-     * @param delayedStart
-     *     required parameter
      */
     public AnimatedUpdate withDelayedStart(final double delayedStart) {
         this.setDelayedStart(delayedStart);

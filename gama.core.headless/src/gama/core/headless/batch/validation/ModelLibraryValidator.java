@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ModelLibraryValidator.java, in gama.core.headless, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.core.headless.batch.validation;
 
 import java.io.IOException;
@@ -19,10 +29,17 @@ import gama.core.headless.core.HeadlessSimulationLoader;
 import gama.core.lang.validation.GamlModelBuilder;
 import gaml.compilation.GamlCompilationError;
 
+/**
+ * The Class ModelLibraryValidator.
+ */
 public class ModelLibraryValidator extends AbstractModelLibraryRunner {
 
+	/** The instance. */
 	private static ModelLibraryValidator instance;
 
+	/**
+	 * Instantiates a new model library validator.
+	 */
 	private ModelLibraryValidator() {
 		DEBUG.ON();
 	}
@@ -84,6 +101,14 @@ public class ModelLibraryValidator extends AbstractModelLibraryRunner {
 		return code[0] + code[1];
 	}
 
+	/**
+	 * Validate.
+	 *
+	 * @param builder the builder
+	 * @param countOfModelsValidated the count of models validated
+	 * @param returnCode the return code
+	 * @param pathToModel the path to model
+	 */
 	private void validate(final GamlModelBuilder builder, final int[] countOfModelsValidated, final int[] returnCode,
 			final URL pathToModel) {
 		final List<GamlCompilationError> errors = new ArrayList<>();
@@ -97,6 +122,11 @@ public class ModelLibraryValidator extends AbstractModelLibraryRunner {
 		});
 	}
 
+	/**
+	 * Gets the single instance of ModelLibraryValidator.
+	 *
+	 * @return single instance of ModelLibraryValidator
+	 */
 	public static ModelLibraryValidator getInstance() {
 		if (instance == null) { instance = new ModelLibraryValidator(); }
 		return instance;

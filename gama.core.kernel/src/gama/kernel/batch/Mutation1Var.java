@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gama.kernel.batch.Mutation1Var.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
- * 
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * Mutation1Var.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -16,8 +16,14 @@ import gama.kernel.experiment.IParameter;
 import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 
+/**
+ * The Class Mutation1Var.
+ */
 public class Mutation1Var implements Mutation {
 
+	/**
+	 * Instantiates a new mutation 1 var.
+	 */
 	public Mutation1Var() {
 	}
 

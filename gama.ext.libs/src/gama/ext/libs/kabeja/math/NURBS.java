@@ -1,30 +1,46 @@
-/*
-   Copyright 2008 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * NURBS.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.math;
 
 import gama.ext.libs.kabeja.dxf.helpers.Point;
 
 
+/**
+ * The Class NURBS.
+ */
 public class NURBS {
+    
+    /** The control points. */
     protected Point[] controlPoints;
+    
+    /** The knots. */
     protected double[] knots;
+    
+    /** The weights. */
     protected double[] weights;
+    
+    /** The degree. */
     protected int degree;
+    
+    /** The closed. */
     protected boolean closed = false;
 
+    /**
+     * Instantiates a new nurbs.
+     *
+     * @param controlPoints the control points
+     * @param knots the knots
+     * @param weights the weights
+     * @param degree the degree
+     */
     public NURBS(Point[] controlPoints, double[] knots, double[] weights,
         int degree) {
         this.controlPoints = controlPoints;
@@ -45,6 +61,13 @@ public class NURBS {
         }
     }
 
+    /**
+     * Gets the basic functions.
+     *
+     * @param i the i
+     * @param u the u
+     * @return the basic functions
+     */
     public double[] getBasicFunctions(int i, double u) {
         double[] n = new double[degree + 1];
         n[0] = 1.0;
@@ -70,6 +93,13 @@ public class NURBS {
         return n;
     }
 
+    /**
+     * Gets the point at.
+     *
+     * @param i the i
+     * @param u the u
+     * @return the point at
+     */
     public Point getPointAt(int i, double u) {
         Point p = new Point();
         double[] n = this.getBasicFunctions(i, u);
@@ -93,12 +123,24 @@ public class NURBS {
         return p;
     }
 
+    /**
+     * Gets the point at.
+     *
+     * @param u the u
+     * @return the point at
+     */
     public Point getPointAt(double u) {
         int interval = this.findSpawnIndex(u);
 
         return this.getPointAt(interval, u);
     }
 
+    /**
+     * Find spawn index.
+     *
+     * @param u the u
+     * @return the int
+     */
     public int findSpawnIndex(double u) {
         if (u == this.knots[this.controlPoints.length + 1]) {
             return this.controlPoints.length;
@@ -121,42 +163,92 @@ public class NURBS {
         return mid;
     }
 
+    /**
+     * Gets the control points.
+     *
+     * @return the control points
+     */
     public Point[] getControlPoints() {
         return controlPoints;
     }
 
+    /**
+     * Sets the control points.
+     *
+     * @param controlPoints the new control points
+     */
     public void setControlPoints(Point[] controlPoints) {
         this.controlPoints = controlPoints;
     }
 
+    /**
+     * Gets the knots.
+     *
+     * @return the knots
+     */
     public double[] getKnots() {
         return knots;
     }
 
+    /**
+     * Sets the knots.
+     *
+     * @param knots the new knots
+     */
     public void setKnots(double[] knots) {
         this.knots = knots;
     }
 
+    /**
+     * Gets the weights.
+     *
+     * @return the weights
+     */
     public double[] getWeights() {
         return weights;
     }
 
+    /**
+     * Sets the weights.
+     *
+     * @param weights the new weights
+     */
     public void setWeights(double[] weights) {
         this.weights = weights;
     }
 
+    /**
+     * Gets the degree.
+     *
+     * @return the degree
+     */
     public int getDegree() {
         return degree;
     }
 
+    /**
+     * Sets the degree.
+     *
+     * @param degree the new degree
+     */
     public void setDegree(int degree) {
         this.degree = degree;
     }
 
+    /**
+     * Checks if is closed.
+     *
+     * @return true, if is closed
+     */
     public boolean isClosed() {
         return closed;
     }
 
+    /**
+     * Sets the closed.
+     *
+     * @param closed the new closed
+     */
     public void setClosed(boolean closed) {
         this.closed = closed;
     }

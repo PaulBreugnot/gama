@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gaml.skills.GridSkill.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * GridSkill.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -27,10 +27,9 @@ import gama.util.IList;
 import gaml.types.IType;
 
 /**
- * Written by drogoul Modified on 24 juin 2010
+ * Written by drogoul Modified on 24 juin 2010.
  *
  * @todo Description
- *
  */
 @vars ({ @variable (
 		name = IKeyword.COLOR,
@@ -67,36 +66,99 @@ import gaml.types.IType;
 		internal = true)
 public class GridSkill extends Skill {
 
+	/**
+	 * The Interface IGridAgent.
+	 */
 	public static interface IGridAgent extends IAgent {
 
+		/**
+		 * Gets the color.
+		 *
+		 * @return the color
+		 */
 		public GamaColor getColor();
 
+		/**
+		 * Sets the color.
+		 *
+		 * @param color the new color
+		 */
 		public void setColor(final GamaColor color);
 
+		/**
+		 * Gets the x.
+		 *
+		 * @return the x
+		 */
 		public int getX();
 
+		/**
+		 * Gets the y.
+		 *
+		 * @return the y
+		 */
 		public int getY();
 
+		/**
+		 * Gets the value.
+		 *
+		 * @return the value
+		 */
 		public double getValue();
 
+		/**
+		 * Gets the bands.
+		 *
+		 * @return the bands
+		 */
 		public IList<Double> getBands();
 
+		/**
+		 * Gets the neighbors.
+		 *
+		 * @param scope the scope
+		 * @return the neighbors
+		 */
 		public IList<IAgent> getNeighbors(IScope scope);
 
+		/**
+		 * Sets the value.
+		 *
+		 * @param d the new value
+		 */
 		public void setValue(final double d);
 	}
 
+	/** The Constant SKILL_NAME. */
 	public static final String SKILL_NAME = "grid";
 
+	/**
+	 * Gets the grid.
+	 *
+	 * @param agent the agent
+	 * @return the grid
+	 */
 	protected final IGrid getGrid(final IAgent agent) {
 		return (IGrid) agent.getPopulation().getTopology().getPlaces();
 	}
 
+	/**
+	 * Gets the x.
+	 *
+	 * @param agent the agent
+	 * @return the x
+	 */
 	@getter ("grid_x")
 	public final int getX(final IAgent agent) {
 		return ((IGridAgent) agent).getX();
 	}
 
+	/**
+	 * Gets the value.
+	 *
+	 * @param agent the agent
+	 * @return the value
+	 */
 	@getter (
 			value = "grid_value",
 			initializer = true)
@@ -104,6 +166,12 @@ public class GridSkill extends Skill {
 		return ((IGridAgent) agent).getValue();
 	}
 
+	/**
+	 * Gets the bands.
+	 *
+	 * @param agent the agent
+	 * @return the bands
+	 */
 	@getter (
 			value = "bands",
 			initializer = true)
@@ -111,22 +179,52 @@ public class GridSkill extends Skill {
 		return ((IGridAgent) agent).getBands();
 	}
 
+	/**
+	 * Gets the y.
+	 *
+	 * @param agent the agent
+	 * @return the y
+	 */
 	@getter ("grid_y")
 	public final int getY(final IAgent agent) {
 		return ((IGridAgent) agent).getY();
 	}
 
+	/**
+	 * Sets the X.
+	 *
+	 * @param agent the agent
+	 * @param i the i
+	 */
 	@setter ("grid_x")
 	public final void setX(final IAgent agent, final Integer i) {}
 
+	/**
+	 * Sets the value.
+	 *
+	 * @param agent the agent
+	 * @param d the d
+	 */
 	@setter ("grid_value")
 	public final void setValue(final IAgent agent, final Double d) {
 		((IGridAgent) agent).setValue(d);
 	}
 
+	/**
+	 * Sets the Y.
+	 *
+	 * @param agent the agent
+	 * @param i the i
+	 */
 	@setter ("grid_y")
 	public final void setY(final IAgent agent, final Integer i) {}
 
+	/**
+	 * Gets the color.
+	 *
+	 * @param agent the agent
+	 * @return the color
+	 */
 	@getter (
 			value = "color",
 			initializer = true)
@@ -134,11 +232,24 @@ public class GridSkill extends Skill {
 		return ((IGridAgent) agent).getColor();
 	}
 
+	/**
+	 * Sets the color.
+	 *
+	 * @param agent the agent
+	 * @param color the color
+	 */
 	@setter ("color")
 	public void setColor(final IAgent agent, final GamaColor color) {
 		((IGridAgent) agent).setColor(color);
 	}
 
+	/**
+	 * Gets the neighbors.
+	 *
+	 * @param scope the scope
+	 * @param agent the agent
+	 * @return the neighbors
+	 */
 	@getter (
 			value = IKeyword.NEIGHBORS,
 			initializer = true)

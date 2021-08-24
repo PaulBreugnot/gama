@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * GenStarGamaUtils.java, in gama.ext.genstar, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.genstar.utils;
 
 import java.io.FileNotFoundException;
@@ -26,12 +36,16 @@ import gama.util.file.GamaCSVFile;
 import gaml.types.IType;
 import gospl.algo.IGosplConcept;
 
+/**
+ * The Class GenStarGamaUtils.
+ */
 public class GenStarGamaUtils {
 	
 	/**
-	 * The spatial distribution available in the Genstar API
-	 * @param distribution
-	 * @return
+	 * The spatial distribution available in the Genstar API.
+	 *
+	 * @param distribution the distribution
+	 * @return the spatial distribution
 	 */
 	public static SpatialDistribution toSpatialDistribution(String distribution) {
 		if(SpatialDistribution.AREA.getMatch(distribution))
@@ -44,9 +58,10 @@ public class GenStarGamaUtils {
 	}
 	
 	/**
-	 * The generation algorithm given by the Genstar API
-	 * @param algo
-	 * @return
+	 * The generation algorithm given by the Genstar API.
+	 *
+	 * @param algo the algo
+	 * @return the i gospl concept. E gospl algorithm
 	 */
 	public static IGosplConcept.EGosplAlgorithm toGosplAlgorithm(String algo){
 		if (GenerationAlgorithm.DIRECTSAMPLING.getMatch(algo))
@@ -59,10 +74,11 @@ public class GenStarGamaUtils {
 	}
 	
 	/**
-	 * Gives the Genstar type from a Gama type
-	 * @param type
-	 * @param ordered
-	 * @return
+	 * Gives the Genstar type from a Gama type.
+	 *
+	 * @param type the type
+	 * @param ordered the ordered
+	 * @return the GS enum data type
 	 */
 	@SuppressWarnings("rawtypes")
 	public static GSEnumDataType toDataType(final IType type, final boolean ordered) {
@@ -81,9 +97,10 @@ public class GenStarGamaUtils {
 	}
 	
 	/**
-	 * Get Genstar API Survey type enum representation
-	 * @param type
-	 * @return
+	 * Get Genstar API Survey type enum representation.
+	 *
+	 * @param type the type
+	 * @return the GS survey type
 	 */
 	public static GSSurveyType toSurveyType(String type) {
 		if (InputDataType.CONTINGENCY.getMatch(type))
@@ -98,11 +115,12 @@ public class GenStarGamaUtils {
 	}
 	
 	/**
-	 * Get a @GSSurveyWrapper from a gama csv file
-	 * 
-	 * @param scope
-	 * @param survey
-	 * @return
+	 * Get a @GSSurveyWrapper from a gama csv file.
+	 *
+	 * @param scope the scope
+	 * @param survey the survey
+	 * @param atts the atts
+	 * @return the GS survey wrapper
 	 */
 	public static GSSurveyWrapper toSurveyWrapper(IScope scope, GamaCSVFile survey, List<Attribute<? extends IValue>> atts) {
 		GenStarGamaSurveyUtils gsg = null;
@@ -119,9 +137,10 @@ public class GenStarGamaUtils {
 	 * Retrieve (smartly) the type of data from the data itself
 	 * 
 	 * TODO : find something specific for samples, e.g. the case where every attribute of agent is a int proxy value
-	 * 
-	 * @param survey
-	 * @return
+	 *
+	 * @param scope the scope
+	 * @param gsg the gsg
+	 * @return the GS survey type
 	 */
 	public static GSSurveyType inferSurveyType(IScope scope, GenStarGamaSurveyUtils gsg) {
 		switch (gsg.inferDataType().id()) {
@@ -143,11 +162,12 @@ public class GenStarGamaUtils {
 	}
 	
 	/**
-	 * From a Genstar value to a Gama value
-	 * @param scope
-	 * @param val
-	 * @param checkEmpty
-	 * @return
+	 * From a Genstar value to a Gama value.
+	 *
+	 * @param scope the scope
+	 * @param val the val
+	 * @param checkEmpty the check empty
+	 * @return the object
 	 */
 	public static Object toGAMAValue(IScope scope, IValue val, boolean checkEmpty) {
 		GSEnumDataType type= val.getType();
@@ -170,15 +190,25 @@ public class GenStarGamaUtils {
 	}
 	
 	/**
-	 * ???
-	 * @param val
-	 * @return
+	 * ???.
+	 *
+	 * @param val the val
+	 * @return the gama range
 	 */
 	static GamaRange toGAMARange(IValue val) {
 		RangeValue rVal = (RangeValue) val;
 		return new GamaRange(rVal.getBottomBound().doubleValue(), rVal.getTopBound().doubleValue());
 	}
 
+	/**
+	 * To GAMA value.
+	 *
+	 * @param scope the scope
+	 * @param valueForAttribute the value for attribute
+	 * @param checkEmpty the check empty
+	 * @param type the type
+	 * @return the object
+	 */
 	@SuppressWarnings("rawtypes")
 	public static Object toGAMAValue(IScope scope, IValue valueForAttribute, boolean checkEmpty, IType type) {
 		Object gamaValue = toGAMAValue(scope, valueForAttribute, checkEmpty);
@@ -188,6 +218,11 @@ public class GenStarGamaUtils {
 		return gamaValue;
 	}
 
+	/**
+	 * Gets the gama generator.
+	 *
+	 * @return the gama generator
+	 */
 	public static IGenstarGenerator[] getGamaGenerator() {
 		
 		return new IGenstarGenerator[] {

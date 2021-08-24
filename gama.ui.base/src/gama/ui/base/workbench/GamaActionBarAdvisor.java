@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * GamaActionBarAdvisor.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.workbench;
 
 import java.util.List;
@@ -35,42 +45,77 @@ import gama.ui.base.interfaces.IIconProvider;
 import gama.ui.base.interfaces.IPreferenceHelper;
 import gama.ui.base.interfaces.IWebHelper;
 
+/**
+ * The Class GamaActionBarAdvisor.
+ */
 public class GamaActionBarAdvisor extends ActionBarAdvisor {
 
+	/** The window. */
 	final IWorkbenchWindow window;
 
 	// generic actions
 
+	/** The hide show editor action. */
 	private IWorkbenchAction hideShowEditorAction;
+	
+	/** The close action. */
 	private IWorkbenchAction closeAction;
+	
+	/** The close all action. */
 	private IWorkbenchAction closeAllAction;
+	
+	/** The save action. */
 	private IWorkbenchAction saveAction;
+	
+	/** The save all action. */
 	private IWorkbenchAction saveAllAction;
+	
+	/** The help contents action. */
 	private IWorkbenchAction helpContentsAction;
+	
+	/** The about action. */
 	private IWorkbenchAction aboutAction;
+	
+	/** The open preferences action. */
 	private IWorkbenchAction openPreferencesAction;
+	
+	/** The save as action. */
 	private IWorkbenchAction saveAsAction;
+	
+	/** The backward history action. */
 	private IWorkbenchAction backwardHistoryAction;
+	
+	/** The forward history action. */
 	private IWorkbenchAction forwardHistoryAction;
 
+	/** The undo action. */
 	// generic retarget actions
 	private IWorkbenchAction undoAction;
+	
+	/** The redo action. */
 	private IWorkbenchAction redoAction;
+	
+	/** The quit action. */
 	private IWorkbenchAction quitAction;
 
+	/** The open workspace action. */
 	// IDE-specific actions
 	private IWorkbenchAction openWorkspaceAction;
+	
+	/** The project property dialog action. */
 	private IWorkbenchAction projectPropertyDialogAction;
 
+	/** The new wizard menu. */
 	private BaseNewWizardMenu newWizardMenu;
 
+	/** The status line item. */
 	// @issue class is workbench internal
 	private StatusLineContributionItem statusLineItem;
 
-	/**
-	 * Indicates if the action builder has been disposed
-	 */
+	/** Indicates if the action builder has been disposed. */
 	private boolean isDisposed = false;
+	
+	/** The icons. */
 	final IIconProvider icons;
 
 	/**
@@ -87,6 +132,8 @@ public class GamaActionBarAdvisor extends ActionBarAdvisor {
 
 	/**
 	 * Returns the window to which this action builder is contributing.
+	 *
+	 * @return the window
 	 */
 	private IWorkbenchWindow getWindow() {
 		return window;
@@ -105,6 +152,8 @@ public class GamaActionBarAdvisor extends ActionBarAdvisor {
 
 	/**
 	 * Creates and returns the File menu.
+	 *
+	 * @return the menu manager
 	 */
 	private MenuManager createFileMenu() {
 		final MenuManager menu = new MenuManager(IDEWorkbenchMessages.Workbench_file, IWorkbenchActionConstants.M_FILE);
@@ -176,6 +225,8 @@ public class GamaActionBarAdvisor extends ActionBarAdvisor {
 
 	/**
 	 * Creates and returns the Edit menu.
+	 *
+	 * @return the menu manager
 	 */
 	private MenuManager createEditMenu() {
 		final MenuManager menu = new MenuManager(IDEWorkbenchMessages.Workbench_edit, IWorkbenchActionConstants.M_EDIT);
@@ -203,6 +254,8 @@ public class GamaActionBarAdvisor extends ActionBarAdvisor {
 
 	/**
 	 * Creates and returns the Help menu.
+	 *
+	 * @return the menu manager
 	 */
 	private MenuManager createHelpMenu() {
 		final MenuManager menu = new MenuManager(IDEWorkbenchMessages.Workbench_help, IWorkbenchActionConstants.M_HELP);
@@ -331,33 +384,64 @@ public class GamaActionBarAdvisor extends ActionBarAdvisor {
 		register(hideShowEditorAction);
 	}
 
+	/**
+	 * Creates the property dialog action.
+	 *
+	 * @param aWindow the a window
+	 */
 	public void createPropertyDialogAction(final IWorkbenchWindow aWindow) {
 		projectPropertyDialogAction = IDEActionFactory.OPEN_PROJECT_PROPERTIES.create(aWindow);
 		register(projectPropertyDialogAction);
 	}
 
+	/**
+	 * Creates the open workspace action.
+	 *
+	 * @param aWindow the a window
+	 */
 	public void createOpenWorkspaceAction(final IWorkbenchWindow aWindow) {
 		openWorkspaceAction = IDEActionFactory.OPEN_WORKSPACE.create(aWindow);
 		register(openWorkspaceAction);
 	}
 
+	/**
+	 * Creates the quit action.
+	 *
+	 * @param aWindow the a window
+	 */
 	public void createQuitAction(final IWorkbenchWindow aWindow) {
 		quitAction = ActionFactory.QUIT.create(aWindow);
 		register(quitAction);
 	}
 
+	/**
+	 * Creates the backward history action.
+	 *
+	 * @param aWindow the a window
+	 */
 	public void createBackwardHistoryAction(final IWorkbenchWindow aWindow) {
 		backwardHistoryAction = ActionFactory.BACKWARD_HISTORY.create(aWindow);
 		register(backwardHistoryAction);
 	}
 
+	/**
+	 * Creates the forward history action.
+	 *
+	 * @param aWindow the a window
+	 */
 	public void createForwardHistoryAction(final IWorkbenchWindow aWindow) {
 		forwardHistoryAction = ActionFactory.FORWARD_HISTORY.create(aWindow);
 		register(forwardHistoryAction);
 	}
 
+	/**
+	 * The Class OpenPreferencesAction.
+	 */
 	private class OpenPreferencesAction extends Action implements IWorkbenchAction {
 
+		/**
+		 * Instantiates a new open preferences action.
+		 */
 		OpenPreferencesAction() {
 			super(WorkbenchMessages.OpenPreferences_text);
 			setId("preferences");
@@ -377,19 +461,35 @@ public class GamaActionBarAdvisor extends ActionBarAdvisor {
 
 	}
 
+	/**
+	 * Creates the open preferences action.
+	 *
+	 * @param aWindow the a window
+	 */
 	public void createOpenPreferencesAction(final IWorkbenchWindow aWindow) {
 		openPreferencesAction = new OpenPreferencesAction();
 		register(openPreferencesAction);
 	}
 
+	/**
+	 * Creates the about action.
+	 *
+	 * @param aWindow the a window
+	 */
 	public void createAboutAction(final IWorkbenchWindow aWindow) {
 		aboutAction = ActionFactory.ABOUT.create(aWindow);
 		aboutAction.setImageDescriptor(icons.desc("menu.about2"));
 		register(aboutAction);
 	}
 
+	/**
+	 * The Class HelpContentsAction.
+	 */
 	private class HelpContentsAction extends Action implements IWorkbenchAction {
 
+		/**
+		 * Instantiates a new help contents action.
+		 */
 		HelpContentsAction() {
 			setActionDefinitionId(IWorkbenchCommandConstants.HELP_HELP_CONTENTS);
 			setId("helpContents");
@@ -409,41 +509,81 @@ public class GamaActionBarAdvisor extends ActionBarAdvisor {
 
 	}
 
+	/**
+	 * Creates the help contents action.
+	 *
+	 * @param aWindow the a window
+	 */
 	public void createHelpContentsAction(final IWorkbenchWindow aWindow) {
 		helpContentsAction = new HelpContentsAction();
 		register(helpContentsAction);
 	}
 
+	/**
+	 * Creates the close all action.
+	 *
+	 * @param aWindow the a window
+	 */
 	public void createCloseAllAction(final IWorkbenchWindow aWindow) {
 		closeAllAction = ActionFactory.CLOSE_ALL.create(aWindow);
 		register(closeAllAction);
 	}
 
+	/**
+	 * Creates the close action.
+	 *
+	 * @param aWindow the a window
+	 */
 	public void createCloseAction(final IWorkbenchWindow aWindow) {
 		closeAction = ActionFactory.CLOSE.create(aWindow);
 		register(closeAction);
 	}
 
+	/**
+	 * Creates the redo action.
+	 *
+	 * @param aWindow the a window
+	 */
 	public void createRedoAction(final IWorkbenchWindow aWindow) {
 		redoAction = ActionFactory.REDO.create(aWindow);
 		register(redoAction);
 	}
 
+	/**
+	 * Creates the save action.
+	 *
+	 * @param aWindow the a window
+	 */
 	public void createSaveAction(final IWorkbenchWindow aWindow) {
 		saveAction = ActionFactory.SAVE.create(aWindow);
 		register(saveAction);
 	}
 
+	/**
+	 * Creates the save as action.
+	 *
+	 * @param aWindow the a window
+	 */
 	public void createSaveAsAction(final IWorkbenchWindow aWindow) {
 		saveAsAction = ActionFactory.SAVE_AS.create(aWindow);
 		register(saveAsAction);
 	}
 
+	/**
+	 * Creates the save all action.
+	 *
+	 * @param aWindow the a window
+	 */
 	public void createSaveAllAction(final IWorkbenchWindow aWindow) {
 		saveAllAction = ActionFactory.SAVE_ALL.create(aWindow);
 		register(saveAllAction);
 	}
 
+	/**
+	 * Creates the undo action.
+	 *
+	 * @param aWindow the a window
+	 */
 	public void createUndoAction(final IWorkbenchWindow aWindow) {
 		undoAction = ActionFactory.UNDO.create(aWindow);
 		register(undoAction);
@@ -451,6 +591,8 @@ public class GamaActionBarAdvisor extends ActionBarAdvisor {
 
 	/**
 	 * Creates the feature-dependent actions for the menu bar.
+	 *
+	 * @param aWindow the a window
 	 */
 	private void makeFeatureDependentActions(final IWorkbenchWindow aWindow) {
 		// final AboutInfo[] infos = null;
@@ -468,36 +610,71 @@ public class GamaActionBarAdvisor extends ActionBarAdvisor {
 		}
 	}
 
+	/**
+	 * Gets the cut item.
+	 *
+	 * @return the cut item
+	 */
 	private IContributionItem getCutItem() {
 		return getItem(ActionFactory.CUT.getId(), ActionFactory.CUT.getCommandId(), "menu.cut2", null,
 			WorkbenchMessages.Workbench_cut, WorkbenchMessages.Workbench_cutToolTip, null);
 	}
 
+	/**
+	 * Gets the copy item.
+	 *
+	 * @return the copy item
+	 */
 	private IContributionItem getCopyItem() {
 		return getItem(ActionFactory.COPY.getId(), ActionFactory.COPY.getCommandId(), "menu.copy2", null,
 			WorkbenchMessages.Workbench_copy, WorkbenchMessages.Workbench_copyToolTip, null);
 	}
 
+	/**
+	 * Gets the paste item.
+	 *
+	 * @return the paste item
+	 */
 	private IContributionItem getPasteItem() {
 		return getItem(ActionFactory.PASTE.getId(), ActionFactory.PASTE.getCommandId(), "menu.paste2", null,
 			WorkbenchMessages.Workbench_paste, WorkbenchMessages.Workbench_pasteToolTip, null);
 	}
 
+	/**
+	 * Gets the prints the item.
+	 *
+	 * @return the prints the item
+	 */
 	private IContributionItem getPrintItem() {
 		return getItem(ActionFactory.PRINT.getId(), ActionFactory.PRINT.getCommandId(), "menu.print2", null,
 			WorkbenchMessages.Workbench_print, WorkbenchMessages.Workbench_printToolTip, null);
 	}
 
+	/**
+	 * Gets the select all item.
+	 *
+	 * @return the select all item
+	 */
 	private IContributionItem getSelectAllItem() {
 		return getItem(ActionFactory.SELECT_ALL.getId(), ActionFactory.SELECT_ALL.getCommandId(), "action.selectall2",
 			null, WorkbenchMessages.Workbench_selectAll, WorkbenchMessages.Workbench_selectAllToolTip, null);
 	}
 
+	/**
+	 * Gets the find item.
+	 *
+	 * @return the find item
+	 */
 	private IContributionItem getFindItem() {
 		return getItem(ActionFactory.FIND.getId(), ActionFactory.FIND.getCommandId(), null, null,
 			WorkbenchMessages.Workbench_findReplace, WorkbenchMessages.Workbench_findReplaceToolTip, null);
 	}
 
+	/**
+	 * Gets the delete item.
+	 *
+	 * @return the delete item
+	 */
 	private IContributionItem getDeleteItem() {
 		return getItem(ActionFactory.DELETE.getId(), ActionFactory.DELETE.getCommandId(), "menu.delete2", null,
 			WorkbenchMessages.Workbench_delete, WorkbenchMessages.Workbench_deleteToolTip,
@@ -509,27 +686,59 @@ public class GamaActionBarAdvisor extends ActionBarAdvisor {
 	// WorkbenchMessages.Workbench_revert, WorkbenchMessages.Workbench_revertToolTip, null);
 	// }
 
+	/**
+	 * Gets the refresh item.
+	 *
+	 * @return the refresh item
+	 */
 	private IContributionItem getRefreshItem() {
 		return getItem(ActionFactory.REFRESH.getId(), ActionFactory.REFRESH.getCommandId(),
 			"navigator/navigator.refresh2", null, WorkbenchMessages.Workbench_refresh,
 			WorkbenchMessages.Workbench_refreshToolTip, null);
 	}
 
+	/**
+	 * Gets the properties item.
+	 *
+	 * @return the properties item
+	 */
 	private IContributionItem getPropertiesItem() {
 		return getItem(ActionFactory.PROPERTIES.getId(), ActionFactory.PROPERTIES.getCommandId(), "display.sidebar2",
 			null, WorkbenchMessages.Workbench_properties, WorkbenchMessages.Workbench_propertiesToolTip, null);
 	}
 
+	/**
+	 * Gets the move item.
+	 *
+	 * @return the move item
+	 */
 	private IContributionItem getMoveItem() {
 		return getItem(ActionFactory.MOVE.getId(), ActionFactory.MOVE.getCommandId(), "navigator/navigator.move2", null,
 			WorkbenchMessages.Workbench_move, WorkbenchMessages.Workbench_moveToolTip, null);
 	}
 
+	/**
+	 * Gets the rename item.
+	 *
+	 * @return the rename item
+	 */
 	private IContributionItem getRenameItem() {
 		return getItem(ActionFactory.RENAME.getId(), ActionFactory.RENAME.getCommandId(), "navigator/navigator.rename2",
 			null, WorkbenchMessages.Workbench_rename, WorkbenchMessages.Workbench_renameToolTip, null);
 	}
 
+	/**
+	 * Gets the item.
+	 *
+	 * @param actionId the action id
+	 * @param commandId the command id
+	 * @param image the image
+	 * @param disabledImage the disabled image
+	 * @param label the label
+	 * @param tooltip the tooltip
+	 * @param helpContextId the help context id
+	 * @return the item
+	 */
 	private IContributionItem getItem(final String actionId, final String commandId, final String image,
 		final String disabledImage, final String label, final String tooltip, final String helpContextId) {
 

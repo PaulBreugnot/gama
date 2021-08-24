@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.types.GamaBoolType.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * GamaBoolType.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.types;
 
@@ -23,10 +23,9 @@ import gama.runtime.exceptions.GamaRuntimeException;
 import gama.util.IContainer;
 
 /**
- * Written by drogoul Modified on 1 ao�t 2010
+ * Written by drogoul Modified on 1 ao�t 2010.
  *
  * @todo Description
- *
  */
 @SuppressWarnings ("unchecked")
 @type (
@@ -45,6 +44,15 @@ public class GamaBoolType extends GamaType<Boolean> {
 		return staticCast(scope, obj, param, copy);
 	}
 
+	/**
+	 * Static cast.
+	 *
+	 * @param scope the scope
+	 * @param obj the obj
+	 * @param param the param
+	 * @param copy the copy
+	 * @return the boolean
+	 */
 	@SuppressWarnings ("rawtypes")
 	public static Boolean staticCast(final IScope scope, final Object obj, final Object param, final boolean copy) {
 		if (obj == null) { return false; }

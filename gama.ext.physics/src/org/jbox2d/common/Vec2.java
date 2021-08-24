@@ -1,47 +1,51 @@
-/*******************************************************************************
- * Copyright (c) 2013, Daniel Murphy
- * All rights reserved.
+/*******************************************************************************************************
+ *
+ * Vec2.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
- * 	* Redistributions of source code must retain the above copyright notice,
- * 	  this list of conditions and the following disclaimer.
- * 	* Redistributions in binary form must reproduce the above copyright notice,
- * 	  this list of conditions and the following disclaimer in the documentation
- * 	  and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
- * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
- * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
- * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- ******************************************************************************/
+ ********************************************************************************************************/
 package org.jbox2d.common;
 
 import java.io.Serializable;
 
 /**
- * A 2D column vector
+ * A 2D column vector.
  */
 public class Vec2 implements Serializable {
+  
+  /** The Constant serialVersionUID. */
   private static final long serialVersionUID = 1L;
 
+  /** The y. */
   public float x, y;
 
+  /**
+   * Instantiates a new vec 2.
+   */
   public Vec2() {
     this(0, 0);
   }
 
+  /**
+   * Instantiates a new vec 2.
+   *
+   * @param x the x
+   * @param y the y
+   */
   public Vec2(float x, float y) {
     this.x = x;
     this.y = y;
   }
 
+  /**
+   * Instantiates a new vec 2.
+   *
+   * @param toCopy the to copy
+   */
   public Vec2(Vec2 toCopy) {
     this(toCopy.x, toCopy.y);
   }
@@ -52,99 +56,174 @@ public class Vec2 implements Serializable {
     y = 0.0f;
   }
 
-  /** Set the vector component-wise. */
+  /**
+   *  Set the vector component-wise.
+   *
+   * @param x the x
+   * @param y the y
+   * @return the vec 2
+   */
   public final Vec2 set(float x, float y) {
     this.x = x;
     this.y = y;
     return this;
   }
 
-  /** Set this vector to another vector. */
+  /**
+   *  Set this vector to another vector.
+   *
+   * @param v the v
+   * @return the vec 2
+   */
   public final Vec2 set(Vec2 v) {
     this.x = v.x;
     this.y = v.y;
     return this;
   }
 
-  /** Return the sum of this vector and another; does not alter either one. */
+  /**
+   *  Return the sum of this vector and another; does not alter either one.
+   *
+   * @param v the v
+   * @return the vec 2
+   */
   public final Vec2 add(Vec2 v) {
     return new Vec2(x + v.x, y + v.y);
   }
 
 
 
-  /** Return the difference of this vector and another; does not alter either one. */
+  /**
+   *  Return the difference of this vector and another; does not alter either one.
+   *
+   * @param v the v
+   * @return the vec 2
+   */
   public final Vec2 sub(Vec2 v) {
     return new Vec2(x - v.x, y - v.y);
   }
 
-  /** Return this vector multiplied by a scalar; does not alter this vector. */
+  /**
+   *  Return this vector multiplied by a scalar; does not alter this vector.
+   *
+   * @param a the a
+   * @return the vec 2
+   */
   public final Vec2 mul(float a) {
     return new Vec2(x * a, y * a);
   }
 
-  /** Return the negation of this vector; does not alter this vector. */
+  /**
+   *  Return the negation of this vector; does not alter this vector.
+   *
+   * @return the vec 2
+   */
   public final Vec2 negate() {
     return new Vec2(-x, -y);
   }
 
-  /** Flip the vector and return it - alters this vector. */
+  /**
+   *  Flip the vector and return it - alters this vector.
+   *
+   * @return the vec 2
+   */
   public final Vec2 negateLocal() {
     x = -x;
     y = -y;
     return this;
   }
 
-  /** Add another vector to this one and returns result - alters this vector. */
+  /**
+   *  Add another vector to this one and returns result - alters this vector.
+   *
+   * @param v the v
+   * @return the vec 2
+   */
   public final Vec2 addLocal(Vec2 v) {
     x += v.x;
     y += v.y;
     return this;
   }
 
-  /** Adds values to this vector and returns result - alters this vector. */
+  /**
+   *  Adds values to this vector and returns result - alters this vector.
+   *
+   * @param x the x
+   * @param y the y
+   * @return the vec 2
+   */
   public final Vec2 addLocal(float x, float y) {
     this.x += x;
     this.y += y;
     return this;
   }
 
-  /** Subtract another vector from this one and return result - alters this vector. */
+  /**
+   *  Subtract another vector from this one and return result - alters this vector.
+   *
+   * @param v the v
+   * @return the vec 2
+   */
   public final Vec2 subLocal(Vec2 v) {
     x -= v.x;
     y -= v.y;
     return this;
   }
 
-  /** Multiply this vector by a number and return result - alters this vector. */
+  /**
+   *  Multiply this vector by a number and return result - alters this vector.
+   *
+   * @param a the a
+   * @return the vec 2
+   */
   public final Vec2 mulLocal(float a) {
     x *= a;
     y *= a;
     return this;
   }
 
-  /** Get the skew vector such that dot(skew_vec, other) == cross(vec, other) */
+  /**
+   *  Get the skew vector such that dot(skew_vec, other) == cross(vec, other).
+   *
+   * @return the vec 2
+   */
   public final Vec2 skew() {
     return new Vec2(-y, x);
   }
 
-  /** Get the skew vector such that dot(skew_vec, other) == cross(vec, other) */
+  /**
+   *  Get the skew vector such that dot(skew_vec, other) == cross(vec, other).
+   *
+   * @param out the out
+   */
   public final void skew(Vec2 out) {
     out.x = -y;
     out.y = x;
   }
 
-  /** Return the length of this vector. */
+  /**
+   *  Return the length of this vector.
+   *
+   * @return the float
+   */
   public final float length() {
     return MathUtils.sqrt(x * x + y * y);
   }
 
-  /** Return the squared length of this vector. */
+  /**
+   *  Return the squared length of this vector.
+   *
+   * @return the float
+   */
   public final float lengthSquared() {
     return (x * x + y * y);
   }
 
-  /** Normalize this vector and return the length before normalization. Alters this vector. */
+  /**
+   *  Normalize this vector and return the length before normalization. Alters this vector.
+   *
+   * @return the float
+   */
   public final float normalize() {
     float length = length();
     if (length < Settings.EPSILON) {
@@ -157,16 +236,27 @@ public class Vec2 implements Serializable {
     return length;
   }
 
-  /** True if the vector represents a pair of valid, non-infinite floating point numbers. */
+  /**
+   *  True if the vector represents a pair of valid, non-infinite floating point numbers.
+   *
+   * @return true, if is valid
+   */
   public final boolean isValid() {
     return !Float.isNaN(x) && !Float.isInfinite(x) && !Float.isNaN(y) && !Float.isInfinite(y);
   }
 
-  /** Return a new vector that has positive components. */
+  /**
+   *  Return a new vector that has positive components.
+   *
+   * @return the vec 2
+   */
   public final Vec2 abs() {
     return new Vec2(MathUtils.abs(x), MathUtils.abs(y));
   }
 
+  /**
+   * Abs local.
+   */
   public final void absLocal() {
     x = MathUtils.abs(x);
     y = MathUtils.abs(y);
@@ -187,73 +277,175 @@ public class Vec2 implements Serializable {
    * Static
    */
 
+  /**
+   * Abs.
+   *
+   * @param a the a
+   * @return the vec 2
+   */
   public final static Vec2 abs(Vec2 a) {
     return new Vec2(MathUtils.abs(a.x), MathUtils.abs(a.y));
   }
 
+  /**
+   * Abs to out.
+   *
+   * @param a the a
+   * @param out the out
+   */
   public final static void absToOut(Vec2 a, Vec2 out) {
     out.x = MathUtils.abs(a.x);
     out.y = MathUtils.abs(a.y);
   }
 
+  /**
+   * Dot.
+   *
+   * @param a the a
+   * @param b the b
+   * @return the float
+   */
   public final static float dot(final Vec2 a, final Vec2 b) {
     return a.x * b.x + a.y * b.y;
   }
 
+  /**
+   * Cross.
+   *
+   * @param a the a
+   * @param b the b
+   * @return the float
+   */
   public final static float cross(final Vec2 a, final Vec2 b) {
     return a.x * b.y - a.y * b.x;
   }
 
+  /**
+   * Cross.
+   *
+   * @param a the a
+   * @param s the s
+   * @return the vec 2
+   */
   public final static Vec2 cross(Vec2 a, float s) {
     return new Vec2(s * a.y, -s * a.x);
   }
 
+  /**
+   * Cross to out.
+   *
+   * @param a the a
+   * @param s the s
+   * @param out the out
+   */
   public final static void crossToOut(Vec2 a, float s, Vec2 out) {
     final float tempy = -s * a.x;
     out.x = s * a.y;
     out.y = tempy;
   }
 
+  /**
+   * Cross to out unsafe.
+   *
+   * @param a the a
+   * @param s the s
+   * @param out the out
+   */
   public final static void crossToOutUnsafe(Vec2 a, float s, Vec2 out) {
     assert (out != a);
     out.x = s * a.y;
     out.y = -s * a.x;
   }
 
+  /**
+   * Cross.
+   *
+   * @param s the s
+   * @param a the a
+   * @return the vec 2
+   */
   public final static Vec2 cross(float s, Vec2 a) {
     return new Vec2(-s * a.y, s * a.x);
   }
 
+  /**
+   * Cross to out.
+   *
+   * @param s the s
+   * @param a the a
+   * @param out the out
+   */
   public final static void crossToOut(float s, Vec2 a, Vec2 out) {
     final float tempY = s * a.x;
     out.x = -s * a.y;
     out.y = tempY;
   }
 
+  /**
+   * Cross to out unsafe.
+   *
+   * @param s the s
+   * @param a the a
+   * @param out the out
+   */
   public final static void crossToOutUnsafe(float s, Vec2 a, Vec2 out) {
     assert (out != a);
     out.x = -s * a.y;
     out.y = s * a.x;
   }
 
+  /**
+   * Negate to out.
+   *
+   * @param a the a
+   * @param out the out
+   */
   public final static void negateToOut(Vec2 a, Vec2 out) {
     out.x = -a.x;
     out.y = -a.y;
   }
 
+  /**
+   * Min.
+   *
+   * @param a the a
+   * @param b the b
+   * @return the vec 2
+   */
   public final static Vec2 min(Vec2 a, Vec2 b) {
     return new Vec2(a.x < b.x ? a.x : b.x, a.y < b.y ? a.y : b.y);
   }
 
+  /**
+   * Max.
+   *
+   * @param a the a
+   * @param b the b
+   * @return the vec 2
+   */
   public final static Vec2 max(Vec2 a, Vec2 b) {
     return new Vec2(a.x > b.x ? a.x : b.x, a.y > b.y ? a.y : b.y);
   }
 
+  /**
+   * Min to out.
+   *
+   * @param a the a
+   * @param b the b
+   * @param out the out
+   */
   public final static void minToOut(Vec2 a, Vec2 b, Vec2 out) {
     out.x = a.x < b.x ? a.x : b.x;
     out.y = a.y < b.y ? a.y : b.y;
   }
 
+  /**
+   * Max to out.
+   *
+   * @param a the a
+   * @param b the b
+   * @param out the out
+   */
   public final static void maxToOut(Vec2 a, Vec2 b, Vec2 out) {
     out.x = a.x > b.x ? a.x : b.x;
     out.y = a.y > b.y ? a.y : b.y;

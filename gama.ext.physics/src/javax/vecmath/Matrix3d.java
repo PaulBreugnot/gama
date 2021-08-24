@@ -1,22 +1,13 @@
-/*
- * Copyright 1996-2008 Sun Microsystems, Inc. All Rights Reserved. DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE
- * HEADER.
+/*******************************************************************************************************
  *
- * This code is free software; you can redistribute it and/or modify it under the terms of the GNU General Public
- * License version 2 only, as published by the Free Software Foundation. Sun designates this particular file as subject
- * to the "Classpath" exception as provided by Sun in the LICENSE file that accompanied this code.
+ * Matrix3d.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License version 2 for
- * more details (a copy is included in the LICENSE file that accompanied this code).
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * You should have received a copy of the GNU General Public License version 2 along with this work; if not, write to
- * the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
- *
- * Please contact Sun Microsystems, Inc., 4150 Network Circle, Santa Clara, CA 95054 USA or visit www.sun.com if you
- * need additional information or have any questions.
- *
- */
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package javax.vecmath;
 
@@ -26,6 +17,7 @@ package javax.vecmath;
  */
 public class Matrix3d implements java.io.Serializable, Cloneable {
 
+	/** The Constant serialVersionUID. */
 	// Compatible with 1.1
 	static final long serialVersionUID = 6837536777072402710L;
 
@@ -76,6 +68,7 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 
 	// double[] tmp = new double[9]; // scratch matrix
 	// double[] tmp_rot = new double[9]; // scratch matrix
+	/** The Constant EPS. */
 	// double[] tmp_scale = new double[3]; // scratch matrix
 	private static final double EPS = 1.110223024E-16;
 
@@ -377,10 +370,9 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 	/**
 	 * Copies the matrix values in the specified row into the vector parameter.
 	 *
-	 * @param row
-	 *            the matrix row
-	 * @param v
-	 *            the vector into which the matrix row values will be copied
+	 * @param row            the matrix row
+	 * @param v            the vector into which the matrix row values will be copied
+	 * @return the row
 	 */
 	public final void getRow(final int row, final Vector3d v) {
 		if (row == 0) {
@@ -403,10 +395,9 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 	/**
 	 * Copies the matrix values in the specified row into the array parameter.
 	 *
-	 * @param row
-	 *            the matrix row
-	 * @param v
-	 *            the array into which the matrix row values will be copied
+	 * @param row            the matrix row
+	 * @param v            the array into which the matrix row values will be copied
+	 * @return the row
 	 */
 	public final void getRow(final int row, final double v[]) {
 		if (row == 0) {
@@ -429,10 +420,9 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 	/**
 	 * Copies the matrix values in the specified column into the vector parameter.
 	 *
-	 * @param column
-	 *            the matrix column
-	 * @param v
-	 *            the vector into which the matrix row values will be copied
+	 * @param column            the matrix column
+	 * @param v            the vector into which the matrix row values will be copied
+	 * @return the column
 	 */
 	public final void getColumn(final int column, final Vector3d v) {
 		if (column == 0) {
@@ -455,10 +445,9 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 	/**
 	 * Copies the matrix values in the specified column into the array parameter.
 	 *
-	 * @param column
-	 *            the matrix column
-	 * @param v
-	 *            the array into which the matrix row values will be copied
+	 * @param column            the matrix column
+	 * @param v            the array into which the matrix row values will be copied
+	 * @return the column
 	 */
 	public final void getColumn(final int column, final double v[]) {
 		if (column == 0) {
@@ -1089,8 +1078,10 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 	/**
 	 * General invert routine. Inverts m1 and places the result in "this". Note that this routine handles both the
 	 * "this" version and the non-"this" version.
-	 *
+	 * 
 	 * Also note that since this routine is slow anyway, we won't worry about allocating a little bit of garbage.
+	 *
+	 * @param m1 the m 1
 	 */
 	private final void invertGeneral(final Matrix3d m1) {
 		double result[] = new double[9];
@@ -1147,9 +1138,11 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 	 * vector "row_perm[3]" is an output parameter that contains the row permutations resulting from partial pivoting.
 	 * The output parameter "even_row_xchg" is 1 when the number of row exchanges is even, or -1 otherwise. Assumes data
 	 * type is always double.
-	 *
+	 * 
 	 * This function is similar to luDecomposition, except that it is tuned specifically for 3x3 matrices.
 	 *
+	 * @param matrix0 the matrix 0
+	 * @param row_perm the row perm
 	 * @return true if the matrix is nonsingular, or false otherwise.
 	 */
 	//
@@ -1285,9 +1278,13 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 	 * do not change here. The parameter "matrix2" is a set of column vectors assembled into a 3x3 matrix of
 	 * floating-point values. The procedure takes each column of "matrix2" in turn and treats it as the right-hand side
 	 * of the matrix equation Ax = LUx = b. The solution vector replaces the original column of the matrix.
-	 *
+	 * 
 	 * If "matrix2" is the identity matrix, the procedure replaces its contents with the inverse of the matrix from
 	 * which "matrix1" was originally derived.
+	 *
+	 * @param matrix1 the matrix 1
+	 * @param row_perm the row perm
+	 * @param matrix2 the matrix 2
 	 */
 	//
 	// Reference: Press, Flannery, Teukolsky, Vetterling,
@@ -1950,10 +1947,9 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 	 * parameter, otherwise returns false. The L-infinite distance is equal to MAX[i=0,1,2 ; j=0,1,2 ; abs(this.m(i,j) -
 	 * m1.m(i,j)]
 	 *
-	 * @param m1
-	 *            the matrix to be compared to this matrix
-	 * @param epsilon
-	 *            the threshold value
+	 * @param m1            the matrix to be compared to this matrix
+	 * @param epsilon            the threshold value
+	 * @return true, if successful
 	 */
 	public boolean epsilonEquals(final Matrix3d m1, final double epsilon) {
 		double diff;
@@ -2098,7 +2094,11 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * perform SVD (if necessary to get rotational component
+	 * perform SVD (if necessary to get rotational component.
+	 *
+	 * @param scales the scales
+	 * @param rots the rots
+	 * @return the scale rotate
 	 */
 	final void getScaleRotate(final double scales[], final double rots[]) {
 
@@ -2118,6 +2118,13 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 		compute_svd(tmp, scales, rots);
 	}
 
+	/**
+	 * Compute svd.
+	 *
+	 * @param m the m
+	 * @param outScale the out scale
+	 * @param outRot the out rot
+	 */
 	static void compute_svd(final double[] m, final double[] outScale, final double[] outRot) {
 		int i;
 		double g;
@@ -2408,6 +2415,16 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 
 	}
 
+	/**
+	 * Svd reorder.
+	 *
+	 * @param m the m
+	 * @param t1 the t 1
+	 * @param t2 the t 2
+	 * @param scales the scales
+	 * @param outRot the out rot
+	 * @param outScale the out scale
+	 */
 	static void svdReorder(final double[] m, final double[] t1, final double[] t2, final double[] scales,
 			final double[] outRot, final double[] outScale) {
 
@@ -2571,6 +2588,15 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 		}
 	}
 
+	/**
+	 * Compute qr.
+	 *
+	 * @param s the s
+	 * @param e the e
+	 * @param u the u
+	 * @param v the v
+	 * @return the int
+	 */
 	static int compute_qr(final double[] s, final double[] e, final double[] u, final double[] v) {
 
 		int k;
@@ -2736,6 +2762,13 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 		return 0;
 	}
 
+	/**
+	 * Max.
+	 *
+	 * @param a the a
+	 * @param b the b
+	 * @return the double
+	 */
 	static double max(final double a, final double b) {
 		if (a > b)
 			return a;
@@ -2743,6 +2776,13 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 			return b;
 	}
 
+	/**
+	 * Min.
+	 *
+	 * @param a the a
+	 * @param b the b
+	 * @return the double
+	 */
 	static double min(final double a, final double b) {
 		if (a < b)
 			return a;
@@ -2750,12 +2790,27 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 			return b;
 	}
 
+	/**
+	 * D sign.
+	 *
+	 * @param a the a
+	 * @param b the b
+	 * @return the double
+	 */
 	static double d_sign(final double a, final double b) {
 		double x;
 		x = a >= 0 ? a : -a;
 		return b >= 0 ? x : -x;
 	}
 
+	/**
+	 * Compute shift.
+	 *
+	 * @param f the f
+	 * @param g the g
+	 * @param h the h
+	 * @return the double
+	 */
 	static double compute_shift(final double f, final double g, final double h) {
 		double d__1, d__2;
 		double fhmn, fhmx, c, fa, ga, ha, as, at, au;
@@ -2796,6 +2851,20 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 		return ssmin;
 	}
 
+	/**
+	 * Compute 2 X 2.
+	 *
+	 * @param f the f
+	 * @param g the g
+	 * @param h the h
+	 * @param single_values the single values
+	 * @param snl the snl
+	 * @param csl the csl
+	 * @param snr the snr
+	 * @param csr the csr
+	 * @param index the index
+	 * @return the int
+	 */
 	static int compute_2X2(final double f, final double g, final double h, final double[] single_values,
 			final double[] snl, final double[] csl, final double[] snr, final double[] csr, final int index) {
 
@@ -2983,6 +3052,17 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 		return 0;
 	}
 
+	/**
+	 * Compute rot.
+	 *
+	 * @param f the f
+	 * @param g the g
+	 * @param sin the sin
+	 * @param cos the cos
+	 * @param index the index
+	 * @param first the first
+	 * @return the double
+	 */
 	static double compute_rot(final double f, final double g, final double[] sin, final double[] cos, final int index,
 			final int first) {
 		double cs, sn;
@@ -3051,6 +3131,11 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 
 	}
 
+	/**
+	 * Prints the mat.
+	 *
+	 * @param mat the mat
+	 */
 	static void print_mat(final double[] mat) {
 		int i;
 		for (i = 0; i < 3; i++) {
@@ -3059,6 +3144,11 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 
 	}
 
+	/**
+	 * Prints the det.
+	 *
+	 * @param mat the mat
+	 */
 	static void print_det(final double[] mat) {
 		double det;
 
@@ -3067,6 +3157,13 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 		System.out.println("det= " + det);
 	}
 
+	/**
+	 * Mat mul.
+	 *
+	 * @param m1 the m 1
+	 * @param m2 the m 2
+	 * @param m3 the m 3
+	 */
 	static void mat_mul(final double[] m1, final double[] m2, final double[] m3) {
 		int i;
 		double[] tmp = new double[9];
@@ -3088,6 +3185,12 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 		}
 	}
 
+	/**
+	 * Transpose mat.
+	 *
+	 * @param in the in
+	 * @param out the out
+	 */
 	static void transpose_mat(final double[] in, final double[] out) {
 		out[0] = in[0];
 		out[1] = in[3];
@@ -3102,6 +3205,12 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 		out[8] = in[8];
 	}
 
+	/**
+	 * Max 3.
+	 *
+	 * @param values the values
+	 * @return the double
+	 */
 	static double max3(final double[] values) {
 		if (values[0] > values[1]) {
 			if (values[0] > values[2])
@@ -3114,6 +3223,13 @@ public class Matrix3d implements java.io.Serializable, Cloneable {
 			return values[2];
 	}
 
+	/**
+	 * Almost equal.
+	 *
+	 * @param a the a
+	 * @param b the b
+	 * @return true, if successful
+	 */
 	private static final boolean almostEqual(final double a, final double b) {
 		if (a == b) return true;
 

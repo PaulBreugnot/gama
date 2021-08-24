@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.IDisplayOutput.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * IDisplayOutput.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs;
 
@@ -60,14 +60,14 @@ public interface IDisplayOutput extends IOutput {
 	 * Returns whether the output is its phase of initialization or not. Might be used to turn off certain secondary
 	 * aspects (like the synchronization)
 	 *
-	 * @return
+	 * @return true, if is in init phase
 	 */
 	boolean isInInitPhase();
 
 	/**
 	 * Sets whether the output is initializing or not.
 	 *
-	 * @param state
+	 * @param state the new in init phase
 	 */
 	void setInInitPhase(boolean state);
 
@@ -75,16 +75,23 @@ public interface IDisplayOutput extends IOutput {
 	 * Returns whether the output has been described as 'virtual', i.e. not showable on screen and only used for display
 	 * inheritance.
 	 *
-	 * @return
+	 * @return true, if is virtual
 	 */
 	boolean isVirtual();
 
+	/**
+	 * Checks if is auto save.
+	 *
+	 * @return true, if is auto save
+	 */
 	default boolean isAutoSave() {
 		return false;
 	}
 
 	/**
-	 * Returns the GamaView associated with this output
+	 * Returns the GamaView associated with this output.
+	 *
+	 * @return the view
 	 */
 
 	IGamaView getView();

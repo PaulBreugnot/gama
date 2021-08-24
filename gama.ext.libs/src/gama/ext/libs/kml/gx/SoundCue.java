@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * SoundCue.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.gx;
 
@@ -12,7 +22,7 @@ import gama.ext.libs.kml.annotations.Obvious;
 
 
 /**
- * 
+ * The Class SoundCue.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SoundCueType", propOrder = {
@@ -25,54 +35,56 @@ public class SoundCue
     implements Cloneable
 {
 
+    /** The href. */
     @XmlElement(namespace = "http://www.opengis.net/kml/2.2")
     protected String href;
+    
+    /** The delayed start. */
     @XmlElement(defaultValue = "0.0")
     protected double delayedStart;
 
+    /**
+     * Instantiates a new sound cue.
+     */
     public SoundCue() {
         super();
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the href.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getHref() {
         return href;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the href.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setHref(String value) {
         this.href = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the delayed start.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
      */
     public double getDelayedStart() {
         return delayedStart;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the delayed start.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
      */
     public void setDelayedStart(double value) {
         this.delayedStart = value;
@@ -117,11 +129,11 @@ public class SoundCue
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param href     required parameter
+     * @return the sound cue
      * @see #setHref(String)
-     * 
-     * @param href
-     *     required parameter
      */
     public SoundCue withHref(final String href) {
         this.setHref(href);
@@ -129,11 +141,11 @@ public class SoundCue
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param delayedStart     required parameter
+     * @return the sound cue
      * @see #setDelayedStart(double)
-     * 
-     * @param delayedStart
-     *     required parameter
      */
     public SoundCue withDelayedStart(final double delayedStart) {
         this.setDelayedStart(delayedStart);

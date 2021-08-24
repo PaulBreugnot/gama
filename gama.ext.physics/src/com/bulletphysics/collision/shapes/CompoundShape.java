@@ -1,20 +1,13 @@
-/*
- * Java port of Bullet (c) 2008 Martin Dvorak <jezek2@advel.cz>
+/*******************************************************************************************************
  *
- * Bullet Continuous Collision Detection and Physics Library Copyright (c) 2003-2008 Erwin Coumans
- * http://www.bulletphysics.com/
+ * CompoundShape.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the authors be held
- * liable for any damages arising from the use of this software.
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter
- * it and redistribute it freely, subject to the following restrictions:
- *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software.
- * If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not
- * required. 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the
- * original software. 3. This notice may not be removed or altered from any source distribution.
- */
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package com.bulletphysics.collision.shapes;
 
@@ -43,15 +36,30 @@ import com.bulletphysics.linearmath.VectorUtil;
  */
 public class CompoundShape implements CollisionShape {
 
+	/** The children. */
 	private final ArrayList<CompoundShapeChild> children = new ArrayList<>();
+	
+	/** The local aabb min. */
 	private final Vector3f localAabbMin = new Vector3f(1e30f, 1e30f, 1e30f);
+	
+	/** The local aabb max. */
 	private final Vector3f localAabbMax = new Vector3f(-1e30f, -1e30f, -1e30f);
 
+	/** The aabb tree. */
 	private final OptimizedBvh aabbTree = null;
 
+	/** The collision margin. */
 	private float collisionMargin = 0f;
+	
+	/** The local scaling. */
 	protected final Vector3f localScaling = new Vector3f(1f, 1f, 1f);
 
+	/**
+	 * Adds the child shape.
+	 *
+	 * @param localTransform the local transform
+	 * @param shape the shape
+	 */
 	public void addChildShape(final Transform localTransform, final CollisionShape shape) {
 		// m_childTransforms.push_back(localTransform);
 		// m_childShapes.push_back(shape);
@@ -85,6 +93,8 @@ public class CompoundShape implements CollisionShape {
 
 	/**
 	 * Remove all children shapes that contain the specified shape.
+	 *
+	 * @param shape the shape
 	 */
 	public void removeChildShape(final CollisionShape shape) {
 		boolean done_removing;
@@ -105,19 +115,42 @@ public class CompoundShape implements CollisionShape {
 		recalculateLocalAabb();
 	}
 
+	/**
+	 * Gets the num child shapes.
+	 *
+	 * @return the num child shapes
+	 */
 	public int getNumChildShapes() {
 		return children.size();
 	}
 
+	/**
+	 * Gets the child shape.
+	 *
+	 * @param index the index
+	 * @return the child shape
+	 */
 	public CollisionShape getChildShape(final int index) {
 		return children.get(index).childShape;
 	}
 
+	/**
+	 * Gets the child transform.
+	 *
+	 * @param index the index
+	 * @param out the out
+	 * @return the child transform
+	 */
 	public Transform getChildTransform(final int index, final Transform out) {
 		out.set(children.get(index).transform);
 		return out;
 	}
 
+	/**
+	 * Gets the child list.
+	 *
+	 * @return the child list
+	 */
 	public ArrayList<CompoundShapeChild> getChildList() {
 		return children;
 	}
@@ -245,6 +278,11 @@ public class CompoundShape implements CollisionShape {
 	// this is optional, but should make collision queries faster, by culling non-overlapping nodes
 	// void createAabbTreeFromChildren();
 
+	/**
+	 * Gets the aabb tree.
+	 *
+	 * @return the aabb tree
+	 */
 	public OptimizedBvh getAabbTree() {
 		return aabbTree;
 	}
@@ -256,6 +294,10 @@ public class CompoundShape implements CollisionShape {
 	 * transforms in order for the local coordinate system of the compound shape to be centered at the center of mass
 	 * and to coincide with the principal axes. This also necessitates a correction of the world transform of the
 	 * collision object by the principal transform.
+	 *
+	 * @param masses the masses
+	 * @param principal the principal
+	 * @param inertia the inertia
 	 */
 	public void calculatePrincipalAxisTransform(final float[] masses, final Transform principal,
 			final Vector3f inertia) {

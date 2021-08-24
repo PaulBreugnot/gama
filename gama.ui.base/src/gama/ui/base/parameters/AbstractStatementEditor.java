@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * AbstractStatementEditor.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.parameters;
 
 import org.eclipse.swt.SWT;
@@ -8,20 +18,45 @@ import gama.runtime.exceptions.GamaRuntimeException;
 import gama.ui.base.controls.FlatButton;
 import gama.ui.base.interfaces.EditorListener;
 
+/**
+ * The Class AbstractStatementEditor.
+ *
+ * @param <T> the generic type
+ */
 public abstract class AbstractStatementEditor<T> extends AbstractEditor<Object> {
 
+	/** The text box. */
 	protected FlatButton textBox;
+	
+	/** The statement. */
 	T statement;
 
+	/**
+	 * Instantiates a new abstract statement editor.
+	 *
+	 * @param scope the scope
+	 * @param command the command
+	 * @param l the l
+	 */
 	public AbstractStatementEditor(final IScope scope, final T command, final EditorListener<Object> l) {
 		super(scope, l);
 		this.statement = command;
 	}
 
+	/**
+	 * Gets the statement.
+	 *
+	 * @return the statement
+	 */
 	public T getStatement() {
 		return statement;
 	}
 
+	/**
+	 * Sets the statement.
+	 *
+	 * @param s the new statement
+	 */
 	public void setStatement(final T s) {
 		statement = s;
 	}

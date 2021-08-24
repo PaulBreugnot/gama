@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * GamaWizardPage.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.parameters;
 
 import java.util.List;
@@ -13,13 +23,32 @@ import gama.util.GamaFont;
 import gama.util.GamaMapFactory;
 import gama.util.IMap;
 
+/**
+ * The Class GamaWizardPage.
+ */
 public class GamaWizardPage extends WizardPage {
 
+	/** The values. */
 	private final IMap<String, Object> values = GamaMapFactory.createUnordered();
+	
+	/** The parameters. */
 	private final List<IParameter> parameters;
+	
+	/** The font. */
 	private final GamaFont font;
+	
+	/** The scope. */
 	private final IScope scope;
 
+	/**
+	 * Instantiates a new gama wizard page.
+	 *
+	 * @param scope the scope
+	 * @param parameters the parameters
+	 * @param title the title
+	 * @param description the description
+	 * @param font the font
+	 */
 	public GamaWizardPage(final IScope scope, final List<IParameter> parameters, final String title,
 			final String description, final GamaFont font) {
 		super(title);
@@ -58,6 +87,11 @@ public class GamaWizardPage extends WizardPage {
 
 	}
 
+	/**
+	 * Gets the values.
+	 *
+	 * @return the values
+	 */
 	public IMap<String, Object> getValues() {
 		return values;
 	}

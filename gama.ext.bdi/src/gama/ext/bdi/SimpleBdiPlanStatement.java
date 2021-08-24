@@ -1,16 +1,13 @@
-/*********************************************************************************************
- * 
+/*******************************************************************************************************
  *
-, * 'SimpleBdiPlanStatement.java', in plugin 'msi.gaml.architecture.simplebdi', is part of the source code of the 
- * GAMA modeling and simulation platform.
- * (v. 1.8.1)
+ * SimpleBdiPlanStatement.java, in gama.ext.bdi, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- * 
- * 
- **********************************************************************************************/
+ ********************************************************************************************************/
 package gama.ext.bdi;
 
 import gama.common.interfaces.IGamlIssue;
@@ -36,6 +33,9 @@ import gaml.operators.Cast;
 import gaml.statements.AbstractStatementSequence;
 import gaml.types.IType;
 
+/**
+ * The Class SimpleBdiPlanStatement.
+ */
 @symbol(name = { SimpleBdiArchitecture.PLAN }, kind = ISymbolKind.BEHAVIOR, with_sequence = true, concept = {
 		IConcept.BDI })
 @inside(kinds = { ISymbolKind.SPECIES, ISymbolKind.MODEL })
@@ -51,6 +51,9 @@ import gaml.types.IType;
 @doc("define an action plan performed by an agent using the BDI engine")
 public class SimpleBdiPlanStatement extends AbstractStatementSequence {
 
+	/**
+	 * The Class SimpleBdiPlanValidator.
+	 */
 	public static class SimpleBdiPlanValidator implements IDescriptionValidator<StatementDescription> {
 
 		/**
@@ -71,46 +74,104 @@ public class SimpleBdiPlanStatement extends AbstractStatementSequence {
 		}
 	}
 
+	/** The Constant INTENTION. */
 	public static final String INTENTION = "intention";
+	
+	/** The Constant EMOTION. */
 	public static final String EMOTION = "emotion";
+	
+	/** The Constant THRESHOLD. */
 	public static final String THRESHOLD = "threshold";
 
+	/** The when. */
 	final IExpression _when;
+	
+	/** The priority. */
 	final IExpression _priority;
+	
+	/** The executedwhen. */
 	final IExpression _executedwhen;
+	
+	/** The instantaneous. */
 	final IExpression _instantaneous;
+	
+	/** The intention. */
 	final IExpression _intention;
+	
+	/** The emotion. */
 	final IExpression _emotion;
+	
+	/** The threshold. */
 	final IExpression _threshold;
 
+	/**
+	 * Gets the priority expression.
+	 *
+	 * @return the priority expression
+	 */
 	public IExpression getPriorityExpression() {
 		return _priority;
 	}
 
+	/**
+	 * Gets the context expression.
+	 *
+	 * @return the context expression
+	 */
 	public IExpression getContextExpression() {
 		return _when;
 	}
 
+	/**
+	 * Gets the executed expression.
+	 *
+	 * @return the executed expression
+	 */
 	public IExpression getExecutedExpression() {
 		return _executedwhen;
 	}
 
+	/**
+	 * Gets the instantaneous expression.
+	 *
+	 * @return the instantaneous expression
+	 */
 	public IExpression getInstantaneousExpression() {
 		return _instantaneous;
 	}
 
+	/**
+	 * Gets the intention expression.
+	 *
+	 * @return the intention expression
+	 */
 	public IExpression getIntentionExpression() {
 		return _intention;
 	}
 
+	/**
+	 * Gets the emotion expression.
+	 *
+	 * @return the emotion expression
+	 */
 	public IExpression getEmotionExpression() {
 		return _emotion;
 	}
 
+	/**
+	 * Gets the threshold.
+	 *
+	 * @return the threshold
+	 */
 	public IExpression getThreshold() {
 		return _threshold;
 	}
 
+	/**
+	 * Instantiates a new simple bdi plan statement.
+	 *
+	 * @param desc the desc
+	 */
 	public SimpleBdiPlanStatement(final IDescription desc) {
 		super(desc);
 		_when = getFacet(IKeyword.WHEN);
@@ -131,6 +192,13 @@ public class SimpleBdiPlanStatement extends AbstractStatementSequence {
 		return null;
 	}
 
+	/**
+	 * Compute priority.
+	 *
+	 * @param scope the scope
+	 * @return the double
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public Double computePriority(final IScope scope) throws GamaRuntimeException {
 		return Cast.asFloat(scope, _priority.value(scope));
 	}

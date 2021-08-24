@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ummisco.gama.ui.commands.ArrangeDisplayViews.java, in plugin ummisco.gama.ui.experiment, is part of the source code
- * of the GAMA modeling and simulation platform (v. 1.8.1)
+ * ArrangeDisplayViews.java, in gama.ui.experiment, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.ui.experiment.commands;
 
@@ -41,6 +41,9 @@ import gama.util.tree.GamaNode;
 import gama.util.tree.GamaTree;
 import one.util.streamex.StreamEx;
 
+/**
+ * The Class ArrangeDisplayViews.
+ */
 @SuppressWarnings ({ "rawtypes" })
 public class ArrangeDisplayViews extends AbstractHandler {
 
@@ -48,8 +51,10 @@ public class ArrangeDisplayViews extends AbstractHandler {
 		DEBUG.ON();
 	}
 
+	/** The Constant LAYOUT_KEY. */
 	public static final String LAYOUT_KEY = "gama.displays.layout";
 
+	/** The Constant DISPLAY_INDEX_KEY. */
 	static final String DISPLAY_INDEX_KEY = "GamaIndex";
 
 	@Override
@@ -60,6 +65,11 @@ public class ArrangeDisplayViews extends AbstractHandler {
 		return true;
 	}
 
+	/**
+	 * Execute.
+	 *
+	 * @param layout the layout
+	 */
 	@SuppressWarnings ("unchecked")
 	public static void execute(final Object layout) {
 		listDisplayViews();
@@ -74,22 +84,47 @@ public class ArrangeDisplayViews extends AbstractHandler {
 		}
 	}
 
+	/**
+	 * Execute.
+	 *
+	 * @param layout the layout
+	 */
 	public static void execute(final int layout) {
 		execute(new LayoutTreeConverter().convert(layout));
 	}
 
+	/**
+	 * Gets the part service.
+	 *
+	 * @return the part service
+	 */
 	private static EPartService getPartService() {
 		return WorkbenchHelper.getService(EPartService.class);
 	}
 
+	/**
+	 * Gets the application.
+	 *
+	 * @return the application
+	 */
 	private static MApplication getApplication() {
 		return WorkbenchHelper.getService(MApplication.class);
 	}
 
+	/**
+	 * Gets the model service.
+	 *
+	 * @return the model service
+	 */
 	private static EModelService getModelService() {
 		return WorkbenchHelper.getService(EModelService.class);
 	}
 
+	/**
+	 * Execute.
+	 *
+	 * @param tree the tree
+	 */
 	public static void execute(final GamaTree<String> tree) {
 		listDisplayViews();
 		// final List<IGamaView.Display> displays = WorkbenchHelper.getDisplayViews();
@@ -114,6 +149,12 @@ public class ArrangeDisplayViews extends AbstractHandler {
 
 	}
 
+	/**
+	 * Activate displays.
+	 *
+	 * @param holders the holders
+	 * @param focus the focus
+	 */
 	private static void activateDisplays(final List<MPlaceholder> holders, final boolean focus) {
 		holders.forEach(ph -> {
 			getPartService().bringToTop((MPart) ph.getRef());
@@ -122,12 +163,23 @@ public class ArrangeDisplayViews extends AbstractHandler {
 		});
 	}
 
+	/**
+	 * Gets the displays placeholder.
+	 *
+	 * @return the displays placeholder
+	 */
 	public static MPartStack getDisplaysPlaceholder() {
 		final Object displayStack = getModelService().find("displays", getApplication());
 		// DEBUG.OUT("Element displays found : " + displayStack);
 		return displayStack instanceof MPartStack ? (MPartStack) displayStack : null;
 	}
 
+	/**
+	 * Show displays.
+	 *
+	 * @param root the root
+	 * @param holders the holders
+	 */
 	public static void showDisplays(final MElementContainer<?> root, final List<MPlaceholder> holders) {
 		root.setVisible(true);
 		decorateDisplays();
@@ -138,6 +190,9 @@ public class ArrangeDisplayViews extends AbstractHandler {
 		activateDisplays(holders, true);
 	}
 
+	/**
+	 * Decorate displays.
+	 */
 	public static void decorateDisplays() {
 		WorkbenchHelper.getDisplayViews().forEach(v -> {
 			final Boolean tb = PerspectiveHelper.keepToolbars();
@@ -157,6 +212,12 @@ public class ArrangeDisplayViews extends AbstractHandler {
 		});
 	}
 
+	/**
+	 * Hide displays.
+	 *
+	 * @param displayStack the display stack
+	 * @param holders the holders
+	 */
 	public static void hideDisplays(final MPartStack displayStack, final List<MPlaceholder> holders) {
 		final MElementContainer<MUIElement> parent = displayStack.getParent();
 		parent.setVisible(false);
@@ -174,10 +235,23 @@ public class ArrangeDisplayViews extends AbstractHandler {
 		}
 	}
 
+	/**
+	 * Checks if is part of layout.
+	 *
+	 * @param e the e
+	 * @return true, if is part of layout
+	 */
 	static boolean isPartOfLayout(final MUIElement e) {
 		return e.getTransientData().containsKey(LAYOUT);
 	}
 
+	/**
+	 * Process.
+	 *
+	 * @param uiRoot the ui root
+	 * @param treeRoot the tree root
+	 * @param holders the holders
+	 */
 	public static void process(final MElementContainer uiRoot, final GamaNode<String> treeRoot,
 			final List<MPlaceholder> holders) {
 		final String data = treeRoot.getData();
@@ -197,6 +271,11 @@ public class ArrangeDisplayViews extends AbstractHandler {
 		}
 	}
 
+	/**
+	 * List display views.
+	 *
+	 * @return the list
+	 */
 	static final List<MPlaceholder> listDisplayViews() {
 		final List<MPlaceholder> holders = getModelService().findElements(getApplication(), MPlaceholder.class,
 				IN_ACTIVE_PERSPECTIVE, e -> WorkbenchHelper.isDisplay(e.getElementId()));
@@ -213,6 +292,14 @@ public class ArrangeDisplayViews extends AbstractHandler {
 		return holders;
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param root the root
+	 * @param weight the weight
+	 * @param dir the dir
+	 * @return the m element container
+	 */
 	static MElementContainer create(final MElementContainer root, final String weight, final Boolean dir) {
 		if ((dir == null) && (root instanceof MPartStack && isPartOfLayout(root))) return root;
 		if (dir == null && (root instanceof MPartStack || !PerspectiveHelper.keepTabs())) return root;

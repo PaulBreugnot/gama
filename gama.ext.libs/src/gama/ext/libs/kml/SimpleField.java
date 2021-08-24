@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * SimpleField.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -12,7 +22,7 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * 
+ * The Class SimpleField.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "SimpleFieldType", propOrder = {
@@ -23,42 +33,52 @@ import javax.xml.bind.annotation.XmlType;
 public class SimpleField implements Cloneable
 {
 
+    /** The display name. */
     protected String displayName;
+    
+    /** The simple field extension. */
     @XmlElement(name = "SimpleFieldExtension")
     protected List<Object> simpleFieldExtension;
+    
+    /** The type. */
     @XmlAttribute(name = "type")
     protected String type;
+    
+    /** The name. */
     @XmlAttribute(name = "name")
     protected String name;
 
+    /**
+     * Instantiates a new simple field.
+     */
     public SimpleField() {
         super();
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the display name.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getDisplayName() {
         return displayName;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the display name.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setDisplayName(String value) {
         this.displayName = value;
     }
 
     /**
-     * 
+     * Gets the simple field extension.
+     *
+     * @return the simple field extension
      */
     public List<Object> getSimpleFieldExtension() {
         if (simpleFieldExtension == null) {
@@ -68,44 +88,40 @@ public class SimpleField implements Cloneable
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the type.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getType() {
         return type;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the type.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setType(String value) {
         this.type = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the name.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
      */
     public String getName() {
         return name;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the name.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
      */
     public void setName(String value) {
         this.name = value;
@@ -177,21 +193,18 @@ public class SimpleField implements Cloneable
      * Sets the value of the simpleFieldExtension property Objects of the following type(s) are allowed in the list List<Object>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withSimpleFieldExtension} instead.
-     * 
-     * 
-     * @param simpleFieldExtension
+     *
+     * @param simpleFieldExtension the new simple field extension
      */
     public void setSimpleFieldExtension(final List<Object> simpleFieldExtension) {
         this.simpleFieldExtension = simpleFieldExtension;
     }
 
     /**
-     * add a value to the simpleFieldExtension property collection
-     * 
-     * @param simpleFieldExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the simpleFieldExtension property collection.
+     *
+     * @param simpleFieldExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public SimpleField addToSimpleFieldExtension(final Object simpleFieldExtension) {
         this.getSimpleFieldExtension().add(simpleFieldExtension);
@@ -199,11 +212,11 @@ public class SimpleField implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param displayName     required parameter
+     * @return the simple field
      * @see #setDisplayName(String)
-     * 
-     * @param displayName
-     *     required parameter
      */
     public SimpleField withDisplayName(final String displayName) {
         this.setDisplayName(displayName);
@@ -211,11 +224,11 @@ public class SimpleField implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param simpleFieldExtension     required parameter
+     * @return the simple field
      * @see #setSimpleFieldExtension(List<Object>)
-     * 
-     * @param simpleFieldExtension
-     *     required parameter
      */
     public SimpleField withSimpleFieldExtension(final List<Object> simpleFieldExtension) {
         this.setSimpleFieldExtension(simpleFieldExtension);
@@ -223,11 +236,11 @@ public class SimpleField implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param type     required parameter
+     * @return the simple field
      * @see #setType(String)
-     * 
-     * @param type
-     *     required parameter
      */
     public SimpleField withType(final String type) {
         this.setType(type);
@@ -235,11 +248,11 @@ public class SimpleField implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param name     required parameter
+     * @return the simple field
      * @see #setName(String)
-     * 
-     * @param name
-     *     required parameter
      */
     public SimpleField withName(final String name) {
         this.setName(name);

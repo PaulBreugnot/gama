@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GamlHoverProvider.java, in plugin ummisco.gama.ui.modeling, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * GamlHoverProvider.java, in gama.ui.modeling, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.modeling.hover;
 
 import org.eclipse.emf.ecore.EObject;
@@ -61,6 +60,9 @@ import gaml.expressions.units.UnitConstantExpression;
 import gaml.factories.DescriptionFactory;
 import gaml.operators.IUnits;
 
+/**
+ * The Class GamlHoverProvider.
+ */
 public class GamlHoverProvider extends DefaultEObjectHoverProvider {
 
 	// public static class NonXRefEObjectAtOffset extends EObjectAtOffsetHelper {
@@ -73,12 +75,18 @@ public class GamlHoverProvider extends DefaultEObjectHoverProvider {
 	//
 	// }
 
+	/**
+	 * The Class GamlDispatchingEObjectTextHover.
+	 */
 	public static class GamlDispatchingEObjectTextHover extends DispatchingEObjectTextHover {
 
+		/** The e object at offset helper. */
 		@Inject private EObjectAtOffsetHelper eObjectAtOffsetHelper;
 
+		/** The location in file provider. */
 		@Inject private ILocationInFileProvider locationInFileProvider;
 
+		/** The correct. */
 		EObject correct = null;
 
 		@Override
@@ -139,15 +147,23 @@ public class GamlHoverProvider extends DefaultEObjectHoverProvider {
 
 	}
 
+	/**
+	 * The Class GamlHoverControlCreator.
+	 */
 	public class GamlHoverControlCreator extends HoverControlCreator {
 
 		/**
-		 * @param informationPresenterControlCreator
+		 * Instantiates a new gaml hover control creator.
+		 *
+		 * @param informationPresenterControlCreator the information presenter control creator
 		 */
 		public GamlHoverControlCreator(final IInformationControlCreator informationPresenterControlCreator) {
 			super(informationPresenterControlCreator);
 		}
 
+		/**
+		 * The Class GamlInformationControl.
+		 */
 		public class GamlInformationControl extends XtextBrowserInformationControl {
 
 			@Override
@@ -160,9 +176,11 @@ public class GamlHoverProvider extends DefaultEObjectHoverProvider {
 			}
 
 			/**
-			 * @param parent
-			 * @param symbolicFontName
-			 * @param statusFieldText
+			 * Instantiates a new gaml information control.
+			 *
+			 * @param parent the parent
+			 * @param symbolicFontName the symbolic font name
+			 * @param statusFieldText the status field text
 			 */
 			public GamlInformationControl(final Shell parent, final String symbolicFontName,
 					final String statusFieldText) {
@@ -197,6 +215,7 @@ public class GamlHoverProvider extends DefaultEObjectHoverProvider {
 		}
 	}
 
+	/** The creator. */
 	private IInformationControlCreator creator;
 
 	@Override
@@ -293,14 +312,22 @@ public class GamlHoverProvider extends DefaultEObjectHoverProvider {
 		}
 	}
 
+	/**
+	 * Gets the action from.
+	 *
+	 * @param f the f
+	 * @return the action from
+	 */
 	private ActionRef getActionFrom(final Function f) {
 		if (f.getLeft() instanceof ActionRef) { return (ActionRef) f.getLeft(); }
 		return null;
 	}
 
 	/**
-	 * @param o
-	 * @return
+	 * Gets the first line of.
+	 *
+	 * @param o the o
+	 * @return the first line of
 	 */
 	private String getFirstLineOf(final Facet o) {
 

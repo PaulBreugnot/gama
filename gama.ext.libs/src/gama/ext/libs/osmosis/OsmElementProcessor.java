@@ -1,4 +1,13 @@
-// This software is released into the Public Domain. See copying.txt for details.
+/*******************************************************************************************************
+ *
+ * OsmElementProcessor.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.osmosis;
 
 import org.xml.sax.Attributes;
@@ -10,20 +19,40 @@ import org.xml.sax.Attributes;
  */
 public class OsmElementProcessor extends SourceElementProcessor {
 
+	/** The Constant ELEMENT_NAME_BOUND_LEGACY. */
 	private static final String ELEMENT_NAME_BOUND_LEGACY = "bound";
+	
+	/** The Constant ELEMENT_NAME_BOUNDS. */
 	private static final String ELEMENT_NAME_BOUNDS = "bounds";
+	
+	/** The Constant ELEMENT_NAME_NODE. */
 	private static final String ELEMENT_NAME_NODE = "node";
+	
+	/** The Constant ELEMENT_NAME_WAY. */
 	private static final String ELEMENT_NAME_WAY = "way";
+	
+	/** The Constant ELEMENT_NAME_RELATION. */
 	private static final String ELEMENT_NAME_RELATION = "relation";
+	
+	/** The Constant ATTRIBUTE_NAME_GENERATOR. */
 	private static final String ATTRIBUTE_NAME_GENERATOR = "generator";
 
+	/** The node element processor. */
 	private final NodeElementProcessor nodeElementProcessor;
+	
+	/** The way element processor. */
 	private final WayElementProcessor wayElementProcessor;
+	
+	/** The relation element processor. */
 	private final RelationElementProcessor relationElementProcessor;
 
+	/** The found bound. */
 	private boolean foundBound = false;
+	
+	/** The found entities. */
 	private boolean foundEntities = false;
 
+	/** The generator. */
 	private String generator;
 
 	/**

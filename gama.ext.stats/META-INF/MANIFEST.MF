@@ -1,14 +1,14 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Stats
+Bundle-Name: Statistical extensions for GAMA
 Bundle-SymbolicName: gama.ext.stats;singleton:=true
-Bundle-Version: 1.8.1.qualifier
-Require-Bundle: gama.core.kernel,
- gama.ext.maths;bundle-version="1.8.1",
- gama.ext.libs;bundle-version="1.8.1"
+Bundle-Version: 2.0.0.qualifier
+Require-Bundle: gama.core.kernel;bundle-version="2.0.0",
+ gama.ext.maths;bundle-version="2.0.0",
+ gama.ext.libs;bundle-version="2.0.0"
 Bundle-ActivationPolicy: lazy
 Export-Package: gama.ext.stats
 Bundle-ClassPath: .,
  lib/colt.jar
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Automatic-Module-Name: ummisco.gaml.extensions.stats
+Automatic-Module-Name: gama.ext.stats

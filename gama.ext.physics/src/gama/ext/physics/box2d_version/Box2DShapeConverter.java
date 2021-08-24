@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Box2DShapeConverter.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.physics.box2d_version;
 
 import org.jbox2d.collision.shapes.CircleShape;
@@ -16,6 +26,9 @@ import gama.metamodel.shape.IShape.Type;
 import gama.runtime.IScope;
 import gama.util.matrix.IField;
 
+/**
+ * The Class Box2DShapeConverter.
+ */
 public class Box2DShapeConverter implements IShapeConverter<Shape, Vec2>, IBox2DPhysicalEntity {
 
 	@Override

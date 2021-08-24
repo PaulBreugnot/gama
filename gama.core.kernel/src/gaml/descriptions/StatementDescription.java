@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.descriptions.StatementDescription.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * StatementDescription.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.descriptions;
 
@@ -39,9 +39,20 @@ import gaml.types.Types;
 @SuppressWarnings ({ "rawtypes" })
 public class StatementDescription extends SymbolDescription {
 
+	/** The passed args. */
 	// Corresponds to the "with" facet
 	protected final Arguments passedArgs;
 
+	/**
+	 * Instantiates a new statement description.
+	 *
+	 * @param keyword the keyword
+	 * @param superDesc the super desc
+	 * @param hasArgs the has args
+	 * @param source the source
+	 * @param facets the facets
+	 * @param alreadyComputedArgs the already computed args
+	 */
 	public StatementDescription(final String keyword, final IDescription superDesc, final boolean hasArgs,
 			final EObject source, final Facets facets, final Arguments alreadyComputedArgs) {
 		super(keyword, superDesc, source, /* children, */ facets);
@@ -61,6 +72,11 @@ public class StatementDescription extends SymbolDescription {
 		if (passedArgs != null) { passedArgs.dispose(); }
 	}
 
+	/**
+	 * Creates the args.
+	 *
+	 * @return the arguments
+	 */
 	private Arguments createArgs() {
 		if (!hasFacets()) return null;
 		if (!hasFacet(WITH)) {
@@ -84,14 +100,29 @@ public class StatementDescription extends SymbolDescription {
 
 	}
 
+	/**
+	 * Checks if is super invocation.
+	 *
+	 * @return true, if is super invocation
+	 */
 	public boolean isSuperInvocation() {
 		return INVOKE.equals(keyword);
 	}
 
+	/**
+	 * Checks if is invocation.
+	 *
+	 * @return true, if is invocation
+	 */
 	private boolean isInvocation() {
 		return DO.equals(keyword) || isSuperInvocation();
 	}
 
+	/**
+	 * Gets the action.
+	 *
+	 * @return the action
+	 */
 	private ActionDescription getAction() {
 		final String actionName = getLitteral(ACTION);
 		if (actionName == null) return null;
@@ -128,16 +159,32 @@ public class StatementDescription extends SymbolDescription {
 		return false;
 	}
 
+	/**
+	 * Verify args.
+	 *
+	 * @param args the args
+	 * @return true, if successful
+	 */
 	public boolean verifyArgs(final Arguments args) {
 		final ActionDescription executer = getAction();
 		if (executer == null) return false;
 		return executer.verifyArgs(this, args);
 	}
 
+	/**
+	 * Gets the formal args.
+	 *
+	 * @return the formal args
+	 */
 	public Iterable<IDescription> getFormalArgs() {
 		return getChildrenWithKeyword(ARG);
 	}
 
+	/**
+	 * Gets the passed args.
+	 *
+	 * @return the passed args
+	 */
 	public Facets getPassedArgs() {
 		return passedArgs == null ? Facets.NULL : passedArgs;
 	}
@@ -193,6 +240,11 @@ public class StatementDescription extends SymbolDescription {
 		return result;
 	}
 
+	/**
+	 * Validate passed args.
+	 *
+	 * @return the arguments
+	 */
 	public Arguments validatePassedArgs() {
 		final IDescription superDesc = getEnclosingDescription();
 		passedArgs.forEachFacet((nm, exp) -> {
@@ -205,6 +257,11 @@ public class StatementDescription extends SymbolDescription {
 		return passedArgs;
 	}
 
+	/**
+	 * Verify inits.
+	 *
+	 * @param ca the ca
+	 */
 	private void verifyInits(final Arguments ca) {
 		final SpeciesDescription denotedSpecies = getGamlType().getDenotedSpecies();
 		if (denotedSpecies == null) {
@@ -299,6 +356,13 @@ public class StatementDescription extends SymbolDescription {
 
 	}
 
+	/**
+	 * Adds the new temp if necessary.
+	 *
+	 * @param facetName the facet name
+	 * @param type the type
+	 * @return the i var expression
+	 */
 	public IVarExpression addNewTempIfNecessary(final String facetName, final IType type) {
 		final String varName = getLitteral(facetName);
 		final IDescription sup = getEnclosingDescription();
@@ -324,6 +388,11 @@ public class StatementDescription extends SymbolDescription {
 		return EMPTY_LIST;
 	}
 
+	/**
+	 * Creates the compiled args.
+	 *
+	 * @return the arguments
+	 */
 	public Arguments createCompiledArgs() {
 		return passedArgs;
 	}

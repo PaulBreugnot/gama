@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'ImageViewer.java, in plugin ummisco.gama.ui.viewers, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * ImageViewer.java, in gama.ui.viewers, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.viewers.image;
 
 import java.io.BufferedInputStream;
@@ -92,14 +91,31 @@ import gama.util.file.IGamaFileMetaData;
 public class ImageViewer extends EditorPart
 		implements IReusableEditor, IToolbarDecoratedView.Zoomable, IToolbarDecoratedView.Colorizable {
 
+	/** The toolbar. */
 	GamaToolbar2 toolbar;
+	
+	/** The image. */
 	Image image;
+	
+	/** The image data. */
 	ImageData imageData;
+	
+	/** The scroll. */
 	ScrolledComposite scroll;
+	
+	/** The intermediate. */
 	Composite intermediate;
+	
+	/** The image canvas. */
 	Canvas imageCanvas;
+	
+	/** The zoom factor. */
 	double zoomFactor = 1.0d;
+	
+	/** The max zoom factor. */
 	double maxZoomFactor = 1.0d;
+	
+	/** The input listener. */
 	ImageResourceChangeListener inputListener = null;
 
 	@Override
@@ -116,6 +132,12 @@ public class ImageViewer extends EditorPart
 		setInput(input, true);
 	}
 
+	/**
+	 * Sets the input.
+	 *
+	 * @param input the input
+	 * @param notify the notify
+	 */
 	void setInput(final IEditorInput input, final boolean notify) {
 		final IEditorInput old = getEditorInput();
 		if (input != old) {
@@ -136,6 +158,8 @@ public class ImageViewer extends EditorPart
 
 	/**
 	 * Set the part name based on the editor input.
+	 *
+	 * @param input the new part name
 	 */
 	void setPartName(final IEditorInput input) {
 		String imageName = null;
@@ -154,6 +178,9 @@ public class ImageViewer extends EditorPart
 
 	/**
 	 * Get the IFile corresponding to the specified editor input, or null for none.
+	 *
+	 * @param input the input
+	 * @return the file for
 	 */
 	IFile getFileFor(final IEditorInput input) {
 		if (input instanceof IFileEditorInput) return ((IFileEditorInput) input).getFile();
@@ -168,6 +195,9 @@ public class ImageViewer extends EditorPart
 		return null;
 	}
 
+	/**
+	 * Display info string.
+	 */
 	void displayInfoString() {
 		final GamaUIColor color = IGamaColors.OK;
 		final IGamaFileMetaData md =
@@ -187,6 +217,8 @@ public class ImageViewer extends EditorPart
 
 	/**
 	 * Unregister any change listeners for the specified input.
+	 *
+	 * @param input the input
 	 */
 	protected void unregisterResourceListener(final IEditorInput input) {
 		if (input != null && inputListener != null) {
@@ -197,6 +229,8 @@ public class ImageViewer extends EditorPart
 
 	/**
 	 * Register any change listeners on the specified new input.
+	 *
+	 * @param input the input
 	 */
 	protected void registerResourceListener(final IEditorInput input) {
 		if (input != null) {
@@ -268,6 +302,11 @@ public class ImageViewer extends EditorPart
 		startImageLoad();
 	}
 
+	/**
+	 * Resize canvas.
+	 *
+	 * @param p the p
+	 */
 	void resizeCanvas(final Point p) {
 		final Rectangle scrollSize = scroll.getClientArea();
 		final int width = p.x > scrollSize.width ? p.x : scrollSize.width;
@@ -339,6 +378,8 @@ public class ImageViewer extends EditorPart
 	/**
 	 * Load the image data from the current editor input. This operation can take time and should not be called on the
 	 * ui thread.
+	 *
+	 * @throws CoreException the core exception
 	 */
 	void loadImageData() throws CoreException {
 		final IEditorInput input = getEditorInput();
@@ -494,6 +535,17 @@ public class ImageViewer extends EditorPart
 		}
 	}
 
+	/**
+	 * Save to.
+	 *
+	 * @param imageData the image data
+	 * @param dest the dest
+	 * @param imageType the image type
+	 * @param monitor the monitor
+	 * @throws CoreException the core exception
+	 * @throws InterruptedException the interrupted exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	void saveTo(final ImageData imageData, final IFile dest, final int imageType, final IProgressMonitor monitor)
 			throws CoreException, InterruptedException, IOException {
 		// do an indeterminate progress monitor so that something shows, since
@@ -573,6 +625,11 @@ public class ImageViewer extends EditorPart
 		return true;
 	}
 
+	/**
+	 * Gets the image data.
+	 *
+	 * @return the image data
+	 */
 	public ImageData getImageData() {
 		return imageData;
 	}
@@ -589,6 +646,8 @@ public class ImageViewer extends EditorPart
 
 	/**
 	 * Determine the max zoom factor for the current image size.
+	 *
+	 * @return the double
 	 */
 	private double determineMaxZoomFactor() {
 		if (imageData != null) {
@@ -601,6 +660,8 @@ public class ImageViewer extends EditorPart
 
 	/**
 	 * Get the current zoom factor.
+	 *
+	 * @return the zoom factor
 	 */
 	public double getZoomFactor() {
 		return this.zoomFactor;
@@ -610,6 +671,8 @@ public class ImageViewer extends EditorPart
 	 * Update the zoom factor. This can safely called from any thread. It will trigger an image redraw is needed. If the
 	 * passed in value is larger than the {@link #getMaxZoomFactor() max zoom factor}, the max zoom factor will used
 	 * instead.
+	 *
+	 * @param z the new zoom factor
 	 */
 	public void setZoomFactor(final double z) {
 		double newZoom = z;
@@ -652,11 +715,19 @@ public class ImageViewer extends EditorPart
 
 	/**
 	 * This handles changes to a file-based editor input.
+	 *
+	 * @see ImageResourceChangeEvent
 	 */
 	private class ImageResourceChangeListener implements IResourceChangeListener {
 
+		/** The image file. */
 		IResource imageFile;
 
+		/**
+		 * Instantiates a new image resource change listener.
+		 *
+		 * @param imageFile the image file
+		 */
 		public ImageResourceChangeListener(final IResource imageFile) {
 			this.imageFile = imageFile;
 		}

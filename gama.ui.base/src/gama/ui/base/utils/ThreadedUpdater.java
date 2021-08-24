@@ -1,15 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'ThreadedUpdater.java, in plugin gama.ui.base, is part of the source code of the
- * GAMA modeling and simulation platform.
- * (v. 1.8.1)
+ * ThreadedUpdater.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- *
- **********************************************************************************************/
+ ********************************************************************************************************/
 package gama.ui.base.utils;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -25,14 +23,22 @@ import gama.common.ui.IUpdaterTarget;
  * Class ThreadedUpdater.
  *
  * @author drogoul
+ * @param <Message> the generic type
  * @since 10 mars 2014
- *
  */
 public class ThreadedUpdater<Message extends IUpdaterMessage> extends UIJob implements IUpdaterTarget<Message> {
 
+	/** The message. */
 	Message message = null;
+	
+	/** The control. */
 	private IUpdaterTarget<Message> control;
 
+	/**
+	 * Instantiates a new threaded updater.
+	 *
+	 * @param name the name
+	 */
 	public ThreadedUpdater(final String name) {
 		super(WorkbenchHelper.getDisplay(), name);
 		setPriority(DECORATE);
@@ -62,6 +68,12 @@ public class ThreadedUpdater<Message extends IUpdaterMessage> extends UIJob impl
 		return control.getCurrentState();
 	}
 
+	/**
+	 * Sets the target.
+	 *
+	 * @param l the l
+	 * @param s the s
+	 */
 	public void setTarget(final IUpdaterTarget<Message> l, final IDisplaySurface s) {
 		control = l;
 	}

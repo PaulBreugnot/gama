@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Container.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -71,6 +81,7 @@ public abstract class Container
     implements Cloneable
 {
 
+    /** The container simple extension. */
     @XmlElement(name = "AbstractContainerSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> containerSimpleExtension;
@@ -95,13 +106,18 @@ public abstract class Container
     @XmlElement(name = "AbstractContainerObjectExtensionGroup")
     protected List<AbstractObject> containerObjectExtension;
 
+    /**
+     * Instantiates a new container.
+     */
     public Container() {
         super();
     }
 
     /**
+     * Gets the container simple extension.
+     *
+     * @return the container simple extension
      * @see containerSimpleExtension
-     * 
      */
     public List<Object> getContainerSimpleExtension() {
         if (containerSimpleExtension == null) {
@@ -111,8 +127,10 @@ public abstract class Container
     }
 
     /**
+     * Gets the container object extension.
+     *
+     * @return the container object extension
      * @see containerObjectExtension
-     * 
      */
     public List<AbstractObject> getContainerObjectExtension() {
         if (containerObjectExtension == null) {
@@ -167,21 +185,20 @@ public abstract class Container
     }
 
     /**
+     * Sets the container simple extension.
+     *
+     * @param containerSimpleExtension the new container simple extension
      * @see containerSimpleExtension
-     * 
-     * @param containerSimpleExtension
      */
     public void setContainerSimpleExtension(final List<Object> containerSimpleExtension) {
         this.containerSimpleExtension = containerSimpleExtension;
     }
 
     /**
-     * add a value to the containerSimpleExtension property collection
-     * 
-     * @param containerSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the containerSimpleExtension property collection.
+     *
+     * @param containerSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Container addToContainerSimpleExtension(final Object containerSimpleExtension) {
         this.getContainerSimpleExtension().add(containerSimpleExtension);
@@ -189,21 +206,20 @@ public abstract class Container
     }
 
     /**
+     * Sets the container object extension.
+     *
+     * @param containerObjectExtension the new container object extension
      * @see containerObjectExtension
-     * 
-     * @param containerObjectExtension
      */
     public void setContainerObjectExtension(final List<AbstractObject> containerObjectExtension) {
         this.containerObjectExtension = containerObjectExtension;
     }
 
     /**
-     * add a value to the containerObjectExtension property collection
-     * 
-     * @param containerObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the containerObjectExtension property collection.
+     *
+     * @param containerObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Container addToContainerObjectExtension(final AbstractObject containerObjectExtension) {
         this.getContainerObjectExtension().add(containerObjectExtension);
@@ -279,11 +295,11 @@ public abstract class Container
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param containerSimpleExtension     required parameter
+     * @return the container
      * @see #setContainerSimpleExtension(List<Object>)
-     * 
-     * @param containerSimpleExtension
-     *     required parameter
      */
     public Container withContainerSimpleExtension(final List<Object> containerSimpleExtension) {
         this.setContainerSimpleExtension(containerSimpleExtension);
@@ -291,11 +307,11 @@ public abstract class Container
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param containerObjectExtension     required parameter
+     * @return the container
      * @see #setContainerObjectExtension(List<AbstractObject>)
-     * 
-     * @param containerObjectExtension
-     *     required parameter
      */
     public Container withContainerObjectExtension(final List<AbstractObject> containerObjectExtension) {
         this.setContainerObjectExtension(containerObjectExtension);

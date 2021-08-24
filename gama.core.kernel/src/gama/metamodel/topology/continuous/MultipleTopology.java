@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gama.metamodel.topology.continuous.MultipleTopology.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * MultipleTopology.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -28,9 +28,11 @@ import gaml.types.GamaGeometryType;
 public class MultipleTopology extends ContinuousTopology {
 
 	/**
-	 * @throws GamaRuntimeException
-	 * @param scope
-	 * @param environment
+	 * Instantiates a new multiple topology.
+	 *
+	 * @param scope the scope
+	 * @param places the places
+	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 	public MultipleTopology(final IScope scope, final IContainer<?, IShape> places) throws GamaRuntimeException {
 		// For the moment, use the geometric envelope in order to simplify the "environment".

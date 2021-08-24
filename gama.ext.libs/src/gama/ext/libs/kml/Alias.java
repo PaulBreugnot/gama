@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Alias.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -88,6 +98,8 @@ public class Alias
      */
     @XmlSchemaType(name = "anyURI")
     protected String sourceHref;
+    
+    /** The alias simple extension. */
     @XmlElement(name = "AliasSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> aliasSimpleExtension;
@@ -112,61 +124,62 @@ public class Alias
     @XmlElement(name = "AliasObjectExtensionGroup")
     protected List<AbstractObject> aliasObjectExtension;
 
+    /**
+     * Instantiates a new alias.
+     */
     public Alias() {
         super();
     }
 
     /**
-     * @see targetHref
-     * 
-     * @return
-     *     possible object is
+     * Gets the target href.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see targetHref
      */
     public String getTargetHref() {
         return targetHref;
     }
 
     /**
-     * @see targetHref
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the target href.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see targetHref
      */
     public void setTargetHref(String value) {
         this.targetHref = value;
     }
 
     /**
-     * @see sourceHref
-     * 
-     * @return
-     *     possible object is
+     * Gets the source href.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see sourceHref
      */
     public String getSourceHref() {
         return sourceHref;
     }
 
     /**
-     * @see sourceHref
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the source href.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see sourceHref
      */
     public void setSourceHref(String value) {
         this.sourceHref = value;
     }
 
     /**
+     * Gets the alias simple extension.
+     *
+     * @return the alias simple extension
      * @see aliasSimpleExtension
-     * 
      */
     public List<Object> getAliasSimpleExtension() {
         if (aliasSimpleExtension == null) {
@@ -176,8 +189,10 @@ public class Alias
     }
 
     /**
+     * Gets the alias object extension.
+     *
+     * @return the alias object extension
      * @see aliasObjectExtension
-     * 
      */
     public List<AbstractObject> getAliasObjectExtension() {
         if (aliasObjectExtension == null) {
@@ -252,21 +267,20 @@ public class Alias
     }
 
     /**
+     * Sets the alias simple extension.
+     *
+     * @param aliasSimpleExtension the new alias simple extension
      * @see aliasSimpleExtension
-     * 
-     * @param aliasSimpleExtension
      */
     public void setAliasSimpleExtension(final List<Object> aliasSimpleExtension) {
         this.aliasSimpleExtension = aliasSimpleExtension;
     }
 
     /**
-     * add a value to the aliasSimpleExtension property collection
-     * 
-     * @param aliasSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the aliasSimpleExtension property collection.
+     *
+     * @param aliasSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Alias addToAliasSimpleExtension(final Object aliasSimpleExtension) {
         this.getAliasSimpleExtension().add(aliasSimpleExtension);
@@ -274,21 +288,20 @@ public class Alias
     }
 
     /**
+     * Sets the alias object extension.
+     *
+     * @param aliasObjectExtension the new alias object extension
      * @see aliasObjectExtension
-     * 
-     * @param aliasObjectExtension
      */
     public void setAliasObjectExtension(final List<AbstractObject> aliasObjectExtension) {
         this.aliasObjectExtension = aliasObjectExtension;
     }
 
     /**
-     * add a value to the aliasObjectExtension property collection
-     * 
-     * @param aliasObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the aliasObjectExtension property collection.
+     *
+     * @param aliasObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Alias addToAliasObjectExtension(final AbstractObject aliasObjectExtension) {
         this.getAliasObjectExtension().add(aliasObjectExtension);
@@ -313,11 +326,11 @@ public class Alias
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param targetHref     required parameter
+     * @return the alias
      * @see #setTargetHref(String)
-     * 
-     * @param targetHref
-     *     required parameter
      */
     public Alias withTargetHref(final String targetHref) {
         this.setTargetHref(targetHref);
@@ -325,11 +338,11 @@ public class Alias
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param sourceHref     required parameter
+     * @return the alias
      * @see #setSourceHref(String)
-     * 
-     * @param sourceHref
-     *     required parameter
      */
     public Alias withSourceHref(final String sourceHref) {
         this.setSourceHref(sourceHref);
@@ -337,11 +350,11 @@ public class Alias
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param aliasSimpleExtension     required parameter
+     * @return the alias
      * @see #setAliasSimpleExtension(List<Object>)
-     * 
-     * @param aliasSimpleExtension
-     *     required parameter
      */
     public Alias withAliasSimpleExtension(final List<Object> aliasSimpleExtension) {
         this.setAliasSimpleExtension(aliasSimpleExtension);
@@ -349,11 +362,11 @@ public class Alias
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param aliasObjectExtension     required parameter
+     * @return the alias
      * @see #setAliasObjectExtension(List<AbstractObject>)
-     * 
-     * @param aliasObjectExtension
-     *     required parameter
      */
     public Alias withAliasObjectExtension(final List<AbstractObject> aliasObjectExtension) {
         this.setAliasObjectExtension(aliasObjectExtension);

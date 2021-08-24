@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gaml.statements.test.SetUpStatement.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * SetUpStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -22,6 +22,9 @@ import gama.runtime.exceptions.GamaRuntimeException;
 import gaml.descriptions.IDescription;
 import gaml.statements.AbstractStatementSequence;
 
+/**
+ * The Class SetUpStatement.
+ */
 @symbol (
 		name = { "setup" },
 		kind = ISymbolKind.SEQUENCE_STATEMENT,
@@ -68,6 +71,12 @@ import gaml.statements.AbstractStatementSequence;
 								isExecutable = false) }) },
 		see = { "test", "assert" })
 public class SetUpStatement extends AbstractStatementSequence {
+	
+	/**
+	 * Instantiates a new sets the up statement.
+	 *
+	 * @param desc the desc
+	 */
 	public SetUpStatement(final IDescription desc) {
 		super(desc);
 		setName("setup");
@@ -79,6 +88,13 @@ public class SetUpStatement extends AbstractStatementSequence {
 		return null;
 	}
 
+	/**
+	 * Setup.
+	 *
+	 * @param scope the scope
+	 * @return the object
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public Object setup(final IScope scope) throws GamaRuntimeException {
 		// calls the « normal » execution defined in the superclass
 		return super.executeOn(scope);

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Point.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -99,18 +109,8 @@ public class Point
     @XmlElement(defaultValue = "0")
     @XmlJavaTypeAdapter(BooleanConverter.class)
     protected Boolean extrude;
-    /**
-     * AltitudeMode
-     * <p>
-     * clampToGround, relativeToGround, absolute 
-     * </p>
-     * 
-     * See Also: 
-     * See <LookAt> and <Region>
-     * 
-     * 
-     * 
-     */
+    
+    /** AltitudeMode <p> clampToGround, relativeToGround, absolute  </p>  See Also:  See <LookAt> and <Region>. */
     @XmlElement(defaultValue = "clampToGround")
     protected AltitudeMode altitudeMode;
     /**
@@ -137,6 +137,8 @@ public class Point
     @XmlElement(namespace = "http://www.opengis.net/kml/2.2", type = String.class)
     @XmlJavaTypeAdapter(CoordinatesConverter.class)
     protected List<Coordinate> coordinates;
+    
+    /** The point simple extension. */
     @XmlElement(name = "PointSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> pointSimpleExtension;
@@ -161,64 +163,65 @@ public class Point
     @XmlElement(name = "PointObjectExtensionGroup")
     protected List<AbstractObject> pointObjectExtension;
 
+    /**
+     * Instantiates a new point.
+     */
     public Point() {
         super();
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Checks if is extrude.
+     *
+     * @return     possible object is
      *     {@link Boolean}
-     *     
      */
     public Boolean isExtrude() {
         return extrude;
     }
 
     /**
-     * @see extrude
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the extrude.
+     *
+     * @param value     allowed object is
      *     {@link Boolean}
-     *     
+     * @see extrude
      */
     public void setExtrude(Boolean value) {
         this.extrude = value;
     }
 
     /**
-     * @see altitudeMode
-     * 
-     * @return
-     *     possible object is
+     * Gets the altitude mode.
+     *
+     * @return     possible object is
      *     {@code <}{@link Object}{@code>}
      *     {@code <}{@link gama.ext.libs.kml.AltitudeMode}{@code>}
      *     {@code <}{@link msi.gama.ext.kml.gx.AltitudeMode}{@code>}
-     *     
+     * @see altitudeMode
      */
     public AltitudeMode getAltitudeMode() {
         return altitudeMode;
     }
 
     /**
-     * @see altitudeMode
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the altitude mode.
+     *
+     * @param value     allowed object is
      *     {@code <}{@link Object}{@code>}
      *     {@code <}{@link gama.ext.libs.kml.AltitudeMode}{@code>}
      *     {@code <}{@link msi.gama.ext.kml.gx.AltitudeMode}{@code>}
-     *     
+     * @see altitudeMode
      */
     public void setAltitudeMode(AltitudeMode value) {
         this.altitudeMode = value;
     }
 
     /**
+     * Gets the point simple extension.
+     *
+     * @return the point simple extension
      * @see pointSimpleExtension
-     * 
      */
     public List<Object> getPointSimpleExtension() {
         if (pointSimpleExtension == null) {
@@ -228,8 +231,10 @@ public class Point
     }
 
     /**
+     * Gets the point object extension.
+     *
+     * @return the point object extension
      * @see pointObjectExtension
-     * 
      */
     public List<AbstractObject> getPointObjectExtension() {
         if (pointObjectExtension == null) {
@@ -239,8 +244,10 @@ public class Point
     }
 
     /**
+     * Gets the coordinates.
+     *
+     * @return the coordinates
      * @see coordinates
-     * 
      */
     public List<Coordinate> getCoordinates() {
         if (coordinates == null) {
@@ -325,23 +332,21 @@ public class Point
     }
 
     /**
+     * Sets the coordinates.
+     *
+     * @param coordinates the new coordinates
      * @see coordinates
-     * 
-     * @param coordinates
      */
     public void setCoordinates(final List<Coordinate> coordinates) {
         this.coordinates = coordinates;
     }
 
     /**
-     * add a value to the coordinates property collection
-     * 
-     * @param longitude
-     *     required parameter
-     * @param latitude
-     *     required parameter
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the coordinates property collection.
+     *
+     * @param longitude     required parameter
+     * @param latitude     required parameter
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Point addToCoordinates(final double longitude, final double latitude) {
         this.getCoordinates().add(new Coordinate(longitude, latitude));
@@ -349,16 +354,12 @@ public class Point
     }
 
     /**
-     * add a value to the coordinates property collection
-     * 
-     * @param longitude
-     *     required parameter
-     * @param latitude
-     *     required parameter
-     * @param altitude
-     *     required parameter
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the coordinates property collection.
+     *
+     * @param longitude     required parameter
+     * @param latitude     required parameter
+     * @param altitude     required parameter
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Point addToCoordinates(final double longitude, final double latitude, final double altitude) {
         this.getCoordinates().add(new Coordinate(longitude, latitude, altitude));
@@ -366,12 +367,10 @@ public class Point
     }
 
     /**
-     * add a value to the coordinates property collection
-     * 
-     * @param coordinates
-     *     required parameter
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the coordinates property collection.
+     *
+     * @param coordinates     required parameter
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Point addToCoordinates(final String coordinates) {
         this.getCoordinates().add(new Coordinate(coordinates));
@@ -379,21 +378,20 @@ public class Point
     }
 
     /**
+     * Sets the point simple extension.
+     *
+     * @param pointSimpleExtension the new point simple extension
      * @see pointSimpleExtension
-     * 
-     * @param pointSimpleExtension
      */
     public void setPointSimpleExtension(final List<Object> pointSimpleExtension) {
         this.pointSimpleExtension = pointSimpleExtension;
     }
 
     /**
-     * add a value to the pointSimpleExtension property collection
-     * 
-     * @param pointSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the pointSimpleExtension property collection.
+     *
+     * @param pointSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Point addToPointSimpleExtension(final Object pointSimpleExtension) {
         this.getPointSimpleExtension().add(pointSimpleExtension);
@@ -401,21 +399,20 @@ public class Point
     }
 
     /**
+     * Sets the point object extension.
+     *
+     * @param pointObjectExtension the new point object extension
      * @see pointObjectExtension
-     * 
-     * @param pointObjectExtension
      */
     public void setPointObjectExtension(final List<AbstractObject> pointObjectExtension) {
         this.pointObjectExtension = pointObjectExtension;
     }
 
     /**
-     * add a value to the pointObjectExtension property collection
-     * 
-     * @param pointObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the pointObjectExtension property collection.
+     *
+     * @param pointObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Point addToPointObjectExtension(final AbstractObject pointObjectExtension) {
         this.getPointObjectExtension().add(pointObjectExtension);
@@ -474,11 +471,11 @@ public class Point
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param extrude     required parameter
+     * @return the point
      * @see #setExtrude(Boolean)
-     * 
-     * @param extrude
-     *     required parameter
      */
     public Point withExtrude(final Boolean extrude) {
         this.setExtrude(extrude);
@@ -486,11 +483,11 @@ public class Point
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param altitudeMode     required parameter
+     * @return the point
      * @see #setAltitudeMode(Object)
-     * 
-     * @param altitudeMode
-     *     required parameter
      */
     public Point withAltitudeMode(final  AltitudeMode altitudeMode) {
         this.setAltitudeMode(altitudeMode);
@@ -498,11 +495,11 @@ public class Point
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param coordinates     required parameter
+     * @return the point
      * @see #setCoordinates(List<Coordinate>)
-     * 
-     * @param coordinates
-     *     required parameter
      */
     public Point withCoordinates(final List<Coordinate> coordinates) {
         this.setCoordinates(coordinates);
@@ -510,11 +507,11 @@ public class Point
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param pointSimpleExtension     required parameter
+     * @return the point
      * @see #setPointSimpleExtension(List<Object>)
-     * 
-     * @param pointSimpleExtension
-     *     required parameter
      */
     public Point withPointSimpleExtension(final List<Object> pointSimpleExtension) {
         this.setPointSimpleExtension(pointSimpleExtension);
@@ -522,11 +519,11 @@ public class Point
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param pointObjectExtension     required parameter
+     * @return the point
      * @see #setPointObjectExtension(List<AbstractObject>)
-     * 
-     * @param pointObjectExtension
-     *     required parameter
      */
     public Point withPointObjectExtension(final List<AbstractObject> pointObjectExtension) {
         this.setPointObjectExtension(pointObjectExtension);
@@ -577,8 +574,8 @@ public class Point
      * List<Coordinate> newValue = new List<Coordinate>();
      * this.setCoordinates(newValue); </code>
      * </pre>
-     * 
-     * 
+     *
+     * @return the list
      */
     public List<Coordinate> createAndSetCoordinates() {
         List<Coordinate> newValue = new ArrayList<Coordinate>();

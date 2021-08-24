@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Lod.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -118,6 +128,8 @@ public class Lod
      */
     @XmlElement(defaultValue = "0.0")
     protected double maxFadeExtent;
+    
+    /** The lod simple extension. */
     @XmlElement(name = "LodSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> lodSimpleExtension;
@@ -142,109 +154,106 @@ public class Lod
     @XmlElement(name = "LodObjectExtensionGroup")
     protected List<AbstractObject> lodObjectExtension;
 
+    /**
+     * Instantiates a new lod.
+     */
     public Lod() {
         super();
     }
 
     /**
-     * @see minLodPixels
-     * 
-     * @return
-     *     possible object is
+     * Gets the min lod pixels.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see minLodPixels
      */
     public double getMinLodPixels() {
         return minLodPixels;
     }
 
     /**
-     * @see minLodPixels
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the min lod pixels.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see minLodPixels
      */
     public void setMinLodPixels(double value) {
         this.minLodPixels = value;
     }
 
     /**
-     * @see maxLodPixels
-     * 
-     * @return
-     *     possible object is
+     * Gets the max lod pixels.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see maxLodPixels
      */
     public double getMaxLodPixels() {
         return maxLodPixels;
     }
 
     /**
-     * @see maxLodPixels
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the max lod pixels.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see maxLodPixels
      */
     public void setMaxLodPixels(double value) {
         this.maxLodPixels = value;
     }
 
     /**
-     * @see minFadeExtent
-     * 
-     * @return
-     *     possible object is
+     * Gets the min fade extent.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see minFadeExtent
      */
     public double getMinFadeExtent() {
         return minFadeExtent;
     }
 
     /**
-     * @see minFadeExtent
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the min fade extent.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see minFadeExtent
      */
     public void setMinFadeExtent(double value) {
         this.minFadeExtent = value;
     }
 
     /**
-     * @see maxFadeExtent
-     * 
-     * @return
-     *     possible object is
+     * Gets the max fade extent.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see maxFadeExtent
      */
     public double getMaxFadeExtent() {
         return maxFadeExtent;
     }
 
     /**
-     * @see maxFadeExtent
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the max fade extent.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see maxFadeExtent
      */
     public void setMaxFadeExtent(double value) {
         this.maxFadeExtent = value;
     }
 
     /**
+     * Gets the lod simple extension.
+     *
+     * @return the lod simple extension
      * @see lodSimpleExtension
-     * 
      */
     public List<Object> getLodSimpleExtension() {
         if (lodSimpleExtension == null) {
@@ -254,8 +263,10 @@ public class Lod
     }
 
     /**
+     * Gets the lod object extension.
+     *
+     * @return the lod object extension
      * @see lodObjectExtension
-     * 
      */
     public List<AbstractObject> getLodObjectExtension() {
         if (lodObjectExtension == null) {
@@ -331,21 +342,20 @@ public class Lod
     }
 
     /**
+     * Sets the lod simple extension.
+     *
+     * @param lodSimpleExtension the new lod simple extension
      * @see lodSimpleExtension
-     * 
-     * @param lodSimpleExtension
      */
     public void setLodSimpleExtension(final List<Object> lodSimpleExtension) {
         this.lodSimpleExtension = lodSimpleExtension;
     }
 
     /**
-     * add a value to the lodSimpleExtension property collection
-     * 
-     * @param lodSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the lodSimpleExtension property collection.
+     *
+     * @param lodSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Lod addToLodSimpleExtension(final Object lodSimpleExtension) {
         this.getLodSimpleExtension().add(lodSimpleExtension);
@@ -353,21 +363,20 @@ public class Lod
     }
 
     /**
+     * Sets the lod object extension.
+     *
+     * @param lodObjectExtension the new lod object extension
      * @see lodObjectExtension
-     * 
-     * @param lodObjectExtension
      */
     public void setLodObjectExtension(final List<AbstractObject> lodObjectExtension) {
         this.lodObjectExtension = lodObjectExtension;
     }
 
     /**
-     * add a value to the lodObjectExtension property collection
-     * 
-     * @param lodObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the lodObjectExtension property collection.
+     *
+     * @param lodObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Lod addToLodObjectExtension(final AbstractObject lodObjectExtension) {
         this.getLodObjectExtension().add(lodObjectExtension);
@@ -392,11 +401,11 @@ public class Lod
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param minLodPixels     required parameter
+     * @return the lod
      * @see #setMinLodPixels(double)
-     * 
-     * @param minLodPixels
-     *     required parameter
      */
     public Lod withMinLodPixels(final double minLodPixels) {
         this.setMinLodPixels(minLodPixels);
@@ -404,11 +413,11 @@ public class Lod
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param maxLodPixels     required parameter
+     * @return the lod
      * @see #setMaxLodPixels(double)
-     * 
-     * @param maxLodPixels
-     *     required parameter
      */
     public Lod withMaxLodPixels(final double maxLodPixels) {
         this.setMaxLodPixels(maxLodPixels);
@@ -416,11 +425,11 @@ public class Lod
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param minFadeExtent     required parameter
+     * @return the lod
      * @see #setMinFadeExtent(double)
-     * 
-     * @param minFadeExtent
-     *     required parameter
      */
     public Lod withMinFadeExtent(final double minFadeExtent) {
         this.setMinFadeExtent(minFadeExtent);
@@ -428,11 +437,11 @@ public class Lod
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param maxFadeExtent     required parameter
+     * @return the lod
      * @see #setMaxFadeExtent(double)
-     * 
-     * @param maxFadeExtent
-     *     required parameter
      */
     public Lod withMaxFadeExtent(final double maxFadeExtent) {
         this.setMaxFadeExtent(maxFadeExtent);
@@ -440,11 +449,11 @@ public class Lod
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param lodSimpleExtension     required parameter
+     * @return the lod
      * @see #setLodSimpleExtension(List<Object>)
-     * 
-     * @param lodSimpleExtension
-     *     required parameter
      */
     public Lod withLodSimpleExtension(final List<Object> lodSimpleExtension) {
         this.setLodSimpleExtension(lodSimpleExtension);
@@ -452,11 +461,11 @@ public class Lod
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param lodObjectExtension     required parameter
+     * @return the lod
      * @see #setLodObjectExtension(List<AbstractObject>)
-     * 
-     * @param lodObjectExtension
-     *     required parameter
      */
     public Lod withLodObjectExtension(final List<AbstractObject> lodObjectExtension) {
         this.setLodObjectExtension(lodObjectExtension);

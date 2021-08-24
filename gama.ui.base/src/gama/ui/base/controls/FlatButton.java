@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'FlatButton.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * FlatButton.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.controls;
 
 import org.eclipse.swt.SWT;
@@ -33,62 +32,154 @@ import gama.ui.base.resources.GamaColors;
 import gama.ui.base.resources.GamaIcons;
 import gama.ui.base.resources.GamaColors.GamaUIColor;
 
+/**
+ * The Class FlatButton.
+ */
 public class FlatButton extends Canvas implements PaintListener, Listener {
 
 	static {
 		DEBUG.ON();
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param comp the comp
+	 * @param style the style
+	 * @return the flat button
+	 */
 	public static FlatButton create(final Composite comp, final int style) {
 		return new FlatButton(comp, style);
 	}
 
+	/**
+	 * Label.
+	 *
+	 * @param comp the comp
+	 * @param color the color
+	 * @param text the text
+	 * @return the flat button
+	 */
 	public static FlatButton label(final Composite comp, final GamaUIColor color, final String text) {
 		return button(comp, color, text).disabled();
 	}
 
+	/**
+	 * Label.
+	 *
+	 * @param comp the comp
+	 * @param color the color
+	 * @param text the text
+	 * @param forcedWidth the forced width
+	 * @return the flat button
+	 */
 	public static FlatButton label(final Composite comp, final GamaUIColor color, final String text,
 			final int forcedWidth) {
 		return create(comp, SWT.None).setWidth(forcedWidth).setText(text).setColor(color);
 	}
 
+	/**
+	 * Label.
+	 *
+	 * @param comp the comp
+	 * @param color the color
+	 * @param text the text
+	 * @param image the image
+	 * @return the flat button
+	 */
 	public static FlatButton label(final Composite comp, final GamaUIColor color, final String text,
 			final Image image) {
 		return label(comp, color, text).setImage(image);
 	}
 
+	/**
+	 * Button.
+	 *
+	 * @param comp the comp
+	 * @param color the color
+	 * @param text the text
+	 * @return the flat button
+	 */
 	public static FlatButton button(final Composite comp, final GamaUIColor color, final String text) {
 		return create(comp, SWT.None).setText(text).setColor(color);
 	}
 
+	/**
+	 * Button.
+	 *
+	 * @param comp the comp
+	 * @param color the color
+	 * @param text the text
+	 * @param image the image
+	 * @return the flat button
+	 */
 	public static FlatButton button(final Composite comp, final GamaUIColor color, final String text,
 			final Image image) {
 		return button(comp, color, text).setImage(image);
 	}
 
+	/**
+	 * Menu.
+	 *
+	 * @param comp the comp
+	 * @param color the color
+	 * @param text the text
+	 * @return the flat button
+	 */
 	public static FlatButton menu(final Composite comp, final GamaUIColor color, final String text) {
 		return button(comp, color, text).setImageStyle(IMAGE_RIGHT)
 				.setImage(GamaIcons.create("small.dropdown").image());
 	}
 
+	/** The image. */
 	private Image image;
+	
+	/** The text. */
 	private String text;
+	
+	/** The color code. */
 	private RGB colorCode;
+	
+	/** The Constant innerMarginWidth. */
 	private static final int innerMarginWidth = 5;
 	// private static int DEFAULT_HEIGHT =
+	/** The preferred height. */
 	// WorkbenchHelper.getDisplay().getSystemFont().getFontData()[0].getHeight() + innerMarginWidth;
 	private int preferredHeight = -1; // DEFAULT_HEIGHT;
+	
+	/** The preferred width. */
 	private int preferredWidth = -1;
+	
+	/** The Constant imagePadding. */
 	private static final int imagePadding = 5;
+	
+	/** The enabled. */
 	private boolean enabled = true;
+	
+	/** The hovered. */
 	private boolean hovered = false;
+	
+	/** The down. */
 	private boolean down = false;
 
+	/** The image left. */
 	public static int IMAGE_LEFT = 0;
+	
+	/** The image right. */
 	public static int IMAGE_RIGHT = 1;
+	
+	/** The image style. */
 	private int imageStyle = IMAGE_LEFT;
+	
+	/** The forced width. */
 	private int forcedWidth = -1;
 
+	/**
+	 * Instantiates a new flat button.
+	 *
+	 * @param parent the parent
+	 * @param style the style
+	 */
 	private FlatButton(final Composite parent, final int style) {
 		super(parent, style | SWT.DOUBLE_BUFFERED);
 		addPaintListener(this);
@@ -120,21 +211,27 @@ public class FlatButton extends Canvas implements PaintListener, Listener {
 	}
 
 	/**
-	 * SelectionListeners are notified when the button is clicked
+	 * SelectionListeners are notified when the button is clicked.
 	 *
-	 * @param listener
+	 * @param listener the listener
 	 */
 	public void addSelectionListener(final SelectionListener listener) {
 		if (listener == null) return;
 		addListener(SWT.Selection, new TypedListener(listener));
 	}
 
+	/**
+	 * Do button down.
+	 */
 	public void doButtonDown() {
 		if (!enabled) return;
 		down = true;
 		if (!isDisposed()) { redraw(); }
 	}
 
+	/**
+	 * Do button up.
+	 */
 	private void doButtonUp() {
 		if (!enabled) return;
 		final Event e = new Event();
@@ -146,6 +243,11 @@ public class FlatButton extends Canvas implements PaintListener, Listener {
 		if (!isDisposed()) { redraw(); }
 	}
 
+	/**
+	 * Do hover.
+	 *
+	 * @param hover the hover
+	 */
 	private void doHover(final boolean hover) {
 		hovered = hover;
 		if (!isDisposed()) { redraw(); }
@@ -197,6 +299,14 @@ public class FlatButton extends Canvas implements PaintListener, Listener {
 		}
 	}
 
+	/**
+	 * Draw image.
+	 *
+	 * @param gc the gc
+	 * @param x the x
+	 * @param y the y
+	 * @return the int
+	 */
 	private int drawImage(final GC gc, final int x, final int y) {
 		if (getImage() == null) return x;
 		gc.drawImage(getImage(), x, y);
@@ -219,6 +329,11 @@ public class FlatButton extends Canvas implements PaintListener, Listener {
 		return new Point(width, height);
 	}
 
+	/**
+	 * New text.
+	 *
+	 * @return the string
+	 */
 	public String newText() {
 		if (text == null) return null;
 		final int parentWidth = getParent().getBounds().width;
@@ -247,7 +362,8 @@ public class FlatButton extends Canvas implements PaintListener, Listener {
 	 * will be to the left of the text; however, setImageStyle can be used to specify that it's either to the right or
 	 * left. If there is no text, the image will be centered inside the button.
 	 *
-	 * @param image
+	 * @param image the image
+	 * @return the flat button
 	 */
 	public FlatButton setImage(final Image image) {
 		if (this.image == image) return this;
@@ -257,6 +373,9 @@ public class FlatButton extends Canvas implements PaintListener, Listener {
 		return this;
 	}
 
+	/**
+	 * Compute preferred size.
+	 */
 	private void computePreferredSize() {
 
 		final Image image = getImage();
@@ -286,7 +405,8 @@ public class FlatButton extends Canvas implements PaintListener, Listener {
 	/**
 	 * Set the style with which the side image is drawn, either IMAGE_LEFT or IMAGE_RIGHT (default is IMAGE_LEFT).
 	 *
-	 * @param imageStyle
+	 * @param imageStyle the image style
+	 * @return the flat button
 	 */
 	public FlatButton setImageStyle(final int imageStyle) {
 		this.imageStyle = imageStyle;
@@ -295,14 +415,30 @@ public class FlatButton extends Canvas implements PaintListener, Listener {
 		return this;
 	}
 
+	/**
+	 * Gets the image style.
+	 *
+	 * @return the image style
+	 */
 	public int getImageStyle() {
 		return imageStyle;
 	}
 
+	/**
+	 * Gets the text.
+	 *
+	 * @return the text
+	 */
 	public String getText() {
 		return text;
 	}
 
+	/**
+	 * Sets the text.
+	 *
+	 * @param text the text
+	 * @return the flat button
+	 */
 	public FlatButton setText(final String text) {
 		if (text == null || text.equals(this.text)) return this;
 		this.text = text;
@@ -311,6 +447,9 @@ public class FlatButton extends Canvas implements PaintListener, Listener {
 		return this;
 	}
 
+	/**
+	 * Adds the listeners.
+	 */
 	private void addListeners() {
 		addListener(SWT.MouseDown, this);
 		addListener(SWT.MouseExit, this);
@@ -339,19 +478,40 @@ public class FlatButton extends Canvas implements PaintListener, Listener {
 		}
 	}
 
+	/**
+	 * Disabled.
+	 *
+	 * @return the flat button
+	 */
 	public FlatButton disabled() {
 		setEnabled(false);
 		return this;
 	}
 
+	/**
+	 * Light.
+	 *
+	 * @return the flat button
+	 */
 	public FlatButton light() {
 		return this;
 	}
 
+	/**
+	 * Small.
+	 *
+	 * @return the flat button
+	 */
 	public FlatButton small() {
 		return this;
 	}
 
+	/**
+	 * Sets the color.
+	 *
+	 * @param c the c
+	 * @return the flat button
+	 */
 	public FlatButton setColor(final GamaUIColor c) {
 		final RGB oldColorCode = colorCode;
 		final RGB newColorCode = c.getRGB();
@@ -361,20 +521,41 @@ public class FlatButton extends Canvas implements PaintListener, Listener {
 		return this;
 	}
 
+	/**
+	 * Gets the height.
+	 *
+	 * @return the height
+	 */
 	public int getHeight() {
 		return preferredHeight;
 	}
 
+	/**
+	 * Sets the width.
+	 *
+	 * @param width the width
+	 * @return the flat button
+	 */
 	public FlatButton setWidth(final int width) {
 		forcedWidth = width;
 		preferredWidth = width;
 		return this;
 	}
 
+	/**
+	 * Gets the color.
+	 *
+	 * @return the color
+	 */
 	public GamaUIColor getColor() {
 		return GamaColors.get(colorCode);
 	}
 
+	/**
+	 * Gets the image.
+	 *
+	 * @return the image
+	 */
 	public Image getImage() {
 		return image;
 	}

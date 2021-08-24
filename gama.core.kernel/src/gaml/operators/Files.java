@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.operators.Files.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * Files.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.operators;
 
@@ -43,6 +43,7 @@ import gaml.types.Types;
 @SuppressWarnings ({ "rawtypes" })
 public class Files {
 
+	/** The Constant WRITE. */
 	public static final String WRITE = "write";
 
 	// @operator (
@@ -55,6 +56,14 @@ public class Files {
 	// comment = "The type of container to pass will depend on the type of file (see the management of files in the
 	// documentation). Can be used to copy files since files are considered as containers. For example: save
 	// file('image_copy.png', file('image.png')); will copy image.png to image_copy.png")
+	/**
+	 * From.
+	 *
+	 * @param scope the scope
+	 * @param s the s
+	 * @param container the container
+	 * @return the i gama file
+	 */
 	// @no_test
 	public static IGamaFile from(final IScope scope, final String s, final IContainer container) {
 		// WARNING Casting to Modifiable is not safe
@@ -82,11 +91,26 @@ public class Files {
 	// value = " // fileT represents the file \"../includes/Stupid_Cell.Data\""),
 	// @example (
 	// value = " // fileT.contents here contains a matrix storing all the data of the text file") },
+	/**
+	 * From.
+	 *
+	 * @param scope the scope
+	 * @param s the s
+	 * @return the i gama file
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	// see = { "folder", "new_folder" })
 	public static IGamaFile from(final IScope scope, final String s) throws GamaRuntimeException {
 		return from(scope, s, null);
 	}
 
+	/**
+	 * Exist file.
+	 *
+	 * @param scope the scope
+	 * @param s the s
+	 * @return true, if successful
+	 */
 	@operator (
 			value = "file_exists",
 			can_be_const = false,
@@ -119,6 +143,13 @@ public class Files {
 		}
 	}
 
+	/**
+	 * Exist folder.
+	 *
+	 * @param scope the scope
+	 * @param s the s
+	 * @return true, if successful
+	 */
 	@operator (
 			value = "folder_exists",
 			can_be_const = false,
@@ -151,6 +182,14 @@ public class Files {
 		}
 	}
 
+	/**
+	 * Folder file.
+	 *
+	 * @param scope the scope
+	 * @param s the s
+	 * @return the i gama file
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = IKeyword.FOLDER,
 			can_be_const = false,
@@ -176,11 +215,28 @@ public class Files {
 		return new GamaFolderFile(scope, s);
 	}
 
+	/**
+	 * Folder file.
+	 *
+	 * @param scope the scope
+	 * @param s the s
+	 * @param modify the modify
+	 * @return the i gama file
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public static IGamaFile folderFile(final IScope scope, final String s, final boolean modify)
 			throws GamaRuntimeException {
 		return new GamaFolderFile(scope, s, modify);
 	}
 
+	/**
+	 * Writable.
+	 *
+	 * @param scope the scope
+	 * @param s the s
+	 * @param writable the writable
+	 * @return the i gama file
+	 */
 	@operator (
 			value = "writable",
 			category = IOperatorCategory.FILE,
@@ -207,11 +263,10 @@ public class Files {
 	 * Allows to read the value of an attribute stored in a GIS if the agent has been created from this GIS. Values are
 	 * either conserved in a special subclass of GamaGeometry or available during creation time in the flow of features.
 	 *
-	 * @param scope
-	 *            the current execution stack
-	 * @param s
-	 *            the name of the attribute to read
-	 * @return
+	 * @param scope            the current execution stack
+	 * @param s            the name of the attribute to read
+	 * @return the object
+	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 	@operator (
 			value = { "read", "get" },
@@ -235,6 +290,15 @@ public class Files {
 		return opRead(scope, scope.getAgent(), s);
 	}
 
+	/**
+	 * Op read.
+	 *
+	 * @param scope the scope
+	 * @param g the g
+	 * @param s the s
+	 * @return the object
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = "get",
 			category = IOperatorCategory.CONTAINER,
@@ -258,6 +322,15 @@ public class Files {
 		return g.get(scope, s);
 	}
 
+	/**
+	 * Op read.
+	 *
+	 * @param scope the scope
+	 * @param g the g
+	 * @param s the s
+	 * @return the object
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = "get",
 			category = IOperatorCategory.FILE,
@@ -280,6 +353,14 @@ public class Files {
 		return ((GamaShape) g.getGeometry()).getAttribute(s);
 	}
 
+	/**
+	 * New folder.
+	 *
+	 * @param scope the scope
+	 * @param folder the folder
+	 * @return the i gama file
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = { "new_folder" },
 			index_type = IType.INT,

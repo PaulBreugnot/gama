@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Data.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -73,6 +83,8 @@ public class Data
      */
     @XmlElement(required = true)
     protected String value;
+    
+    /** The data extension. */
     @XmlElement(name = "DataExtension")
     protected List<Object> dataExtension;
     /**
@@ -89,10 +101,9 @@ public class Data
     protected String name;
 
     /**
-     * Value constructor with only mandatory fields
-     * 
-     * @param value
-     *     required parameter
+     * Value constructor with only mandatory fields.
+     *
+     * @param value     required parameter
      */
     public Data(final String value) {
         super();
@@ -109,56 +120,54 @@ public class Data
     }
 
     /**
-     * @see displayName
-     * 
-     * @return
-     *     possible object is
+     * Gets the display name.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see displayName
      */
     public String getDisplayName() {
         return displayName;
     }
 
     /**
-     * @see displayName
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the display name.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see displayName
      */
     public void setDisplayName(String value) {
         this.displayName = value;
     }
 
     /**
-     * @see value
-     * 
-     * @return
-     *     possible object is
+     * Gets the value.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see value
      */
     public String getValue() {
         return value;
     }
 
     /**
-     * @see value
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the value.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see value
      */
     public void setValue(String value) {
         this.value = value;
     }
 
     /**
+     * Gets the data extension.
+     *
+     * @return the data extension
      * @see dataExtension
-     * 
      */
     public List<Object> getDataExtension() {
         if (dataExtension == null) {
@@ -168,24 +177,22 @@ public class Data
     }
 
     /**
-     * @see name
-     * 
-     * @return
-     *     possible object is
+     * Gets the name.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @see name
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the name.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see name
      */
     public void setName(String value) {
         this.name = value;
@@ -257,21 +264,20 @@ public class Data
     }
 
     /**
+     * Sets the data extension.
+     *
+     * @param dataExtension the new data extension
      * @see dataExtension
-     * 
-     * @param dataExtension
      */
     public void setDataExtension(final List<Object> dataExtension) {
         this.dataExtension = dataExtension;
     }
 
     /**
-     * add a value to the dataExtension property collection
-     * 
-     * @param dataExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the dataExtension property collection.
+     *
+     * @param dataExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Data addToDataExtension(final Object dataExtension) {
         this.getDataExtension().add(dataExtension);
@@ -296,11 +302,11 @@ public class Data
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param displayName     required parameter
+     * @return the data
      * @see #setDisplayName(String)
-     * 
-     * @param displayName
-     *     required parameter
      */
     public Data withDisplayName(final String displayName) {
         this.setDisplayName(displayName);
@@ -308,11 +314,11 @@ public class Data
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param dataExtension     required parameter
+     * @return the data
      * @see #setDataExtension(List<Object>)
-     * 
-     * @param dataExtension
-     *     required parameter
      */
     public Data withDataExtension(final List<Object> dataExtension) {
         this.setDataExtension(dataExtension);
@@ -320,11 +326,11 @@ public class Data
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param name     required parameter
+     * @return the data
      * @see #setName(String)
-     * 
-     * @param name
-     *     required parameter
      */
     public Data withName(final String name) {
         this.setName(name);

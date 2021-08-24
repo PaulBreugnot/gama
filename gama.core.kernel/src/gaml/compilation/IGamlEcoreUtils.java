@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * IGamlEcoreUtils.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gaml.compilation;
 
 import java.util.List;
@@ -6,58 +16,57 @@ import java.util.Map;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
+/**
+ * The Interface IGamlEcoreUtils.
+ */
 public interface IGamlEcoreUtils {
 
 	/**
-	 * Gets the name of a statement
+	 * Gets the name of a statement.
 	 *
-	 * @param s
-	 *            the s
+	 * @param s            the s
 	 * @return the name of
 	 */
 	String getNameOf(EObject s);
 
 	/**
-	 * Gets the exprs out of an expression list
+	 * Gets the exprs out of an expression list.
 	 *
-	 * @param o
-	 *            the o
+	 * @param o            the o
 	 * @return the exprs of
 	 */
 	List<? extends EObject> getExprsOf(EObject o);
 
 	/**
-	 * Gets the args out of the arguments of an action
+	 * Gets the args out of the arguments of an action.
 	 *
-	 * @param args
-	 *            the args
+	 * @param args            the args
 	 * @return the args of
 	 */
 	List<? extends EObject> getArgsOf(EObject args);
 
 	/**
-	 * Gets the facets of a statement
+	 * Gets the facets of a statement.
 	 *
-	 * @param s
-	 *            the s
+	 * @param s            the s
 	 * @return the facets of
 	 */
 	List<? extends EObject> getFacetsOf(EObject s);
 
 	/**
-	 * Gets the facets map of a statement
+	 * Gets the facets map of a statement.
 	 *
-	 * @param s
-	 *            the s
+	 * @param s            the s
 	 * @return the facets map of
 	 */
 	Map<String, ? extends EObject> getFacetsMapOf(EObject s);
 
 	/**
-	 * Get one particular facet of a statement
+	 * Get one particular facet of a statement.
 	 *
-	 * @param s
-	 * @return
+	 * @param statement the statement
+	 * @param facetKey the facet key
+	 * @return the expression at key
 	 */
 	EObject getExpressionAtKey(EObject statement, String facetKey);
 
@@ -71,82 +80,86 @@ public interface IGamlEcoreUtils {
 	boolean hasChildren(EObject obj);
 
 	/**
-	 * Gets the statements of a block
+	 * Gets the statements of a block.
 	 *
-	 * @param block
-	 *            the block
+	 * @param block            the block
 	 * @return the statements of
 	 */
 	List<? extends EObject> getStatementsOf(EObject block);
 
 	/**
-	 * Gets the equations of a systems of equations
+	 * Gets the equations of a systems of equations.
 	 *
-	 * @param stm
-	 *            the stm
+	 * @param stm            the stm
 	 * @return the equations of
 	 */
 	List<? extends EObject> getEquationsOf(EObject stm);
 
 	/**
-	 * Gets the key of an eObject
+	 * Gets the key of an eObject.
 	 *
-	 * @param f
-	 *            the f
+	 * @param f            the f
 	 * @return the key of
 	 */
 	String getKeyOf(EObject f);
 
 	/**
-	 * Gets the key of an eObject in a given eClass
+	 * Gets the key of an eObject in a given eClass.
 	 *
-	 * @param object
-	 *            the object
-	 * @param clazz
-	 *            the clazz
+	 * @param object            the object
+	 * @param clazz            the clazz
 	 * @return the key of
 	 */
 	String getKeyOf(EObject object, EClass clazz);
 
 	/**
-	 * Gets the name of the ref represented by this eObject
+	 * Gets the name of the ref represented by this eObject.
 	 *
-	 * @param o
-	 *            the o
+	 * @param o            the o
 	 * @return the name of ref
 	 */
 	String getNameOfRef(EObject o);
 
 	/**
-	 * Save an eObject into a string
+	 * Save an eObject into a string.
 	 *
-	 * @param expr
-	 *            the expr
+	 * @param expr            the expr
 	 * @return the string
 	 */
 
 	String toString(EObject expr);
 
 	/**
-	 * Gets the statement equal to or including this eObject
+	 * Gets the statement equal to or including this eObject.
 	 *
-	 * @param o
-	 *            the o
+	 * @param o            the o
 	 * @return the statement
 	 */
 	EObject getStatement(EObject o);
 
 	/**
-	 * Checks if this statement includes a batch definition
+	 * Checks if this statement includes a batch definition.
 	 *
-	 * @param e
-	 *            the e
+	 * @param e            the e
 	 * @return true, if is batch
 	 */
 	boolean isBatch(EObject e);
 
+	/**
+	 * Gets the expr of.
+	 *
+	 * @param element the element
+	 * @return the expr of
+	 */
 	EObject getExprOf(EObject element);
 
+	/**
+	 * Checks for facet.
+	 *
+	 * @param s the s
+	 * @param facet the facet
+	 * @return true, if successful
+	 */
 	boolean hasFacet(EObject s, String facet);
 
 }

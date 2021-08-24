@@ -1,20 +1,13 @@
-/*
- * Java port of Bullet (c) 2008 Martin Dvorak <jezek2@advel.cz>
+/*******************************************************************************************************
  *
- * Bullet Continuous Collision Detection and Physics Library Copyright (c) 2003-2008 Erwin Coumans
- * http://www.bulletphysics.com/
+ * DynamicsWorld.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the authors be held
- * liable for any damages arising from the use of this software.
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter
- * it and redistribute it freely, subject to the following restrictions:
- *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software.
- * If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not
- * required. 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the
- * original software. 3. This notice may not be removed or altered from any source distribution.
- */
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package com.bulletphysics.dynamics;
 
@@ -37,20 +30,44 @@ import com.bulletphysics.dynamics.vehicle.RaycastVehicle;
  */
 public abstract class DynamicsWorld extends CollisionWorld {
 
+	/** The internal tick callback. */
 	protected InternalTickCallback internalTickCallback;
+	
+	/** The world user info. */
 	protected Object worldUserInfo;
 
+	/** The solver info. */
 	protected final ContactSolverInfo solverInfo = new ContactSolverInfo();
 
+	/**
+	 * Instantiates a new dynamics world.
+	 *
+	 * @param dispatcher the dispatcher
+	 * @param broadphasePairCache the broadphase pair cache
+	 * @param collisionConfiguration the collision configuration
+	 */
 	public DynamicsWorld(final Dispatcher dispatcher, final BroadphaseInterface broadphasePairCache,
 			final CollisionConfiguration collisionConfiguration) {
 		super(dispatcher, broadphasePairCache, collisionConfiguration);
 	}
 
+	/**
+	 * Step simulation.
+	 *
+	 * @param timeStep the time step
+	 * @return the int
+	 */
 	public final int stepSimulation(final float timeStep) {
 		return stepSimulation(timeStep, 1, 1f / 60f);
 	}
 
+	/**
+	 * Step simulation.
+	 *
+	 * @param timeStep the time step
+	 * @param maxSubSteps the max sub steps
+	 * @return the int
+	 */
 	public final int stepSimulation(final float timeStep, final int maxSubSteps) {
 		return stepSimulation(timeStep, maxSubSteps, 1f / 60f);
 	}
@@ -58,88 +75,205 @@ public abstract class DynamicsWorld extends CollisionWorld {
 	/**
 	 * Proceeds the simulation over 'timeStep', units in preferably in seconds.
 	 * <p>
-	 *
+	 * 
 	 * By default, Bullet will subdivide the timestep in constant substeps of each 'fixedTimeStep'.
 	 * <p>
-	 *
+	 * 
 	 * In order to keep the simulation real-time, the maximum number of substeps can be clamped to 'maxSubSteps'.
 	 * <p>
-	 *
+	 * 
 	 * You can disable subdividing the timestep/substepping by passing maxSubSteps=0 as second argument to
 	 * stepSimulation, but in that case you have to keep the timeStep constant.
+	 *
+	 * @param timeStep the time step
+	 * @param maxSubSteps the max sub steps
+	 * @param fixedTimeStep the fixed time step
+	 * @return the int
 	 */
 	public abstract int stepSimulation(float timeStep, int maxSubSteps, float fixedTimeStep);
 
+	/**
+	 * Adds the constraint.
+	 *
+	 * @param constraint the constraint
+	 */
 	public final void addConstraint(final TypedConstraint constraint) {
 		addConstraint(constraint, false);
 	}
 
+	/**
+	 * Adds the constraint.
+	 *
+	 * @param constraint the constraint
+	 * @param disableCollisionsBetweenLinkedBodies the disable collisions between linked bodies
+	 */
 	public void addConstraint(final TypedConstraint constraint, final boolean disableCollisionsBetweenLinkedBodies) {}
 
+	/**
+	 * Removes the constraint.
+	 *
+	 * @param constraint the constraint
+	 */
 	public void removeConstraint(final TypedConstraint constraint) {}
 
+	/**
+	 * Adds the action.
+	 *
+	 * @param action the action
+	 */
 	public void addAction(final ActionInterface action) {}
 
+	/**
+	 * Removes the action.
+	 *
+	 * @param action the action
+	 */
 	public void removeAction(final ActionInterface action) {}
 
+	/**
+	 * Adds the vehicle.
+	 *
+	 * @param vehicle the vehicle
+	 */
 	public void addVehicle(final RaycastVehicle vehicle) {}
 
+	/**
+	 * Removes the vehicle.
+	 *
+	 * @param vehicle the vehicle
+	 */
 	public void removeVehicle(final RaycastVehicle vehicle) {}
 
 	/**
 	 * Once a rigidbody is added to the dynamics world, it will get this gravity assigned. Existing rigidbodies in the
 	 * world get gravity assigned too, during this method.
+	 *
+	 * @param gravity the new gravity
 	 */
 	public abstract void setGravity(Vector3f gravity);
 
+	/**
+	 * Gets the gravity.
+	 *
+	 * @param out the out
+	 * @return the gravity
+	 */
 	public abstract Vector3f getGravity(Vector3f out);
 
+	/**
+	 * Adds the rigid body.
+	 *
+	 * @param body the body
+	 */
 	public abstract void addRigidBody(RigidBody body);
 
+	/**
+	 * Removes the rigid body.
+	 *
+	 * @param body the body
+	 */
 	public abstract void removeRigidBody(RigidBody body);
 
+	/**
+	 * Sets the constraint solver.
+	 *
+	 * @param solver the new constraint solver
+	 */
 	public abstract void setConstraintSolver(ConstraintSolver solver);
 
+	/**
+	 * Gets the constraint solver.
+	 *
+	 * @return the constraint solver
+	 */
 	public abstract ConstraintSolver getConstraintSolver();
 
+	/**
+	 * Gets the num constraints.
+	 *
+	 * @return the num constraints
+	 */
 	public int getNumConstraints() {
 		return 0;
 	}
 
+	/**
+	 * Gets the constraint.
+	 *
+	 * @param index the index
+	 * @return the constraint
+	 */
 	public TypedConstraint getConstraint(final int index) {
 		return null;
 	}
 
+	/**
+	 * Gets the num actions.
+	 *
+	 * @return the num actions
+	 */
 	// JAVA NOTE: not part of the original api
 	public int getNumActions() {
 		return 0;
 	}
 
+	/**
+	 * Gets the action.
+	 *
+	 * @param index the index
+	 * @return the action
+	 */
 	// JAVA NOTE: not part of the original api
 	public ActionInterface getAction(final int index) {
 		return null;
 	}
 
+	/**
+	 * Gets the world type.
+	 *
+	 * @return the world type
+	 */
 	public abstract DynamicsWorldType getWorldType();
 
+	/**
+	 * Clear forces.
+	 */
 	public abstract void clearForces();
 
 	/**
 	 * Set the callback for when an internal tick (simulation substep) happens, optional user info.
+	 *
+	 * @param cb the cb
+	 * @param worldUserInfo the world user info
 	 */
 	public void setInternalTickCallback(final InternalTickCallback cb, final Object worldUserInfo) {
 		this.internalTickCallback = cb;
 		this.worldUserInfo = worldUserInfo;
 	}
 
+	/**
+	 * Sets the world user info.
+	 *
+	 * @param worldUserInfo the new world user info
+	 */
 	public void setWorldUserInfo(final Object worldUserInfo) {
 		this.worldUserInfo = worldUserInfo;
 	}
 
+	/**
+	 * Gets the world user info.
+	 *
+	 * @return the world user info
+	 */
 	public Object getWorldUserInfo() {
 		return worldUserInfo;
 	}
 
+	/**
+	 * Gets the solver info.
+	 *
+	 * @return the solver info
+	 */
 	public ContactSolverInfo getSolverInfo() {
 		return solverInfo;
 	}

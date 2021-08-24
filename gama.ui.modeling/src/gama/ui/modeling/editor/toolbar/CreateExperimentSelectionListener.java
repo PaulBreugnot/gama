@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'CreateExperimentSelectionListener.java, in plugin ummisco.gama.ui.modeling, is part of the source code of the GAMA
- * modeling and simulation platform. (v. 1.8.1)
+ * CreateExperimentSelectionListener.java, in gama.ui.modeling, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.modeling.editor.toolbar;
 
 import org.eclipse.jface.text.templates.Template;
@@ -31,11 +30,17 @@ import gama.ui.modeling.editor.GamlEditor;
 @SuppressWarnings ("deprecation")
 public class CreateExperimentSelectionListener implements Selector {
 
+	/** The editor. */
 	GamlEditor editor;
+	
+	/** The control. */
 	Control control;
 
 	/**
+	 * Instantiates a new creates the experiment selection listener.
 	 *
+	 * @param editor the editor
+	 * @param toolbar the toolbar
 	 */
 	public CreateExperimentSelectionListener(final GamlEditor editor, final Control toolbar) {
 		this.editor = editor;

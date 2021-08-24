@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.operators.Graphs.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * Graphs.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.operators;
 
@@ -103,10 +103,19 @@ import gaml.types.Types;
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class Graphs {
 
+	/**
+	 * The Class IntersectionRelation.
+	 */
 	private static class IntersectionRelation implements VertexRelationship<IShape> {
 
+		/** The tolerance. */
 		double tolerance;
 
+		/**
+		 * Instantiates a new intersection relation.
+		 *
+		 * @param t the t
+		 */
 		IntersectionRelation(final double t) {
 			tolerance = t;
 		}
@@ -124,8 +133,14 @@ public class Graphs {
 		}
 	};
 
+	/**
+	 * The Class GridNeighborsRelation.
+	 */
 	private static class GridNeighborsRelation implements VertexRelationship<IShape> {
 
+		/**
+		 * Instantiates a new grid neighbors relation.
+		 */
 		GridNeighborsRelation() {}
 
 		@Override
@@ -160,10 +175,19 @@ public class Graphs {
 	//
 	// };
 
+	/**
+	 * The Class IntersectionRelationLineTriangle.
+	 */
 	private static class IntersectionRelationLineTriangle implements VertexRelationship<IShape> {
 
+		/** The optimized for triangulation. */
 		final boolean optimizedForTriangulation;
 
+		/**
+		 * Instantiates a new intersection relation line triangle.
+		 *
+		 * @param optimizedForTriangulation the optimized for triangulation
+		 */
 		IntersectionRelationLineTriangle(final boolean optimizedForTriangulation) {
 			this.optimizedForTriangulation = optimizedForTriangulation;
 		}
@@ -203,10 +227,19 @@ public class Graphs {
 
 	};
 
+	/**
+	 * The Class DistanceRelation.
+	 */
 	private static class DistanceRelation implements VertexRelationship<IShape> {
 
+		/** The distance. */
 		double distance;
 
+		/**
+		 * Instantiates a new distance relation.
+		 *
+		 * @param d the d
+		 */
 		DistanceRelation(final double d) {
 			distance = d;
 		}
@@ -240,15 +273,36 @@ public class Graphs {
 
 	public interface GraphObjectToAdd {
 
+		/**
+		 * Gets the object.
+		 *
+		 * @return the object
+		 */
 		Object getObject();
 	}
 
+	/**
+	 * The Class EdgeToAdd.
+	 */
 	public static class EdgeToAdd implements GraphObjectToAdd {
 
+		/** The target. */
 		public Object source, target;
+		
+		/** The object. */
 		public Object object;
+		
+		/** The weight. */
 		public Double weight;
 
+		/**
+		 * Instantiates a new edge to add.
+		 *
+		 * @param source the source
+		 * @param target the target
+		 * @param object the object
+		 * @param weight the weight
+		 */
 		public EdgeToAdd(final Object source, final Object target, final Object object, final Double weight) {
 			this.object = object;
 			this.weight = weight;
@@ -256,6 +310,14 @@ public class Graphs {
 			this.target = target;
 		}
 
+		/**
+		 * Instantiates a new edge to add.
+		 *
+		 * @param source the source
+		 * @param target the target
+		 * @param object the object
+		 * @param weight the weight
+		 */
 		public EdgeToAdd(final Object source, final Object target, final Object object, final Integer weight) {
 			this.object = object;
 			this.weight = weight == null ? null : weight.doubleValue();
@@ -269,25 +331,41 @@ public class Graphs {
 		}
 
 		/**
-		 * @param cast
+		 * Instantiates a new edge to add.
+		 *
+		 * @param o the o
 		 */
 		public EdgeToAdd(final Object o) {
 			this.object = o;
 		}
 	}
 
+	/**
+	 * The Class NodeToAdd.
+	 */
 	public static class NodeToAdd implements GraphObjectToAdd {
 
+		/** The object. */
 		public Object object;
+		
+		/** The weight. */
 		public Double weight;
 
+		/**
+		 * Instantiates a new node to add.
+		 *
+		 * @param object the object
+		 * @param weight the weight
+		 */
 		public NodeToAdd(final Object object, final Double weight) {
 			this.object = object;
 			this.weight = weight;
 		}
 
 		/**
-		 * @param cast
+		 * Instantiates a new node to add.
+		 *
+		 * @param o the o
 		 */
 		public NodeToAdd(final Object o) {
 			object = o;
@@ -300,17 +378,28 @@ public class Graphs {
 
 	}
 
+	/**
+	 * The Class NodesToAdd.
+	 */
 	public static class NodesToAdd extends GamaList<GraphObjectToAdd> implements GraphObjectToAdd {
 
-		/**
-		 *
-		 */
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 
+		/**
+		 * Instantiates a new nodes to add.
+		 */
 		public NodesToAdd() {
 			super(0, Types.NO_TYPE);
 		}
 
+		/**
+		 * From.
+		 *
+		 * @param scope the scope
+		 * @param object the object
+		 * @return the nodes to add
+		 */
 		public static NodesToAdd from(final IScope scope, final IContainer object) {
 			final NodesToAdd n = new NodesToAdd();
 			for (final Object o : object.iterable(scope)) {
@@ -326,17 +415,28 @@ public class Graphs {
 
 	}
 
+	/**
+	 * The Class EdgesToAdd.
+	 */
 	public static class EdgesToAdd extends GamaList<GraphObjectToAdd> implements GraphObjectToAdd {
 
-		/**
-		 *
-		 */
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 
+		/**
+		 * Instantiates a new edges to add.
+		 */
 		public EdgesToAdd() {
 			super(0, Types.NO_TYPE);
 		}
 
+		/**
+		 * From.
+		 *
+		 * @param scope the scope
+		 * @param object the object
+		 * @return the edges to add
+		 */
 		public static EdgesToAdd from(final IScope scope, final IContainer object) {
 			final EdgesToAdd n = new EdgesToAdd();
 			for (final Object o : object.iterable(scope)) {
@@ -352,6 +452,13 @@ public class Graphs {
 
 	}
 
+	/**
+	 * Gets the agent from geom.
+	 *
+	 * @param path the path
+	 * @param geom the geom
+	 * @return the agent from geom
+	 */
 	@operator (
 			value = "agent_from_geometry",
 			type = IType.AGENT,
@@ -383,6 +490,14 @@ public class Graphs {
 	 * new IList(); } return path.getEdgeList(); }
 	 */
 
+	/**
+	 * Contains vertex.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param vertex the vertex
+	 * @return the boolean
+	 */
 	@operator (
 			value = "contains_vertex",
 			type = IType.BOOL,
@@ -404,6 +519,14 @@ public class Graphs {
 		return graph.containsVertex(vertex);
 	}
 
+	/**
+	 * Contains edge.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param edge the edge
+	 * @return the boolean
+	 */
 	@operator (
 			value = "contains_edge",
 			type = IType.BOOL,
@@ -432,6 +555,14 @@ public class Graphs {
 		return graph.containsEdge(edge);
 	}
 
+	/**
+	 * Contains edge.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param edge the edge
+	 * @return the boolean
+	 */
 	@operator (
 			value = "contains_edge",
 			type = IType.BOOL,
@@ -452,6 +583,14 @@ public class Graphs {
 		return graph.containsEdge(edge.first(), edge.last());
 	}
 
+	/**
+	 * Source of.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param edge the edge
+	 * @return the object
+	 */
 	@operator (
 			value = "source_of",
 			type = ITypeProvider.KEY_TYPE_AT_INDEX + 1,
@@ -480,6 +619,14 @@ public class Graphs {
 		return null;
 	}
 
+	/**
+	 * Target of.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param edge the edge
+	 * @return the object
+	 */
 	@operator (
 			value = "target_of",
 			type = ITypeProvider.KEY_TYPE_AT_INDEX + 1,
@@ -505,6 +652,14 @@ public class Graphs {
 		return null;
 	}
 
+	/**
+	 * Weight of.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param edge the edge
+	 * @return the double
+	 */
 	@operator (
 			value = "weight_of",
 			category = { IOperatorCategory.GRAPH },
@@ -540,6 +695,14 @@ public class Graphs {
 		return 1d;
 	}
 
+	/**
+	 * In edges of.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param vertex the vertex
+	 * @return the i list
+	 */
 	@operator (
 			value = "in_edges_of",
 			type = IType.LIST,
@@ -566,6 +729,14 @@ public class Graphs {
 		return GamaListFactory.create(graph.getGamlType().getContentType());
 	}
 
+	/**
+	 * Edge between.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param verticePair the vertice pair
+	 * @return the object
+	 */
 	@operator (
 			value = "edge_between",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -588,6 +759,14 @@ public class Graphs {
 		return null;
 	}
 
+	/**
+	 * In dregree of.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param vertex the vertex
+	 * @return the int
+	 */
 	@operator (
 			value = "in_degree_of",
 			type = IType.INT,
@@ -611,6 +790,14 @@ public class Graphs {
 		return 0;
 	}
 
+	/**
+	 * Out edges of.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param vertex the vertex
+	 * @return the i list
+	 */
 	@operator (
 			value = "out_edges_of",
 			type = IType.LIST,
@@ -638,6 +825,14 @@ public class Graphs {
 		return GamaListFactory.create(graph.getGamlType().getContentType());
 	}
 
+	/**
+	 * Out dregree of.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param vertex the vertex
+	 * @return the int
+	 */
 	@operator (
 			value = "out_degree_of",
 			type = IType.INT,
@@ -663,6 +858,14 @@ public class Graphs {
 		return 0;
 	}
 
+	/**
+	 * Degree of.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param vertex the vertex
+	 * @return the int
+	 */
 	@operator (
 			value = "degree_of",
 			type = IType.INT,
@@ -686,6 +889,13 @@ public class Graphs {
 		return 0;
 	}
 
+	/**
+	 * Connected component of.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @return the i list
+	 */
 	@operator (
 			value = "connected_components_of",
 			type = IType.LIST,
@@ -716,6 +926,14 @@ public class Graphs {
 		return results;
 	}
 
+	/**
+	 * Connected component of.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param edge the edge
+	 * @return the i list
+	 */
 	@operator (
 			value = "connected_components_of",
 			type = IType.LIST,
@@ -755,6 +973,13 @@ public class Graphs {
 		return results;
 	}
 
+	/**
+	 * Reduce to mainconnected component of.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @return the i graph
+	 */
 	@operator (
 			value = "main_connected_component",
 			type = IType.GRAPH,
@@ -794,6 +1019,13 @@ public class Graphs {
 		return newGraph;
 	}
 
+	/**
+	 * Gets the maximal cliques.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @return the maximal cliques
+	 */
 	@operator (
 			value = "maximal_cliques_of",
 			type = IType.LIST,
@@ -822,6 +1054,13 @@ public class Graphs {
 		return results;
 	}
 
+	/**
+	 * Gets the biggest cliques.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @return the biggest cliques
+	 */
 	@operator (
 			value = "biggest_cliques_of",
 			type = IType.LIST,
@@ -851,6 +1090,13 @@ public class Graphs {
 		return results;
 	}
 
+	/**
+	 * Nb cycles.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @return the int
+	 */
 	@operator (
 			value = "nb_cycles",
 			type = IType.INT,
@@ -875,6 +1121,13 @@ public class Graphs {
 		return L - S + C;
 	}
 
+	/**
+	 * Alpha index.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @return the double
+	 */
 	@operator (
 			value = "alpha_index",
 			category = { IOperatorCategory.GRAPH },
@@ -897,6 +1150,13 @@ public class Graphs {
 		return nbCycles(scope, graph) / (2.0 * S - 5);
 	}
 
+	/**
+	 * Beta index.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @return the double
+	 */
 	@operator (
 			value = "beta_index",
 			category = { IOperatorCategory.GRAPH },
@@ -917,6 +1177,13 @@ public class Graphs {
 		return (graph.edgeSet().size() + 0.0) / graph.vertexSet().size();
 	}
 
+	/**
+	 * Gamma index.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @return the double
+	 */
 	@operator (
 			value = "gamma_index",
 			category = { IOperatorCategory.GRAPH },
@@ -937,6 +1204,13 @@ public class Graphs {
 		return graph.edgeSet().size() / (2.0 * graph.vertexSet().size() - 5);
 	}
 
+	/**
+	 * Connectivity index.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @return the double
+	 */
 	@operator (
 			value = "connectivity_index",
 			category = { IOperatorCategory.GRAPH },
@@ -959,6 +1233,13 @@ public class Graphs {
 		return (S - C) / (S - 1.0);
 	}
 
+	/**
+	 * Betweenness centrality.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @return the i map
+	 */
 	@operator (
 			value = "betweenness_centrality",
 			type = IType.MAP,
@@ -1013,6 +1294,13 @@ public class Graphs {
 		return mapResult;
 	}
 
+	/**
+	 * Edge betweenness.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @return the i map
+	 */
 	@operator (
 			value = "edge_betweenness",
 			type = IType.MAP,
@@ -1058,6 +1346,14 @@ public class Graphs {
 		return mapResult;
 	}
 
+	/**
+	 * Neighbors of.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param vertex the vertex
+	 * @return the i list
+	 */
 	@operator (
 			value = { "neighbors_of" },
 			type = IType.LIST,
@@ -1086,6 +1382,14 @@ public class Graphs {
 		return GamaListFactory.create(graph.getGamlType().getKeyType());
 	}
 
+	/**
+	 * Predecessors of.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param vertex the vertex
+	 * @return the i list
+	 */
 	@operator (
 			value = "predecessors_of",
 			type = IType.LIST,
@@ -1116,6 +1420,14 @@ public class Graphs {
 		return GamaListFactory.create(graph.getGamlType().getKeyType());
 	}
 
+	/**
+	 * Successors of.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param vertex the vertex
+	 * @return the i list
+	 */
 	@operator (
 			value = "successors_of",
 			content_type = ITypeProvider.KEY_TYPE_AT_INDEX + 1,
@@ -1143,6 +1455,13 @@ public class Graphs {
 		return GamaListFactory.create(graph.getGamlType().getKeyType());
 	}
 
+	/**
+	 * Spatial from edges.
+	 *
+	 * @param scope the scope
+	 * @param edges the edges
+	 * @return the i graph
+	 */
 	@operator (
 			value = "as_edge_graph",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1172,6 +1491,15 @@ public class Graphs {
 		return createdGraph;
 	}
 	
+	/**
+	 * Spatial from vertices.
+	 *
+	 * @param scope the scope
+	 * @param vertices the vertices
+	 * @param tolerance the tolerance
+	 * @param edgeSpecies the edge species
+	 * @return the i graph
+	 */
 	@operator (
 			value = "as_intersection_graph",
 			content_type = IType.GEOMETRY,
@@ -1195,6 +1523,14 @@ public class Graphs {
 		return createdGraph;
 	}
 
+	/**
+	 * Spatial from edges.
+	 *
+	 * @param scope the scope
+	 * @param edges the edges
+	 * @param tolerance the tolerance
+	 * @return the i graph
+	 */
 	@operator (
 			value = "as_edge_graph",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1225,6 +1561,13 @@ public class Graphs {
 		return createdGraph;
 	}
 
+	/**
+	 * Spatial from edges.
+	 *
+	 * @param scope the scope
+	 * @param edges the edges
+	 * @return the i graph
+	 */
 	@operator (
 			value = "as_edge_graph",
 			index_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1243,7 +1586,16 @@ public class Graphs {
 		// Edges are represented by pairs of vertex::vertex
 
 		return GamaGraphType.from(scope, edges, true);
-	}@operator (
+	}
+/**
+ * Spatial from edges.
+ *
+ * @param scope the scope
+ * @param edges the edges
+ * @param nodes the nodes
+ * @return the i graph
+ */
+@operator (
 			value = "as_edge_graph",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
 			index_type = IType.GEOMETRY,
@@ -1259,6 +1611,14 @@ public class Graphs {
 			return new GamaSpatialGraph(edges, nodes, scope);
 	}
 
+	/**
+	 * Spatial from vertices.
+	 *
+	 * @param scope the scope
+	 * @param vertices the vertices
+	 * @param tolerance the tolerance
+	 * @return the i graph
+	 */
 	@operator (
 			value = "as_intersection_graph",
 			content_type = IType.GEOMETRY,
@@ -1282,11 +1642,25 @@ public class Graphs {
 		return createdGraph;
 	}
 
+	/**
+	 * Spatial line intersection.
+	 *
+	 * @param scope the scope
+	 * @param vertices the vertices
+	 * @return the i graph
+	 */
 	public static IGraph spatialLineIntersection(final IScope scope, final IContainer vertices) {
 		return new GamaSpatialGraph(vertices, false, false, new IntersectionRelationLineTriangle(true), null, scope,
 				vertices.getGamlType().getContentType(), Types.GEOMETRY);
 	}
 
+	/**
+	 * Spatial line intersection triangle.
+	 *
+	 * @param scope the scope
+	 * @param vertices the vertices
+	 * @return the i graph
+	 */
 	public static IGraph spatialLineIntersectionTriangle(final IScope scope, final IContainer vertices) {
 		final IGraph g = new GamaSpatialGraph(scope, vertices.getGamlType().getContentType(), Types.GEOMETRY);
 		for (final Object o : vertices.iterable(scope)) {
@@ -1304,6 +1678,13 @@ public class Graphs {
 		return g;
 	}
 
+	/**
+	 * Line inter.
+	 *
+	 * @param coord1 the coord 1
+	 * @param coord2 the coord 2
+	 * @return true, if successful
+	 */
 	static boolean lineInter(final Coordinate[] coord1, final Coordinate[] coord2) {
 		int nb = 0;
 		for (int i = 0; i < 3; i++) {
@@ -1318,6 +1699,14 @@ public class Graphs {
 		return nb == 2;
 	}
 
+	/**
+	 * Spatial distance graph.
+	 *
+	 * @param scope the scope
+	 * @param vertices the vertices
+	 * @param distance the distance
+	 * @return the i graph
+	 */
 	@operator (
 			value = "as_distance_graph",
 			content_type = IType.GEOMETRY,
@@ -1342,6 +1731,13 @@ public class Graphs {
 		return createdGraph;
 	}
 
+	/**
+	 * Grid cells to graph.
+	 *
+	 * @param scope the scope
+	 * @param vertices the vertices
+	 * @return the i graph
+	 */
 	@operator (
 			value = "grid_cells_to_graph",
 			content_type = IType.GEOMETRY,
@@ -1367,6 +1763,14 @@ public class Graphs {
 	}
 	
 
+	/**
+	 * Grid cells to graph.
+	 *
+	 * @param scope the scope
+	 * @param vertices the vertices
+	 * @param edgeSpecies the edge species
+	 * @return the i graph
+	 */
 	@operator (
 			value = "grid_cells_to_graph",
 			content_type = IType.GEOMETRY,
@@ -1390,6 +1794,15 @@ public class Graphs {
 	}
 
 
+	/**
+	 * Spatial distance graph.
+	 *
+	 * @param scope the scope
+	 * @param vertices the vertices
+	 * @param distance the distance
+	 * @param edgeSpecies the edge species
+	 * @return the i graph
+	 */
 	@operator (
 			value = "as_distance_graph",
 			content_type = IType.GEOMETRY,
@@ -1411,6 +1824,14 @@ public class Graphs {
 		return createdGraph;
 	}
 
+	/**
+	 * Spatial distance graph.
+	 *
+	 * @param scope the scope
+	 * @param vertices the vertices
+	 * @param params the params
+	 * @return the i graph
+	 */
 	@operator (
 			value = "as_distance_graph",
 			category = { IOperatorCategory.GRAPH },
@@ -1432,6 +1853,13 @@ public class Graphs {
 		return createdGraph;
 	}
 
+	/**
+	 * Spatial graph.
+	 *
+	 * @param scope the scope
+	 * @param vertices the vertices
+	 * @return the i graph
+	 */
 	@operator (
 			value = "spatial_graph",
 			index_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1447,6 +1875,13 @@ public class Graphs {
 				Types.GEOMETRY);
 	}
 
+	/**
+	 * Use cache for shortest paths.
+	 *
+	 * @param g the g
+	 * @param useCache the use cache
+	 * @return the i graph
+	 */
 	@operator (
 			value = "use_cache",
 			category = { IOperatorCategory.GRAPH, IOperatorCategory.PATH },
@@ -1460,6 +1895,12 @@ public class Graphs {
 		return GamaGraphType.useChacheForShortestPath(g, useCache);
 	}
 
+	/**
+	 * As directed graph.
+	 *
+	 * @param g the g
+	 * @return the i graph
+	 */
 	@operator (
 			value = "directed",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1476,6 +1917,12 @@ public class Graphs {
 		return GamaGraphType.asDirectedGraph(g);
 	}
 
+	/**
+	 * As undirected graph.
+	 *
+	 * @param g the g
+	 * @return the i graph
+	 */
 	@operator (
 			value = "undirected",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1492,6 +1939,14 @@ public class Graphs {
 		return GamaGraphType.asUndirectedGraph(g);
 	}
 
+	/**
+	 * With weights.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param weights the weights
+	 * @return the i graph
+	 */
 	@operator (
 			value = "with_weights",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1517,6 +1972,14 @@ public class Graphs {
 		return graph;
 	}
 
+	/**
+	 * With weights.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param weights the weights
+	 * @return the i graph
+	 */
 	@operator (
 			value = "with_weights",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1544,6 +2007,14 @@ public class Graphs {
 		return graph;
 	}
 	
+	/**
+	 * Sets the K shortest path algorithm.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param shortestpathAlgo the shortestpath algo
+	 * @return the i graph
+	 */
 	@operator (
 			value = "with_k_shortest_path_algorithm",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1570,6 +2041,14 @@ public class Graphs {
 		return graph;
 	}
 	
+	/**
+	 * Sets the shortest path algorithm.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param shortestpathAlgo the shortestpath algo
+	 * @return the i graph
+	 */
 	@operator (
 			value = "with_shortest_path_algorithm",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1596,6 +2075,14 @@ public class Graphs {
 		return graph;
 	}
 
+	/**
+	 * Sets the optimize type.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param optimizerType the optimizer type
+	 * @return the i graph
+	 */
 	@operator (
 			value = "with_optimizer_type",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1616,6 +2103,13 @@ public class Graphs {
 		return setShortestPathAlgorithm(scope,graph,optimizerType);
 	}
 
+	/**
+	 * Adds the node.
+	 *
+	 * @param g the g
+	 * @param node the node
+	 * @return the i graph
+	 */
 	@operator (
 			value = "add_node",
 			type = IType.GRAPH,
@@ -1639,6 +2133,13 @@ public class Graphs {
 		return g;
 	}
 
+	/**
+	 * Removes the node from.
+	 *
+	 * @param node the node
+	 * @param g the g
+	 * @return the i graph
+	 */
 	@operator (
 			value = "remove_node_from",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1660,6 +2161,14 @@ public class Graphs {
 		return g;
 	}
 
+	/**
+	 * Rewire graph.
+	 *
+	 * @param scope the scope
+	 * @param g the g
+	 * @param count the count
+	 * @return the i graph
+	 */
 	@operator (
 			value = "rewire_n",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1682,6 +2191,13 @@ public class Graphs {
 		return g;
 	}
 
+	/**
+	 * Adds the edge.
+	 *
+	 * @param g the g
+	 * @param nodes the nodes
+	 * @return the i graph
+	 */
 	@operator (
 			value = "add_edge",
 			type = IType.GRAPH,
@@ -1704,6 +2220,16 @@ public class Graphs {
 		return g;
 	}
 
+	/**
+	 * Path between.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param source the source
+	 * @param target the target
+	 * @return the i path
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = "path_between",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1726,6 +2252,16 @@ public class Graphs {
 		return graph.computeShortestPathBetween(scope, source, target);
 	}
 
+	/**
+	 * Kpaths between.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param sourTarg the sour targ
+	 * @param k the k
+	 * @return the i list
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = "paths_between",
 			type = IType.LIST,
@@ -1755,6 +2291,16 @@ public class Graphs {
 		return Cast.asTopology(scope, graph).KpathsBetween(scope, (IShape) sourTarg.key, (IShape) sourTarg.value, k);
 	}
 
+	/**
+	 * Max flow between.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param source the source
+	 * @param sink the sink
+	 * @return the i map
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = "max_flow_between",
 			type = IType.LIST,
@@ -1776,6 +2322,15 @@ public class Graphs {
 		return result;
 	}
 
+	/**
+	 * As path.
+	 *
+	 * @param scope the scope
+	 * @param edgesNodes the edges nodes
+	 * @param graph the graph
+	 * @return the i path
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = "as_path",
 			type = IType.PATH,
@@ -1797,6 +2352,15 @@ public class Graphs {
 	}
 
 	
+	/**
+	 * Prim shortest path file.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param matrix the matrix
+	 * @return the i graph
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = "load_shortest_paths",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1824,6 +2388,14 @@ public class Graphs {
 
 	}
 
+	/**
+	 * Prim all pair shortest paths.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @return the gama int matrix
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = "all_pairs_shortest_path",
 			type = IType.MATRIX,
@@ -1846,6 +2418,18 @@ public class Graphs {
 		return graph.saveShortestPaths(scope);
 	}
 
+	/**
+	 * Layout force.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param bounds the bounds
+	 * @param coeffForce the coeff force
+	 * @param coolingRate the cooling rate
+	 * @param maxIteration the max iteration
+	 * @param criterion the criterion
+	 * @return the i graph
+	 */
 	@operator (
 			value = "layout_force",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1870,6 +2454,16 @@ public class Graphs {
 	}
 
 
+	/**
+	 * Layout force FR.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param bounds the bounds
+	 * @param normalization_factor the normalization factor
+	 * @param maxIteration the max iteration
+	 * @return the i graph
+	 */
 	@operator (
 			value = "layout_force_FR",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1892,6 +2486,17 @@ public class Graphs {
 		return update_loc(graph,model);
 	}
 	
+	/**
+	 * Indexed FR layout.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param bounds the bounds
+	 * @param theta the theta
+	 * @param normalizationFactor the normalization factor
+	 * @param maxIteration the max iteration
+	 * @return the i graph
+	 */
 	@operator (
 			value = "layout_force_FR_indexed",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1916,6 +2521,13 @@ public class Graphs {
 	
 	
 
+	/**
+	 * Update loc.
+	 *
+	 * @param graph the graph
+	 * @param model the model
+	 * @return the i graph
+	 */
 	static IGraph update_loc(IGraph graph, LayoutModel2D model) {
 		for (Object s : graph.vertexSet()) {
 			if (s instanceof IShape) {
@@ -1926,6 +2538,13 @@ public class Graphs {
 		return graph;
 	}
 	
+	/**
+	 * To model.
+	 *
+	 * @param graph the graph
+	 * @param bounds the bounds
+	 * @return the layout model 2 D
+	 */
 	static LayoutModel2D toModel(final GamaGraph graph, final IShape bounds) {
 		Envelope3D env = bounds.getEnvelope();
 		LayoutModel2D model = new MapLayoutModel2D<>(new Box2D(env.getMinY(), env.getMinY(), env.getWidth(), env.getHeight()));
@@ -1937,6 +2556,17 @@ public class Graphs {
 		return model;
 	}
 	
+	/**
+	 * Layout force.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param bounds the bounds
+	 * @param coeffForce the coeff force
+	 * @param coolingRate the cooling rate
+	 * @param maxIteration the max iteration
+	 * @return the i graph
+	 */
 	@operator (
 			value = "layout_force",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1959,6 +2589,15 @@ public class Graphs {
 		return graph;
 	}
 
+	/**
+	 * Layout circle.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param bounds the bounds
+	 * @param shuffle the shuffle
+	 * @return the i graph
+	 */
 	@operator (
 			value = "layout_circle",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -1980,6 +2619,15 @@ public class Graphs {
 		return graph;
 	}
 
+	/**
+	 * Layout grid.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param bounds the bounds
+	 * @param coeffSq the coeff sq
+	 * @return the i graph
+	 */
 	@operator (
 			value = "layout_grid",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -2001,6 +2649,13 @@ public class Graphs {
 		return graph;
 	}
 
+	/**
+	 * Adjacency matrix.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @return the gama float matrix
+	 */
 	@operator (
 			value = "adjacency",
 			category = { IOperatorCategory.GRAPH },
@@ -2012,6 +2667,13 @@ public class Graphs {
 		return graph.toMatrix(scope);
 	}
 
+	/**
+	 * Strahler number.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @return the i map
+	 */
 	@operator (
 			value = "strahler",
 			content_type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -2060,6 +2722,14 @@ public class Graphs {
 		return results;
 	}
 
+	/**
+	 * Edge.
+	 *
+	 * @param source the source
+	 * @param target the target
+	 * @param weight the weight
+	 * @return the object
+	 */
 	@operator (
 		value = "edge",
 		type = IType.NONE, // ITypeProvider.TYPE_AT_INDEX + 1, // FIXME This is false
@@ -2073,6 +2743,14 @@ public class Graphs {
 		return edge(source, target, null, weight);
 	}
 
+	/**
+	 * Edge.
+	 *
+	 * @param source the source
+	 * @param target the target
+	 * @param weight the weight
+	 * @return the object
+	 */
 	@operator (
 			value = "edge",
 			type = IType.NONE, // ITypeProvider.TYPE_AT_INDEX + 1, // FIXME This is
@@ -2085,6 +2763,14 @@ public class Graphs {
 		return edge(source, target, null, weight);
 	}
 
+	/**
+	 * Edge.
+	 *
+	 * @param pair the pair
+	 * @param object the object
+	 * @param weight the weight
+	 * @return the object
+	 */
 	@operator (
 			value = "edge",
 			type = ITypeProvider.TYPE_AT_INDEX + 2,
@@ -2096,6 +2782,14 @@ public class Graphs {
 		return edge(pair.key, pair.value, object, weight);
 	}
 
+	/**
+	 * Edge.
+	 *
+	 * @param pair the pair
+	 * @param object the object
+	 * @param weight the weight
+	 * @return the object
+	 */
 	@operator (
 			value = "edge",
 			type = ITypeProvider.TYPE_AT_INDEX + 2,
@@ -2107,6 +2801,13 @@ public class Graphs {
 		return edge(pair.key, pair.value, object, weight);
 	}
 
+	/**
+	 * Edge.
+	 *
+	 * @param source the source
+	 * @param target the target
+	 * @return the object
+	 */
 	@operator (
 			value = "edge",
 			type = IType.NONE, // ITypeProvider.TYPE_AT_INDEX + 1, // FIXME this is
@@ -2119,6 +2820,14 @@ public class Graphs {
 		return edge(source, target, null, (Double) null);
 	}
 
+	/**
+	 * Edge.
+	 *
+	 * @param source the source
+	 * @param target the target
+	 * @param object the object
+	 * @return the object
+	 */
 	@operator (
 			value = "edge",
 			type = ITypeProvider.TYPE_AT_INDEX + 3,
@@ -2130,6 +2839,15 @@ public class Graphs {
 		return edge(source, target, object, (Double) null);
 	}
 
+	/**
+	 * Edge.
+	 *
+	 * @param source the source
+	 * @param target the target
+	 * @param object the object
+	 * @param weight the weight
+	 * @return the object
+	 */
 	@operator (
 			value = "edge",
 			type = ITypeProvider.TYPE_AT_INDEX + 3,
@@ -2141,6 +2859,15 @@ public class Graphs {
 		return new EdgeToAdd(source, target, object, weight);
 	}
 
+	/**
+	 * Edge.
+	 *
+	 * @param source the source
+	 * @param target the target
+	 * @param object the object
+	 * @param weight the weight
+	 * @return the object
+	 */
 	@operator (
 			value = "edge",
 			type = ITypeProvider.TYPE_AT_INDEX + 3,
@@ -2152,6 +2879,13 @@ public class Graphs {
 		return new EdgeToAdd(source, target, object, weight);
 	}
 
+	/**
+	 * Edge.
+	 *
+	 * @param edgeObject the edge object
+	 * @param weight the weight
+	 * @return the object
+	 */
 	@operator (
 			value = "edge",
 			type = ITypeProvider.TYPE_AT_INDEX + 1,
@@ -2163,6 +2897,13 @@ public class Graphs {
 		return edge(null, null, edgeObject, weight);
 	}
 
+	/**
+	 * Edge.
+	 *
+	 * @param edgeObject the edge object
+	 * @param weight the weight
+	 * @return the object
+	 */
 	@operator (
 			value = "edge",
 			type = ITypeProvider.TYPE_AT_INDEX + 1,
@@ -2174,6 +2915,13 @@ public class Graphs {
 		return edge(null, null, edgeObject, weight);
 	}
 
+	/**
+	 * Edge.
+	 *
+	 * @param pair the pair
+	 * @param weight the weight
+	 * @return the object
+	 */
 	@operator (
 			value = "edge",
 			type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -2185,6 +2933,13 @@ public class Graphs {
 		return edge(pair.key, pair.value, null, weight);
 	}
 
+	/**
+	 * Edge.
+	 *
+	 * @param pair the pair
+	 * @param weight the weight
+	 * @return the object
+	 */
 	@operator (
 			value = "edge",
 			type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -2196,6 +2951,12 @@ public class Graphs {
 		return edge(pair.key, pair.value, null, weight);
 	}
 
+	/**
+	 * Edge.
+	 *
+	 * @param object the object
+	 * @return the object
+	 */
 	@operator (
 			value = "edge",
 			type = ITypeProvider.TYPE_AT_INDEX + 1,
@@ -2207,6 +2968,12 @@ public class Graphs {
 		return edge(null, null, object, (Double) null);
 	}
 
+	/**
+	 * Edge.
+	 *
+	 * @param pair the pair
+	 * @return the object
+	 */
 	@operator (
 			value = "edge",
 			type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -2218,6 +2985,13 @@ public class Graphs {
 		return edge(pair.key, pair.value, null, (Double) null);
 	}
 
+	/**
+	 * Node.
+	 *
+	 * @param object the object
+	 * @param weight the weight
+	 * @return the object
+	 */
 	@operator (
 			value = "node",
 			type = ITypeProvider.TYPE_AT_INDEX + 1,
@@ -2231,6 +3005,12 @@ public class Graphs {
 		return new NodeToAdd(object, weight);
 	}
 
+	/**
+	 * Node.
+	 *
+	 * @param nodeObject the node object
+	 * @return the object
+	 */
 	@operator (
 			value = "node",
 			type = ITypeProvider.TYPE_AT_INDEX + 1,
@@ -2242,6 +3022,13 @@ public class Graphs {
 		return node(nodeObject, null);
 	}
 
+	/**
+	 * Nodes.
+	 *
+	 * @param scope the scope
+	 * @param nodes the nodes
+	 * @return the i container
+	 */
 	@operator (
 			value = "nodes",
 			type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -2253,6 +3040,13 @@ public class Graphs {
 		return NodesToAdd.from(scope, nodes);
 	}
 
+	/**
+	 * Edges.
+	 *
+	 * @param scope the scope
+	 * @param nodes the nodes
+	 * @return the i container
+	 */
 	@operator (
 			value = "edges",
 			type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -2268,9 +3062,14 @@ public class Graphs {
 	 * TODO this version of the barabasi albert generator is too simple. Switch to the implementation of another
 	 * library.
 	 *
-	 * @param scope
-	 * @param parameters
-	 * @return
+	 * @param scope the scope
+	 * @param initNbNodes the init nb nodes
+	 * @param nbEdgesAdded the nb edges added
+	 * @param nbNodes the nb nodes
+	 * @param directed the directed
+	 * @param node_species the node species
+	 * @param edges_species the edges species
+	 * @return the i graph
 	 */
 	/*@operator (
 			value = "generate_barabasi_albert",
@@ -2440,6 +3239,17 @@ public class Graphs {
 
 	}
 	
+	/**
+	 * Generate graph barabasi albert.
+	 *
+	 * @param scope the scope
+	 * @param InitNbNodes the init nb nodes
+	 * @param nbEdgesAdded the nb edges added
+	 * @param nbNodes the nb nodes
+	 * @param directed the directed
+	 * @param node_species the node species
+	 * @return the i graph
+	 */
 	@operator (
 			value = "generate_barabasi_albert",
 			concept = { IConcept.ALGORITHM })
@@ -2484,6 +3294,16 @@ public class Graphs {
 	}
 	
 	
+	/**
+	 * Generate graph barabasi albert.
+	 *
+	 * @param scope the scope
+	 * @param InitNbNodes the init nb nodes
+	 * @param nbEdgesAdded the nb edges added
+	 * @param nbNodes the nb nodes
+	 * @param directed the directed
+	 * @return the i graph
+	 */
 	@operator (
 			value = "generate_barabasi_albert",
 			concept = { IConcept.ALGORITHM })
@@ -2525,6 +3345,18 @@ public class Graphs {
 	
 	
 	
+	/**
+	 * Generate graph watts strogatz.
+	 *
+	 * @param scope the scope
+	 * @param nbNodes the nb nodes
+	 * @param p the p
+	 * @param k the k
+	 * @param directed the directed
+	 * @param node_species the node species
+	 * @param edges_species the edges species
+	 * @return the i graph
+	 */
 	@operator (
 			value = "generate_watts_strogatz",
 			concept = { IConcept.ALGORITHM })
@@ -2581,6 +3413,17 @@ public class Graphs {
 		
 	}
 	
+	/**
+	 * Generate graph watts strogatz.
+	 *
+	 * @param scope the scope
+	 * @param nbNodes the nb nodes
+	 * @param p the p
+	 * @param k the k
+	 * @param directed the directed
+	 * @param node_species the node species
+	 * @return the i graph
+	 */
 	@operator (
 			value = "generate_watts_strogatz",
 			concept = { IConcept.ALGORITHM })
@@ -2625,6 +3468,16 @@ public class Graphs {
 		
 	}
 	
+	/**
+	 * Generate graph watts strogatz.
+	 *
+	 * @param scope the scope
+	 * @param nbNodes the nb nodes
+	 * @param p the p
+	 * @param k the k
+	 * @param directed the directed
+	 * @return the i graph
+	 */
 	@operator (
 			value = "generate_watts_strogatz",
 			concept = { IConcept.ALGORITHM })
@@ -2666,6 +3519,17 @@ public class Graphs {
 	}
 
 
+	/**
+	 * Generate graph random.
+	 *
+	 * @param scope the scope
+	 * @param nbNodes the nb nodes
+	 * @param nbEdges the nb edges
+	 * @param directed the directed
+	 * @param node_species the node species
+	 * @param edges_species the edges species
+	 * @return the i graph
+	 */
 	@operator (
 			value = "generate_random_graph",
 			concept = {})
@@ -2707,6 +3571,16 @@ public class Graphs {
 		
 	}
 	
+	/**
+	 * Generate graph random.
+	 *
+	 * @param scope the scope
+	 * @param nbNodes the nb nodes
+	 * @param nbEdges the nb edges
+	 * @param directed the directed
+	 * @param node_species the node species
+	 * @return the i graph
+	 */
 	@operator (
 			value = "generate_random_graph",
 			concept = {})
@@ -2736,6 +3610,15 @@ public class Graphs {
 		
 	}
 	
+	/**
+	 * Generate graph random.
+	 *
+	 * @param scope the scope
+	 * @param nbNodes the nb nodes
+	 * @param nbEdges the nb edges
+	 * @param directed the directed
+	 * @return the i graph
+	 */
 	@operator (
 			value = "generate_random_graph",
 			concept = {})
@@ -2764,7 +3647,15 @@ public class Graphs {
 
 	
 	
-	/******************************/
+	/**
+	 * ***************************.
+	 *
+	 * @param scope the scope
+	 * @param directed the directed
+	 * @param nodes the nodes
+	 * @param edges_species the edges species
+	 * @return the i graph
+	 */
 	
 	@operator (
 			value = "generate_complete_graph",
@@ -2804,6 +3695,14 @@ public class Graphs {
 		
 	}
 	
+	/**
+	 * Generate graph complete.
+	 *
+	 * @param scope the scope
+	 * @param directed the directed
+	 * @param nodes the nodes
+	 * @return the i graph
+	 */
 	@operator (
 			value = "generate_complete_graph",
 			concept = {})
@@ -2826,6 +3725,16 @@ public class Graphs {
 		return generateGraphComplete(scope, directed,nodes, null);	
 	}
 	
+	/**
+	 * Generate graph complete.
+	 *
+	 * @param scope the scope
+	 * @param nbNodes the nb nodes
+	 * @param directed the directed
+	 * @param node_species the node species
+	 * @param edges_species the edges species
+	 * @return the i graph
+	 */
 	@operator (
 			value = "generate_complete_graph",
 			concept = {})
@@ -2867,6 +3776,15 @@ public class Graphs {
 		
 	}
 	
+	/**
+	 * Generate graph complete.
+	 *
+	 * @param scope the scope
+	 * @param nbNodes the nb nodes
+	 * @param directed the directed
+	 * @param node_species the node species
+	 * @return the i graph
+	 */
 	@operator (
 			value = "generate_complete_graph",
 			concept = {})
@@ -2893,6 +3811,14 @@ public class Graphs {
 		
 	}
 	
+	/**
+	 * Generate graph complete.
+	 *
+	 * @param scope the scope
+	 * @param nbNodes the nb nodes
+	 * @param directed the directed
+	 * @return the i graph
+	 */
 	@operator (
 			value = "generate_complete_graph",
 			concept = {})
@@ -2917,6 +3843,14 @@ public class Graphs {
 	}
 	
 
+	/**
+	 * Girvan newman clustering.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param numCLusters the num C lusters
+	 * @return the i list
+	 */
 	@operator (
 			value = "girvan_newman_clustering",
 			type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -2942,6 +3876,14 @@ public class Graphs {
 	}
 	
 	
+	/**
+	 * K spanning tree clustering afl.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param numCLusters the num C lusters
+	 * @return the i list
+	 */
 	@operator (
 			value = "k_spanning_tree_clustering",
 			type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,
@@ -2968,6 +3910,14 @@ public class Graphs {
 		return clustersV;
 	}
 	
+	/**
+	 * Label propagation clustering agl.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param maxIteration the max iteration
+	 * @return the i list
+	 */
 	@operator (
 			value = "label_propagation_clustering",
 			type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1,

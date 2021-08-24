@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gaml.statements.test.WithTestSummary.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * WithTestSummary.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -14,32 +14,37 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.util.URI;
 
+/**
+ * The Interface WithTestSummary.
+ *
+ * @param <T> the generic type
+ */
 public interface WithTestSummary<T extends AbstractSummary<?>> {
 
 	/**
-	 * The AbstractSummary instance corresponding to this statement
-	 * 
+	 * The AbstractSummary instance corresponding to this statement.
+	 *
 	 * @return an instance of a subclass of AbstractSummary (never null)
 	 */
 	T getSummary();
 
 	/**
-	 * The title of the summary (as it will appear in the TestView and in the log
-	 * 
-	 * @return
+	 * The title of the summary (as it will appear in the TestView and in the log.
+	 *
+	 * @return the title for summary
 	 */
 	String getTitleForSummary();
 
 	/**
-	 * The URI corresponding to this statement to retrieve it in the editor, or null if this statement is synthetic
-	 * 
+	 * The URI corresponding to this statement to retrieve it in the editor, or null if this statement is synthetic.
+	 *
 	 * @return the uri of the statement or null
 	 */
 	URI getURI();
 
 	/**
-	 * The sub-elements (statements) with test summaries
-	 * 
+	 * The sub-elements (statements) with test summaries.
+	 *
 	 * @return a collection of WithTestSummary statements or an empty list (never null)
 	 */
 	Collection<? extends WithTestSummary<?>> getSubElements();

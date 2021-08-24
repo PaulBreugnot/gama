@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.layers.ImageLayerStatement.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * ImageLayerStatement.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -147,6 +147,9 @@ import gaml.types.IType;
 @validator (ImageLayerValidator.class)
 public class ImageLayerStatement extends AbstractLayerStatement {
 
+	/**
+	 * The Class ImageLayerValidator.
+	 */
 	public static class ImageLayerValidator implements IDescriptionValidator<StatementDescription> {
 
 		@Override
@@ -166,8 +169,15 @@ public class ImageLayerStatement extends AbstractLayerStatement {
 
 	}
 
+	/** The file. */
 	IExpression file;
 
+	/**
+	 * Instantiates a new image layer statement.
+	 *
+	 * @param desc the desc
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public ImageLayerStatement(final IDescription desc) throws GamaRuntimeException {
 		super(desc);
 		file = getFacet(IKeyword.FILE, IKeyword.NAME);

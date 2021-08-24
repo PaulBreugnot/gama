@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * UnconsciousContagionStatement.java, in gama.ext.bdi, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.bdi;
 
 import gama.common.interfaces.IKeyword;
@@ -19,6 +29,9 @@ import gaml.operators.Cast;
 import gaml.statements.AbstractStatement;
 import gaml.types.IType;
 
+/**
+ * The Class UnconsciousContagionStatement.
+ */
 @symbol(name = UnconsciousContagionStatement.UNCONSCIOUSCONTAGION, kind = ISymbolKind.SINGLE_STATEMENT, with_sequence = false, concept = {
 		IConcept.BDI })
 @inside(kinds = { ISymbolKind.BEHAVIOR, ISymbolKind.SEQUENCE_STATEMENT })
@@ -36,21 +49,50 @@ import gaml.types.IType;
 
 public class UnconsciousContagionStatement extends AbstractStatement {
 
+	/** The Constant UNCONSCIOUSCONTAGION. */
 	public static final String UNCONSCIOUSCONTAGION = "unconscious_contagion";
+	
+	/** The Constant EMOTION. */
 	public static final String EMOTION = "emotion";
+	
+	/** The Constant CHARISMA. */
 	public static final String CHARISMA = "charisma";
+	
+	/** The Constant RECEPTIVITY. */
 	public static final String RECEPTIVITY = "receptivity";
+	
+	/** The Constant THRESHOLD. */
 	public static final String THRESHOLD = "threshold";
+	
+	/** The Constant DECAY. */
 	public static final String DECAY = "decay";
 
+	/** The name. */
 	final IExpression name;
+	
+	/** The emotion. */
 	final IExpression emotion;
+	
+	/** The charisma. */
 	final IExpression charisma;
+	
+	/** The when. */
 	final IExpression when;
+	
+	/** The receptivity. */
 	final IExpression receptivity;
+	
+	/** The threshold. */
 	final IExpression threshold;
+	
+	/** The decay. */
 	final IExpression decay;
 
+	/**
+	 * Instantiates a new unconscious contagion statement.
+	 *
+	 * @param desc the desc
+	 */
 	public UnconsciousContagionStatement(final IDescription desc) {
 		super(desc);
 		name = getFacet(IKeyword.NAME);

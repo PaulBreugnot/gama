@@ -1,26 +1,13 @@
-/*******************************************************************************
- * Copyright (c) 2013, Daniel Murphy
- * All rights reserved.
+/*******************************************************************************************************
+ *
+ * Settings.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
- * 	* Redistributions of source code must retain the above copyright notice,
- * 	  this list of conditions and the following disclaimer.
- * 	* Redistributions in binary form must reproduce the above copyright notice,
- * 	  this list of conditions and the following disclaimer in the documentation
- * 	  and/or other materials provided with the distribution.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
- * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
- * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
- * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
- * POSSIBILITY OF SUCH DAMAGE.
- ******************************************************************************/
+ ********************************************************************************************************/
 package org.jbox2d.common;
 
 /**
@@ -29,20 +16,35 @@ package org.jbox2d.common;
  */
 public class Settings {
 
-  /** A "close to zero" float epsilon value for use */
+  /**  A "close to zero" float epsilon value for use. */
   public static final float EPSILON = 1.1920928955078125E-7f;
 
   /** Pi. */
   public static final float PI = (float) Math.PI;
 
+  /** The fast abs. */
   // JBox2D specific settings
   public static boolean FAST_ABS = true;
+  
+  /** The fast floor. */
   public static boolean FAST_FLOOR = true;
+  
+  /** The fast ceil. */
   public static boolean FAST_CEIL = true;
+  
+  /** The fast round. */
   public static boolean FAST_ROUND = true;
+  
+  /** The fast atan2. */
   public static boolean FAST_ATAN2 = true;
+  
+  /** The fast pow. */
   public static boolean FAST_POW = true;
+  
+  /** The contact stack init size. */
   public static int CONTACT_STACK_INIT_SIZE = 10;
+  
+  /** The sincos lut enabled. */
   public static boolean SINCOS_LUT_ENABLED = true;
   /**
    * smaller the precision, the larger the table. If a small table is used (eg, precision is .006 or
@@ -69,6 +71,8 @@ public class Settings {
    * </ul>
    */
   public static final float SINCOS_LUT_PRECISION = .00011f;
+  
+  /** The Constant SINCOS_LUT_LENGTH. */
   public static final int SINCOS_LUT_LENGTH = (int) Math.ceil(Math.PI * 2 / SINCOS_LUT_PRECISION);
   /**
    * Use if the table's precision is large (eg .006 or greater). Although it is more expensive, it
@@ -154,6 +158,8 @@ public class Settings {
    * numerical problems. You shouldn't need to adjust this.
    */
   public static float maxTranslation = 2.0f;
+  
+  /** The max translation squared. */
   public static float maxTranslationSquared = (maxTranslation * maxTranslation);
 
   /**
@@ -161,6 +167,8 @@ public class Settings {
    * numerical problems. You shouldn't need to adjust this.
    */
   public static float maxRotation = (0.5f * PI);
+  
+  /** The max rotation squared. */
   public static float maxRotationSquared = (maxRotation * maxRotation);
 
   /**
@@ -168,6 +176,8 @@ public class Settings {
    * overlap is removed in one time step. However using values close to 1 often lead to overshoot.
    */
   public static float baumgarte = 0.2f;
+  
+  /** The toi baugarte. */
   public static float toiBaugarte = 0.75f;
 
 
@@ -214,6 +224,8 @@ public class Settings {
    * The maximum distance between particles in a triad, divided by the particle radius.
    */
   public static final int maxTriadDistance = 2;
+  
+  /** The Constant maxTriadDistanceSquared. */
   public static final int maxTriadDistanceSquared = (maxTriadDistance * maxTriadDistance);
 
   /**
@@ -224,10 +236,10 @@ public class Settings {
 
   /**
    * Friction mixing law. Feel free to customize this. TODO djm: add customization
-   * 
-   * @param friction1
-   * @param friction2
-   * @return
+   *
+   * @param friction1 the friction 1
+   * @param friction2 the friction 2
+   * @return the float
    */
   public static float mixFriction(float friction1, float friction2) {
     return MathUtils.sqrt(friction1 * friction2);
@@ -235,10 +247,10 @@ public class Settings {
 
   /**
    * Restitution mixing law. Feel free to customize this. TODO djm: add customization
-   * 
-   * @param restitution1
-   * @param restitution2
-   * @return
+   *
+   * @param restitution1 the restitution 1
+   * @param restitution2 the restitution 2
+   * @return the float
    */
   public static float mixRestitution(float restitution1, float restitution2) {
     return restitution1 > restitution2 ? restitution1 : restitution2;

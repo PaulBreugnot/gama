@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * NavigatorCommonViewer.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator;
 
 import java.util.Iterator;
@@ -9,8 +19,18 @@ import org.eclipse.ui.navigator.CommonViewer;
 
 import gama.ui.navigator.contents.TopLevelFolder;
 
+/**
+ * The Class NavigatorCommonViewer.
+ */
 public class NavigatorCommonViewer extends CommonViewer {
 
+	/**
+	 * Instantiates a new navigator common viewer.
+	 *
+	 * @param aViewerId the a viewer id
+	 * @param aParent the a parent
+	 * @param aStyle the a style
+	 */
 	public NavigatorCommonViewer(final String aViewerId, final Composite aParent, final int aStyle) {
 		super(aViewerId, aParent, aStyle);
 	}

@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'DeleteColumnPage.java, in plugin ummisco.gama.ui.viewers, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * DeleteColumnPage.java, in gama.ui.viewers, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.viewers.csv;
 
 import java.util.ArrayList;
@@ -27,18 +26,23 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Shell;
 
 /**
+ * The Class DeleteColumnPage.
  *
  * @author fhenri
- *
  */
 public class DeleteColumnPage extends Dialog {
 
+	/** The column title. */
 	String[] columnTitle;
+	
+	/** The selected column. */
 	ArrayList<String> selectedColumn;
 
 	/**
-	 * @param parentShell
-	 * @param columns
+	 * Instantiates a new delete column page.
+	 *
+	 * @param parentShell the parent shell
+	 * @param columns the columns
 	 */
 	public DeleteColumnPage(final Shell parentShell, final String[] columns) {
 		super(parentShell);
@@ -79,7 +83,9 @@ public class DeleteColumnPage extends Dialog {
 	}
 
 	/**
-	 * @return
+	 * Gets the column selected.
+	 *
+	 * @return the column selected
 	 */
 	public String[] getColumnSelected() {
 		return selectedColumn.toArray(new String[selectedColumn.size()]);

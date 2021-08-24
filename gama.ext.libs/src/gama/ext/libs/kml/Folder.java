@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Folder.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -120,6 +130,8 @@ public class Folder
      */
     @XmlElementRef(name = "AbstractFeatureGroup", namespace = "http://www.opengis.net/kml/2.2", required = false)
     protected List<Feature> feature;
+    
+    /** The folder simple extension. */
     @XmlElement(name = "FolderSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> folderSimpleExtension;
@@ -144,13 +156,18 @@ public class Folder
     @XmlElement(name = "FolderObjectExtensionGroup")
     protected List<AbstractObject> folderObjectExtension;
 
+    /**
+     * Instantiates a new folder.
+     */
     public Folder() {
         super();
     }
 
     /**
+     * Gets the feature.
+     *
+     * @return the feature
      * @see feature
-     * 
      */
     public List<Feature> getFeature() {
         if (feature == null) {
@@ -160,8 +177,10 @@ public class Folder
     }
 
     /**
+     * Gets the folder simple extension.
+     *
+     * @return the folder simple extension
      * @see folderSimpleExtension
-     * 
      */
     public List<Object> getFolderSimpleExtension() {
         if (folderSimpleExtension == null) {
@@ -171,8 +190,10 @@ public class Folder
     }
 
     /**
+     * Gets the folder object extension.
+     *
+     * @return the folder object extension
      * @see folderObjectExtension
-     * 
      */
     public List<AbstractObject> getFolderObjectExtension() {
         if (folderObjectExtension == null) {
@@ -242,8 +263,8 @@ public class Folder
      * <code>
      * Tour tour = new Tour();
      * this.getFeature().add(tour); </code>
-     * 
-     * 
+     *
+     * @return the tour
      */
     public Tour createAndAddTour() {
         Tour newValue = new Tour();
@@ -257,8 +278,8 @@ public class Folder
      * <code>
      * ScreenOverlay screenOverlay = new ScreenOverlay();
      * this.getFeature().add(screenOverlay); </code>
-     * 
-     * 
+     *
+     * @return the screen overlay
      */
     public ScreenOverlay createAndAddScreenOverlay() {
         ScreenOverlay newValue = new ScreenOverlay();
@@ -272,8 +293,8 @@ public class Folder
      * <code>
      * PhotoOverlay photoOverlay = new PhotoOverlay();
      * this.getFeature().add(photoOverlay); </code>
-     * 
-     * 
+     *
+     * @return the photo overlay
      */
     public PhotoOverlay createAndAddPhotoOverlay() {
         PhotoOverlay newValue = new PhotoOverlay();
@@ -287,8 +308,8 @@ public class Folder
      * <code>
      * GroundOverlay groundOverlay = new GroundOverlay();
      * this.getFeature().add(groundOverlay); </code>
-     * 
-     * 
+     *
+     * @return the ground overlay
      */
     public GroundOverlay createAndAddGroundOverlay() {
         GroundOverlay newValue = new GroundOverlay();
@@ -302,8 +323,8 @@ public class Folder
      * <code>
      * NetworkLink networkLink = new NetworkLink();
      * this.getFeature().add(networkLink); </code>
-     * 
-     * 
+     *
+     * @return the network link
      */
     public NetworkLink createAndAddNetworkLink() {
         NetworkLink newValue = new NetworkLink();
@@ -317,8 +338,8 @@ public class Folder
      * <code>
      * Folder folder = new Folder();
      * this.getFeature().add(folder); </code>
-     * 
-     * 
+     *
+     * @return the folder
      */
     public Folder createAndAddFolder() {
         Folder newValue = new Folder();
@@ -332,8 +353,8 @@ public class Folder
      * <code>
      * Document document = new Document();
      * this.getFeature().add(document); </code>
-     * 
-     * 
+     *
+     * @return the document
      */
     public Document createAndAddDocument() {
         Document newValue = new Document();
@@ -347,8 +368,8 @@ public class Folder
      * <code>
      * Placemark placemark = new Placemark();
      * this.getFeature().add(placemark); </code>
-     * 
-     * 
+     *
+     * @return the placemark
      */
     public Placemark createAndAddPlacemark() {
         Placemark newValue = new Placemark();
@@ -357,21 +378,20 @@ public class Folder
     }
 
     /**
+     * Sets the feature.
+     *
+     * @param feature the new feature
      * @see feature
-     * 
-     * @param feature
      */
     public void setFeature(final List<Feature> feature) {
         this.feature = feature;
     }
 
     /**
-     * add a value to the feature property collection
-     * 
-     * @param feature
-     *     Objects of the following type are allowed in the list: {@code <}{@link Container}{@code>}{@link JAXBElement}{@code <}{@link GroundOverlay}{@code>}{@link JAXBElement}{@code <}{@link NetworkLink}{@code>}{@link JAXBElement}{@code <}{@link Folder}{@code>}{@link JAXBElement}{@code <}{@link PhotoOverlay}{@code>}{@link JAXBElement}{@code <}{@link Document}{@code>}{@link JAXBElement}{@code <}{@link Tour}{@code>}{@link JAXBElement}{@code <}{@link ScreenOverlay}{@code>}{@link JAXBElement}{@code <}{@link Feature}{@code>}{@link JAXBElement}{@code <}{@link Placemark}{@code>}{@link JAXBElement}{@code <}{@link Overlay}{@code>}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the feature property collection.
+     *
+     * @param feature     Objects of the following type are allowed in the list: {@code <}{@link Container}{@code>}{@link JAXBElement}{@code <}{@link GroundOverlay}{@code>}{@link JAXBElement}{@code <}{@link NetworkLink}{@code>}{@link JAXBElement}{@code <}{@link Folder}{@code>}{@link JAXBElement}{@code <}{@link PhotoOverlay}{@code>}{@link JAXBElement}{@code <}{@link Document}{@code>}{@link JAXBElement}{@code <}{@link Tour}{@code>}{@link JAXBElement}{@code <}{@link ScreenOverlay}{@code>}{@link JAXBElement}{@code <}{@link Feature}{@code>}{@link JAXBElement}{@code <}{@link Placemark}{@code>}{@link JAXBElement}{@code <}{@link Overlay}{@code>}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Folder addToFeature(final Feature feature) {
         this.getFeature().add(feature);
@@ -379,21 +399,20 @@ public class Folder
     }
 
     /**
+     * Sets the folder simple extension.
+     *
+     * @param folderSimpleExtension the new folder simple extension
      * @see folderSimpleExtension
-     * 
-     * @param folderSimpleExtension
      */
     public void setFolderSimpleExtension(final List<Object> folderSimpleExtension) {
         this.folderSimpleExtension = folderSimpleExtension;
     }
 
     /**
-     * add a value to the folderSimpleExtension property collection
-     * 
-     * @param folderSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the folderSimpleExtension property collection.
+     *
+     * @param folderSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Folder addToFolderSimpleExtension(final Object folderSimpleExtension) {
         this.getFolderSimpleExtension().add(folderSimpleExtension);
@@ -401,21 +420,20 @@ public class Folder
     }
 
     /**
+     * Sets the folder object extension.
+     *
+     * @param folderObjectExtension the new folder object extension
      * @see folderObjectExtension
-     * 
-     * @param folderObjectExtension
      */
     public void setFolderObjectExtension(final List<AbstractObject> folderObjectExtension) {
         this.folderObjectExtension = folderObjectExtension;
     }
 
     /**
-     * add a value to the folderObjectExtension property collection
-     * 
-     * @param folderObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the folderObjectExtension property collection.
+     *
+     * @param folderObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Folder addToFolderObjectExtension(final AbstractObject folderObjectExtension) {
         this.getFolderObjectExtension().add(folderObjectExtension);
@@ -525,11 +543,11 @@ public class Folder
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param feature     required parameter
+     * @return the folder
      * @see #setFeature(List<Feature>)
-     * 
-     * @param feature
-     *     required parameter
      */
     public Folder withFeature(final List<Feature> feature) {
         this.setFeature(feature);
@@ -537,11 +555,11 @@ public class Folder
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param folderSimpleExtension     required parameter
+     * @return the folder
      * @see #setFolderSimpleExtension(List<Object>)
-     * 
-     * @param folderSimpleExtension
-     *     required parameter
      */
     public Folder withFolderSimpleExtension(final List<Object> folderSimpleExtension) {
         this.setFolderSimpleExtension(folderSimpleExtension);
@@ -549,11 +567,11 @@ public class Folder
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param folderObjectExtension     required parameter
+     * @return the folder
      * @see #setFolderObjectExtension(List<AbstractObject>)
-     * 
-     * @param folderObjectExtension
-     *     required parameter
      */
     public Folder withFolderObjectExtension(final List<AbstractObject> folderObjectExtension) {
         this.setFolderObjectExtension(folderObjectExtension);

@@ -1,13 +1,13 @@
 
 /*******************************************************************************************************
  *
- * msi.gama.metamodel.topology.CompoundSpatialIndex.java, in plugin msi.gama.core, is part of the source code of the
- * GAMA modeling and simulation platform (v. 1.8.1)
+ * CompoundSpatialIndex.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.metamodel.topology;
 
@@ -34,15 +34,33 @@ import gama.runtime.IScope;
 import gama.util.Collector;
 import gama.util.ICollector;
 
+/**
+ * The Class CompoundSpatialIndex.
+ */
 public class CompoundSpatialIndex extends Object implements ISpatialIndex.Compound {
 
+	/** The disposed. */
 	boolean disposed = false;
+	
+	/** The spatial indexes. */
 	private final Cache<IPopulation<? extends IAgent>, ISpatialIndex> spatialIndexes =
 			CacheBuilder.newBuilder().expireAfterAccess(180, TimeUnit.SECONDS).build();
+	
+	/** The bounds. */
 	private Envelope bounds;
+	
+	/** The parallel. */
 	private boolean parallel;
+	
+	/** The steps. */
 	final protected double[] steps;
 
+	/**
+	 * Instantiates a new compound spatial index.
+	 *
+	 * @param bounds the bounds
+	 * @param parallel the parallel
+	 */
 	public CompoundSpatialIndex(final Envelope bounds, final boolean parallel) {
 		this.bounds = bounds;
 		this.parallel = parallel;
@@ -103,6 +121,16 @@ public class CompoundSpatialIndex extends Object implements ISpatialIndex.Compou
 		return null;
 	}
 
+	/**
+	 * N first at distance in all spatial indexes.
+	 *
+	 * @param scope the scope
+	 * @param source the source
+	 * @param filter the filter
+	 * @param number the number
+	 * @param alreadyChosen the already chosen
+	 * @return the collection
+	 */
 	private Collection<IAgent> nFirstAtDistanceInAllSpatialIndexes(final IScope scope, final IShape source,
 			final IAgentFilter filter, final int number, final Collection<IAgent> alreadyChosen) {
 		if (disposed) return null;
@@ -121,6 +149,17 @@ public class CompoundSpatialIndex extends Object implements ISpatialIndex.Compou
 		return ordering.leastOf(shapes, number);
 	}
 
+	/**
+	 * N first at distance in spatial index.
+	 *
+	 * @param scope the scope
+	 * @param source the source
+	 * @param filter the filter
+	 * @param number the number
+	 * @param alreadyChosen the already chosen
+	 * @param index the index
+	 * @return the collection
+	 */
 	private Collection<IAgent> nFirstAtDistanceInSpatialIndex(final IScope scope, final IShape source,
 			final IAgentFilter filter, final int number, final Collection<IAgent> alreadyChosen,
 			final ISpatialIndex index) {
@@ -183,6 +222,13 @@ public class CompoundSpatialIndex extends Object implements ISpatialIndex.Compou
 		spatialIndexes.invalidateAll();
 	}
 
+	/**
+	 * Adds the.
+	 *
+	 * @param pop the pop
+	 * @param insertAgents the insert agents
+	 * @return the i spatial index
+	 */
 	private ISpatialIndex add(final IPopulation<? extends IAgent> pop, final boolean insertAgents) {
 		if (disposed) return null;
 		ISpatialIndex index = spatialIndexes.getIfPresent(pop);
@@ -202,6 +248,13 @@ public class CompoundSpatialIndex extends Object implements ISpatialIndex.Compou
 		return index;
 	}
 
+	/**
+	 * Adds the.
+	 *
+	 * @param scope the scope
+	 * @param filter the filter
+	 * @return the i spatial index
+	 */
 	private ISpatialIndex add(final IScope scope, final IAgentFilter filter) {
 		if (filter == null) return null;
 		IPopulation<? extends IAgent> pop = filter.getPopulation(scope);

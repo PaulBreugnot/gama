@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.compilation.kernel.GamaBundleLoader.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * GamaBundleLoader.java, in gama.core.application, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.core.application.bundles;
 
@@ -35,6 +35,7 @@ import com.google.common.collect.Multimap;
 
 import gama.common.interfaces.ICreateDelegate;
 import gama.common.ui.IEventLayerDelegate;
+import gama.core.application.workspace.WorkspaceManager;
 import gama.core.dev.utils.DEBUG;
 import gama.outputs.layers.EventLayerStatement;
 import gama.runtime.GAMA;
@@ -57,47 +58,115 @@ public class GamaBundleLoader {
 		DEBUG.ON();
 	}
 
+	/**
+	 * Error.
+	 *
+	 * @param e the e
+	 */
 	public static void ERROR(final Exception e) {
 		ERRORED = true;
 		LAST_EXCEPTION = e;
 		e.printStackTrace();
 	}
 
+	/** The Constant LINE. */
 	public static final String LINE =
 			"\n\n****************************************************************************************************\n\n";
+	
+	/** The Constant ERROR_MESSAGE. */
 	public static final String ERROR_MESSAGE = LINE
 			+ "The initialization of GAML artefacts went wrong. If you use the developer version, please clean and recompile all plugins. \nOtherwise post an issue at https://github.com/gama-platform/gama/issues"
 			+ LINE;
+	
+	/** The loaded. */
 	public volatile static boolean LOADED = false;
+	
+	/** The errored. */
 	public volatile static boolean ERRORED = false;
+	
+	/** The last exception. */
 	public volatile static Exception LAST_EXCEPTION = null;
+	
+	/** The core plugin. */
 	public static Bundle CORE_PLUGIN = Platform.getBundle("gama.core.kernel");
-	public static Bundle CORE_MODELS = Platform.getBundle("gama.models.library");
+	
+	/** The core models. */
+	public static Bundle CORE_MODELS = Platform.getBundle(WorkspaceManager.MODELS_PATH);
+	
+	/** The core tests. */
 	public static String CORE_TESTS = "tests";
+	
+	/** The additions. */
 	public static String ADDITIONS = "gaml.additions.GamlAdditions";
+	
+	/** The Constant ADDITIONS_PACKAGE_BASE. */
 	public static final String ADDITIONS_PACKAGE_BASE = "gaml.additions";
+	
+	/** The Constant ADDITIONS_CLASS_NAME. */
 	public static final String ADDITIONS_CLASS_NAME = "GamlAdditions";
+	
+	/** The grammar extension deprecated. */
 	public static String GRAMMAR_EXTENSION_DEPRECATED = "gaml.grammar.addition";
+	
+	/** The grammar extension. */
 	public static String GRAMMAR_EXTENSION = "gaml.extension";
+	
+	/** The create extension. */
 	public static String CREATE_EXTENSION = "gama.create";
+	
+	/** The ui provider extension. */
 	public static String UI_PROVIDER_EXTENSION = "gama.ui.provider";
+	
+	/** The event layer extension. */
 	public static String EVENT_LAYER_EXTENSION = "gama.event_layer";
+	
+	/** The models extension. */
 	public static String MODELS_EXTENSION = "gama.models";
+	
+	/** The regular models layout. */
 	public static String REGULAR_MODELS_LAYOUT = "models";
+	
+	/** The regular tests layout. */
 	public static String REGULAR_TESTS_LAYOUT = "tests";
+	
+	/** The generated tests layout. */
 	public static String GENERATED_TESTS_LAYOUT = "gaml/tests";
+	
+	/** The content extension. */
 	public static String CONTENT_EXTENSION = "org.eclipse.core.contenttype.contentTypes";
+	
+	/** The gama plugins. */
 	private static Set<Bundle> GAMA_PLUGINS = new HashSet<>();
+	
+	/** The model plugins. */
 	private static Multimap<Bundle, String> MODEL_PLUGINS = ArrayListMultimap.create();
+	
+	/** The test plugins. */
 	private static Multimap<Bundle, String> TEST_PLUGINS = ArrayListMultimap.create();
+	
+	/** The ui providers. */
 	private static Map<String, IConfigurationElement> UI_PROVIDERS = new HashMap<>();
+	
+	/** The handled file extensions. */
 	public static Set<String> HANDLED_FILE_EXTENSIONS = new HashSet<>();
 
+	/** The Constant SYS_ARCH. */
 	public static final String SYS_ARCH = Platform.getOSArch(); // System.getProperty("os.arch");
+	
+	/** The Constant SYS_NAME. */
 	public static final String SYS_NAME = Platform.getOS();// System.getProperty("os.name");
+	
+	/** The Constant SYS_VERS. */
 	public static final String SYS_VERS = System.getProperty("os.version");
+	
+	/** The Constant SYS_JAVA. */
 	public static final String SYS_JAVA = System.getProperty("java.version");
 
+	/**
+	 * Pre build contributions.
+	 *
+	 * @throws Exception the exception
+	 */
 	public static void preBuildContributions() throws Exception {
 		DEBUG.LOG(DEBUG.PAD("> GAMA: version " + GAMA.VERSION_NUMBER, 45, ' ') + DEBUG.PAD(" loading on", 15, '_') + " "
 				+ SYS_NAME + " " + SYS_VERS + ", " + SYS_ARCH + ", JDK " + SYS_JAVA);
@@ -241,6 +310,12 @@ public class GamaBundleLoader {
 		});
 	}
 
+	/**
+	 * Pre build.
+	 *
+	 * @param bundle the bundle
+	 * @throws Exception the exception
+	 */
 	@SuppressWarnings ("unchecked")
 	public static void preBuild(final Bundle bundle) throws Exception {
 		TIMER_WITH_EXCEPTIONS(PAD("> GAMA: " + bundle.getSymbolicName(), 45, ' ') + DEBUG.PAD(" loaded in", 15, '_'),
@@ -279,18 +354,28 @@ public class GamaBundleLoader {
 	}
 
 	/**
-	 * The list of GAMA_PLUGINS declaring models, together with the inner path to the folder containing model projects
+	 * The list of GAMA_PLUGINS declaring models, together with the inner path to the folder containing model projects.
 	 *
-	 * @return
+	 * @return the plugins with models
 	 */
 	public static Multimap<Bundle, String> getPluginsWithModels() {
 		return MODEL_PLUGINS;
 	}
 
+	/**
+	 * Gets the plugins with tests.
+	 *
+	 * @return the plugins with tests
+	 */
 	public static Multimap<Bundle, String> getPluginsWithTests() {
 		return TEST_PLUGINS;
 	}
 
+	/**
+	 * Gets the application control implementations.
+	 *
+	 * @return the application control implementations
+	 */
 	public static Map<String, IConfigurationElement> getApplicationControlImplementations() {
 		return UI_PROVIDERS;
 	}

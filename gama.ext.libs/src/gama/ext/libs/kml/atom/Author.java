@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Author.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.atom;
 
@@ -44,15 +54,21 @@ import javax.xml.bind.annotation.XmlType;
 public class Author implements Cloneable
 {
 
+    /** The name or uri or email. */
     protected List<String> nameOrUriOrEmail;
 
+    /**
+     * Instantiates a new author.
+     */
     public Author() {
         super();
     }
 
     /**
+     * Gets the name or uri or email.
+     *
+     * @return the name or uri or email
      * @see nameOrUriOrEmail
-     * 
      */
     public List<String> getNameOrUriOrEmail() {
         if (nameOrUriOrEmail == null) {
@@ -94,21 +110,20 @@ public class Author implements Cloneable
     }
 
     /**
+     * Sets the name or uri or email.
+     *
+     * @param nameOrUriOrEmail the new name or uri or email
      * @see nameOrUriOrEmail
-     * 
-     * @param nameOrUriOrEmail
      */
     public void setNameOrUriOrEmail(final List<String> nameOrUriOrEmail) {
         this.nameOrUriOrEmail = nameOrUriOrEmail;
     }
 
     /**
-     * add a value to the nameOrUriOrEmail property collection
-     * 
-     * @param nameOrUriOrEmail
-     *     Objects of the following type are allowed in the list: {@code <}{@link String}{@code>}{@link JAXBElement}{@code <}{@link String}{@code>}{@link JAXBElement}{@code <}{@link String}{@code>}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the nameOrUriOrEmail property collection.
+     *
+     * @param nameOrUriOrEmail     Objects of the following type are allowed in the list: {@code <}{@link String}{@code>}{@link JAXBElement}{@code <}{@link String}{@code>}{@link JAXBElement}{@code <}{@link String}{@code>}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Author addToNameOrUriOrEmail(final String nameOrUriOrEmail) {
         this.getNameOrUriOrEmail().add(nameOrUriOrEmail);
@@ -116,11 +131,11 @@ public class Author implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param nameOrUriOrEmail     required parameter
+     * @return the author
      * @see #setNameOrUriOrEmail(List<String>)
-     * 
-     * @param nameOrUriOrEmail
-     *     required parameter
      */
     public Author withNameOrUriOrEmail(final List<String> nameOrUriOrEmail) {
         this.setNameOrUriOrEmail(nameOrUriOrEmail);

@@ -1,11 +1,13 @@
-/*******************************************************************************
- * Copyright (c) 2000, 2015 IBM Corporation and others. All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is
- * available at http://www.eclipse.org/legal/epl-v10.html
+/*******************************************************************************************************
  *
- * Contributors: IBM Corporation - initial API and implementation Andrey Loskutov <loskutov@gmx.de> - generified
- * interface, bug 462760
- *******************************************************************************/
+ * CopyAction.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator.actions;
 
 import java.util.ArrayList;
@@ -52,9 +54,7 @@ import gama.ui.navigator.metadata.FileMetaDataProvider;
 	 */
 	private final Shell shell;
 
-	/**
-	 * System clipboard
-	 */
+	/** System clipboard. */
 	private final Clipboard clipboard;
 
 	/**

@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'InteractiveConsoleView.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * InteractiveConsoleView.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.views;
 
 import java.io.BufferedReader;
@@ -66,18 +65,40 @@ import gama.ui.base.toolbar.GamaToolbar2;
 import gama.ui.base.toolbar.GamaToolbarFactory;
 import gama.ui.base.toolbar.IToolbarDecoratedView;
 
+/**
+ * The Class InteractiveConsoleView.
+ */
 public class InteractiveConsoleView extends GamaViewPart implements IToolbarDecoratedView.Sizable,
 		IToolbarDecoratedView.LogExportable, IGamaView.Console, IExecutionContext, IVarDescriptionProvider {
 
+	/** The msg console. */
 	private IOConsole msgConsole;
+	
+	/** The viewer. */
 	IOConsoleViewer viewer;
+	
+	/** The error writer. */
 	private OutputStreamWriter resultWriter, errorWriter;
+	
+	/** The reader. */
 	BufferedReader reader;
+	
+	/** The scope. */
 	private IScope scope;
+	
+	/** The temps. */
 	private final Map<String, Object> temps = new LinkedHashMap<>();
+	
+	/** The history. */
 	private final List<String> history = new ArrayList<>();
+	
+	/** The index in history. */
 	private int indexInHistory = 0;
+	
+	/** The control to display in full screen. */
 	private Composite controlToDisplayInFullScreen;
+	
+	/** The parent of control to display full screen. */
 	private Composite parentOfControlToDisplayFullScreen;
 
 	@Override
@@ -161,12 +182,21 @@ public class InteractiveConsoleView extends GamaViewPart implements IToolbarDeco
 
 	}
 
+	/**
+	 * Gets the control to display in full screen.
+	 *
+	 * @return the control to display in full screen
+	 */
 	public Composite getControlToDisplayInFullScreen() {
 		return controlToDisplayInFullScreen;
 	}
 
+	/** The Constant PROMPT. */
 	public static final String PROMPT = "gaml> ";
 
+	/**
+	 * Show prompt.
+	 */
 	private void showPrompt() {
 
 		new Thread(() -> {
@@ -186,6 +216,11 @@ public class InteractiveConsoleView extends GamaViewPart implements IToolbarDeco
 
 	}
 
+	/**
+	 * Insert history.
+	 *
+	 * @param back the back
+	 */
 	private void insertHistory(final boolean back) {
 
 		if (history.size() == 0) {
@@ -218,8 +253,9 @@ public class InteractiveConsoleView extends GamaViewPart implements IToolbarDeco
 	/**
 	 * Append the text to the console.
 	 *
-	 * @param text
-	 *            to display in the console
+	 * @param text            to display in the console
+	 * @param error the error
+	 * @param showPrompt the show prompt
 	 */
 	public void append(final String text, final boolean error, final boolean showPrompt) {
 
@@ -299,6 +335,11 @@ public class InteractiveConsoleView extends GamaViewPart implements IToolbarDeco
 		if (text != null) { append(text, false, true); }
 	}
 
+	/**
+	 * Sets the executor agent.
+	 *
+	 * @param agent the new executor agent
+	 */
 	private void setExecutorAgent(final ITopLevelAgent agent) {
 		if (scope != null) {
 			scope.clear();
@@ -318,6 +359,11 @@ public class InteractiveConsoleView extends GamaViewPart implements IToolbarDeco
 
 	}
 
+	/**
+	 * Process input.
+	 *
+	 * @param s the s
+	 */
 	protected void processInput(final String s) {
 		final var agent = getListeningAgent();
 		if (agent == null || agent.dead()) {
@@ -348,14 +394,29 @@ public class InteractiveConsoleView extends GamaViewPart implements IToolbarDeco
 
 	}
 
+	/**
+	 * Gets the parent of control to display full screen.
+	 *
+	 * @return the parent of control to display full screen
+	 */
 	public Composite getParentOfControlToDisplayFullScreen() {
 		return parentOfControlToDisplayFullScreen;
 	}
 
+	/**
+	 * Sets the parent of control to display full screen.
+	 *
+	 * @param parentOfControlToDisplayFullScreen the new parent of control to display full screen
+	 */
 	public void setParentOfControlToDisplayFullScreen(final Composite parentOfControlToDisplayFullScreen) {
 		this.parentOfControlToDisplayFullScreen = parentOfControlToDisplayFullScreen;
 	}
 
+	/**
+	 * Gets the listening agent.
+	 *
+	 * @return the listening agent
+	 */
 	private IAgent getListeningAgent() {
 		if (scope == null) { setExecutorAgent(GAMA.getPlatformAgent()); }
 		return scope.getRoot();

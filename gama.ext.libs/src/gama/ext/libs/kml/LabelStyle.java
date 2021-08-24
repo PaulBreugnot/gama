@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * LabelStyle.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -72,6 +82,8 @@ public class LabelStyle
      */
     @XmlElement(defaultValue = "1.0")
     protected double scale;
+    
+    /** The label style simple extension. */
     @XmlElement(name = "LabelStyleSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> labelStyleSimpleExtension;
@@ -96,37 +108,40 @@ public class LabelStyle
     @XmlElement(name = "LabelStyleObjectExtensionGroup")
     protected List<AbstractObject> labelStyleObjectExtension;
 
+    /**
+     * Instantiates a new label style.
+     */
     public LabelStyle() {
         super();
     }
 
     /**
-     * @see scale
-     * 
-     * @return
-     *     possible object is
+     * Gets the scale.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see scale
      */
     public double getScale() {
         return scale;
     }
 
     /**
-     * @see scale
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the scale.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see scale
      */
     public void setScale(double value) {
         this.scale = value;
     }
 
     /**
+     * Gets the label style simple extension.
+     *
+     * @return the label style simple extension
      * @see labelStyleSimpleExtension
-     * 
      */
     public List<Object> getLabelStyleSimpleExtension() {
         if (labelStyleSimpleExtension == null) {
@@ -136,8 +151,10 @@ public class LabelStyle
     }
 
     /**
+     * Gets the label style object extension.
+     *
+     * @return the label style object extension
      * @see labelStyleObjectExtension
-     * 
      */
     public List<AbstractObject> getLabelStyleObjectExtension() {
         if (labelStyleObjectExtension == null) {
@@ -198,21 +215,20 @@ public class LabelStyle
     }
 
     /**
+     * Sets the label style simple extension.
+     *
+     * @param labelStyleSimpleExtension the new label style simple extension
      * @see labelStyleSimpleExtension
-     * 
-     * @param labelStyleSimpleExtension
      */
     public void setLabelStyleSimpleExtension(final List<Object> labelStyleSimpleExtension) {
         this.labelStyleSimpleExtension = labelStyleSimpleExtension;
     }
 
     /**
-     * add a value to the labelStyleSimpleExtension property collection
-     * 
-     * @param labelStyleSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the labelStyleSimpleExtension property collection.
+     *
+     * @param labelStyleSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LabelStyle addToLabelStyleSimpleExtension(final Object labelStyleSimpleExtension) {
         this.getLabelStyleSimpleExtension().add(labelStyleSimpleExtension);
@@ -220,21 +236,20 @@ public class LabelStyle
     }
 
     /**
+     * Sets the label style object extension.
+     *
+     * @param labelStyleObjectExtension the new label style object extension
      * @see labelStyleObjectExtension
-     * 
-     * @param labelStyleObjectExtension
      */
     public void setLabelStyleObjectExtension(final List<AbstractObject> labelStyleObjectExtension) {
         this.labelStyleObjectExtension = labelStyleObjectExtension;
     }
 
     /**
-     * add a value to the labelStyleObjectExtension property collection
-     * 
-     * @param labelStyleObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the labelStyleObjectExtension property collection.
+     *
+     * @param labelStyleObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LabelStyle addToLabelStyleObjectExtension(final AbstractObject labelStyleObjectExtension) {
         this.getLabelStyleObjectExtension().add(labelStyleObjectExtension);
@@ -327,11 +342,11 @@ public class LabelStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param scale     required parameter
+     * @return the label style
      * @see #setScale(double)
-     * 
-     * @param scale
-     *     required parameter
      */
     public LabelStyle withScale(final double scale) {
         this.setScale(scale);
@@ -339,11 +354,11 @@ public class LabelStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param labelStyleSimpleExtension     required parameter
+     * @return the label style
      * @see #setLabelStyleSimpleExtension(List<Object>)
-     * 
-     * @param labelStyleSimpleExtension
-     *     required parameter
      */
     public LabelStyle withLabelStyleSimpleExtension(final List<Object> labelStyleSimpleExtension) {
         this.setLabelStyleSimpleExtension(labelStyleSimpleExtension);
@@ -351,11 +366,11 @@ public class LabelStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param labelStyleObjectExtension     required parameter
+     * @return the label style
      * @see #setLabelStyleObjectExtension(List<AbstractObject>)
-     * 
-     * @param labelStyleObjectExtension
-     *     required parameter
      */
     public LabelStyle withLabelStyleObjectExtension(final List<AbstractObject> labelStyleObjectExtension) {
         this.setLabelStyleObjectExtension(labelStyleObjectExtension);

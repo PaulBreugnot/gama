@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'DocumentationTask.java, in plugin msi.gama.lang.gaml, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * DocumentationTask.java, in gama.core.lang, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.core.lang.documentation;
 
 import org.eclipse.emf.ecore.EObject;
@@ -18,11 +17,27 @@ import gama.common.interfaces.IGamlDescription;
 import gama.core.dev.utils.DEBUG;
 import gama.util.IMap;
 
+/**
+ * The Class DocumentationTask.
+ */
 class DocumentationTask {
+	
+	/** The object. */
 	final EObject object;
+	
+	/** The description. */
 	final IGamlDescription description;
+	
+	/** The documenter. */
 	final GamlResourceDocumenter documenter;
 
+	/**
+	 * Instantiates a new documentation task.
+	 *
+	 * @param object the object
+	 * @param description the description
+	 * @param documenter the documenter
+	 */
 	public DocumentationTask(final EObject object, final IGamlDescription description,
 			final GamlResourceDocumenter documenter) {
 		super();
@@ -31,6 +46,9 @@ class DocumentationTask {
 		this.documenter = documenter;
 	}
 
+	/**
+	 * Process.
+	 */
 	public void process() {
 		// DEBUG.LOG("Documenting " + description.getName());
 		if (description == null) { return; }

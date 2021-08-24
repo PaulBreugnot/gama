@@ -1,22 +1,13 @@
-/*
- * Copyright 1996-2008 Sun Microsystems, Inc. All Rights Reserved. DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE
- * HEADER.
+/*******************************************************************************************************
  *
- * This code is free software; you can redistribute it and/or modify it under the terms of the GNU General Public
- * License version 2 only, as published by the Free Software Foundation. Sun designates this particular file as subject
- * to the "Classpath" exception as provided by Sun in the LICENSE file that accompanied this code.
+ * Matrix4d.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License version 2 for
- * more details (a copy is included in the LICENSE file that accompanied this code).
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * You should have received a copy of the GNU General Public License version 2 along with this work; if not, write to
- * the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
- *
- * Please contact Sun Microsystems, Inc., 4150 Network Circle, Santa Clara, CA 95054 USA or visit www.sun.com if you
- * need additional information or have any questions.
- *
- */
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package javax.vecmath;
 
@@ -26,6 +17,7 @@ package javax.vecmath;
  */
 public class Matrix4d implements java.io.Serializable, Cloneable {
 
+	/** The Constant serialVersionUID. */
 	// Compatible with 1.1
 	static final long serialVersionUID = 8223903484171633710L;
 
@@ -108,6 +100,8 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
 	 * The fourth element of the fourth row.
 	 */
 	public double m33;
+	
+	/** The Constant EPS. */
 	/*
 	 * double[] tmp = new double[16]; double[] tmp_rot = new double[9]; // scratch matrix double[] tmp_scale = new
 	 * double[3]; // scratch matrix
@@ -637,10 +631,9 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
 	/**
 	 * Copies the matrix values in the specified row into the vector parameter.
 	 *
-	 * @param row
-	 *            the matrix row
-	 * @param v
-	 *            the vector into which the matrix row values will be copied
+	 * @param row            the matrix row
+	 * @param v            the vector into which the matrix row values will be copied
+	 * @return the row
 	 */
 	public final void getRow(final int row, final Vector4d v) {
 		if (row == 0) {
@@ -670,10 +663,9 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
 	/**
 	 * Copies the matrix values in the specified row into the array parameter.
 	 *
-	 * @param row
-	 *            the matrix row
-	 * @param v
-	 *            the array into which the matrix row values will be copied
+	 * @param row            the matrix row
+	 * @param v            the array into which the matrix row values will be copied
+	 * @return the row
 	 */
 	public final void getRow(final int row, final double v[]) {
 		if (row == 0) {
@@ -703,10 +695,9 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
 	/**
 	 * Copies the matrix values in the specified column into the vector parameter.
 	 *
-	 * @param column
-	 *            the matrix column
-	 * @param v
-	 *            the vector into which the matrix column values will be copied
+	 * @param column            the matrix column
+	 * @param v            the vector into which the matrix column values will be copied
+	 * @return the column
 	 */
 	public final void getColumn(final int column, final Vector4d v) {
 		if (column == 0) {
@@ -737,10 +728,9 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
 	/**
 	 * Copies the matrix values in the specified column into the array parameter.
 	 *
-	 * @param column
-	 *            the matrix column
-	 * @param v
-	 *            the array into which the matrix column values will be copied
+	 * @param column            the matrix column
+	 * @param v            the array into which the matrix column values will be copied
+	 * @return the column
 	 */
 	public final void getColumn(final int column, final double v[]) {
 		if (column == 0) {
@@ -1003,8 +993,8 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
 	/**
 	 * Gets the upper 3x3 values of this matrix and places them into the matrix m1.
 	 *
-	 * @param m1
-	 *            the matrix that will hold the values
+	 * @param m1            the matrix that will hold the values
+	 * @return the rotation scale
 	 */
 	public final void getRotationScale(final Matrix3f m1) {
 		m1.m00 = (float) m00;
@@ -1021,8 +1011,8 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
 	/**
 	 * Gets the upper 3x3 values of this matrix and places them into the matrix m1.
 	 *
-	 * @param m1
-	 *            the matrix that will hold the values
+	 * @param m1            the matrix that will hold the values
+	 * @return the rotation scale
 	 */
 	public final void getRotationScale(final Matrix3d m1) {
 		m1.m00 = m00;
@@ -1587,10 +1577,9 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets the value of this matrix to the transpose of the argument matrix
+	 * Sets the value of this matrix to the transpose of the argument matrix.
 	 *
-	 * @param m1
-	 *            the matrix to be transposed
+	 * @param m1            the matrix to be transposed
 	 */
 	public final void transpose(final Matrix4d m1) {
 		if (this != m1) {
@@ -2050,8 +2039,10 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
 	/**
 	 * General invert routine. Inverts m1 and places the result in "this". Note that this routine handles both the
 	 * "this" version and the non-"this" version.
-	 *
+	 * 
 	 * Also note that since this routine is slow anyway, we won't worry about allocating a little bit of garbage.
+	 *
+	 * @param m1 the m 1
 	 */
 	final void invertGeneral(final Matrix4d m1) {
 		double result[] = new double[16];
@@ -2124,9 +2115,11 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
 	 * vector "row_perm[4]" is an output parameter that contains the row permutations resulting from partial pivoting.
 	 * The output parameter "even_row_xchg" is 1 when the number of row exchanges is even, or -1 otherwise. Assumes data
 	 * type is always double.
-	 *
+	 * 
 	 * This function is similar to luDecomposition, except that it is tuned specifically for 4x4 matrices.
 	 *
+	 * @param matrix0 the matrix 0
+	 * @param row_perm the row perm
 	 * @return true if the matrix is nonsingular, or false otherwise.
 	 */
 	//
@@ -2262,9 +2255,13 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
 	 * do not change here. The parameter "matrix2" is a set of column vectors assembled into a 4x4 matrix of
 	 * floating-point values. The procedure takes each column of "matrix2" in turn and treats it as the right-hand side
 	 * of the matrix equation Ax = LUx = b. The solution vector replaces the original column of the matrix.
-	 *
+	 * 
 	 * If "matrix2" is the identity matrix, the procedure replaces its contents with the inverse of the matrix from
 	 * which "matrix1" was originally derived.
+	 *
+	 * @param matrix1 the matrix 1
+	 * @param row_perm the row perm
+	 * @param matrix2 the matrix 2
 	 */
 	//
 	// Reference: Press, Flannery, Teukolsky, Vetterling,
@@ -3074,6 +3071,11 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
 	}
 
 	/**
+	 * Epsilon equals.
+	 *
+	 * @param m1 the m 1
+	 * @param epsilon the epsilon
+	 * @return true, if successful
 	 * @deprecated Use epsilonEquals(Matrix4d,double) instead
 	 */
 	@Deprecated
@@ -3086,10 +3088,9 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
 	 * parameter, otherwise returns false. The L-infinite distance is equal to MAX[i=0,1,2,3 ; j=0,1,2,3 ;
 	 * abs(this.m(i,j) - m1.m(i,j)]
 	 *
-	 * @param m1
-	 *            the matrix to be compared to this matrix
-	 * @param epsilon
-	 *            the threshold value
+	 * @param m1            the matrix to be compared to this matrix
+	 * @param epsilon            the threshold value
+	 * @return true, if successful
 	 */
 	public boolean epsilonEquals(final Matrix4d m1, final double epsilon) {
 		double diff;
@@ -3595,6 +3596,13 @@ public class Matrix4d implements java.io.Serializable, Cloneable {
 		this.m33 = -m1.m33;
 	}
 
+	/**
+	 * Gets the scale rotate.
+	 *
+	 * @param scales the scales
+	 * @param rots the rots
+	 * @return the scale rotate
+	 */
 	private final void getScaleRotate(final double scales[], final double rots[]) {
 		double[] tmp = new double[9]; // scratch matrix
 		tmp[0] = m00;

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Snippet.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -55,48 +65,55 @@ public class Snippet implements Cloneable
      */
     @XmlValue
     protected String value;
+    
+    /** The max lines. */
     @XmlAttribute(name = "maxLines")
     protected int maxLines;
 
+    /**
+     * Instantiates a new snippet.
+     */
     public Snippet() {
         super();
     }
 
     /**
-     * @see value
-     * 
-     * @return
-     *     possible object is
+     * Gets the value.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see value
      */
     public String getValue() {
         return value;
     }
 
     /**
-     * @see value
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the value.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see value
      */
     public void setValue(String value) {
         this.value = value;
     }
 
     /**
+     * Gets the max lines.
+     *
+     * @return the max lines
      * @see maxLines
-     * 
      */
     public int getMaxLines() {
         return maxLines;
     }
 
     /**
+     * Sets the max lines.
+     *
+     * @param value the new max lines
      * @see maxLines
-     * 
      */
     public void setMaxLines(int value) {
         this.maxLines = value;
@@ -139,11 +156,11 @@ public class Snippet implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param value     required parameter
+     * @return the snippet
      * @see #setValue(String)
-     * 
-     * @param value
-     *     required parameter
      */
     public Snippet withValue(final String value) {
         this.setValue(value);
@@ -151,11 +168,11 @@ public class Snippet implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param maxLines     required parameter
+     * @return the snippet
      * @see #setMaxLines(int)
-     * 
-     * @param maxLines
-     *     required parameter
      */
     public Snippet withMaxLines(final int maxLines) {
         this.setMaxLines(maxLines);

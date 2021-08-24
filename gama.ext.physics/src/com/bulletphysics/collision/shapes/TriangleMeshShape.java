@@ -1,20 +1,13 @@
-/*
- * Java port of Bullet (c) 2008 Martin Dvorak <jezek2@advel.cz>
+/*******************************************************************************************************
  *
- * Bullet Continuous Collision Detection and Physics Library Copyright (c) 2003-2008 Erwin Coumans
- * http://www.bulletphysics.com/
+ * TriangleMeshShape.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the authors be held
- * liable for any damages arising from the use of this software.
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter
- * it and redistribute it freely, subject to the following restrictions:
- *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software.
- * If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not
- * required. 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the
- * original software. 3. This notice may not be removed or altered from any source distribution.
- */
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package com.bulletphysics.collision.shapes;
 
@@ -38,13 +31,20 @@ import com.bulletphysics.linearmath.VectorUtil;
  */
 public abstract class TriangleMeshShape extends ConcaveShape {
 
+	/** The local aabb min. */
 	protected final Vector3f localAabbMin = new Vector3f();
+	
+	/** The local aabb max. */
 	protected final Vector3f localAabbMax = new Vector3f();
+	
+	/** The mesh interface. */
 	protected StridingMeshInterface meshInterface;
 
 	/**
 	 * TriangleMeshShape constructor has been disabled/protected, so that users will not mistakenly use this class.
 	 * Don't use btTriangleMeshShape but use btBvhTriangleMeshShape instead!
+	 *
+	 * @param meshInterface the mesh interface
 	 */
 	protected TriangleMeshShape(final StridingMeshInterface meshInterface) {
 		this.meshInterface = meshInterface;
@@ -53,6 +53,13 @@ public abstract class TriangleMeshShape extends ConcaveShape {
 		// recalcLocalAabb();
 	}
 
+	/**
+	 * Local get supporting vertex.
+	 *
+	 * @param vec the vec
+	 * @param out the out
+	 * @return the vector 3 f
+	 */
 	public Vector3f localGetSupportingVertex( final Vector3f vec, final Vector3f out) {
 		Vector3f tmp = VECTORS.get();
 
@@ -75,12 +82,22 @@ public abstract class TriangleMeshShape extends ConcaveShape {
 		return out;
 	}
 
+	/**
+	 * Local get supporting vertex without margin.
+	 *
+	 * @param vec the vec
+	 * @param out the out
+	 * @return the vector 3 f
+	 */
 	public Vector3f localGetSupportingVertexWithoutMargin( final Vector3f vec,
 			final Vector3f out) {
 		assert false;
 		return localGetSupportingVertex( vec, out);
 	}
 
+	/**
+	 * Recalc local aabb.
+	 */
 	public void recalcLocalAabb() {
 		for (int i = 0; i < 3; i++) {
 			Vector3f vec = VECTORS.get();
@@ -157,15 +174,32 @@ public abstract class TriangleMeshShape extends ConcaveShape {
 		return meshInterface.getScaling(out);
 	}
 
+	/**
+	 * Gets the mesh interface.
+	 *
+	 * @return the mesh interface
+	 */
 	public StridingMeshInterface getMeshInterface() {
 		return meshInterface;
 	}
 
+	/**
+	 * Gets the local aabb min.
+	 *
+	 * @param out the out
+	 * @return the local aabb min
+	 */
 	public Vector3f getLocalAabbMin(final Vector3f out) {
 		out.set(localAabbMin);
 		return out;
 	}
 
+	/**
+	 * Gets the local aabb max.
+	 *
+	 * @param out the out
+	 * @return the local aabb max
+	 */
 	public Vector3f getLocalAabbMax(final Vector3f out) {
 		out.set(localAabbMax);
 		return out;
@@ -178,12 +212,29 @@ public abstract class TriangleMeshShape extends ConcaveShape {
 
 	////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * The Class SupportVertexCallback.
+	 */
 	private class SupportVertexCallback implements TriangleCallback {
+		
+		/** The support vertex local. */
 		private final Vector3f supportVertexLocal = new Vector3f(0f, 0f, 0f);
+		
+		/** The world trans. */
 		public final Transform worldTrans = new Transform();
+		
+		/** The max dot. */
 		public float maxDot = -1e30f;
+		
+		/** The support vec local. */
 		public final Vector3f supportVecLocal = new Vector3f();
 
+		/**
+		 * Instantiates a new support vertex callback.
+		 *
+		 * @param supportVecWorld the support vec world
+		 * @param trans the trans
+		 */
 		public SupportVertexCallback(final Vector3f supportVecWorld, final Transform trans) {
 			this.worldTrans.set(trans);
 			MatrixUtil.transposeTransform(supportVecLocal, supportVecWorld, worldTrans.basis);
@@ -207,17 +258,39 @@ public abstract class TriangleMeshShape extends ConcaveShape {
 		// return out;
 		// }
 
+		/**
+		 * Gets the support vertex local.
+		 *
+		 * @param out the out
+		 * @return the support vertex local
+		 */
 		public Vector3f getSupportVertexLocal(final Vector3f out) {
 			out.set(supportVertexLocal);
 			return out;
 		}
 	}
 
+	/**
+	 * The Class FilteredCallback.
+	 */
 	private static class FilteredCallback implements InternalTriangleIndexCallback {
+		
+		/** The callback. */
 		public TriangleCallback callback;
+		
+		/** The aabb min. */
 		public final Vector3f aabbMin = new Vector3f();
+		
+		/** The aabb max. */
 		public final Vector3f aabbMax = new Vector3f();
 
+		/**
+		 * Instantiates a new filtered callback.
+		 *
+		 * @param callback the callback
+		 * @param aabbMin the aabb min
+		 * @param aabbMax the aabb max
+		 */
 		public FilteredCallback(final TriangleCallback callback, final Vector3f aabbMin, final Vector3f aabbMax) {
 			this.callback = callback;
 			this.aabbMin.set(aabbMin);

@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'PauseSoundStatement.java, in plugin ummisco.gaml.extensions.sound, is part of the source code of the GAMA modeling
- * and simulation platform. (v. 1.8.1)
+ * PauseSoundStatement.java, in gama.ext.audio, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.audio;
 
 import gama.common.interfaces.IKeyword;
@@ -27,6 +26,9 @@ import gaml.compilation.annotations.validator;
 import gaml.descriptions.IDescription;
 import gaml.statements.AbstractStatementSequence;
 
+/**
+ * The Class PauseSoundStatement.
+ */
 @symbol (
 		name = IKeyword.PAUSE_SOUND,
 		kind = ISymbolKind.SEQUENCE_STATEMENT,
@@ -38,6 +40,9 @@ import gaml.statements.AbstractStatementSequence;
 @validator (PauseSoundValidator.class)
 public class PauseSoundStatement extends AbstractStatementSequence {
 
+	/**
+	 * The Class PauseSoundValidator.
+	 */
 	public static class PauseSoundValidator implements IDescriptionValidator<IDescription> {
 
 		/**
@@ -51,8 +56,14 @@ public class PauseSoundStatement extends AbstractStatementSequence {
 		}
 	}
 
+	/** The sequence. */
 	private AbstractStatementSequence sequence = null;
 
+	/**
+	 * Instantiates a new pause sound statement.
+	 *
+	 * @param desc the desc
+	 */
 	public PauseSoundStatement(final IDescription desc) {
 		super(desc);
 	}

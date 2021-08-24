@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.operators.Displays.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * Displays.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.operators;
 
@@ -20,10 +20,18 @@ import gama.util.IMap;
 import gama.util.tree.GamaNode;
 import gaml.types.IType;
 
+/**
+ * The Class Displays.
+ */
 public class Displays {
 
+	/** The Constant HORIZONTAL. */
 	public static final String HORIZONTAL = "horizontal";
+	
+	/** The Constant VERTICAL. */
 	public static final String VERTICAL = "vertical";
+	
+	/** The Constant STACK. */
 	public static final String STACK = "stack";
 
 	// @operator (
@@ -67,6 +75,13 @@ public class Displays {
 	// throw GamaRuntimeException.error("Layout argument is not recognized", scope);
 	// }
 
+	/**
+	 * Horizontal.
+	 *
+	 * @param scope the scope
+	 * @param nodes the nodes
+	 * @return the gama node
+	 */
 	@operator (
 			value = HORIZONTAL,
 			expected_content_type = IType.FLOAT,
@@ -77,6 +92,13 @@ public class Displays {
 		return buildSashFromMap(scope, HORIZONTAL, nodes);
 	}
 
+	/**
+	 * Vertical.
+	 *
+	 * @param scope the scope
+	 * @param nodes the nodes
+	 * @return the gama node
+	 */
 	@operator (
 			value = VERTICAL,
 			expected_content_type = IType.FLOAT,
@@ -87,6 +109,13 @@ public class Displays {
 		return buildSashFromMap(scope, VERTICAL, nodes);
 	}
 
+	/**
+	 * Stack.
+	 *
+	 * @param scope the scope
+	 * @param nodes the nodes
+	 * @return the gama node
+	 */
 	@operator (
 			value = STACK,
 			can_be_const = false)
@@ -102,6 +131,14 @@ public class Displays {
 		return node;
 	}
 
+	/**
+	 * Builds the sash from map.
+	 *
+	 * @param scope the scope
+	 * @param orientation the orientation
+	 * @param nodes the nodes
+	 * @return the gama node
+	 */
 	@SuppressWarnings ("unchecked")
 	private static GamaNode<String> buildSashFromMap(final IScope scope, final String orientation,
 			final IMap<Object, Integer> nodes) {

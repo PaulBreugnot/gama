@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * SnapshotMaker.java, in gama.ui.experiment, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.experiment.views.displays;
 
 import java.awt.Robot;
@@ -19,8 +29,17 @@ import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gaml.operators.Files;
 
+/**
+ * The Class SnapshotMaker.
+ */
 public class SnapshotMaker {
 
+	/**
+	 * Do snapshot.
+	 *
+	 * @param surface the surface
+	 * @param composite the composite
+	 */
 	public void doSnapshot(final IDisplaySurface surface, final Rectangle composite) {
 		if (surface == null || composite == null) return;
 		final IScope scope = surface.getScope();
@@ -86,8 +105,14 @@ public class SnapshotMaker {
 		}
 	}
 
+	/** The instance. */
 	private static SnapshotMaker instance = new SnapshotMaker();
 
+	/**
+	 * Gets the single instance of SnapshotMaker.
+	 *
+	 * @return single instance of SnapshotMaker
+	 */
 	public static SnapshotMaker getInstance() {
 		return instance;
 	}

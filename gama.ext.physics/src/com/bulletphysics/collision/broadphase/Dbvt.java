@@ -1,20 +1,13 @@
-/*
- * Java port of Bullet (c) 2008 Martin Dvorak <jezek2@advel.cz>
+/*******************************************************************************************************
  *
- * Bullet Continuous Collision Detection and Physics Library Copyright (c) 2003-2008 Erwin Coumans
- * http://www.bulletphysics.com/
+ * Dbvt.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * This software is provided 'as-is', without any express or implied warranty. In no event will the authors be held
- * liable for any damages arising from the use of this software.
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter
- * it and redistribute it freely, subject to the following restrictions:
- *
- * 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software.
- * If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not
- * required. 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the
- * original software. 3. This notice may not be removed or altered from any source distribution.
- */
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 // Dbvt implementation by Nathanael Presson
 
@@ -34,32 +27,59 @@ import com.bulletphysics.linearmath.Transform;
 import com.bulletphysics.util.IntArrayList;
 
 /**
+ * The Class Dbvt.
  *
  * @author jezek2
  */
 public class Dbvt {
 
+	/** The Constant SIMPLE_STACKSIZE. */
 	public static final int SIMPLE_STACKSIZE = 64;
+	
+	/** The Constant DOUBLE_STACKSIZE. */
 	public static final int DOUBLE_STACKSIZE = SIMPLE_STACKSIZE * 2;
 
+	/** The root. */
 	public Node root = null;
+	
+	/** The free. */
 	public Node free = null;
+	
+	/** The lkhd. */
 	public int lkhd = -1;
+	
+	/** The leaves. */
 	public int leaves = 0;
+	
+	/** The opath. */
 	public /* unsigned */ int opath = 0;
 
+	/**
+	 * Instantiates a new dbvt.
+	 */
 	public Dbvt() {}
 
+	/**
+	 * Clear.
+	 */
 	public void clear() {
 		if (root != null) { recursedeletenode(this, root); }
 		// btAlignedFree(m_free);
 		free = null;
 	}
 
+	/**
+	 * Empty.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean empty() {
 		return root == null;
 	}
 
+	/**
+	 * Optimize bottom up.
+	 */
 	public void optimizeBottomUp() {
 		if (root != null) {
 			ArrayList<Node> leaves = new ArrayList<>(this.leaves);
@@ -69,10 +89,18 @@ public class Dbvt {
 		}
 	}
 
+	/**
+	 * Optimize top down.
+	 */
 	public void optimizeTopDown() {
 		optimizeTopDown(128);
 	}
 
+	/**
+	 * Optimize top down.
+	 *
+	 * @param bu_treshold the bu treshold
+	 */
 	public void optimizeTopDown(final int bu_treshold) {
 		if (root != null) {
 			ArrayList<Node> leaves = new ArrayList<>(this.leaves);
@@ -81,6 +109,11 @@ public class Dbvt {
 		}
 	}
 
+	/**
+	 * Optimize incremental.
+	 *
+	 * @param passes the passes
+	 */
 	public void optimizeIncremental(int passes) {
 		if (passes < 0) { passes = leaves; }
 
@@ -102,6 +135,13 @@ public class Dbvt {
 		}
 	}
 
+	/**
+	 * Insert.
+	 *
+	 * @param box the box
+	 * @param data the data
+	 * @return the node
+	 */
 	public Node insert(final DbvtAabbMm box, final Object data) {
 		Node leaf = createnode(this, null, box, data);
 		insertleaf(this, root, leaf);
@@ -109,10 +149,21 @@ public class Dbvt {
 		return leaf;
 	}
 
+	/**
+	 * Update.
+	 *
+	 * @param leaf the leaf
+	 */
 	public void update(final Node leaf) {
 		update(leaf, -1);
 	}
 
+	/**
+	 * Update.
+	 *
+	 * @param leaf the leaf
+	 * @param lookahead the lookahead
+	 */
 	public void update(final Node leaf, final int lookahead) {
 		Node root = removeleaf(this, leaf);
 		if (root != null) {
@@ -127,6 +178,12 @@ public class Dbvt {
 		insertleaf(this, root, leaf);
 	}
 
+	/**
+	 * Update.
+	 *
+	 * @param leaf the leaf
+	 * @param volume the volume
+	 */
 	public void update(final Node leaf, final DbvtAabbMm volume) {
 		Node root = removeleaf(this, leaf);
 		if (root != null) {
@@ -142,6 +199,15 @@ public class Dbvt {
 		insertleaf(this, root, leaf);
 	}
 
+	/**
+	 * Update.
+	 *
+	 * @param leaf the leaf
+	 * @param volume the volume
+	 * @param velocity the velocity
+	 * @param margin the margin
+	 * @return true, if successful
+	 */
 	public boolean update(final Node leaf, final DbvtAabbMm volume, final Vector3f velocity, final float margin) {
 		if (leaf.volume.Contain(volume)) return false;
 		Vector3f tmp = VECTORS.get();
@@ -152,6 +218,14 @@ public class Dbvt {
 		return true;
 	}
 
+	/**
+	 * Update.
+	 *
+	 * @param leaf the leaf
+	 * @param volume the volume
+	 * @param velocity the velocity
+	 * @return true, if successful
+	 */
 	public boolean update(final Node leaf, final DbvtAabbMm volume, final Vector3f velocity) {
 		if (leaf.volume.Contain(volume)) return false;
 		volume.SignedExpand(velocity);
@@ -159,6 +233,14 @@ public class Dbvt {
 		return true;
 	}
 
+	/**
+	 * Update.
+	 *
+	 * @param leaf the leaf
+	 * @param volume the volume
+	 * @param margin the margin
+	 * @return true, if successful
+	 */
 	public boolean update(final Node leaf, final DbvtAabbMm volume, final float margin) {
 		if (leaf.volume.Contain(volume)) return false;
 		Vector3f tmp = VECTORS.get();
@@ -168,24 +250,51 @@ public class Dbvt {
 		return true;
 	}
 
+	/**
+	 * Removes the.
+	 *
+	 * @param leaf the leaf
+	 */
 	public void remove(final Node leaf) {
 		removeleaf(this, leaf);
 		deletenode(this, leaf);
 		leaves--;
 	}
 
+	/**
+	 * Write.
+	 *
+	 * @param iwriter the iwriter
+	 */
 	public void write(final IWriter iwriter) {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Clone.
+	 *
+	 * @param dest the dest
+	 */
 	public void clone(final Dbvt dest) {
 		clone(dest, null);
 	}
 
+	/**
+	 * Clone.
+	 *
+	 * @param dest the dest
+	 * @param iclone the iclone
+	 */
 	public void clone(final Dbvt dest, final IClone iclone) {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * Count leaves.
+	 *
+	 * @param node the node
+	 * @return the int
+	 */
 	public static int countLeaves(final Node node) {
 		if (node.isinternal())
 			return countLeaves(node.childs[0]) + countLeaves(node.childs[1]);
@@ -193,6 +302,12 @@ public class Dbvt {
 			return 1;
 	}
 
+	/**
+	 * Extract leaves.
+	 *
+	 * @param node the node
+	 * @param leaves the leaves
+	 */
 	public static void extractLeaves(final Node node, final ArrayList<Node> leaves) {
 		if (node.isinternal()) {
 			extractLeaves(node.childs[0], leaves);
@@ -202,6 +317,12 @@ public class Dbvt {
 		}
 	}
 
+	/**
+	 * Enum nodes.
+	 *
+	 * @param root the root
+	 * @param policy the policy
+	 */
 	public static void enumNodes(final Node root, final ICollide policy) {
 		// DBVT_CHECKTYPE
 		policy.Process(root);
@@ -211,6 +332,12 @@ public class Dbvt {
 		}
 	}
 
+	/**
+	 * Enum leaves.
+	 *
+	 * @param root the root
+	 * @param policy the policy
+	 */
 	public static void enumLeaves(final Node root, final ICollide policy) {
 		// DBVT_CHECKTYPE
 		if (root.isinternal()) {
@@ -221,6 +348,13 @@ public class Dbvt {
 		}
 	}
 
+	/**
+	 * Collide TT.
+	 *
+	 * @param root0 the root 0
+	 * @param root1 the root 1
+	 * @param policy the policy
+	 */
 	public static void collideTT(final Node root0, final Node root1, final ICollide policy) {
 		// DBVT_CHECKTYPE
 		if (root0 != null && root1 != null) {
@@ -258,6 +392,14 @@ public class Dbvt {
 		}
 	}
 
+	/**
+	 * Collide TT.
+	 *
+	 * @param root0 the root 0
+	 * @param root1 the root 1
+	 * @param xform the xform
+	 * @param policy the policy
+	 */
 	public static void collideTT(final Node root0, final Node root1, final Transform xform, final ICollide policy) {
 		// DBVT_CHECKTYPE
 		if (root0 != null && root1 != null) {
@@ -295,6 +437,15 @@ public class Dbvt {
 		}
 	}
 
+	/**
+	 * Collide TT.
+	 *
+	 * @param root0 the root 0
+	 * @param xform0 the xform 0
+	 * @param root1 the root 1
+	 * @param xform1 the xform 1
+	 * @param policy the policy
+	 */
 	public static void collideTT(final Node root0, final Transform xform0, final Node root1, final Transform xform1,
 			final ICollide policy) {
 		Transform xform = TRANSFORMS.get();
@@ -304,6 +455,13 @@ public class Dbvt {
 		TRANSFORMS.release(xform);
 	}
 
+	/**
+	 * Collide TV.
+	 *
+	 * @param root the root
+	 * @param volume the volume
+	 * @param policy the policy
+	 */
 	public static void collideTV(final Node root, final DbvtAabbMm volume, final ICollide policy) {
 		// DBVT_CHECKTYPE
 		if (root != null) {
@@ -323,6 +481,14 @@ public class Dbvt {
 		}
 	}
 
+	/**
+	 * Collide RAY.
+	 *
+	 * @param root the root
+	 * @param origin the origin
+	 * @param direction the direction
+	 * @param policy the policy
+	 */
 	public static void collideRAY(final Node root, final Vector3f origin, final Vector3f direction,
 			final ICollide policy) {
 		// DBVT_CHECKTYPE
@@ -348,6 +514,15 @@ public class Dbvt {
 		}
 	}
 
+	/**
+	 * Collide KDOP.
+	 *
+	 * @param root the root
+	 * @param normals the normals
+	 * @param offsets the offsets
+	 * @param count the count
+	 * @param policy the policy
+	 */
 	public static void collideKDOP(final Node root, final Vector3f[] normals, final float[] offsets, final int count,
 			final ICollide policy) {
 		// DBVT_CHECKTYPE
@@ -388,11 +563,32 @@ public class Dbvt {
 		}
 	}
 
+	/**
+	 * Collide OCL.
+	 *
+	 * @param root the root
+	 * @param normals the normals
+	 * @param offsets the offsets
+	 * @param sortaxis the sortaxis
+	 * @param count the count
+	 * @param policy the policy
+	 */
 	public static void collideOCL(final Node root, final Vector3f[] normals, final float[] offsets,
 			final Vector3f sortaxis, final int count, final ICollide policy) {
 		collideOCL(root, normals, offsets, sortaxis, count, policy, true);
 	}
 
+	/**
+	 * Collide OCL.
+	 *
+	 * @param root the root
+	 * @param normals the normals
+	 * @param offsets the offsets
+	 * @param sortaxis the sortaxis
+	 * @param count the count
+	 * @param policy the policy
+	 * @param fullsort the fullsort
+	 */
 	public static void collideOCL(final Node root, final Vector3f[] normals, final float[] offsets,
 			final Vector3f sortaxis, final int count, final ICollide policy, final boolean fullsort) {
 		// DBVT_CHECKTYPE
@@ -476,6 +672,12 @@ public class Dbvt {
 		}
 	}
 
+	/**
+	 * Collide TU.
+	 *
+	 * @param root the root
+	 * @param policy the policy
+	 */
 	public static void collideTU(final Node root, final ICollide policy) {
 		// DBVT_CHECKTYPE
 		if (root != null) {
@@ -495,6 +697,16 @@ public class Dbvt {
 		}
 	}
 
+	/**
+	 * Nearest.
+	 *
+	 * @param i the i
+	 * @param a the a
+	 * @param v the v
+	 * @param l the l
+	 * @param h the h
+	 * @return the int
+	 */
 	public static int nearest(final IntArrayList i, final ArrayList<sStkNPS> a, final float v, int l, int h) {
 		int m = 0;
 		while (l < h) {
@@ -508,6 +720,14 @@ public class Dbvt {
 		return h;
 	}
 
+	/**
+	 * Allocate.
+	 *
+	 * @param ifree the ifree
+	 * @param stock the stock
+	 * @param value the value
+	 * @return the int
+	 */
 	public static int allocate(final IntArrayList ifree, final ArrayList<sStkNPS> stock, final sStkNPS value) {
 		int i;
 		if (ifree.size() > 0) {
@@ -523,15 +743,35 @@ public class Dbvt {
 
 	////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * Indexof.
+	 *
+	 * @param node the node
+	 * @return the int
+	 */
 	private static int indexof(final Node node) {
 		return node.parent.childs[1] == node ? 1 : 0;
 	}
 
+	/**
+	 * Merge.
+	 *
+	 * @param a the a
+	 * @param b the b
+	 * @param out the out
+	 * @return the dbvt aabb mm
+	 */
 	private static DbvtAabbMm merge(final DbvtAabbMm a, final DbvtAabbMm b, final DbvtAabbMm out) {
 		DbvtAabbMm.Merge(a, b, out);
 		return out;
 	}
 
+	/**
+	 * Size.
+	 *
+	 * @param a the a
+	 * @return the float
+	 */
 	// volume+edge lengths
 	private static float size(final DbvtAabbMm a) {
 		Vector3f edges = a.Lengths(VECTORS.get());
@@ -540,11 +780,23 @@ public class Dbvt {
 		return result;
 	}
 
+	/**
+	 * Deletenode.
+	 *
+	 * @param pdbvt the pdbvt
+	 * @param node the node
+	 */
 	private static void deletenode(final Dbvt pdbvt, final Node node) {
 		// btAlignedFree(pdbvt->m_free);
 		pdbvt.free = node;
 	}
 
+	/**
+	 * Recursedeletenode.
+	 *
+	 * @param pdbvt the pdbvt
+	 * @param node the node
+	 */
 	private static void recursedeletenode(final Dbvt pdbvt, final Node node) {
 		if (!node.isleaf()) {
 			recursedeletenode(pdbvt, node.childs[0]);
@@ -554,6 +806,15 @@ public class Dbvt {
 		deletenode(pdbvt, node);
 	}
 
+	/**
+	 * Createnode.
+	 *
+	 * @param pdbvt the pdbvt
+	 * @param parent the parent
+	 * @param volume the volume
+	 * @param data the data
+	 * @return the node
+	 */
 	private static Node createnode(final Dbvt pdbvt, final Node parent, final DbvtAabbMm volume, final Object data) {
 		Node node;
 		if (pdbvt.free != null) {
@@ -569,6 +830,13 @@ public class Dbvt {
 		return node;
 	}
 
+	/**
+	 * Insertleaf.
+	 *
+	 * @param pdbvt the pdbvt
+	 * @param root the root
+	 * @param leaf the leaf
+	 */
 	private static void insertleaf(final Dbvt pdbvt, Node root, final Node leaf) {
 		if (pdbvt.root == null) {
 			pdbvt.root = leaf;
@@ -610,6 +878,13 @@ public class Dbvt {
 		}
 	}
 
+	/**
+	 * Removeleaf.
+	 *
+	 * @param pdbvt the pdbvt
+	 * @param leaf the leaf
+	 * @return the node
+	 */
 	private static Node removeleaf(final Dbvt pdbvt, final Node leaf) {
 		if (leaf == pdbvt.root) {
 			pdbvt.root = null;
@@ -641,10 +916,25 @@ public class Dbvt {
 		}
 	}
 
+	/**
+	 * Fetchleaves.
+	 *
+	 * @param pdbvt the pdbvt
+	 * @param root the root
+	 * @param leaves the leaves
+	 */
 	private static void fetchleaves(final Dbvt pdbvt, final Node root, final ArrayList<Node> leaves) {
 		fetchleaves(pdbvt, root, leaves, -1);
 	}
 
+	/**
+	 * Fetchleaves.
+	 *
+	 * @param pdbvt the pdbvt
+	 * @param root the root
+	 * @param leaves the leaves
+	 * @param depth the depth
+	 */
 	private static void fetchleaves(final Dbvt pdbvt, final Node root, final ArrayList<Node> leaves, final int depth) {
 		if (root.isinternal() && depth != 0) {
 			fetchleaves(pdbvt, root.childs[0], leaves, depth - 1);
@@ -655,6 +945,15 @@ public class Dbvt {
 		}
 	}
 
+	/**
+	 * Split.
+	 *
+	 * @param leaves the leaves
+	 * @param left the left
+	 * @param right the right
+	 * @param org the org
+	 * @param axis the axis
+	 */
 	private static void split(final ArrayList<Node> leaves, final ArrayList<Node> left, final ArrayList<Node> right,
 			final Vector3f org, final Vector3f axis) {
 		Vector3f tmp = VECTORS.get();
@@ -671,6 +970,12 @@ public class Dbvt {
 		}
 	}
 
+	/**
+	 * Bounds.
+	 *
+	 * @param leaves the leaves
+	 * @return the dbvt aabb mm
+	 */
 	private static DbvtAabbMm bounds(final ArrayList<Node> leaves) {
 		DbvtAabbMm volume = new DbvtAabbMm(leaves.get(0).volume);
 		for (int i = 1, ni = leaves.size(); i < ni; i++) {
@@ -679,6 +984,12 @@ public class Dbvt {
 		return volume;
 	}
 
+	/**
+	 * Bottomup.
+	 *
+	 * @param pdbvt the pdbvt
+	 * @param leaves the leaves
+	 */
 	private static void bottomup(final Dbvt pdbvt, final ArrayList<Node> leaves) {
 		DbvtAabbMm tmpVolume = new DbvtAabbMm();
 		while (leaves.size() > 1) {
@@ -707,9 +1018,18 @@ public class Dbvt {
 		}
 	}
 
+	/** The axis. */
 	private static Vector3f[] axis =
 			new Vector3f[] { new Vector3f(1, 0, 0), new Vector3f(0, 1, 0), new Vector3f(0, 0, 1) };
 
+	/**
+	 * Topdown.
+	 *
+	 * @param pdbvt the pdbvt
+	 * @param leaves the leaves
+	 * @param bu_treshold the bu treshold
+	 * @return the node
+	 */
 	private static Node topdown(final Dbvt pdbvt, final ArrayList<Node> leaves, final int bu_treshold) {
 		if (leaves.size() > 1) {
 			if (leaves.size() > bu_treshold) {
@@ -767,6 +1087,13 @@ public class Dbvt {
 		return leaves.get(0);
 	}
 
+	/**
+	 * Sort.
+	 *
+	 * @param n the n
+	 * @param r the r
+	 * @return the node
+	 */
 	private static Node sort(final Node n, final Node[] r) {
 		Node p = n.parent;
 		assert n.isinternal();
@@ -798,6 +1125,13 @@ public class Dbvt {
 		return n;
 	}
 
+	/**
+	 * Walkup.
+	 *
+	 * @param n the n
+	 * @param count the count
+	 * @return the node
+	 */
 	private static Node walkup(Node n, int count) {
 		while (n != null && count-- != 0) {
 			n = n.parent;
@@ -807,55 +1141,125 @@ public class Dbvt {
 
 	////////////////////////////////////////////////////////////////////////////
 
+	/**
+	 * The Class Node.
+	 */
 	public static class Node {
+		
+		/** The volume. */
 		public final DbvtAabbMm volume = new DbvtAabbMm();
+		
+		/** The parent. */
 		public Node parent;
+		
+		/** The childs. */
 		public final Node[] childs = new Node[2];
+		
+		/** The data. */
 		public Object data;
 
+		/**
+		 * Checks if is leaf.
+		 *
+		 * @return true, if is leaf
+		 */
 		public boolean isleaf() {
 			return childs[1] == null;
 		}
 
+		/**
+		 * Checks if is internal.
+		 *
+		 * @return true, if is internal
+		 */
 		public boolean isinternal() {
 			return !isleaf();
 		}
 	}
 
-	/** Stack element */
+	/**
+	 *  Stack element.
+	 */
 	public static class sStkNN {
+		
+		/** The a. */
 		public Node a;
+		
+		/** The b. */
 		public Node b;
 
+		/**
+		 * Instantiates a new s stk NN.
+		 *
+		 * @param na the na
+		 * @param nb the nb
+		 */
 		public sStkNN(final Node na, final Node nb) {
 			a = na;
 			b = nb;
 		}
 	}
 
+	/**
+	 * The Class sStkNP.
+	 */
 	public static class sStkNP {
+		
+		/** The node. */
 		public Node node;
+		
+		/** The mask. */
 		public int mask;
 
+		/**
+		 * Instantiates a new s stk NP.
+		 *
+		 * @param n the n
+		 * @param m the m
+		 */
 		public sStkNP(final Node n, final int m) {
 			node = n;
 			mask = m;
 		}
 	}
 
+	/**
+	 * The Class sStkNPS.
+	 */
 	public static class sStkNPS {
+		
+		/** The node. */
 		public Node node;
+		
+		/** The mask. */
 		public int mask;
+		
+		/** The value. */
 		public float value;
 
+		/**
+		 * Instantiates a new s stk NPS.
+		 */
 		public sStkNPS() {}
 
+		/**
+		 * Instantiates a new s stk NPS.
+		 *
+		 * @param n the n
+		 * @param m the m
+		 * @param v the v
+		 */
 		public sStkNPS(final Node n, final int m, final float v) {
 			node = n;
 			mask = m;
 			value = v;
 		}
 
+		/**
+		 * Sets the.
+		 *
+		 * @param o the o
+		 */
 		public void set(final sStkNPS o) {
 			node = o.node;
 			mask = o.mask;
@@ -863,43 +1267,124 @@ public class Dbvt {
 		}
 	}
 
+	/**
+	 * The Class sStkCLN.
+	 */
 	public static class sStkCLN {
+		
+		/** The node. */
 		public Node node;
+		
+		/** The parent. */
 		public Node parent;
 
+		/**
+		 * Instantiates a new s stk CLN.
+		 *
+		 * @param n the n
+		 * @param p the p
+		 */
 		public sStkCLN(final Node n, final Node p) {
 			node = n;
 			parent = p;
 		}
 	}
 
+	/**
+	 * The Class ICollide.
+	 */
 	public static class ICollide {
+		
+		/**
+		 * Process.
+		 *
+		 * @param n1 the n 1
+		 * @param n2 the n 2
+		 */
 		public void Process(final Node n1, final Node n2) {}
 
+		/**
+		 * Process.
+		 *
+		 * @param n the n
+		 */
 		public void Process(final Node n) {}
 
+		/**
+		 * Process.
+		 *
+		 * @param n the n
+		 * @param f the f
+		 */
 		public void Process(final Node n, final float f) {
 			Process(n);
 		}
 
+		/**
+		 * Descent.
+		 *
+		 * @param n the n
+		 * @return true, if successful
+		 */
 		public boolean Descent(final Node n) {
 			return true;
 		}
 
+		/**
+		 * All leaves.
+		 *
+		 * @param n the n
+		 * @return true, if successful
+		 */
 		public boolean AllLeaves(final Node n) {
 			return true;
 		}
 	}
 
+	/**
+	 * The Class IWriter.
+	 */
 	public static abstract class IWriter {
+		
+		/**
+		 * Prepare.
+		 *
+		 * @param root the root
+		 * @param numnodes the numnodes
+		 */
 		public abstract void Prepare(Node root, int numnodes);
 
+		/**
+		 * Write node.
+		 *
+		 * @param n the n
+		 * @param index the index
+		 * @param parent the parent
+		 * @param child0 the child 0
+		 * @param child1 the child 1
+		 */
 		public abstract void WriteNode(Node n, int index, int parent, int child0, int child1);
 
+		/**
+		 * Write leaf.
+		 *
+		 * @param n the n
+		 * @param index the index
+		 * @param parent the parent
+		 */
 		public abstract void WriteLeaf(Node n, int index, int parent);
 	}
 
+	/**
+	 * The Class IClone.
+	 */
 	public static class IClone {
+		
+		/**
+		 * Clone leaf.
+		 *
+		 * @param n the n
+		 */
 		public void CloneLeaf(final Node n) {}
 	}
 

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Schema.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -55,6 +65,7 @@ import gama.ext.libs.kml.gx.SimpleArrayField;
 public class Schema implements Cloneable
 {
 
+    /** The simple field. */
     @XmlElement(name = "SimpleField")
     protected List<SimpleField> simpleField;
     /**
@@ -89,19 +100,26 @@ public class Schema implements Cloneable
      */
     @XmlAttribute(name = "name")
     protected String name;
+    
+    /** The id. */
     @XmlAttribute(name = "id")
     @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     @XmlID
     @XmlSchemaType(name = "ID")
     protected String id;
 
+    /**
+     * Instantiates a new schema.
+     */
     public Schema() {
         super();
     }
 
     /**
+     * Gets the simple field.
+     *
+     * @return the simple field
      * @see simpleField
-     * 
      */
     public List<SimpleField> getSimpleField() {
         if (simpleField == null) {
@@ -111,8 +129,10 @@ public class Schema implements Cloneable
     }
 
     /**
+     * Gets the schema extension.
+     *
+     * @return the schema extension
      * @see schemaExtension
-     * 
      */
     public List<Object> getSchemaExtension() {
         if (schemaExtension == null) {
@@ -122,48 +142,44 @@ public class Schema implements Cloneable
     }
 
     /**
-     * @see name
-     * 
-     * @return
-     *     possible object is
+     * Gets the name.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @see name
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the name.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see name
      */
     public void setName(String value) {
         this.name = value;
     }
 
     /**
-     * @see id
-     * 
-     * @return
-     *     possible object is
+     * Gets the id.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see id
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @see id
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the id.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see id
      */
     public void setId(String value) {
         this.id = value;
@@ -237,8 +253,8 @@ public class Schema implements Cloneable
      * <code>
      * SimpleField simpleField = new SimpleField();
      * this.getSimpleField().add(simpleField); </code>
-     * 
-     * 
+     *
+     * @return the simple field
      */
     public SimpleField createAndAddSimpleField() {
         SimpleField newValue = new SimpleField();
@@ -247,21 +263,20 @@ public class Schema implements Cloneable
     }
 
     /**
+     * Sets the simple field.
+     *
+     * @param simpleField the new simple field
      * @see simpleField
-     * 
-     * @param simpleField
      */
     public void setSimpleField(final List<SimpleField> simpleField) {
         this.simpleField = simpleField;
     }
 
     /**
-     * add a value to the simpleField property collection
-     * 
-     * @param simpleField
-     *     Objects of the following type are allowed in the list: {@link SimpleField}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the simpleField property collection.
+     *
+     * @param simpleField     Objects of the following type are allowed in the list: {@link SimpleField}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Schema addToSimpleField(final SimpleField simpleField) {
         this.getSimpleField().add(simpleField);
@@ -269,21 +284,20 @@ public class Schema implements Cloneable
     }
 
     /**
+     * Sets the schema extension.
+     *
+     * @param schemaExtension the new schema extension
      * @see schemaExtension
-     * 
-     * @param schemaExtension
      */
     public void setSchemaExtension(final List<Object> schemaExtension) {
         this.schemaExtension = schemaExtension;
     }
 
     /**
-     * add a value to the schemaExtension property collection
-     * 
-     * @param schemaExtension
-     *     Objects of the following type are allowed in the list: {@code <}{@link SimpleArrayField}{@code>}{@link JAXBElement}{@code <}{@link Object}{@code>}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the schemaExtension property collection.
+     *
+     * @param schemaExtension     Objects of the following type are allowed in the list: {@code <}{@link SimpleArrayField}{@code>}{@link JAXBElement}{@code <}{@link Object}{@code>}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Schema addToSchemaExtension(final Object schemaExtension) {
         this.getSchemaExtension().add(schemaExtension);
@@ -291,11 +305,11 @@ public class Schema implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param simpleField     required parameter
+     * @return the schema
      * @see #setSimpleField(List<SimpleField>)
-     * 
-     * @param simpleField
-     *     required parameter
      */
     public Schema withSimpleField(final List<SimpleField> simpleField) {
         this.setSimpleField(simpleField);
@@ -303,11 +317,11 @@ public class Schema implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param schemaExtension     required parameter
+     * @return the schema
      * @see #setSchemaExtension(List<Object>)
-     * 
-     * @param schemaExtension
-     *     required parameter
      */
     public Schema withSchemaExtension(final List<Object> schemaExtension) {
         this.setSchemaExtension(schemaExtension);
@@ -315,11 +329,11 @@ public class Schema implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param name     required parameter
+     * @return the schema
      * @see #setName(String)
-     * 
-     * @param name
-     *     required parameter
      */
     public Schema withName(final String name) {
         this.setName(name);
@@ -327,11 +341,11 @@ public class Schema implements Cloneable
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param id     required parameter
+     * @return the schema
      * @see #setId(String)
-     * 
-     * @param id
-     *     required parameter
      */
     public Schema withId(final String id) {
         this.setId(id);

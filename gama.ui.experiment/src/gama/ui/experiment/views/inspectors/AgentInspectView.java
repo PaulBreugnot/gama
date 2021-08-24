@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'AgentInspectView.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * AgentInspectView.java, in gama.ui.experiment, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.experiment.views.inspectors;
 
 import static gama.ui.base.resources.GamaColors.getTextColorForBackground;
@@ -47,10 +46,16 @@ import gama.ui.experiment.menus.AgentsMenu;
 import gama.ui.experiment.parameters.AgentAttributesEditorsList;
 import gaml.types.Types;
 
+/**
+ * The Class AgentInspectView.
+ */
 public class AgentInspectView extends AttributesEditorsView<IAgent>
 		implements IToolbarDecoratedView.Pausable /* implements GamaSelectionListener */ {
 
+	/** The Constant ID. */
 	public static final String ID = IGui.AGENT_VIEW_ID;
+	
+	/** The first part name. */
 	public String firstPartName = null;
 
 	@Override
@@ -101,6 +106,15 @@ public class AgentInspectView extends AttributesEditorsView<IAgent>
 		return true;
 	}
 
+	/**
+	 * Creates the left label.
+	 *
+	 * @param parent the parent
+	 * @param title the title
+	 * @param tooltip the tooltip
+	 * @param isSubParameter the is sub parameter
+	 * @return the label
+	 */
 	public Label createLeftLabel(final Composite parent, final String title, final String tooltip,
 			final boolean isSubParameter) {
 		final Label label = new Label(parent, SWT.WRAP | SWT.RIGHT);
@@ -167,6 +181,12 @@ public class AgentInspectView extends AttributesEditorsView<IAgent>
 		return new ParameterExpandItem(bar, data, SWT.None, 0, color);
 	}
 
+	/**
+	 * Gets the parameters to inspect.
+	 *
+	 * @param agent the agent
+	 * @return the parameters to inspect
+	 */
 	private List<IParameter> getParametersToInspect(final IAgent agent) {
 		final Map<String, String> names = getOutput().getAttributes();
 		if (names == null) return new ArrayList<>(agent.getSpecies().getVars());
@@ -181,6 +201,14 @@ public class AgentInspectView extends AttributesEditorsView<IAgent>
 		return params;
 	}
 
+	/**
+	 * Builds the attribute.
+	 *
+	 * @param agent the agent
+	 * @param att the att
+	 * @param t the t
+	 * @return the i parameter
+	 */
 	private IParameter buildAttribute(final IAgent agent, final String att, final String t) {
 		return new ParameterAdapter(att, Types.get(t).id()) {
 
@@ -226,6 +254,9 @@ public class AgentInspectView extends AttributesEditorsView<IAgent>
 		super.removeItem(a);
 	}
 
+	/**
+	 * Update part name.
+	 */
 	public void updatePartName() {
 		if (firstPartName == null) {
 			final InspectDisplayOutput out = getOutput();

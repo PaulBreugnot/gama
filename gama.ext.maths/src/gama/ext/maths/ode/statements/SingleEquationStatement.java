@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'SingleEquationStatement.java, in plugin ummisco.gaml.extensions.maths, is part of the source code of the GAMA
- * modeling and simulation platform. (v. 1.8.1)
+ * SingleEquationStatement.java, in gama.ext.maths, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.maths.ode.statements;
 
 import static gama.common.interfaces.IKeyword.DIF2;
@@ -60,16 +59,13 @@ import gaml.types.IType;
 import gaml.types.Types;
 
 /**
- *
  * The class SingleEquationStatement. Implements an Equation in the form function(n, t) = expression; The left function
  * is only here as a placeholder for enabling a simpler syntax and grabbing the variable as its left member.
  *
- * @comment later, the order will be used as it will require a different integrator to solve the equation. For the
- *          moment, it is just here to show how to compute it from the function used
- *
  * @author Alexis Drogoul, Huynh Quang Nghi
  * @since 26 janv. 2013
- *
+ * @comment later, the order will be used as it will require a different integrator to solve the equation. For the
+ *          moment, it is just here to show how to compute it from the function used
  */
 
 @symbol (
@@ -122,6 +118,7 @@ import gaml.types.Types;
 @SuppressWarnings ({ "rawtypes" })
 public class SingleEquationStatement extends AbstractStatement {
 
+	/** The Constant orderNames. */
 	public static final Map<String, Integer> orderNames = GamaMapFactory.create();
 	static {
 		orderNames.put(ZERO, 0);
@@ -129,6 +126,9 @@ public class SingleEquationStatement extends AbstractStatement {
 		orderNames.put(DIF2, 2);
 	}
 
+	/**
+	 * The Class SIngleEquationSerializer.
+	 */
 	public static class SIngleEquationSerializer extends SymbolSerializer<SymbolDescription> {
 
 		@Override
@@ -138,6 +138,9 @@ public class SingleEquationStatement extends AbstractStatement {
 		}
 	}
 
+	/**
+	 * The Class SingleEquationValidator.
+	 */
 	public static class SingleEquationValidator implements IDescriptionValidator<IDescription> {
 
 		/**
@@ -173,48 +176,102 @@ public class SingleEquationStatement extends AbstractStatement {
 		}
 	}
 
+	/** The expression. */
 	private IExpression function, expression;
+	
+	/** The var. */
 	private final List<IExpression> var = new ArrayList<>();
+	
+	/** The var t. */
 	private IExpression var_t;
 
+	/**
+	 * Gets the function.
+	 *
+	 * @return the function
+	 */
 	public IExpression getFunction() {
 		return function;
 	}
 
+	/**
+	 * Sets the function.
+	 *
+	 * @param function the new function
+	 */
 	public void setFunction(final IExpression function) {
 		this.function = function;
 	}
 
+	/**
+	 * Gets the expression.
+	 *
+	 * @return the expression
+	 */
 	public IExpression getExpression() {
 		return expression;
 	}
 
+	/**
+	 * Sets the expression.
+	 *
+	 * @param expression the new expression
+	 */
 	public void setExpression(final IExpression expression) {
 		this.expression = expression;
 	}
 
+	/**
+	 * Gets the vars.
+	 *
+	 * @return the vars
+	 */
 	public List<IExpression> getVars() {
 		return var;
 	}
 
+	/**
+	 * Gets the var time.
+	 *
+	 * @return the var time
+	 */
 	public IExpression getVarTime() {
 		return var_t;
 	}
 
+	/**
+	 * Gets the var.
+	 *
+	 * @param index the index
+	 * @return the var
+	 */
 	public IExpression getVar(final int index) {
 		return var.get(index);
 	}
 
+	/**
+	 * Sets the var t.
+	 *
+	 * @param vt the new var t
+	 */
 	public void setVar_t(final IVarExpression vt) {
 		this.var_t = vt;
 	}
 
+	/**
+	 * Instantiates a new single equation statement.
+	 *
+	 * @param desc the desc
+	 */
 	public SingleEquationStatement(final IDescription desc) {
 		super(desc);
 		function = getFacet(EQUATION_LEFT);
 		expression = getFacet(EQUATION_RIGHT);
 	}
 
+	/**
+	 * Establish var.
+	 */
 	public void establishVar() {
 		if (getOrder() == 0) { return; }
 		int i = 0;
@@ -258,6 +315,14 @@ public class SingleEquationStatement extends AbstractStatement {
 	// the var or var_t,
 	// whenever they are called.
 
+	/**
+	 * Diff.
+	 *
+	 * @param scope the scope
+	 * @param var the var
+	 * @param time the time
+	 * @return the double
+	 */
 	@operator (
 			value = DIFF,
 			concept = { IConcept.EQUATION, IConcept.MATH })
@@ -269,6 +334,14 @@ public class SingleEquationStatement extends AbstractStatement {
 		return Double.NaN;
 	}
 
+	/**
+	 * Diff 2.
+	 *
+	 * @param scope the scope
+	 * @param var the var
+	 * @param time the time
+	 * @return the double
+	 */
 	@operator (
 			value = DIF2,
 			concept = { IConcept.EQUATION, IConcept.MATH })
@@ -283,10 +356,9 @@ public class SingleEquationStatement extends AbstractStatement {
 	 * Placeholder for zero-order equations. The expression on the right allows to pass the variable directly (maybe
 	 * useful one day).
 	 *
-	 * @param scope
-	 * @param var
-	 * @param time
-	 * @return
+	 * @param scope the scope
+	 * @param var the var
+	 * @return the double
 	 */
 	@operator (
 			value = ZERO,

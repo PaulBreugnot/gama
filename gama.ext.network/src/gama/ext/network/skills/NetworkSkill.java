@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'NetworkSkill.java, in plugin ummisco.gama.network, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * NetworkSkill.java, in gama.ext.network, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.network.skills;
 
 import java.io.BufferedReader;
@@ -47,6 +46,9 @@ import gama.util.IList;
 import gaml.operators.Cast;
 import gaml.types.IType;
 
+/**
+ * The Class NetworkSkill.
+ */
 @vars ({ @variable (
 		name = INetworkSkill.NET_AGENT_NAME,
 		type = IType.STRING,
@@ -70,9 +72,18 @@ public class NetworkSkill extends MessagingSkill {
 		DEBUG.OFF();
 	}
 
+	/** The Constant REGISTERED_AGENTS. */
 	final static String REGISTERED_AGENTS = "registred_agents";
+	
+	/** The Constant REGISTRED_SERVER. */
 	final static String REGISTRED_SERVER = "registred_servers";
 
+	/**
+	 * System exec.
+	 *
+	 * @param scope the scope
+	 * @return the string
+	 */
 	@action (
 			name = "execute",
 			args = { @arg (
@@ -103,6 +114,12 @@ public class NetworkSkill extends MessagingSkill {
 
 	}
 
+	/**
+	 * Connect to server.
+	 *
+	 * @param scope the scope
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@SuppressWarnings ("unchecked")
 	@action (
 			name = INetworkSkill.CONNECT_TOPIC,
@@ -252,10 +269,23 @@ public class NetworkSkill extends MessagingSkill {
 		;
 	}
 
+	/**
+	 * Creates the server key.
+	 *
+	 * @param serverURL the server URL
+	 * @param port the port
+	 * @return the string
+	 */
 	private static String createServerKey(final String serverURL, final Integer port) {
 		return serverURL + "@@" + port;
 	}
 
+	/**
+	 * Fetch message.
+	 *
+	 * @param scope the scope
+	 * @return the gama message
+	 */
 	@action (
 			name = INetworkSkill.FETCH_MESSAGE)
 	@doc (
@@ -273,6 +303,12 @@ public class NetworkSkill extends MessagingSkill {
 		return msg;
 	}
 
+	/**
+	 * Checks for more message.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 */
 	@action (
 			name = INetworkSkill.HAS_MORE_MESSAGE_IN_BOX)
 	@doc (
@@ -286,6 +322,11 @@ public class NetworkSkill extends MessagingSkill {
 		return !box.isEmpty();
 	}
 
+	/**
+	 * Register to group.
+	 *
+	 * @param scope the scope
+	 */
 	@action (
 			name = INetworkSkill.REGISTER_TO_GROUP,
 			args = {
@@ -309,6 +350,13 @@ public class NetworkSkill extends MessagingSkill {
 		}
 	}
 
+	/**
+	 * Gets the groups.
+	 *
+	 * @param scope the scope
+	 * @param agent the agent
+	 * @return the groups
+	 */
 	private IList<String> getGroups(final IScope scope, final IAgent agent) {
 		IList<String> groups = Cast.asList(scope, agent.getAttribute(INetworkSkill.NET_AGENT_GROUPS));
 		if (groups == null) {
@@ -319,6 +367,13 @@ public class NetworkSkill extends MessagingSkill {
 
 	}
 
+	/**
+	 * Join A group.
+	 *
+	 * @param scope the scope
+	 * @param agent the agent
+	 * @param groupName the group name
+	 */
 	public void joinAGroup(final IScope scope, final IAgent agent, final String groupName) {
 		final IList<String> groups = getGroups(scope, agent);
 		groups.add(groupName);
@@ -329,6 +384,11 @@ public class NetworkSkill extends MessagingSkill {
 		}
 	}
 
+	/**
+	 * Leave the group.
+	 *
+	 * @param scope the scope
+	 */
 	@action (
 			name = INetworkSkill.LEAVE_THE_GROUP,
 			args = { @arg (
@@ -376,6 +436,11 @@ public class NetworkSkill extends MessagingSkill {
 		}
 	}
 
+	/**
+	 * Fetch messages of agents.
+	 *
+	 * @param scope the scope
+	 */
 	@action (
 			name = INetworkSkill.SIMULATE_STEP,
 			doc = @doc (
@@ -400,6 +465,12 @@ public class NetworkSkill extends MessagingSkill {
 		}
 	}
 
+	/**
+	 * Gets the registered agents.
+	 *
+	 * @param scope the scope
+	 * @return the registered agents
+	 */
 	@SuppressWarnings ("unchecked")
 	protected List<IAgent> getRegisteredAgents(final IScope scope) {
 		return (List<IAgent>) scope.getExperiment().getAttribute(REGISTERED_AGENTS);
@@ -409,22 +480,43 @@ public class NetworkSkill extends MessagingSkill {
 	// getRegisteredAgents(scope).add(agt);
 	// }
 
+	/**
+	 * Gets the registered servers.
+	 *
+	 * @param scope the scope
+	 * @return the registered servers
+	 */
 	@SuppressWarnings ("unchecked")
 	protected Map<String, IConnector> getRegisteredServers(final IScope scope) {
 		return (Map<String, IConnector>) scope.getExperiment().getAttribute(REGISTRED_SERVER);
 	}
 
+	/**
+	 * Initialize.
+	 *
+	 * @param scope the scope
+	 */
 	private void initialize(final IScope scope) {
 
 		scope.getExperiment().setAttribute(REGISTERED_AGENTS, new ArrayList<IAgent>());
 		scope.getExperiment().setAttribute(REGISTRED_SERVER, new HashMap<String, IConnector>());
 	}
 
+	/**
+	 * Start skill.
+	 *
+	 * @param scope the scope
+	 */
 	protected void startSkill(final IScope scope) {
 		initialize(scope);
 		registerSimulationEvent(scope);
 	}
 
+	/**
+	 * Register simulation event.
+	 *
+	 * @param scope the scope
+	 */
 	private void registerSimulationEvent(final IScope scope) {
 		scope.getSimulation().postEndAction(scope1 -> {
 			fetchMessagesOfAgents(scope1);
@@ -437,6 +529,11 @@ public class NetworkSkill extends MessagingSkill {
 		});
 	}
 
+	/**
+	 * Close all connection.
+	 *
+	 * @param scope the scope
+	 */
 	private void closeAllConnection(final IScope scope) {
 		for (final IConnector connection : getRegisteredServers(scope).values()) {
 			connection.close(scope);

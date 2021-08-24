@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.runtime.exceptions.GamaRuntimeException.java, in plugin msi.gama.core, is part of the source code of the
- * GAMA modeling and simulation platform (v. 1.8.1)
+ * GamaRuntimeException.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.runtime.exceptions;
 
@@ -33,21 +33,37 @@ import gaml.operators.Strings;
 
 public class GamaRuntimeException extends RuntimeException {
 
+	/** The cycle. */
 	private final long cycle;
+	
+	/** The agents names. */
 	protected final List<String> agentsNames = new ArrayList<>();
+	
+	/** The is warning. */
 	private boolean isWarning;
+	
+	/** The context. */
 	protected final List<String> context = new ArrayList<>();
+	
+	/** The editor context. */
 	protected EObject editorContext;
+	
+	/** The occurrences. */
 	protected int occurrences = 0;
+	
+	/** The reported. */
 	protected boolean reported = false;
+	
+	/** The scope. */
 	protected final IScope scope;
 
 	// Factory methods
 	/**
 	 * This call is deprecated. Use the equivalent method that passes the scope
 	 *
-	 * @param s
-	 * @return
+	 * @param ex the ex
+	 * @param scope the scope
+	 * @return the gama runtime exception
 	 */
 
 	public static GamaRuntimeException create(final Throwable ex, final IScope scope) {
@@ -58,11 +74,25 @@ public class GamaRuntimeException extends RuntimeException {
 		return new GamaRuntimeException(scope, ex);
 	}
 
+	/**
+	 * Error.
+	 *
+	 * @param s the s
+	 * @param scope the scope
+	 * @return the gama runtime exception
+	 */
 	public static GamaRuntimeException error(final String s, final IScope scope) {
 		final GamaRuntimeException ex = new GamaRuntimeException(scope, s, false);
 		return ex;
 	}
 
+	/**
+	 * Warning.
+	 *
+	 * @param s the s
+	 * @param scope the scope
+	 * @return the gama runtime exception
+	 */
 	public static GamaRuntimeException warning(final String s, final IScope scope) {
 		final GamaRuntimeException ex = new GamaRuntimeException(scope, s, true);
 		return ex;
@@ -70,22 +100,39 @@ public class GamaRuntimeException extends RuntimeException {
 
 	// Constructors
 
+	/**
+	 * The Class GamaRuntimeFileException.
+	 */
 	public static class GamaRuntimeFileException extends GamaRuntimeException {
 
 		/**
-		 * @param scope
-		 * @param ex
+		 * Instantiates a new gama runtime file exception.
+		 *
+		 * @param scope the scope
+		 * @param ex the ex
 		 */
 		public GamaRuntimeFileException(final IScope scope, final Throwable ex) {
 			super(scope, ex);
 		}
 
+		/**
+		 * Instantiates a new gama runtime file exception.
+		 *
+		 * @param scope the scope
+		 * @param s the s
+		 */
 		public GamaRuntimeFileException(final IScope scope, final String s) {
 			super(scope, s, false);
 		}
 
 	}
 
+	/**
+	 * Gets the exception name.
+	 *
+	 * @param ex the ex
+	 * @return the exception name
+	 */
 	protected static String getExceptionName(final Throwable ex) {
 		final String s = ex.getClass().getName();
 		if (s.contains("geotools") || s.contains("opengis")) {
@@ -114,6 +161,12 @@ public class GamaRuntimeException extends RuntimeException {
 		return ex.getClass().getSimpleName();
 	}
 
+	/**
+	 * Instantiates a new gama runtime exception.
+	 *
+	 * @param scope the scope
+	 * @param ex the ex
+	 */
 	protected GamaRuntimeException(final IScope scope, final Throwable ex) {
 		super(ex == null ? "Unknown error" : "Java error: " + getExceptionName(ex), ex);
 		if (scope != null) {
@@ -139,6 +192,13 @@ public class GamaRuntimeException extends RuntimeException {
 
 	}
 
+	/**
+	 * Instantiates a new gama runtime exception.
+	 *
+	 * @param scope the scope
+	 * @param s the s
+	 * @param warning the warning
+	 */
 	protected GamaRuntimeException(final IScope scope, final String s, final boolean warning) {
 		super(s);
 		if (scope != null) {
@@ -153,10 +213,20 @@ public class GamaRuntimeException extends RuntimeException {
 		this.scope = scope;
 	}
 
+	/**
+	 * Adds the context.
+	 *
+	 * @param c the c
+	 */
 	public void addContext(final String c) {
 		context.add(c);
 	}
 
+	/**
+	 * Adds the context.
+	 *
+	 * @param s the s
+	 */
 	public void addContext(final ISymbol s) {
 		addContext("in " + s.serialize(false));
 		final EObject e = s.getDescription().getUnderlyingElement();
@@ -165,26 +235,51 @@ public class GamaRuntimeException extends RuntimeException {
 		}
 	}
 
+	/**
+	 * Gets the editor context.
+	 *
+	 * @return the editor context
+	 */
 	public EObject getEditorContext() {
 		return editorContext;
 	}
 
+	/**
+	 * Adds the agent.
+	 *
+	 * @param agent the agent
+	 */
 	public void addAgent(final String agent) {
 		occurrences++;
 		if (agentsNames.contains(agent)) { return; }
 		agentsNames.add(agent);
 	}
 
+	/**
+	 * Adds the agents.
+	 *
+	 * @param agents the agents
+	 */
 	public void addAgents(final List<String> agents) {
 		for (final String agent : agents) {
 			addAgent(agent);
 		}
 	}
 
+	/**
+	 * Gets the cycle.
+	 *
+	 * @return the cycle
+	 */
 	public long getCycle() {
 		return cycle;
 	}
 
+	/**
+	 * Gets the agent summary.
+	 *
+	 * @return the agent summary
+	 */
 	public String getAgentSummary() {
 		final int size = agentsNames.size();
 		final String agents = size == 0 ? "" : size == 1 ? agentsNames.get(0) : String.valueOf(size) + " agents";
@@ -193,15 +288,31 @@ public class GamaRuntimeException extends RuntimeException {
 		return occurence + agents;
 	}
 
+	/**
+	 * Checks if is warning.
+	 *
+	 * @return true, if is warning
+	 */
 	public boolean isWarning() {
 		return isWarning;
 	}
 
+	/**
+	 * Compute cycle.
+	 *
+	 * @param scope the scope
+	 * @return the long
+	 */
 	public long computeCycle(final IScope scope) {
 		final SimulationClock clock = scope == null ? null : scope.getClock();
 		return clock == null ? 0l : clock.getCycle();
 	}
 
+	/**
+	 * Gets the context as list.
+	 *
+	 * @return the context as list
+	 */
 	public List<String> getContextAsList() {
 		final List<String> result = new ArrayList<>();
 		result.addAll(context);
@@ -231,28 +342,46 @@ public class GamaRuntimeException extends RuntimeException {
 		return message != null ? message : s;
 	}
 
+	/**
+	 * Equivalent to.
+	 *
+	 * @param ex the ex
+	 * @return true, if successful
+	 */
 	public boolean equivalentTo(final GamaRuntimeException ex) {
 		return this == ex || editorContext == ex.editorContext && getMessage().equals(ex.getMessage())
 				&& getCycle() == ex.getCycle();
 	}
 
+	/**
+	 * Sets the reported.
+	 */
 	public void setReported() {
 		reported = true;
 	}
 
+	/**
+	 * Checks if is reported.
+	 *
+	 * @return true, if is reported
+	 */
 	public boolean isReported() {
 		return reported;
 	}
 
 	/**
-	 * @return
+	 * Gets the agents names.
+	 *
+	 * @return the agents names
 	 */
 	public List<String> getAgentsNames() {
 		return agentsNames;
 	}
 
 	/**
-	 * @return
+	 * Gets the all text.
+	 *
+	 * @return the all text
 	 */
 	public String getAllText() {
 		final StringBuilder sb = new StringBuilder(300);
@@ -268,6 +397,11 @@ public class GamaRuntimeException extends RuntimeException {
 		return sb.toString();
 	}
 
+	/**
+	 * Checks if is invalid.
+	 *
+	 * @return true, if is invalid
+	 */
 	// If the simulation or experiment is dead, no need to report errors
 	public boolean isInvalid() {
 		return scope == null || scope instanceof ExecutionScope && ((ExecutionScope) scope)._root_interrupted();

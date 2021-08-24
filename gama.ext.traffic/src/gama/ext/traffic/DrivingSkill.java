@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * simtools.gaml.extensions.traffic.AdvancedDrivingSkill.java, in plugin simtools.gaml.extensions.traffic, is part of
- * the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * DrivingSkill.java, in gama.ext.traffic, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.ext.traffic;
 
@@ -57,6 +57,9 @@ import gaml.statements.IStatement;
 import gaml.types.IType;
 import gaml.types.Types;
 
+/**
+ * The Class DrivingSkill.
+ */
 @vars({
 	@variable(
 		name = IKeyword.SPEED,
@@ -420,64 +423,172 @@ public class DrivingSkill extends MovingSkill {
 		DEBUG.OFF();
 	}
 
+	/** The Constant ADVANCED_DRIVING. */
 	public static final String ADVANCED_DRIVING = "advanced_driving";
+	
+	/** The Constant SECURITY_DISTANCE_COEFF. */
 	// Attributes' names
 	@Deprecated public static final String SECURITY_DISTANCE_COEFF = "security_distance_coeff";
+	
+	/** The Constant SAFETY_DISTANCE_COEFF. */
 	public static final String SAFETY_DISTANCE_COEFF = "safety_distance_coeff";
+	
+	/** The Constant MIN_SECURITY_DISTANCE. */
 	@Deprecated public static final String MIN_SECURITY_DISTANCE = "min_security_distance";
+	
+	/** The Constant MIN_SAFETY_DISTANCE. */
 	public static final String MIN_SAFETY_DISTANCE = "min_safety_distance";
+	
+	/** The Constant CURRENT_ROAD. */
 	public static final String CURRENT_ROAD = "current_road";
+	
+	/** The Constant NEXT_ROAD. */
 	public static final String NEXT_ROAD = "next_road";
+	
+	/** The Constant CURRENT_LANE. */
 	@Deprecated public static final String CURRENT_LANE = "current_lane";
+	
+	/** The Constant LOWEST_LANE. */
 	public static final String LOWEST_LANE = "lowest_lane";
+	
+	/** The Constant DISTANCE_TO_GOAL. */
 	public static final String DISTANCE_TO_GOAL = "distance_to_goal";
+	
+	/** The Constant DISTANCE_TO_CURRENT_TARGET. */
 	public static final String DISTANCE_TO_CURRENT_TARGET = "distance_to_current_target";
+	
+	/** The Constant VEHICLE_LENGTH. */
 	public static final String VEHICLE_LENGTH = "vehicle_length";
+	
+	/** The Constant PROBA_LANE_CHANGE_UP. */
 	@Deprecated public static final String PROBA_LANE_CHANGE_UP = "proba_lane_change_up";
+	
+	/** The Constant PROBA_LANE_CHANGE_DOWN. */
 	@Deprecated public static final String PROBA_LANE_CHANGE_DOWN = "proba_lane_change_down";
+	
+	/** The Constant PROBA_RESPECT_PRIORITIES. */
 	public static final String PROBA_RESPECT_PRIORITIES = "proba_respect_priorities";
+	
+	/** The Constant PROBA_RESPECT_STOPS. */
 	public static final String PROBA_RESPECT_STOPS = "proba_respect_stops";
+	
+	/** The Constant PROBA_BLOCK_NODE. */
 	public static final String PROBA_BLOCK_NODE = "proba_block_node";
+	
+	/** The Constant PROBA_USE_LINKED_ROAD. */
 	public static final String PROBA_USE_LINKED_ROAD = "proba_use_linked_road";
+	
+	/** The Constant RIGHT_SIDE_DRIVING. */
 	public static final String RIGHT_SIDE_DRIVING = "right_side_driving";
+	
+	/** The Constant IGNORE_ONEWAY. */
 	public static final String IGNORE_ONEWAY = "ignore_oneway";
+	
+	/** The Constant VIOLATING_ONEWAY. */
 	public static final String VIOLATING_ONEWAY = "violating_oneway";
+	
+	/** The Constant ON_LINKED_ROAD. */
 	public static final String ON_LINKED_ROAD = "on_linked_road";
+	
+	/** The Constant USING_LINKED_ROAD. */
 	public static final String USING_LINKED_ROAD = "using_linked_road";
+	
+	/** The Constant LINKED_LANE_LIMIT. */
 	public static final String LINKED_LANE_LIMIT = "linked_lane_limit";
+	
+	/** The Constant ALLOWED_LANES. */
 	public static final String ALLOWED_LANES = "allowed_lanes";
+	
+	/** The Constant TARGETS. */
 	@Deprecated public static final String TARGETS = "targets";
+	
+	/** The Constant CURRENT_TARGET. */
 	public static final String CURRENT_TARGET = "current_target";
+	
+	/** The Constant CURRENT_INDEX. */
 	public static final String CURRENT_INDEX = "current_index";
+	
+	/** The Constant FINAL_TARGET. */
 	public static final String FINAL_TARGET = "final_target";
+	
+	/** The Constant CURRENT_PATH. */
 	public static final String CURRENT_PATH = "current_path";
+	
+	/** The Constant ACCELERATION. */
 	public static final String ACCELERATION = "acceleration";
+	
+	/** The Constant MAX_ACCELERATION. */
 	public static final String MAX_ACCELERATION = "max_acceleration";
+	
+	/** The Constant MAX_DECELERATION. */
 	public static final String MAX_DECELERATION = "max_deceleration";
+	
+	/** The Constant TIME_HEADWAY. */
 	public static final String TIME_HEADWAY = "time_headway";
+	
+	/** The Constant DELTA_IDM. */
 	public static final String DELTA_IDM = "delta_idm";
+	
+	/** The Constant POLITENESS_FACTOR. */
 	public static final String POLITENESS_FACTOR = "politeness_factor";
+	
+	/** The Constant MAX_SAFE_DECELERATION. */
 	public static final String MAX_SAFE_DECELERATION = "max_safe_deceleration";
+	
+	/** The Constant ACC_GAIN_THRESHOLD. */
 	public static final String ACC_GAIN_THRESHOLD = "acc_gain_threshold";
+	
+	/** The Constant ACC_BIAS. */
 	public static final String ACC_BIAS = "acc_bias";
+	
+	/** The Constant TIME_SINCE_LC. */
 	public static final String TIME_SINCE_LC = "time_since_lane_change";
+	
+	/** The Constant LC_COOLDOWN. */
 	public static final String LC_COOLDOWN = "lane_change_cooldown";
+	
+	/** The Constant SPEED_COEFF. */
 	public static final String SPEED_COEFF = "speed_coeff";
+	
+	/** The Constant MAX_SPEED. */
 	public static final String MAX_SPEED = "max_speed";
+	
+	/** The Constant SEGMENT_INDEX. */
 	public static final String SEGMENT_INDEX = "segment_index_on_road";
+	
+	/** The Constant NUM_LANES_OCCUPIED. */
 	public static final String NUM_LANES_OCCUPIED = "num_lanes_occupied";
+	
+	/** The Constant LANE_CHANGE_LIMIT. */
 	public static final String LANE_CHANGE_LIMIT = "lane_change_limit";
+	
+	/** The Constant LEADING_VEHICLE. */
 	public static final String LEADING_VEHICLE = "leading_vehicle";
+	
+	/** The Constant LEADING_DISTANCE. */
 	public static final String LEADING_DISTANCE = "leading_distance";
+	
+	/** The Constant LEADING_SPEED. */
 	public static final String LEADING_SPEED = "leading_speed";
+	
+	/** The Constant FOLLOWER. */
 	public static final String FOLLOWER = "follower";
+	
+	/** The Constant ACT_CHOOSE_LANE. */
 	// Actions' names
 	public static final String ACT_CHOOSE_LANE = "choose_lane";
 
 	// NOTE: Due to approximations in IDM, vehicles will never have the exact same location as its target.
+	/** The Constant EPSILON. */
 	// Therefore we consider the vehicle has reached its goal when distToGoal is smaller than this threshold.
 	private static final double EPSILON = 1e-2;
 
+	/**
+	 * Gets the speed.
+	 *
+	 * @param agent the agent
+	 * @return the speed
+	 */
 	@getter (IKeyword.SPEED)
 	public static double getSpeed(final IAgent agent) {
 		// The second condition is used when `agent` is a road_node with a stop signal
@@ -488,163 +599,355 @@ public class DrivingSkill extends MovingSkill {
 		}
 	}
 
+	/**
+	 * Sets the speed.
+	 *
+	 * @param vehicle the vehicle
+	 * @param speed the speed
+	 */
 	@setter (IKeyword.SPEED)
 	public static void setSpeed(final IAgent vehicle, final double speed) {
 		if (vehicle == null) { return; }
 		vehicle.setAttribute(IKeyword.SPEED, speed);
 	}
 
+	/**
+	 * Gets the real speed.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the real speed
+	 */
 	@getter(IKeyword.REAL_SPEED)
 	@Deprecated
 	public static double getRealSpeed(final IAgent vehicle) {
 		return getSpeed(vehicle);
 	}
 
+	/**
+	 * Sets the real speed.
+	 *
+	 * @param vehicle the vehicle
+	 * @param speed the speed
+	 */
 	@setter(IKeyword.REAL_SPEED)
 	@Deprecated
 	public static void setRealSpeed(final IAgent vehicle, final double speed) {
 		setSpeed(vehicle, speed);
 	}
 
+	/**
+	 * Sets the acceleration read only.
+	 *
+	 * @param vehicle the vehicle
+	 * @param val the val
+	 */
 	@setter(ACCELERATION)
 	public static void setAccelerationReadOnly(final IAgent vehicle, final Double val) {
 		// read-only
 	}
 
+	/**
+	 * Sets the acceleration.
+	 *
+	 * @param vehicle the vehicle
+	 * @param val the val
+	 */
 	private static void setAcceleration(final IAgent vehicle, final Double val) {
 		vehicle.setAttribute(ACCELERATION, val);
 	}
 
+	/**
+	 * Gets the max acceleration.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the max acceleration
+	 */
 	@getter(MAX_ACCELERATION)
 	public static double getMaxAcceleration(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(MAX_ACCELERATION);
 	}
 
+	/**
+	 * Sets the max acceleration.
+	 *
+	 * @param vehicle the vehicle
+	 * @param val the val
+	 */
 	@setter(MAX_ACCELERATION)
 	public static void setMaxAcceleration(final IAgent vehicle, final Double val) {
 		vehicle.setAttribute(MAX_ACCELERATION, val);
 	}
 
+	/**
+	 * Gets the max deceleration.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the max deceleration
+	 */
 	@getter(MAX_DECELERATION)
 	public static double getMaxDeceleration(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(MAX_DECELERATION);
 	}
 
+	/**
+	 * Gets the time headway.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the time headway
+	 */
 	@getter(TIME_HEADWAY)
 	public static double getTimeHeadway(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(TIME_HEADWAY);
 	}
 
+	/**
+	 * Gets the delta IDM.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the delta IDM
+	 */
 	@getter(DELTA_IDM)
 	public static double getDeltaIDM(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(DELTA_IDM);
 	}
 
+	/**
+	 * Gets the politeness factor.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the politeness factor
+	 */
 	@getter(POLITENESS_FACTOR)
 	public static double getPolitenessFactor(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(POLITENESS_FACTOR);
 	}
 
+	/**
+	 * Gets the max safe deceleration.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the max safe deceleration
+	 */
 	@getter(MAX_SAFE_DECELERATION)
 	public static double getMaxSafeDeceleration(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(MAX_SAFE_DECELERATION);
 	}
 
+	/**
+	 * Gets the acc gain threshold.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the acc gain threshold
+	 */
 	@getter(ACC_GAIN_THRESHOLD)
 	public static double getAccGainThreshold(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(ACC_GAIN_THRESHOLD);
 	}
 
+	/**
+	 * Gets the acc bias.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the acc bias
+	 */
 	@getter(ACC_BIAS)
 	public static double getAccBias(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(ACC_BIAS);
 	}
 
+	/**
+	 * Gets the time since LC.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the time since LC
+	 */
 	@getter(TIME_SINCE_LC)
 	public static double getTimeSinceLC(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(TIME_SINCE_LC);
 	}
 
+	/**
+	 * Sets the time since LC read only.
+	 *
+	 * @param vehicle the vehicle
+	 * @param time the time
+	 */
 	// @setter(TIME_SINCE_LC)
 	public static void setTimeSinceLCReadOnly(final IAgent vehicle, final double time) {
 		// read-only
 	}
 
+	/**
+	 * Sets the time since LC.
+	 *
+	 * @param vehicle the vehicle
+	 * @param time the time
+	 */
 	@setter(TIME_SINCE_LC)
 	public static void setTimeSinceLC(final IAgent vehicle, final double time) {
 		vehicle.setAttribute(TIME_SINCE_LC, time);
 	}
 
+	/**
+	 * Gets the LC cooldown.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the LC cooldown
+	 */
 	@getter(LC_COOLDOWN)
 	public static double getLCCooldown(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(LC_COOLDOWN);
 	}
 
+	/**
+	 * Gets the speed coeff.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the speed coeff
+	 */
 	@getter(SPEED_COEFF)
 	public static double getSpeedCoeff(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(SPEED_COEFF);
 	}
 
+	/**
+	 * Sets the speed coeff.
+	 *
+	 * @param vehicle the vehicle
+	 * @param val the val
+	 */
 	@setter(SPEED_COEFF)
 	public static void setSpeedCoeff(final IAgent vehicle, final Double val) {
 		vehicle.setAttribute(SPEED_COEFF, val);
 	}
 
+	/**
+	 * Gets the max speed.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the max speed
+	 */
 	@getter(MAX_SPEED)
 	public static double getMaxSpeed(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(MAX_SPEED);
 	}
 
+	/**
+	 * Sets the max speed.
+	 *
+	 * @param vehicle the vehicle
+	 * @param val the val
+	 */
 	@setter(MAX_SPEED)
 	public static void setMaxSpeed(final IAgent vehicle, final Double val) {
 		vehicle.setAttribute(MAX_SPEED, val);
 	}
 
+	/**
+	 * Gets the current target.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the current target
+	 */
 	@getter(CURRENT_TARGET)
 	public static IAgent getCurrentTarget(final IAgent vehicle) {
 		return (IAgent) vehicle.getAttribute(CURRENT_TARGET);
 	}
 
+	/**
+	 * Sets the current target.
+	 *
+	 * @param vehicle the vehicle
+	 * @param target the target
+	 */
 	@setter(CURRENT_TARGET)
 	public static void setCurrentTarget(final IAgent vehicle, final IAgent target) {
 		vehicle.setAttribute(CURRENT_TARGET, target);
 	}
 
+	/**
+	 * Gets the final target.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the final target
+	 */
 	@getter(FINAL_TARGET)
 	public static IAgent getFinalTarget(final IAgent vehicle) {
 		return (IAgent) vehicle.getAttribute(FINAL_TARGET);
 	}
 
+	/**
+	 * Sets the final target.
+	 *
+	 * @param vehicle the vehicle
+	 * @param point the point
+	 */
 	@setter(FINAL_TARGET)
 	public static void setFinalTarget(final IAgent vehicle, final IAgent point) {
 		vehicle.setAttribute(FINAL_TARGET, point);
 	}
 
+	/**
+	 * Gets the current index.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the current index
+	 */
 	@getter(CURRENT_INDEX)
 	public static Integer getCurrentIndex(final IAgent vehicle) {
 		return (Integer) vehicle.getAttribute(CURRENT_INDEX);
 	}
 
+	/**
+	 * Sets the current index.
+	 *
+	 * @param vehicle the vehicle
+	 * @param index the index
+	 */
 	@setter(CURRENT_INDEX)
 	public static void setCurrentIndex(final IAgent vehicle, final Integer index) {
 		vehicle.setAttribute(CURRENT_INDEX, index);
 	}
 
+	/**
+	 * Gets the segment index.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the segment index
+	 */
 	@getter(SEGMENT_INDEX)
 	public static Integer getSegmentIndex(final IAgent vehicle) {
 		return (Integer) vehicle.getAttribute(SEGMENT_INDEX);
 	}
 
+	/**
+	 * Sets the segment index.
+	 *
+	 * @param vehicle the vehicle
+	 * @param index the index
+	 */
 	@setter(SEGMENT_INDEX)
 	public static void setSegmentIndex(final IAgent vehicle, final Integer index) {
 		vehicle.setAttribute(SEGMENT_INDEX, index);
 	}
 
+	/**
+	 * Gets the current path.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the current path
+	 */
 	@getter(CURRENT_PATH)
 	public static IPath getCurrentPath(final IAgent vehicle) {
 		return (IPath) vehicle.getAttribute(CURRENT_PATH);
 	}
 
+	/**
+	 * Sets the current path.
+	 *
+	 * @param vehicle the vehicle
+	 * @param path the path
+	 */
 	@setter(CURRENT_PATH)
 	public static void setCurrentPath(final IAgent vehicle, final IPath path) {
 		vehicle.setAttribute(CURRENT_PATH, path);
@@ -660,92 +963,194 @@ public class DrivingSkill extends MovingSkill {
 		}
 	}
 
+	/**
+	 * Gets the targets.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the targets
+	 */
 	public static List<IAgent> getTargets(final IAgent vehicle) {
 		IPath path = getCurrentPath(vehicle);
 		return path == null ? null : path.getVertexList();
 	}
 
+	/**
+	 * Sets the targets.
+	 *
+	 * @param vehicle the vehicle
+	 * @param points the points
+	 */
 	@setter(TARGETS)
 	public static void setTargets(final IAgent vehicle, final List<IAgent> points) {
 		// read-only
 	}
 
+	/**
+	 * Gets the proba use linked road.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the proba use linked road
+	 */
 	@getter(PROBA_USE_LINKED_ROAD)
 	public static double getProbaUseLinkedRoad(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(PROBA_USE_LINKED_ROAD);
 	}
 
+	/**
+	 * Sets the proba use linked road.
+	 *
+	 * @param vehicle the vehicle
+	 * @param proba the proba
+	 */
 	@setter(PROBA_USE_LINKED_ROAD)
 	public static void setProbaUseLinkedRoad(final IAgent vehicle, final Double proba) {
 		vehicle.setAttribute(PROBA_USE_LINKED_ROAD, proba);
 	}
 
+	/**
+	 * Gets the proba lane change down.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the proba lane change down
+	 */
 	@getter(PROBA_LANE_CHANGE_DOWN)
 	@Deprecated
 	public static double getProbaLaneChangeDown(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(PROBA_LANE_CHANGE_DOWN);
 	}
 
+	/**
+	 * Sets the proba lane change down.
+	 *
+	 * @param vehicle the vehicle
+	 * @param proba the proba
+	 */
 	@setter(PROBA_LANE_CHANGE_DOWN)
 	@Deprecated
 	public static void setProbaLaneChangeDown(final IAgent vehicle, final Double proba) {
 		vehicle.setAttribute(PROBA_LANE_CHANGE_DOWN, proba);
 	}
 
+	/**
+	 * Gets the proba lane change up.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the proba lane change up
+	 */
 	@getter(PROBA_LANE_CHANGE_UP)
 	@Deprecated
 	public static double getProbaLaneChangeUp(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(PROBA_LANE_CHANGE_UP);
 	}
 
+	/**
+	 * Sets the proba lane change up.
+	 *
+	 * @param vehicle the vehicle
+	 * @param proba the proba
+	 */
 	@setter(PROBA_LANE_CHANGE_UP)
 	@Deprecated
 	public static void setProbaLaneChangeUp(final IAgent vehicle, final Double proba) {
 		vehicle.setAttribute(PROBA_LANE_CHANGE_UP, proba);
 	}
 
+	/**
+	 * Gets the proba respect priorities.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the proba respect priorities
+	 */
 	@getter(PROBA_RESPECT_PRIORITIES)
 	public static double getProbaRespectPriorities(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(PROBA_RESPECT_PRIORITIES);
 	}
 
+	/**
+	 * Sets the proba respect priorities.
+	 *
+	 * @param vehicle the vehicle
+	 * @param proba the proba
+	 */
 	@setter(PROBA_RESPECT_PRIORITIES)
 	public static void setProbaRespectPriorities(final IAgent vehicle, final Double proba) {
 		vehicle.setAttribute(PROBA_RESPECT_PRIORITIES, proba);
 	}
 
+	/**
+	 * Gets the proba block node.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the proba block node
+	 */
 	@getter(PROBA_BLOCK_NODE)
 	public static double getProbaBlockNode(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(PROBA_BLOCK_NODE);
 	}
 
+	/**
+	 * Sets the proba block node.
+	 *
+	 * @param vehicle the vehicle
+	 * @param proba the proba
+	 */
 	@setter(PROBA_BLOCK_NODE)
 	public static void setProbaBlockNode(final IAgent vehicle, final Double proba) {
 		vehicle.setAttribute(PROBA_BLOCK_NODE, proba);
 	}
 
+	/**
+	 * Gets the probas respect stops.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the probas respect stops
+	 */
 	@getter(PROBA_RESPECT_STOPS)
 	public static List<Double> getProbasRespectStops(final IAgent vehicle) {
 		return (List<Double>) vehicle.getAttribute(PROBA_RESPECT_STOPS);
 	}
 
+	/**
+	 * Sets the probas respect stops.
+	 *
+	 * @param vehicle the vehicle
+	 * @param probas the probas
+	 */
 	@setter(PROBA_RESPECT_STOPS)
 	public static void setProbasRespectStops(final IAgent vehicle, final List<Boolean> probas) {
 		vehicle.setAttribute(PROBA_RESPECT_STOPS, probas);
 	}
 
+	/**
+	 * Gets the on linked road.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the on linked road
+	 */
 	@Deprecated
 	@getter(ON_LINKED_ROAD)
 	public static boolean getOnLinkedRoad(final IAgent vehicle) {
 		return isUsingLinkedRoad(vehicle);
 	}
 
+	/**
+	 * Sets the on linked road.
+	 *
+	 * @param vehicle the vehicle
+	 * @param onLinkedRoad the on linked road
+	 */
 	@Deprecated
 	@setter(ON_LINKED_ROAD)
 	public static void setOnLinkedRoad(final IAgent vehicle, final Boolean onLinkedRoad) {
 		// read-only
 	}
 
+	/**
+	 * Checks if is using linked road.
+	 *
+	 * @param vehicle the vehicle
+	 * @return true, if is using linked road
+	 */
 	@getter(USING_LINKED_ROAD)
 	public static boolean isUsingLinkedRoad(final IAgent vehicle) {
 		IAgent currentRoad = getCurrentRoad(vehicle);
@@ -757,211 +1162,464 @@ public class DrivingSkill extends MovingSkill {
 		return lowestLane > numLanesCurrent - numLanesOccupied;
 	}
 
+	/**
+	 * Sets the using linked road.
+	 *
+	 * @param vehicle the vehicle
+	 * @param usingLinkedRoad the using linked road
+	 */
 	@setter(USING_LINKED_ROAD)
 	public static void setUsingLinkedRoad(final IAgent vehicle, final boolean usingLinkedRoad) {
 		// read-only
 	}
 
+	/**
+	 * Can ignore oneway.
+	 *
+	 * @param vehicle the vehicle
+	 * @return true, if successful
+	 */
 	@getter(IGNORE_ONEWAY)
 	public static boolean canIgnoreOneway(final IAgent vehicle) {
 		return (boolean) vehicle.getAttribute(IGNORE_ONEWAY);
 	}
 
+	/**
+	 * Checks if is violating oneway.
+	 *
+	 * @param vehicle the vehicle
+	 * @return true, if is violating oneway
+	 */
 	@getter(VIOLATING_ONEWAY)
 	public static boolean isViolatingOneway(final IAgent vehicle) {
 		return (boolean) vehicle.getAttribute(VIOLATING_ONEWAY);
 	}
 
+	/**
+	 * Sets the violating oneway.
+	 *
+	 * @param vehicle the vehicle
+	 * @param violatingOneway the violating oneway
+	 */
 	@setter(VIOLATING_ONEWAY)
 	public static void setViolatingOneway(final IAgent vehicle, final boolean violatingOneway) {
 		vehicle.setAttribute(VIOLATING_ONEWAY, violatingOneway);
 	}
 
+	/**
+	 * Gets the allowed lanes.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the allowed lanes
+	 */
 	@getter(ALLOWED_LANES)
 	public static List<Integer> getAllowedLanes(final IAgent vehicle) {
 		return (List<Integer>) vehicle.getAttribute(ALLOWED_LANES);
 	}
 
+	/**
+	 * Gets the linked lane limit.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the linked lane limit
+	 */
 	@getter(LINKED_LANE_LIMIT)
 	public static int getLinkedLaneLimit(final IAgent vehicle) {
 		return (int) vehicle.getAttribute(LINKED_LANE_LIMIT);
 	}
 
+	/**
+	 * Sets the linked lane limit.
+	 *
+	 * @param vehicle the vehicle
+	 * @param linkedLaneLimit the linked lane limit
+	 */
 	@setter(LINKED_LANE_LIMIT)
 	public static void setLinkedLaneLimit(final IAgent vehicle, final int linkedLaneLimit) {
 		vehicle.setAttribute(LINKED_LANE_LIMIT, linkedLaneLimit);
 	}
 
+	/**
+	 * Gets the lane change limit.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the lane change limit
+	 */
 	@getter(LANE_CHANGE_LIMIT)
 	public static int getLaneChangeLimit(final IAgent vehicle) {
 		return (int) vehicle.getAttribute(LANE_CHANGE_LIMIT);
 	}
 
+	/**
+	 * Gets the right side driving.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the right side driving
+	 */
 	@getter(RIGHT_SIDE_DRIVING)
 	public static boolean getRightSideDriving(final IAgent vehicle) {
 		return (Boolean) vehicle.getAttribute(RIGHT_SIDE_DRIVING);
 	}
 
+	/**
+	 * Sets the right side driving.
+	 *
+	 * @param vehicle the vehicle
+	 * @param isRight the is right
+	 */
 	@setter(RIGHT_SIDE_DRIVING)
 	public static void setRightSideDriving(final IAgent vehicle, final Boolean isRight) {
 		vehicle.setAttribute(RIGHT_SIDE_DRIVING, isRight);
 	}
 
+	/**
+	 * Gets the security distance coeff.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the security distance coeff
+	 */
 	@Deprecated
 	@getter(SECURITY_DISTANCE_COEFF)
 	public static double getSecurityDistanceCoeff(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(SECURITY_DISTANCE_COEFF);
 	}
 
+	/**
+	 * Sets the security distance coeff.
+	 *
+	 * @param vehicle the vehicle
+	 * @param ls the ls
+	 */
 	@Deprecated
 	@setter(SECURITY_DISTANCE_COEFF)
 	public static void setSecurityDistanceCoeff(final IAgent vehicle, final double ls) {
 		vehicle.setAttribute(SECURITY_DISTANCE_COEFF, ls);
 	}
 
+	/**
+	 * Gets the safety distance coeff.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the safety distance coeff
+	 */
 	@getter(SAFETY_DISTANCE_COEFF)
 	public static double getSafetyDistanceCoeff(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(SAFETY_DISTANCE_COEFF);
 	}
 
+	/**
+	 * Sets the safety distance coeff.
+	 *
+	 * @param vehicle the vehicle
+	 * @param ls the ls
+	 */
 	@setter(SAFETY_DISTANCE_COEFF)
 	public static void setSafetyDistanceCoeff(final IAgent vehicle, final double ls) {
 		vehicle.setAttribute(SAFETY_DISTANCE_COEFF, ls);
 	}
 
+	/**
+	 * Gets the current road.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the current road
+	 */
 	@getter(CURRENT_ROAD)
 	public static IAgent getCurrentRoad(final IAgent vehicle) {
 		return (IAgent) vehicle.getAttribute(CURRENT_ROAD);
 	}
 
+	/**
+	 * Sets the current road.
+	 *
+	 * @param vehicle the vehicle
+	 * @param road the road
+	 */
 	@setter(CURRENT_ROAD)
 	public static void setCurrentRoad(final IAgent vehicle, final IAgent road) {
 		vehicle.setAttribute(CURRENT_ROAD, road);
 	}
 
+	/**
+	 * Gets the next road.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the next road
+	 */
 	@getter(NEXT_ROAD)
 	public static IAgent getNextRoad(final IAgent vehicle) {
 		return (IAgent) vehicle.getAttribute(NEXT_ROAD);
 	}
 
+	/**
+	 * Sets the next road.
+	 *
+	 * @param vehicle the vehicle
+	 * @param road the road
+	 */
 	@setter(NEXT_ROAD)
 	public static void setNextRoad(final IAgent vehicle, final IAgent road) {
 		vehicle.setAttribute(NEXT_ROAD, road);
 	}
 
+	/**
+	 * Gets the vehicle length.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the vehicle length
+	 */
 	@getter(VEHICLE_LENGTH)
 	public static double getVehicleLength(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(VEHICLE_LENGTH);
 	}
 
+	/**
+	 * Gets the current lane.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the current lane
+	 */
 	@Deprecated
 	@getter(CURRENT_LANE)
 	public static int getCurrentLane(final IAgent vehicle) {
 		return getLowestLane(vehicle);
 	}
 
+	/**
+	 * Sets the current lane.
+	 *
+	 * @param vehicle the vehicle
+	 * @param newLane the new lane
+	 */
 	@Deprecated
 	@setter(CURRENT_LANE)
 	public static void setCurrentLane(final IAgent vehicle, final int newLane) {
 		setLowestLane(vehicle, newLane);
 	}
 
+	/**
+	 * Gets the lowest lane.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the lowest lane
+	 */
 	@getter(LOWEST_LANE)
 	public static int getLowestLane(final IAgent vehicle) {
 		return (int) vehicle.getAttribute(LOWEST_LANE);
 	}
 
+	/**
+	 * Sets the lowest lane.
+	 *
+	 * @param vehicle the vehicle
+	 * @param lowestLane the lowest lane
+	 */
 	@setter(LOWEST_LANE)
 	public static void setLowestLane(final IAgent vehicle, final int lowestLane) {
 		vehicle.setAttribute(LOWEST_LANE, lowestLane);
 	}
 
+	/**
+	 * Gets the distance to goal.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the distance to goal
+	 */
 	@getter(DISTANCE_TO_GOAL)
 	public static double getDistanceToGoal(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(DISTANCE_TO_GOAL);
 	}
 
+	/**
+	 * Gets the distance to current target.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the distance to current target
+	 */
 	@getter(DISTANCE_TO_CURRENT_TARGET)
 	public static double getDistanceToCurrentTarget(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(DISTANCE_TO_CURRENT_TARGET);
 	}
 
+	/**
+	 * Sets the distance to current target.
+	 *
+	 * @param vehicle the vehicle
+	 * @param dist the dist
+	 */
 	@setter(DISTANCE_TO_CURRENT_TARGET)
 	public static void setDistanceToCurrentTarget(final IAgent vehicle, final double dist) {
 		vehicle.setAttribute(DISTANCE_TO_CURRENT_TARGET, dist);
 	}
 
+	/**
+	 * Gets the min security distance.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the min security distance
+	 */
 	@getter(MIN_SECURITY_DISTANCE)
 	public static double getMinSecurityDistance(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(MIN_SECURITY_DISTANCE);
 	}
 
+	/**
+	 * Sets the min sec distance.
+	 *
+	 * @param vehicle the vehicle
+	 * @param msd the msd
+	 */
 	@setter(MIN_SECURITY_DISTANCE)
 	public static void setMinSecDistance(final IAgent vehicle, final double msd) {
 		vehicle.setAttribute(MIN_SECURITY_DISTANCE, msd);
 	}
 
+	/**
+	 * Gets the min safety distance.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the min safety distance
+	 */
 	@getter(MIN_SAFETY_DISTANCE)
 	public static double getMinSafetyDistance(final IAgent vehicle) {
 		return (Double) vehicle.getAttribute(MIN_SAFETY_DISTANCE);
 	}
 
+	/**
+	 * Sets the distance to goal.
+	 *
+	 * @param vehicle the vehicle
+	 * @param dg the dg
+	 */
 	@setter(DISTANCE_TO_GOAL)
 	public static void setDistanceToGoal(final IAgent vehicle, final double dg) {
 		vehicle.setAttribute(DISTANCE_TO_GOAL, dg);
 	}
 
+	/**
+	 * Gets the num lanes occupied.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the num lanes occupied
+	 */
 	@getter(NUM_LANES_OCCUPIED)
 	public static Integer getNumLanesOccupied(final IAgent vehicle) {
 		return (Integer) vehicle.getAttribute(NUM_LANES_OCCUPIED);
 	}
 
+	/**
+	 * Sets the num lanes occupied.
+	 *
+	 * @param vehicle the vehicle
+	 * @param value the value
+	 */
 	@setter(NUM_LANES_OCCUPIED)
 	public static void setNumLanesOccupied(final IAgent vehicle, final Integer value) {
 		vehicle.setAttribute(NUM_LANES_OCCUPIED, value);
 	}
 
+	/**
+	 * Gets the leading vehicle.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the leading vehicle
+	 */
 	@getter(LEADING_VEHICLE)
 	public static IAgent getLeadingVehicle(final IAgent vehicle) {
 		return (IAgent) vehicle.getAttribute(LEADING_VEHICLE);
 	}
 
+	/**
+	 * Sets the leading vehicle read only.
+	 *
+	 * @param vehicle the vehicle
+	 * @param leadingVehicle the leading vehicle
+	 */
 	@setter(LEADING_VEHICLE)
 	public static void setLeadingVehicleReadOnly(final IAgent vehicle, final IAgent leadingVehicle) {
 		// read-only
 	}
 
+	/**
+	 * Sets the leading vehicle.
+	 *
+	 * @param vehicle the vehicle
+	 * @param leadingVehicle the leading vehicle
+	 */
 	public static void setLeadingVehicle(final IAgent vehicle, final IAgent leadingVehicle) {
 		vehicle.setAttribute(LEADING_VEHICLE, leadingVehicle);
 	}
 
+	/**
+	 * Gets the leading distance.
+	 *
+	 * @param vehicle the vehicle
+	 * @return the leading distance
+	 */
 	@getter(LEADING_DISTANCE)
 	public static double getLeadingDistance(final IAgent vehicle) {
 		return (double) vehicle.getAttribute(LEADING_DISTANCE);
 	}
 
+	/**
+	 * Sets the leading distance read only.
+	 *
+	 * @param vehicle the vehicle
+	 * @param leadingDist the leading dist
+	 */
 	@setter(LEADING_DISTANCE)
 	public static void setLeadingDistanceReadOnly(final IAgent vehicle, final double leadingDist) {
 		// read-only
 	}
 
+	/**
+	 * Sets the leading distance.
+	 *
+	 * @param vehicle the vehicle
+	 * @param leadingDist the leading dist
+	 */
 	public static void setLeadingDistance(final IAgent vehicle, final double leadingDist) {
 		vehicle.setAttribute(LEADING_DISTANCE, leadingDist);
 	}
 
+	/**
+	 * Sets the leading speed read only.
+	 *
+	 * @param vehicle the vehicle
+	 * @param leadingSpeed the leading speed
+	 */
 	@setter(LEADING_SPEED)
 	public static void setLeadingSpeedReadOnly(final IAgent vehicle, final double leadingSpeed) {
 		// read-only
 	}
 
+	/**
+	 * Sets the leading speed.
+	 *
+	 * @param vehicle the vehicle
+	 * @param leadingSpeed the leading speed
+	 */
 	public static void setLeadingSpeed(final IAgent vehicle, final double leadingSpeed) {
 		vehicle.setAttribute(LEADING_SPEED, leadingSpeed);
 	}
 
+	/**
+	 * Sets the follower.
+	 *
+	 * @param vehicle the vehicle
+	 * @param follower the follower
+	 */
 	public static void setFollower(final IAgent vehicle, final IAgent follower) {
 		vehicle.setAttribute(FOLLOWER, follower);
 	}
 
+	/**
+	 * Prim advanced follow.
+	 *
+	 * @param scope the scope
+	 * @return the double
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@action(
 		name = "advanced_follow_driving",
 		args = {
@@ -1005,6 +1663,13 @@ public class DrivingSkill extends MovingSkill {
 		return 0.0;
 	}
 
+	/**
+	 * Prim ready to cross.
+	 *
+	 * @param scope the scope
+	 * @return the boolean
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@action(
 		name = "ready_to_cross",
 		args = {
@@ -1034,6 +1699,13 @@ public class DrivingSkill extends MovingSkill {
 		return readyToCross(scope, vehicle, node, road);
 	}
 
+	/**
+	 * Prim test next road.
+	 *
+	 * @param scope the scope
+	 * @return the boolean
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@action(
 		name = "test_next_road",
 		args = {
@@ -1059,11 +1731,12 @@ public class DrivingSkill extends MovingSkill {
 	 *     1. Traffic lights
 	 *     2. Other vehicles coming from other incoming roads
 	 *
-	 * @param scope
-	 * @param newRoad
+	 * @param scope the scope
+	 * @param vehicle the vehicle
+	 * @param node the node
+	 * @param newRoad the new road
 	 * @return true if ready, false otherwise
-	 *
-	 * @throws GamaRuntimeException
+	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 	public static Boolean readyToCross(final IScope scope,
 			final IAgent vehicle,
@@ -1170,6 +1843,13 @@ public class DrivingSkill extends MovingSkill {
 		return true;
 	}
 
+	/**
+	 * Prim compute path.
+	 *
+	 * @param scope the scope
+	 * @return the i path
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@action(
 		name = "compute_path",
 		args = {
@@ -1258,6 +1938,13 @@ public class DrivingSkill extends MovingSkill {
 		}
 	}
 
+	/**
+	 * Prim compute path from nodes.
+	 *
+	 * @param scope the scope
+	 * @return the i path
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@action(
 		name = "path_from_nodes",
 		args = {
@@ -1297,6 +1984,12 @@ public class DrivingSkill extends MovingSkill {
 		return (IPath) actionComputePath.executeOn(scope);
 	}
 
+	/**
+	 * Prim drive random.
+	 *
+	 * @param scope the scope
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@action(
 		name = "drive_random",
 		args = {
@@ -1340,6 +2033,12 @@ public class DrivingSkill extends MovingSkill {
 		moveAcrossRoads(scope, true, graph, roadProba);
 	}
 
+	/**
+	 * Prim drive.
+	 *
+	 * @param scope the scope
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@action(
 		name = "drive",
 		doc = @doc(
@@ -1362,6 +2061,12 @@ public class DrivingSkill extends MovingSkill {
 		moveAcrossRoads(scope, false, null, null);
 	}
 
+	/**
+	 * Prim on entering new road.
+	 *
+	 * @param scope the scope
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@action(
 		name = "on_entering_new_road",
 		doc = @doc("override this if you want to do something when the vehicle enters a new road (e.g. adjust parameters)")
@@ -1370,6 +2075,13 @@ public class DrivingSkill extends MovingSkill {
 		// user-defined
 	}
 
+	/**
+	 * Prim external factor on remaining time.
+	 *
+	 * @param scope the scope
+	 * @return the double
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@action(
 		name = "external_factor_impact",
 		args = {
@@ -1396,6 +2108,12 @@ public class DrivingSkill extends MovingSkill {
 		return scope.getFloatArg("remaining_time");
 	}
 
+	/**
+	 * Prim unregister.
+	 *
+	 * @param scope the scope
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@action(
 		name = "unregister",
 		doc = @doc(
@@ -1408,6 +2126,13 @@ public class DrivingSkill extends MovingSkill {
 		unregister(scope, vehicle);
 	}
 
+	/**
+	 * Prim speed choice.
+	 *
+	 * @param scope the scope
+	 * @return the double
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@action(
 		name = "speed_choice",
 		args = {
@@ -1430,6 +2155,13 @@ public class DrivingSkill extends MovingSkill {
 		return 0.0;
 	}
 
+	/**
+	 * Prim lane choice.
+	 *
+	 * @param scope the scope
+	 * @return the integer
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@action(
 		name = "lane_choice",
 		args = {
@@ -1452,6 +2184,13 @@ public class DrivingSkill extends MovingSkill {
 		return -1;
 	}
 
+	/**
+	 * Prim choose lane.
+	 *
+	 * @param scope the scope
+	 * @return the integer
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@action(
 		name = ACT_CHOOSE_LANE,
 		args = {
@@ -1481,9 +2220,9 @@ public class DrivingSkill extends MovingSkill {
 	}
 
 	/**
-	 * Select a random road among the outward edges of a given intersection node
+	 * Select a random road among the outward edges of a given intersection node.
 	 *
-	 * @param scope
+	 * @param scope the scope
 	 * @param graph     the graph on which the vehicle is driving
 	 * @param node      the intersection node whose outward edges will be considered
 	 * @param roadProba a map that specifies probabilities of choosing certain roads
@@ -1528,7 +2267,7 @@ public class DrivingSkill extends MovingSkill {
 	 * old road and the linked road of the new one. e.g. think of a vehicle running
 	 * a redlight at a four-way junction
 	 *
-	 * @param scope
+	 * @param scope the scope
 	 * @param currentRoad the old road of the vehicle
 	 * @param newRoad     the new road of the vehicle
 	 * @param node        the intersection node whose blocking info will be updated
@@ -1558,10 +2297,10 @@ public class DrivingSkill extends MovingSkill {
 	 * Updates the `agents_on` list of the corresponding roads if the vehicle has
 	 * switched to new lanes and/or a new segment.
 	 *
-	 * @param scope
+	 * @param scope the scope
 	 * @param newLowestLane the new lane will the lowest index that the vehicle
 	 *                      occupies
-	 * @param newSegment    the new segment index
+	 * @param newDistToCurrentTarget the new dist to current target
 	 */
 	private void updateVehicleOrdering(final IScope scope, final int newLowestLane,
 			final double newDistToCurrentTarget) {
@@ -1593,6 +2332,14 @@ public class DrivingSkill extends MovingSkill {
 		setLowestLane(vehicle, newLowestLane);
 	}
 
+	/**
+	 * Move across roads.
+	 *
+	 * @param scope the scope
+	 * @param isDrivingRandomly the is driving randomly
+	 * @param graph the graph
+	 * @param roadProba the road proba
+	 */
 	private void moveAcrossRoads(final IScope scope,
 			final boolean isDrivingRandomly,
 			final GamaSpatialGraph graph,
@@ -1698,6 +2445,12 @@ public class DrivingSkill extends MovingSkill {
 	}
 	
 
+	/**
+	 * Prim force move.
+	 *
+	 * @param scope the scope
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@action(
 		name = "force_move",
 		args = {
@@ -1735,7 +2488,7 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Moves the vehicle from segment to segment on the current road.
 	 *
-	 * @param scope
+	 * @param scope the scope
 	 * @param accel         acceleration
 	 * @param time          the amount of time available to move
 	 * @param newLowestLane the lane to move on
@@ -1809,7 +2562,7 @@ public class DrivingSkill extends MovingSkill {
 	 * Computes the speed of the vehicle with respect to its acceleration, its
 	 * maximum speed and the speed limit of the current road.
 	 *
-	 * @param scope
+	 * @param scope the scope
 	 * @param acceleration the acceleration for this simulation step
 	 * @param road         the road which the vehicle is on
 	 * @return the resulting speed
@@ -1825,9 +2578,9 @@ public class DrivingSkill extends MovingSkill {
 	}
 
 	/**
-	 * Clears information after the vehicle has reached the final target in its path
+	 * Clears information after the vehicle has reached the final target in its path.
 	 *
-	 * @param scope
+	 * @param scope the scope
 	 */
 	private void clearDrivingStates(final IScope scope) {
 		IAgent vehicle = getCurrentAgent(scope);
@@ -1837,6 +2590,13 @@ public class DrivingSkill extends MovingSkill {
 		setCurrentPath(vehicle, null);
 	}
 
+	/**
+	 * Unregister.
+	 *
+	 * @param scope the scope
+	 * @param driver the driver
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public static void unregister(final IScope scope, final IAgent driver) 
 			throws GamaRuntimeException {
 		IAgent currentRoad = getCurrentRoad(driver);
@@ -1851,6 +2611,12 @@ public class DrivingSkill extends MovingSkill {
 		setCurrentRoad(driver, null);
 	}
 
+	/**
+	 * Prim die wrapper.
+	 *
+	 * @param scope the scope
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	// TODO: this action is not overridden
 	@action(
 		name = "die",

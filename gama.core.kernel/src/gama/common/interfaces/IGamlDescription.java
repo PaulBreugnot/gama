@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'IGamlDescription.java, in plugin ummisco.gama.annotations, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * IGamlDescription.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.common.interfaces;
 
 /**
@@ -30,7 +29,7 @@ public interface IGamlDescription extends INamed {
 	}
 
 	/**
-	 * Returns the documentation attached to this object
+	 * Returns the documentation attached to this object.
 	 *
 	 * @return a string that represents the documentation of this object
 	 */
@@ -39,7 +38,7 @@ public interface IGamlDescription extends INamed {
 	}
 
 	/**
-	 * Returns the plugin in which this object has been defined (if it has one)
+	 * Returns the plugin in which this object has been defined (if it has one).
 	 *
 	 * @return a string containing the identifier of the plugin in which this object has been defined, or null
 	 */

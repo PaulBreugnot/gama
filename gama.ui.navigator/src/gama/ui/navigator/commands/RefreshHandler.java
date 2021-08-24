@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'RefreshHandler.java, in plugin ummisco.gama.ui.navigator, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * RefreshHandler.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator.commands;
 
 import static gama.ui.base.utils.WorkbenchHelper.runInUI;
@@ -55,10 +54,19 @@ import gama.ui.navigator.contents.ResourceManager;
 import gama.ui.navigator.metadata.FileMetaDataProvider;
 import gama.util.file.IFileMetaDataProvider;
 
+/**
+ * The Class RefreshHandler.
+ */
 public class RefreshHandler implements IRefreshHandler {
 
+	/** The navigator. */
 	GamaNavigator navigator;
 
+	/**
+	 * Gets the navigator.
+	 *
+	 * @return the navigator
+	 */
 	private GamaNavigator getNavigator() {
 		if (navigator == null) {
 			final IWorkbenchPage page = WorkbenchHelper.getPage();
@@ -75,6 +83,13 @@ public class RefreshHandler implements IRefreshHandler {
 		WorkbenchHelper.run(() -> getNavigator().getCommonViewer().refresh());
 	}
 
+	/**
+	 * Simple refresh.
+	 *
+	 * @param resource the resource
+	 * @param monitor the monitor
+	 * @throws CoreException the core exception
+	 */
 	protected void simpleRefresh(final IResource resource, final IProgressMonitor monitor) throws CoreException {
 		if (resource.getType() == IResource.PROJECT) {
 			checkLocationDeleted((IProject) resource);
@@ -212,6 +227,12 @@ public class RefreshHandler implements IRefreshHandler {
 		job.schedule();
 	}
 
+	/**
+	 * Check location deleted.
+	 *
+	 * @param project the project
+	 * @throws CoreException the core exception
+	 */
 	void checkLocationDeleted(final IProject project) throws CoreException {
 		if (!project.exists()) { return; }
 		final IFileInfo location = IDEResourceInfoUtils.getFileInfo(project.getLocationURI());

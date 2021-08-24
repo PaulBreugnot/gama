@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.display.LayerManager.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * LayerManager.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs.display;
 
@@ -50,6 +50,13 @@ import gama.util.GamaColor;
  */
 public class LayerManager implements ILayerManager {
 
+	/**
+	 * Creates the layer.
+	 *
+	 * @param output the output
+	 * @param layer the layer
+	 * @return the i layer
+	 */
 	public static ILayer createLayer(final LayeredDisplayOutput output, final ILayerStatement layer) {
 		switch (layer.getType(output)) {
 			case GRID:
@@ -79,13 +86,28 @@ public class LayerManager implements ILayerManager {
 		}
 	}
 
+	/** The enabled layers. */
 	// Feb 2020: added to avoid concurrentModifications
 	private final List<ILayer> enabledLayers = new CopyOnWriteArrayList<>();
+	
+	/** The disabled layers. */
 	private final List<ILayer> disabledLayers = new ArrayList<>();
+	
+	/** The overlay. */
 	private OverlayLayer overlay = null;
+	
+	/** The surface. */
 	final IDisplaySurface surface;
+	
+	/** The count. */
 	private int count = 0;
 
+	/**
+	 * Instantiates a new layer manager.
+	 *
+	 * @param surface the surface
+	 * @param output the output
+	 */
 	public LayerManager(final IDisplaySurface surface, final LayeredDisplayOutput output) {
 		this.surface = surface;
 		final List<AbstractLayerStatement> layers = output.getLayers();
@@ -113,11 +135,22 @@ public class LayerManager implements ILayerManager {
 		disabledLayers.clear();
 	}
 
+	/**
+	 * Adds the layer.
+	 *
+	 * @param d the d
+	 * @return the i layer
+	 */
 	protected ILayer addLayer(final ILayer d) {
 		if (addItem(d)) return d;
 		return null;
 	}
 
+	/**
+	 * Removes the layer.
+	 *
+	 * @param found the found
+	 */
 	public void removeLayer(final ILayer found) {
 		if (found != null) { enabledLayers.remove(found); }
 		Collections.sort(enabledLayers);
@@ -154,6 +187,11 @@ public class LayerManager implements ILayerManager {
 		return result;
 	}
 
+	/**
+	 * Enable.
+	 *
+	 * @param found the found
+	 */
 	void enable(final ILayer found) {
 		found.enableOn(surface);
 		enabledLayers.add(found);
@@ -161,6 +199,11 @@ public class LayerManager implements ILayerManager {
 		Collections.sort(enabledLayers);
 	}
 
+	/**
+	 * Disable.
+	 *
+	 * @param found the found
+	 */
 	void disable(final ILayer found) {
 		if (found != null) {
 			found.disableOn(surface);

@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'SaveImageAsDialog.java, in plugin ummisco.gama.ui.viewers, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * SaveImageAsDialog.java, in gama.ui.viewers, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.viewers.image;
 
 import org.eclipse.core.resources.IFile;
@@ -32,14 +31,17 @@ import org.eclipse.swt.widgets.Shell;
  */
 class SaveImageAsDialog extends SaveAsDialog2 {
 
+	/** The image types. */
 	// These 3 arrays need to stay in sync
 	static int[] IMAGE_TYPES =
 			{ SWT.IMAGE_PNG, SWT.IMAGE_GIF, SWT.IMAGE_JPEG, SWT.IMAGE_BMP, SWT.IMAGE_ICO, SWT.IMAGE_TIFF };
 
+	/** The image labels. */
 	static String[] IMAGE_LABELS = { "PNG (Portable Network Graphics)", "GIF (Graphics Interchange Format)",
 			"JPEG (Joint Photographic Experts Group)", "BMP (Bitmap)", "ICO (Icon File)",
 			"TIFF (Tagged Image File Format)" };
 
+	/** The image exts. */
 	static String[] IMAGE_EXTS = { "png", //$NON-NLS-1$
 			"gif", //$NON-NLS-1$
 			"jpg", //$NON-NLS-1$
@@ -53,13 +55,17 @@ class SaveImageAsDialog extends SaveAsDialog2 {
 	 */
 	private int initialImageTypeIndex = 0;
 
-	/**
-	 * The selected index of IMAGE_TYPES
-	 */
+	/** The selected index of IMAGE_TYPES. */
 	private int selectedImageTypeIndex = -1;
 
+	/** The image type combo. */
 	Combo imageTypeCombo;
 
+	/**
+	 * Instantiates a new save image as dialog.
+	 *
+	 * @param parentShell the parent shell
+	 */
 	public SaveImageAsDialog(final Shell parentShell) {
 		super(parentShell);
 	}
@@ -132,10 +138,8 @@ class SaveImageAsDialog extends SaveAsDialog2 {
 	/**
 	 * Set the initial filename and image type. This must be called before {@code}create(){@code}.
 	 *
-	 * @param basename
-	 *            the file basename, no extension.
-	 * @param type
-	 *            the SWT.IMAGE_ type.
+	 * @param name the name
+	 * @param type            the SWT.IMAGE_ type.
 	 */
 	public void setOriginalName(final String name, final int type) {
 		StringBuilder basename = new StringBuilder().append(name);
@@ -152,10 +156,8 @@ class SaveImageAsDialog extends SaveAsDialog2 {
 	/**
 	 * Set the initial file and path and image type. This must be called before {@code}create(){@code}.
 	 *
-	 * @param origfile
-	 *            the original file.
-	 * @param type
-	 *            the SWT.IMAGE_ type.
+	 * @param file the file
+	 * @param type            the SWT.IMAGE_ type.
 	 */
 	public void setOriginalFile(final IFile file, final int type) {
 		IFile origfile = file;
@@ -173,6 +175,8 @@ class SaveImageAsDialog extends SaveAsDialog2 {
 
 	/**
 	 * Get the selected image type.
+	 *
+	 * @return the save as image type
 	 */
 	public int getSaveAsImageType() {
 		if (selectedImageTypeIndex >= 0 && selectedImageTypeIndex < IMAGE_TYPES.length)
@@ -183,6 +187,8 @@ class SaveImageAsDialog extends SaveAsDialog2 {
 
 	/**
 	 * Get the selected image type.
+	 *
+	 * @return the save as image ext
 	 */
 	public String getSaveAsImageExt() {
 		if (selectedImageTypeIndex >= 0 && selectedImageTypeIndex < IMAGE_TYPES.length)

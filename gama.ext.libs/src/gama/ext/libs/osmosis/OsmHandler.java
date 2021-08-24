@@ -1,4 +1,13 @@
-// This software is released into the Public Domain. See copying.txt for details.
+/*******************************************************************************************************
+ *
+ * OsmHandler.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.osmosis;
 
 import java.util.logging.Logger;
@@ -16,7 +25,11 @@ import org.xml.sax.helpers.DefaultHandler;
  * @author Brett Henderson
  */
 public class OsmHandler extends DefaultHandler {
+	
+	/** The Constant LOG. */
 	private static final Logger LOG = Logger.getLogger(OsmHandler.class.getName());
+	
+	/** The Constant ELEMENT_NAME_OSM. */
 	private static final String ELEMENT_NAME_OSM = "osm";
 
 	/**

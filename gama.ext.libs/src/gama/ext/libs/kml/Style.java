@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Style.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -172,6 +182,7 @@ public class Style
      */
     @XmlElement(name = "LineStyle")
     protected LineStyle lineStyle;
+    
     /**
      * <PolyStyle>
      * Syntax: 
@@ -185,14 +196,12 @@ public class Style
      *   &lt;outline&gt;1&lt;/outline&gt;               &lt;!-- boolean --&gt;
      * <strong>&lt;/PolyStyle&gt;</strong></pre>
      * 
-     * Extends: 
+     * Extends: .
+     *
      * @see: <ColorStyle>
      * 
      * Contained By: 
      * @see: <Style>
-     * 
-     * 
-     * 
      */
     @XmlElement(name = "PolyStyle")
     protected PolyStyle polyStyle;
@@ -256,6 +265,8 @@ public class Style
      */
     @XmlElement(name = "ListStyle")
     protected ListStyle listStyle;
+    
+    /** The style simple extension. */
     @XmlElement(name = "StyleSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> styleSimpleExtension;
@@ -280,157 +291,150 @@ public class Style
     @XmlElement(name = "StyleObjectExtensionGroup")
     protected List<AbstractObject> styleObjectExtension;
 
+    /**
+     * Instantiates a new style.
+     */
     public Style() {
         super();
     }
 
     /**
-     * @see iconStyle
-     * 
-     * @return
-     *     possible object is
+     * Gets the icon style.
+     *
+     * @return     possible object is
      *     {@link IconStyle}
-     *     
+     * @see iconStyle
      */
     public IconStyle getIconStyle() {
         return iconStyle;
     }
 
     /**
-     * @see iconStyle
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the icon style.
+     *
+     * @param value     allowed object is
      *     {@link IconStyle}
-     *     
+     * @see iconStyle
      */
     public void setIconStyle(IconStyle value) {
         this.iconStyle = value;
     }
 
     /**
-     * @see labelStyle
-     * 
-     * @return
-     *     possible object is
+     * Gets the label style.
+     *
+     * @return     possible object is
      *     {@link LabelStyle}
-     *     
+     * @see labelStyle
      */
     public LabelStyle getLabelStyle() {
         return labelStyle;
     }
 
     /**
-     * @see labelStyle
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the label style.
+     *
+     * @param value     allowed object is
      *     {@link LabelStyle}
-     *     
+     * @see labelStyle
      */
     public void setLabelStyle(LabelStyle value) {
         this.labelStyle = value;
     }
 
     /**
-     * @see lineStyle
-     * 
-     * @return
-     *     possible object is
+     * Gets the line style.
+     *
+     * @return     possible object is
      *     {@link LineStyle}
-     *     
+     * @see lineStyle
      */
     public LineStyle getLineStyle() {
         return lineStyle;
     }
 
     /**
-     * @see lineStyle
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the line style.
+     *
+     * @param value     allowed object is
      *     {@link LineStyle}
-     *     
+     * @see lineStyle
      */
     public void setLineStyle(LineStyle value) {
         this.lineStyle = value;
     }
 
     /**
-     * @see polyStyle
-     * 
-     * @return
-     *     possible object is
+     * Gets the poly style.
+     *
+     * @return     possible object is
      *     {@link PolyStyle}
-     *     
+     * @see polyStyle
      */
     public PolyStyle getPolyStyle() {
         return polyStyle;
     }
 
     /**
-     * @see polyStyle
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the poly style.
+     *
+     * @param value     allowed object is
      *     {@link PolyStyle}
-     *     
+     * @see polyStyle
      */
     public void setPolyStyle(PolyStyle value) {
         this.polyStyle = value;
     }
 
     /**
-     * @see balloonStyle
-     * 
-     * @return
-     *     possible object is
+     * Gets the balloon style.
+     *
+     * @return     possible object is
      *     {@link BalloonStyle}
-     *     
+     * @see balloonStyle
      */
     public BalloonStyle getBalloonStyle() {
         return balloonStyle;
     }
 
     /**
-     * @see balloonStyle
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the balloon style.
+     *
+     * @param value     allowed object is
      *     {@link BalloonStyle}
-     *     
+     * @see balloonStyle
      */
     public void setBalloonStyle(BalloonStyle value) {
         this.balloonStyle = value;
     }
 
     /**
-     * @see listStyle
-     * 
-     * @return
-     *     possible object is
+     * Gets the list style.
+     *
+     * @return     possible object is
      *     {@link ListStyle}
-     *     
+     * @see listStyle
      */
     public ListStyle getListStyle() {
         return listStyle;
     }
 
     /**
-     * @see listStyle
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the list style.
+     *
+     * @param value     allowed object is
      *     {@link ListStyle}
-     *     
+     * @see listStyle
      */
     public void setListStyle(ListStyle value) {
         this.listStyle = value;
     }
 
     /**
+     * Gets the style simple extension.
+     *
+     * @return the style simple extension
      * @see styleSimpleExtension
-     * 
      */
     public List<Object> getStyleSimpleExtension() {
         if (styleSimpleExtension == null) {
@@ -440,8 +444,10 @@ public class Style
     }
 
     /**
+     * Gets the style object extension.
+     *
+     * @return the style object extension
      * @see styleObjectExtension
-     * 
      */
     public List<AbstractObject> getStyleObjectExtension() {
         if (styleObjectExtension == null) {
@@ -562,8 +568,8 @@ public class Style
      * <code>
      * IconStyle iconStyle = new IconStyle();
      * this.setIconStyle(iconStyle); </code>
-     * 
-     * 
+     *
+     * @return the icon style
      */
     public IconStyle createAndSetIconStyle() {
         IconStyle newValue = new IconStyle();
@@ -578,8 +584,8 @@ public class Style
      * <code>
      * LabelStyle labelStyle = new LabelStyle();
      * this.setLabelStyle(labelStyle); </code>
-     * 
-     * 
+     *
+     * @return the label style
      */
     public LabelStyle createAndSetLabelStyle() {
         LabelStyle newValue = new LabelStyle();
@@ -594,8 +600,8 @@ public class Style
      * <code>
      * LineStyle lineStyle = new LineStyle();
      * this.setLineStyle(lineStyle); </code>
-     * 
-     * 
+     *
+     * @return the line style
      */
     public LineStyle createAndSetLineStyle() {
         LineStyle newValue = new LineStyle();
@@ -610,8 +616,8 @@ public class Style
      * <code>
      * PolyStyle polyStyle = new PolyStyle();
      * this.setPolyStyle(polyStyle); </code>
-     * 
-     * 
+     *
+     * @return the poly style
      */
     public PolyStyle createAndSetPolyStyle() {
         PolyStyle newValue = new PolyStyle();
@@ -626,8 +632,8 @@ public class Style
      * <code>
      * BalloonStyle balloonStyle = new BalloonStyle();
      * this.setBalloonStyle(balloonStyle); </code>
-     * 
-     * 
+     *
+     * @return the balloon style
      */
     public BalloonStyle createAndSetBalloonStyle() {
         BalloonStyle newValue = new BalloonStyle();
@@ -642,8 +648,8 @@ public class Style
      * <code>
      * ListStyle listStyle = new ListStyle();
      * this.setListStyle(listStyle); </code>
-     * 
-     * 
+     *
+     * @return the list style
      */
     public ListStyle createAndSetListStyle() {
         ListStyle newValue = new ListStyle();
@@ -652,21 +658,20 @@ public class Style
     }
 
     /**
+     * Sets the style simple extension.
+     *
+     * @param styleSimpleExtension the new style simple extension
      * @see styleSimpleExtension
-     * 
-     * @param styleSimpleExtension
      */
     public void setStyleSimpleExtension(final List<Object> styleSimpleExtension) {
         this.styleSimpleExtension = styleSimpleExtension;
     }
 
     /**
-     * add a value to the styleSimpleExtension property collection
-     * 
-     * @param styleSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the styleSimpleExtension property collection.
+     *
+     * @param styleSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Style addToStyleSimpleExtension(final Object styleSimpleExtension) {
         this.getStyleSimpleExtension().add(styleSimpleExtension);
@@ -674,21 +679,20 @@ public class Style
     }
 
     /**
+     * Sets the style object extension.
+     *
+     * @param styleObjectExtension the new style object extension
      * @see styleObjectExtension
-     * 
-     * @param styleObjectExtension
      */
     public void setStyleObjectExtension(final List<AbstractObject> styleObjectExtension) {
         this.styleObjectExtension = styleObjectExtension;
     }
 
     /**
-     * add a value to the styleObjectExtension property collection
-     * 
-     * @param styleObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the styleObjectExtension property collection.
+     *
+     * @param styleObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Style addToStyleObjectExtension(final AbstractObject styleObjectExtension) {
         this.getStyleObjectExtension().add(styleObjectExtension);
@@ -747,11 +751,11 @@ public class Style
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param iconStyle     required parameter
+     * @return the style
      * @see #setIconStyle(IconStyle)
-     * 
-     * @param iconStyle
-     *     required parameter
      */
     public Style withIconStyle(final IconStyle iconStyle) {
         this.setIconStyle(iconStyle);
@@ -759,11 +763,11 @@ public class Style
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param labelStyle     required parameter
+     * @return the style
      * @see #setLabelStyle(LabelStyle)
-     * 
-     * @param labelStyle
-     *     required parameter
      */
     public Style withLabelStyle(final LabelStyle labelStyle) {
         this.setLabelStyle(labelStyle);
@@ -771,11 +775,11 @@ public class Style
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param lineStyle     required parameter
+     * @return the style
      * @see #setLineStyle(LineStyle)
-     * 
-     * @param lineStyle
-     *     required parameter
      */
     public Style withLineStyle(final LineStyle lineStyle) {
         this.setLineStyle(lineStyle);
@@ -783,11 +787,11 @@ public class Style
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param polyStyle     required parameter
+     * @return the style
      * @see #setPolyStyle(PolyStyle)
-     * 
-     * @param polyStyle
-     *     required parameter
      */
     public Style withPolyStyle(final PolyStyle polyStyle) {
         this.setPolyStyle(polyStyle);
@@ -795,11 +799,11 @@ public class Style
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param balloonStyle     required parameter
+     * @return the style
      * @see #setBalloonStyle(BalloonStyle)
-     * 
-     * @param balloonStyle
-     *     required parameter
      */
     public Style withBalloonStyle(final BalloonStyle balloonStyle) {
         this.setBalloonStyle(balloonStyle);
@@ -807,11 +811,11 @@ public class Style
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param listStyle     required parameter
+     * @return the style
      * @see #setListStyle(ListStyle)
-     * 
-     * @param listStyle
-     *     required parameter
      */
     public Style withListStyle(final ListStyle listStyle) {
         this.setListStyle(listStyle);
@@ -819,11 +823,11 @@ public class Style
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param styleSimpleExtension     required parameter
+     * @return the style
      * @see #setStyleSimpleExtension(List<Object>)
-     * 
-     * @param styleSimpleExtension
-     *     required parameter
      */
     public Style withStyleSimpleExtension(final List<Object> styleSimpleExtension) {
         this.setStyleSimpleExtension(styleSimpleExtension);
@@ -831,11 +835,11 @@ public class Style
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param styleObjectExtension     required parameter
+     * @return the style
      * @see #setStyleObjectExtension(List<AbstractObject>)
-     * 
-     * @param styleObjectExtension
-     *     required parameter
      */
     public Style withStyleObjectExtension(final List<AbstractObject> styleObjectExtension) {
         this.setStyleObjectExtension(styleObjectExtension);

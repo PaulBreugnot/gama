@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.kernel.model.GamlModelSpecies.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * GamlModelSpecies.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.kernel.model;
 
@@ -42,6 +42,9 @@ import gaml.statements.IStatement;
 import gaml.statements.test.TestStatement;
 import gaml.types.IType;
 
+/**
+ * The Class GamlModelSpecies.
+ */
 @symbol (
 		name = { IKeyword.MODEL },
 		kind = ISymbolKind.MODEL,
@@ -112,10 +115,20 @@ import gaml.types.IType;
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class GamlModelSpecies extends GamlSpecies implements IModel {
 
+	/** The experiments. */
 	protected final Map<String, IExperimentPlan> experiments = GamaMapFactory.create();
+	
+	/** The titled experiments. */
 	protected final Map<String, IExperimentPlan> titledExperiments = GamaMapFactory.create();
+	
+	/** The all species. */
 	protected Map<String, ISpecies> allSpecies;
 
+	/**
+	 * Instantiates a new gaml model species.
+	 *
+	 * @param description the description
+	 */
 	public GamlModelSpecies(final IDescription description) {
 		super(description);
 		setName(description.getName());
@@ -146,6 +159,11 @@ public class GamlModelSpecies extends GamlSpecies implements IModel {
 		return getDescription().getModelProjectPath();
 	}
 
+	/**
+	 * Adds the experiment.
+	 *
+	 * @param exp the exp
+	 */
 	protected void addExperiment(final IExperimentPlan exp) {
 		if (exp == null) { return; }
 		experiments.put(exp.getName(), exp);
@@ -283,6 +301,7 @@ public class GamlModelSpecies extends GamlSpecies implements IModel {
 		}
 	}
 
+	/** The is test. */
 	static Predicate<IStatement> isTest = s -> (s instanceof TestStatement);
 
 	@Override

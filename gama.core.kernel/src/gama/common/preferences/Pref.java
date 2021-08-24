@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.common.preferences.Pref.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * Pref.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.common.preferences;
 
@@ -26,48 +26,113 @@ import gama.util.GamaMapFactory;
 import gaml.types.IType;
 import gaml.types.Types;
 
+/**
+ * The Class Pref.
+ *
+ * @param <T> the generic type
+ */
 public class Pref<T> implements IParameter {
 
+	/**
+	 * The Interface ValueProvider.
+	 *
+	 * @param <T> the generic type
+	 */
 	@FunctionalInterface
 	public interface ValueProvider<T> {
 
+		/**
+		 * Gets the.
+		 *
+		 * @return the t
+		 */
 		T get();
 	}
 
+	/** The order. */
 	static int ORDER = 0;
 
+	/** The order. */
 	private final int order = ORDER++;
+	
+	/** The in gaml. */
 	private final boolean inGaml;
 
+	/** The comment. */
 	String key, title, tab, group, comment;
+	
+	/** The disabled. */
 	boolean disabled = false; // by default
+	
+	/** The hidden. */
 	boolean hidden = false; // by default
+	
+	/** The restart required. */
 	boolean restartRequired = false; // by default
+	
+	/** The initial provider. */
 	ValueProvider<T> initialProvider;
+	
+	/** The initial. */
 	T value, initial;
+	
+	/** The type. */
 	final int type;
+	
+	/** The values. */
 	List<T> values;
+	
+	/** The max. */
 	Comparable min, max;
+	
+	/** The slider. */
 	boolean slider = true; // by default
+	
+	/** The refreshes. */
 	String[] enables, disables, refreshes;
+	
+	/** The listeners. */
 	Set<IPreferenceChangeListener<T>> listeners = new HashSet<>();
 	// private T[] v;
 
+	/**
+	 * Instantiates a new pref.
+	 *
+	 * @param key the key
+	 * @param type the type
+	 * @param inGaml the in gaml
+	 */
 	Pref(final String key, final int type, final boolean inGaml) {
 		this.type = type;
 		this.key = key;
 		this.inGaml = inGaml;
 	}
 
+	/**
+	 * Disabled.
+	 *
+	 * @return the pref
+	 */
 	public Pref<T> disabled() {
 		disabled = true;
 		return this;
 	}
 
+	/**
+	 * Checks if is disabled.
+	 *
+	 * @return true, if is disabled
+	 */
 	public boolean isDisabled() {
 		return disabled;
 	}
 
+	/**
+	 * On change.
+	 *
+	 * @param consumer the consumer
+	 * @return the pref
+	 */
 	public Pref<T> onChange(final IPreferenceAfterChangeListener<T> consumer) {
 		addChangeListener(consumer);
 		return this;
@@ -78,49 +143,105 @@ public class Pref<T> implements IParameter {
 		return order;
 	}
 
+	/**
+	 * Among.
+	 *
+	 * @param v the v
+	 * @return the pref
+	 */
 	public Pref<T> among(@SuppressWarnings ("unchecked") final T... v) {
 		return among(Arrays.asList(v));
 	}
 
+	/**
+	 * Among.
+	 *
+	 * @param v the v
+	 * @return the pref
+	 */
 	public Pref<T> among(final List<T> v) {
 		this.values = v;
 		return this;
 	}
 
+	/**
+	 * Between.
+	 *
+	 * @param mini the mini
+	 * @param maxi the maxi
+	 * @return the pref
+	 */
 	public Pref<T> between(final Comparable mini, final Comparable maxi) {
 		this.min = mini;
 		this.max = maxi;
 		return this;
 	}
 
+	/**
+	 * In.
+	 *
+	 * @param category the category
+	 * @param aGroup the a group
+	 * @return the pref
+	 */
 	public Pref<T> in(final String category, final String aGroup) {
 		this.tab = category;
 		this.group = aGroup;
 		return this;
 	}
 
+	/**
+	 * With comment.
+	 *
+	 * @param aComment the a comment
+	 * @return the pref
+	 */
 	public Pref<T> withComment(final String aComment) {
 		setUnitLabel(aComment);
 		return this;
 	}
 
+	/**
+	 * Named.
+	 *
+	 * @param t the t
+	 * @return the pref
+	 */
 	public Pref<T> named(final String t) {
 		this.title = t;
 		// this.title = t + " [" + key + "]";
 		return this;
 	}
 
+	/**
+	 * Inits the.
+	 *
+	 * @param v the v
+	 * @return the pref
+	 */
 	public Pref<T> init(final T v) {
 		this.initial = v;
 		this.value = v;
 		return this;
 	}
 
+	/**
+	 * Inits the.
+	 *
+	 * @param p the p
+	 * @return the pref
+	 */
 	public Pref<T> init(final ValueProvider<T> p) {
 		initialProvider = p;
 		return this;
 	}
 
+	/**
+	 * Sets the.
+	 *
+	 * @param value the value
+	 * @return the pref
+	 */
 	public Pref<T> set(final T value) {
 		if (isValueChanged(value) && acceptChange(value)) {
 			this.value = value;
@@ -129,25 +250,54 @@ public class Pref<T> implements IParameter {
 		return this;
 	}
 
+	/**
+	 * Checks if is value changed.
+	 *
+	 * @param newValue the new value
+	 * @return true, if is value changed
+	 */
 	private boolean isValueChanged(final T newValue) {
 		return value == null ? newValue != null : !value.equals(newValue);
 	}
 
+	/**
+	 * Activates.
+	 *
+	 * @param link the link
+	 * @return the pref
+	 */
 	public Pref<T> activates(final String... link) {
 		enables = link;
 		return this;
 	}
 
+	/**
+	 * Deactivates.
+	 *
+	 * @param link the link
+	 * @return the pref
+	 */
 	public Pref<T> deactivates(final String... link) {
 		disables = link;
 		return this;
 	}
 
+	/**
+	 * Refreshes.
+	 *
+	 * @param link the link
+	 * @return the pref
+	 */
 	public Pref<T> refreshes(final String... link) {
 		refreshes = link;
 		return this;
 	}
 
+	/**
+	 * Gets the value.
+	 *
+	 * @return the value
+	 */
 	public T getValue() {
 		if (initialProvider != null) {
 			init(initialProvider.get());
@@ -166,10 +316,20 @@ public class Pref<T> implements IParameter {
 		return title;
 	}
 
+	/**
+	 * Gets the key.
+	 *
+	 * @return the key
+	 */
 	public String getKey() {
 		return key;
 	}
 
+	/**
+	 * Gets the values.
+	 *
+	 * @return the values
+	 */
 	public List<T> getValues() {
 		return values;
 	}
@@ -200,15 +360,29 @@ public class Pref<T> implements IParameter {
 		set((T) value);
 	}
 
+	/**
+	 * Adds the change listener.
+	 *
+	 * @param r the r
+	 * @return the pref
+	 */
 	public Pref<T> addChangeListener(final IPreferenceChangeListener<T> r) {
 		listeners.add(r);
 		return this;
 	}
 
+	/**
+	 * Removes the change listener.
+	 *
+	 * @param r the r
+	 */
 	public void removeChangeListener(final IPreferenceChangeListener<T> r) {
 		listeners.remove(r);
 	}
 
+	/**
+	 * Removes the change listeners.
+	 */
 	public void removeChangeListeners() {
 		listeners.clear();
 	}
@@ -267,6 +441,9 @@ public class Pref<T> implements IParameter {
 
 	/**
 	 * If the value is modified, this method is called. Should return true to accept the change, false otherwise
+	 *
+	 * @param newValue the new value
+	 * @return true, if successful
 	 */
 	public boolean acceptChange(final T newValue) {
 		for (final IPreferenceChangeListener<T> listener : listeners) {
@@ -275,6 +452,11 @@ public class Pref<T> implements IParameter {
 		return true;
 	}
 
+	/**
+	 * After change.
+	 *
+	 * @param newValue the new value
+	 */
 	protected void afterChange(final T newValue) {
 		initialProvider = null;
 		for (final IPreferenceChangeListener<T> listener : listeners) {
@@ -292,10 +474,18 @@ public class Pref<T> implements IParameter {
 		return this.disables;
 	}
 
+	/**
+	 * Gets the refreshment.
+	 *
+	 * @return the refreshment
+	 */
 	public String[] getRefreshment() {
 		return this.refreshes;
 	}
 
+	/**
+	 * Save.
+	 */
 	public void save() {
 		final Map<String, Object> map = GamaMapFactory.createUnordered();
 		map.put(getName(), getValue());
@@ -307,24 +497,49 @@ public class Pref<T> implements IParameter {
 		return slider;
 	}
 
+	/**
+	 * Hidden.
+	 *
+	 * @return the pref
+	 */
 	public Pref<T> hidden() {
 		hidden = true;
 		return this;
 	}
 
+	/**
+	 * Checks if is hidden.
+	 *
+	 * @return true, if is hidden
+	 */
 	public boolean isHidden() {
 		return hidden;
 	}
 
+	/**
+	 * Restart required.
+	 *
+	 * @return the pref
+	 */
 	public Pref<T> restartRequired() {
 		restartRequired = true;
 		return this;
 	}
 
+	/**
+	 * Checks if is restart required.
+	 *
+	 * @return true, if is restart required
+	 */
 	public boolean isRestartRequired() {
 		return restartRequired;
 	}
 
+	/**
+	 * In gaml.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean inGaml() {
 		return inGaml;
 	}

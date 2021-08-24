@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GamlResourceIndexer.java, in plugin msi.gama.lang.gaml, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * GamlResourceIndexer.java, in gama.core.lang, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.core.lang.indexer;
 
 import java.util.Collection;
@@ -46,10 +45,14 @@ import gama.core.lang.resource.GamlResourceServices;
 import gama.util.GamaMapFactory;
 import gama.util.IMap;
 
+/**
+ * The Class GamlResourceIndexer.
+ */
 @Singleton
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class GamlResourceIndexer {
 
+	/** The index. */
 	static SimpleDirectedGraph<URI, Edge> index = new SimpleDirectedGraph(Edge.class);
 
 	static {
@@ -61,10 +64,19 @@ public class GamlResourceIndexer {
 		}, IResourceChangeEvent.PRE_BUILD);
 	}
 
+	/** The Constant EMPTY_MAP. */
 	protected final static IMap EMPTY_MAP = GamaMapFactory.create();
 
+	/** The Constant IMPORTED_URIS. */
 	public static final Object IMPORTED_URIS = "ImportedURIs";
 
+	/**
+	 * Gets the imports as absolute URIS.
+	 *
+	 * @param baseURI the base URI
+	 * @param m the m
+	 * @return the imports as absolute URIS
+	 */
 	protected static IMap<URI, String> getImportsAsAbsoluteURIS(final URI baseURI, final Model m) {
 		IMap<URI, String> result = EMPTY_MAP;
 		if (((ModelImpl) m).eIsSet(GamlPackage.MODEL__IMPORTS)) {
@@ -82,6 +94,13 @@ public class GamlResourceIndexer {
 		return result;
 	}
 
+	/**
+	 * Gets the imports as absolute URIS.
+	 *
+	 * @param baseURI the base URI
+	 * @param m the m
+	 * @return the imports as absolute URIS
+	 */
 	protected static IMap<URI, String> getImportsAsAbsoluteURIS(final URI baseURI, final ExperimentFileStructure m) {
 		final IMap<URI, String> result = GamaMapFactory.create();
 		final String u = m.getExp().getImportURI();
@@ -94,38 +113,84 @@ public class GamlResourceIndexer {
 		return result;
 	}
 
+	/**
+	 * All labeled imports of.
+	 *
+	 * @param r the r
+	 * @return the i map
+	 */
 	public static IMap<URI, String> allLabeledImportsOf(final GamlResource r) {
 		return r.getCache().get(IMPORTED_URIS, r, () -> allLabeledImportsOf(r.getURI()));
 	}
 
+	/**
+	 * The Class Edge.
+	 */
 	static class Edge {
+		
+		/** The label. */
 		String label;
+		
+		/** The target. */
 		final URI target;
 
+		/**
+		 * Instantiates a new edge.
+		 *
+		 * @param l the l
+		 * @param target the target
+		 */
 		Edge(final String l, final URI target) {
 			this.label = l;
 			this.target = target;
 		}
 
+		/**
+		 * Gets the target.
+		 *
+		 * @return the target
+		 */
 		URI getTarget() {
 			return target;
 		}
 
+		/**
+		 * Gets the label.
+		 *
+		 * @return the label
+		 */
 		String getLabel() {
 			return label;
 		}
 
+		/**
+		 * Sets the label.
+		 *
+		 * @param b the new label
+		 */
 		public void setLabel(final String b) {
 			label = b;
 		}
 	}
 
+	/**
+	 * Adds the import.
+	 *
+	 * @param from the from
+	 * @param to the to
+	 * @param label the label
+	 */
 	static void addImport(final URI from, final URI to, final String label) {
 		index.addVertex(to);
 		index.addVertex(from);
 		index.addEdge(from, to, new Edge(label, to));
 	}
 
+	/**
+	 * Clear resource set.
+	 *
+	 * @param resourceSet the resource set
+	 */
 	public static void clearResourceSet(final ResourceSet resourceSet) {
 		final boolean wasDeliver = resourceSet.eDeliver();
 		try {
@@ -137,7 +202,10 @@ public class GamlResourceIndexer {
 	}
 
 	/**
-	 * Synchronized method to avoid concurrent errors in the graph in case of a parallel resource loader
+	 * Synchronized method to avoid concurrent errors in the graph in case of a parallel resource loader.
+	 *
+	 * @param r the r
+	 * @return the e object
 	 */
 	public static synchronized EObject updateImports(final GamlResource r) {
 		final URI baseURI = GamlResourceServices.properlyEncodedURI(r.getURI());
@@ -218,6 +286,12 @@ public class GamlResourceIndexer {
 
 	}
 
+	/**
+	 * Validate imports of.
+	 *
+	 * @param resource the resource
+	 * @return the linked hash multimap
+	 */
 	public static LinkedHashMultimap<String, GamlResource> validateImportsOf(final GamlResource resource) {
 		final IMap<URI, String> uris = allLabeledImportsOf(resource);
 		uris.remove(GamlResourceServices.properlyEncodedURI(resource.getURI()));
@@ -238,6 +312,10 @@ public class GamlResourceIndexer {
 	}
 
 	/**
+	 * Direct importers of.
+	 *
+	 * @param uri the uri
+	 * @return the sets the
 	 * @see msi.gama.lang.gaml.indexer.IModelIndexer#directImportersOf(org.eclipse.emf.common.util.URI)
 	 */
 	public static Set<URI> directImportersOf(final URI uri) {
@@ -247,6 +325,10 @@ public class GamlResourceIndexer {
 	}
 
 	/**
+	 * Direct imports of.
+	 *
+	 * @param uri the uri
+	 * @return the sets the
 	 * @see msi.gama.lang.gaml.indexer.IModelIndexer#directImportsOf(org.eclipse.emf.common.util.URI)
 	 */
 	public static Set<URI> directImportsOf(final URI uri) {
@@ -255,6 +337,12 @@ public class GamlResourceIndexer {
 		return Collections.EMPTY_SET;
 	}
 
+	/**
+	 * All labeled imports of.
+	 *
+	 * @param uri the uri
+	 * @return the i map
+	 */
 	private static IMap<URI, String> allLabeledImportsOf(final URI uri) {
 		final URI newURI = GamlResourceServices.properlyEncodedURI(uri);
 		final IMap<URI, String> result = GamaMapFactory.create();
@@ -262,6 +350,13 @@ public class GamlResourceIndexer {
 		return result;
 	}
 
+	/**
+	 * All labeled imports.
+	 *
+	 * @param uri the uri
+	 * @param currentLabel the current label
+	 * @param result the result
+	 */
 	private static void allLabeledImports(final URI uri, final String currentLabel, final Map<URI, String> result) {
 		if (!result.containsKey(uri)) {
 			result.put(uri, currentLabel);
@@ -277,6 +372,10 @@ public class GamlResourceIndexer {
 	}
 
 	/**
+	 * All imports of.
+	 *
+	 * @param uri the uri
+	 * @return the iterator
 	 * @see msi.gama.lang.gaml.indexer.IModelIndexer#allImportsOf(org.eclipse.emf.common.util.URI)
 	 */
 	public static Iterator<URI> allImportsOf(final URI uri) {
@@ -288,21 +387,43 @@ public class GamlResourceIndexer {
 		return result;
 	}
 
+	/**
+	 * Indexes.
+	 *
+	 * @param uri the uri
+	 * @return true, if successful
+	 */
 	public static boolean indexes(final URI uri) {
 		return index.containsVertex(GamlResourceServices.properlyEncodedURI(uri));
 	}
 
+	/**
+	 * Equals.
+	 *
+	 * @param uri1 the uri 1
+	 * @param uri2 the uri 2
+	 * @return true, if successful
+	 */
 	public static boolean equals(final URI uri1, final URI uri2) {
 		if (uri1 == null) { return uri2 == null; }
 		if (uri2 == null) { return false; }
 		return GamlResourceServices.properlyEncodedURI(uri1).equals(GamlResourceServices.properlyEncodedURI(uri2));
 	}
 
+	/**
+	 * Erase index.
+	 */
 	public static void eraseIndex() {
 		// DEBUG.OUT("Erasing GAML indexer index");
 		index = new SimpleDirectedGraph(Edge.class);
 	}
 
+	/**
+	 * Checks if is imported.
+	 *
+	 * @param r the r
+	 * @return true, if is imported
+	 */
 	public static boolean isImported(final GamlResource r) {
 		return !directImportersOf(r.getURI()).isEmpty();
 	}

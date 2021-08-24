@@ -1,13 +1,13 @@
-/*******************************************************************************
- * Copyright (c) 2000, 2015 IBM Corporation and others.
+/*******************************************************************************************************
  *
- * This program and the accompanying materials are made available under the terms of the Eclipse Public License 2.0
- * which accompanies this distribution, and is available at https://www.eclipse.org/legal/epl-2.0/
+ * EditorAreaDropAdapter.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * SPDX-License-Identifier: EPL-2.0
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Contributors: IBM Corporation - initial API and implementation
- *******************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ui.base.workbench;
 
@@ -46,6 +46,8 @@ import org.eclipse.ui.part.ResourceTransfer;
  * and <code>ResourceTransfer</code>.
  */
 public class EditorAreaDropAdapter extends DropTargetAdapter {
+	
+	/** The window. */
 	private final IWorkbenchWindow window;
 
 	/**
@@ -86,6 +88,12 @@ public class EditorAreaDropAdapter extends DropTargetAdapter {
 		if (page != null) { d.asyncExec(() -> asyncDrop(event, page)); }
 	}
 
+	/**
+	 * Async drop.
+	 *
+	 * @param event the event
+	 * @param page the page
+	 */
 	private void asyncDrop(final DropTargetEvent event, final IWorkbenchPage page) {
 
 		/* Open Editor for generic IEditorInput */

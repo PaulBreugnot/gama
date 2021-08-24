@@ -1,15 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
+ * FIPAMessage.java, in gama.ext.fipa, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * 'Message.java', in plugin 'msi.gaml.extensions.fipa', is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
- *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.fipa;
 
 import gama.common.util.StringUtils;
@@ -34,32 +32,21 @@ public class FIPAMessage extends GamaMessage {
 	private MessageData data;
 
 	/**
-	 * @throws GamaRuntimeException
-	 *             Instantiates a new message proxy.
+	 * Instantiates a new FIPA message.
 	 *
-	 * @param sim
-	 *            the sim
-	 * @param s
-	 *            the s
-	 *
-	 * @throws GamlException
-	 *             the gaml exception
+	 * @param scope the scope
+	 * @throws GamaRuntimeException             Instantiates a new message proxy.
 	 */
 	public FIPAMessage(final IScope scope) {
 		super(scope, null, null, null);
 	}
 
 	/**
-	 * @throws GamaRuntimeException
-	 *             Instantiates a new message proxy.
+	 * Instantiates a new FIPA message.
 	 *
-	 * @param sim
-	 *            the sim
-	 * @param m
-	 *            the m
-	 *
-	 * @throws GamlException
-	 *             the gaml exception
+	 * @param scope the scope
+	 * @param m            the m
+	 * @throws GamaRuntimeException             Instantiates a new message proxy.
 	 */
 	public FIPAMessage(final IScope scope, final FIPAMessage m) throws GamaRuntimeException {
 		super(scope, m.getData().getSender(), null, m.getData().getContent());
@@ -72,24 +59,14 @@ public class FIPAMessage extends GamaMessage {
 	}
 
 	/**
-	 * @throws GamaRuntimeException
-	 *             Instantiates a new message proxy.
+	 * Instantiates a new FIPA message.
 	 *
-	 * @param sim
-	 *            the sim
-	 * @param sender
-	 *            the sender
-	 * @param receivers
-	 *            the receivers
-	 * @param content
-	 *            the content
-	 * @param performative
-	 *            the performative
-	 * @param conversation
-	 *            the conversation
-	 *
-	 * @throws GamlException
-	 *             the gaml exception
+	 * @param sender            the sender
+	 * @param receivers            the receivers
+	 * @param content            the content
+	 * @param performative            the performative
+	 * @param conversation            the conversation
+	 * @throws GamaRuntimeException             Instantiates a new message proxy.
 	 */
 	public FIPAMessage(final IAgent sender, final IList<IAgent> receivers, final IList content,
 			final Performative performative, final Conversation conversation) throws GamaRuntimeException {
@@ -100,6 +77,11 @@ public class FIPAMessage extends GamaMessage {
 		getData().setConversation(conversation);
 	}
 
+	/**
+	 * Gets the conversation.
+	 *
+	 * @return the conversation
+	 */
 	public Conversation getConversation() {
 		return getData().getConversation();
 	}
@@ -141,6 +123,11 @@ public class FIPAMessage extends GamaMessage {
 		getData().setContent((IList) content);
 	}
 
+	/**
+	 * Gets the data.
+	 *
+	 * @return the data
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -175,6 +162,11 @@ public class FIPAMessage extends GamaMessage {
 			getData().setSender(sender);
 	}
 
+	/**
+	 * Gets the performative.
+	 *
+	 * @return the performative
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -184,6 +176,11 @@ public class FIPAMessage extends GamaMessage {
 		return getData().getPerformative();
 	}
 
+	/**
+	 * Sets the performative.
+	 *
+	 * @param performative the new performative
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -224,14 +221,29 @@ public class FIPAMessage extends GamaMessage {
 		return m;
 	}
 
+	/**
+	 * Sets the receivers.
+	 *
+	 * @param receivers the new receivers
+	 */
 	public void setReceivers(final IList receivers) {
 		getData().setReceivers(receivers);
 	}
 
+	/**
+	 * Gets the performative name.
+	 *
+	 * @return the performative name
+	 */
 	public String getPerformativeName() {
 		return getData().getPerformativeName();
 	}
 
+	/**
+	 * Sets the conversation.
+	 *
+	 * @param conversation2 the new conversation
+	 */
 	public void setConversation(final Conversation conversation2) {
 		getData().setConversation(conversation2);
 

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Placemark.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -108,6 +118,8 @@ public class Placemark
      */
     @XmlElementRef(name = "AbstractGeometryGroup", namespace = "http://www.opengis.net/kml/2.2", required = false)
     protected Geometry geometry;
+    
+    /** The placemark simple extension. */
     @XmlElement(name = "PlacemarkSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> placemarkSimpleExtension;
@@ -132,15 +144,17 @@ public class Placemark
     @XmlElement(name = "PlacemarkObjectExtensionGroup")
     protected List<AbstractObject> placemarkObjectExtension;
 
+    /**
+     * Instantiates a new placemark.
+     */
     public Placemark() {
         super();
     }
 
     /**
-     * @see geometry
-     * 
-     * @return
-     *     possible object is
+     * Gets the geometry.
+     *
+     * @return     possible object is
      *     {@code <}{@link Geometry}{@code>}
      *     {@code <}{@link Point}{@code>}
      *     {@code <}{@link LinearRing}{@code>}
@@ -150,17 +164,16 @@ public class Placemark
      *     {@code <}{@link Model}{@code>}
      *     {@code <}{@link LineString}{@code>}
      *     {@code <}{@link MultiGeometry}{@code>}
-     *     
+     * @see geometry
      */
     public Geometry getGeometry() {
         return geometry;
     }
 
     /**
-     * @see geometry
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the geometry.
+     *
+     * @param value     allowed object is
      *     {@code <}{@link Geometry}{@code>}
      *     {@code <}{@link Point}{@code>}
      *     {@code <}{@link LinearRing}{@code>}
@@ -170,15 +183,17 @@ public class Placemark
      *     {@code <}{@link Model}{@code>}
      *     {@code <}{@link LineString}{@code>}
      *     {@code <}{@link MultiGeometry}{@code>}
-     *     
+     * @see geometry
      */
     public void setGeometry(Geometry value) {
         this.geometry = (value);
     }
 
     /**
+     * Gets the placemark simple extension.
+     *
+     * @return the placemark simple extension
      * @see placemarkSimpleExtension
-     * 
      */
     public List<Object> getPlacemarkSimpleExtension() {
         if (placemarkSimpleExtension == null) {
@@ -188,8 +203,10 @@ public class Placemark
     }
 
     /**
+     * Gets the placemark object extension.
+     *
+     * @return the placemark object extension
      * @see placemarkObjectExtension
-     * 
      */
     public List<AbstractObject> getPlacemarkObjectExtension() {
         if (placemarkObjectExtension == null) {
@@ -260,8 +277,8 @@ public class Placemark
      * <code>
      * MultiTrack multiTrack = new MultiTrack();
      * this.setGeometry(multiTrack); </code>
-     * 
-     * 
+     *
+     * @return the multi track
      */
     public MultiTrack createAndSetMultiTrack() {
         MultiTrack newValue = new MultiTrack();
@@ -276,8 +293,8 @@ public class Placemark
      * <code>
      * Track track = new Track();
      * this.setGeometry(track); </code>
-     * 
-     * 
+     *
+     * @return the track
      */
     public Track createAndSetTrack() {
         Track newValue = new Track();
@@ -292,8 +309,8 @@ public class Placemark
      * <code>
      * LinearRing linearRing = new LinearRing();
      * this.setGeometry(linearRing); </code>
-     * 
-     * 
+     *
+     * @return the linear ring
      */
     public LinearRing createAndSetLinearRing() {
         LinearRing newValue = new LinearRing();
@@ -308,8 +325,8 @@ public class Placemark
      * <code>
      * Point point = new Point();
      * this.setGeometry(point); </code>
-     * 
-     * 
+     *
+     * @return the point
      */
     public Point createAndSetPoint() {
         Point newValue = new Point();
@@ -324,8 +341,8 @@ public class Placemark
      * <code>
      * Model model = new Model();
      * this.setGeometry(model); </code>
-     * 
-     * 
+     *
+     * @return the model
      */
     public Model createAndSetModel() {
         Model newValue = new Model();
@@ -340,8 +357,8 @@ public class Placemark
      * <code>
      * MultiGeometry multiGeometry = new MultiGeometry();
      * this.setGeometry(multiGeometry); </code>
-     * 
-     * 
+     *
+     * @return the multi geometry
      */
     public MultiGeometry createAndSetMultiGeometry() {
         MultiGeometry newValue = new MultiGeometry();
@@ -356,8 +373,8 @@ public class Placemark
      * <code>
      * LineString lineString = new LineString();
      * this.setGeometry(lineString); </code>
-     * 
-     * 
+     *
+     * @return the line string
      */
     public LineString createAndSetLineString() {
         LineString newValue = new LineString();
@@ -372,8 +389,8 @@ public class Placemark
      * <code>
      * Polygon polygon = new Polygon();
      * this.setGeometry(polygon); </code>
-     * 
-     * 
+     *
+     * @return the polygon
      */
     public Polygon createAndSetPolygon() {
         Polygon newValue = new Polygon();
@@ -382,21 +399,20 @@ public class Placemark
     }
 
     /**
+     * Sets the placemark simple extension.
+     *
+     * @param placemarkSimpleExtension the new placemark simple extension
      * @see placemarkSimpleExtension
-     * 
-     * @param placemarkSimpleExtension
      */
     public void setPlacemarkSimpleExtension(final List<Object> placemarkSimpleExtension) {
         this.placemarkSimpleExtension = placemarkSimpleExtension;
     }
 
     /**
-     * add a value to the placemarkSimpleExtension property collection
-     * 
-     * @param placemarkSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the placemarkSimpleExtension property collection.
+     *
+     * @param placemarkSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Placemark addToPlacemarkSimpleExtension(final Object placemarkSimpleExtension) {
         this.getPlacemarkSimpleExtension().add(placemarkSimpleExtension);
@@ -404,21 +420,20 @@ public class Placemark
     }
 
     /**
+     * Sets the placemark object extension.
+     *
+     * @param placemarkObjectExtension the new placemark object extension
      * @see placemarkObjectExtension
-     * 
-     * @param placemarkObjectExtension
      */
     public void setPlacemarkObjectExtension(final List<AbstractObject> placemarkObjectExtension) {
         this.placemarkObjectExtension = placemarkObjectExtension;
     }
 
     /**
-     * add a value to the placemarkObjectExtension property collection
-     * 
-     * @param placemarkObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the placemarkObjectExtension property collection.
+     *
+     * @param placemarkObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Placemark addToPlacemarkObjectExtension(final AbstractObject placemarkObjectExtension) {
         this.getPlacemarkObjectExtension().add(placemarkObjectExtension);
@@ -494,11 +509,11 @@ public class Placemark
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param geometry     required parameter
+     * @return the placemark
      * @see #setGeometry(Geometry)
-     * 
-     * @param geometry
-     *     required parameter
      */
     public Placemark withGeometry(final Geometry geometry) {
         this.setGeometry(geometry);
@@ -506,11 +521,11 @@ public class Placemark
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param placemarkSimpleExtension     required parameter
+     * @return the placemark
      * @see #setPlacemarkSimpleExtension(List<Object>)
-     * 
-     * @param placemarkSimpleExtension
-     *     required parameter
      */
     public Placemark withPlacemarkSimpleExtension(final List<Object> placemarkSimpleExtension) {
         this.setPlacemarkSimpleExtension(placemarkSimpleExtension);
@@ -518,11 +533,11 @@ public class Placemark
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param placemarkObjectExtension     required parameter
+     * @return the placemark
      * @see #setPlacemarkObjectExtension(List<AbstractObject>)
-     * 
-     * @param placemarkObjectExtension
-     *     required parameter
      */
     public Placemark withPlacemarkObjectExtension(final List<AbstractObject> placemarkObjectExtension) {
         this.setPlacemarkObjectExtension(placemarkObjectExtension);

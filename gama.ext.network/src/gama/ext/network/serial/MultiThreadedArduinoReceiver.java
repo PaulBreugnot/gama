@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * MultiThreadedArduinoReceiver.java, in gama.ext.network, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.network.serial;
 
 import arduino.Arduino;
@@ -7,16 +17,33 @@ import gaml.extensions.messaging.GamaMessage;
 import gaml.extensions.messaging.MessagingSkill;
 import gama.metamodel.agent.IAgent;
 
+/**
+ * The Class MultiThreadedArduinoReceiver.
+ */
 public class MultiThreadedArduinoReceiver extends Thread {
 	static {
 		DEBUG.ON();
 	}
 
+	/** The my agent. */
 	private final IAgent myAgent;
+	
+	/** The closed. */
 	private volatile boolean closed = false;
+	
+	/** The timer. */
 	private int timer = 1000;
+	
+	/** The arduino. */
 	private Arduino arduino;
 	
+	/**
+	 * Instantiates a new multi threaded arduino receiver.
+	 *
+	 * @param a the a
+	 * @param _timer the timer
+	 * @param ard the ard
+	 */
 	public MultiThreadedArduinoReceiver(final IAgent a, final int _timer, final Arduino ard) {
 		myAgent = a;
 		arduino = ard;

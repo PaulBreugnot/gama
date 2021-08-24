@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'Popup.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * Popup2.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.controls;
 
 import java.util.ArrayList;
@@ -44,11 +43,16 @@ import gaml.compilation.GAML;
  */
 public class Popup2 extends PopupDialog {
 
+	/** The contents. */
 	Composite parent, contents;
 
+	/** The hide. */
 	final Listener hide = event -> hide();
+	
+	/** The display. */
 	final Runnable display = () -> WorkbenchHelper.asyncRun(() -> display());
 
+	/** The mtl. */
 	private final MouseTrackListener mtl = new MouseTrackListener() {
 
 		@Override
@@ -69,8 +73,15 @@ public class Popup2 extends PopupDialog {
 
 	};
 
+	/** The provider. */
 	private final IPopupProvider provider;
 
+	/**
+	 * Instantiates a new popup 2.
+	 *
+	 * @param provider the provider
+	 * @param controls the controls
+	 */
 	/*
 	 *
 	 */
@@ -134,6 +145,9 @@ public class Popup2 extends PopupDialog {
 		return contents;
 	}
 
+	/**
+	 * Update contents.
+	 */
 	public void updateContents() {
 		createContents(parent);
 	}
@@ -185,10 +199,18 @@ public class Popup2 extends PopupDialog {
 		return provider.getAbsoluteOrigin();
 	}
 
+	/**
+	 * Checks if is visible.
+	 *
+	 * @return true, if is visible
+	 */
 	public boolean isVisible() {
 		return getShell() != null && getShell().isVisible();
 	}
 
+	/**
+	 * Adjust size.
+	 */
 	protected void adjustSize() {
 		final Shell shell = getShell();
 		shell.layout();
@@ -197,6 +219,9 @@ public class Popup2 extends PopupDialog {
 		shell.setSize(getDefaultSize());
 	}
 
+	/**
+	 * Display.
+	 */
 	public void display() {
 		if (getShell() != null && !getShell().isDisposed()) {
 			updateContents();
@@ -207,6 +232,9 @@ public class Popup2 extends PopupDialog {
 		}
 	}
 
+	/**
+	 * Hide.
+	 */
 	public void hide() {
 		if (getShell() != null && !getShell().isDisposed()) {
 			getShell().setVisible(false);

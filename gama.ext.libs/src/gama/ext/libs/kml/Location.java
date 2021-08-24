@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Location.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -94,6 +104,8 @@ public class Location
      */
     @XmlElement(defaultValue = "0.0")
     protected double altitude;
+    
+    /** The location simple extension. */
     @XmlElement(name = "LocationSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> locationSimpleExtension;
@@ -118,85 +130,84 @@ public class Location
     @XmlElement(name = "LocationObjectExtensionGroup")
     protected List<AbstractObject> locationObjectExtension;
 
+    /**
+     * Instantiates a new location.
+     */
     public Location() {
         super();
     }
 
     /**
-     * @see longitude
-     * 
-     * @return
-     *     possible object is
+     * Gets the longitude.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see longitude
      */
     public double getLongitude() {
         return longitude;
     }
 
     /**
-     * @see longitude
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the longitude.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see longitude
      */
     public void setLongitude(double value) {
         this.longitude = value;
     }
 
     /**
-     * @see latitude
-     * 
-     * @return
-     *     possible object is
+     * Gets the latitude.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see latitude
      */
     public double getLatitude() {
         return latitude;
     }
 
     /**
-     * @see latitude
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the latitude.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see latitude
      */
     public void setLatitude(double value) {
         this.latitude = value;
     }
 
     /**
-     * @see altitude
-     * 
-     * @return
-     *     possible object is
+     * Gets the altitude.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see altitude
      */
     public double getAltitude() {
         return altitude;
     }
 
     /**
-     * @see altitude
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the altitude.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see altitude
      */
     public void setAltitude(double value) {
         this.altitude = value;
     }
 
     /**
+     * Gets the location simple extension.
+     *
+     * @return the location simple extension
      * @see locationSimpleExtension
-     * 
      */
     public List<Object> getLocationSimpleExtension() {
         if (locationSimpleExtension == null) {
@@ -206,8 +217,10 @@ public class Location
     }
 
     /**
+     * Gets the location object extension.
+     *
+     * @return the location object extension
      * @see locationObjectExtension
-     * 
      */
     public List<AbstractObject> getLocationObjectExtension() {
         if (locationObjectExtension == null) {
@@ -278,21 +291,20 @@ public class Location
     }
 
     /**
+     * Sets the location simple extension.
+     *
+     * @param locationSimpleExtension the new location simple extension
      * @see locationSimpleExtension
-     * 
-     * @param locationSimpleExtension
      */
     public void setLocationSimpleExtension(final List<Object> locationSimpleExtension) {
         this.locationSimpleExtension = locationSimpleExtension;
     }
 
     /**
-     * add a value to the locationSimpleExtension property collection
-     * 
-     * @param locationSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the locationSimpleExtension property collection.
+     *
+     * @param locationSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Location addToLocationSimpleExtension(final Object locationSimpleExtension) {
         this.getLocationSimpleExtension().add(locationSimpleExtension);
@@ -300,21 +312,20 @@ public class Location
     }
 
     /**
+     * Sets the location object extension.
+     *
+     * @param locationObjectExtension the new location object extension
      * @see locationObjectExtension
-     * 
-     * @param locationObjectExtension
      */
     public void setLocationObjectExtension(final List<AbstractObject> locationObjectExtension) {
         this.locationObjectExtension = locationObjectExtension;
     }
 
     /**
-     * add a value to the locationObjectExtension property collection
-     * 
-     * @param locationObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the locationObjectExtension property collection.
+     *
+     * @param locationObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Location addToLocationObjectExtension(final AbstractObject locationObjectExtension) {
         this.getLocationObjectExtension().add(locationObjectExtension);
@@ -339,11 +350,11 @@ public class Location
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param longitude     required parameter
+     * @return the location
      * @see #setLongitude(double)
-     * 
-     * @param longitude
-     *     required parameter
      */
     public Location withLongitude(final double longitude) {
         this.setLongitude(longitude);
@@ -351,11 +362,11 @@ public class Location
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param latitude     required parameter
+     * @return the location
      * @see #setLatitude(double)
-     * 
-     * @param latitude
-     *     required parameter
      */
     public Location withLatitude(final double latitude) {
         this.setLatitude(latitude);
@@ -363,11 +374,11 @@ public class Location
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param altitude     required parameter
+     * @return the location
      * @see #setAltitude(double)
-     * 
-     * @param altitude
-     *     required parameter
      */
     public Location withAltitude(final double altitude) {
         this.setAltitude(altitude);
@@ -375,11 +386,11 @@ public class Location
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param locationSimpleExtension     required parameter
+     * @return the location
      * @see #setLocationSimpleExtension(List<Object>)
-     * 
-     * @param locationSimpleExtension
-     *     required parameter
      */
     public Location withLocationSimpleExtension(final List<Object> locationSimpleExtension) {
         this.setLocationSimpleExtension(locationSimpleExtension);
@@ -387,11 +398,11 @@ public class Location
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param locationObjectExtension     required parameter
+     * @return the location
      * @see #setLocationObjectExtension(List<AbstractObject>)
-     * 
-     * @param locationObjectExtension
-     *     required parameter
      */
     public Location withLocationObjectExtension(final List<AbstractObject> locationObjectExtension) {
         this.setLocationObjectExtension(locationObjectExtension);

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.statements.draw.FileExecuter.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * FileExecuter.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.statements.draw;
 
@@ -26,11 +26,21 @@ import gama.util.file.GamaImageFile;
 import gaml.expressions.IExpression;
 import gaml.types.Types;
 
+/**
+ * The Class FileExecuter.
+ */
 @SuppressWarnings ({ "rawtypes" })
 class FileExecuter extends DrawExecuter {
 
+	/** The const img. */
 	private final GamaFile constImg;
 
+	/**
+	 * Instantiates a new file executer.
+	 *
+	 * @param item the item
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	FileExecuter(final IExpression item) throws GamaRuntimeException {
 		super(item);
 		constImg = item.isConst() ? (GamaFile) Types.FILE.cast(null, item.getConstValue(), null, false) : null;
@@ -60,6 +70,16 @@ class FileExecuter extends DrawExecuter {
 		return g.drawFile(file, attributes);
 	}
 
+	/**
+	 * Compute attributes.
+	 *
+	 * @param scope the scope
+	 * @param data the data
+	 * @param imageFile the image file
+	 * @param gisFile the gis file
+	 * @param twoD the two D
+	 * @return the file drawing attributes
+	 */
 	FileDrawingAttributes computeAttributes(final IScope scope, final DrawingData data, final boolean imageFile,
 			final boolean gisFile, final boolean twoD) {
 		final FileDrawingAttributes attributes = new FileDrawingAttributes(Scaling3D.of(data.size.get()),

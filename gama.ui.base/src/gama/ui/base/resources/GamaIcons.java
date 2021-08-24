@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GamaIcons.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * GamaIcons.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.resources;
 
 import java.util.HashMap;
@@ -35,39 +34,87 @@ import gama.ui.base.utils.WorkbenchHelper;
  */
 public class GamaIcons implements IIconProvider {
 
+	/** The Constant PLUGIN_ID. */
 	public static final String PLUGIN_ID = "gama.ui.base";
 
+	/** The instance. */
 	static private GamaIcons instance = new GamaIcons();
 
+	/**
+	 * Gets the single instance of GamaIcons.
+	 *
+	 * @return single instance of GamaIcons
+	 */
 	public static GamaIcons getInstance() {
 		return instance;
 	}
 
+	/** The Constant DEFAULT_PATH. */
 	static public final String DEFAULT_PATH = "/icons/";
+	
+	/** The Constant SIZER_PREFIX. */
 	static final String SIZER_PREFIX = "sizer_";
+	
+	/** The Constant COLOR_PREFIX. */
 	static final String COLOR_PREFIX = "color_";
 
+	/** The icon cache. */
 	Map<String, GamaIcon> iconCache = new HashMap<>();
+	
+	/** The image cache. */
 	Map<String, Image> imageCache = new HashMap<>();
 
+	/**
+	 * Gets the icon.
+	 *
+	 * @param name the name
+	 * @return the icon
+	 */
 	GamaIcon getIcon(final String name) {
 		return iconCache.get(name);
 	}
 
+	/**
+	 * Put image in cache.
+	 *
+	 * @param name the name
+	 * @param image the image
+	 * @return the image
+	 */
 	Image putImageInCache(final String name, final Image image) {
 		imageCache.put(name, image);
 		return image;
 
 	}
 
+	/**
+	 * Put icon in cache.
+	 *
+	 * @param name the name
+	 * @param icon the icon
+	 */
 	void putIconInCache(final String name, final GamaIcon icon) {
 		iconCache.put(name, icon);
 	}
 
+	/**
+	 * Gets the image in cache.
+	 *
+	 * @param code the code
+	 * @return the image in cache
+	 */
 	Image getImageInCache(final String code) {
 		return imageCache.get(code);
 	}
 
+	/**
+	 * Creates the sizer.
+	 *
+	 * @param color the color
+	 * @param width the width
+	 * @param height the height
+	 * @return the gama icon
+	 */
 	public static GamaIcon createSizer(final Color color, final int width, final int height) {
 		final String name = SIZER_PREFIX + width + "x" + height + color.hashCode();
 		GamaIcon sizer = getInstance().getIcon(name);
@@ -84,14 +131,35 @@ public class GamaIcons implements IIconProvider {
 		return sizer;
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param s the s
+	 * @return the gama icon
+	 */
 	public static GamaIcon create(final String s) {
 		return create(s, PLUGIN_ID);
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param code the code
+	 * @param plugin the plugin
+	 * @return the gama icon
+	 */
 	public static GamaIcon create(final String code, final String plugin) {
 		return create(code, code, plugin);
 	}
 
+	/**
+	 * Creates the.
+	 *
+	 * @param code the code
+	 * @param path the path
+	 * @param plugin the plugin
+	 * @return the gama icon
+	 */
 	public static GamaIcon create(final String code, final String path, final String plugin) {
 		GamaIcon result = getInstance().getIcon(code);
 		if (result == null) {
@@ -101,6 +169,15 @@ public class GamaIcons implements IIconProvider {
 		return result;
 	}
 
+	/**
+	 * Creates the color icon.
+	 *
+	 * @param s the s
+	 * @param gcolor the gcolor
+	 * @param width the width
+	 * @param height the height
+	 * @return the gama icon
+	 */
 	public static GamaIcon createColorIcon(final String s, final GamaUIColor gcolor, final int width,
 			final int height) {
 		final String name = COLOR_PREFIX + s;
@@ -126,12 +203,10 @@ public class GamaIcons implements IIconProvider {
 	}
 
 	/**
-	 * Creates an icon that needs to be disposed afterwards
+	 * Creates an icon that needs to be disposed afterwards.
 	 *
-	 * @param gcolor
-	 * @param width
-	 * @param height
-	 * @return
+	 * @param gcolor the gcolor
+	 * @return the image
 	 */
 	public static Image createTempColorIcon(final GamaUIColor gcolor) {
 		final String name = "color" + gcolor.getRGB().toString();
@@ -154,6 +229,12 @@ public class GamaIcons implements IIconProvider {
 		return image;
 	}
 
+	/**
+	 * Creates the temp round color icon.
+	 *
+	 * @param gcolor the gcolor
+	 * @return the image
+	 */
 	public static Image createTempRoundColorIcon(final GamaUIColor gcolor) {
 		final String name = "roundcolor" + gcolor.getRGB().toString();
 		final GamaIcon icon = getInstance().getIcon(name);

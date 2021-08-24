@@ -1,4 +1,13 @@
-// This software is released into the Public Domain. See copying.txt for details.
+/*******************************************************************************************************
+ *
+ * LegacyBoundElementProcessor.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.osmosis;
 
 import org.xml.sax.Attributes;
@@ -9,9 +18,14 @@ import org.xml.sax.Attributes;
  * @author Karl Newman
  */
 public class LegacyBoundElementProcessor extends SourceElementProcessor {
+	
+	/** The Constant ATTRIBUTE_NAME_BOX. */
 	private static final String ATTRIBUTE_NAME_BOX = "box";
+	
+	/** The Constant ATTRIBUTE_NAME_ORIGIN. */
 	private static final String ATTRIBUTE_NAME_ORIGIN = "origin";
 
+	/** The bound. */
 	private Bound bound;
 
 	/**

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="ummisco.gama.feature.modeling.ui"
+      id="gama.feature.ui.modeling"
       label="UI Components for designing models in  GAMA"
-      version="1.8.1.qualifier"
+      version="2.0.0.qualifier"
       provider-name="UMMISCO">
 
    <description url="http://gama-platform.org">
@@ -18,29 +18,29 @@
    </license>
 
    <url>
-      <update label="Gama 1.7.x Update Site" url="http://updates.gama-platform.org"/>
+      <update label="Gama Update Site" url="http://updates.gama-platform.org/2.0"/>
    </url>
 
    <requires>
-      <import feature="ummisco.gama.feature.core.ui" version="1.8.1.qualifier"/>
+      <import feature="gama.feature.ui.core" version="2.0.0.qualifier"/>
    </requires>
 
    <plugin
-         id="ummisco.gama.ui.modeling"
+         id="gama.ui.modeling"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="ummisco.gama.ui.navigator"
+         id="gama.ui.navigator"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="ummisco.gama.ui.viewers"
+         id="gama.ui.viewers"
          download-size="0"
          install-size="0"
          version="0.0.0"

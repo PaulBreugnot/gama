@@ -1,29 +1,13 @@
-/*
- * Java port of Bullet (c) 2008 Martin Dvorak <jezek2@advel.cz>
+/*******************************************************************************************************
  *
- * This source file is part of GIMPACT Library.
+ * ClipPolygon.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * For the latest info, see http://gimpact.sourceforge.net/
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Copyright (c) 2007 Francisco Leon Najera. C.C. 80087371.
- * email: projectileman@yahoo.com
- *
- * This software is provided 'as-is', without any express or implied warranty.
- * In no event will the authors be held liable for any damages arising from
- * the use of this software.
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
- * Permission is granted to anyone to use this software for any purpose, 
- * including commercial applications, and to alter it and redistribute it
- * freely, subject to the following restrictions:
- * 
- * 1. The origin of this software must not be misrepresented; you must not
- *    claim that you wrote the original software. If you use this software
- *    in a product, an acknowledgment in the product documentation would be
- *    appreciated but is not required.
- * 2. Altered source versions must be plainly marked as such, and must not be
- *    misrepresented as being the original software.
- * 3. This notice may not be removed or altered from any source distribution.
- */
+ ********************************************************************************************************/
 
 package com.bulletphysics.extras.gimpact;
 
@@ -35,17 +19,30 @@ import javax.vecmath.Vector3f;
 import javax.vecmath.Vector4f;
 
 /**
+ * The Class ClipPolygon.
  *
  * @author jezek2
  */
 class ClipPolygon {
 	
+	/**
+	 * Distance point plane.
+	 *
+	 * @param plane the plane
+	 * @param point the point
+	 * @return the float
+	 */
 	public static float distance_point_plane(Vector4f plane, Vector3f point) {
 		return VectorUtil.dot3(point, plane) - plane.w;
 	}
 
 	/**
 	 * Vector blending. Takes two vectors a, b, blends them together.
+	 *
+	 * @param vr the vr
+	 * @param va the va
+	 * @param vb the vb
+	 * @param blend_factor the blend factor
 	 */
 	public static void vec_blend(Vector3f vr, Vector3f va, Vector3f vb, float blend_factor) {
 		vr.scale(1f - blend_factor, va);
@@ -54,6 +51,13 @@ class ClipPolygon {
 
 	/**
 	 * This function calcs the distance from a 3D plane.
+	 *
+	 * @param point0 the point 0
+	 * @param point1 the point 1
+	 * @param dist0 the dist 0
+	 * @param dist1 the dist 1
+	 * @param clipped the clipped
+	 * @param clipped_count the clipped count
 	 */
 	public static void plane_clip_polygon_collect(Vector3f point0, Vector3f point1, float dist0, float dist1, ArrayList<Vector3f> clipped, int[] clipped_count) {
 		boolean _prevclassif = (dist0 > BulletGlobals.SIMD_EPSILON);
@@ -71,7 +75,11 @@ class ClipPolygon {
 
 	/**
 	 * Clips a polygon by a plane.
-	 * 
+	 *
+	 * @param plane the plane
+	 * @param polygon_points the polygon points
+	 * @param polygon_point_count the polygon point count
+	 * @param clipped the clipped
 	 * @return The count of the clipped counts
 	 */
 	public static int plane_clip_polygon(Vector4f plane, ArrayList<Vector3f> polygon_points, int polygon_point_count, ArrayList<Vector3f> clipped) {
@@ -118,7 +126,11 @@ class ClipPolygon {
 
 	/**
 	 * Clips a polygon by a plane.
-	 * 
+	 *
+	 * @param plane the plane
+	 * @param point0 the point 0
+	 * @param point1 the point 1
+	 * @param point2 the point 2
 	 * @param clipped must be an array of 16 points.
 	 * @return the count of the clipped counts
 	 */

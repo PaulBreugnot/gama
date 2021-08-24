@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.GamaDateInterval.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * GamaDateInterval.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.util;
 
@@ -53,28 +53,42 @@ public final class GamaDateInterval implements IList<GamaDate> {
 	 */
 	final GamaDate end;
 
+	/** The step. */
 	final Duration step;
 
+	/** The size. */
 	final Integer size;
 
 	/**
-	 * @param startInclusive
-	 *            the start instant, inclusive, MIN_DATE treated as unbounded, not null
-	 * @param endExclusive
-	 *            the end instant, exclusive, MAX_DATE treated as unbounded, not null
+	 * Of.
+	 *
+	 * @param startInclusive            the start instant, inclusive, MIN_DATE treated as unbounded, not null
+	 * @param endExclusive            the end instant, exclusive, MAX_DATE treated as unbounded, not null
 	 * @return the half-open interval, not null
-	 * @throws DateTimeException
-	 *             if the end is before the start
+	 * @throws DateTimeException             if the end is before the start
 	 */
 	public static GamaDateInterval of(final GamaDate startInclusive, final GamaDate endExclusive) {
 		return new GamaDateInterval(startInclusive, endExclusive);
 	}
 
+	/**
+	 * Instantiates a new gama date interval.
+	 *
+	 * @param startInclusive the start inclusive
+	 * @param endExclusive the end exclusive
+	 */
 	private GamaDateInterval(final GamaDate startInclusive, final GamaDate endExclusive) {
 		this(startInclusive, endExclusive,
 				Duration.of(Dates.DATES_TIME_STEP.getValue().longValue(), ChronoUnit.SECONDS));
 	}
 
+	/**
+	 * Instantiates a new gama date interval.
+	 *
+	 * @param startInclusive the start inclusive
+	 * @param endExclusive the end exclusive
+	 * @param step the step
+	 */
 	public GamaDateInterval(final GamaDate startInclusive, final GamaDate endExclusive, final Duration step) {
 		this.start = startInclusive;
 		this.end = endExclusive;
@@ -86,10 +100,20 @@ public final class GamaDateInterval implements IList<GamaDate> {
 		size = size();
 	}
 
+	/**
+	 * Gets the start.
+	 *
+	 * @return the start
+	 */
 	public GamaDate getStart() {
 		return start;
 	}
 
+	/**
+	 * Gets the end.
+	 *
+	 * @return the end
+	 */
 	public GamaDate getEnd() {
 		return end;
 	}
@@ -99,6 +123,12 @@ public final class GamaDateInterval implements IList<GamaDate> {
 		return start.equals(end);
 	}
 
+	/**
+	 * Contains.
+	 *
+	 * @param instant the instant
+	 * @return true, if successful
+	 */
 	public boolean contains(final GamaDate instant) {
 		return start.compareTo(instant) <= 0 && instant.compareTo(end) < 0;
 	}
@@ -424,6 +454,12 @@ public final class GamaDateInterval implements IList<GamaDate> {
 		return GamaListFactory.wrap(Types.DATE, this).matrixValue(scope, contentType, copy);
 	}
 
+	/**
+	 * Step.
+	 *
+	 * @param step the step
+	 * @return the i list
+	 */
 	public IList<GamaDate> step(final Double step) {
 		return new GamaDateInterval(start, end, Duration.of(step.longValue(), ChronoUnit.SECONDS));
 	}

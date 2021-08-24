@@ -1,10 +1,13 @@
-/*******************************************************************************
- * Copyright (c) 2000, 2008 IBM Corporation and others. All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is
- * available at http://www.eclipse.org/legal/epl-v10.html
+/*******************************************************************************************************
  *
- * Contributors: IBM Corporation - initial API and implementation
- *******************************************************************************/
+ * RenameResourceAction.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator.actions;
 
 import static org.eclipse.ui.internal.ide.IDEWorkbenchMessages.RenameResourceAction_operationTitle;
@@ -67,18 +70,25 @@ public class RenameResourceAction extends WorkspaceAction {
 
 	private String newNameWithoutExtension;
 
+	/** The model provider ids. */
 	private String[] modelProviderIds;
 
+	/** The Constant CHECK_RENAME_TITLE. */
 	private static final String CHECK_RENAME_TITLE = IDEWorkbenchMessages.RenameResourceAction_checkTitle;
 
+	/** The Constant CHECK_RENAME_MESSAGE. */
 	private static final String CHECK_RENAME_MESSAGE = IDEWorkbenchMessages.RenameResourceAction_readOnlyCheck;
 
+	/** The resource exists title. */
 	private static String RESOURCE_EXISTS_TITLE = IDEWorkbenchMessages.RenameResourceAction_resourceExists;
 
+	/** The resource exists message. */
 	private static String RESOURCE_EXISTS_MESSAGE = IDEWorkbenchMessages.RenameResourceAction_overwriteQuestion;
 
+	/** The project exists message. */
 	private static String PROJECT_EXISTS_MESSAGE = IDEWorkbenchMessages.RenameResourceAction_overwriteProjectQuestion;
 
+	/** The project exists title. */
 	private static String PROJECT_EXISTS_TITLE = IDEWorkbenchMessages.RenameResourceAction_projectExists;
 
 	/**
@@ -94,6 +104,9 @@ public class RenameResourceAction extends WorkspaceAction {
 		initAction();
 	}
 
+	/**
+	 * Inits the action.
+	 */
 	private void initAction() {
 		setToolTipText(IDEWorkbenchMessages.RenameResourceAction_toolTip);
 		setId(ID);
@@ -101,13 +114,12 @@ public class RenameResourceAction extends WorkspaceAction {
 	}
 
 	/**
-	 * Check if the user wishes to overwrite the supplied resource
+	 * Check if the user wishes to overwrite the supplied resource.
 	 *
+	 * @param shell            the shell to create the dialog in
+	 * @param destination            - the resource to be overwritten
+	 * @return true, if successful
 	 * @returns true if there is no collision or delete was successful
-	 * @param shell
-	 *            the shell to create the dialog in
-	 * @param destination
-	 *            - the resource to be overwritten
 	 */
 	private boolean checkOverwrite(final Shell shell, final IResource destination) {
 
@@ -135,6 +147,7 @@ public class RenameResourceAction extends WorkspaceAction {
 	 * Check if the supplied resource is read only or null. If it is then ask the user if they want to continue. Return
 	 * true if the resource is not read only or if the user has given permission.
 	 *
+	 * @param currentResource the current resource
 	 * @return boolean
 	 */
 	private boolean checkReadOnlyAndNull(final IResource currentResource) {
@@ -176,9 +189,8 @@ public class RenameResourceAction extends WorkspaceAction {
 	/**
 	 * Return the new name to be given to the target resource.
 	 *
+	 * @param resource            the resource to query status on
 	 * @return java.lang.String
-	 * @param resource
-	 *            the resource to query status on
 	 */
 	protected String queryNewResourceName(final IResource resource) {
 		final IWorkspace workspace = IDEWorkbenchPlugin.getPluginWorkspace();

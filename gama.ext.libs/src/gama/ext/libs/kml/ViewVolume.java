@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ViewVolume.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -122,6 +132,8 @@ public class ViewVolume
      */
     @XmlElement(defaultValue = "0.0")
     protected double near;
+    
+    /** The view volume simple extension. */
     @XmlElement(name = "ViewVolumeSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> viewVolumeSimpleExtension;
@@ -146,133 +158,128 @@ public class ViewVolume
     @XmlElement(name = "ViewVolumeObjectExtensionGroup")
     protected List<AbstractObject> viewVolumeObjectExtension;
 
+    /**
+     * Instantiates a new view volume.
+     */
     public ViewVolume() {
         super();
     }
 
     /**
-     * @see leftFov
-     * 
-     * @return
-     *     possible object is
+     * Gets the left fov.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see leftFov
      */
     public double getLeftFov() {
         return leftFov;
     }
 
     /**
-     * @see leftFov
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the left fov.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see leftFov
      */
     public void setLeftFov(double value) {
         this.leftFov = value;
     }
 
     /**
-     * @see rightFov
-     * 
-     * @return
-     *     possible object is
+     * Gets the right fov.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see rightFov
      */
     public double getRightFov() {
         return rightFov;
     }
 
     /**
-     * @see rightFov
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the right fov.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see rightFov
      */
     public void setRightFov(double value) {
         this.rightFov = value;
     }
 
     /**
-     * @see bottomFov
-     * 
-     * @return
-     *     possible object is
+     * Gets the bottom fov.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see bottomFov
      */
     public double getBottomFov() {
         return bottomFov;
     }
 
     /**
-     * @see bottomFov
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the bottom fov.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see bottomFov
      */
     public void setBottomFov(double value) {
         this.bottomFov = value;
     }
 
     /**
-     * @see topFov
-     * 
-     * @return
-     *     possible object is
+     * Gets the top fov.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see topFov
      */
     public double getTopFov() {
         return topFov;
     }
 
     /**
-     * @see topFov
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the top fov.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see topFov
      */
     public void setTopFov(double value) {
         this.topFov = value;
     }
 
     /**
-     * @see near
-     * 
-     * @return
-     *     possible object is
+     * Gets the near.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see near
      */
     public double getNear() {
         return near;
     }
 
     /**
-     * @see near
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the near.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see near
      */
     public void setNear(double value) {
         this.near = value;
     }
 
     /**
+     * Gets the view volume simple extension.
+     *
+     * @return the view volume simple extension
      * @see viewVolumeSimpleExtension
-     * 
      */
     public List<Object> getViewVolumeSimpleExtension() {
         if (viewVolumeSimpleExtension == null) {
@@ -282,8 +289,10 @@ public class ViewVolume
     }
 
     /**
+     * Gets the view volume object extension.
+     *
+     * @return the view volume object extension
      * @see viewVolumeObjectExtension
-     * 
      */
     public List<AbstractObject> getViewVolumeObjectExtension() {
         if (viewVolumeObjectExtension == null) {
@@ -364,21 +373,20 @@ public class ViewVolume
     }
 
     /**
+     * Sets the view volume simple extension.
+     *
+     * @param viewVolumeSimpleExtension the new view volume simple extension
      * @see viewVolumeSimpleExtension
-     * 
-     * @param viewVolumeSimpleExtension
      */
     public void setViewVolumeSimpleExtension(final List<Object> viewVolumeSimpleExtension) {
         this.viewVolumeSimpleExtension = viewVolumeSimpleExtension;
     }
 
     /**
-     * add a value to the viewVolumeSimpleExtension property collection
-     * 
-     * @param viewVolumeSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the viewVolumeSimpleExtension property collection.
+     *
+     * @param viewVolumeSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public ViewVolume addToViewVolumeSimpleExtension(final Object viewVolumeSimpleExtension) {
         this.getViewVolumeSimpleExtension().add(viewVolumeSimpleExtension);
@@ -386,21 +394,20 @@ public class ViewVolume
     }
 
     /**
+     * Sets the view volume object extension.
+     *
+     * @param viewVolumeObjectExtension the new view volume object extension
      * @see viewVolumeObjectExtension
-     * 
-     * @param viewVolumeObjectExtension
      */
     public void setViewVolumeObjectExtension(final List<AbstractObject> viewVolumeObjectExtension) {
         this.viewVolumeObjectExtension = viewVolumeObjectExtension;
     }
 
     /**
-     * add a value to the viewVolumeObjectExtension property collection
-     * 
-     * @param viewVolumeObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the viewVolumeObjectExtension property collection.
+     *
+     * @param viewVolumeObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public ViewVolume addToViewVolumeObjectExtension(final AbstractObject viewVolumeObjectExtension) {
         this.getViewVolumeObjectExtension().add(viewVolumeObjectExtension);
@@ -425,11 +432,11 @@ public class ViewVolume
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param leftFov     required parameter
+     * @return the view volume
      * @see #setLeftFov(double)
-     * 
-     * @param leftFov
-     *     required parameter
      */
     public ViewVolume withLeftFov(final double leftFov) {
         this.setLeftFov(leftFov);
@@ -437,11 +444,11 @@ public class ViewVolume
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param rightFov     required parameter
+     * @return the view volume
      * @see #setRightFov(double)
-     * 
-     * @param rightFov
-     *     required parameter
      */
     public ViewVolume withRightFov(final double rightFov) {
         this.setRightFov(rightFov);
@@ -449,11 +456,11 @@ public class ViewVolume
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param bottomFov     required parameter
+     * @return the view volume
      * @see #setBottomFov(double)
-     * 
-     * @param bottomFov
-     *     required parameter
      */
     public ViewVolume withBottomFov(final double bottomFov) {
         this.setBottomFov(bottomFov);
@@ -461,11 +468,11 @@ public class ViewVolume
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param topFov     required parameter
+     * @return the view volume
      * @see #setTopFov(double)
-     * 
-     * @param topFov
-     *     required parameter
      */
     public ViewVolume withTopFov(final double topFov) {
         this.setTopFov(topFov);
@@ -473,11 +480,11 @@ public class ViewVolume
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param near     required parameter
+     * @return the view volume
      * @see #setNear(double)
-     * 
-     * @param near
-     *     required parameter
      */
     public ViewVolume withNear(final double near) {
         this.setNear(near);
@@ -485,11 +492,11 @@ public class ViewVolume
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param viewVolumeSimpleExtension     required parameter
+     * @return the view volume
      * @see #setViewVolumeSimpleExtension(List<Object>)
-     * 
-     * @param viewVolumeSimpleExtension
-     *     required parameter
      */
     public ViewVolume withViewVolumeSimpleExtension(final List<Object> viewVolumeSimpleExtension) {
         this.setViewVolumeSimpleExtension(viewVolumeSimpleExtension);
@@ -497,11 +504,11 @@ public class ViewVolume
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param viewVolumeObjectExtension     required parameter
+     * @return the view volume
      * @see #setViewVolumeObjectExtension(List<AbstractObject>)
-     * 
-     * @param viewVolumeObjectExtension
-     *     required parameter
      */
     public ViewVolume withViewVolumeObjectExtension(final List<AbstractObject> viewVolumeObjectExtension) {
         this.setViewVolumeObjectExtension(viewVolumeObjectExtension);

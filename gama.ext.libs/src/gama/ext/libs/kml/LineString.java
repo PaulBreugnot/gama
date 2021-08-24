@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * LineString.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -125,18 +135,8 @@ public class LineString
     @XmlElement(defaultValue = "0")
     @XmlJavaTypeAdapter(BooleanConverter.class)
     protected Boolean tessellate;
-    /**
-     * AltitudeMode
-     * <p>
-     * clampToGround, relativeToGround, absolute 
-     * </p>
-     * 
-     * See Also: 
-     * See <LookAt> and <Region>
-     * 
-     * 
-     * 
-     */
+    
+    /** AltitudeMode <p> clampToGround, relativeToGround, absolute  </p>  See Also:  See <LookAt> and <Region>. */
     @XmlElement(defaultValue = "clampToGround")
     protected AltitudeMode altitudeMode;
     /**
@@ -163,6 +163,8 @@ public class LineString
     @XmlElement(namespace = "http://www.opengis.net/kml/2.2", type = String.class)
     @XmlJavaTypeAdapter(CoordinatesConverter.class)
     protected List<Coordinate> coordinates;
+    
+    /** The line string simple extension. */
     @XmlElement(name = "LineStringSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> lineStringSimpleExtension;
@@ -187,87 +189,86 @@ public class LineString
     @XmlElement(name = "LineStringObjectExtensionGroup")
     protected List<AbstractObject> lineStringObjectExtension;
 
+    /**
+     * Instantiates a new line string.
+     */
     public LineString() {
         super();
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Checks if is extrude.
+     *
+     * @return     possible object is
      *     {@link Boolean}
-     *     
      */
     public Boolean isExtrude() {
         return extrude;
     }
 
     /**
-     * @see extrude
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the extrude.
+     *
+     * @param value     allowed object is
      *     {@link Boolean}
-     *     
+     * @see extrude
      */
     public void setExtrude(Boolean value) {
         this.extrude = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Checks if is tessellate.
+     *
+     * @return     possible object is
      *     {@link Boolean}
-     *     
      */
     public Boolean isTessellate() {
         return tessellate;
     }
 
     /**
-     * @see tessellate
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the tessellate.
+     *
+     * @param value     allowed object is
      *     {@link Boolean}
-     *     
+     * @see tessellate
      */
     public void setTessellate(Boolean value) {
         this.tessellate = value;
     }
 
     /**
-     * @see altitudeMode
-     * 
-     * @return
-     *     possible object is
+     * Gets the altitude mode.
+     *
+     * @return     possible object is
      *     {@code <}{@link Object}{@code>}
      *     {@code <}{@link gama.ext.libs.kml.AltitudeMode}{@code>}
      *     {@code <}{@link msi.gama.ext.kml.gx.AltitudeMode}{@code>}
-     *     
+     * @see altitudeMode
      */
     public AltitudeMode getAltitudeMode() {
         return altitudeMode;
     }
 
     /**
-     * @see altitudeMode
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the altitude mode.
+     *
+     * @param value     allowed object is
      *     {@code <}{@link Object}{@code>}
      *     {@code <}{@link gama.ext.libs.kml.AltitudeMode}{@code>}
      *     {@code <}{@link msi.gama.ext.kml.gx.AltitudeMode}{@code>}
-     *     
+     * @see altitudeMode
      */
     public void setAltitudeMode(AltitudeMode value) {
         this.altitudeMode = value;
     }
 
     /**
+     * Gets the line string simple extension.
+     *
+     * @return the line string simple extension
      * @see lineStringSimpleExtension
-     * 
      */
     public List<Object> getLineStringSimpleExtension() {
         if (lineStringSimpleExtension == null) {
@@ -277,8 +278,10 @@ public class LineString
     }
 
     /**
+     * Gets the line string object extension.
+     *
+     * @return the line string object extension
      * @see lineStringObjectExtension
-     * 
      */
     public List<AbstractObject> getLineStringObjectExtension() {
         if (lineStringObjectExtension == null) {
@@ -288,8 +291,10 @@ public class LineString
     }
 
     /**
+     * Gets the coordinates.
+     *
+     * @return the coordinates
      * @see coordinates
-     * 
      */
     public List<Coordinate> getCoordinates() {
         if (coordinates == null) {
@@ -384,23 +389,21 @@ public class LineString
     }
 
     /**
+     * Sets the coordinates.
+     *
+     * @param coordinates the new coordinates
      * @see coordinates
-     * 
-     * @param coordinates
      */
     public void setCoordinates(final List<Coordinate> coordinates) {
         this.coordinates = coordinates;
     }
 
     /**
-     * add a value to the coordinates property collection
-     * 
-     * @param longitude
-     *     required parameter
-     * @param latitude
-     *     required parameter
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the coordinates property collection.
+     *
+     * @param longitude     required parameter
+     * @param latitude     required parameter
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LineString addToCoordinates(final double longitude, final double latitude) {
         this.getCoordinates().add(new Coordinate(longitude, latitude));
@@ -408,16 +411,12 @@ public class LineString
     }
 
     /**
-     * add a value to the coordinates property collection
-     * 
-     * @param longitude
-     *     required parameter
-     * @param latitude
-     *     required parameter
-     * @param altitude
-     *     required parameter
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the coordinates property collection.
+     *
+     * @param longitude     required parameter
+     * @param latitude     required parameter
+     * @param altitude     required parameter
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LineString addToCoordinates(final double longitude, final double latitude, final double altitude) {
         this.getCoordinates().add(new Coordinate(longitude, latitude, altitude));
@@ -425,12 +424,10 @@ public class LineString
     }
 
     /**
-     * add a value to the coordinates property collection
-     * 
-     * @param coordinates
-     *     required parameter
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the coordinates property collection.
+     *
+     * @param coordinates     required parameter
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LineString addToCoordinates(final String coordinates) {
         this.getCoordinates().add(new Coordinate(coordinates));
@@ -438,21 +435,20 @@ public class LineString
     }
 
     /**
+     * Sets the line string simple extension.
+     *
+     * @param lineStringSimpleExtension the new line string simple extension
      * @see lineStringSimpleExtension
-     * 
-     * @param lineStringSimpleExtension
      */
     public void setLineStringSimpleExtension(final List<Object> lineStringSimpleExtension) {
         this.lineStringSimpleExtension = lineStringSimpleExtension;
     }
 
     /**
-     * add a value to the lineStringSimpleExtension property collection
-     * 
-     * @param lineStringSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the lineStringSimpleExtension property collection.
+     *
+     * @param lineStringSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LineString addToLineStringSimpleExtension(final Object lineStringSimpleExtension) {
         this.getLineStringSimpleExtension().add(lineStringSimpleExtension);
@@ -460,21 +456,20 @@ public class LineString
     }
 
     /**
+     * Sets the line string object extension.
+     *
+     * @param lineStringObjectExtension the new line string object extension
      * @see lineStringObjectExtension
-     * 
-     * @param lineStringObjectExtension
      */
     public void setLineStringObjectExtension(final List<AbstractObject> lineStringObjectExtension) {
         this.lineStringObjectExtension = lineStringObjectExtension;
     }
 
     /**
-     * add a value to the lineStringObjectExtension property collection
-     * 
-     * @param lineStringObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the lineStringObjectExtension property collection.
+     *
+     * @param lineStringObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public LineString addToLineStringObjectExtension(final AbstractObject lineStringObjectExtension) {
         this.getLineStringObjectExtension().add(lineStringObjectExtension);
@@ -533,11 +528,11 @@ public class LineString
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param extrude     required parameter
+     * @return the line string
      * @see #setExtrude(Boolean)
-     * 
-     * @param extrude
-     *     required parameter
      */
     public LineString withExtrude(final Boolean extrude) {
         this.setExtrude(extrude);
@@ -545,11 +540,11 @@ public class LineString
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param tessellate     required parameter
+     * @return the line string
      * @see #setTessellate(Boolean)
-     * 
-     * @param tessellate
-     *     required parameter
      */
     public LineString withTessellate(final Boolean tessellate) {
         this.setTessellate(tessellate);
@@ -557,11 +552,11 @@ public class LineString
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param altitudeMode     required parameter
+     * @return the line string
      * @see #setAltitudeMode(Object)
-     * 
-     * @param altitudeMode
-     *     required parameter
      */
     public LineString withAltitudeMode(final  AltitudeMode altitudeMode) {
         this.setAltitudeMode(altitudeMode);
@@ -569,11 +564,11 @@ public class LineString
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param coordinates     required parameter
+     * @return the line string
      * @see #setCoordinates(List<Coordinate>)
-     * 
-     * @param coordinates
-     *     required parameter
      */
     public LineString withCoordinates(final List<Coordinate> coordinates) {
         this.setCoordinates(coordinates);
@@ -581,11 +576,11 @@ public class LineString
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param lineStringSimpleExtension     required parameter
+     * @return the line string
      * @see #setLineStringSimpleExtension(List<Object>)
-     * 
-     * @param lineStringSimpleExtension
-     *     required parameter
      */
     public LineString withLineStringSimpleExtension(final List<Object> lineStringSimpleExtension) {
         this.setLineStringSimpleExtension(lineStringSimpleExtension);
@@ -593,11 +588,11 @@ public class LineString
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param lineStringObjectExtension     required parameter
+     * @return the line string
      * @see #setLineStringObjectExtension(List<AbstractObject>)
-     * 
-     * @param lineStringObjectExtension
-     *     required parameter
      */
     public LineString withLineStringObjectExtension(final List<AbstractObject> lineStringObjectExtension) {
         this.setLineStringObjectExtension(lineStringObjectExtension);
@@ -648,8 +643,8 @@ public class LineString
      * List<Coordinate> newValue = new List<Coordinate>();
      * this.setCoordinates(newValue); </code>
      * </pre>
-     * 
-     * 
+     *
+     * @return the list
      */
     public List<Coordinate> createAndSetCoordinates() {
         List<Coordinate> newValue = new ArrayList<Coordinate>();

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.GamaList.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and simulation
- * platform (v. 1.8.1)
+ * GamaList.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.util;
 
@@ -26,11 +26,13 @@ import one.util.streamex.StreamEx;
 /**
  * Written by drogoul Modified on 21 nov. 2008
  *
+ * @param <E> the element type
  * @todo Description
  */
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class GamaList<E> extends ArrayList<E> implements IList<E> {
 
+	/** The type. */
 	private IContainerType type;
 
 	@Override
@@ -50,10 +52,19 @@ public class GamaList<E> extends ArrayList<E> implements IList<E> {
 		return GamaListFactory.equals(this, (IList) other);
 	}
 
+	/**
+	 * Instantiates a new gama list.
+	 */
 	protected GamaList() {
 		this(0, Types.NO_TYPE);
 	}
 
+	/**
+	 * Instantiates a new gama list.
+	 *
+	 * @param capacity the capacity
+	 * @param contentType the content type
+	 */
 	protected GamaList(final int capacity, final IType contentType) {
 		super(capacity);
 		this.type = Types.LIST.of(contentType);
@@ -82,6 +93,12 @@ public class GamaList<E> extends ArrayList<E> implements IList<E> {
 		}
 	}
 
+	/**
+	 * Clone with content type.
+	 *
+	 * @param contentType the content type
+	 * @return the gama list
+	 */
 	private GamaList cloneWithContentType(final IType contentType) {
 		final GamaList clone = (GamaList) super.clone();
 		clone.type = Types.LIST.of(contentType);

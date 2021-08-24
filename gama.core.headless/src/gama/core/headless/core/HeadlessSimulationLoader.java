@@ -1,15 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
+ * HeadlessSimulationLoader.java, in gama.core.headless, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * 'HeadlessSimulationLoader.java', in plugin 'msi.gama.headless', is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
- *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.core.headless.core;
 
 import java.io.File;
@@ -31,28 +29,49 @@ import gama.runtime.exceptions.GamaRuntimeException;
 import gaml.compilation.GamlCompilationError;
 import one.util.streamex.StreamEx;
 
+/**
+ * The Class HeadlessSimulationLoader.
+ */
 public class HeadlessSimulationLoader {
 
 	static {
 		DEBUG.ON();
 	}
 
+	/** The injector. */
 	// The injector to use in headless mode
 	Injector injector;
 
+	/** The instance. */
 	private static HeadlessSimulationLoader INSTANCE = new HeadlessSimulationLoader();
 
+	/**
+	 * Instantiates a new headless simulation loader.
+	 */
 	// Singleton
 	private HeadlessSimulationLoader() {}
 
+	/**
+	 * Gets the injector.
+	 *
+	 * @return the injector
+	 */
 	public static Injector getInjector() {
 		return INSTANCE.configureInjector();
 	}
 
+	/**
+	 * Preload GAMA.
+	 */
 	public static void preloadGAMA() {
 		INSTANCE.configureInjector();
 	}
 
+	/**
+	 * Configure injector.
+	 *
+	 * @return the injector
+	 */
 	private Injector configureInjector() {
 		if (injector != null) return injector;
 		DEBUG.LOG("GAMA configuring and loading...");
@@ -72,15 +91,12 @@ public class HeadlessSimulationLoader {
 	}
 
 	/**
-	 * Compiles a file to a GAMA model ready to be experimented
+	 * Compiles a file to a GAMA model ready to be experimented.
 	 *
-	 * @param myFile
-	 *            the main model file
+	 * @param myFile            the main model file
 	 * @return a compiled model
-	 * @throws IOException
-	 *             in case the file is null or not found
-	 * @throws GamaHeadlessException
-	 *             in case the compilation ends in error
+	 * @throws IOException             in case the file is null or not found
+	 * @throws GamaHeadlessException             in case the compilation ends in error
 	 * @deprecated use loadModel(File, List<GamlCompilationError>) instead
 	 */
 	@Deprecated
@@ -89,17 +105,13 @@ public class HeadlessSimulationLoader {
 	}
 
 	/**
-	 * Compiles a file to a GAMA model ready to be experimented
+	 * Compiles a file to a GAMA model ready to be experimented.
 	 *
-	 * @param myFile
-	 *            the main model file
-	 * @param errors
-	 *            a list that will be filled with compilation errors / warnings (can be null)
+	 * @param myFile            the main model file
+	 * @param errors            a list that will be filled with compilation errors / warnings (can be null)
 	 * @return a compiled model
-	 * @throws IOException
-	 *             in case the file is null or not found
-	 * @throws GamaHeadlessException
-	 *             in case the compilation ends in error
+	 * @throws IOException             in case the file is null or not found
+	 * @throws GamaHeadlessException             in case the compilation ends in error
 	 */
 	public static synchronized IModel loadModel(final File myFile, final List<GamlCompilationError> errors)
 			throws IOException, GamaHeadlessException {
@@ -107,20 +119,16 @@ public class HeadlessSimulationLoader {
 	}
 
 	/**
-	 * Compiles a file to a GAMA model ready to be experimented
+	 * Compiles a file to a GAMA model ready to be experimented.
 	 *
-	 * @param myFile
-	 *            the main model file
-	 * @param errors
-	 *            a list that will be filled with compilation errors / warnings (can be null)
-	 * @param metaProperties
-	 *            an instance of GamlProperties that will be filled with the sylmbolic names of bundles required to run
+	 * @param myFile            the main model file
+	 * @param errors            a list that will be filled with compilation errors / warnings (can be null)
+	 * @param metaProperties            an instance of GamlProperties that will be filled with the sylmbolic names of bundles required to run
 	 *            the model (can be null) and other informations (skills, operators, statements, ...).
+	 * @param initHeadless the init headless
 	 * @return a compiled model
-	 * @throws IOException
-	 *             in case the file is null or not found
-	 * @throws GamaHeadlessException
-	 *             in case the compilation ends in error
+	 * @throws IOException             in case the file is null or not found
+	 * @throws GamaHeadlessException             in case the compilation ends in error
 	 */
 	public static synchronized IModel loadModel(final File myFile, final List<GamlCompilationError> errors,
 			final GamlProperties metaProperties, final boolean initHeadless) throws IOException, GamaHeadlessException {

@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * GamaStyleGeneration.java, in gama.build.documentation, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package msi.gama.doc.util;
 
 import java.io.BufferedReader;
@@ -21,18 +31,40 @@ import org.xml.sax.SAXException;
 
 import msi.gama.doc.Constants;
 
+/**
+ * The Class GamaStyleGeneration.
+ */
 public class GamaStyleGeneration {
 
+	/** The keyword file. */
 	public static String KEYWORD_FILE = Constants.WIKI_FOLDER + "/keywords.xml";
+	
+	/** The gama style file. */
 	public static String GAMA_STYLE_FILE = "files/input/pandocPDF/gama_style.sty";
+	
+	/** The list category. */
 	// BEWARE !! The order of the list_category is important !! The first one will be prioritary
 	public static String[] LIST_CATEGORY = { "statement", "type", "operator", "facet", "literal" };
+	
+	/** The list forbidden char. */
 	public static String[] LIST_FORBIDDEN_CHAR = { "-", ":", "!", "?", "/", ".", "^", "@", "*", "+", "<", ">", "=" };
+	
+	/** The list undetected statement. */
 	public static String[] LIST_UNDETECTED_STATEMENT = { "species", "global", "grid", "model", "import", "output" };
+	
+	/** The list literal. */
 	public static String[] LIST_LITERAL = { "true", "false", "unknown", "nil" };
 
+	/** The keyword map. */
 	private static Map<String, ArrayList<String>> keywordMap = new HashMap<>();
 
+	/**
+	 * Generate gama style.
+	 *
+	 * @throws ParserConfigurationException the parser configuration exception
+	 * @throws SAXException the SAX exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public static void generateGamaStyle() throws ParserConfigurationException, SAXException, IOException {
 		final File keywordFile = new File(KEYWORD_FILE);
 		if (!keywordFile.exists()) {
@@ -141,6 +173,12 @@ public class GamaStyleGeneration {
 		Files.deleteIfExists(gamaStyleFileCopy.toPath());
 	}
 
+	/**
+	 * Contains forbidden char.
+	 *
+	 * @param keyword the keyword
+	 * @return true, if successful
+	 */
 	public static boolean containsForbiddenChar(final String keyword) {
 		boolean result = false;
 		for (final String str : LIST_FORBIDDEN_CHAR) {
@@ -151,6 +189,13 @@ public class GamaStyleGeneration {
 		return result;
 	}
 
+	/**
+	 * Creates the subpart files.
+	 *
+	 * @throws ParserConfigurationException the parser configuration exception
+	 * @throws SAXException the SAX exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void createSubpartFiles() throws ParserConfigurationException, SAXException, IOException {
 		final Document doc = XMLUtils.createDoc("oj");
 		final NodeList nl = doc.getElementsByTagName("subpart");

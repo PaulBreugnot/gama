@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * IIntersectable.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.common.geometry;
 
 import org.locationtech.jts.geom.Coordinate;
@@ -5,10 +15,25 @@ import org.locationtech.jts.geom.Envelope;
 
 import gama.common.interfaces.IDisposable;
 
+/**
+ * The Interface IIntersectable.
+ */
 public interface IIntersectable extends IDisposable {
 
+	/**
+	 * Intersects.
+	 *
+	 * @param env the env
+	 * @return true, if successful
+	 */
 	boolean intersects(Envelope env);
 
+	/**
+	 * Intersects.
+	 *
+	 * @param env the env
+	 * @return true, if successful
+	 */
 	boolean intersects(Coordinate env);
 
 }

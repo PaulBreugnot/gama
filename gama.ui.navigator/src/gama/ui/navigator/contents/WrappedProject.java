@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * WrappedProject.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator.contents;
 
 import java.util.ArrayList;
@@ -18,11 +28,23 @@ import gama.ui.base.utils.ThemeHelper;
 import gaml.statements.test.AbstractSummary;
 import gaml.statements.test.CompoundSummary;
 
+/**
+ * The Class WrappedProject.
+ */
 public class WrappedProject extends WrappedContainer<IProject> implements IAdaptable {
 
+	/** The plugin. */
 	private String plugin;
+	
+	/** The is test. */
 	final boolean isTest;
 
+	/**
+	 * Instantiates a new wrapped project.
+	 *
+	 * @param parent the parent
+	 * @param wrapped the wrapped
+	 */
 	public WrappedProject(final TopLevelFolder parent, final IProject wrapped) {
 		super(parent, wrapped);
 		isTest = parent instanceof TestModelsFolder;
@@ -86,6 +108,12 @@ public class WrappedProject extends WrappedContainer<IProject> implements IAdapt
 		}
 	}
 
+	/**
+	 * Gets the test suffix.
+	 *
+	 * @param sb the sb
+	 * @return the test suffix
+	 */
 	private void getTestSuffix(final StringBuilder sb) {
 		final var emfURI = org.eclipse.emf.common.util.URI.createPlatformResourceURI(URI.encode(getName()), false);
 		final var result = getSuffixOfTestSummary(emfURI);
@@ -96,6 +124,12 @@ public class WrappedProject extends WrappedContainer<IProject> implements IAdapt
 		}
 	}
 
+	/**
+	 * Gets the suffix of test summary.
+	 *
+	 * @param uri the uri
+	 * @return the suffix of test summary
+	 */
 	public String getSuffixOfTestSummary(final org.eclipse.emf.common.util.URI uri) {
 		final CompoundSummary<?, ?> summary = getManager().getTestsSummary();
 		if (summary == null) return "";
@@ -105,6 +139,11 @@ public class WrappedProject extends WrappedContainer<IProject> implements IAdapt
 		return result.getStringSummary();
 	}
 
+	/**
+	 * Checks if is test project.
+	 *
+	 * @return true, if is test project
+	 */
 	private boolean isTestProject() {
 		return isTest;
 	}
@@ -114,6 +153,11 @@ public class WrappedProject extends WrappedContainer<IProject> implements IAdapt
 		return VirtualContentType.PROJECT;
 	}
 
+	/**
+	 * Gets the plugin.
+	 *
+	 * @return the plugin
+	 */
 	String getPlugin() {
 		if (plugin == null) {
 			final var data = GAMA.getGui().getMetaDataProvider().getMetaData(getResource(), false, false);
@@ -126,6 +170,11 @@ public class WrappedProject extends WrappedContainer<IProject> implements IAdapt
 		return plugin;
 	}
 
+	/**
+	 * Sets the plugin.
+	 *
+	 * @param plugin the new plugin
+	 */
 	void setPlugin(final String plugin) {
 		this.plugin = plugin;
 	}

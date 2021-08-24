@@ -1,4 +1,13 @@
-// This software is released into the Public Domain. See copying.txt for details.
+/*******************************************************************************************************
+ *
+ * WayNode.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.osmosis;
 
 /**
@@ -14,8 +23,13 @@ public class WayNode implements Comparable<WayNode>, Storeable {
 	 */
 	public static final String METADATA_KEY_LOCATION_INCLUDED = "way_node.location_included";
 
+	/** The node id. */
 	private final long nodeId;
+	
+	/** The latitude. */
 	private double latitude;
+	
+	/** The longitude. */
 	private double longitude;
 
 	/**
@@ -89,6 +103,8 @@ public class WayNode implements Comparable<WayNode>, Storeable {
 	}
 
 	/**
+	 * Gets the latitude.
+	 *
 	 * @return The latitude (if the PBF file was built with osmium command 'add-locations-to-ways')
 	 */
 	public double getLatitude() {
@@ -96,6 +112,8 @@ public class WayNode implements Comparable<WayNode>, Storeable {
 	}
 
 	/**
+	 * Gets the longitude.
+	 *
 	 * @return The longitude (if the PBF file was built with osmium command 'add-locations-to-ways')
 	 */
 	public double getLongitude() {
@@ -103,6 +121,8 @@ public class WayNode implements Comparable<WayNode>, Storeable {
 	}
 
 	/**
+	 * Gets the node id.
+	 *
 	 * @return The nodeId.
 	 */
 	public long getNodeId() {

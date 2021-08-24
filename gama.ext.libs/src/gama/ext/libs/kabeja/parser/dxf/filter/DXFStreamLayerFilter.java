@@ -1,18 +1,13 @@
-/*
-   Copyright 2008 Simon Mieth
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
-*/
+/*******************************************************************************************************
+ *
+ * DXFStreamLayerFilter.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.kabeja.parser.dxf.filter;
 
 import java.util.ArrayList;
@@ -26,14 +21,33 @@ import gama.ext.libs.kabeja.parser.DXFValue;
 import gama.ext.libs.kabeja.parser.ParseException;
 
 
+/**
+ * The Class DXFStreamLayerFilter.
+ */
 public class DXFStreamLayerFilter extends DXFStreamEntityFilter {
+    
+    /** The Constant PROPERTY_LAYERS_EXCLUDE. */
     public final static String PROPERTY_LAYERS_EXCLUDE = "layers.exclude";
+    
+    /** The Constant PROPERTY_LAYERS_INCLUDE. */
     public final static String PROPERTY_LAYERS_INCLUDE = "layers.include";
+    
+    /** The Constant LAYER_NAME. */
     public final static int LAYER_NAME = 8;
+    
+    /** The parse values. */
     protected List parseValues = new ArrayList();
+    
+    /** The exclude. */
     protected Set exclude = new HashSet();
+    
+    /** The include. */
     protected Set include = new HashSet();
+    
+    /** The layer. */
     protected String layer = "";
+    
+    /** The find layer. */
     boolean findLayer = true;
 
     public void setProperties(Map properties) {
@@ -70,6 +84,11 @@ public class DXFStreamLayerFilter extends DXFStreamEntityFilter {
         }
     }
 
+    /**
+     * Output entity.
+     *
+     * @throws ParseException the parse exception
+     */
     protected void outputEntity() throws ParseException {
         // give the complete entity to the next handler
         for (int i = 0; i < this.parseValues.size(); i++) {
@@ -95,19 +114,42 @@ public class DXFStreamLayerFilter extends DXFStreamEntityFilter {
         this.parseValues.add(v);
     }
 
+    /**
+     * The Class ParseValue.
+     */
     private class ParseValue {
+        
+        /** The group code. */
         int groupCode;
+        
+        /** The value. */
         DXFValue value;
 
+        /**
+         * Instantiates a new parses the value.
+         *
+         * @param groupCode the group code
+         * @param value the value
+         */
         public ParseValue(int groupCode, DXFValue value) {
             this.groupCode = groupCode;
             this.value = value;
         }
 
+        /**
+         * Gets the group code.
+         *
+         * @return the group code
+         */
         public int getGroupCode() {
             return this.groupCode;
         }
 
+        /**
+         * Gets the DXF value.
+         *
+         * @return the DXF value
+         */
         public DXFValue getDXFValue() {
             return this.value;
         }

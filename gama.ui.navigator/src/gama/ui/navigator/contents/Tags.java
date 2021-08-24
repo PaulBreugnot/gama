@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'WrappedFolder.java, in plugin ummisco.gama.ui.navigator, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * Tags.java, in gama.ui.navigator, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.navigator.contents;
 
 import java.util.Collection;
@@ -33,11 +32,15 @@ import gama.ui.base.utils.ThemeHelper;
  */
 public class Tags extends VirtualContent<WrappedFile> {
 
+	/** The tags. */
 	final Collection<String> tags;
 
 	/**
-	 * @param root
-	 * @param name
+	 * Instantiates a new tags.
+	 *
+	 * @param root the root
+	 * @param object the object
+	 * @param name the name
 	 */
 	public Tags(final WrappedFile root, final Collection<String> object, final String name) {
 		super(root, name);

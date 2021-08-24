@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * MultiTrack.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml.gx;
 import java.util.ArrayList;
@@ -19,7 +29,7 @@ import gama.ext.libs.kml.annotations.Obvious;
 
 
 /**
- * 
+ * The Class MultiTrack.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "MultiTrackType", propOrder = {
@@ -33,68 +43,74 @@ public class MultiTrack
     implements Cloneable
 {
 
+    /** The altitude mode. */
     @XmlElement(defaultValue = "clampToGround")
     protected AltitudeMode altitudeMode;
+    
+    /** The interpolate. */
     @XmlElement(defaultValue = "false")
     @XmlJavaTypeAdapter(BooleanConverter.class)
     protected Boolean interpolate;
+    
+    /** The track. */
     @XmlElement(name = "Track")
     protected List<Track> track;
 
+    /**
+     * Instantiates a new multi track.
+     */
     public MultiTrack() {
         super();
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Gets the altitude mode.
+     *
+     * @return     possible object is
      *     {@code <}{@link Object}{@code>}
      *     {@code <}{@link gama.ext.libs.kml.AltitudeMode}{@code>}
      *     {@code <}{@link msi.gama.ext.kml.gx.AltitudeMode}{@code>}
-     *     
      */
     public AltitudeMode getAltitudeMode() {
         return altitudeMode;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the altitude mode.
+     *
+     * @param value     allowed object is
      *     {@code <}{@link Object}{@code>}
      *     {@code <}{@link gama.ext.libs.kml.AltitudeMode}{@code>}
      *     {@code <}{@link msi.gama.ext.kml.gx.AltitudeMode}{@code>}
-     *     
      */
     public void setAltitudeMode(AltitudeMode value) {
         this.altitudeMode = value;
     }
 
     /**
-     * 
-     * @return
-     *     possible object is
+     * Checks if is interpolate.
+     *
+     * @return     possible object is
      *     {@link Boolean}
-     *     
      */
     public Boolean isInterpolate() {
         return interpolate;
     }
 
     /**
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the interpolate.
+     *
+     * @param value     allowed object is
      *     {@link Boolean}
-     *     
      */
     public void setInterpolate(Boolean value) {
         this.interpolate = value;
     }
 
     /**
-     * 
+     * Gets the track.
+     *
+     * @return the track
      */
     public List<Track> getTrack() {
         if (track == null) {
@@ -164,8 +180,8 @@ public class MultiTrack
      * <code>
      * Track track = new Track();
      * this.getTrack().add(track); </code>
-     * 
-     * 
+     *
+     * @return the track
      */
     public Track createAndAddTrack() {
         Track newValue = new Track();
@@ -177,21 +193,18 @@ public class MultiTrack
      * Sets the value of the track property Objects of the following type(s) are allowed in the list List<Track>.
      * <p>Note:
      * <p>This method does not make use of the fluent pattern.If you would like to make it fluent, use {@link #withTrack} instead.
-     * 
-     * 
-     * @param track
+     *
+     * @param track the new track
      */
     public void setTrack(final List<Track> track) {
         this.track = track;
     }
 
     /**
-     * add a value to the track property collection
-     * 
-     * @param track
-     *     Objects of the following type are allowed in the list: {@link Track}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the track property collection.
+     *
+     * @param track     Objects of the following type are allowed in the list: {@link Track}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public MultiTrack addToTrack(final Track track) {
         this.getTrack().add(track);
@@ -238,11 +251,11 @@ public class MultiTrack
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param altitudeMode     required parameter
+     * @return the multi track
      * @see #setAltitudeMode(Object)
-     * 
-     * @param altitudeMode
-     *     required parameter
      */
     public MultiTrack withAltitudeMode(final  AltitudeMode altitudeMode) {
         this.setAltitudeMode(altitudeMode);
@@ -250,11 +263,11 @@ public class MultiTrack
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param interpolate     required parameter
+     * @return the multi track
      * @see #setInterpolate(Boolean)
-     * 
-     * @param interpolate
-     *     required parameter
      */
     public MultiTrack withInterpolate(final Boolean interpolate) {
         this.setInterpolate(interpolate);
@@ -262,11 +275,11 @@ public class MultiTrack
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param track     required parameter
+     * @return the multi track
      * @see #setTrack(List<Track>)
-     * 
-     * @param track
-     *     required parameter
      */
     public MultiTrack withTrack(final List<Track> track) {
         this.setTrack(track);

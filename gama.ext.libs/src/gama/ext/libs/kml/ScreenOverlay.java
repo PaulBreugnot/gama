@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ScreenOverlay.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -245,6 +255,8 @@ public class ScreenOverlay
      */
     @XmlElement(defaultValue = "0.0")
     protected double rotation;
+    
+    /** The screen overlay simple extension. */
     @XmlElement(name = "ScreenOverlaySimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> screenOverlaySimpleExtension;
@@ -269,133 +281,128 @@ public class ScreenOverlay
     @XmlElement(name = "ScreenOverlayObjectExtensionGroup")
     protected List<AbstractObject> screenOverlayObjectExtension;
 
+    /**
+     * Instantiates a new screen overlay.
+     */
     public ScreenOverlay() {
         super();
     }
 
     /**
-     * @see overlayXY
-     * 
-     * @return
-     *     possible object is
+     * Gets the overlay XY.
+     *
+     * @return     possible object is
      *     {@link Vec2}
-     *     
+     * @see overlayXY
      */
     public Vec2 getOverlayXY() {
         return overlayXY;
     }
 
     /**
-     * @see overlayXY
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the overlay XY.
+     *
+     * @param value     allowed object is
      *     {@link Vec2}
-     *     
+     * @see overlayXY
      */
     public void setOverlayXY(Vec2 value) {
         this.overlayXY = value;
     }
 
     /**
-     * @see screenXY
-     * 
-     * @return
-     *     possible object is
+     * Gets the screen XY.
+     *
+     * @return     possible object is
      *     {@link Vec2}
-     *     
+     * @see screenXY
      */
     public Vec2 getScreenXY() {
         return screenXY;
     }
 
     /**
-     * @see screenXY
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the screen XY.
+     *
+     * @param value     allowed object is
      *     {@link Vec2}
-     *     
+     * @see screenXY
      */
     public void setScreenXY(Vec2 value) {
         this.screenXY = value;
     }
 
     /**
-     * @see rotationXY
-     * 
-     * @return
-     *     possible object is
+     * Gets the rotation XY.
+     *
+     * @return     possible object is
      *     {@link Vec2}
-     *     
+     * @see rotationXY
      */
     public Vec2 getRotationXY() {
         return rotationXY;
     }
 
     /**
-     * @see rotationXY
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the rotation XY.
+     *
+     * @param value     allowed object is
      *     {@link Vec2}
-     *     
+     * @see rotationXY
      */
     public void setRotationXY(Vec2 value) {
         this.rotationXY = value;
     }
 
     /**
-     * @see size
-     * 
-     * @return
-     *     possible object is
+     * Gets the size.
+     *
+     * @return     possible object is
      *     {@link Vec2}
-     *     
+     * @see size
      */
     public Vec2 getSize() {
         return size;
     }
 
     /**
-     * @see size
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the size.
+     *
+     * @param value     allowed object is
      *     {@link Vec2}
-     *     
+     * @see size
      */
     public void setSize(Vec2 value) {
         this.size = value;
     }
 
     /**
-     * @see rotation
-     * 
-     * @return
-     *     possible object is
+     * Gets the rotation.
+     *
+     * @return     possible object is
      *     {@link Double}
-     *     
+     * @see rotation
      */
     public double getRotation() {
         return rotation;
     }
 
     /**
-     * @see rotation
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the rotation.
+     *
+     * @param value     allowed object is
      *     {@link Double}
-     *     
+     * @see rotation
      */
     public void setRotation(double value) {
         this.rotation = value;
     }
 
     /**
+     * Gets the screen overlay simple extension.
+     *
+     * @return the screen overlay simple extension
      * @see screenOverlaySimpleExtension
-     * 
      */
     public List<Object> getScreenOverlaySimpleExtension() {
         if (screenOverlaySimpleExtension == null) {
@@ -405,8 +412,10 @@ public class ScreenOverlay
     }
 
     /**
+     * Gets the screen overlay object extension.
+     *
+     * @return the screen overlay object extension
      * @see screenOverlayObjectExtension
-     * 
      */
     public List<AbstractObject> getScreenOverlayObjectExtension() {
         if (screenOverlayObjectExtension == null) {
@@ -513,8 +522,8 @@ public class ScreenOverlay
      * <code>
      * Vec2 vec2 = new Vec2();
      * this.setOverlayXY(vec2); </code>
-     * 
-     * 
+     *
+     * @return the vec 2
      */
     public Vec2 createAndSetOverlayXY() {
         Vec2 newValue = new Vec2();
@@ -529,8 +538,8 @@ public class ScreenOverlay
      * <code>
      * Vec2 vec2 = new Vec2();
      * this.setScreenXY(vec2); </code>
-     * 
-     * 
+     *
+     * @return the vec 2
      */
     public Vec2 createAndSetScreenXY() {
         Vec2 newValue = new Vec2();
@@ -545,8 +554,8 @@ public class ScreenOverlay
      * <code>
      * Vec2 vec2 = new Vec2();
      * this.setRotationXY(vec2); </code>
-     * 
-     * 
+     *
+     * @return the vec 2
      */
     public Vec2 createAndSetRotationXY() {
         Vec2 newValue = new Vec2();
@@ -561,8 +570,8 @@ public class ScreenOverlay
      * <code>
      * Vec2 vec2 = new Vec2();
      * this.setSize(vec2); </code>
-     * 
-     * 
+     *
+     * @return the vec 2
      */
     public Vec2 createAndSetSize() {
         Vec2 newValue = new Vec2();
@@ -571,21 +580,20 @@ public class ScreenOverlay
     }
 
     /**
+     * Sets the screen overlay simple extension.
+     *
+     * @param screenOverlaySimpleExtension the new screen overlay simple extension
      * @see screenOverlaySimpleExtension
-     * 
-     * @param screenOverlaySimpleExtension
      */
     public void setScreenOverlaySimpleExtension(final List<Object> screenOverlaySimpleExtension) {
         this.screenOverlaySimpleExtension = screenOverlaySimpleExtension;
     }
 
     /**
-     * add a value to the screenOverlaySimpleExtension property collection
-     * 
-     * @param screenOverlaySimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the screenOverlaySimpleExtension property collection.
+     *
+     * @param screenOverlaySimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public ScreenOverlay addToScreenOverlaySimpleExtension(final Object screenOverlaySimpleExtension) {
         this.getScreenOverlaySimpleExtension().add(screenOverlaySimpleExtension);
@@ -593,21 +601,20 @@ public class ScreenOverlay
     }
 
     /**
+     * Sets the screen overlay object extension.
+     *
+     * @param screenOverlayObjectExtension the new screen overlay object extension
      * @see screenOverlayObjectExtension
-     * 
-     * @param screenOverlayObjectExtension
      */
     public void setScreenOverlayObjectExtension(final List<AbstractObject> screenOverlayObjectExtension) {
         this.screenOverlayObjectExtension = screenOverlayObjectExtension;
     }
 
     /**
-     * add a value to the screenOverlayObjectExtension property collection
-     * 
-     * @param screenOverlayObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the screenOverlayObjectExtension property collection.
+     *
+     * @param screenOverlayObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public ScreenOverlay addToScreenOverlayObjectExtension(final AbstractObject screenOverlayObjectExtension) {
         this.getScreenOverlayObjectExtension().add(screenOverlayObjectExtension);
@@ -717,11 +724,11 @@ public class ScreenOverlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param overlayXY     required parameter
+     * @return the screen overlay
      * @see #setOverlayXY(Vec2)
-     * 
-     * @param overlayXY
-     *     required parameter
      */
     public ScreenOverlay withOverlayXY(final Vec2 overlayXY) {
         this.setOverlayXY(overlayXY);
@@ -729,11 +736,11 @@ public class ScreenOverlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param screenXY     required parameter
+     * @return the screen overlay
      * @see #setScreenXY(Vec2)
-     * 
-     * @param screenXY
-     *     required parameter
      */
     public ScreenOverlay withScreenXY(final Vec2 screenXY) {
         this.setScreenXY(screenXY);
@@ -741,11 +748,11 @@ public class ScreenOverlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param rotationXY     required parameter
+     * @return the screen overlay
      * @see #setRotationXY(Vec2)
-     * 
-     * @param rotationXY
-     *     required parameter
      */
     public ScreenOverlay withRotationXY(final Vec2 rotationXY) {
         this.setRotationXY(rotationXY);
@@ -753,11 +760,11 @@ public class ScreenOverlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param size     required parameter
+     * @return the screen overlay
      * @see #setSize(Vec2)
-     * 
-     * @param size
-     *     required parameter
      */
     public ScreenOverlay withSize(final Vec2 size) {
         this.setSize(size);
@@ -765,11 +772,11 @@ public class ScreenOverlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param rotation     required parameter
+     * @return the screen overlay
      * @see #setRotation(double)
-     * 
-     * @param rotation
-     *     required parameter
      */
     public ScreenOverlay withRotation(final double rotation) {
         this.setRotation(rotation);
@@ -777,11 +784,11 @@ public class ScreenOverlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param screenOverlaySimpleExtension     required parameter
+     * @return the screen overlay
      * @see #setScreenOverlaySimpleExtension(List<Object>)
-     * 
-     * @param screenOverlaySimpleExtension
-     *     required parameter
      */
     public ScreenOverlay withScreenOverlaySimpleExtension(final List<Object> screenOverlaySimpleExtension) {
         this.setScreenOverlaySimpleExtension(screenOverlaySimpleExtension);
@@ -789,11 +796,11 @@ public class ScreenOverlay
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param screenOverlayObjectExtension     required parameter
+     * @return the screen overlay
      * @see #setScreenOverlayObjectExtension(List<AbstractObject>)
-     * 
-     * @param screenOverlayObjectExtension
-     *     required parameter
      */
     public ScreenOverlay withScreenOverlayObjectExtension(final List<AbstractObject> screenOverlayObjectExtension) {
         this.setScreenOverlayObjectExtension(screenOverlayObjectExtension);

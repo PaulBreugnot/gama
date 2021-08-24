@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'ParameterExpandBar.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * ParameterExpandBar.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.controls;
 
 import java.util.Map;
@@ -58,40 +57,70 @@ public class ParameterExpandBar extends Composite {
 		// return super.setFocus();
 	}
 
+	/** The items. */
 	private ParameterExpandItem[] items;
+	
+	/** The hover item. */
 	private ParameterExpandItem focusItem, hoverItem;
+	
+	/** The item count. */
 	private int spacing, yCurrentScroll, itemCount;
+	
+	/** The listener. */
 	private final Listener listener;
+	
+	/** The in dispose. */
 	private boolean inDispose;
+	
+	/** The has closable toggle. */
 	final boolean hasClosableToggle;
+	
+	/** The has pausable toggle. */
 	final boolean hasPausableToggle;
+	
+	/** The has selectable toggle. */
 	final boolean hasSelectableToggle;
+	
+	/** The has visible toggle. */
 	final boolean hasVisibleToggle;
+	
+	/** The underlying objects. */
 	private final ItemList underlyingObjects;
+	
+	/** The band height. */
 	int bandHeight = ParameterExpandItem.CHEVRON_SIZE;
+	
+	/** The ignore mouse up. */
 	private boolean ignoreMouseUp;
 
 	/**
-	 * @param underlyingObjects
+	 * Instantiates a new parameter expand bar.
 	 *
-	 * @param parent
-	 *            a composite control which will be the parent of the new instance (cannot be null)
-	 * @param style
-	 *            the style of control to construct
-	 *
-	 * @exception IllegalArgumentException
-	 *                <ul>
-	 *                <li>ERROR_NULL_ARGUMENT - if the parent is null</li>
-	 *                </ul>
+	 * @param parent            a composite control which will be the parent of the new instance (cannot be null)
+	 * @param style            the style of control to construct
 	 * @see SWT#V_SCROLL
 	 * @see Widget#checkSubclass
 	 * @see Widget#getStyle
+	 * @exception IllegalArgumentException                <ul>
+	 *                <li>ERROR_NULL_ARGUMENT - if the parent is null</li>
+	 *                </ul>
 	 */
 
 	public ParameterExpandBar(final Composite parent, final int style) {
 		this(parent, style, false, false, false, false, null);
 	}
 
+	/**
+	 * Instantiates a new parameter expand bar.
+	 *
+	 * @param parent the parent
+	 * @param style the style
+	 * @param isClosable the is closable
+	 * @param isPausable the is pausable
+	 * @param isSelectable the is selectable
+	 * @param isVisible the is visible
+	 * @param underlyingObjects the underlying objects
+	 */
 	public ParameterExpandBar(final Composite parent, final int style, final boolean isClosable,
 			final boolean isPausable, final boolean isSelectable, final boolean isVisible,
 			final ItemList underlyingObjects) {
@@ -185,6 +214,13 @@ public class ParameterExpandBar extends Composite {
 	// return new Point(trim.width, trim.height);
 	// }
 
+	/**
+	 * Creates the item.
+	 *
+	 * @param item the item
+	 * @param style the style
+	 * @param index the index
+	 */
 	void createItem(final ParameterExpandItem item, final int style, final int index) {
 		if (0 > index || index > itemCount) { SWT.error(SWT.ERROR_INVALID_RANGE); }
 		if (itemCount == items.length) {
@@ -200,6 +236,11 @@ public class ParameterExpandBar extends Composite {
 		layoutItems(index, true);
 	}
 
+	/**
+	 * Destroy item.
+	 *
+	 * @param item the item
+	 */
 	public void destroyItem(final ParameterExpandItem item) {
 
 		if (inDispose) return;
@@ -228,6 +269,9 @@ public class ParameterExpandBar extends Composite {
 		this.update();
 	}
 
+	/**
+	 * Compute band height.
+	 */
 	void computeBandHeight() {
 		if (getFont() == null) return;
 		final var gc = new GC(this);
@@ -236,6 +280,12 @@ public class ParameterExpandBar extends Composite {
 		bandHeight = Math.max(ParameterExpandItem.CHEVRON_SIZE, metrics.getHeight());
 	}
 
+	/**
+	 * Gets the item.
+	 *
+	 * @param data the data
+	 * @return the item
+	 */
 	public ParameterExpandItem getItem(final Object data) {
 		for (final ParameterExpandItem item : items) {
 			if (item != null && Objects.equal(item.getData(), data)) return item;
@@ -306,6 +356,12 @@ public class ParameterExpandBar extends Composite {
 		return -1;
 	}
 
+	/**
+	 * Layout items.
+	 *
+	 * @param index the index
+	 * @param setScrollbar the set scrollbar
+	 */
 	void layoutItems(final int index, final boolean setScrollbar) {
 		if (index < itemCount) {
 			var y = spacing - yCurrentScroll;
@@ -324,6 +380,9 @@ public class ParameterExpandBar extends Composite {
 		if (setScrollbar) { setScrollbar(); }
 	}
 
+	/**
+	 * Update item names.
+	 */
 	public void updateItemNames() {
 		if (underlyingObjects == null) return;
 		for (var i = 0; i < itemCount; i++) {
@@ -331,6 +390,9 @@ public class ParameterExpandBar extends Composite {
 		}
 	}
 
+	/**
+	 * Update item colors.
+	 */
 	public void updateItemColors() {
 		if (underlyingObjects == null) return;
 		for (var i = 0; i < itemCount; i++) {
@@ -346,6 +408,9 @@ public class ParameterExpandBar extends Composite {
 		layoutItems(0, true);
 	}
 
+	/**
+	 * Sets the scrollbar.
+	 */
 	void setScrollbar() {
 		if (itemCount == 0) return;
 		final var verticalBar = getVerticalBar();
@@ -388,6 +453,11 @@ public class ParameterExpandBar extends Composite {
 		redraw();
 	}
 
+	/**
+	 * Show item.
+	 *
+	 * @param item the item
+	 */
 	void showItem(final ParameterExpandItem item) {
 		final var control = item.control;
 		if (control != null && !control.isDisposed()) {
@@ -403,6 +473,11 @@ public class ParameterExpandBar extends Composite {
 		notifyListeners(SWT.Resize, ev);
 	}
 
+	/**
+	 * On dispose.
+	 *
+	 * @param event the event
+	 */
 	void onDispose(final Event event) {
 		removeListener(SWT.Dispose, listener);
 		notifyListeners(SWT.Dispose, event);
@@ -424,10 +499,18 @@ public class ParameterExpandBar extends Composite {
 		// popup = null;
 	}
 
+	/**
+	 * On focus.
+	 */
 	void onFocus() {
 		if (getFocusItem() != null) { getFocusItem().redraw(); }
 	}
 
+	/**
+	 * On hover.
+	 *
+	 * @param event the event
+	 */
 	void onHover(final MouseEvent event) {
 		final var x = event.x;
 		final var y = event.y;
@@ -443,6 +526,11 @@ public class ParameterExpandBar extends Composite {
 		if (!hover) { changeHoverTo(null); }
 	}
 
+	/**
+	 * Change hover to.
+	 *
+	 * @param item the item
+	 */
 	void changeHoverTo(final ParameterExpandItem item) {
 		if (hoverItem == item) return;
 		final var oldHoverItem = hoverItem;
@@ -451,6 +539,11 @@ public class ParameterExpandBar extends Composite {
 		if (item != null) { item.redraw(); }
 	}
 
+	/**
+	 * On contextual menu.
+	 *
+	 * @param event the event
+	 */
 	void onContextualMenu(final Event event) {
 		final var x = event.x;
 		final var y = event.y;
@@ -483,6 +576,11 @@ public class ParameterExpandBar extends Composite {
 		}
 	}
 
+	/**
+	 * On mouse down.
+	 *
+	 * @param event the event
+	 */
 	void onMouseDown(final Event event) {
 		if (event.button != 1) return;
 		final var x = event.x;
@@ -543,6 +641,11 @@ public class ParameterExpandBar extends Composite {
 		}
 	}
 
+	/**
+	 * On mouse up.
+	 *
+	 * @param event the event
+	 */
 	void onMouseUp(final Event event) {
 		if (ignoreMouseUp) {
 			ignoreMouseUp = false;
@@ -564,6 +667,11 @@ public class ParameterExpandBar extends Composite {
 		}
 	}
 
+	/**
+	 * On paint.
+	 *
+	 * @param event the event
+	 */
 	void onPaint(final Event event) {
 		for (var i = 0; i < itemCount; i++) {
 			final var item = items[i];
@@ -572,6 +680,9 @@ public class ParameterExpandBar extends Composite {
 		}
 	}
 
+	/**
+	 * On resize.
+	 */
 	void onResize() {
 		final var rect = getClientArea();
 		final var width = Math.max(0, rect.width - spacing * 2);
@@ -583,6 +694,11 @@ public class ParameterExpandBar extends Composite {
 		setScrollbar();
 	}
 
+	/**
+	 * On scroll.
+	 *
+	 * @param event the event
+	 */
 	public void onScroll(final Event event) {
 		final var verticalBar = getVerticalBar();
 		if (verticalBar != null) {
@@ -591,15 +707,30 @@ public class ParameterExpandBar extends Composite {
 		}
 	}
 
+	/**
+	 * Sets the focus item.
+	 *
+	 * @param focusItem the new focus item
+	 */
 	void setFocusItem(final ParameterExpandItem focusItem) {
 		this.focusItem = focusItem;
 		if (focusItem != null && underlyingObjects != null) { underlyingObjects.focusItem(focusItem.getData()); }
 	}
 
+	/**
+	 * Gets the focus item.
+	 *
+	 * @return the focus item
+	 */
 	ParameterExpandItem getFocusItem() {
 		return focusItem;
 	}
 
+	/**
+	 * Collapse item with data.
+	 *
+	 * @param data the data
+	 */
 	public void collapseItemWithData(final Object data) {
 		if (data == null) return;
 		for (final ParameterExpandItem i : items) {

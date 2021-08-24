@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="ummisco.gama.feature.core.ui"
+      id="gama.feature.ui.core"
       label="Common UI Components of GAMA"
-      version="1.8.1.qualifier"
+      version="2.0.0.qualifier"
       provider-name="UMMISCO">
 
    <description url="http://gama-platform.org">
@@ -18,14 +18,8 @@
    </license>
 
    <url>
-      <update label="Gama 1.7.x Update Site" url="http://updates.gama-platform.org"/>
+      <update label="Gama Update Site" url="http://updates.gama-platform.org/2.0"/>
    </url>
-
-   <plugin
-         id="msi.gama.application"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
 
    <plugin
          id="gama.ui.base"

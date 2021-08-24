@@ -1,22 +1,13 @@
-/*
- * Copyright 1997-2008 Sun Microsystems, Inc. All Rights Reserved. DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE
- * HEADER.
+/*******************************************************************************************************
  *
- * This code is free software; you can redistribute it and/or modify it under the terms of the GNU General Public
- * License version 2 only, as published by the Free Software Foundation. Sun designates this particular file as subject
- * to the "Classpath" exception as provided by Sun in the LICENSE file that accompanied this code.
+ * GVector.java, in gama.ext.physics, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License version 2 for
- * more details (a copy is included in the LICENSE file that accompanied this code).
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * You should have received a copy of the GNU General Public License version 2 along with this work; if not, write to
- * the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
- *
- * Please contact Sun Microsystems, Inc., 4150 Network Circle, Santa Clara, CA 95054 USA or visit www.sun.com if you
- * need additional information or have any questions.
- *
- */
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package javax.vecmath;
 
@@ -26,9 +17,13 @@ package javax.vecmath;
 
 public class GVector implements java.io.Serializable, Cloneable {
 
+	/** The length. */
 	private int length;
+	
+	/** The values. */
 	double[] values;
 
+	/** The Constant serialVersionUID. */
 	// Compatible with 1.1
 	static final long serialVersionUID = 1398850036893875112L;
 
@@ -306,10 +301,9 @@ public class GVector implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets the value of this vector to sum of itself and the specified vector
+	 * Sets the value of this vector to sum of itself and the specified vector.
 	 *
-	 * @param vector
-	 *            the second vector
+	 * @param vector            the second vector
 	 */
 	public final void add(final GVector vector) {
 		int i;
@@ -410,10 +404,8 @@ public class GVector implements java.io.Serializable, Cloneable {
 	 * matrix m1 and places the result into this vector (this = transpose(v1)*m1). The result is technically a row
 	 * vector, but the GVector class only knows about column vectors, and so the result is stored as a column vector.
 	 *
-	 * @param m1
-	 *            The matrix in the multiplication
-	 * @param v1
-	 *            The vector that is temporarily transposed
+	 * @param v1            The vector that is temporarily transposed
+	 * @param m1            The matrix in the multiplication
 	 */
 	public final void mul(final GVector v1, final GMatrix m1) {
 		if (m1.getNumRow() != v1.length) throw new MismatchedSizeException(VecMathI18N.getString("GVector12"));
@@ -518,10 +510,9 @@ public class GVector implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets the value of this vector to the values in tuple
+	 * Sets the value of this vector to the values in tuple.
 	 *
-	 * @param tuple
-	 *            the source for the new GVector's new values
+	 * @param tuple            the source for the new GVector's new values
 	 */
 	public final void set(final Tuple2f tuple) {
 		if (length < 2) {
@@ -537,10 +528,9 @@ public class GVector implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets the value of this vector to the values in tuple
+	 * Sets the value of this vector to the values in tuple.
 	 *
-	 * @param tuple
-	 *            the source for the new GVector's new values
+	 * @param tuple            the source for the new GVector's new values
 	 */
 	public final void set(final Tuple3f tuple) {
 		if (length < 3) {
@@ -556,10 +546,9 @@ public class GVector implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets the value of this vector to the values in tuple
+	 * Sets the value of this vector to the values in tuple.
 	 *
-	 * @param tuple
-	 *            the source for the new GVector's new values
+	 * @param tuple            the source for the new GVector's new values
 	 */
 	public final void set(final Tuple3d tuple) {
 		if (length < 3) {
@@ -575,10 +564,9 @@ public class GVector implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets the value of this vector to the values in tuple
+	 * Sets the value of this vector to the values in tuple.
 	 *
-	 * @param tuple
-	 *            the source for the new GVector's new values
+	 * @param tuple            the source for the new GVector's new values
 	 */
 	public final void set(final Tuple4f tuple) {
 		if (length < 4) {
@@ -595,10 +583,9 @@ public class GVector implements java.io.Serializable, Cloneable {
 	}
 
 	/**
-	 * Sets the value of this vector to the values in tuple
+	 * Sets the value of this vector to the values in tuple.
 	 *
-	 * @param tuple
-	 *            the source for the new GVector's new values
+	 * @param tuple            the source for the new GVector's new values
 	 */
 	public final void set(final Tuple4d tuple) {
 		if (length < 4) {
@@ -735,10 +722,9 @@ public class GVector implements java.io.Serializable, Cloneable {
 	 * Returns true if the L-infinite distance between this vector and vector v1 is less than or equal to the epsilon
 	 * parameter, otherwise returns false. The L-infinite distance is equal to MAX[abs(x1-x2), abs(y1-y2), . . . ].
 	 *
-	 * @param v1
-	 *            The vector to be compared to this vector
-	 * @param epsilon
-	 *            the threshold value
+	 * @param v1            The vector to be compared to this vector
+	 * @param epsilon            the threshold value
+	 * @return true, if successful
 	 */
 	public boolean epsilonEquals(final GVector v1, final double epsilon) {
 		double diff;
@@ -861,6 +847,11 @@ public class GVector implements java.io.Serializable, Cloneable {
 	}
 
 	/**
+	 * Interpolate.
+	 *
+	 * @param v1 the v 1
+	 * @param v2 the v 2
+	 * @param alpha the alpha
 	 * @deprecated Use interpolate(GVector, GVector, double) instead
 	 */
 	@Deprecated
@@ -869,6 +860,10 @@ public class GVector implements java.io.Serializable, Cloneable {
 	}
 
 	/**
+	 * Interpolate.
+	 *
+	 * @param v1 the v 1
+	 * @param alpha the alpha
 	 * @deprecated Use interpolate(GVector, double) instead
 	 */
 	@Deprecated

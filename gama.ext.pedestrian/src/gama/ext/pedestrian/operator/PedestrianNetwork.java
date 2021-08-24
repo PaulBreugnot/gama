@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * PedestrianNetwork.java, in gama.ext.pedestrian, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.pedestrian.operator;
 
 import java.util.Collections;
@@ -22,10 +32,32 @@ import gaml.operators.Spatial.Operators;
 import gaml.operators.Spatial.Transformations;
 import gaml.types.Types;
 
+/**
+ * The Class PedestrianNetwork.
+ */
 public class PedestrianNetwork {
 
 	
 
+	/**
+	 * Generate network.
+	 *
+	 * @param scope the scope
+	 * @param obst the obst
+	 * @param bounds the bounds
+	 * @param regular_network the regular network
+	 * @param openArea the open area
+	 * @param randomDist the random dist
+	 * @param valDistForOpenArea the val dist for open area
+	 * @param valDensityOpenArea the val density open area
+	 * @param cleanNetwork the clean network
+	 * @param toleranceClip the tolerance clip
+	 * @param toleranceTriang the tolerance triang
+	 * @param minDistPath the min dist path
+	 * @param simplicationDistance the simplication distance
+	 * @param sizeSquare the size square
+	 * @return the i list
+	 */
 	@SuppressWarnings("unchecked")
 	public static IList<IShape> generateNetwork(IScope scope, IList<IContainer<?, ? extends IShape>> obst, 
 			IContainer<?, ? extends IShape> bounds, IContainer<?, ? extends IShape> regular_network, Boolean openArea,
@@ -151,6 +183,12 @@ public class PedestrianNetwork {
 	}
 
 
+	/**
+	 * Keep main geom.
+	 *
+	 * @param inGeom the in geom
+	 * @return the i shape
+	 */
 	public static IShape keepMainGeom(IShape inGeom) {
 		IShape result = inGeom;
 		if (inGeom.getGeometries().size() > 1) {
@@ -168,6 +206,16 @@ public class PedestrianNetwork {
 	}
 	
 	
+	/**
+	 * Management open area.
+	 *
+	 * @param scope the scope
+	 * @param area the area
+	 * @param randomDist the random dist
+	 * @param valDistForOpenArea the val dist for open area
+	 * @param valDensityOpenArea the val density open area
+	 * @return the i shape
+	 */
 	/*
 	 * Add small obstacle inside open area to increase the number of node for pedestrian movement
 	 */
@@ -202,6 +250,17 @@ public class PedestrianNetwork {
 	// COMBINE REGULAR CORRIDOR WITH 2D CORRIDORS //
 	// ------------------------------------------ //
 
+	/**
+	 * Collapse network.
+	 *
+	 * @param scope the scope
+	 * @param pedestrianArea the pedestrian area
+	 * @param obst the obst
+	 * @param buffer the buffer
+	 * @param pedestrianNetwork the pedestrian network
+	 * @param regularNetwork the regular network
+	 * @return the i list
+	 */
 	/*
 	 * Method that collapse a regular network (usually road network) where pedestrian will move using moving skill on network
 	 * (see PEDESTRAIN_ROAD_STATUS) and pedestrian virtual network (computed using Delaunay's triangulation and skeletonization) where

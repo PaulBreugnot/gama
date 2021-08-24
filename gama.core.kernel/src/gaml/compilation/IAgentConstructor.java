@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.compilation.IAgentConstructor.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * IAgentConstructor.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.compilation;
 
@@ -19,14 +19,17 @@ import gama.metamodel.agent.MinimalAgent;
 import gama.metamodel.population.IPopulation;
 
 /**
- * Written by drogoul Modified on 20 ao�t 2010
+ * Written by drogoul Modified on 20 ao�t 2010.
  *
- *
+ * @param <T> the generic type
  */
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 @FunctionalInterface
 public interface IAgentConstructor<T extends IAgent> {
 
+	/**
+	 * The Class Minimal.
+	 */
 	public static class Minimal implements IAgentConstructor<MinimalAgent> {
 
 		/**
@@ -42,6 +45,9 @@ public interface IAgentConstructor<T extends IAgent> {
 
 	}
 
+	/**
+	 * The Class Gaml.
+	 */
 	public static class Gaml implements IAgentConstructor<GamlAgent> {
 
 		@Override
@@ -51,6 +57,7 @@ public interface IAgentConstructor<T extends IAgent> {
 
 	}
 
+	/** The constructors. */
 	Map<Class<? extends IAgent>, IAgentConstructor<? extends IAgent>> CONSTRUCTORS =
 			new HashMap<Class<? extends IAgent>, IAgentConstructor<? extends IAgent>>() {
 
@@ -60,6 +67,14 @@ public interface IAgentConstructor<T extends IAgent> {
 				}
 			};
 
+	/**
+	 * Creates the one agent.
+	 *
+	 * @param <T> the generic type
+	 * @param manager the manager
+	 * @param index the index
+	 * @return the t
+	 */
 	<T extends IAgent> T createOneAgent(IPopulation<T> manager, int index);
 
 }

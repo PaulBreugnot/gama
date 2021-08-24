@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ColorStyle.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -87,20 +97,12 @@ public abstract class ColorStyle
     @XmlElement(defaultValue = "ffffffff")
     
     protected String color;
-    /**
-     * ColorMode
-     * <p>
-     * normal, random 
-     * </p>
-     * 
-     * See Also: 
-     * See any element that extends <ColorStyle>
-     * 
-     * 
-     * 
-     */
+    
+    /** ColorMode <p> normal, random  </p>  See Also:  See any element that extends <ColorStyle>. */
     @XmlElement(defaultValue = "normal")
     protected ColorMode colorMode;
+    
+    /** The color style simple extension. */
     @XmlElement(name = "AbstractColorStyleSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> colorStyleSimpleExtension;
@@ -125,61 +127,62 @@ public abstract class ColorStyle
     @XmlElement(name = "AbstractColorStyleObjectExtensionGroup")
     protected List<AbstractObject> colorStyleObjectExtension;
 
+    /**
+     * Instantiates a new color style.
+     */
     public ColorStyle() {
         super();
     }
 
     /**
-     * @see color
-     * 
-     * @return
-     *     possible object is
+     * Gets the color.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see color
      */
     public String getColor() {
         return color;
     }
 
     /**
-     * @see color
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the color.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see color
      */
     public void setColor(String value) {
         this.color =  value;
     }
 
     /**
-     * @see colorMode
-     * 
-     * @return
-     *     possible object is
+     * Gets the color mode.
+     *
+     * @return     possible object is
      *     {@link ColorMode}
-     *     
+     * @see colorMode
      */
     public ColorMode getColorMode() {
         return colorMode;
     }
 
     /**
-     * @see colorMode
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the color mode.
+     *
+     * @param value     allowed object is
      *     {@link ColorMode}
-     *     
+     * @see colorMode
      */
     public void setColorMode(ColorMode value) {
         this.colorMode = value;
     }
 
     /**
+     * Gets the color style simple extension.
+     *
+     * @return the color style simple extension
      * @see colorStyleSimpleExtension
-     * 
      */
     public List<Object> getColorStyleSimpleExtension() {
         if (colorStyleSimpleExtension == null) {
@@ -189,8 +192,10 @@ public abstract class ColorStyle
     }
 
     /**
+     * Gets the color style object extension.
+     *
+     * @return the color style object extension
      * @see colorStyleObjectExtension
-     * 
      */
     public List<AbstractObject> getColorStyleObjectExtension() {
         if (colorStyleObjectExtension == null) {
@@ -265,21 +270,20 @@ public abstract class ColorStyle
     }
 
     /**
+     * Sets the color style simple extension.
+     *
+     * @param colorStyleSimpleExtension the new color style simple extension
      * @see colorStyleSimpleExtension
-     * 
-     * @param colorStyleSimpleExtension
      */
     public void setColorStyleSimpleExtension(final List<Object> colorStyleSimpleExtension) {
         this.colorStyleSimpleExtension = colorStyleSimpleExtension;
     }
 
     /**
-     * add a value to the colorStyleSimpleExtension property collection
-     * 
-     * @param colorStyleSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the colorStyleSimpleExtension property collection.
+     *
+     * @param colorStyleSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public ColorStyle addToColorStyleSimpleExtension(final Object colorStyleSimpleExtension) {
         this.getColorStyleSimpleExtension().add(colorStyleSimpleExtension);
@@ -287,21 +291,20 @@ public abstract class ColorStyle
     }
 
     /**
+     * Sets the color style object extension.
+     *
+     * @param colorStyleObjectExtension the new color style object extension
      * @see colorStyleObjectExtension
-     * 
-     * @param colorStyleObjectExtension
      */
     public void setColorStyleObjectExtension(final List<AbstractObject> colorStyleObjectExtension) {
         this.colorStyleObjectExtension = colorStyleObjectExtension;
     }
 
     /**
-     * add a value to the colorStyleObjectExtension property collection
-     * 
-     * @param colorStyleObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the colorStyleObjectExtension property collection.
+     *
+     * @param colorStyleObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public ColorStyle addToColorStyleObjectExtension(final AbstractObject colorStyleObjectExtension) {
         this.getColorStyleObjectExtension().add(colorStyleObjectExtension);
@@ -360,11 +363,11 @@ public abstract class ColorStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param color     required parameter
+     * @return the color style
      * @see #setColor(String)
-     * 
-     * @param color
-     *     required parameter
      */
     public ColorStyle withColor(final String color) {
         this.setColor(color);
@@ -372,11 +375,11 @@ public abstract class ColorStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param colorMode     required parameter
+     * @return the color style
      * @see #setColorMode(ColorMode)
-     * 
-     * @param colorMode
-     *     required parameter
      */
     public ColorStyle withColorMode(final ColorMode colorMode) {
         this.setColorMode(colorMode);
@@ -384,11 +387,11 @@ public abstract class ColorStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param colorStyleSimpleExtension     required parameter
+     * @return the color style
      * @see #setColorStyleSimpleExtension(List<Object>)
-     * 
-     * @param colorStyleSimpleExtension
-     *     required parameter
      */
     public ColorStyle withColorStyleSimpleExtension(final List<Object> colorStyleSimpleExtension) {
         this.setColorStyleSimpleExtension(colorStyleSimpleExtension);
@@ -396,11 +399,11 @@ public abstract class ColorStyle
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param colorStyleObjectExtension     required parameter
+     * @return the color style
      * @see #setColorStyleObjectExtension(List<AbstractObject>)
-     * 
-     * @param colorStyleObjectExtension
-     *     required parameter
      */
     public ColorStyle withColorStyleObjectExtension(final List<AbstractObject> colorStyleObjectExtension) {
         this.setColorStyleObjectExtension(colorStyleObjectExtension);

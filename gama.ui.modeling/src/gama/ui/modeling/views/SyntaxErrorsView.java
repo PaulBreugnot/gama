@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'SyntaxErrorsView.java, in plugin ummisco.gama.ui.modeling, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * SyntaxErrorsView.java, in gama.ui.modeling, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.modeling.views;
 
 import java.lang.reflect.InvocationTargetException;
@@ -39,14 +38,26 @@ import gama.ui.base.toolbar.GamaToolbarFactory;
 import gama.ui.base.toolbar.IToolbarDecoratedView;
 import gama.ui.base.utils.WorkbenchHelper;
 
+/**
+ * The Class SyntaxErrorsView.
+ */
 public class SyntaxErrorsView extends MarkerSupportView implements IToolbarDecoratedView {
 
+	/** The parent. */
 	protected Composite parent;
+	
+	/** The toolbar. */
 	protected GamaToolbar2 toolbar;
 
+	/** The info action. */
 	ToolItem warningAction, infoAction;
+	
+	/** The listener. */
 	final BuildPreferenceChangeListener listener;
 
+	/**
+	 * Instantiates a new syntax errors view.
+	 */
 	public SyntaxErrorsView() {
 		super("gama.ui.modeling.error.generator");
 		listener = new BuildPreferenceChangeListener(this);
@@ -67,10 +78,27 @@ public class SyntaxErrorsView extends MarkerSupportView implements IToolbarDecor
 		GamaPreferences.Modeling.INFO_ENABLED.removeChangeListener(listener);
 	}
 
+	/**
+	 * The listener interface for receiving buildPreferenceChange events.
+	 * The class that is interested in processing a buildPreferenceChange
+	 * event implements this interface, and the object created
+	 * with that class is registered with a component using the
+	 * component's <code>addBuildPreferenceChangeListener<code> method. When
+	 * the buildPreferenceChange event occurs, that object's appropriate
+	 * method is invoked.
+	 *
+	 * @see BuildPreferenceChangeEvent
+	 */
 	public static class BuildPreferenceChangeListener implements IPreferenceAfterChangeListener<Boolean> {
 
+		/** The view. */
 		SyntaxErrorsView view;
 
+		/**
+		 * Instantiates a new builds the preference change listener.
+		 *
+		 * @param v the v
+		 */
 		BuildPreferenceChangeListener(final SyntaxErrorsView v) {
 			view = v;
 		}
@@ -85,6 +113,9 @@ public class SyntaxErrorsView extends MarkerSupportView implements IToolbarDecor
 		}
 	}
 
+	/**
+	 * Check actions.
+	 */
 	void checkActions() {
 		if (warningAction != null) { warningAction.setSelection(GamaPreferences.Modeling.WARNINGS_ENABLED.getValue()); }
 		if (infoAction != null) { infoAction.setSelection(GamaPreferences.Modeling.INFO_ENABLED.getValue()); }
@@ -120,6 +151,9 @@ public class SyntaxErrorsView extends MarkerSupportView implements IToolbarDecor
 
 	}
 
+	/**
+	 * Open filter dialog.
+	 */
 	void openFilterDialog() {
 		final IEvaluationContext ec = new EvaluationContext(null, this);
 		ec.addVariable(ISources.ACTIVE_PART_NAME, this);
@@ -127,6 +161,11 @@ public class SyntaxErrorsView extends MarkerSupportView implements IToolbarDecor
 		new ConfigureContentsDialogHandler().execute(ev);
 	}
 
+	/**
+	 * Do build.
+	 *
+	 * @param monitor the monitor
+	 */
 	static private void doBuild(final IProgressMonitor monitor) {
 		try {
 			ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.CLEAN_BUILD, monitor);
@@ -145,6 +184,9 @@ public class SyntaxErrorsView extends MarkerSupportView implements IToolbarDecor
 		}
 	}
 
+	/**
+	 * Builds the.
+	 */
 	static void build() {
 
 		final ProgressMonitorDialog dialog = new ProgressMonitorDialog(WorkbenchHelper.getShell());

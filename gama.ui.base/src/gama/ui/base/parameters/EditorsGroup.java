@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * EditorsGroup.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.parameters;
 
 import static org.eclipse.jface.layout.GridLayoutFactory.fillDefaults;
@@ -7,12 +17,26 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
+/**
+ * The Class EditorsGroup.
+ */
 public class EditorsGroup extends Composite {
 
+	/**
+	 * Instantiates a new editors group.
+	 *
+	 * @param parent the parent
+	 */
 	public EditorsGroup(final Composite parent) {
 		this(parent, SWT.NONE);
 	}
 
+	/**
+	 * Instantiates a new editors group.
+	 *
+	 * @param parent the parent
+	 * @param style the style
+	 */
 	public EditorsGroup(final Composite parent, final int style) {
 		super(parent, style);
 		if (parent.getLayout() instanceof GridLayout) { GridDataFactory.fillDefaults().grab(true, true).applyTo(this); }

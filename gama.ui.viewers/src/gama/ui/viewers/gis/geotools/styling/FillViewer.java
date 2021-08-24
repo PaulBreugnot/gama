@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'FillViewer.java, in plugin ummisco.gama.ui.viewers, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * FillViewer.java, in gama.ui.viewers, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.viewers.gis.geotools.styling;
 
 import java.awt.Color;
@@ -66,14 +65,27 @@ import org.geotools.styling.StyleBuilder;
  */
 public class FillViewer {
 
+	/** The enabled. */
 	boolean enabled;
+	
+	/** The color. */
 	Color color;
+	
+	/** The opacity. */
 	double opacity;
 
+	/** The on. */
 	Button on;
+	
+	/** The chooser. */
 	StolenColorEditor chooser;
+	
+	/** The percent. */
 	Combo percent;
 
+	/**
+	 * The Class Listener.
+	 */
 	class Listener implements SelectionListener, ModifyListener {
 
 		@Override
@@ -91,6 +103,11 @@ public class FillViewer {
 			sync(SimpleConfigurator.selectionEvent(e));
 		};
 
+		/**
+		 * Sync.
+		 *
+		 * @param selectionEvent the selection event
+		 */
 		private void sync(final SelectionEvent selectionEvent) {
 			try {
 				FillViewer.this.enabled = FillViewer.this.on.getSelection();
@@ -121,13 +138,16 @@ public class FillViewer {
 
 	};
 
+	/** The sync. */
 	Listener sync = new Listener();
+	
+	/** The listener. */
 	private SelectionListener listener;
 
 	/**
 	 * Accepts a listener that will be notified when content changes.
 	 *
-	 * @param listener1
+	 * @param listener1 the listener 1
 	 */
 	public void addListener(final SelectionListener listener1) {
 		this.listener = listener1;
@@ -136,7 +156,7 @@ public class FillViewer {
 	/**
 	 * TODO summary sentence for fire ...
 	 *
-	 * @param event
+	 * @param event the event
 	 */
 	protected void fire(final SelectionEvent event) {
 		if (this.listener == null) { return; }
@@ -146,8 +166,8 @@ public class FillViewer {
 	/**
 	 * TODO summary sentence for createControl ...
 	 *
-	 * @param parent
-	 * @param kListener
+	 * @param parent the parent
+	 * @param kListener the k listener
 	 * @return Generated composite
 	 */
 	public Composite createControl(final Composite parent, final KeyListener kListener) {
@@ -169,8 +189,7 @@ public class FillViewer {
 	/**
 	 * TODO summary sentence for getFill ...
 	 *
-	 * @param build
-	 *
+	 * @param build the build
 	 * @return Fill defined by this model
 	 */
 	public Fill getFill(final StyleBuilder build) {
@@ -179,6 +198,11 @@ public class FillViewer {
 		return build.createFill(this.color);
 	}
 
+	/**
+	 * Listen.
+	 *
+	 * @param listen the listen
+	 */
 	void listen(final boolean listen) {
 		if (listen) {
 			this.on.addSelectionListener(this.sync);
@@ -196,9 +220,9 @@ public class FillViewer {
 	/**
 	 * TODO summary sentence for setFill ...
 	 *
-	 * @param fill
-	 * @param mode
-	 * @param enabled
+	 * @param fill2 the fill 2
+	 * @param mode the mode
+	 * @param defaultColor the default color
 	 */
 	public void setFill(final Fill fill2, final Mode mode, final Color defaultColor) {
 		listen(false);

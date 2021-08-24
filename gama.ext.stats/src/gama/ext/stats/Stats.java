@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.operators.Stats.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * Stats.java, in gama.ext.stats, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.ext.stats;
 
@@ -69,41 +69,78 @@ import rcaller.exception.ParseException;
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class Stats {
 
+	/**
+	 * The Class Instance.
+	 */
 	public static class Instance extends DoublePoint {
 
-		/**
-		 *
-		 */
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
+		
+		/** The id. */
 		int id;
 
+		/**
+		 * Instantiates a new instance.
+		 *
+		 * @param id the id
+		 * @param point the point
+		 */
 		public Instance(final int id, final double[] point) {
 			super(point);
 			this.id = id;
 		}
 
+		/**
+		 * Gets the id.
+		 *
+		 * @return the id
+		 */
 		public int getId() {
 			return id;
 		}
 
+		/**
+		 * Sets the id.
+		 *
+		 * @param id the new id
+		 */
 		public void setId(final int id) {
 			this.id = id;
 		}
 
 	}
 
+	/**
+	 * The Class DataSet.
+	 */
 	private static class DataSet {
 
+		/** The Constant DEFAULT_CAPACITY. */
 		private static final int DEFAULT_CAPACITY = 50;
+		
+		/** The Constant GROWTH_RATE. */
 		private static final double GROWTH_RATE = 1.5d;
 
+		/** The data set. */
 		double[] dataSet;
+		
+		/** The data set size. */
 		int dataSetSize = 0;
 
+		/** The total. */
 		private double total = 0;
+		
+		/** The product. */
 		private double product = 1;
+		
+		/** The reciprocal sum. */
 		private double reciprocalSum = 0;
+		
+		/** The minimum. */
 		private double minimum = Double.MAX_VALUE;
+		
+		/** The maximum. */
 		private double maximum = Double.MIN_VALUE;
 
 		/**
@@ -144,6 +181,11 @@ public class Stats {
 			++dataSetSize;
 		}
 
+		/**
+		 * Update stats with new value.
+		 *
+		 * @param value the value
+		 */
 		private void updateStatsWithNewValue(final double value) {
 			total += value;
 			product *= value;
@@ -181,9 +223,9 @@ public class Stats {
 		}
 
 		/**
+		 * Gets the product.
+		 *
 		 * @return The product of all values.
-		 * @throws EmptyDataSetException
-		 *             If the data set is empty.
 		 */
 		public final double getProduct() {
 			return product;
@@ -193,10 +235,8 @@ public class Stats {
 		 * The arithemthic mean of an n-element set is the sum of all the elements divided by n. The arithmetic mean is
 		 * often referred to simply as the "mean" or "average" of a data set.
 		 *
-		 * @see #getGeometricMean()
 		 * @return The arithmetic mean of all elements in the data set.
-		 * @throws EmptyDataSetException
-		 *             If the data set is empty.
+		 * @see #getGeometricMean()
 		 */
 		public final double getArithmeticMean() {
 			return total / dataSetSize;
@@ -206,11 +246,9 @@ public class Stats {
 		 * The geometric mean of an n-element set is the nth-root of the product of all the elements. The geometric mean
 		 * is used for finding the average factor (e.g. an average interest rate).
 		 *
+		 * @return The geometric mean of all elements in the data set.
 		 * @see #getArithmeticMean()
 		 * @see #getHarmonicMean()
-		 * @return The geometric mean of all elements in the data set.
-		 * @throws EmptyDataSetException
-		 *             If the data set is empty.
 		 */
 		public final double getGeometricMean() {
 			return Math.pow(product, 1.0d / dataSetSize);
@@ -221,12 +259,10 @@ public class Stats {
 		 * (where the reciprocal of a value {@literal x} is 1/x). The harmonic mean is used to calculate an average rate
 		 * (e.g. an average speed).
 		 *
+		 * @return The harmonic mean of all the elements in the data set.
 		 * @see #getArithmeticMean()
 		 * @see #getGeometricMean()
 		 * @since 1.1
-		 * @return The harmonic mean of all the elements in the data set.
-		 * @throws EmptyDataSetException
-		 *             If the data set is empty.
 		 */
 		public final double getHarmonicMean() {
 			return dataSetSize / reciprocalSum;
@@ -236,12 +272,10 @@ public class Stats {
 		 * Calculates the mean absolute deviation of the data set. This is the average (absolute) amount that a single
 		 * value deviates from the arithmetic mean.
 		 *
+		 * @return The mean absolute deviation of the data set.
 		 * @see #getArithmeticMean()
 		 * @see #getVariance()
 		 * @see #getStandardDeviation()
-		 * @return The mean absolute deviation of the data set.
-		 * @throws EmptyDataSetException
-		 *             If the data set is empty.
 		 */
 		public final double getMeanDeviation() {
 			final double mean = getArithmeticMean();
@@ -257,12 +291,10 @@ public class Stats {
 		 * of variance depending on whether the data set is itself a finite population or is a sample from some larger
 		 * population. For large data sets the difference is negligible. This method calculates the population variance.
 		 *
+		 * @return The population variance of the data set.
 		 * @see #getSampleVariance()
 		 * @see #getStandardDeviation()
 		 * @see #getMeanDeviation()
-		 * @return The population variance of the data set.
-		 * @throws EmptyDataSetException
-		 *             If the data set is empty.
 		 */
 		public final double getVariance() {
 			return sumSquaredDiffs() / getSize();
@@ -272,8 +304,6 @@ public class Stats {
 		 * Helper method for variance calculations.
 		 *
 		 * @return The sum of the squares of the differences between each value and the arithmetic mean.
-		 * @throws EmptyDataSetException
-		 *             If the data set is empty.
 		 */
 		private double sumSquaredDiffs() {
 			final double mean = getArithmeticMean();
@@ -289,17 +319,21 @@ public class Stats {
 		 * The standard deviation is the square root of the variance. This method calculates the population standard
 		 * deviation as opposed to the sample standard deviation. For large data sets the difference is negligible.
 		 *
+		 * @return The standard deviation of the population.
 		 * @see #getSampleStandardDeviation()
 		 * @see #getVariance()
 		 * @see #getMeanDeviation()
-		 * @return The standard deviation of the population.
-		 * @throws EmptyDataSetException
-		 *             If the data set is empty.
 		 */
 		public final double getStandardDeviation() {
 			return Math.sqrt(getVariance());
 		}
 
+		/**
+		 * Gets the stops.
+		 *
+		 * @param nb the nb
+		 * @return the stops
+		 */
 		public double[] getStops(final int nb) {
 			final double interval = (maximum - minimum) / nb;
 			final double[] result = new double[nb - 1];
@@ -341,6 +375,13 @@ public class Stats {
 		// }
 	}
 
+	/**
+	 * From.
+	 *
+	 * @param scope the scope
+	 * @param values the values
+	 * @return the data set
+	 */
 	private static DataSet from(final IScope scope, final IContainer values) {
 		final DataSet d = new DataSet(values.length(scope));
 		for (final Object o : values.iterable(scope)) {
@@ -349,6 +390,14 @@ public class Stats {
 		return d;
 	}
 
+	/**
+	 * Split.
+	 *
+	 * @param <T> the generic type
+	 * @param scope the scope
+	 * @param list the list
+	 * @return the i list
+	 */
 	@operator (
 			value = "split",
 			can_be_const = true,
@@ -371,6 +420,15 @@ public class Stats {
 		return split_in(scope, list, nb);
 	}
 
+	/**
+	 * Split in.
+	 *
+	 * @param <T> the generic type
+	 * @param scope the scope
+	 * @param list the list
+	 * @param nb the nb
+	 * @return the i list
+	 */
 	@operator (
 			value = "split_in",
 			can_be_const = true,
@@ -391,6 +449,16 @@ public class Stats {
 		return split_in(scope, list, nb, true);
 	}
 
+	/**
+	 * Split in.
+	 *
+	 * @param <T> the generic type
+	 * @param scope the scope
+	 * @param list the list
+	 * @param nb the nb
+	 * @param strict the strict
+	 * @return the i list
+	 */
 	@operator (
 			value = "split_in",
 			can_be_const = true,
@@ -419,6 +487,15 @@ public class Stats {
 		return split_using(scope, list, stops);
 	}
 
+	/**
+	 * Split using.
+	 *
+	 * @param <T> the generic type
+	 * @param scope the scope
+	 * @param list the list
+	 * @param stops the stops
+	 * @return the i list
+	 */
 	@operator (
 			value = "split_using",
 			can_be_const = true,
@@ -440,6 +517,16 @@ public class Stats {
 		return split_using(scope, list, stops, true);
 	}
 
+	/**
+	 * Split using.
+	 *
+	 * @param <T> the generic type
+	 * @param scope the scope
+	 * @param list the list
+	 * @param stops the stops
+	 * @param strict the strict
+	 * @return the i list
+	 */
 	@operator (
 			value = "split_using",
 			can_be_const = true,
@@ -482,6 +569,13 @@ public class Stats {
 		return result;
 	}
 
+	/**
+	 * Max.
+	 *
+	 * @param scope the scope
+	 * @param l the l
+	 * @return the object
+	 */
 	@operator (
 			value = "max",
 			can_be_const = true,
@@ -540,6 +634,13 @@ public class Stats {
 		return maxNum == null ? maxPoint : maxNum;
 	}
 
+	/**
+	 * Min.
+	 *
+	 * @param scope the scope
+	 * @param l the l
+	 * @return the object
+	 */
 	@operator (
 			value = "min",
 			can_be_const = true,
@@ -599,6 +700,13 @@ public class Stats {
 		return minNum == null ? minPoint : minNum;
 	}
 
+	/**
+	 * Product.
+	 *
+	 * @param scope the scope
+	 * @param l the l
+	 * @return the object
+	 */
 	@SuppressWarnings ("null")
 	@operator (
 			value = { "mul", "product" },
@@ -667,6 +775,13 @@ public class Stats {
 	// TODO Penser a faire ces calculs sur les points, egalement (et les entiers
 	// ?)
 
+	/**
+	 * Op median.
+	 *
+	 * @param scope the scope
+	 * @param values the values
+	 * @return the object
+	 */
 	@operator (
 			value = "median",
 			can_be_const = true,
@@ -731,6 +846,13 @@ public class Stats {
 		}
 	}
 
+	/**
+	 * Op st dev.
+	 *
+	 * @param scope the scope
+	 * @param values the values
+	 * @return the double
+	 */
 	@operator (
 			value = "standard_deviation",
 			can_be_const = true,
@@ -753,6 +875,13 @@ public class Stats {
 		return d.getStandardDeviation();
 	}
 
+	/**
+	 * Op geom mean.
+	 *
+	 * @param scope the scope
+	 * @param values the values
+	 * @return the double
+	 */
 	@operator (
 			value = "geometric_mean",
 			can_be_const = true,
@@ -774,6 +903,13 @@ public class Stats {
 		return d.getGeometricMean();
 	}
 
+	/**
+	 * Op harmonic mean.
+	 *
+	 * @param scope the scope
+	 * @param values the values
+	 * @return the double
+	 */
 	@operator (
 			value = "harmonic_mean",
 			can_be_const = true,
@@ -795,6 +931,13 @@ public class Stats {
 		return d.getHarmonicMean();
 	}
 
+	/**
+	 * Op variance.
+	 *
+	 * @param scope the scope
+	 * @param values the values
+	 * @return the double
+	 */
 	@operator (
 			value = "variance",
 			can_be_const = true,
@@ -815,6 +958,13 @@ public class Stats {
 		return d.getVariance();
 	}
 
+	/**
+	 * Op mean deviation.
+	 *
+	 * @param scope the scope
+	 * @param values the values
+	 * @return the double
+	 */
 	@operator (
 			value = "mean_deviation",
 			can_be_const = true,
@@ -835,6 +985,15 @@ public class Stats {
 		return d.getMeanDeviation();
 	}
 
+	/**
+	 * Frequency of.
+	 *
+	 * @param scope the scope
+	 * @param original the original
+	 * @param filter the filter
+	 * @return the i map
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = { "frequency_of" },
 			can_be_const = true,
@@ -867,6 +1026,17 @@ public class Stats {
 		return result;
 	}
 
+	/**
+	 * Gets the correlation R.
+	 *
+	 * @param scope the scope
+	 * @param l1 the l 1
+	 * @param l2 the l 2
+	 * @return the correlation R
+	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws ParseException the parse exception
+	 * @throws ExecutionException the execution exception
+	 */
 	@operator (
 			value = { "corR", "R_correlation" },
 			can_be_const = false,
@@ -935,6 +1105,16 @@ public class Stats {
 		return results[0];
 	}
 
+	/**
+	 * Gets the mean R.
+	 *
+	 * @param scope the scope
+	 * @param l the l
+	 * @return the mean R
+	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws ParseException the parse exception
+	 * @throws ExecutionException the execution exception
+	 */
 	@operator (
 			value = { "meanR", "R_mean" },
 			can_be_const = false,
@@ -985,6 +1165,16 @@ public class Stats {
 		return results[0];
 	}
 
+	/**
+	 * D bscan apache.
+	 *
+	 * @param scope the scope
+	 * @param data the data
+	 * @param eps the eps
+	 * @param minPts the min pts
+	 * @return the i list
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = "dbscan",
 			can_be_const = false,
@@ -1035,6 +1225,16 @@ public class Stats {
 		}
 	}
 
+	/**
+	 * K means plusplus apache.
+	 *
+	 * @param scope the scope
+	 * @param data the data
+	 * @param k the k
+	 * @param maxIt the max it
+	 * @return the i list
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = "kmeans",
 			can_be_const = false,
@@ -1080,6 +1280,16 @@ public class Stats {
 		}
 	}
 
+	/**
+	 * Op dynamic time warping.
+	 *
+	 * @param scope the scope
+	 * @param vals1 the vals 1
+	 * @param vals2 the vals 2
+	 * @param radius the radius
+	 * @return the double
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = "dtw",
 			can_be_const = false,
@@ -1133,6 +1343,15 @@ public class Stats {
 
 	}
 
+	/**
+	 * Op dynamic time warping.
+	 *
+	 * @param scope the scope
+	 * @param vals1 the vals 1
+	 * @param vals2 the vals 2
+	 * @return the double
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = "dtw",
 			can_be_const = false,
@@ -1180,6 +1399,14 @@ public class Stats {
 		return table[0][n2];
 	}
 
+	/**
+	 * Skewness.
+	 *
+	 * @param scope the scope
+	 * @param data the data
+	 * @return the double
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = "skewness",
 			can_be_const = false,
@@ -1201,6 +1428,14 @@ public class Stats {
 		return sk.evaluate(values);
 	}
 
+	/**
+	 * Kurtosis.
+	 *
+	 * @param scope the scope
+	 * @param data the data
+	 * @return the double
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = "kurtosis",
 			can_be_const = false,
@@ -1224,6 +1459,15 @@ public class Stats {
 		return k.evaluate(values);
 	}
 
+	/**
+	 * K means plusplus apache.
+	 *
+	 * @param scope the scope
+	 * @param data the data
+	 * @param k the k
+	 * @return the i list
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = "kmeans",
 			can_be_const = false,
@@ -1245,6 +1489,14 @@ public class Stats {
 		return KMeansPlusplusApache(scope, data, k, -1);
 	}
 
+	/**
+	 * Builds the regression.
+	 *
+	 * @param scope the scope
+	 * @param data the data
+	 * @return the gama regression
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@operator (
 			value = "build",
 			can_be_const = false,
@@ -1268,6 +1520,14 @@ public class Stats {
 		}
 	}
 
+	/**
+	 * Predict from regression.
+	 *
+	 * @param scope the scope
+	 * @param regression the regression
+	 * @param instance the instance
+	 * @return the double
+	 */
 	@operator (
 			value = "predict",
 			can_be_const = false,
@@ -1286,6 +1546,13 @@ public class Stats {
 		return regression.predict(scope, instance);
 	}
 
+	/**
+	 * Gini index.
+	 *
+	 * @param scope the scope
+	 * @param vals the vals
+	 * @return the double
+	 */
 	@operator (
 			value = "gini",
 			category = { IOperatorCategory.SPATIAL, IOperatorCategory.STATISTICAL },
@@ -1316,6 +1583,14 @@ public class Stats {
 		return G;
 	}
 
+	/**
+	 * Product of.
+	 *
+	 * @param scope the scope
+	 * @param container the container
+	 * @param filter the filter
+	 * @return the object
+	 */
 	@operator (
 			value = { "product_of" },
 			type = ITypeProvider.TYPE_AT_INDEX + 2,
@@ -1339,6 +1614,14 @@ public class Stats {
 		return product(scope, collect(scope, container, filter));
 	}
 
+	/**
+	 * Variance of.
+	 *
+	 * @param scope the scope
+	 * @param container the container
+	 * @param filter the filter
+	 * @return the object
+	 */
 	@operator (
 			value = { "variance_of" },
 			type = ITypeProvider.TYPE_AT_INDEX + 2,

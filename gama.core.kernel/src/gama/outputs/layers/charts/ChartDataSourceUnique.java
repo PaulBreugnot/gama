@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.layers.charts.ChartDataSourceUnique.java, in plugin msi.gama.core, is part of the source code of the
- * GAMA modeling and simulation platform (v. 1.8.1)
+ * ChartDataSourceUnique.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs.layers.charts;
 
@@ -21,8 +21,12 @@ import gaml.operators.Cast;
 import gaml.operators.Random;
 import gaml.types.Types;
 
+/**
+ * The Class ChartDataSourceUnique.
+ */
 public class ChartDataSourceUnique extends ChartDataSource {
 
+	/** The myname. */
 	String myname;
 
 	@Override
@@ -54,22 +58,46 @@ public class ChartDataSourceUnique extends ChartDataSource {
 		return res;
 	}
 
+	/**
+	 * Gets the myserie.
+	 *
+	 * @return the myserie
+	 */
 	public ChartDataSeries getMyserie() {
 		return mySeries.get(getName());
 	}
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return myname;
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	public void setName(final String name) {
 		this.myname = name;
 	}
 
+	/**
+	 * Instantiates a new chart data source unique.
+	 */
 	public ChartDataSourceUnique() {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Sets the legend.
+	 *
+	 * @param scope the scope
+	 * @param stval the stval
+	 */
 	public void setLegend(final IScope scope, final String stval) {
 		myname = stval;
 	}
@@ -141,6 +169,12 @@ public class ChartDataSourceUnique extends ChartDataSource {
 
 	}
 
+	/**
+	 * Infer dataset properties.
+	 *
+	 * @param scope the scope
+	 * @param myserie the myserie
+	 */
 	public void inferDatasetProperties(final IScope scope, final ChartDataSeries myserie) {
 		Object o = null;
 		if (this.getValue() != null) {

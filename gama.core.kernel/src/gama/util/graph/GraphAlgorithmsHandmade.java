@@ -1,9 +1,9 @@
 /*******************************************************************************************************
  *
- * msi.gama.util.graph.GraphAlgorithmsHandmade.java, in plugin msi.gama.core,
- * is part of the source code of the GAMA modeling and simulation platform (v. 1.8.1)
+ * GraphAlgorithmsHandmade.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
@@ -26,20 +26,22 @@ public class GraphAlgorithmsHandmade {
 
 	/**
 	 * Picks up a random node in the graph and returns it.
-	 * 
-	 * @param graph
-	 * @return
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @return the one random node
 	 */
 	public static Object getOneRandomNode(final IScope scope, final IGraph graph) {
 		return graph.getVertices().get(scope.getRandom().between(0, graph.getVertices().size() - 1));
 	}
 
 	/**
-	 * Picks up a random node that is not the one passed in parameter
-	 * 
-	 * @param graph
-	 * @param excludedNode
-	 * @return
+	 * Picks up a random node that is not the one passed in parameter.
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param excludedNode the excluded node
+	 * @return the another random node
 	 */
 	public static Object getAnotherRandomNode(final IScope scope, final IGraph graph, final Object excludedNode) {
 
@@ -56,11 +58,12 @@ public class GraphAlgorithmsHandmade {
 	}
 
 	/**
-	 * TODO does not works now Rewires a graph (in the Watts-Strogatz meaning)
-	 * 
-	 * @param graph
-	 * @param probability
-	 * @return
+	 * TODO does not works now Rewires a graph (in the Watts-Strogatz meaning).
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param probability the probability
+	 * @return the i graph
 	 */
 	public static IGraph rewireGraphProbability(final IScope scope, final IGraph graph, final Double probability) {
 
@@ -93,10 +96,11 @@ public class GraphAlgorithmsHandmade {
 	/**
 	 * Rewires the given count of edges. If there are too many edges, all the
 	 * edges will be rewired.
-	 * 
-	 * @param graph
-	 * @param count
-	 * @return
+	 *
+	 * @param scope the scope
+	 * @param graph the graph
+	 * @param count the count
+	 * @return the i graph
 	 */
 	public static IGraph rewireGraphCount(final IScope scope, final IGraph graph, final Integer count) {
 

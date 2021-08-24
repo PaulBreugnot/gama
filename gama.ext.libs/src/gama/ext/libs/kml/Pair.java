@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Pair.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -44,18 +54,7 @@ public class Pair
     implements Cloneable
 {
 
-    /**
-     * StyleState
-     * <p>
-     * normal, highlight 
-     * </p>
-     * 
-     * See Also: 
-     * See <StyleMap>
-     * 
-     * 
-     * 
-     */
+    /** StyleState <p> normal, highlight  </p>  See Also:  See <StyleMap>. */
     @XmlElement(defaultValue = "normal")
     protected StyleState key;
     /**
@@ -104,6 +103,8 @@ public class Pair
      */
     @XmlElementRef(name = "AbstractStyleSelectorGroup", namespace = "http://www.opengis.net/kml/2.2", required = false)
     protected StyleSelector styleSelector;
+    
+    /** The pair simple extension. */
     @XmlElement(name = "PairSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> pairSimpleExtension;
@@ -128,89 +129,88 @@ public class Pair
     @XmlElement(name = "PairObjectExtensionGroup")
     protected List<AbstractObject> pairObjectExtension;
 
+    /**
+     * Instantiates a new pair.
+     */
     public Pair() {
         super();
     }
 
     /**
-     * @see key
-     * 
-     * @return
-     *     possible object is
+     * Gets the key.
+     *
+     * @return     possible object is
      *     {@link StyleState}
-     *     
+     * @see key
      */
     public StyleState getKey() {
         return key;
     }
 
     /**
-     * @see key
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the key.
+     *
+     * @param value     allowed object is
      *     {@link StyleState}
-     *     
+     * @see key
      */
     public void setKey(StyleState value) {
         this.key = value;
     }
 
     /**
-     * @see styleUrl
-     * 
-     * @return
-     *     possible object is
+     * Gets the style url.
+     *
+     * @return     possible object is
      *     {@link String}
-     *     
+     * @see styleUrl
      */
     public String getStyleUrl() {
         return styleUrl;
     }
 
     /**
-     * @see styleUrl
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the style url.
+     *
+     * @param value     allowed object is
      *     {@link String}
-     *     
+     * @see styleUrl
      */
     public void setStyleUrl(String value) {
         this.styleUrl = value;
     }
 
     /**
-     * @see styleSelector
-     * 
-     * @return
-     *     possible object is
+     * Gets the style selector.
+     *
+     * @return     possible object is
      *     {@code <}{@link Style}{@code>}
      *     {@code <}{@link StyleSelector}{@code>}
      *     {@code <}{@link StyleMap}{@code>}
-     *     
+     * @see styleSelector
      */
     public StyleSelector getStyleSelector() {
         return styleSelector;
     }
 
     /**
-     * @see styleSelector
-     * 
-     * @param value
-     *     allowed object is
+     * Sets the style selector.
+     *
+     * @param value     allowed object is
      *     {@code <}{@link Style}{@code>}
      *     {@code <}{@link StyleSelector}{@code>}
      *     {@code <}{@link StyleMap}{@code>}
-     *     
+     * @see styleSelector
      */
     public void setStyleSelector(StyleSelector value) {
         this.styleSelector = (value);
     }
 
     /**
+     * Gets the pair simple extension.
+     *
+     * @return the pair simple extension
      * @see pairSimpleExtension
-     * 
      */
     public List<Object> getPairSimpleExtension() {
         if (pairSimpleExtension == null) {
@@ -220,8 +220,10 @@ public class Pair
     }
 
     /**
+     * Gets the pair object extension.
+     *
+     * @return the pair object extension
      * @see pairObjectExtension
-     * 
      */
     public List<AbstractObject> getPairObjectExtension() {
         if (pairObjectExtension == null) {
@@ -312,8 +314,8 @@ public class Pair
      * <code>
      * Style style = new Style();
      * this.setStyleSelector(style); </code>
-     * 
-     * 
+     *
+     * @return the style
      */
     public Style createAndSetStyle() {
         Style newValue = new Style();
@@ -328,8 +330,8 @@ public class Pair
      * <code>
      * StyleMap styleMap = new StyleMap();
      * this.setStyleSelector(styleMap); </code>
-     * 
-     * 
+     *
+     * @return the style map
      */
     public StyleMap createAndSetStyleMap() {
         StyleMap newValue = new StyleMap();
@@ -338,21 +340,20 @@ public class Pair
     }
 
     /**
+     * Sets the pair simple extension.
+     *
+     * @param pairSimpleExtension the new pair simple extension
      * @see pairSimpleExtension
-     * 
-     * @param pairSimpleExtension
      */
     public void setPairSimpleExtension(final List<Object> pairSimpleExtension) {
         this.pairSimpleExtension = pairSimpleExtension;
     }
 
     /**
-     * add a value to the pairSimpleExtension property collection
-     * 
-     * @param pairSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the pairSimpleExtension property collection.
+     *
+     * @param pairSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Pair addToPairSimpleExtension(final Object pairSimpleExtension) {
         this.getPairSimpleExtension().add(pairSimpleExtension);
@@ -360,21 +361,20 @@ public class Pair
     }
 
     /**
+     * Sets the pair object extension.
+     *
+     * @param pairObjectExtension the new pair object extension
      * @see pairObjectExtension
-     * 
-     * @param pairObjectExtension
      */
     public void setPairObjectExtension(final List<AbstractObject> pairObjectExtension) {
         this.pairObjectExtension = pairObjectExtension;
     }
 
     /**
-     * add a value to the pairObjectExtension property collection
-     * 
-     * @param pairObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the pairObjectExtension property collection.
+     *
+     * @param pairObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Pair addToPairObjectExtension(final AbstractObject pairObjectExtension) {
         this.getPairObjectExtension().add(pairObjectExtension);
@@ -399,11 +399,11 @@ public class Pair
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param key     required parameter
+     * @return the pair
      * @see #setKey(StyleState)
-     * 
-     * @param key
-     *     required parameter
      */
     public Pair withKey(final StyleState key) {
         this.setKey(key);
@@ -411,11 +411,11 @@ public class Pair
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param styleUrl     required parameter
+     * @return the pair
      * @see #setStyleUrl(String)
-     * 
-     * @param styleUrl
-     *     required parameter
      */
     public Pair withStyleUrl(final String styleUrl) {
         this.setStyleUrl(styleUrl);
@@ -423,11 +423,11 @@ public class Pair
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param styleSelector     required parameter
+     * @return the pair
      * @see #setStyleSelector(StyleSelector)
-     * 
-     * @param styleSelector
-     *     required parameter
      */
     public Pair withStyleSelector(final StyleSelector styleSelector) {
         this.setStyleSelector(styleSelector);
@@ -435,11 +435,11 @@ public class Pair
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param pairSimpleExtension     required parameter
+     * @return the pair
      * @see #setPairSimpleExtension(List<Object>)
-     * 
-     * @param pairSimpleExtension
-     *     required parameter
      */
     public Pair withPairSimpleExtension(final List<Object> pairSimpleExtension) {
         this.setPairSimpleExtension(pairSimpleExtension);
@@ -447,11 +447,11 @@ public class Pair
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param pairObjectExtension     required parameter
+     * @return the pair
      * @see #setPairObjectExtension(List<AbstractObject>)
-     * 
-     * @param pairObjectExtension
-     *     required parameter
      */
     public Pair withPairObjectExtension(final List<AbstractObject> pairObjectExtension) {
         this.setPairObjectExtension(pairObjectExtension);

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.extensions.fipa.FIPAProtocol.java, in plugin msi.gaml.extensions.fipa, is part of the source code of the
- * GAMA modeling and simulation platform (v. 1.8.1)
+ * FIPAProtocol.java, in gama.ext.fipa, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.ext.fipa;
 
@@ -44,8 +44,12 @@ import gama.runtime.exceptions.GamaRuntimeException;
  */
 abstract public class FIPAProtocol extends DefaultDirectedGraph<ProtocolNode, Object> {
 
+	/**
+	 * The Enum Names.
+	 */
 	public static enum Names {
 
+		/** The fipa brokering. */
 		fipa_brokering(new FIPAProtocol("fipa_brokering") {
 			@Override
 			protected ProtocolNode populateProtocolGraph() {
@@ -54,7 +58,9 @@ abstract public class FIPAProtocol extends DefaultDirectedGraph<ProtocolNode, Ob
 				addTree(pNode(agree), iNode(cancel), pNode(failure), pNode(inform));
 				return iNode(proxy);
 			}
-		}), fipa_contract_net(new FIPAProtocol("fipa_contract_net") {
+		}), 
+ /** The fipa contract net. */
+ fipa_contract_net(new FIPAProtocol("fipa_contract_net") {
 			@Override
 			protected ProtocolNode populateProtocolGraph() {
 				addTree(iNode(cfp), pNode(failure), iNode(cancel), pNode(refuse), pNode(propose));
@@ -63,7 +69,9 @@ abstract public class FIPAProtocol extends DefaultDirectedGraph<ProtocolNode, Ob
 				addTree(iNode(accept_proposal), pNode(failure), pNode(inform));
 				return iNode(cfp);
 			}
-		}), fipa_iterated_contract_net(new FIPAProtocol("fipa_iterated_contract_net") {
+		}), 
+ /** The fipa iterated contract net. */
+ fipa_iterated_contract_net(new FIPAProtocol("fipa_iterated_contract_net") {
 			@Override
 			protected ProtocolNode populateProtocolGraph() {
 				addTree(iNode(cfp), pNode(failure), iNode(cancel), pNode(refuse), pNode(propose));
@@ -73,14 +81,18 @@ abstract public class FIPAProtocol extends DefaultDirectedGraph<ProtocolNode, Ob
 				addTree(iNode(accept_proposal), pNode(failure), pNode(inform));
 				return iNode(cfp);
 			}
-		}), fipa_propose(new FIPAProtocol("fipa_propose") {
+		}), 
+ /** The fipa propose. */
+ fipa_propose(new FIPAProtocol("fipa_propose") {
 			@Override
 			protected ProtocolNode populateProtocolGraph() {
 				addTree(iNode(propose), pNode(reject_proposal), pNode(accept_proposal), iNode(cancel));
 				addTree(iNode(cancel), pNode(failure), pNode(inform));
 				return iNode(propose);
 			}
-		}), fipa_query(new FIPAProtocol("fipa_query") {
+		}), 
+ /** The fipa query. */
+ fipa_query(new FIPAProtocol("fipa_query") {
 			@Override
 			protected ProtocolNode populateProtocolGraph() {
 				addTree(iNode(query), pNode(refuse), pNode(agree), iNode(cancel));
@@ -89,7 +101,9 @@ abstract public class FIPAProtocol extends DefaultDirectedGraph<ProtocolNode, Ob
 				return iNode(query);
 
 			}
-		}), fipa_request(new FIPAProtocol("fipa_request") {
+		}), 
+ /** The fipa request. */
+ fipa_request(new FIPAProtocol("fipa_request") {
 			@Override
 			protected ProtocolNode populateProtocolGraph() {
 				addTree(iNode(request), pNode(not_understood), iNode(cancel), pNode(agree), pNode(refuse));
@@ -97,7 +111,9 @@ abstract public class FIPAProtocol extends DefaultDirectedGraph<ProtocolNode, Ob
 				addTree(pNode(agree), pNode(failure), pNode(inform));
 				return iNode(request);
 			}
-		}), fipa_request_when(new FIPAProtocol("fipa_request_when") {
+		}), 
+ /** The fipa request when. */
+ fipa_request_when(new FIPAProtocol("fipa_request_when") {
 			@Override
 			protected ProtocolNode populateProtocolGraph() {
 				addTree(iNode(request_when), iNode(cancel), pNode(refuse), pNode(agree));
@@ -105,7 +121,9 @@ abstract public class FIPAProtocol extends DefaultDirectedGraph<ProtocolNode, Ob
 				addTree(iNode(agree), pNode(failure), pNode(inform));
 				return iNode(request_when);
 			}
-		}), fipa_subscribe(new FIPAProtocol("fipa_subscribe") {
+		}), 
+ /** The fipa subscribe. */
+ fipa_subscribe(new FIPAProtocol("fipa_subscribe") {
 			@Override
 			protected ProtocolNode populateProtocolGraph() {
 				addTree(iNode(subscribe), pNode(refuse), pNode(agree), iNode(cancel));
@@ -114,31 +132,51 @@ abstract public class FIPAProtocol extends DefaultDirectedGraph<ProtocolNode, Ob
 				addTree(iNode(cancel), pNode(inform), pNode(failure)); // ???
 				return iNode(subscribe);
 			}
-		}), no_protocol(new FIPAProtocol("no_protocol") {
+		}), 
+ /** The no protocol. */
+ no_protocol(new FIPAProtocol("no_protocol") {
 			@Override
 			protected ProtocolNode populateProtocolGraph() {
 				return null;
 			}
 		});
 
+		/** The protocol. */
 		FIPAProtocol protocol;
 
+		/**
+		 * Instantiates a new names.
+		 *
+		 * @param p the p
+		 */
 		Names(FIPAProtocol p) {
 			protocol = p;
 		}
 
 	}
 
+	/**
+	 * Instantiates a new FIPA protocol.
+	 *
+	 * @param name the name
+	 */
 	public FIPAProtocol(String name) {
 		super(Object.class);
 		this.name = name;
 		root = populateProtocolGraph();
 	}
 
+	/** The root. */
 	private final ProtocolNode root;
 
+	/** The name. */
 	private String name;
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public final String getName() {
 		return name;
 	}
@@ -146,8 +184,8 @@ abstract public class FIPAProtocol extends DefaultDirectedGraph<ProtocolNode, Ob
 	/**
 	 * Adds a subgraph (usually a tree) to the protocol. First parameter is the source node, others are the targets
 	 *
-	 * @param start
-	 * @param nodes
+	 * @param start the start
+	 * @param nodes the nodes
 	 */
 	void addTree(ProtocolNode start, ProtocolNode... nodes) {
 		addOutgoingEdges(this, start, asList(nodes));
@@ -157,8 +195,8 @@ abstract public class FIPAProtocol extends DefaultDirectedGraph<ProtocolNode, Ob
 	 * Returns a node sent by a participant with this performative. If the node already exists, returns it. Otherwise,
 	 * creates it and adds it to the protocol nodes
 	 *
-	 * @param performative
-	 * @return
+	 * @param performative the performative
+	 * @return the protocol node
 	 */
 	ProtocolNode pNode(Performative performative) {
 		for (ProtocolNode node : this.vertexSet()) {
@@ -173,8 +211,8 @@ abstract public class FIPAProtocol extends DefaultDirectedGraph<ProtocolNode, Ob
 	 * Returns a node sent by the initiator with this performative. If the node already exists, returns it. Otherwise,
 	 * creates it and adds it to the protocol nodes
 	 *
-	 * @param performative
-	 * @return
+	 * @param performative the performative
+	 * @return the protocol node
 	 */
 	ProtocolNode iNode(Performative performative) {
 		for (ProtocolNode node : this.vertexSet()) {
@@ -185,6 +223,11 @@ abstract public class FIPAProtocol extends DefaultDirectedGraph<ProtocolNode, Ob
 		return node;
 	}
 
+	/**
+	 * Populate protocol graph.
+	 *
+	 * @return the protocol node
+	 */
 	protected abstract ProtocolNode populateProtocolGraph();
 
 	/**
@@ -198,6 +241,14 @@ abstract public class FIPAProtocol extends DefaultDirectedGraph<ProtocolNode, Ob
 
 	/**
 	 * Gets the node corresponding to a performative after the current node of the protocol.
+	 *
+	 * @param scope the scope
+	 * @param message the message
+	 * @param currentNode the current node
+	 * @param performative the performative
+	 * @param initiator the initiator
+	 * @return the node
+	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 	protected ProtocolNode getNode(final IScope scope, final FIPAMessage message, final ProtocolNode currentNode,
 			final Performative performative, final boolean initiator) throws GamaRuntimeException {

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gaml.types.ParametricFileType.java, in plugin msi.gama.core, is part of the source code of the GAMA modeling and
- * simulation platform (v. 1.8.1)
+ * ParametricFileType.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gaml.types;
 
@@ -21,20 +21,46 @@ import gaml.compilation.GamaGetter;
 import gaml.expressions.IExpression;
 
 /**
- * @author drogoul
+ * The Class ParametricFileType.
  *
+ * @author drogoul
  */
 public class ParametricFileType extends ParametricType {
 
+	/** The id. */
 	int id;
+	
+	/** The var kind. */
 	int varKind;
+	
+	/** The support. */
 	@SuppressWarnings ("rawtypes") final Class<IGamaFile> support;
+	
+	/** The buffer type. */
 	final IContainerType<?> bufferType;
+	
+	/** The builder. */
 	final GamaGetter.Unary<IGamaFile<?, ?>> builder;
+	
+	/** The alias. */
 	final String alias;
+	
+	/** The plugin. */
 	String plugin;
+	
+	/** The generic instance. */
 	static ParametricFileType genericInstance;
 
+	/**
+	 * Instantiates a new parametric file type.
+	 *
+	 * @param name the name
+	 * @param class1 the class 1
+	 * @param helper the helper
+	 * @param buffer the buffer
+	 * @param kt the kt
+	 * @param ct the ct
+	 */
 	protected ParametricFileType(final String name, @SuppressWarnings ("rawtypes") final Class<IGamaFile> class1,
 			final GamaGetter.Unary<IGamaFile<?, ?>> helper, final IType<?> buffer, final IType<?> kt,
 			final IType<?> ct) {
@@ -55,6 +81,11 @@ public class ParametricFileType extends ParametricType {
 		return GamaGeometryFile.class.isAssignableFrom(support) || GamaImageFile.class.isAssignableFrom(support);
 	}
 
+	/**
+	 * Gets the builder.
+	 *
+	 * @return the builder
+	 */
 	public GamaGetter<IGamaFile<?, ?>> getBuilder() {
 		return builder;
 	}
@@ -96,6 +127,11 @@ public class ParametricFileType extends ParametricType {
 		return null;
 	}
 
+	/**
+	 * Gets the generic instance.
+	 *
+	 * @return the generic instance
+	 */
 	public static ParametricFileType getGenericInstance() {
 
 		if (genericInstance == null) {
@@ -144,6 +180,14 @@ public class ParametricFileType extends ParametricType {
 	// }
 	// }
 
+	/**
+	 * Creates the file.
+	 *
+	 * @param scope the scope
+	 * @param path the path
+	 * @param contents the contents
+	 * @return the i gama file
+	 */
 	@SuppressWarnings ({ "rawtypes", "unchecked" })
 	public IGamaFile createFile(final IScope scope, final String path, final IModifiableContainer contents) {
 		final IGamaFile file = builder.get(scope, path);

@@ -1,17 +1,17 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Physics
+Bundle-Name: Physics extensions for GAMA
 Bundle-SymbolicName: gama.ext.physics;singleton:=true
-Bundle-Version: 1.8.1.qualifier
-Require-Bundle: gama.core.kernel,
- gama.ext.libs,
+Bundle-Version: 2.0.0.qualifier
+Require-Bundle: gama.core.kernel;bundle-version="2.0.0",
+ gama.ext.libs;bundle-version="2.0.0",
  org.eclipse.osgi
 Bundle-ClassPath: .,
  lib/native/,
  lib/Libbulletjme-11.0.0.jar
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Automatic-Module-Name: simtools.gaml.extensions.physics
+Automatic-Module-Name: gama.ext.physics
 Eclipse-BundleShape: dir
 Bundle-Activator: gama.ext.physics.PhysicsActivator
 Bundle-NativeCode: os/Linux/x86_64/libbulletjme.so;osname=Linux;processor=x86_64,os/MacOS/x86_64/libbulletjme.dylib;osname=MacOS;processor=x86_64,os/Win32/x86_64/bulletjme.dll;osname=Win32;processor=x86_64,*

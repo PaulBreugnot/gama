@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * EditorToolbar.java, in gama.ui.base, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.base.parameters;
 
 import static gama.ui.base.interfaces.IParameterEditor.BROWSE;
@@ -32,14 +42,35 @@ import gama.kernel.experiment.IParameter;
 import gama.ui.base.interfaces.IParameterEditor;
 import gama.ui.base.toolbar.GamaCommand;
 
+/**
+ * The Class EditorToolbar.
+ */
 public class EditorToolbar {
 
+	/**
+	 * The Class Item.
+	 */
 	class Item {
+		
+		/** The label. */
 		final Label label;
+		
+		/** The enabled. */
 		boolean enabled = false;
+		
+		/** The listener. */
 		final MouseListener listener;
+		
+		/** The command. */
 		final GamaCommand command;
 
+		/**
+		 * Instantiates a new item.
+		 *
+		 * @param parent the parent
+		 * @param c the c
+		 * @param l the l
+		 */
 		Item(final Composite parent, final GamaCommand c, final MouseListener l) {
 			command = c;
 			listener = l;
@@ -49,6 +80,11 @@ public class EditorToolbar {
 			enable(true);
 		}
 
+		/**
+		 * Enable.
+		 *
+		 * @param enable the enable
+		 */
 		void enable(final boolean enable) {
 			if (enabled == enable) return;
 			enabled = enable;
@@ -62,13 +98,23 @@ public class EditorToolbar {
 			}
 		}
 
+		/**
+		 * Checks if is disposed.
+		 *
+		 * @return true, if is disposed
+		 */
 		public boolean isDisposed() {
 			return label != null && label.isDisposed();
 		}
 	}
 
+	/** The editor. */
 	final AbstractEditor editor;
+	
+	/** The Constant commands. */
 	protected static final GamaCommand[] commands = new GamaCommand[9];
+	
+	/** The items. */
 	protected final Item[] items = new Item[9];
 
 	static {
@@ -83,6 +129,12 @@ public class EditorToolbar {
 		commands[VALUE] = build(null, "", "Value of the parameter", null);
 	}
 
+	/**
+	 * Instantiates a new editor toolbar.
+	 *
+	 * @param editor the editor
+	 * @param composite the composite
+	 */
 	EditorToolbar(final AbstractEditor editor, final Composite composite) {
 		this.editor = editor;
 		final Composite t = new Composite(composite, SWT.NONE);
@@ -118,6 +170,12 @@ public class EditorToolbar {
 		}
 	}
 
+	/**
+	 * Execute.
+	 *
+	 * @param code the code
+	 * @param detail the detail
+	 */
 	private void execute(final int code, final int detail) {
 		switch (code) {
 			case IParameterEditor.REVERT:
@@ -148,22 +206,41 @@ public class EditorToolbar {
 		}
 	}
 
+	/**
+	 * Enable.
+	 *
+	 * @param i the i
+	 * @param enable the enable
+	 */
 	public void enable(final int i, final boolean enable) {
 		final var c = items[i];
 		if (c == null) return;
 		c.enable(enable);
 	}
 
+	/**
+	 * Update.
+	 */
 	protected void update() {
 		final var c = items[IParameterEditor.REVERT];
 		if (c != null && !c.isDisposed()) { c.enable(editor.isValueModified()); }
 	}
 
+	/**
+	 * Update value.
+	 *
+	 * @param s the s
+	 */
 	public void updateValue(final String s) {
 		final var c = items[IParameterEditor.VALUE];
 		if (c != null && !c.isDisposed()) { c.label.setText(s); }
 	}
 
+	/**
+	 * Sets the active.
+	 *
+	 * @param active the new active
+	 */
 	public void setActive(final Boolean active) {
 		for (final Item t : items) {
 			if (t == null) { continue; }
@@ -171,6 +248,12 @@ public class EditorToolbar {
 		}
 	}
 
+	/**
+	 * Gets the item.
+	 *
+	 * @param item the item
+	 * @return the item
+	 */
 	public Label getItem(final int item) {
 		final var c = items[item];
 		if (c == null) return null;

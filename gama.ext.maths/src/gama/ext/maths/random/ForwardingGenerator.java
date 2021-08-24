@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * ForwardingGenerator.java, in gama.ext.maths, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.maths.random;
 
 import org.apache.commons.math3.random.RandomGenerator;
@@ -5,10 +15,19 @@ import org.apache.commons.math3.random.RandomGeneratorFactory;
 
 import gama.util.random.GamaRNG;
 
+/**
+ * The Class ForwardingGenerator.
+ */
 public class ForwardingGenerator implements RandomGenerator {
 
+	/** The target. */
 	private final GamaRNG target;
 
+	/**
+	 * Instantiates a new forwarding generator.
+	 *
+	 * @param target the target
+	 */
 	ForwardingGenerator(final GamaRNG target) {
 		this.target = target;
 	}

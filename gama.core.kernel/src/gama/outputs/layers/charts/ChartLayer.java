@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * msi.gama.outputs.layers.charts.ChartLayer.java, in plugin msi.gama.core, is part of the source code of the GAMA
- * modeling and simulation platform (v. 1.8.1)
+ * ChartLayer.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
+ * 
  ********************************************************************************************************/
 package gama.outputs.layers.charts;
 
@@ -27,6 +27,11 @@ import gama.runtime.IScope;
  */
 public class ChartLayer extends AbstractLayer {
 
+	/**
+	 * Instantiates a new chart layer.
+	 *
+	 * @param model the model
+	 */
 	public ChartLayer(final ILayerStatement model) {
 		super(model);
 	}
@@ -36,6 +41,11 @@ public class ChartLayer extends AbstractLayer {
 		return null;
 	}
 
+	/**
+	 * Gets the chart.
+	 *
+	 * @return the chart
+	 */
 	private ChartOutput getChart() {
 		return ((ChartLayerStatement) definition).getOutput();
 	}

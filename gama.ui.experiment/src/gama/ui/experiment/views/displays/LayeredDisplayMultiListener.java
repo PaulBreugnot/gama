@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'LayeredDisplayMultiListener.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the GAMA
- * modeling and simulation platform. (v. 1.8.1)
+ * LayeredDisplayMultiListener.java, in gama.ui.experiment, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.experiment.views.displays;
 
 import java.util.function.Consumer;
@@ -22,17 +21,49 @@ import gama.ui.base.utils.PlatformHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.base.views.WorkaroundForIssue1353;
 
+/**
+ * The listener interface for receiving layeredDisplayMulti events.
+ * The class that is interested in processing a layeredDisplayMulti
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addLayeredDisplayMultiListener<code> method. When
+ * the layeredDisplayMulti event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see LayeredDisplayMultiEvent
+ */
 public class LayeredDisplayMultiListener {
 
+	/** The view. */
 	private final LayeredDisplayDecorator view;
+	
+	/** The surface. */
 	private final IDisplaySurface surface;
+	
+	/** The mouse is down. */
 	volatile boolean mouseIsDown;
+	
+	/** The in menu. */
 	volatile boolean inMenu;
+	
+	/** The last enter time. */
 	volatile long lastEnterTime;
+	
+	/** The last enter position. */
 	volatile Point lastEnterPosition = new Point(0, 0);
+	
+	/** The suppress next enter. */
 	volatile boolean suppressNextEnter;
+	
+	/** The key listener. */
 	final Consumer<Integer> keyListener;
 
+	/**
+	 * Instantiates a new layered display multi listener.
+	 *
+	 * @param surface the surface
+	 * @param deco the deco
+	 */
 	public LayeredDisplayMultiListener(final IDisplaySurface surface, final LayeredDisplayDecorator deco) {
 		this.view = deco;
 		this.surface = surface;
@@ -56,16 +87,35 @@ public class LayeredDisplayMultiListener {
 		};
 	}
 
+	/**
+	 * Key pressed.
+	 *
+	 * @param e the e
+	 */
 	public void keyPressed(final char e) {
 		surface.dispatchKeyEvent(e);
 		WorkbenchHelper.asyncRun(view.displayOverlay);
 	}
 
+	/**
+	 * Key released.
+	 *
+	 * @param e the e
+	 * @param command the command
+	 */
 	public void keyReleased(final int e, final boolean command) {
 		if (!command) { return; }
 		keyListener.accept(e);
 	}
 
+	/**
+	 * Mouse enter.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param modifier the modifier
+	 * @param button the button
+	 */
 	public void mouseEnter(final int x, final int y, final boolean modifier, final int button) {
 		if (suppressNextEnter) {
 			// DEBUG.LOG("One mouse enter suppressed");
@@ -84,6 +134,14 @@ public class LayeredDisplayMultiListener {
 		surface.dispatchMouseEvent(SWT.MouseEnter);
 	}
 
+	/**
+	 * Mouse exit.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param modifier the modifier
+	 * @param button the button
+	 */
 	public void mouseExit(final int x, final int y, final boolean modifier, final int button) {
 		final long currentTime = System.currentTimeMillis();
 		if (currentTime - lastEnterTime < 100 && lastEnterPosition.x == x && lastEnterPosition.y == y) { return; }
@@ -99,12 +157,24 @@ public class LayeredDisplayMultiListener {
 
 	}
 
+	/**
+	 * Mouse hover.
+	 *
+	 * @param button the button
+	 */
 	public void mouseHover(final int button) {
 		if (button > 0) { return; }
 		// DEBUG.LOG("Mouse hovering on " + view.getPartName());
 		surface.dispatchMouseEvent(SWT.MouseHover);
 	}
 
+	/**
+	 * Mouse move.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param modifier the modifier
+	 */
 	public void mouseMove(final int x, final int y, final boolean modifier) {
 		WorkbenchHelper.asyncRun(view.displayOverlay);
 		if (modifier) {
@@ -123,16 +193,12 @@ public class LayeredDisplayMultiListener {
 	}
 
 	/**
-	 * Mouse down event fired
+	 * Mouse down event fired.
 	 *
-	 * @param x
-	 *            the x coordinate relative to the display (in pixels, not model coordinates)
-	 * @param y
-	 *            the y coordinate relative to the display (in pixels, not model coordinates)
-	 * @param button
-	 *            the button clicked (1 for left, 2 for middle, 3 for right)
-	 * @param modifier
-	 *            whetehr ALT, CTRL, CMD, META or other modifiers are used
+	 * @param x            the x coordinate relative to the display (in pixels, not model coordinates)
+	 * @param y            the y coordinate relative to the display (in pixels, not model coordinates)
+	 * @param button            the button clicked (1 for left, 2 for middle, 3 for right)
+	 * @param modifier            whetehr ALT, CTRL, CMD, META or other modifiers are used
 	 */
 	public void mouseDown(final int x, final int y, final int button, final boolean modifier) {
 		setMousePosition(x, y);
@@ -152,16 +218,12 @@ public class LayeredDisplayMultiListener {
 	}
 
 	/**
-	 * Mouse up event fired
+	 * Mouse up event fired.
 	 *
-	 * @param x
-	 *            the x coordinate relative to the display (in pixels, not model coordinates)
-	 * @param y
-	 *            the y coordinate relative to the display (in pixels, not model coordinates)
-	 * @param button
-	 *            the button clicked (1 for left, 2 for middle, 3 for right)
-	 * @param modifier
-	 *            whetehr ALT, CTRL, CMD, META or other modifiers are used
+	 * @param x            the x coordinate relative to the display (in pixels, not model coordinates)
+	 * @param y            the y coordinate relative to the display (in pixels, not model coordinates)
+	 * @param button            the button clicked (1 for left, 2 for middle, 3 for right)
+	 * @param modifier            whetehr ALT, CTRL, CMD, META or other modifiers are used
 	 */
 	public void mouseUp(final int x, final int y, final int button, final boolean modifier) {
 		// In case the mouse has moved (for example on a menu)
@@ -176,6 +238,12 @@ public class LayeredDisplayMultiListener {
 		surface.dispatchMouseEvent(SWT.MouseUp);
 	}
 
+	/**
+	 * Menu detected.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	public void menuDetected(final int x, final int y) {
 		if (inMenu) { return; }
 		// DEBUG.LOG("Menu detected on " + view.getPartName());
@@ -187,12 +255,18 @@ public class LayeredDisplayMultiListener {
 		}
 	}
 
+	/**
+	 * Drag detected.
+	 */
 	public void dragDetected() {
 		// DEBUG.LOG("Mouse drag detected on " + view.getPartName());
 		// surface.draggedTo(e.x, e.y);
 		surface.dispatchMouseEvent(SWT.DragDetect);
 	}
 
+	/**
+	 * Focus gained.
+	 */
 	public void focusGained() {
 		// if (!ok()) { return; }
 		// if (suppressNextEnter) {
@@ -205,6 +279,9 @@ public class LayeredDisplayMultiListener {
 		// Thread.dumpStack();
 	}
 
+	/**
+	 * Focus lost.
+	 */
 	public void focusLost() {
 		// if (!ok()) { return; }
 		// surface.dispatchMouseEvent(SWT.MouseExit);
@@ -213,6 +290,12 @@ public class LayeredDisplayMultiListener {
 		// Thread.dumpStack();
 	}
 
+	/**
+	 * Sets the mouse position.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	private void setMousePosition(final int x, final int y) {
 		surface.setMousePosition(x, y);
 		GAMA.getGui().setMouseLocationInModel(surface.getModelCoordinates());

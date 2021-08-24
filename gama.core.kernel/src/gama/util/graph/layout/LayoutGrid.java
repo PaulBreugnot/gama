@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * LayoutGrid.java, in gama.core.kernel, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.util.graph.layout;
 
 import java.util.ArrayList;
@@ -22,20 +32,38 @@ import gaml.operators.Spatial;
 import gaml.operators.Spatial.Queries;
 import gaml.types.Types; 
 
+/**
+ * The Class LayoutGrid.
+ */
 public class LayoutGrid {
 
+	/** The graph. */
 	private final IGraph<IShape, IShape> graph;
 
+	/** The coeff sq. */
 	private final double coeffSq;
 
+	/** The envelope geometry. */
 	private final IShape envelopeGeometry;
 
+	/**
+	 * Instantiates a new layout grid.
+	 *
+	 * @param graph the graph
+	 * @param envelopeGeometry the envelope geometry
+	 * @param coeffSq the coeff sq
+	 */
 	public LayoutGrid(final IGraph<IShape, IShape> graph, final IShape envelopeGeometry, final double coeffSq) {
 		this.graph = graph;
 		this.envelopeGeometry = envelopeGeometry;
 		this.coeffSq = coeffSq;
 	}
 
+	/**
+	 * Apply layout.
+	 *
+	 * @param scope the scope
+	 */
 	@SuppressWarnings("null")
 	public void applyLayout(final IScope scope) {
 

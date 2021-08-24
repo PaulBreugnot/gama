@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'GamlTemplateStore.java, in plugin ummisco.gama.ui.modeling, is part of the source code of the GAMA modeling and
- * simulation platform. (v. 1.8.1)
+ * GamlTemplateStore.java, in gama.ui.modeling, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.modeling.templates;
 
 import java.io.IOException;
@@ -49,16 +48,24 @@ import gaml.types.Signature;
 @ProvidedBy (GamlTemplateStoreProvider.class)
 public class GamlTemplateStore extends XtextTemplateStore {
 
+	/**
+	 * The Class GamlTemplateStoreProvider.
+	 */
 	public static class GamlTemplateStoreProvider implements Provider<GamlTemplateStore> {
 
+		/** The instance. */
 		static GamlTemplateStore instance;
 
+		/** The context type registry. */
 		@Inject private ContextTypeRegistry contextTypeRegistry;
 
+		/** The language name. */
 		@Inject @Named (Constants.LANGUAGE_NAME) private String languageName;
 
+		/** The store. */
 		@Inject private IPreferenceStore store;
 
+		/** The plugin. */
 		@Inject private AbstractUIPlugin plugin;
 
 		/**
@@ -72,19 +79,27 @@ public class GamlTemplateStore extends XtextTemplateStore {
 			return getInstance();
 		}
 
+		/**
+		 * Gets the single instance of GamlTemplateStoreProvider.
+		 *
+		 * @return single instance of GamlTemplateStoreProvider
+		 */
 		public static GamlTemplateStore getInstance() {
 			return instance;
 		}
 
 	}
 
+	/** The indexes. */
 	static Map<String, Integer> indexes = new HashMap<>();
 
 	/**
-	 * @param registry
-	 * @param store
-	 * @param key
-	 * @param plugin
+	 * Instantiates a new gaml template store.
+	 *
+	 * @param registry the registry
+	 * @param store the store
+	 * @param key the key
+	 * @param plugin the plugin
 	 */
 	/* @Inject */
 	public GamlTemplateStore(final ContextTypeRegistry registry, final IPreferenceStore store,
@@ -92,6 +107,12 @@ public class GamlTemplateStore extends XtextTemplateStore {
 		super(registry, store, key, plugin);
 	}
 
+	/**
+	 * Gets the new id from id.
+	 *
+	 * @param id the id
+	 * @return the new id from id
+	 */
 	public String getNewIdFromId(final String id) {
 		String newId = "";
 		String[] strings = id.split("\\.");
@@ -139,6 +160,12 @@ public class GamlTemplateStore extends XtextTemplateStore {
 		}
 	}
 
+	/**
+	 * Direct add.
+	 *
+	 * @param data the data
+	 * @param isEdited the is edited
+	 */
 	public void directAdd(final TemplatePersistenceData data, final boolean isEdited) {
 		if (isEdited) {
 			add(data);

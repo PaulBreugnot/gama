@@ -1,14 +1,13 @@
-/*********************************************************************************************
+/*******************************************************************************************************
  *
- * 'ErrorView.java, in plugin ummisco.gama.ui.experiment, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * ErrorView.java, in gama.ui.experiment, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
  *
- * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
- * Visit https://github.com/gama-platform/gama for license information and developers contact.
- *
- *
- **********************************************************************************************/
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ui.experiment.views;
 
 import java.util.ArrayList;
@@ -43,10 +42,18 @@ import gama.ui.base.utils.WebHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.base.views.ExpandableItemsView;
 
+/**
+ * The Class ErrorView.
+ */
 public class ErrorView extends ExpandableItemsView<GamaRuntimeException> implements IGamaView.Error {
 
+	/** The id. */
 	public static String ID = IGui.ERROR_VIEW_ID;
+	
+	/** The number of displayed errors. */
 	int numberOfDisplayedErrors = GamaPreferences.Runtime.CORE_ERRORS_NUMBER.getValue();
+	
+	/** The most recent first. */
 	boolean mostRecentFirst = GamaPreferences.Runtime.CORE_RECENT.getValue();
 
 	@Override
@@ -96,6 +103,12 @@ public class ErrorView extends ExpandableItemsView<GamaRuntimeException> impleme
 		return compo;
 	}
 
+	/**
+	 * Creates the stack trace.
+	 *
+	 * @param compo the compo
+	 * @param exception the exception
+	 */
 	private void createStackTrace(final ScrolledComposite compo, final GamaRuntimeException exception) {
 		final Table t = new Table(compo, SWT.H_SCROLL);
 		// t.setFont(GamaFonts.getExpandfont());
@@ -135,6 +148,11 @@ public class ErrorView extends ExpandableItemsView<GamaRuntimeException> impleme
 
 	}
 
+	/**
+	 * Gets the exception handler.
+	 *
+	 * @return the exception handler
+	 */
 	private IRuntimeExceptionHandler getExceptionHandler() {
 		return WorkbenchHelper.getService(IRuntimeExceptionHandler.class);
 	}
@@ -211,6 +229,11 @@ public class ErrorView extends ExpandableItemsView<GamaRuntimeException> impleme
 		return result;
 	}
 
+	/**
+	 * Report error.
+	 *
+	 * @param item the item
+	 */
 	private void reportError(final GamaRuntimeException item) {
 		// final String data = item.getAllText();
 		WebHelper.openPage("https://github.com/gama-platform/gama/issues/new");

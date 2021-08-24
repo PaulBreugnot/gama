@@ -1,4 +1,13 @@
-// This software is released into the Public Domain. See copying.txt for details.
+/*******************************************************************************************************
+ *
+ * NodeElementProcessor.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 package gama.ext.libs.osmosis;
 
 import org.xml.sax.Attributes;
@@ -9,18 +18,41 @@ import org.xml.sax.Attributes;
  * @author Brett Henderson
  */
 public class NodeElementProcessor extends EntityElementProcessor implements TagListener {
+	
+	/** The Constant ELEMENT_NAME_TAG. */
 	private static final String ELEMENT_NAME_TAG = "tag";
+	
+	/** The Constant ATTRIBUTE_NAME_ID. */
 	private static final String ATTRIBUTE_NAME_ID = "id";
+	
+	/** The Constant ATTRIBUTE_NAME_TIMESTAMP. */
 	private static final String ATTRIBUTE_NAME_TIMESTAMP = "timestamp";
+	
+	/** The Constant ATTRIBUTE_NAME_USER. */
 	private static final String ATTRIBUTE_NAME_USER = "user";
+	
+	/** The Constant ATTRIBUTE_NAME_USERID. */
 	private static final String ATTRIBUTE_NAME_USERID = "uid";
+	
+	/** The Constant ATTRIBUTE_NAME_CHANGESET_ID. */
 	private static final String ATTRIBUTE_NAME_CHANGESET_ID = "changeset";
+	
+	/** The Constant ATTRIBUTE_NAME_VERSION. */
 	private static final String ATTRIBUTE_NAME_VERSION = "version";
+	
+	/** The Constant ATTRIBUTE_NAME_LATITUDE. */
 	private static final String ATTRIBUTE_NAME_LATITUDE = "lat";
+	
+	/** The Constant ATTRIBUTE_NAME_LONGITUDE. */
 	private static final String ATTRIBUTE_NAME_LONGITUDE = "lon";
 
+	/** The tag element processor. */
 	private final TagElementProcessor tagElementProcessor;
+	
+	/** The node. */
 	private Node node;
+	
+	/** The coordinates required. */
 	private final boolean coordinatesRequired;
 
 	/**
@@ -134,6 +166,14 @@ public class NodeElementProcessor extends EntityElementProcessor implements TagL
 		node.getTags().add(tag);
 	}
 
+	/**
+	 * Gets the lat lon double.
+	 *
+	 * @param attributes the attributes
+	 * @param attributeName the attribute name
+	 * @param id the id
+	 * @return the lat lon double
+	 */
 	private double getLatLonDouble(final Attributes attributes, final String attributeName, final long id) {
 		final String value = attributes.getValue(attributeName);
 		if (value == null) {

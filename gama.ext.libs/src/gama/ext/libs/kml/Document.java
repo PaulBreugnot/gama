@@ -1,3 +1,13 @@
+/*******************************************************************************************************
+ *
+ * Document.java, in gama.ext.libs, is part of the source code of the
+ * GAMA modeling and simulation platform (v.2.0.0).
+ *
+ * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
+ *
+ * Visit https://github.com/gama-platform/gama for license information and contacts.
+ * 
+ ********************************************************************************************************/
 
 package gama.ext.libs.kml;
 
@@ -169,6 +179,8 @@ public class Document
      */
     @XmlElementRef(name = "AbstractFeatureGroup", namespace = "http://www.opengis.net/kml/2.2", required = false)
     protected List<Feature> feature;
+    
+    /** The document simple extension. */
     @XmlElement(name = "DocumentSimpleExtensionGroup")
     @XmlSchemaType(name = "anySimpleType")
     protected List<Object> documentSimpleExtension;
@@ -193,13 +205,18 @@ public class Document
     @XmlElement(name = "DocumentObjectExtensionGroup")
     protected List<AbstractObject> documentObjectExtension;
 
+    /**
+     * Instantiates a new document.
+     */
     public Document() {
         super();
     }
 
     /**
+     * Gets the schema.
+     *
+     * @return the schema
      * @see schema
-     * 
      */
     public List<Schema> getSchema() {
         if (schema == null) {
@@ -209,8 +226,10 @@ public class Document
     }
 
     /**
+     * Gets the feature.
+     *
+     * @return the feature
      * @see feature
-     * 
      */
     public List<Feature> getFeature() {
         if (feature == null) {
@@ -220,8 +239,10 @@ public class Document
     }
 
     /**
+     * Gets the document simple extension.
+     *
+     * @return the document simple extension
      * @see documentSimpleExtension
-     * 
      */
     public List<Object> getDocumentSimpleExtension() {
         if (documentSimpleExtension == null) {
@@ -231,8 +252,10 @@ public class Document
     }
 
     /**
+     * Gets the document object extension.
+     *
+     * @return the document object extension
      * @see documentObjectExtension
-     * 
      */
     public List<AbstractObject> getDocumentObjectExtension() {
         if (documentObjectExtension == null) {
@@ -312,8 +335,8 @@ public class Document
      * <code>
      * Schema schema = new Schema();
      * this.getSchema().add(schema); </code>
-     * 
-     * 
+     *
+     * @return the schema
      */
     public Schema createAndAddSchema() {
         Schema newValue = new Schema();
@@ -327,8 +350,8 @@ public class Document
      * <code>
      * Tour tour = new Tour();
      * this.getFeature().add(tour); </code>
-     * 
-     * 
+     *
+     * @return the tour
      */
     public Tour createAndAddTour() {
         Tour newValue = new Tour();
@@ -342,8 +365,8 @@ public class Document
      * <code>
      * ScreenOverlay screenOverlay = new ScreenOverlay();
      * this.getFeature().add(screenOverlay); </code>
-     * 
-     * 
+     *
+     * @return the screen overlay
      */
     public ScreenOverlay createAndAddScreenOverlay() {
         ScreenOverlay newValue = new ScreenOverlay();
@@ -357,8 +380,8 @@ public class Document
      * <code>
      * PhotoOverlay photoOverlay = new PhotoOverlay();
      * this.getFeature().add(photoOverlay); </code>
-     * 
-     * 
+     *
+     * @return the photo overlay
      */
     public PhotoOverlay createAndAddPhotoOverlay() {
         PhotoOverlay newValue = new PhotoOverlay();
@@ -372,8 +395,8 @@ public class Document
      * <code>
      * GroundOverlay groundOverlay = new GroundOverlay();
      * this.getFeature().add(groundOverlay); </code>
-     * 
-     * 
+     *
+     * @return the ground overlay
      */
     public GroundOverlay createAndAddGroundOverlay() {
         GroundOverlay newValue = new GroundOverlay();
@@ -387,8 +410,8 @@ public class Document
      * <code>
      * NetworkLink networkLink = new NetworkLink();
      * this.getFeature().add(networkLink); </code>
-     * 
-     * 
+     *
+     * @return the network link
      */
     public NetworkLink createAndAddNetworkLink() {
         NetworkLink newValue = new NetworkLink();
@@ -402,8 +425,8 @@ public class Document
      * <code>
      * Folder folder = new Folder();
      * this.getFeature().add(folder); </code>
-     * 
-     * 
+     *
+     * @return the folder
      */
     public Folder createAndAddFolder() {
         Folder newValue = new Folder();
@@ -417,8 +440,8 @@ public class Document
      * <code>
      * Document document = new Document();
      * this.getFeature().add(document); </code>
-     * 
-     * 
+     *
+     * @return the document
      */
     public Document createAndAddDocument() {
         Document newValue = new Document();
@@ -432,8 +455,8 @@ public class Document
      * <code>
      * Placemark placemark = new Placemark();
      * this.getFeature().add(placemark); </code>
-     * 
-     * 
+     *
+     * @return the placemark
      */
     public Placemark createAndAddPlacemark() {
         Placemark newValue = new Placemark();
@@ -442,21 +465,20 @@ public class Document
     }
 
     /**
+     * Sets the schema.
+     *
+     * @param schema the new schema
      * @see schema
-     * 
-     * @param schema
      */
     public void setSchema(final List<Schema> schema) {
         this.schema = schema;
     }
 
     /**
-     * add a value to the schema property collection
-     * 
-     * @param schema
-     *     Objects of the following type are allowed in the list: {@link Schema}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the schema property collection.
+     *
+     * @param schema     Objects of the following type are allowed in the list: {@link Schema}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Document addToSchema(final Schema schema) {
         this.getSchema().add(schema);
@@ -464,21 +486,20 @@ public class Document
     }
 
     /**
+     * Sets the feature.
+     *
+     * @param feature the new feature
      * @see feature
-     * 
-     * @param feature
      */
     public void setFeature(final List<Feature> feature) {
         this.feature = feature;
     }
 
     /**
-     * add a value to the feature property collection
-     * 
-     * @param feature
-     *     Objects of the following type are allowed in the list: {@code <}{@link Container}{@code>}{@link JAXBElement}{@code <}{@link GroundOverlay}{@code>}{@link JAXBElement}{@code <}{@link NetworkLink}{@code>}{@link JAXBElement}{@code <}{@link Folder}{@code>}{@link JAXBElement}{@code <}{@link PhotoOverlay}{@code>}{@link JAXBElement}{@code <}{@link Document}{@code>}{@link JAXBElement}{@code <}{@link Tour}{@code>}{@link JAXBElement}{@code <}{@link ScreenOverlay}{@code>}{@link JAXBElement}{@code <}{@link Feature}{@code>}{@link JAXBElement}{@code <}{@link Placemark}{@code>}{@link JAXBElement}{@code <}{@link Overlay}{@code>}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the feature property collection.
+     *
+     * @param feature     Objects of the following type are allowed in the list: {@code <}{@link Container}{@code>}{@link JAXBElement}{@code <}{@link GroundOverlay}{@code>}{@link JAXBElement}{@code <}{@link NetworkLink}{@code>}{@link JAXBElement}{@code <}{@link Folder}{@code>}{@link JAXBElement}{@code <}{@link PhotoOverlay}{@code>}{@link JAXBElement}{@code <}{@link Document}{@code>}{@link JAXBElement}{@code <}{@link Tour}{@code>}{@link JAXBElement}{@code <}{@link ScreenOverlay}{@code>}{@link JAXBElement}{@code <}{@link Feature}{@code>}{@link JAXBElement}{@code <}{@link Placemark}{@code>}{@link JAXBElement}{@code <}{@link Overlay}{@code>}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Document addToFeature(final Feature feature) {
         this.getFeature().add(feature);
@@ -486,21 +507,20 @@ public class Document
     }
 
     /**
+     * Sets the document simple extension.
+     *
+     * @param documentSimpleExtension the new document simple extension
      * @see documentSimpleExtension
-     * 
-     * @param documentSimpleExtension
      */
     public void setDocumentSimpleExtension(final List<Object> documentSimpleExtension) {
         this.documentSimpleExtension = documentSimpleExtension;
     }
 
     /**
-     * add a value to the documentSimpleExtension property collection
-     * 
-     * @param documentSimpleExtension
-     *     Objects of the following type are allowed in the list: {@link Object}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the documentSimpleExtension property collection.
+     *
+     * @param documentSimpleExtension     Objects of the following type are allowed in the list: {@link Object}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Document addToDocumentSimpleExtension(final Object documentSimpleExtension) {
         this.getDocumentSimpleExtension().add(documentSimpleExtension);
@@ -508,21 +528,20 @@ public class Document
     }
 
     /**
+     * Sets the document object extension.
+     *
+     * @param documentObjectExtension the new document object extension
      * @see documentObjectExtension
-     * 
-     * @param documentObjectExtension
      */
     public void setDocumentObjectExtension(final List<AbstractObject> documentObjectExtension) {
         this.documentObjectExtension = documentObjectExtension;
     }
 
     /**
-     * add a value to the documentObjectExtension property collection
-     * 
-     * @param documentObjectExtension
-     *     Objects of the following type are allowed in the list: {@link AbstractObject}
-     * @return
-     *     <tt>true</tt> (as general contract of <tt>Collection.add</tt>). 
+     * add a value to the documentObjectExtension property collection.
+     *
+     * @param documentObjectExtension     Objects of the following type are allowed in the list: {@link AbstractObject}
+     * @return     <tt>true</tt> (as general contract of <tt>Collection.add</tt>).
      */
     public Document addToDocumentObjectExtension(final AbstractObject documentObjectExtension) {
         this.getDocumentObjectExtension().add(documentObjectExtension);
@@ -632,11 +651,11 @@ public class Document
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param schema     required parameter
+     * @return the document
      * @see #setSchema(List<Schema>)
-     * 
-     * @param schema
-     *     required parameter
      */
     public Document withSchema(final List<Schema> schema) {
         this.setSchema(schema);
@@ -644,11 +663,11 @@ public class Document
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param feature     required parameter
+     * @return the document
      * @see #setFeature(List<Feature>)
-     * 
-     * @param feature
-     *     required parameter
      */
     public Document withFeature(final List<Feature> feature) {
         this.setFeature(feature);
@@ -656,11 +675,11 @@ public class Document
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param documentSimpleExtension     required parameter
+     * @return the document
      * @see #setDocumentSimpleExtension(List<Object>)
-     * 
-     * @param documentSimpleExtension
-     *     required parameter
      */
     public Document withDocumentSimpleExtension(final List<Object> documentSimpleExtension) {
         this.setDocumentSimpleExtension(documentSimpleExtension);
@@ -668,11 +687,11 @@ public class Document
     }
 
     /**
-     * fluent setter
+     * fluent setter.
+     *
+     * @param documentObjectExtension     required parameter
+     * @return the document
      * @see #setDocumentObjectExtension(List<AbstractObject>)
-     * 
-     * @param documentObjectExtension
-     *     required parameter
      */
     public Document withDocumentObjectExtension(final List<AbstractObject> documentObjectExtension) {
         this.setDocumentObjectExtension(documentObjectExtension);
