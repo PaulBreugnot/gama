@@ -42,15 +42,15 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 import gama.common.interfaces.IExperimentAgentCreator;
-import gama.common.interfaces.ISkill;
 import gama.common.interfaces.IExperimentAgentCreator.ExperimentAgentDescription;
+import gama.common.interfaces.ISkill;
 import gama.common.ui.IDisplayCreator;
-import gama.common.ui.IGui;
 import gama.common.ui.IDisplayCreator.DisplayDescription;
-import gama.core.dev.annotations.ISymbolKind;
-import gama.core.dev.annotations.ITypeProvider;
+import gama.common.ui.IGui;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.vars;
+import gama.core.dev.annotations.ISymbolKind;
+import gama.core.dev.annotations.ITypeProvider;
 import gama.util.GamaMapFactory;
 import gama.util.IMap;
 import gama.util.file.IGamaFile;
@@ -60,6 +60,7 @@ import gaml.compilation.kernel.GamaMetaModel;
 import gaml.compilation.kernel.GamaSkillRegistry;
 import gaml.descriptions.FacetProto;
 import gaml.descriptions.IDescription;
+import gaml.descriptions.IDescription.DescriptionVisitor;
 import gaml.descriptions.OperatorProto;
 import gaml.descriptions.PrimitiveDescription;
 import gaml.descriptions.SkillDescription;
@@ -68,7 +69,6 @@ import gaml.descriptions.SymbolProto;
 import gaml.descriptions.SymbolSerializer;
 import gaml.descriptions.TypeDescription;
 import gaml.descriptions.VariableDescription;
-import gaml.descriptions.IDescription.DescriptionVisitor;
 import gaml.expressions.IExpression;
 import gaml.expressions.IExpressionCompiler;
 import gaml.factories.DescriptionFactory;
@@ -89,7 +89,7 @@ import gaml.types.Types;
  */
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public abstract class AbstractGamlAdditions implements IGamlAdditions {
-	public static String CURRENT_PLUGIN_NAME = "msi.gama.core";
+	public static String CURRENT_PLUGIN_NAME = "gama.core.kernel";
 	public static final Set<String> CONSTANTS = new HashSet();
 	final static Multimap<Class, IDescription> ADDITIONS = HashMultimap.create();
 	private static Function<Class, Collection<IDescription>> INTO_DESCRIPTIONS = input -> ADDITIONS.get(input);

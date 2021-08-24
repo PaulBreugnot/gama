@@ -1,9 +1,8 @@
 /*********************************************************************************************
  *
  *
- * 'UnifyDoc.java', in plugin 'msi.gama.documentation', is part of the source code of the
- * GAMA modeling and simulation platform.
- * (v. 1.8.1)
+ * 'UnifyDoc.java', in plugin 'msi.gama.documentation', is part of the source code of the GAMA modeling and simulation
+ * platform. (v. 1.8.1)
  *
  * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
  *
@@ -26,8 +25,6 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 
-import gama.build.processor.doc.TypeConverter;
-import gama.build.processor.doc.XMLElements;
 import msi.gama.doc.Constants;
 
 public class UnifyDoc {
@@ -39,14 +36,15 @@ public class UnifyDoc {
 			XMLElements.TYPES, XMLElements.FILES };
 	// among tebEltXML, categories do not need to have an additional projectName
 	// attribute
-//	private static String[] tabCategoriesEltXML = { XMLElements.OPERATORS_CATEGORIES, XMLElements.CONSTANTS_CATEGORIES,
-//			XMLElements.INSIDE_STAT_KINDS, XMLElements.INSIDE_STAT_SYMBOLS, XMLElements.STATEMENT_KINDS,
-//			XMLElements.CONCEPT_LIST };
+	// private static String[] tabCategoriesEltXML = { XMLElements.OPERATORS_CATEGORIES,
+	// XMLElements.CONSTANTS_CATEGORIES,
+	// XMLElements.INSIDE_STAT_KINDS, XMLElements.INSIDE_STAT_SYMBOLS, XMLElements.STATEMENT_KINDS,
+	// XMLElements.CONCEPT_LIST };
 
-	public static void unify(boolean local) {
+	public static void unify(final boolean local) {
 		try {
 
-			WorkspaceManager ws = new WorkspaceManager(".",local);
+			WorkspaceManager ws = new WorkspaceManager(".", local);
 			HashMap<String, File> hmFiles = ws.getProductDocFiles();
 
 			Document doc = mergeFiles(hmFiles);
@@ -60,11 +58,11 @@ public class UnifyDoc {
 		}
 	}
 
-	public static void unifyAllProjects(boolean local) {
+	public static void unifyAllProjects(final boolean local) {
 		try {
 
 			WorkspaceManager ws = new WorkspaceManager(".", local);
-	 		HashMap<String, File> hmFiles = local ? ws.getAllDocFilesLocal() : ws.getAllDocFiles();			
+			HashMap<String, File> hmFiles = local ? ws.getAllDocFilesLocal() : ws.getAllDocFiles();
 
 			Document doc = mergeFiles(hmFiles);
 
@@ -99,9 +97,9 @@ public class UnifyDoc {
 						for (Element e : docTemp.getRootElement().getChild(catXML).getChildren()) {
 							// Do not add the projectName for every kinds of
 							// categories
-					//		if (!Arrays.asList(tabCategoriesEltXML).contains(catXML)) {
-								e.setAttribute("projectName", fileDoc.getKey());
-					//		}
+							// if (!Arrays.asList(tabCategoriesEltXML).contains(catXML)) {
+							e.setAttribute("projectName", fileDoc.getKey());
+							// }
 
 							// Test whether the element is already in the merged
 							// doc
@@ -118,9 +116,7 @@ public class UnifyDoc {
 								found = found || equals;
 							}
 							// Add if it is not already in the merged doc
-							if (!found) {
-								doc.getRootElement().getChild(catXML).addContent(e.clone());
-							}
+							if (!found) { doc.getRootElement().getChild(catXML).addContent(e.clone()); }
 						}
 					}
 				}

@@ -36,7 +36,7 @@ public class OutputsMenu extends ContributionItem {
 	}
 
 	public OutputsMenu() {
-		super("ummisco.gama.ui.experiment.outputs.menu");
+		super("gama.menu.outputs");
 	}
 
 	@Override

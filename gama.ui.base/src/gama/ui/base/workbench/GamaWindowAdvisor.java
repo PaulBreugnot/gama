@@ -29,8 +29,8 @@ import org.eclipse.ui.internal.ide.application.IDEWorkbenchWindowAdvisor;
 import org.osgi.framework.Bundle;
 
 import gama.common.preferences.GamaPreferences;
-import gama.common.ui.IGui;
 import gama.runtime.GAMA;
+import gama.runtime.ISimulationStateProvider;
 import gama.ui.base.utils.PerspectiveHelper;
 
 public class GamaWindowAdvisor extends IDEWorkbenchWindowAdvisor {
@@ -45,7 +45,7 @@ public class GamaWindowAdvisor extends IDEWorkbenchWindowAdvisor {
 
 		// Hack and workaround for the inability to find launcher icons...
 
-		final Bundle bundle = Platform.getBundle("msi.gama.application");
+		final Bundle bundle = Platform.getBundle("gama.core.application");
 
 		final ImageDescriptor myImage =
 				ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path("branding_icons/icon256.png"), null));
@@ -111,7 +111,7 @@ public class GamaWindowAdvisor extends IDEWorkbenchWindowAdvisor {
 	public void postWindowOpen() {
 		PerspectiveHelper.cleanPerspectives();
 		GAMA.getGui().openWelcomePage(true);
-		GAMA.getGui().updateExperimentState(null, IGui.NONE);
+		GAMA.getGui().updateExperimentState(null, ISimulationStateProvider.NONE);
 	}
 
 }

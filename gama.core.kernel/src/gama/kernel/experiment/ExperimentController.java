@@ -12,10 +12,10 @@ package gama.kernel.experiment;
 
 import java.util.concurrent.ArrayBlockingQueue;
 
-import gama.common.ui.IGui;
 import gama.core.dev.utils.DEBUG;
 import gama.runtime.GAMA;
 import gama.runtime.IScope;
+import gama.runtime.ISimulationStateProvider;
 import gama.runtime.concurrent.GamaExecutorService;
 import gama.runtime.exceptions.GamaRuntimeException;
 
@@ -35,7 +35,7 @@ public class ExperimentController implements Runnable, IExperimentController {
 	}
 
 	private void launchCommandThread() {
-		if (commandThread != null) { return; }
+		if (commandThread != null) return;
 		if (experiment.isHeadless()) {
 			commandThread = null;
 		} else {
@@ -61,7 +61,7 @@ public class ExperimentController implements Runnable, IExperimentController {
 		while (running) {
 			try {
 				final Integer i = commands.take();
-				if (i == null) { throw new InterruptedException("Internal error. Please retry"); }
+				if (i == null) throw new InterruptedException("Internal error. Please retry");
 				processUserCommand(i);
 			} catch (final Exception e) {
 				e.printStackTrace();
@@ -71,7 +71,7 @@ public class ExperimentController implements Runnable, IExperimentController {
 	}
 
 	public void offer(final int command) {
-		if (isDisposing()) { return; }
+		if (isDisposing()) return;
 		if (commandThread == null || !commandThread.isAlive()) {
 			processUserCommand(command);
 		} else {
@@ -84,7 +84,8 @@ public class ExperimentController implements Runnable, IExperimentController {
 		switch (command) {
 			case IExperimentController._OPEN:
 
-				experiment.getExperimentScope().getGui().updateExperimentState(scope, IGui.NOTREADY);
+				experiment.getExperimentScope().getGui().updateExperimentState(scope,
+						ISimulationStateProvider.NOTREADY);
 				try {
 					launchCommandThread();
 					// Needs to run in the controller thread
@@ -92,7 +93,7 @@ public class ExperimentController implements Runnable, IExperimentController {
 						experiment.open();
 					} else {
 						new Thread(() -> experiment.open()).start();
-						;
+
 					}
 				} catch (final Exception e) {
 					DEBUG.ERR("Error when opening the experiment: " + e.getMessage());
@@ -105,23 +106,25 @@ public class ExperimentController implements Runnable, IExperimentController {
 				} catch (final GamaRuntimeException e) {
 					closeExperiment(e);
 				} finally {
-					experiment.getExperimentScope().getGui().updateExperimentState(scope, IGui.RUNNING);
+					experiment.getExperimentScope().getGui().updateExperimentState(scope,
+							ISimulationStateProvider.RUNNING);
 				}
 				break;
 			case IExperimentController._PAUSE:
-				experiment.getExperimentScope().getGui().updateExperimentState(scope, IGui.PAUSED);
+				experiment.getExperimentScope().getGui().updateExperimentState(scope, ISimulationStateProvider.PAUSED);
 				scheduler.pause();
 				break;
 			case IExperimentController._STEP:
-				experiment.getExperimentScope().getGui().updateExperimentState(scope, IGui.PAUSED);
+				experiment.getExperimentScope().getGui().updateExperimentState(scope, ISimulationStateProvider.PAUSED);
 				scheduler.stepByStep();
 				break;
 			case IExperimentController._BACK:
-				experiment.getExperimentScope().getGui().updateExperimentState(scope, IGui.PAUSED);
+				experiment.getExperimentScope().getGui().updateExperimentState(scope, ISimulationStateProvider.PAUSED);
 				scheduler.stepBack();
 				break;
 			case IExperimentController._RELOAD:
-				experiment.getExperimentScope().getGui().updateExperimentState(scope, IGui.NOTREADY);
+				experiment.getExperimentScope().getGui().updateExperimentState(scope,
+						ISimulationStateProvider.NOTREADY);
 				try {
 					final boolean wasRunning = !scheduler.paused && !experiment.isAutorun();
 					scheduler.pause();
@@ -156,20 +159,20 @@ public class ExperimentController implements Runnable, IExperimentController {
 
 	@Override
 	public void userStep() {
-		if (experiment == null) { return; }
+		if (experiment == null) return;
 		offer(IExperimentController._STEP);
 	}
 
 	@Override
 	public void stepBack() {
-		if (experiment == null) { return; }
+		if (experiment == null) return;
 		offer(IExperimentController._BACK);
 	}
 
 	@Override
 	public void userReload() {
 		// TODO Should maybe be done directly (so as to reload immediately)
-		if (experiment == null) { return; }
+		if (experiment == null) return;
 		// GAMA.getGui().openSimulationPerspective(null, null);
 		offer(IExperimentController._RELOAD);
 	}
@@ -196,7 +199,8 @@ public class ExperimentController implements Runnable, IExperimentController {
 			final IScope scope = experiment.getExperimentScope();
 			try {
 				scheduler.pause();
-				experiment.getExperimentScope().getGui().updateExperimentState(scope, IGui.NOTREADY);
+				experiment.getExperimentScope().getGui().updateExperimentState(scope,
+						ISimulationStateProvider.NOTREADY);
 				experiment.getExperimentScope().getGui().closeDialogs(scope);
 				// Dec 2015 This method is normally now called from
 				// ExperimentPlan.dispose()
@@ -205,10 +209,8 @@ public class ExperimentController implements Runnable, IExperimentController {
 			} finally {
 				running = false;
 				scheduler.dispose();
-				experiment.getExperimentScope().getGui().updateExperimentState(scope, IGui.NONE);
-				if (commandThread != null && commandThread.isAlive()) {
-					commands.offer(-1);
-				}
+				experiment.getExperimentScope().getGui().updateExperimentState(scope, ISimulationStateProvider.NONE);
+				if (commandThread != null && commandThread.isAlive()) { commands.offer(-1); }
 				// DEBUG.OUT("Contoller.dipose END");
 			}
 		}
@@ -231,9 +233,7 @@ public class ExperimentController implements Runnable, IExperimentController {
 	public void closeExperiment(final Exception e) {
 		disposing = true;
 		// DEBUG.LOG("CloseExperiment : disposing = true");
-		if (e != null) {
-			GAMA.getGui().getStatus(getExperiment().getExperimentScope()).errorStatus(e.getMessage());
-		}
+		if (e != null) { GAMA.getGui().getStatus(getExperiment().getExperimentScope()).errorStatus(e.getMessage()); }
 
 		experiment.dispose(); // will call own dispose() later
 	}

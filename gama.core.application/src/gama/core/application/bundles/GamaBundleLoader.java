@@ -71,8 +71,8 @@ public class GamaBundleLoader {
 	public volatile static boolean LOADED = false;
 	public volatile static boolean ERRORED = false;
 	public volatile static Exception LAST_EXCEPTION = null;
-	public static Bundle CORE_PLUGIN = Platform.getBundle("msi.gama.core");
-	public static Bundle CORE_MODELS = Platform.getBundle("msi.gama.models");
+	public static Bundle CORE_PLUGIN = Platform.getBundle("gama.core.kernel");
+	public static Bundle CORE_MODELS = Platform.getBundle("gama.models.library");
 	public static String CORE_TESTS = "tests";
 	public static String ADDITIONS = "gaml.additions.GamlAdditions";
 	public static final String ADDITIONS_PACKAGE_BASE = "gaml.additions";

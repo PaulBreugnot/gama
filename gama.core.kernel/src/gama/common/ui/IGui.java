@@ -59,17 +59,16 @@ public interface IGui {
 	String GL_LAYER_VIEW_ID = "gama.view.OpenGLDisplayView";
 	String GL_LAYER_VIEW_ID2 = "gama.view.OpenGLDisplayView2";
 	String GL_LAYER_VIEW_ID3 = "gama.view.WebDisplayView";
-
 	String ERROR_VIEW_ID = "gama.view.ErrorView";
 	String TEST_VIEW_ID = "gama.view.TestView";
 	String PARAMETER_VIEW_ID = "gama.view.ParameterView";
-
 	String NAVIGATOR_VIEW_ID = "gama.view.GamaNavigator";
-	String NAVIGATOR_LIGHTWEIGHT_DECORATOR_ID = "msi.gama.application.decorator";
 	String CONSOLE_VIEW_ID = "gama.view.ConsoleView";
-	String USER_CONTROL_VIEW_ID = "gama.view.userControlView";
+	String USER_CONTROL_VIEW_ID = "gama.view.UserControlView";
+	String SYNTAX_ERRORS_VIEW_ID = "gama.view.SyntaxErrorsView";
 
 	String PERSPECTIVE_MODELING_ID = "gama.perspective.modeling";
+	String NAVIGATOR_LIGHTWEIGHT_DECORATOR_ID = "msi.gama.application.decorator";
 
 	IStatusDisplayer getStatus(IScope scope);
 

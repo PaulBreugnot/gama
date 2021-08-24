@@ -74,7 +74,7 @@ public abstract class AbstractNewModelWizard extends Wizard implements INewWizar
 		}
 	};
 	static {
-		final Bundle bundle = Platform.getBundle("ummisco.gama.ui.navigator");
+		final Bundle bundle = Platform.getBundle("gama.ui.navigator");
 		final Enumeration<URL> urls = bundle.findEntries("templates", "*.model.template.resource", false);
 		while (urls.hasMoreElements()) {
 			try {

@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,57 +36,37 @@ public class ModelLibraryGenerator {
 	static String sourceFolder = "F:/Gama/GamaSource/";
 	static String wikiFolderOnOVH = "http://vps226121.ovh.net/gm_wiki/";
 	static String[] inputPathToModelLibrary =
-			{ sourceFolder + "msi.gama.models/models/", sourceFolder + "ummisco.gaml.extensions.maths/models",
-			/* sourceFolder+"msi.gaml.extensions.fipa/models", */ // commented
-																	// because
-																	// unable to
-																	// find
-																	// statements
-																	// otherwise.
-			/* sourceFolder+"simtools.gaml.extensions.physics/models", */ // commented
-																			// because
-																			// unable
-																			// to
-																			// find
-																			// statements
-																			// otherwise.
-			/* sourceFolder+"msi.gaml.architecture.simplebdi/models" */ }; // commented
-																			// because
-																			// unable
-																			// to
-																			// find
-																			// statements
-																			// otherwise.
+			{ sourceFolder + "gama.models.library/models/", sourceFolder + "gaml.ext.maths/models", };
 	static String outputPathToModelLibrary = wikiFolder + "References/ModelLibrary";
 	static String modelLibraryImagesPath = wikiFolder + "resources/images/modelLibraryScreenshots";
 	static String inputFileForHeadlessExecution = wikiFolder + "tempInputForHeadless.xml";
 	static String inputModelScreenshot = wikiFolder + "modelScreenshot.xml";
 	static String headlessBatPath = wikiFolder + "headless.bat";
 
-	static String[] listNoScreenshot = { "msi.gama.models/models/Syntax", // no
-																			// need
-																			// to
-																			// run
-																			// those
-																			// models
-			"msi.gama.models/models/Features/3D Visualization", // opengl
-																// advanced
-																// setting ->
-																// not available
-																// yet on
-																// headless
-			// "msi.gama.models/models/Features/Co-model Usage", // cause an
+	static String[] listNoScreenshot = { "gama.models.library/models/Syntax", // no
+																				// need
+																				// to
+																				// run
+																				// those
+																				// models
+			"gama.models.library/models/Features/3D Visualization", // opengl
+			// advanced
+			// setting ->
+			// not available
+			// yet on
+			// headless
+			// "gama.models.library/models/Features/Co-model Usage", // cause an
 			// error of path
-			// "msi.gama.models/models/Features/Unit Test", // cause an error
-			// "msi.gama.models/models/Features/Database Usage", // cause an
+			// "gama.models.library/models/Features/Unit Test", // cause an error
+			// "gama.models.library/models/Features/Database Usage", // cause an
 			// error
-			// "msi.gama.models/models/Features/Data Importation", // cause an
+			// "gama.models.library/models/Features/Data Importation", // cause an
 			// error
-			// "msi.gama.models/models/Features/Driving Skill", // cause an
+			// "gama.models.library/models/Features/Driving Skill", // cause an
 			// error
-			// "msi.gama.models/models/Features/Spatial Operators/models/Spatial
+			// "gama.models.library/models/Features/Spatial Operators/models/Spatial
 			// Operators", // cause an error
-			// "msi.gama.models/models/Toy Models/Co-model Example"
+			// "gama.models.library/models/Toy Models/Co-model Example"
 	};
 
 	static HashMap<String, ScreenshotStructure> mapModelScreenshot;
@@ -142,9 +123,7 @@ public class ModelLibraryGenerator {
 		for (final String path : inputPathToModelLibrary) {
 			final ArrayList<File> listFilesTmp = new ArrayList<>();
 			Utils.getFilesFromFolder(path, listFilesTmp);
-			for (final File f : listFilesTmp) {
-				listFiles.add(f);
-			}
+			listFiles.addAll(listFilesTmp);
 		}
 		final ArrayList<File> gamlFiles = Utils.filterFilesByExtensions(listFiles, "gaml");
 
@@ -246,16 +225,16 @@ public class ModelLibraryGenerator {
 
 		File[] flist = null;
 
-		if (file == null) { return false; }
+		if (file == null) return false;
 
-		if (file.isFile()) { return file.delete(); }
+		if (file.isFile()) return file.delete();
 
-		if (!file.isDirectory()) { return false; }
+		if (!file.isDirectory()) return false;
 
 		flist = file.listFiles();
 		if (flist != null && flist.length > 0) {
 			for (final File f : flist) {
-				if (!deleteDirectoryAndItsContent(f)) { return false; }
+				if (!deleteDirectoryAndItsContent(f)) return false;
 			}
 		}
 
@@ -288,8 +267,8 @@ public class ModelLibraryGenerator {
 		final ArrayList<String> modelCategory = getSectionName();
 
 		// store all the keywords in a list
-		for (int fileIdx = 0; fileIdx < files.size(); fileIdx++) {
-			String absPath = files.get(fileIdx).getAbsolutePath();
+		for (File file : files) {
+			String absPath = file.getAbsolutePath();
 			String absPathMeta = "";
 
 			for (final String modCat : modelCategory) {
@@ -317,9 +296,7 @@ public class ModelLibraryGenerator {
 
 		// remove from the list the keywords which are not "important"
 		for (final String keyword : occurenceOfKeywords.keySet()) {
-			if (occurenceOfKeywords.get(keyword) < maxOccurenceNumber) {
-				mostSignificantKeywords.add(keyword);
-			}
+			if (occurenceOfKeywords.get(keyword) < maxOccurenceNumber) { mostSignificantKeywords.add(keyword); }
 		}
 
 		// browse a second time all the meta files, and store the most important
@@ -336,14 +313,14 @@ public class ModelLibraryGenerator {
 				final File metaFile = new File(absPathMeta);
 				if (metaFile.exists()) {
 					final ArrayList<String> gamlWords = getGAMLWords(new File(absPathMeta));
-					String metadataKeyword = "";
+					StringBuilder metadataKeyword = new StringBuilder();
 					for (final String gamlWord : gamlWords) {
 						if (mostSignificantKeywords.contains(gamlWord)) {
-							metadataKeyword += "[//]: # (keyword|" + gamlWord + ")\n";
+							metadataKeyword.append("[//]: # (keyword|").append(gamlWord).append(")\n");
 						}
 					}
 					final String modelKey = absPathMeta.replace("/.metadata", "").replace(".meta", "");
-					mainKeywordsMap.put(modelKey, metadataKeyword);
+					mainKeywordsMap.put(modelKey, metadataKeyword.toString());
 				}
 			}
 		}
@@ -366,9 +343,7 @@ public class ModelLibraryGenerator {
 					extractedStr = Utils.findAndReturnRegex(line, catKeywords + "s=(.*)");
 					final String[] keywordArray = extractedStr.split("~");
 					for (String kw : keywordArray) {
-						if (catKeywords.equals("constant")) {
-							kw = "#" + kw;
-						}
+						if ("constant".equals(catKeywords)) { kw = "#" + kw; }
 						kw = catKeywords + "_" + kw;
 						result.add(kw);
 					}
@@ -406,11 +381,9 @@ public class ModelLibraryGenerator {
 					for (int i = 0; i < eElement.getElementsByTagName("display").getLength(); i++) {
 						final String displayName =
 								((Element) eElement.getElementsByTagName("display").item(i)).getAttribute("name");
-						int cycleNumber = Integer.valueOf(((Element) eElement.getElementsByTagName("display").item(i))
+						int cycleNumber = Integer.parseInt(((Element) eElement.getElementsByTagName("display").item(i))
 								.getAttribute("cycle_number"));
-						if (cycleNumber == 0) {
-							cycleNumber = 10;
-						}
+						if (cycleNumber == 0) { cycleNumber = 10; }
 						screenshot.addDisplay(displayName, cycleNumber);
 					}
 					mapModelScreenshot.put(id, screenshot);
@@ -520,9 +493,7 @@ public class ModelLibraryGenerator {
 		for (final String path : inputPathToModelLibrary) {
 			final File directory = new File(path);
 			final String[] sectionNames = directory.list((current, name) -> new File(current, name).isDirectory());
-			for (final String sectionName : sectionNames) {
-				result.add(sectionName);
-			}
+			Collections.addAll(result, sectionNames);
 		}
 		return result;
 	}
@@ -572,9 +543,7 @@ public class ModelLibraryGenerator {
 		// load the concepts
 		try {
 			ConceptManager.loadConcepts();
-		} catch (final IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (final IllegalAccessException e) {
+		} catch (final IllegalArgumentException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
 
@@ -601,9 +570,7 @@ public class ModelLibraryGenerator {
 				boolean isAdditionnalPlugin = false;
 				for (final String path : inputPathToModelLibrary) {
 					if (fileName.contains(path)) {
-						if (!path.equals(inputPathToModelLibrary[0])) {
-							isAdditionnalPlugin = true;
-						}
+						if (!path.equals(inputPathToModelLibrary[0])) { isAdditionnalPlugin = true; }
 						fileName = fileName.split(path)[1];
 					}
 				}
@@ -613,9 +580,7 @@ public class ModelLibraryGenerator {
 					String newSectionName = fileName.split("/")[0];
 					final String modelFileName =
 							newSubSectionName + " " + fileName.split("/")[fileName.split("/").length - 1];
-					if (isAdditionnalPlugin) {
-						newSectionName = "Additionnal Plugins";
-					}
+					if (isAdditionnalPlugin) { newSectionName = "Additionnal Plugins"; }
 					fileName = newSectionName + "/" + newSubSectionName + "/" + modelFileName;
 					fileName = fileName.replace(".gaml", "");
 					fileName = fileName.replace("/models", "");
@@ -660,9 +625,10 @@ public class ModelLibraryGenerator {
 					subSectionName = newSubSectionName;
 					sectionName = newSectionName;
 
-					String outputFileName = outputPathToModelLibrary + "/" + fileName;
-					outputFileName = outputFileName + ".md";
-					final File outputFile = new File(outputFileName);
+					StringBuilder outputFileName =
+							new StringBuilder().append(outputPathToModelLibrary).append("/").append(fileName);
+					outputFileName.append(".md");
+					final File outputFile = new File(outputFileName.toString());
 
 					Utils.CreateFolder(outputFile.getParentFile());
 					outputFile.createNewFile();
@@ -683,19 +649,19 @@ public class ModelLibraryGenerator {
 						final List<String> inputFileList = searchInputListRecursive(gamlFile, new ArrayList<String>());
 						if (inputFileList.size() > 0) {
 							if (inputFileList.size() > 1) {
-								fileOut.write(new String("Imported models : \n\n").getBytes());
+								fileOut.write("Imported models : \n\n".getBytes());
 							} else {
-								fileOut.write(new String("Imported model : \n\n").getBytes());
+								fileOut.write("Imported model : \n\n".getBytes());
 							}
 						}
 						for (final String inputPath : inputFileList) {
 							// write the code of the input files
 							fileOut.write(getModelCode(new File(inputPath)).getBytes());
-							fileOut.write(new String("\n\n").getBytes());
+							fileOut.write("\n\n".getBytes());
 						}
 
 						// write the code
-						fileOut.write(new String("Code of the model : \n\n").getBytes());
+						fileOut.write("Code of the model : \n\n".getBytes());
 						fileOut.write(getModelCode(gamlFile).getBytes());
 					}
 				}
@@ -714,9 +680,8 @@ public class ModelLibraryGenerator {
 
 			final String sectionName =
 					pathToSectionFile.split("/")[pathToSectionFile.split("/").length - 1].replace(".md", "");
-			fileOut.write(
-					new String("# " + sectionName + "\n\nThis section is composed of the following sub-section :\n\n")
-							.getBytes());
+			fileOut.write(("# " + sectionName + "\n\nThis section is composed of the following sub-section :\n\n")
+					.getBytes());
 		}
 	}
 
@@ -729,15 +694,14 @@ public class ModelLibraryGenerator {
 			final String sectionName =
 					pathToSubSectionFile.split("/")[pathToSubSectionFile.split("/").length - 1].replace(".md", "");
 			fileOut.write(
-					new String("# " + sectionName + "\n\nThis sub-section is composed of the following models :\n\n")
-							.getBytes());
+					("# " + sectionName + "\n\nThis sub-section is composed of the following models :\n\n").getBytes());
 		}
 	}
 
 	private static void addSubSection(final String pathToSectionFile, final String subSectionName) throws IOException {
 		final String urlToSubSection = subSectionName.replace(" ", "");
 		Files.write(Paths.get(pathToSectionFile),
-				new String("* [" + subSectionName + "](references#" + urlToSubSection + ")\n\n").getBytes(),
+				("* [" + subSectionName + "](references#" + urlToSubSection + ")\n\n").getBytes(),
 				StandardOpenOption.APPEND);
 	}
 
@@ -745,8 +709,7 @@ public class ModelLibraryGenerator {
 			final List<String> screenshotPathList) throws IOException {
 		final String urlToModel = modelFileName.replace(" ", "");
 		Files.write(Paths.get(pathToSubSectionFile),
-				new String("* [" + modelName + "](references#" + urlToModel + ")\n\n").getBytes(),
-				StandardOpenOption.APPEND);
+				("* [" + modelName + "](references#" + urlToModel + ")\n\n").getBytes(), StandardOpenOption.APPEND);
 		// show the images (if there are some)
 		for (final String imagePath : screenshotPathList) {
 			// imagePath = imagePath.replace("\\", "/");
@@ -758,7 +721,7 @@ public class ModelLibraryGenerator {
 
 	private static String extractHeader(final File file) throws IOException {
 		// returns the header
-		String result = "";
+		StringBuilder result = new StringBuilder();
 
 		try (final FileInputStream fis = new FileInputStream(file);
 				final BufferedReader br = new BufferedReader(new InputStreamReader(fis));) {
@@ -767,18 +730,16 @@ public class ModelLibraryGenerator {
 
 			// check if the file contains a header
 			if ((line = br.readLine()).startsWith("/**")) {
-				result += line + "\n";
+				result.append(line).append("\n");
 				while ((line = br.readLine()) != null) {
-					result += line + "\n";
-					if (line.startsWith("*/") || line.startsWith(" */")) {
-						break;
-					}
+					result.append(line).append("\n");
+					if (line.startsWith("*/") || line.startsWith(" */")) { break; }
 				}
 			} else {
 				br.close();
 			}
 		}
-		return result;
+		return result.toString();
 	}
 
 	private static ArrayList<String> searchInputListRecursive(final File file, final ArrayList<String> results)
@@ -835,10 +796,11 @@ public class ModelLibraryGenerator {
 	private static String getHTMLCodeForImage(final String api) {
 		final String absolutePathForImage = api.replace("\\", "/");
 		final String realPath = "gm_wiki/" + absolutePathForImage.split(wikiFolder)[1];
-		String result = "";
-		result += "<p>";
-		result += "<img src=\"" + realPath + "\" alt=\"Eclipse folder.\" title class=\"img-responsive\">";
-		result += "</p>";
-		return result;
+		StringBuilder result = new StringBuilder();
+		result.append("<p>");
+		result.append("<img src=\"").append(realPath)
+				.append("\" alt=\"Eclipse folder.\" title class=\"img-responsive\">");
+		result.append("</p>");
+		return result.toString();
 	}
 }

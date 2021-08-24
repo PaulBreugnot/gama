@@ -7,7 +7,7 @@
          name="Base product"
          point="org.eclipse.core.runtime.products">
       <product
-            application="msi.gama.application.GamaApplication"
+            application="gama.core.application.GamaApplication"
             name="Gama">
          <property
                name="windowImages"
@@ -83,7 +83,7 @@
                </run>
             </runtime>
             <requires-nature
-                  id="msi.gama.application.gamaNature">
+                  id="gama.core.application.gamaNature">
             </requires-nature>
          </extension>
          <extension
@@ -96,14 +96,14 @@
                </run>
             </runtime>
             <requires-nature
-                  id="msi.gama.application.gamaNature">
+                  id="gama.core.application.gamaNature">
             </requires-nature>
          </extension>
          <extension
                id="runtime"
                point="org.eclipse.core.runtime.products">
             <product
-                  application="msi.gama.application.GamaApplication"
+                  application="gama.core.application.GamaApplication"
                   name="Gama (runtime)">
                <property
                      name="windowImages"
@@ -149,7 +149,7 @@
                </run>
             </runtime>
              <requires-nature
-                  id="msi.gama.application.gamaNature">
+                  id="gama.core.application.gamaNature">
             </requires-nature>
          </extension>
 </plugin>

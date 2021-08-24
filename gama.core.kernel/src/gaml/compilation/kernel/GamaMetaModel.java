@@ -79,7 +79,7 @@ public class GamaMetaModel {
 
 	public void addSpecies(final String name, final Class clazz, final IAgentConstructor helper,
 			final String[] skills) {
-		final SpeciesProto proto = new SpeciesProto("msi.gama.core", name, clazz, helper, skills);
+		final SpeciesProto proto = new SpeciesProto("gama.core.kernel", name, clazz, helper, skills);
 		tempSpecies.put(name, proto);
 	}
 

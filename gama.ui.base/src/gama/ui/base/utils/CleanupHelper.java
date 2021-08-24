@@ -1,7 +1,7 @@
 /*********************************************************************************************
  *
- * 'CleanupHelper.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * 'CleanupHelper.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and simulation platform.
+ * (v. 1.8.1)
  *
  * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
  *
@@ -142,8 +142,8 @@ public class CleanupHelper {
 
 	static class RemoveUnwantedActionSets extends PerspectiveAdapter /* implements IStartup */ {
 
-		String[] TOOLBAR_ACTION_SETS_TO_REMOVE = { "org.eclipse", "msi.gama.lang.gaml.Gaml",
-				"org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo" };
+		String[] TOOLBAR_ACTION_SETS_TO_REMOVE =
+				{ "org.eclipse", "gama.core.lang.Gaml", "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo" };
 		String[] MENUS_TO_REMOVE = { "org.eclipse.ui.run", "window", "navigate", "project" };
 
 		public static void run() {
@@ -295,8 +295,8 @@ public class CleanupHelper {
 						IMenuManager menu = null;
 						if (item instanceof MenuManager) {
 							menu = (MenuManager) item;
-						} else if ((item instanceof ActionSetContributionItem)
-								&& (((ActionSetContributionItem) item).getInnerItem() instanceof MenuManager)) {
+						} else if (item instanceof ActionSetContributionItem
+								&& ((ActionSetContributionItem) item).getInnerItem() instanceof MenuManager) {
 							menu = (MenuManager) ((ActionSetContributionItem) item).getInnerItem();
 						}
 						if (menu != null) { processItems(menu); }

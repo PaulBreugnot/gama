@@ -34,8 +34,6 @@ public class OpenGLDisplayView extends SWTDisplayView {
 		DEBUG.OFF();
 	}
 
-	public static String ID = "msi.gama.application.view.OpenGLDisplayView";
-
 	@Override
 	public SWTOpenGLDisplaySurface getDisplaySurface() {
 		return (SWTOpenGLDisplaySurface) super.getDisplaySurface();

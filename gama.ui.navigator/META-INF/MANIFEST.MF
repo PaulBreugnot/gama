@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Navigator
 Bundle-SymbolicName: gama.ui.navigator;singleton:=true
-Bundle-Version: 1.8.1.qualifier
+Bundle-Version: 2.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ActivationPolicy: lazy
 Export-Package: gama.ui.navigator,
@@ -96,20 +96,20 @@ Import-Package: com.google.common.cache;version="30.1.0",
  org.geotools.styling,
  org.opengis.filter,
  org.osgi.framework;version="1.10.0"
-Automatic-Module-Name: ummisco.gama.ui.navigator
+Automatic-Module-Name: gama.ui.navigator
 Require-Bundle: org.eclipse.ui.ide,
  org.eclipse.ui.navigator,
  org.eclipse.ui.navigator.resources,
- gama.ui.base,
+ gama.ui.base;bundle-version="2.0.0",
  org.eclipse.swt,
  org.eclipse.core.resources,
  org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.jface,
  org.eclipse.ui.workbench,
- gama.core.kernel,
- gama.core.application,
- gama.ext.libs,
+ gama.core.kernel;bundle-version="2.0.0",
+ gama.core.application;bundle-version="2.0.0",
+ gama.ext.libs;bundle-version="2.0.0",
  org.eclipse.core.expressions,
  org.eclipse.team.ui,
  org.eclipse.compare,

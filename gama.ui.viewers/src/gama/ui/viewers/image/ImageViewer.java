@@ -76,15 +76,15 @@ import org.eclipse.ui.part.FileEditorInput;
 import gama.core.dev.utils.DEBUG;
 import gama.runtime.GAMA;
 import gama.ui.base.resources.GamaColors;
-import gama.ui.base.resources.IGamaColors;
 import gama.ui.base.resources.GamaColors.GamaUIColor;
+import gama.ui.base.resources.IGamaColors;
+import gama.ui.base.toolbar.GamaToolbar2;
+import gama.ui.base.toolbar.GamaToolbarFactory;
+import gama.ui.base.toolbar.IToolbarDecoratedView;
 import gama.ui.base.utils.PreferencesHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.navigator.metadata.ImageDataLoader;
 import gama.util.file.IGamaFileMetaData;
-import gama.ui.base.toolbar.GamaToolbar2;
-import gama.ui.base.toolbar.GamaToolbarFactory;
-import gama.ui.base.toolbar.IToolbarDecoratedView;
 
 /**
  * A simple image viewer editor.
@@ -156,9 +156,8 @@ public class ImageViewer extends EditorPart
 	 * Get the IFile corresponding to the specified editor input, or null for none.
 	 */
 	IFile getFileFor(final IEditorInput input) {
-		if (input instanceof IFileEditorInput)
-			return ((IFileEditorInput) input).getFile();
-		else if (input instanceof IStorageEditorInput) {
+		if (input instanceof IFileEditorInput) return ((IFileEditorInput) input).getFile();
+		if (input instanceof IStorageEditorInput) {
 			try {
 				final IStorage storage = ((IStorageEditorInput) input).getStorage();
 				if (storage instanceof IFile) return (IFile) storage;
@@ -327,7 +326,7 @@ public class ImageViewer extends EditorPart
 				} catch (final CoreException ex) {
 					return ex.getStatus();
 				} catch (final SWTException ex) {
-					return new Status(IStatus.ERROR, "msi.gama.application", ex.getMessage());
+					return new Status(IStatus.ERROR, "gama.core.application", ex.getMessage());
 				} finally {
 					monitor.done();
 				}
@@ -462,10 +461,9 @@ public class ImageViewer extends EditorPart
 			protected void execute(final IProgressMonitor monitor)
 					throws CoreException, InvocationTargetException, InterruptedException {
 				try {
-					if (dest.exists()) {
-						if (!dest.getWorkspace().validateEdit(new IFile[] { dest }, getSite().getShell()).isOK())
-							return;
-					}
+					if (dest.exists()
+							&& !dest.getWorkspace().validateEdit(new IFile[] { dest }, getSite().getShell()).isOK())
+						return;
 					saveTo(imageData, dest, imageType, monitor);
 				} catch (final IOException ex) {
 					throw new InvocationTargetException(ex);
@@ -488,7 +486,7 @@ public class ImageViewer extends EditorPart
 			if (t instanceof CoreException) {
 				st = ((CoreException) t).getStatus();
 			} else {
-				st = new Status(IStatus.ERROR, "msi.gama.application", 0, t.toString(), t);
+				st = new Status(IStatus.ERROR, "gama.core.application", 0, t.toString(), t);
 			}
 			if (st.getSeverity() != IStatus.CANCEL) { ErrorDialog.openError(getSite().getShell(), title, mesg, st); }
 		} catch (final InterruptedException ex) {
@@ -526,7 +524,7 @@ public class ImageViewer extends EditorPart
 						loader.save(pout, imageType);
 						pout.flush();
 					} catch (final Exception ex) {
-						status = new Status(IStatus.ERROR, "msi.gama.application",
+						status = new Status(IStatus.ERROR, "gama.core.application",
 								MessageFormat.format("Error getting image data for {0}", dest.getFullPath()), ex);
 					} finally {
 						try {
@@ -700,8 +698,7 @@ public class ImageViewer extends EditorPart
 	/**
 	 * Method createToolItem()
 	 *
-	 * @see gama.ui.views.toolbar.IToolbarDecoratedView#createToolItem(int,
-	 *      gama.ui.views.toolbar.GamaToolbar2)
+	 * @see gama.ui.views.toolbar.IToolbarDecoratedView#createToolItem(int, gama.ui.views.toolbar.GamaToolbar2)
 	 */
 	@Override
 	public void createToolItems(final GamaToolbar2 tb) {

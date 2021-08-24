@@ -6,7 +6,7 @@
  * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
- * 
+ *
  *
  **********************************************************************************************/
 package gama.ui.modeling.views;
@@ -34,10 +34,10 @@ import gama.common.preferences.GamaPreferences;
 import gama.common.preferences.IPreferenceChangeListener.IPreferenceAfterChangeListener;
 import gama.ui.base.commands.TestsRunner;
 import gama.ui.base.resources.IGamaColors;
-import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.base.toolbar.GamaToolbar2;
 import gama.ui.base.toolbar.GamaToolbarFactory;
 import gama.ui.base.toolbar.IToolbarDecoratedView;
+import gama.ui.base.utils.WorkbenchHelper;
 
 public class SyntaxErrorsView extends MarkerSupportView implements IToolbarDecoratedView {
 
@@ -48,7 +48,7 @@ public class SyntaxErrorsView extends MarkerSupportView implements IToolbarDecor
 	final BuildPreferenceChangeListener listener;
 
 	public SyntaxErrorsView() {
-		super("msi.gama.lang.gaml.ui.error.generator");
+		super("gama.ui.modeling.error.generator");
 		listener = new BuildPreferenceChangeListener(this);
 		GamaPreferences.Modeling.WARNINGS_ENABLED.addChangeListener(listener);
 		GamaPreferences.Modeling.INFO_ENABLED.addChangeListener(listener);
@@ -86,12 +86,8 @@ public class SyntaxErrorsView extends MarkerSupportView implements IToolbarDecor
 	}
 
 	void checkActions() {
-		if (warningAction != null) {
-			warningAction.setSelection(GamaPreferences.Modeling.WARNINGS_ENABLED.getValue());
-		}
-		if (infoAction != null) {
-			infoAction.setSelection(GamaPreferences.Modeling.INFO_ENABLED.getValue());
-		}
+		if (warningAction != null) { warningAction.setSelection(GamaPreferences.Modeling.WARNINGS_ENABLED.getValue()); }
+		if (infoAction != null) { infoAction.setSelection(GamaPreferences.Modeling.INFO_ENABLED.getValue()); }
 	}
 
 	@Override
@@ -156,7 +152,7 @@ public class SyntaxErrorsView extends MarkerSupportView implements IToolbarDecor
 		dialog.setCancelable(false);
 		dialog.setOpenOnRun(true);
 		try {
-			dialog.run(true, false, monitor -> doBuild(monitor));
+			dialog.run(true, false, SyntaxErrorsView::doBuild);
 		} catch (InvocationTargetException | InterruptedException e1) {
 			e1.printStackTrace();
 		}

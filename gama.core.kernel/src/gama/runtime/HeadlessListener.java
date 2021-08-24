@@ -19,12 +19,12 @@ import org.eclipse.core.resources.IResource;
 import gama.common.interfaces.IKeyword;
 import gama.common.ui.IConsoleDisplayer;
 import gama.common.ui.IDisplayCreator;
+import gama.common.ui.IDisplayCreator.DisplayDescription;
 import gama.common.ui.IDisplaySurface;
 import gama.common.ui.IGamaView;
 import gama.common.ui.IGamlLabelProvider;
 import gama.common.ui.IGui;
 import gama.common.ui.IStatusDisplayer;
-import gama.common.ui.IDisplayCreator.DisplayDescription;
 import gama.core.dev.utils.DEBUG;
 import gama.kernel.experiment.IExperimentPlan;
 import gama.kernel.experiment.IParameter;
@@ -270,7 +270,7 @@ public class HeadlessListener implements IGui {
 	 */
 	@Override
 	public DisplayDescription getDisplayDescriptionFor(final String name) {
-		return new DisplayDescription(null, "display", "msi.gama.core");
+		return new DisplayDescription(null, "display", "gama.core.kernel");
 	}
 
 	/**
@@ -280,7 +280,7 @@ public class HeadlessListener implements IGui {
 	 */
 	@Override
 	public String getExperimentState(final String uid) {
-		return RUNNING; // ???
+		return ISimulationStateProvider.RUNNING; // ???
 	}
 
 	/**

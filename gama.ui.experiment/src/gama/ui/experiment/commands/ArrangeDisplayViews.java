@@ -48,7 +48,7 @@ public class ArrangeDisplayViews extends AbstractHandler {
 		DEBUG.ON();
 	}
 
-	public static final String LAYOUT_KEY = "msi.gama.displays.layout";
+	public static final String LAYOUT_KEY = "gama.displays.layout";
 
 	static final String DISPLAY_INDEX_KEY = "GamaIndex";
 
@@ -64,7 +64,7 @@ public class ArrangeDisplayViews extends AbstractHandler {
 	public static void execute(final Object layout) {
 		listDisplayViews();
 		if (layout instanceof Integer) {
-			execute(((Integer) layout).intValue());
+			execute(((Integer) layout));
 		} else if (layout instanceof GamaTree) {
 			execute((GamaTree<String>) layout);
 		} else if (layout instanceof GamaNode) {
@@ -102,7 +102,7 @@ public class ArrangeDisplayViews extends AbstractHandler {
 			}
 			final List<MPlaceholder> holders = listDisplayViews();
 			final MPartStack displayStack = getDisplaysPlaceholder();
-			if (displayStack == null) { return; }
+			if (displayStack == null) return;
 			displayStack.setToBeRendered(true);
 			final MElementContainer<?> root = displayStack.getParent();
 			hideDisplays(displayStack, holders);
@@ -115,7 +115,7 @@ public class ArrangeDisplayViews extends AbstractHandler {
 	}
 
 	private static void activateDisplays(final List<MPlaceholder> holders, final boolean focus) {
-		holders.forEach((ph) -> {
+		holders.forEach(ph -> {
 			getPartService().bringToTop((MPart) ph.getRef());
 			getPartService().activate((MPart) ph.getRef(), focus);
 
@@ -131,7 +131,7 @@ public class ArrangeDisplayViews extends AbstractHandler {
 	public static void showDisplays(final MElementContainer<?> root, final List<MPlaceholder> holders) {
 		root.setVisible(true);
 		decorateDisplays();
-		holders.forEach((ph) -> {
+		holders.forEach(ph -> {
 			ph.setVisible(true);
 			ph.setToBeRendered(true);
 		});
@@ -160,7 +160,7 @@ public class ArrangeDisplayViews extends AbstractHandler {
 	public static void hideDisplays(final MPartStack displayStack, final List<MPlaceholder> holders) {
 		final MElementContainer<MUIElement> parent = displayStack.getParent();
 		parent.setVisible(false);
-		holders.forEach((ph) -> {
+		holders.forEach(ph -> {
 			ph.setVisible(false);
 			displayStack.getChildren().add(ph);
 		});
@@ -183,14 +183,12 @@ public class ArrangeDisplayViews extends AbstractHandler {
 		final String data = treeRoot.getData();
 		final String weight = String.valueOf(treeRoot.getWeight());
 		// DEBUG.OUT("Processing " + data + " with weight " + weight);
-		final Boolean dir = !data.equals(HORIZONTAL) && !data.equals(VERTICAL) ? null : data.equals(HORIZONTAL);
+		final Boolean dir = !HORIZONTAL.equals(data) && !VERTICAL.equals(data) ? null : HORIZONTAL.equals(data);
 		final MPlaceholder holder = StreamEx.of(holders)
 				.findFirst(h -> h.getTransientData().get(DISPLAY_INDEX_KEY).equals(data)).orElse(null);
 		final MElementContainer container = create(uiRoot, weight, dir);
 		if (holder != null) {
-			if (container.equals(uiRoot)) {
-				holder.setContainerData(weight);
-			}
+			if (container.equals(uiRoot)) { holder.setContainerData(weight); }
 			container.getChildren().add(holder);
 		} else {
 			for (final GamaNode<String> node : treeRoot.getChildren()) {
@@ -216,20 +214,14 @@ public class ArrangeDisplayViews extends AbstractHandler {
 	}
 
 	static MElementContainer create(final MElementContainer root, final String weight, final Boolean dir) {
-		if (dir == null) { // stacks cannot be stacked
-			if (root instanceof MPartStack && isPartOfLayout(root)) { return root; }
-		}
-		if (dir == null && (root instanceof MPartStack || !PerspectiveHelper.keepTabs())) { return root; }
+		if ((dir == null) && (root instanceof MPartStack && isPartOfLayout(root))) return root;
+		if (dir == null && (root instanceof MPartStack || !PerspectiveHelper.keepTabs())) return root;
 		final MElementContainer c = dir != null ? INSTANCE.createPartSashContainer() : INSTANCE.createPartStack();
 		c.getTransientData().put("Dynamic", true);
 		c.getTransientData().put(LAYOUT, true);
 		c.setContainerData(weight);
-		if (dir != null) {
-			((MPartSashContainer) c).setHorizontal(dir);
-		}
-		if (root != null) {
-			root.getChildren().add(c);
-		}
+		if (dir != null) { ((MPartSashContainer) c).setHorizontal(dir); }
+		if (root != null) { root.getChildren().add(c); }
 		return c;
 	}
 

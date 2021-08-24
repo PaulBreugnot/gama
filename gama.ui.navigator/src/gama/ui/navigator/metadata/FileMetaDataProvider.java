@@ -47,16 +47,16 @@ import org.eclipse.swt.graphics.ImageData;
 import gama.common.GamlFileExtension;
 import gama.core.dev.utils.DEBUG;
 import gama.util.file.GamaCSVFile;
+import gama.util.file.GamaCSVFile.CSVInfo;
 import gama.util.file.GamaFileMetaData;
+import gama.util.file.GamaImageFile.ImageInfo;
 import gama.util.file.GamaOsmFile;
+import gama.util.file.GamaOsmFile.OSMInfo;
 import gama.util.file.GamaShapeFile;
+import gama.util.file.GamaShapeFile.ShapeInfo;
 import gama.util.file.GamlFileInfo;
 import gama.util.file.IFileMetaDataProvider;
 import gama.util.file.IGamaFileMetaData;
-import gama.util.file.GamaCSVFile.CSVInfo;
-import gama.util.file.GamaImageFile.ImageInfo;
-import gama.util.file.GamaOsmFile.OSMInfo;
-import gama.util.file.GamaShapeFile.ShapeInfo;
 import gaml.compilation.GAML;
 
 /**
@@ -556,7 +556,7 @@ public class FileMetaDataProvider implements IFileMetaDataProvider {
 		});
 
 		try {
-			ResourcesPlugin.getWorkspace().addSaveParticipant("ummisco.gama.ui.modeling", getSaveParticipant());
+			ResourcesPlugin.getWorkspace().addSaveParticipant("gama.ui.modeling", getSaveParticipant());
 		} catch (final CoreException e) {
 			e.printStackTrace();
 		}

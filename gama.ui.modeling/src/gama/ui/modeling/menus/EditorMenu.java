@@ -44,11 +44,6 @@ import gama.common.preferences.GamaPreferences;
 import gama.common.preferences.Pref;
 import gama.core.lang.indexer.GamlResourceIndexer;
 import gama.core.lang.resource.GamlResource;
-import gama.core.lang.ui.editor.GamlEditor;
-import gama.core.lang.ui.reference.BuiltinReferenceMenu;
-import gama.core.lang.ui.reference.ColorReferenceMenu;
-import gama.core.lang.ui.reference.OperatorsReferenceMenu;
-import gama.core.lang.ui.reference.TemplateReferenceMenu;
 import gama.runtime.GAMA;
 import gama.ui.base.interfaces.IRefreshHandler;
 import gama.ui.base.menus.GamaMenu;
@@ -56,6 +51,11 @@ import gama.ui.base.resources.GamaIcons;
 import gama.ui.base.resources.IGamaIcons;
 import gama.ui.base.search.ModelsFinder;
 import gama.ui.base.utils.WorkbenchHelper;
+import gama.ui.modeling.editor.GamlEditor;
+import gama.ui.modeling.reference.BuiltinReferenceMenu;
+import gama.ui.modeling.reference.ColorReferenceMenu;
+import gama.ui.modeling.reference.OperatorsReferenceMenu;
+import gama.ui.modeling.reference.TemplateReferenceMenu;
 import gama.util.Collector;
 import gaml.compilation.ast.ISyntacticElement;
 
@@ -67,7 +67,6 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 	Pref<Boolean> markPref;
 
 	public EditorMenu() {
-		super();
 		// INSTANCE = this;
 	}
 
@@ -119,9 +118,7 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 		final MenuItem menuItem = new MenuItem(m, SWT.CASCADE);
 		menuItem.setText("Model");
 		final Menu menu = new Menu(menuItem);
-		if (menuItem.getMenu() != null) {
-			menuItem.getMenu().dispose();
-		}
+		if (menuItem.getMenu() != null) { menuItem.getMenu().dispose(); }
 		menuItem.setMenu(menu);
 		menu.addListener(SWT.Show, e -> {
 			markPref = GamaPreferences.get("pref_editor_mark_occurrences", Boolean.class);
@@ -270,9 +267,7 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 						if (el != null) {
 							el.visitExperiments(element -> {
 
-								if (!map.containsKey(uri)) {
-									map.put(uri, new ArrayList<>());
-								}
+								if (!map.containsKey(uri)) { map.put(uri, new ArrayList<>()); }
 								map.get(uri).add(element.getName());
 
 							});
@@ -319,9 +314,7 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 			final MenuItem mi = (MenuItem) e.widget;
 			final URI uri = (URI) mi.getData("uri");
 			final String exp = (String) mi.getData("exp");
-			if (uri != null && exp != null) {
-				GAMA.getGui().runModel(uri, exp);
-			}
+			if (uri != null && exp != null) { GAMA.getGui().runModel(uri, exp); }
 		}
 	};
 
@@ -370,7 +363,7 @@ public class EditorMenu extends ContributionItem implements IWorkbenchContributi
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				try {
-					WorkbenchHelper.runCommand("msi.gama.lang.gaml.Gaml.validate");
+					WorkbenchHelper.runCommand("gama.core.lang.validate");
 				} catch (final ExecutionException e1) {
 					e1.printStackTrace();
 				}

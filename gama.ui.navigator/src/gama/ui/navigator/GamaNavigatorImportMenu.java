@@ -54,7 +54,7 @@ public class GamaNavigatorImportMenu extends GamaNavigatorMenu { // NO_UCD (unus
 
 		@Override
 		public void widgetSelected(final SelectionEvent e) {
-			openWizard("ummisco.gama.ui.import.ExternalProject", selection);
+			openWizard("gama.wizard.import.ExternalProject", selection);
 		}
 
 	};

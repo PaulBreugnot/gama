@@ -6,7 +6,7 @@
  * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
- * 
+ *
  *
  **********************************************************************************************/
 package gama.ui.navigator.wizards;
@@ -45,12 +45,11 @@ import gama.ui.navigator.contents.ResourceManager;
 
 public class NewProjectWizard extends Wizard implements INewWizard, IExecutableExtension {
 
-	public static final String NATURE_ID = "msi.gama.application.nature.gamaNature";
+	public static final String NATURE_ID = "gama.core.application.gamaNature";
 	private NewProjectWizardPage wizardPage;
 	private IProject project;
 
 	public NewProjectWizard() {
-		super();
 	}
 
 	@Override
@@ -64,7 +63,7 @@ public class NewProjectWizard extends Wizard implements INewWizard, IExecutableE
 	@Override
 	public boolean performFinish() {
 
-		if (project != null) { return true; }
+		if (project != null) return true;
 
 		final boolean isTest = wizardPage.isTest();
 		final boolean createNewModel = wizardPage.createNewModel();
@@ -123,7 +122,7 @@ public class NewProjectWizard extends Wizard implements INewWizard, IExecutableE
 			final SubMonitor m = SubMonitor.convert(monitor, "", 2000);
 			proj.create(description, m.split(1000));
 
-			if (monitor.isCanceled()) { throw new OperationCanceledException(); }
+			if (monitor.isCanceled()) throw new OperationCanceledException();
 			proj.open(m.split(1000));
 
 			WorkspaceModelsManager.setValuesProjectDescription(proj, false, false, isTest, null);

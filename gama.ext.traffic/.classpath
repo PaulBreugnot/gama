@@ -16,6 +16,5 @@
 			<accessrule kind="accessible" pattern="*/**"/>
 		</accessrules>
 	</classpathentry>
-	<classpathentry kind="lib" path="/msi.gama.ext/geotools/commons-collections4-4.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

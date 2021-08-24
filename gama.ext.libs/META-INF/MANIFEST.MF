@@ -2,9 +2,9 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: External libraries of GAMA
 Bundle-SymbolicName: gama.ext.libs;singleton:=true
-Bundle-Version: 1.8.1.qualifier
+Bundle-Version: 2.0.0.qualifier
 Bundle-Activator: gama.ext.libs.Activator
-Bundle-Vendor: MSI
+Bundle-Vendor: UMMISCO
 Bundle-ActivationPolicy: lazy
 Export-Package: com.conversantmedia.util.collection,
  com.conversantmedia.util.concurrent,

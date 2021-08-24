@@ -1,7 +1,7 @@
 /*********************************************************************************************
  *
- * 'WebHelper.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and simulation
- * platform. (v. 1.8.1)
+ * 'WebHelper.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and simulation platform. (v.
+ * 1.8.1)
  *
  * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
  *
@@ -34,6 +34,8 @@ import gama.ui.base.interfaces.IWebHelper;
 
 public class WebHelper implements IWebHelper {
 
+	private final static String VIEWER_ID = "gama.viewer.browser";
+
 	private static WebHelper instance = new WebHelper();
 
 	public static WebHelper getInstance() {
@@ -57,7 +59,9 @@ public class WebHelper implements IWebHelper {
 	}
 
 	public static void openWelcomePage(final boolean ifEmpty) {
-		if ((ifEmpty && WorkbenchHelper.getPage().getActiveEditor() != null) || (ifEmpty && !GamaPreferences.Interface.CORE_SHOW_PAGE.getValue())) return;
+		if (ifEmpty && WorkbenchHelper.getPage().getActiveEditor() != null
+				|| ifEmpty && !GamaPreferences.Interface.CORE_SHOW_PAGE.getValue())
+			return;
 		// get the workspace
 		final var workspace = ResourcesPlugin.getWorkspace();
 
@@ -78,7 +82,7 @@ public class WebHelper implements IWebHelper {
 		}
 
 		try {
-			WorkbenchHelper.getPage().openEditor(input, "msi.gama.application.browser");
+			WorkbenchHelper.getPage().openEditor(input, VIEWER_ID);
 		} catch (final PartInitException e) {
 			e.printStackTrace();
 		}
@@ -106,7 +110,7 @@ public class WebHelper implements IWebHelper {
 		}
 
 		try {
-			WorkbenchHelper.getPage().openEditor(input, "msi.gama.application.browser");
+			WorkbenchHelper.getPage().openEditor(input, VIEWER_ID);
 		} catch (final PartInitException e) {
 			e.printStackTrace();
 		}
@@ -115,8 +119,7 @@ public class WebHelper implements IWebHelper {
 
 	public static void openPage(final String string) {
 		try {
-			final var view =
-					(Html) WorkbenchHelper.getPage().openEditor(new NullEditorInput(), "msi.gama.application.browser");
+			final var view = (Html) WorkbenchHelper.getPage().openEditor(new NullEditorInput(), VIEWER_ID);
 			view.setUrl(string);
 		} catch (final PartInitException e) {
 			e.printStackTrace();

@@ -292,7 +292,7 @@
                </visibleWhen>
             </command>
             <separator
-                  name="msi.gama.application.window.views"
+                  name="gama.sep.10"
                   visible="true">
             </separator>
             <menu
@@ -1066,6 +1066,10 @@
             id="gama.command.reset.perspective"
             name="Reset Perspective...">
       </command>
+      <category
+            id="gama.category"
+            name="GAMA Commands">
+      </category>
    </extension>
    <extension
          point="org.eclipse.ui.services">

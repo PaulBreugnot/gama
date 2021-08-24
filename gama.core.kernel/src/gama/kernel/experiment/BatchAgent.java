@@ -20,7 +20,6 @@ import java.util.Map;
 import org.jfree.data.statistics.Statistics;
 
 import gama.common.interfaces.IKeyword;
-import gama.common.ui.IGui;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.experiment;
 import gama.kernel.batch.IExploration;
@@ -32,6 +31,7 @@ import gama.metamodel.population.IPopulation;
 import gama.outputs.FileOutput;
 import gama.runtime.GAMA;
 import gama.runtime.IScope;
+import gama.runtime.ISimulationStateProvider;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gaml.expressions.IExpression;
 import gaml.expressions.IExpressionFactory;
@@ -152,8 +152,8 @@ public class BatchAgent extends ExperimentAgent {
 	 *
 	 * Method step()
 	 *
-	 * @see gama.metamodel.agent.GamlAgent#step(gama.runtime.IScope) This method, called once by the front
-	 *      controller, actually serves as "launching" the batch process (entirely piloted by the exploration algorithm)
+	 * @see gama.metamodel.agent.GamlAgent#step(gama.runtime.IScope) This method, called once by the front controller,
+	 *      actually serves as "launching" the batch process (entirely piloted by the exploration algorithm)
 	 */
 	@Override
 	public boolean step(final IScope scope) {
@@ -166,7 +166,7 @@ public class BatchAgent extends ExperimentAgent {
 		// Issue #2426: the agent is killed too soon
 		getScope().setInterrupted();
 		// dispose();
-		GAMA.getGui().updateExperimentState(scope, IGui.FINISHED);
+		GAMA.getGui().updateExperimentState(scope, ISimulationStateProvider.FINISHED);
 		return true;
 	}
 
@@ -312,8 +312,8 @@ public class BatchAgent extends ExperimentAgent {
 
 		});
 
-		params.add(new ParameterAdapter("Best parameter set found", IExperimentPlan.BATCH_CATEGORY_NAME, "", IType.STRING) {
-
+		params.add(new ParameterAdapter("Best parameter set found", IExperimentPlan.BATCH_CATEGORY_NAME, "",
+				IType.STRING) {
 
 			@Override
 			public String value() {
@@ -337,11 +337,10 @@ public class BatchAgent extends ExperimentAgent {
 			}
 
 		});
-		
-	
-		params.add(new ParameterAdapter("Last parameeter set tested", IExperimentPlan.BATCH_CATEGORY_NAME, "", IType.STRING) {
 
-	
+		params.add(new ParameterAdapter("Last parameeter set tested", IExperimentPlan.BATCH_CATEGORY_NAME, "",
+				IType.STRING) {
+
 			@Override
 			public String value() {
 				if (lastSolution == null) return "-";
@@ -349,7 +348,7 @@ public class BatchAgent extends ExperimentAgent {
 			}
 
 		});
-		
+
 		params.add(new ParameterAdapter("Last fitness", IExperimentPlan.BATCH_CATEGORY_NAME, "", IType.STRING) {
 
 			@Override

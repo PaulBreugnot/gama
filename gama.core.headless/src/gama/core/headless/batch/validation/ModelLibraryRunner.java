@@ -122,7 +122,7 @@ public class ModelLibraryRunner extends AbstractModelLibraryRunner {
 		final IModel mdl = builder.compile(pathToModel, errors);
 
 		countOfModelsValidated[0]++;
-		errors.stream().filter(e -> e.isError()).forEach(e -> {
+		errors.stream().filter(GamlCompilationError::isError).forEach(e -> {
 			DEBUG.OUT("Error in " + e.getURI() + ":\n " + e.toString() + " \n " + e.getStatement().toString() + "\n");
 			returnCode[0]++;
 		});
@@ -145,7 +145,7 @@ public class ModelLibraryRunner extends AbstractModelLibraryRunner {
 						DEBUG.OUT("****** Ap step()");
 					}
 				} catch (final gama.ext.libs.webb.WebbException ex1) {
-					DEBUG.OUT("msi.gama.ext.webb.WebbException");
+					DEBUG.OUT("gama.ext.libs.webb.WebbException");
 				} catch (final Exception ex) {
 					ex.printStackTrace();
 					executionErrors.put(pathToModel.getPath() + "\n" + expName, ex);

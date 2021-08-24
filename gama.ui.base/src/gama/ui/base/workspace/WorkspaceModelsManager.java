@@ -71,11 +71,11 @@ import gama.runtime.GAMA;
  */
 public class WorkspaceModelsManager {
 
-	public final static String GAMA_NATURE = "msi.gama.application.gamaNature";
+	public final static String GAMA_NATURE = "gama.core.application.gamaNature";
 	public final static String XTEXT_NATURE = "org.eclipse.xtext.ui.shared.xtextNature";
-	public final static String PLUGIN_NATURE = "msi.gama.application.pluginNature";
-	public final static String TEST_NATURE = "msi.gama.application.testNature";
-	public final static String BUILTIN_NATURE = "msi.gama.application.builtinNature";
+	public final static String PLUGIN_NATURE = "gama.core.application.pluginNature";
+	public final static String TEST_NATURE = "gama.core.application.testNature";
+	public final static String BUILTIN_NATURE = "gama.core.application.builtinNature";
 
 	public static final QualifiedName BUILTIN_PROPERTY = new QualifiedName("gama.builtin", "models");
 	// private static String BUILTIN_VERSION = null;

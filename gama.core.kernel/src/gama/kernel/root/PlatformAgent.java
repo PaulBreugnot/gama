@@ -10,12 +10,11 @@
  ********************************************************************************************************/
 package gama.kernel.root;
 
-import java.net.URL;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.Platform;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
 
@@ -119,17 +118,15 @@ public class PlatformAgent extends GamlAgent implements ITopLevelAgent, IExpress
 	public PlatformAgent(final IPopulation<PlatformAgent> pop, final int index) {
 		super(pop, index);
 		basicScope = new ExecutionScope(this, "Gama platform scope");
-		if (GamaPreferences.Runtime.CORE_MEMORY_POLLING.getValue()) {
-			startPollingMemory();
-		}
-		GamaPreferences.Runtime.CORE_MEMORY_POLLING.onChange((newValue) -> {
+		if (GamaPreferences.Runtime.CORE_MEMORY_POLLING.getValue()) { startPollingMemory(); }
+		GamaPreferences.Runtime.CORE_MEMORY_POLLING.onChange(newValue -> {
 			if (newValue) {
 				startPollingMemory();
 			} else {
 				stopPollingMemory();
 			}
 		});
-		GamaPreferences.Runtime.CORE_MEMORY_FREQUENCY.onChange((newValue) -> {
+		GamaPreferences.Runtime.CORE_MEMORY_FREQUENCY.onChange(newValue -> {
 			stopPollingMemory();
 			startPollingMemory();
 		});
@@ -210,7 +207,7 @@ public class PlatformAgent extends GamlAgent implements ITopLevelAgent, IExpress
 
 	@Override
 	public GamaColor getColor() {
-		return GamaColor.NamedGamaColor.colors.get("gamaorange");
+		return GamaColor.colors.get("gamaorange");
 	}
 
 	@Override
@@ -220,7 +217,7 @@ public class PlatformAgent extends GamlAgent implements ITopLevelAgent, IExpress
 
 	@Override
 	public IOutputManager getOutputManager() {
-		if (getExperiment() != null) { return getExperiment().getOutputManager(); }
+		if (getExperiment() != null) return getExperiment().getOutputManager();
 		return null;
 	}
 
@@ -251,7 +248,7 @@ public class PlatformAgent extends GamlAgent implements ITopLevelAgent, IExpress
 
 	@Override
 	public IExperimentAgent getExperiment() {
-		if (GAMA.getExperiment() != null) { return GAMA.getExperiment().getAgent(); }
+		if (GAMA.getExperiment() != null) return GAMA.getExperiment().getAgent();
 		return null;
 	}
 
@@ -260,9 +257,9 @@ public class PlatformAgent extends GamlAgent implements ITopLevelAgent, IExpress
 			initializer = true)
 	public String getWorkspacePath() {
 		return ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString();
-	//Patrick : previous version: does not work well on windows (/C:/....)
-	//	final URL url = Platform.getInstanceLocation().getURL();
-	//	return url.getPath();
+		// Patrick : previous version: does not work well on windows (/C:/....)
+		// final URL url = Platform.getInstanceLocation().getURL();
+		// return url.getPath();
 	}
 
 	@SuppressWarnings ("unchecked")
@@ -271,7 +268,7 @@ public class PlatformAgent extends GamlAgent implements ITopLevelAgent, IExpress
 			initializer = true)
 	public IList<String> getPluginsList() {
 		final BundleContext bc = FrameworkUtil.getBundle(getClass()).getBundleContext();
-		return StreamEx.of(bc.getBundles()).map(b -> b.getSymbolicName()).toCollection(Containers.listOf(Types.STRING));
+		return StreamEx.of(bc.getBundles()).map(Bundle::getSymbolicName).toCollection(Containers.listOf(Types.STRING));
 	}
 
 	@getter (
@@ -315,7 +312,7 @@ public class PlatformAgent extends GamlAgent implements ITopLevelAgent, IExpress
 
 	@Override
 	public String getDefiningPlugin() {
-		return "msi.gama.core";
+		return "gama.core.kernel";
 	}
 	//
 	// @Override

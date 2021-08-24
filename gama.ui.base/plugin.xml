@@ -89,6 +89,10 @@
             id="gama.type.String"
             type="java.lang.String">
       </commandParameterType>
+      <category
+            id="gama.category"
+            name="GAMA Commands">
+      </category>
    </extension>
    <extension
          point="org.eclipse.ui.commandImages">
@@ -357,7 +361,7 @@
    <extension
          point="gama.ui.provider">
       <implementation
-            class="gama.ui.base.ApplicationUIControlFactory"
+            class="gama.ui.base.shared.ApplicationUIControlFactory"
             keyword="ui">
       </implementation>
    </extension>

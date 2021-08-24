@@ -26,10 +26,10 @@ import com.google.inject.Injector;
 import gama.common.preferences.GamaPreferences;
 import gama.core.dev.utils.DEBUG;
 import gama.core.lang.GamlRuntimeModule;
-import gama.core.lang.ui.GamlUiModule;
-import gama.core.lang.ui.editor.GamlEditorBindings;
-import gama.core.lang.ui.reference.OperatorsReferenceMenu;
 import gama.ui.base.utils.GamlReferenceSearch;
+import gama.ui.modeling.GamlUiModule;
+import gama.ui.modeling.editor.GamlEditorBindings;
+import gama.ui.modeling.reference.OperatorsReferenceMenu;
 import gama.util.GamaColor;
 import gama.util.GamaFont;
 
@@ -38,7 +38,7 @@ import gama.util.GamaFont;
  */
 public class ModelingActivator extends AbstractUIPlugin {
 
-	public static final String PLUGIN_ID = "ummisco.gama.ui.modeling";
+	public static final String PLUGIN_ID = "gama.ui.modeling";
 	public static final String MSI_GAMA_LANG_GAML_GAML = "msi.gama.lang.gaml.Gaml";
 
 	private static ModelingActivator INSTANCE;

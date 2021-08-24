@@ -6,7 +6,7 @@ package msi.gama.lang.gaml.ide;
 import com.google.inject.Binder;
 import com.google.inject.name.Names;
 
-import gama.core.lang.ide.GamlIdeModule;
+import gama.ui.modeling.ide.GamlIdeModule;
 import msi.gama.lang.gaml.ide.contentassist.antlr.GamlParser;
 import msi.gama.lang.gaml.ide.contentassist.antlr.internal.InternalGamlLexer;
 import org.eclipse.xtext.ide.DefaultIdeModule;
