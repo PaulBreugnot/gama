@@ -6,10 +6,10 @@
  * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
- * 
+ *
  *
  **********************************************************************************************/
-package gama.core.dev.documentation;
+package gama.build.processor.doc;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,6 @@ import javax.lang.model.element.VariableElement;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-import gama.core.dev.annotations.IOperatorCategory;
 import gama.core.dev.annotations.GamlAnnotations.action;
 import gama.core.dev.annotations.GamlAnnotations.arg;
 import gama.core.dev.annotations.GamlAnnotations.constant;
@@ -38,8 +37,7 @@ import gama.core.dev.annotations.GamlAnnotations.type;
 import gama.core.dev.annotations.GamlAnnotations.usage;
 import gama.core.dev.annotations.GamlAnnotations.variable;
 import gama.core.dev.annotations.GamlAnnotations.vars;
-import gama.core.dev.documentation.utils.TypeConverter;
-import gama.core.dev.documentation.utils.XMLElements;
+import gama.core.dev.annotations.IOperatorCategory;
 
 public class DocProcessorAnnotations {
 
@@ -52,8 +50,8 @@ public class DocProcessorAnnotations {
 
 	public static org.w3c.dom.Element getDocElt(final doc[] docAnnotTab, final Document doc, final Messager mes,
 			final String eltName, final TypeConverter tc, final ExecutableElement e) { // e.getSimpleName()
-		if (docAnnotTab == null || docAnnotTab.length == 0) { return DocProcessorAnnotations.getDocElt(null, doc, null,
-				mes, eltName, tc, e); }
+		if (docAnnotTab == null || docAnnotTab.length == 0)
+			return DocProcessorAnnotations.getDocElt(null, doc, null, mes, eltName, tc, e);
 		return DocProcessorAnnotations.getDocElt(docAnnotTab[0], doc, null, mes, eltName, tc, e);
 	}
 
@@ -65,9 +63,7 @@ public class DocProcessorAnnotations {
 		if (docAnnot == null) {
 			// mes.printMessage(Kind.WARNING, "The element __" + eltName + "__ is not documented.");
 		} else {
-			if (docElt == null) {
-				docElt = doc.createElement(XMLElements.DOCUMENTATION);
-			}
+			if (docElt == null) { docElt = doc.createElement(XMLElements.DOCUMENTATION); }
 
 			// Parse result
 			final String value = docAnnot.value();
@@ -86,9 +82,7 @@ public class DocProcessorAnnotations {
 				} else {
 					final org.w3c.dom.Element resultElt = doc.createElement(XMLElements.RESULT);
 					resultElt.setTextContent(value);
-					if (masterDoc) {
-						resultElt.setAttribute(XMLElements.ATT_RES_MASTER, "true");
-					}
+					if (masterDoc) { resultElt.setAttribute(XMLElements.ATT_RES_MASTER, "true"); }
 					docElt.appendChild(resultElt);
 				}
 			}
@@ -129,9 +123,7 @@ public class DocProcessorAnnotations {
 					seeAlsoElt.appendChild(seesElt);
 				}
 			}
-			if (docAnnot.see().length != 0) {
-				docElt.appendChild(seeAlsoElt);
-			}
+			if (docAnnot.see().length != 0) { docElt.appendChild(seeAlsoElt); }
 
 			// Parse: usages
 
@@ -214,15 +206,9 @@ public class DocProcessorAnnotations {
 				}
 			}
 
-			if (numberOfUsagesWithExamplesOnly != 0) {
-				docElt.appendChild(usagesExampleElt);
-			}
-			if (numberOfUsagesWithoutExample != 0) {
-				docElt.appendChild(usagesNoExampleElt);
-			}
-			if (numberOfUsages != 0) {
-				docElt.appendChild(usagesElt);
-			}
+			if (numberOfUsagesWithExamplesOnly != 0) { docElt.appendChild(usagesExampleElt); }
+			if (numberOfUsagesWithoutExample != 0) { docElt.appendChild(usagesNoExampleElt); }
+			if (numberOfUsages != 0) { docElt.appendChild(usagesElt); }
 
 		}
 		return docElt;
@@ -241,18 +227,10 @@ public class DocProcessorAnnotations {
 			final ExecutableElement e, final TypeConverter tc) {
 		final org.w3c.dom.Element exampleElt = doc.createElement(XMLElements.EXAMPLE);
 		exampleElt.setAttribute(XMLElements.ATT_EXAMPLE_CODE, example.value());
-		if (!"".equals(example.var())) {
-			exampleElt.setAttribute(XMLElements.ATT_EXAMPLE_VAR, example.var());
-		}
-		if (!"".equals(example.equals())) {
-			exampleElt.setAttribute(XMLElements.ATT_EXAMPLE_EQUALS, example.equals());
-		}
-		if (!"".equals(example.isNot())) {
-			exampleElt.setAttribute(XMLElements.ATT_EXAMPLE_IS_NOT, example.isNot());
-		}
-		if (!"".equals(example.raises())) {
-			exampleElt.setAttribute(XMLElements.ATT_EXAMPLE_RAISES, example.raises());
-		}
+		if (!"".equals(example.var())) { exampleElt.setAttribute(XMLElements.ATT_EXAMPLE_VAR, example.var()); }
+		if (!"".equals(example.equals())) { exampleElt.setAttribute(XMLElements.ATT_EXAMPLE_EQUALS, example.equals()); }
+		if (!"".equals(example.isNot())) { exampleElt.setAttribute(XMLElements.ATT_EXAMPLE_IS_NOT, example.isNot()); }
+		if (!"".equals(example.raises())) { exampleElt.setAttribute(XMLElements.ATT_EXAMPLE_RAISES, example.raises()); }
 		exampleElt.setAttribute(XMLElements.ATT_EXAMPLE_IS_TEST_ONLY, "" + example.isTestOnly());
 		exampleElt.setAttribute(XMLElements.ATT_EXAMPLE_IS_EXECUTABLE, "" + example.isExecutable());
 		if (!example.isExecutable()) {
@@ -262,10 +240,8 @@ public class DocProcessorAnnotations {
 		}
 		if (!"".equals(example.returnType())) {
 			exampleElt.setAttribute(XMLElements.ATT_EXAMPLE_TYPE, example.returnType());
-		} else {
-			if (e != null) {
-				exampleElt.setAttribute(XMLElements.ATT_EXAMPLE_TYPE, tc.getProperType(e.getReturnType().toString()));
-			}
+		} else if (e != null) {
+			exampleElt.setAttribute(XMLElements.ATT_EXAMPLE_TYPE, tc.getProperType(e.getReturnType().toString()));
 		}
 		return exampleElt;
 	}
@@ -285,16 +261,13 @@ public class DocProcessorAnnotations {
 		for (final String n : constant.altNames()) {
 			names = "".equals(names) ? PREFIX_CONSTANT + n : names + "," + PREFIX_CONSTANT + n;
 		}
-		if (!"".equals(names))
-			constantElt.setAttribute(XMLElements.ATT_CST_NAMES, names);
+		if (!"".equals(names)) { constantElt.setAttribute(XMLElements.ATT_CST_NAMES, names); }
 
 		constantElt.appendChild(getCategories(e, doc, doc.createElement(XMLElements.CATEGORIES), tc));
 
 		final org.w3c.dom.Element docConstantElt =
 				getDocElt(constant.doc(), doc, mes, e.getSimpleName().toString(), null, null);
-		if (docConstantElt != null) {
-			constantElt.appendChild(docConstantElt);
-		}
+		if (docConstantElt != null) { constantElt.appendChild(docConstantElt); }
 
 		return constantElt;
 	}
@@ -306,14 +279,12 @@ public class DocProcessorAnnotations {
 			for (final variable v : varsAnnot.value()) {
 				final org.w3c.dom.Element varElt = doc.createElement(XMLElements.VAR);
 				varElt.setAttribute(XMLElements.ATT_VAR_NAME, v.name());
-				varElt.setAttribute(XMLElements.ATT_VAR_TYPE, tc.getTypeString(Integer.valueOf(v.type())));
+				varElt.setAttribute(XMLElements.ATT_VAR_TYPE, tc.getTypeString(v.type()));
 				varElt.setAttribute(XMLElements.ATT_VAR_CONSTANT, "" + v.constant());
 
 				final org.w3c.dom.Element docEltVar = DocProcessorAnnotations.getDocElt(v.doc(), doc, mes,
 						"Var " + v.name() + " from " + skillName, tc, null);
-				if (docEltVar != null) {
-					varElt.appendChild(docEltVar);
-				}
+				if (docEltVar != null) { varElt.appendChild(docEltVar); }
 
 				String dependsOn = new String();
 				for (final String dependElement : v.depends_on()) {
@@ -329,7 +300,7 @@ public class DocProcessorAnnotations {
 
 	public static org.w3c.dom.Element getActionElt(final action actionAnnot, final Document doc, final Messager mes,
 			final Element e, final TypeConverter tc) {
-		if (!(e instanceof ExecutableElement) || actionAnnot == null) { return null; }
+		if (!(e instanceof ExecutableElement) || actionAnnot == null) return null;
 
 		final ExecutableElement eltMethod = (ExecutableElement) e;
 		final org.w3c.dom.Element actionElt = doc.createElement(XMLElements.ACTION);
@@ -351,9 +322,7 @@ public class DocProcessorAnnotations {
 			argElt.setAttribute(XMLElements.ATT_ARG_OPTIONAL, "" + eltArg.optional());
 			final org.w3c.dom.Element docEltArg = DocProcessorAnnotations.getDocElt(eltArg.doc(), doc, mes,
 					"Arg " + eltArg.name() + " from " + eltMethod.getSimpleName(), tc, null);
-			if (docEltArg != null) {
-				argElt.appendChild(docEltArg);
-			}
+			if (docEltArg != null) { argElt.appendChild(docEltArg); }
 
 			argsElt.appendChild(argElt);
 		}
@@ -361,16 +330,14 @@ public class DocProcessorAnnotations {
 
 		final org.w3c.dom.Element docEltAction = DocProcessorAnnotations.getDocElt(actionAnnot.doc(), doc, mes,
 				eltMethod.getSimpleName().toString(), tc, null);
-		if (docEltAction != null) {
-			actionElt.appendChild(docEltAction);
-		}
+		if (docEltAction != null) { actionElt.appendChild(docEltAction); }
 
 		return actionElt;
 	}
 
 	public static org.w3c.dom.Element getFacetsElt(final facets facetsAnnot, final Document doc, final Messager mes,
 			final String statName, final TypeConverter tc) {
-		if (facetsAnnot == null) { return null; }
+		if (facetsAnnot == null) return null;
 
 		final org.w3c.dom.Element facetsElt = doc.createElement(XMLElements.FACETS);
 
@@ -380,20 +347,18 @@ public class DocProcessorAnnotations {
 			facetElt.setAttribute(XMLElements.ATT_FACET_TYPE, tc.getTypeString(f.type()));
 			facetElt.setAttribute(XMLElements.ATT_FACET_OPTIONAL, "" + f.optional());
 			if (f.values().length != 0) {
-				String valuesTaken = ", takes values in: {" + f.values()[0];
+				StringBuilder valuesTaken = new StringBuilder(", takes values in: {").append(f.values()[0]);
 				for (int i = 1; i < f.values().length; i++) {
-					valuesTaken += ", " + f.values()[i];
+					valuesTaken.append(", ").append(f.values()[i]);
 				}
-				valuesTaken += "}";
-				facetElt.setAttribute(XMLElements.ATT_FACET_VALUES, valuesTaken);
+				valuesTaken.append("}");
+				facetElt.setAttribute(XMLElements.ATT_FACET_VALUES, valuesTaken.toString());
 			}
 			facetElt.setAttribute(XMLElements.ATT_FACET_OMISSIBLE,
 					f.name().equals(facetsAnnot.omissible()) ? "true" : "false");
 			final org.w3c.dom.Element docFacetElt = DocProcessorAnnotations.getDocElt(f.doc(), doc, mes,
 					"Facet " + f.name() + " from Statement" + statName, tc, null);
-			if (docFacetElt != null) {
-				facetElt.appendChild(docFacetElt);
-			}
+			if (docFacetElt != null) { facetElt.appendChild(docFacetElt); }
 
 			facetsElt.appendChild(facetElt);
 		}
@@ -402,7 +367,7 @@ public class DocProcessorAnnotations {
 
 	public static org.w3c.dom.Element getInsideElt(final inside insideAnnot, final Document doc,
 			final TypeConverter tc) {
-		if (insideAnnot == null) { return null; }
+		if (insideAnnot == null) return null;
 
 		final org.w3c.dom.Element insideElt = doc.createElement(XMLElements.INSIDE);
 
@@ -431,7 +396,7 @@ public class DocProcessorAnnotations {
 		final boolean found = false;
 		while (!found && i < nL.getLength()) {
 			final org.w3c.dom.Element elt = (org.w3c.dom.Element) nL.item(i);
-			if (eltName.equals(elt.getAttribute(XMLElements.ATT_OP_ID))) { return elt; }
+			if (eltName.equals(elt.getAttribute(XMLElements.ATT_OP_ID))) return elt;
 			i++;
 		}
 		return null;
@@ -439,7 +404,7 @@ public class DocProcessorAnnotations {
 
 	public static org.w3c.dom.Element getCategories(final Element e, final Document doc,
 			final org.w3c.dom.Element categoriesElt, final TypeConverter tc) {
-		final ArrayList<String> categories = new ArrayList<String>();
+		final ArrayList<String> categories = new ArrayList<>();
 		String[] categoriesTab = null;
 		final NodeList nL = categoriesElt.getElementsByTagName(XMLElements.CATEGORY);
 		for (int i = 0; i < nL.getLength(); i++) {
@@ -455,7 +420,7 @@ public class DocProcessorAnnotations {
 
 		if (e.getAnnotation(operator.class) != null && e.getAnnotation(operator.class).category().length > 0
 				|| e.getAnnotation(constant.class) != null && e.getAnnotation(constant.class).category().length > 0) {
-			if (categoriesTab != null)
+			if (categoriesTab != null) {
 				for (final String categoryName : categoriesTab) {
 					if (!categories.contains(categoryName)) {
 						categories.add(categoryName);
@@ -465,13 +430,12 @@ public class DocProcessorAnnotations {
 						categoriesElt.appendChild(catElt);
 					}
 				}
-		} else {
-			if (!categories.contains(tc.getProperCategory(e.getEnclosingElement().getSimpleName().toString()))) {
-				final org.w3c.dom.Element catElt = doc.createElement(XMLElements.CATEGORY);
-				catElt.setAttribute(XMLElements.ATT_CAT_ID,
-						tc.getProperCategory(e.getEnclosingElement().getSimpleName().toString()));
-				categoriesElt.appendChild(catElt);
 			}
+		} else if (!categories.contains(tc.getProperCategory(e.getEnclosingElement().getSimpleName().toString()))) {
+			final org.w3c.dom.Element catElt = doc.createElement(XMLElements.CATEGORY);
+			catElt.setAttribute(XMLElements.ATT_CAT_ID,
+					tc.getProperCategory(e.getEnclosingElement().getSimpleName().toString()));
+			categoriesElt.appendChild(catElt);
 		}
 
 		// We had a particular category that is read from the iterator
@@ -492,7 +456,7 @@ public class DocProcessorAnnotations {
 
 	public static org.w3c.dom.Element getConcepts(final Element e, final Document doc,
 			final org.w3c.dom.Element conceptElt, final TypeConverter tc) {
-		final ArrayList<String> concepts = new ArrayList<String>();
+		final ArrayList<String> concepts = new ArrayList<>();
 		String[] conceptsTab = null;
 		final NodeList nL = conceptElt.getElementsByTagName(XMLElements.CONCEPT);
 		for (int i = 0; i < nL.getLength(); i++) {
@@ -510,9 +474,7 @@ public class DocProcessorAnnotations {
 			conceptsTab = e.getAnnotation(species.class).concept();
 		} else if (e.getAnnotation(symbol.class) != null) {
 			conceptsTab = e.getAnnotation(symbol.class).concept();
-		} else if (e.getAnnotation(skill.class) != null) {
-			conceptsTab = e.getAnnotation(skill.class).concept();
-		}
+		} else if (e.getAnnotation(skill.class) != null) { conceptsTab = e.getAnnotation(skill.class).concept(); }
 
 		if (e.getAnnotation(operator.class) != null && e.getAnnotation(operator.class).concept().length > 0
 				|| e.getAnnotation(constant.class) != null && e.getAnnotation(constant.class).concept().length > 0
@@ -520,7 +482,7 @@ public class DocProcessorAnnotations {
 				|| e.getAnnotation(skill.class) != null && e.getAnnotation(skill.class).concept().length > 0
 				|| e.getAnnotation(species.class) != null && e.getAnnotation(species.class).concept().length > 0
 				|| e.getAnnotation(symbol.class) != null && e.getAnnotation(symbol.class).concept().length > 0) {
-			if (conceptsTab != null)
+			if (conceptsTab != null) {
 				for (final String conceptName : conceptsTab) {
 					if (!concepts.contains(conceptName)) {
 						concepts.add(conceptName);
@@ -530,6 +492,7 @@ public class DocProcessorAnnotations {
 						conceptElt.appendChild(catElt);
 					}
 				}
+			}
 		}
 
 		// We had a particular category that is red from the iterator

@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import gama.core.dev.utils.GamlProperties;
 import gama.core.headless.core.GamaHeadlessException;
 import gama.core.headless.core.HeadlessSimulationLoader;
 import gama.kernel.model.IModel;

@@ -19,8 +19,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import gama.core.dev.documentation.utils.Constants;
-import gama.core.dev.documentation.utils.XMLUtils;
+import msi.gama.doc.Constants;
 
 public class GamaStyleGeneration {
 

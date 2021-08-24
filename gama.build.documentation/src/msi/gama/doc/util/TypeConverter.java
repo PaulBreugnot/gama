@@ -9,7 +9,7 @@
  *
  *
  **********************************************************************************************/
-package gama.core.dev.documentation.utils;
+package msi.gama.doc.util;
 
 import java.util.HashMap;
 

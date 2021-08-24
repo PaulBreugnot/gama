@@ -28,7 +28,7 @@
          version="0.0.0"/>
 
    <plugin
-         id="ummisco.gama.ui.shared"
+         id="gama.ui.base"
          download-size="0"
          install-size="0"
          version="0.0.0"/>

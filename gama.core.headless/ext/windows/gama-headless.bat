@@ -63,7 +63,7 @@ REM ~ if %inputFile% EQU -m (goto memory) else ( set inputFile=%~f1 )
  )
  set CLASSPATH="!CLASSPATH!"
  echo GAMA is starting...
-call java  -cp %CLASSPATH% -Xms512m -Xmx%memory%  -Djava.awt.headless=true org.eclipse.core.launcher.Main  -application msi.gama.headless.id4 -data "%outputFile%/.work" !param! "%inputFile%" "%outputFile%"
+call java  -cp %CLASSPATH% -Xms512m -Xmx%memory%  -Djava.awt.headless=true org.eclipse.core.launcher.Main  -application gama.core.headless.id4 -data "%outputFile%/.work" !param! "%inputFile%" "%outputFile%"
  goto end
  
 :help

@@ -28,10 +28,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import gama.core.dev.documentation.utils.Constants;
-import gama.core.dev.documentation.utils.XMLElements;
-import gama.core.dev.documentation.utils.XMLUtils;
+import msi.gama.doc.Constants;
 import msi.gama.doc.util.WorkspaceManager;
+import msi.gama.doc.util.XMLElements;
+import msi.gama.doc.util.XMLUtils;
 
 public class XmlToWiki {
 

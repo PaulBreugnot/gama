@@ -8,7 +8,7 @@ import javax.xml.transform.TransformerException;
 
 import org.xml.sax.SAXException;
 
-import gama.core.dev.documentation.utils.Constants;
+import msi.gama.doc.Constants;
 
 public class XmlToCategoryXML {
 

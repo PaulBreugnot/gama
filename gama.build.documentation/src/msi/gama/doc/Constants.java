@@ -10,7 +10,7 @@
  * 
  * 
  **********************************************************************************************/
-package gama.core.dev.documentation.utils;
+package msi.gama.doc;
 
 import java.io.File;
 

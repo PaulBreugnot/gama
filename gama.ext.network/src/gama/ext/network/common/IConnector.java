@@ -15,7 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import gama.extensions.messaging.GamaMessage;
+import gaml.extensions.messaging.GamaMessage;
 import gama.metamodel.agent.IAgent;
 import gama.runtime.IScope;
 

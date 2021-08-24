@@ -1,4 +1,4 @@
-package gama.core.dev.documentation.utils;
+package msi.gama.doc;
 
 public class OSUtils {
 

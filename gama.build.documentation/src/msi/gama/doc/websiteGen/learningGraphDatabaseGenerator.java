@@ -5,7 +5,7 @@ import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-import gama.core.dev.documentation.utils.Constants;
+import msi.gama.doc.Constants;
 import msi.gama.doc.websiteGen.utilClasses.LearningConcept;
 import msi.gama.doc.websiteGen.utilClasses.Topic;
 

@@ -15,7 +15,7 @@ package gama.ext.fipa;
 import gama.common.util.StringUtils;
 import gama.core.dev.annotations.GamlAnnotations.getter;
 import gama.core.dev.annotations.GamlAnnotations.setter;
-import gama.extensions.messaging.GamaMessage;
+import gaml.extensions.messaging.GamaMessage;
 import gama.metamodel.agent.IAgent;
 import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;

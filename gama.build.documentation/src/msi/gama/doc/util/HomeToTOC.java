@@ -24,7 +24,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import gama.core.dev.documentation.utils.Constants;
+import msi.gama.doc.Constants;
 
 public class HomeToTOC {
 	

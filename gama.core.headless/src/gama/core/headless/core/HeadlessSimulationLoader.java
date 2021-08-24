@@ -22,7 +22,7 @@ import com.google.inject.Injector;
 
 import gama.common.preferences.GamaPreferences;
 import gama.core.dev.utils.DEBUG;
-import gama.core.dev.utils.GamlProperties;
+import gama.core.headless.openmole.GamlProperties;
 import gama.core.lang.GamlStandaloneSetup;
 import gama.core.lang.validation.GamlModelBuilder;
 import gama.kernel.model.IModel;

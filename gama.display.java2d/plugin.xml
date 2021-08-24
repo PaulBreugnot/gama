@@ -4,7 +4,7 @@
    <extension
          point="gama.display">
       <implementation
-            class="ummisco.gama.java2d.Java2DDisplaySurface"
+            class="gama.display.java2d.Java2DDisplaySurface"
             keyword="java2D">
       </implementation>
    </extension>
@@ -12,10 +12,10 @@
          point="org.eclipse.ui.views">
       <view
             allowMultiple="true"
-            category="msi.gama.gui.category.gama"
+            category="gama.category"
             class="gama.display.java2d.AWTDisplayView"
-            icon="platform:/plugin/ummisco.gama.ui.shared/icons/view.display2.png"
-            id="msi.gama.application.view.LayeredDisplayView"
+            icon="platform:/plugin/gama.ui.base/icons/view.display2.png"
+            id="gama.view.LayeredDisplayView"
             name="Display"
             restorable="false">
       </view>

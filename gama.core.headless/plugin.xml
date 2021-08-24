@@ -20,7 +20,7 @@
    <extension
          point="gama.ui.provider">
       <implementation
-            class="msi.gama.headless.HeadlessUI"
+            class="gama.core.headless.HeadlessUI"
             keyword="headless">
       </implementation>
    </extension>

@@ -1,7 +1,7 @@
 /*******************************************************************************************************
  *
- * ummisco.gama.ui.utils.SwtGui.java, in plugin ummisco.gama.ui.shared, is part of the source code of the GAMA modeling
- * and simulation platform (v. 1.8.1)
+ * ummisco.gama.ui.utils.SwtGui.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and
+ * simulation platform (v. 1.8.1)
  *
  * (c) 2007-2020 UMI 209 UMMISCO IRD/SU & Partners
  *
@@ -31,17 +31,17 @@ import org.eclipse.ui.services.ISourceProviderService;
 import gama.common.interfaces.IKeyword;
 import gama.common.preferences.GamaPreferences;
 import gama.common.ui.IConsoleDisplayer;
+import gama.common.ui.IDisplayCreator.DisplayDescription;
 import gama.common.ui.IDisplaySurface;
 import gama.common.ui.IGamaView;
-import gama.common.ui.IGamlLabelProvider;
-import gama.common.ui.IGui;
-import gama.common.ui.IRuntimeExceptionHandler;
-import gama.common.ui.IStatusDisplayer;
-import gama.common.ui.IDisplayCreator.DisplayDescription;
 import gama.common.ui.IGamaView.Error;
 import gama.common.ui.IGamaView.Parameters;
 import gama.common.ui.IGamaView.Test;
 import gama.common.ui.IGamaView.User;
+import gama.common.ui.IGamlLabelProvider;
+import gama.common.ui.IGui;
+import gama.common.ui.IRuntimeExceptionHandler;
+import gama.common.ui.IStatusDisplayer;
 import gama.core.dev.utils.DEBUG;
 import gama.kernel.experiment.ExperimentAgent;
 import gama.kernel.experiment.IExperimentController;
@@ -75,6 +75,9 @@ import gama.ui.base.parameters.GamaWizardDialog;
 import gama.ui.base.parameters.GamaWizardPage;
 import gama.ui.base.utils.PerspectiveHelper;
 import gama.ui.base.utils.PerspectiveHelper.SimulationPerspectiveDescriptor;
+import gama.ui.base.utils.PreferencesHelper;
+import gama.ui.base.utils.WebHelper;
+import gama.ui.base.utils.WorkbenchHelper;
 import gama.util.GamaFont;
 import gama.util.GamaListFactory;
 import gama.util.GamaMapFactory;
@@ -86,9 +89,6 @@ import gaml.compilation.Symbol;
 import gaml.descriptions.ActionDescription;
 import gaml.statements.test.CompoundSummary;
 import gaml.statements.test.TestExperimentSummary;
-import gama.ui.base.utils.PreferencesHelper;
-import gama.ui.base.utils.WebHelper;
-import gama.ui.base.utils.WorkbenchHelper;
 import one.util.streamex.StreamEx;
 
 /**
@@ -553,17 +553,17 @@ public class SwtGui implements IGui {
 	@Override
 	public String getExperimentState(final String uid) {
 		final IExperimentController controller = GAMA.getFrontmostController();
-		if (controller == null) return NONE;
-		if (controller.getScheduler().paused) return PAUSED;
-		return RUNNING;
+		if (controller == null) return ISimulationStateProvider.NONE;
+		if (controller.getScheduler().paused) return ISimulationStateProvider.PAUSED;
+		return ISimulationStateProvider.RUNNING;
 	}
 
 	@Override
 	public void updateExperimentState(final IScope scope, final String forcedState) {
 		// DEBUG.OUT("STATE: " + forcedState);
 		final ISourceProviderService service = WorkbenchHelper.getService(ISourceProviderService.class);
-		final ISimulationStateProvider stateProvider = (ISimulationStateProvider) service
-				.getSourceProvider("ummisco.gama.ui.experiment.SimulationRunningState");
+		final ISimulationStateProvider stateProvider =
+				(ISimulationStateProvider) service.getSourceProvider(ISimulationStateProvider.SIMULATION_RUNNING_STATE);
 		if (stateProvider != null) { WorkbenchHelper.run(() -> stateProvider.updateStateTo(forcedState)); }
 	}
 

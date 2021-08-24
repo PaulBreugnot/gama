@@ -22,7 +22,7 @@ import java.util.Map;
 import gama.ext.network.common.Connector;
 import gama.ext.network.common.ConnectorMessage;
 import gama.ext.network.common.GamaNetworkException;
-import gama.extensions.messaging.GamaMessage;
+import gaml.extensions.messaging.GamaMessage;
 import gama.metamodel.agent.IAgent;
 import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;

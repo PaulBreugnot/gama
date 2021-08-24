@@ -23,7 +23,7 @@ esac
 
 
 echo "******************************************************************"
-echo "* GAMA version 1.8.2                                             *"
+echo "* GAMA version 2.0.0                                             *"
 echo "* http://gama-platform.org                                       *"
 echo "* (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners                *"
 echo "******************************************************************"
@@ -44,7 +44,7 @@ else
   passWork=.workspace$(find ./ -maxdepth 1 -name ".workspace*" | wc -l)
 fi
 
-if ! java -cp "$( dirname "${BASH_SOURCE[0]}" )"/../plugins/org.eclipse.equinox.launcher*.jar -Xms512m -Xmx$memory -Djava.awt.headless=true org.eclipse.core.launcher.Main -application msi.gama.headless.id4 -data $passWork "$@"; then
+if ! java -cp "$( dirname "${BASH_SOURCE[0]}" )"/../plugins/org.eclipse.equinox.launcher*.jar -Xms512m -Xmx$memory -Djava.awt.headless=true org.eclipse.core.launcher.Main -application gama.core.headless.id4 -data $passWork "$@"; then
     echo "Error in you command, here's the log :"
     cat $passWork/.metadata/.log
     exit 1

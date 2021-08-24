@@ -433,7 +433,7 @@
           allowMultiple="false"
           category="msi.gama.gui.category.gama"
           class="org.eclipse.ui.views.contentoutline.ContentOutline"
-          icon="platform:/plugin/ummisco.gama.ui.shared/icons/view.outline2.png"
+          icon="platform:/plugin/gama.ui.base/icons/view.outline2.png"
           id="msi.gama.application.outline"
           name="Outline"
           restorable="true">
@@ -442,7 +442,7 @@
           allowMultiple="false"
           category="msi.gama.gui.category.gama"
           class="gama.ui.modeling.views.SyntaxErrorsView"
-          icon="platform:/plugin/ummisco.gama.ui.shared/icons/view.problems2.png"
+          icon="platform:/plugin/gama.ui.base/icons/view.problems2.png"
           id="msi.gama.application.problems"
           name="Validation"
           restorable="true">
@@ -735,7 +735,7 @@
              visible="true">
           <action
                 class="gama.core.lang.ui.editor.DelegateForAllElements"
-                icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.searchtext2.png"
+                icon="platform:/plugin/gama.ui.base/icons/menu.searchtext2.png"
                 id="msi.gama.application.action1"
                 label="GAML elements in models..."
                 menubarPath="org.eclipse.search.menu/extraSearchGroup"
@@ -808,7 +808,7 @@
        <perspective
              class="gama.ui.modeling.perspective.ModelingPerspective"
              fixed="false"
-             icon="platform:/plugin/ummisco.gama.ui.shared/icons/perspective.modeling2.png"
+             icon="platform:/plugin/gama.ui.base/icons/perspective.modeling2.png"
              id="msi.gama.application.perspectives.ModelingPerspective"
              name="Modeling">
           <description>

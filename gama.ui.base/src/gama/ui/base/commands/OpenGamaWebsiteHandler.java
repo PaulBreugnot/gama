@@ -1,6 +1,6 @@
 /*********************************************************************************************
  *
- * 'OpenGamaWebsiteHandler.java, in plugin ummisco.gama.ui.shared, is part of the source code of the
+ * 'OpenGamaWebsiteHandler.java, in plugin gama.ui.base, is part of the source code of the
  * GAMA modeling and simulation platform.
  * (v. 1.8.1)
  *

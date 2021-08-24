@@ -2,7 +2,6 @@ package msi.gama.doc;
 
 import java.io.IOException;
 
-import gama.core.dev.documentation.utils.Constants;
 import msi.gama.doc.util.HomeToTOC;
 import msi.gama.doc.util.PrepareEnv;
 

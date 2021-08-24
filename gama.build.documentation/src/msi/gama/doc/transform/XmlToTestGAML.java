@@ -1,14 +1,14 @@
 /*********************************************************************************************
- * 
+ *
  *
  * 'XmlToTestGAML.java', in plugin 'msi.gama.documentation', is part of the source code of the GAMA modeling and
  * simulation platform. (v. 1.8.1)
  *
  * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
- * 
+ *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
- * 
- * 
+ *
+ *
  **********************************************************************************************/
 package msi.gama.doc.transform;
 
@@ -26,10 +26,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import gama.core.dev.documentation.utils.Constants;
-import gama.core.dev.documentation.utils.XMLElements;
-import gama.core.dev.documentation.utils.XMLUtils;
+import msi.gama.doc.Constants;
 import msi.gama.doc.util.PrepareEnv;
+import msi.gama.doc.util.XMLElements;
+import msi.gama.doc.util.XMLUtils;
 
 public class XmlToTestGAML {
 
@@ -213,7 +213,7 @@ public class XmlToTestGAML {
 		}
 
 		private HashMap<String, String> initProperNameOperatorMap() {
-			final HashMap<String, String> hm = new HashMap<String, String>();
+			final HashMap<String, String> hm = new HashMap<>();
 			hm.put("*", "Multiply");
 			hm.put("-", "Minus");
 			hm.put("/", "Divide");
@@ -236,11 +236,8 @@ public class XmlToTestGAML {
 		}
 
 		public String getProperOperatorName(final String opName) {
-			if (properNameOperatorMap.containsKey(opName)) {
-				return properNameOperatorMap.get(opName);
-			} else {
-				return opName;
-			}
+			if (properNameOperatorMap.containsKey(opName)) return properNameOperatorMap.get(opName);
+			return opName;
 		}
 	}
 }

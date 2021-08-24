@@ -16,7 +16,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import gama.core.dev.documentation.utils.Constants;
+import msi.gama.doc.Constants;
 import msi.gama.doc.websiteGen.utilClasses.ConceptManager;
 import msi.gama.doc.websiteGen.utilClasses.ConceptManager.WebsitePart;
 import msi.gama.doc.websiteGen.utilClasses.Utils;

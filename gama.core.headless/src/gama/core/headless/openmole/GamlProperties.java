@@ -9,7 +9,7 @@
  * 
  *
  **********************************************************************************************/
-package gama.core.dev.utils;
+package gama.core.headless.openmole;
 
 import java.io.IOException;
 import java.io.Reader;

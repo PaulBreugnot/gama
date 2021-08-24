@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Shared UI components
 Bundle-SymbolicName: gama.ui.base;singleton:=true
 Eclipse-BundleShape: dir
-Bundle-Version: 1.8.1.qualifier
+Bundle-Version: 2.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-ActivationPolicy: lazy
 Export-Package: gama.ui.base.bindings,
@@ -24,8 +24,6 @@ Export-Package: gama.ui.base.bindings,
 Automatic-Module-Name: ummisco.gama.ui.shared
 Provide-Capability: osgi.serviceloader;osgi.serviceloader=msi.gama.common.interfaces.IApplicationUIProvider;uses:="msi.gama.common.interfaces"
 Import-Package: com.google.common.collect;version="30.1.0",
- gama.common.interfaces,
- gama.common.preferences,
  one.util.streamex,
  org.eclipse.core.commands,
  org.eclipse.core.expressions,
@@ -55,7 +53,7 @@ Import-Package: com.google.common.collect;version="30.1.0",
  org.eclipse.ui.internal.ide.application,
  org.osgi.framework;version="1.10.0",
  org.osgi.service.event;version="1.4.0"
-Require-Bundle: gama.core.kernel;bundle-version="1.8.1",
+Require-Bundle: gama.core.kernel;bundle-version="2.0.0",
  org.eclipse.ui;bundle-version="3.119.100",
  org.eclipse.ui.ide;bundle-version="3.18.300",
  org.eclipse.ui.ide.application;bundle-version="1.4.100",
@@ -70,4 +68,4 @@ Require-Bundle: gama.core.kernel;bundle-version="1.8.1",
  org.eclipse.ui.console;bundle-version="3.11.100",
  org.eclipse.ui.forms;bundle-version="3.11.200",
  org.eclipse.e4.ui.workbench;bundle-version="1.13.0",
- gama.core.application;bundle-version="1.8.1"
+ gama.core.application;bundle-version="2.0.0"

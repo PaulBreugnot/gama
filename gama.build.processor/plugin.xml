@@ -2,8 +2,8 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         id="msi.gama.precompiler.GamaProcessor"
-         name="msi.gama.precompiler.GamaProcessor"
+         id="gama.build.processor.GamaProcessor"
+         name="gama.build.processor.GamaProcessor"
          point="org.eclipse.jdt.apt.core.annotationProcessorFactory">
       <java6processors
             enableDefault="true">

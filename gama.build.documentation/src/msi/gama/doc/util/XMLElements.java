@@ -10,7 +10,7 @@
  * 
  *
  **********************************************************************************************/
-package gama.core.dev.documentation.utils;
+package msi.gama.doc.util;
 
 public interface XMLElements {
 	public static final String ACTIONS = "actions";

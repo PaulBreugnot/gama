@@ -90,12 +90,12 @@
             allPopups="true"
             locationURI="popup:navigator.menu?after=group.new">
          <menu
-               icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/navigator.new2.png"
+               icon="platform:/plugin/gama.ui.base/icons/navigator/navigator.new2.png"
                id="menu.new"
                label="New...">
             <command
                   commandId="org.eclipse.ui.newWizard"
-                  icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/new.project2.png"
+                  icon="platform:/plugin/gama.ui.base/icons/navigator/new.project2.png"
                   label="Project..."
                   style="push">
                <parameter
@@ -120,7 +120,7 @@
             </command>
             <command
                   commandId="org.eclipse.ui.newWizard"
-                  icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/new.model2.png"
+                  icon="platform:/plugin/gama.ui.base/icons/navigator/new.model2.png"
                   label="Model…"
                   style="push">
                <parameter
@@ -130,7 +130,7 @@
             </command>
             <command
                   commandId="org.eclipse.ui.newWizard"
-                  icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/new.model2.png"
+                  icon="platform:/plugin/gama.ui.base/icons/navigator/new.model2.png"
                   label="Experiment…"
                   style="push">
                <parameter
@@ -140,7 +140,7 @@
             </command>
             <command
                   commandId="org.eclipse.ui.newWizard"
-                  icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/new.model2.png"
+                  icon="platform:/plugin/gama.ui.base/icons/navigator/new.model2.png"
                   label="Test…"
                   style="push">
                <parameter
@@ -154,7 +154,7 @@
             </separator>
             <command
                   commandId="org.eclipse.ui.newWizard"
-                  icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/navigator.new2.png"
+                  icon="platform:/plugin/gama.ui.base/icons/navigator/navigator.new2.png"
                   label="Other..."
                   style="push">
             </command>
@@ -181,13 +181,13 @@
             </visibleWhen>
          </menu>
          <menu
-               icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/navigator.import2.png"
+               icon="platform:/plugin/gama.ui.base/icons/navigator/navigator.import2.png"
                id="menu.gama.import"
                label="Import..."
                mnemonic=" ">
             <command
                   commandId="org.eclipse.ui.file.import"
-                  icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/navigator.import.project2.png"
+                  icon="platform:/plugin/gama.ui.base/icons/navigator/navigator.import.project2.png"
                   label="Project…"
                   style="push">
                <parameter
@@ -212,7 +212,7 @@
             </command>
             <command
                   commandId="org.eclipse.ui.file.import"
-                  icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/navigator.import.disk2.png"
+                  icon="platform:/plugin/gama.ui.base/icons/navigator/navigator.import.disk2.png"
                   label="From disk..."
                   style="push">
                <parameter
@@ -222,7 +222,7 @@
             </command>
             <command
                   commandId="org.eclipse.ui.file.import"
-                  icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/navigator.import.archive2.png"
+                  icon="platform:/plugin/gama.ui.base/icons/navigator/navigator.import.archive2.png"
                   label="From archive..."
                   style="push">
                <parameter
@@ -236,7 +236,7 @@
             </separator>
             <command
                   commandId="org.eclipse.ui.file.import"
-                  icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/navigator.import2.png"
+                  icon="platform:/plugin/gama.ui.base/icons/navigator/navigator.import2.png"
                   label="Other..."
                   style="push">
             </command>
@@ -267,12 +267,12 @@
                visible="true">
          </separator>
          <menu
-               icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.export2.png"
+               icon="platform:/plugin/gama.ui.base/icons/menu.export2.png"
                id="menu.gama.export"
                label="Export...">
             <command
                   commandId="org.eclipse.ui.file.export"
-                  icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/navigator.import.project2.png"
+                  icon="platform:/plugin/gama.ui.base/icons/navigator/navigator.import.project2.png"
                   label="Project…"
                   style="push">
                <parameter
@@ -306,7 +306,7 @@
          </separator>
          <command
                commandId="org.eclipse.ui.ide.showInSystemExplorer"
-               icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.searchfile2.png"
+               icon="platform:/plugin/gama.ui.base/icons/menu.searchfile2.png"
                label="Reveal in OS"
                style="push">
             <visibleWhen
@@ -325,7 +325,7 @@
          </command>
          <command
                commandId="ummisco.gama.navigator.reveal"
-               icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.searchfile2.png"
+               icon="platform:/plugin/gama.ui.base/icons/menu.searchfile2.png"
                label="Reveal in Workspace"
                style="push">
             <visibleWhen
@@ -348,7 +348,7 @@
             locationURI="menu:new?after=new">
          <command
                commandId="org.eclipse.ui.newWizard"
-               icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/new.project2.png"
+               icon="platform:/plugin/gama.ui.base/icons/navigator/new.project2.png"
                label="GAMA Project..."
                style="push">
             <parameter
@@ -373,7 +373,7 @@
          </command>
          <command
                commandId="org.eclipse.ui.newWizard"
-               icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/new.model2.png"
+               icon="platform:/plugin/gama.ui.base/icons/navigator/new.model2.png"
                label="Model File…"
                style="push">
             <parameter
@@ -383,7 +383,7 @@
          </command>
          <command
                commandId="org.eclipse.ui.newWizard"
-               icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/new.model2.png"
+               icon="platform:/plugin/gama.ui.base/icons/navigator/new.model2.png"
                label="Experiment…"
                style="push">
             <parameter
@@ -393,7 +393,7 @@
          </command>
          <command
                commandId="org.eclipse.ui.newWizard"
-               icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/new.model2.png"
+               icon="platform:/plugin/gama.ui.base/icons/navigator/new.model2.png"
                label="Test…"
                style="push">
             <parameter
@@ -407,7 +407,7 @@
          </separator>
          <command
                commandId="org.eclipse.ui.newWizard"
-               icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/navigator.new2.png"
+               icon="platform:/plugin/gama.ui.base/icons/navigator/navigator.new2.png"
                label="Other..."
                style="push">
          </command>
@@ -697,7 +697,7 @@
             allowMultiple="false"
             category="msi.gama.gui.category.gama"
             class="gama.ui.navigator.GamaNavigator"
-            icon="platform:/plugin/ummisco.gama.ui.shared/icons/view.navigator2.png"
+            icon="platform:/plugin/gama.ui.base/icons/view.navigator2.png"
             id="msi.gama.gui.view.GamaNavigator"
             name="Models"
             restorable="true">
@@ -713,7 +713,7 @@
             category="msi.gama.gui.wizards.GAMA"
             class="gama.ui.navigator.wizards.NewFileWizard"
             hasPages="true"
-            icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/new.model2.png"
+            icon="platform:/plugin/gama.ui.base/icons/navigator/new.model2.png"
             id="msi.gama.gui.wizards.NewFileWizard"
             name="Model file"
             project="false">
@@ -722,7 +722,7 @@
              category="msi.gama.gui.wizards.GAMA"
              class="gama.ui.navigator.wizards.NewExperimentWizard"
              hasPages="true"
-             icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/new.model2.png"
+             icon="platform:/plugin/gama.ui.base/icons/navigator/new.model2.png"
              id="msi.gama.gui.wizards.NewExperimentWizard"
              name="Experiment file"
              project="false">
@@ -731,7 +731,7 @@
             category="msi.gama.gui.wizards.GAMA"
             class="gama.ui.navigator.wizards.NewProjectWizard"
             hasPages="true"
-            icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/new.project2.png"
+            icon="platform:/plugin/gama.ui.base/icons/navigator/new.project2.png"
             id="msi.gama.gui.wizards.newProjectWizard"
             name="Gama Project"
             project="true">
@@ -740,7 +740,7 @@
             category="msi.gama.gui.wizards.GAMA"
             class="gama.ui.navigator.wizards.NewTestExperimentWizard"
             hasPages="true"
-            icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/new.model2.png"
+            icon="platform:/plugin/gama.ui.base/icons/navigator/new.model2.png"
             id="msi.gama.gui.wizards.NewTestExperimentWizard"
             name="Test experiment file"
             project="false">
@@ -829,21 +829,21 @@ type="java.lang.Object">
        <wizard
              category="msi.gama.gui.wizards.GAMA"
              class="gama.ui.navigator.wizards.ImportProjectWizard"
-             icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/navigator.import.project2.png"
+             icon="platform:/plugin/gama.ui.base/icons/navigator/navigator.import.project2.png"
              id="ummisco.gama.ui.import.ExternalProject"
              name="GAMA Project">
        </wizard>
        <wizard
              category="msi.gama.gui.wizards.GAMA"
              class="gama.ui.navigator.wizards.FileImportWizard"
-             icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/navigator.import.disk2.png"
+             icon="platform:/plugin/gama.ui.base/icons/navigator/navigator.import.disk2.png"
              id="ummisco.gama.ui.import.ExternalFile"
              name="External files from disk">
        </wizard>
        <wizard
              category="msi.gama.gui.wizards.GAMA"
              class="gama.ui.navigator.wizards.ZipImportWizard"
-             icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/navigator.import.archive2.png"
+             icon="platform:/plugin/gama.ui.base/icons/navigator/navigator.import.archive2.png"
              id="ummisco.gama.ui.import.ZipFile"
              name="External files from archive">
        </wizard>
@@ -896,14 +896,14 @@ type="java.lang.Object">
        <wizard
              category="msi.gama.gui.wizards.GAMA"
              class="gama.ui.navigator.wizards.ExportProjectWizard"
-             icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/navigator.import.archive2.png"
+             icon="platform:/plugin/gama.ui.base/icons/navigator/navigator.import.archive2.png"
              id="ummisco.gama.ui.export.ExternalProject"
              name="GAMA Project">
        </wizard>
        <wizard
              category="msi.gama.gui.wizards.GAMA"
              class="gama.ui.navigator.wizards.ZipExportWizard"
-             icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/navigator.import.archive2.png"
+             icon="platform:/plugin/gama.ui.base/icons/navigator/navigator.import.archive2.png"
              id="ummisco.gama.ui.export.ZipFile"
              name="External files to archive">
        </wizard>

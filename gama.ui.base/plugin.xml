@@ -5,9 +5,9 @@
    <extension
          point="org.eclipse.ui.ide.projectNatureImages">
       <image
-            icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/folder.model3.png"
-            id="msi.gama.application.nature.gamaNature.img"
-            natureId="msi.gama.application.gamaNature">
+            icon="platform:/plugin/gama.ui.base/icons/navigator/folder.model3.png"
+            id="gama.core.application.gamaNature.img"
+            natureId="gama.core.application.gamaNature">
       </image>
    </extension>
    <extension
@@ -29,7 +29,7 @@
       <activityPatternBinding
             activityId="disabled"
             isEqualityPattern="false"
-            pattern="msi.gama.application/msi.gama.application.perspectives..*">
+            pattern="gama.core.application/gama.core.application.perspectives..*">
       </activityPatternBinding>
       <activityPatternBinding
             activityId="disabled"
@@ -55,24 +55,24 @@
    <extension
          point="org.eclipse.ui.views">
       <category
-            id="msi.gama.gui.category.gama"
+            id="gama.category"
             name="Gama">
       </category>
             <view
             allowMultiple="false"
-            category="msi.gama.gui.category.gama"
+            category="gama.category"
             class="gama.ui.base.views.InteractiveConsoleView"
             icon="/icons/view.interactive2.png"
-            id="msi.gama.application.view.InteractiveConsoleView"
+            id="gama.view.InteractiveConsoleView"
             name="Interactive console"
             restorable="true">
       </view>
             <view
                   allowMultiple="false"
-                  category="msi.gama.gui.category.gama"
+                  category="gama.category"
                   class="gama.ui.base.views.TestView"
                   icon="/icons/view.test2.png"
-                  id="msi.gama.application.view.TestView"
+                  id="gama.view.TestView"
                   name="Tests"
                   restorable="false">
             </view>
@@ -80,17 +80,13 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
-            categoryId="msi.gama.category"
+            categoryId="gama.category"
             defaultHandler="gama.ui.base.commands.OpenGamaWebsiteHandler"
-            id="msi.gama.application.command.web"
+            id="gama.command.web"
             name="Welcome page">
       </command>
-      <category
-            id="msi.gama.category"
-            name="Specific to GAMA">
-      </category>
       <commandParameterType
-            id="msi.gama.application.String"
+            id="gama.type.String"
             type="java.lang.String">
       </commandParameterType>
    </extension>
@@ -98,63 +94,63 @@
          point="org.eclipse.ui.commandImages">
       <image
             commandId="org.eclipse.ui.edit.copy"
-            icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.copy2.png">
+            icon="platform:/plugin/gama.ui.base/icons/menu.copy2.png">
       </image>
       <image
             commandId="org.eclipse.ui.edit.cut"
-            icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.cut2.png">
+            icon="platform:/plugin/gama.ui.base/icons/menu.cut2.png">
       </image>
       <image
             commandId="org.eclipse.ui.edit.delete"
-            icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.delete2.png">
+            icon="platform:/plugin/gama.ui.base/icons/menu.delete2.png">
       </image>
       <image
             commandId="org.eclipse.ui.edit.paste"
-            icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.paste2.png">
+            icon="platform:/plugin/gama.ui.base/icons/menu.paste2.png">
       </image>
       <image
             commandId="org.eclipse.ui.file.print"
-            icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.print2.png">
+            icon="platform:/plugin/gama.ui.base/icons/menu.print2.png">
       </image>
       <image
             commandId="org.eclipse.ui.edit.undo"
-            icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.undo2.png">
+            icon="platform:/plugin/gama.ui.base/icons/menu.undo2.png">
       </image>
       <image
             commandId="org.eclipse.ui.edit.redo"
-            icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.redo2.png">
+            icon="platform:/plugin/gama.ui.base/icons/menu.redo2.png">
       </image>
       <image
             commandId="org.eclipse.ui.file.save"
-            icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.save2.png">
+            icon="platform:/plugin/gama.ui.base/icons/menu.save2.png">
       </image>
       <image
             commandId="org.eclipse.ui.file.saveAll"
-            icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.saveall2.png">
+            icon="platform:/plugin/gama.ui.base/icons/menu.saveall2.png">
       </image>
       <image
             commandId="org.eclipse.ui.file.saveAs"
-            icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.saveas2.png">
+            icon="platform:/plugin/gama.ui.base/icons/menu.saveas2.png">
       </image>
       <image
             commandId="org.eclipse.ui.file.refresh"
-            icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/navigator.refresh2.png">
+            icon="platform:/plugin/gama.ui.base/icons/navigator/navigator.refresh2.png">
       </image>
       <image
             commandId="org.eclipse.ui.file.export"
-            icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.export2.png">
+            icon="platform:/plugin/gama.ui.base/icons/menu.export2.png">
       </image>
       <image
             commandId="org.eclipse.ui.file.import"
-            icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.import2.png">
+            icon="platform:/plugin/gama.ui.base/icons/menu.import2.png">
       </image>
       <image
             commandId="org.eclipse.ui.navigate.collapseAll"
-            icon="platform:/plugin/ummisco.gama.ui.shared/icons/navigator/navigator.collapse2.png">
+            icon="platform:/plugin/gama.ui.base/icons/navigator/navigator.collapse2.png">
       </image>
       <image
             commandId="org.eclipse.ui.window.preferences"
-            icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.open.preferences2.png">
+            icon="platform:/plugin/gama.ui.base/icons/menu.open.preferences2.png">
       </image>
    </extension>
    <extension
@@ -213,11 +209,11 @@
       <menuContribution
             locationURI="toolbar:org.eclipse.ui.main.toolbar">
          <toolbar
-               id="msi.gama.application.common.toolbar"
+               id="gama.toolbar"
                label="Common">
             <command
-                  commandId="msi.gama.application.goto.modeling"
-                  icon="platform:/plugin/ummisco.gama.ui.shared/icons/perspective.modeling2.png"
+                  commandId="gama.command.goto.modeling"
+                  icon="platform:/plugin/gama.ui.base/icons/perspective.modeling2.png"
                   label="Modeling perspective"
                   style="push"
                   tooltip="Open modeling perspective">
@@ -240,14 +236,14 @@
             allPopups="false"
             locationURI="menu:file?after=open.ext">
          <command
-               commandId="ummisco.gama.ui.switchWorkspace"
-               icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.switch2.png"
+               commandId="gama.command.switch"
+               icon="platform:/plugin/gama.ui.base/icons/menu.switch2.png"
                label="Switch workspace..."
                style="push">
          </command>
          <command
-               commandId="ummisco.gama.ui.restart"
-               icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.restart2.png"
+               commandId="gama.command.restart"
+               icon="platform:/plugin/gama.ui.base/icons/menu.restart2.png"
                label="Restart GAMA"
                style="push">
          </command>
@@ -256,34 +252,34 @@
             allPopups="false"
             locationURI="menu:help?after=group.about.ext">
          <separator
-               name="ummisco.gama.ui.shared.help.separator2"
+               name="gama.sep.4"
                visible="true">
          </separator>
          <command
-               commandId="ummisco.gama.ui.update"
-               icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.update2.png"
+               commandId="gama.command.update"
+               icon="platform:/plugin/gama.ui.base/icons/menu.update2.png"
                label="Check for updates"
                style="push">
          </command>
          <command
-               commandId="ummisco.gama.ui.install"
-               icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.install2.png"
+               commandId="gama.command.install"
+               icon="platform:/plugin/gama.ui.base/icons/menu.install2.png"
                label="Install new plugins..."
                style="push">
          </command>
          <command 
-               commandId="ummisco.gama.ui.details"
-               icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.details2.png"
+               commandId="gama.command.details"
+               icon="platform:/plugin/gama.ui.base/icons/menu.details2.png"
                label="Installation details"
                style="push">
          </command>
          <separator
-               name="ummisco.gama.ui.shared.help.separator"
+               name="gama.sep.3"
                visible="true">
          </separator>
          <command
-               commandId="msi.gama.application.command.web"
-               icon="platform:/plugin/ummisco.gama.ui.shared/icons/menu.open.web2.png"
+               commandId="gama.command.web"
+               icon="platform:/plugin/gama.ui.base/icons/menu.open.web2.png"
                label="Welcome page"
                style="push">
          </command>
@@ -292,33 +288,33 @@
    <extension  point="org.eclipse.ui.commands">
       
       <command
-            categoryId="msi.gama.category"
+            categoryId="gama.category"
             defaultHandler="gama.ui.base.commands.DetailsHandler"
-            id="ummisco.gama.ui.details"
+            id="gama.command.details"
             name="Installation details">
       </command>
       <command
-            categoryId="msi.gama.category"
+            categoryId="gama.category"
             defaultHandler="gama.ui.base.commands.SwitchWorkspaceHandler"
-            id="ummisco.gama.ui.switchWorkspace"
+            id="gama.command.switch"
             name="Switch Workspace">
      </command>
       <command
-            categoryId="msi.gama.category"
+            categoryId="gama.category"
             defaultHandler="gama.ui.base.commands.InstallHandler"
-            id="ummisco.gama.ui.install"
+            id="gama.command.install"
             name="Install new plugins...">
       </command>
       <command
-            categoryId="msi.gama.category"
+            categoryId="gama.category"
             defaultHandler="gama.ui.base.commands.UpdateHandler"
-            id="ummisco.gama.ui.update"
+            id="gama.command.update"
             name="Check for updates">
       </command>
       <command
-            categoryId="msi.gama.category"
+            categoryId="gama.category"
             defaultHandler="gama.ui.base.commands.RestartHandler"
-            id="ummisco.gama.ui.restart"
+            id="gama.command.restart"
             name="Restart GAMA">
       </command>
    </extension>
@@ -361,7 +357,7 @@
    <extension
          point="gama.ui.provider">
       <implementation
-            class="ummisco.gama.ui.ApplicationUIControlFactory"
+            class="gama.ui.base.ApplicationUIControlFactory"
             keyword="ui">
       </implementation>
    </extension>

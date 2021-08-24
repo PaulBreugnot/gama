@@ -1,6 +1,6 @@
 /*********************************************************************************************
  *
- * 'WebHelper.java, in plugin ummisco.gama.ui.shared, is part of the source code of the GAMA modeling and simulation
+ * 'WebHelper.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and simulation
  * platform. (v. 1.8.1)
  *
  * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
@@ -48,7 +48,7 @@ public class WebHelper implements IWebHelper {
 		if (HOME_URL == null) {
 			try {
 				final var welcomePage = "/welcome/" + (isDark() ? "dark" : "light") + "/welcome.html";
-				HOME_URL = toFileURL(getBundle("ummisco.gama.ui.shared").getEntry(welcomePage));
+				HOME_URL = toFileURL(getBundle("gama.ui.base").getEntry(welcomePage));
 			} catch (final IOException e) {
 				e.printStackTrace();
 			}

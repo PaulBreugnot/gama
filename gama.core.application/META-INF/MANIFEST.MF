@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ActivationPolicy: lazy
-Bundle-Name: GamaApplication
+Bundle-Name: Main GAMA applicaiton
 Bundle-Vendor: UMMISCO
-Bundle-Version: 1.8.1.qualifier
+Bundle-Version: 2.0.0.qualifier
 Bundle-ManifestVersion: 2
 Bundle-SymbolicName: gama.core.application;singleton:=true
 Export-Package: gama.core.application,

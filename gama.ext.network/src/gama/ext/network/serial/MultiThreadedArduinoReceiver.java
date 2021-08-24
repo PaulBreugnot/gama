@@ -2,9 +2,9 @@ package gama.ext.network.serial;
 
 import arduino.Arduino;
 import gama.core.dev.utils.DEBUG;
-import gama.extensions.messaging.GamaMailbox;
-import gama.extensions.messaging.GamaMessage;
-import gama.extensions.messaging.MessagingSkill;
+import gaml.extensions.messaging.GamaMailbox;
+import gaml.extensions.messaging.GamaMessage;
+import gaml.extensions.messaging.MessagingSkill;
 import gama.metamodel.agent.IAgent;
 
 public class MultiThreadedArduinoReceiver extends Thread {

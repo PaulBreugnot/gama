@@ -11,7 +11,7 @@ import javax.xml.transform.TransformerException;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import gama.core.dev.documentation.utils.XMLUtils;
+import msi.gama.doc.util.XMLUtils;
 
 public class XmlTransform {
 	public static void transformXML(String xml, String xsl, String output) 

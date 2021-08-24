@@ -1,29 +1,28 @@
 /*********************************************************************************************
  *
- * 'NetworkMessage.java, in plugin ummisco.gama.network, is part of the source code of the
- * GAMA modeling and simulation platform.
- * (v. 1.8.1)
+ * 'NetworkMessage.java, in plugin ummisco.gama.network, is part of the source code of the GAMA modeling and simulation
+ * platform. (v. 1.8.1)
  *
  * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
  *
  * Visit https://github.com/gama-platform/gama for license information and developers contact.
- * 
+ *
  *
  **********************************************************************************************/
 package gama.ext.network.common;
 
 import gama.ext.serialize.factory.StreamConverter;
-import gama.extensions.messaging.GamaMessage;
 import gama.runtime.IScope;
+import gaml.extensions.messaging.GamaMessage;
 
 public class NetworkMessage implements ConnectorMessage {
 	public static final String UNDEFINED = "undefined";
-	
+
 	private final String from;
 	private final String to;
 	private final String content;
 	protected boolean isPlainMessage = false;
-	
+
 	protected NetworkMessage(final String to, final String data) {
 		this.content = data;
 		this.from = UNDEFINED;
@@ -48,10 +47,11 @@ public class NetworkMessage implements ConnectorMessage {
 		return to;
 	}
 
+	@Override
 	public String getPlainContents() {
 		return content;
 	}
-	
+
 	@Override
 	public boolean isPlainMessage() {
 		return isPlainMessage;
@@ -71,15 +71,14 @@ public class NetworkMessage implements ConnectorMessage {
 	public GamaMessage getCompositeContent(final IScope scope) {
 		final Object messageContent = StreamConverter.convertStreamToObject(scope, content);
 		GamaMessage message = null;
-		if (messageContent instanceof CompositeGamaMessage)
+		if (messageContent instanceof CompositeGamaMessage) {
 			message = (GamaMessage) messageContent;
-		else
+		} else {
 			message = new GamaMessage(scope, from, to, messageContent);
+		}
 		message.hasBeenReceived(scope);
 		return message;
 	}
-
-
 
 	@Override
 	public boolean isCommandMessage() {

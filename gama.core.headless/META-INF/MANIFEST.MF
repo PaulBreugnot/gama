@@ -1,35 +1,24 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Headless version of GAMA
+Bundle-Name: Headless mode for GAMA
 Bundle-SymbolicName: gama.core.headless;singleton:=true
-Bundle-Version: 1.8.1.qualifier
-Require-Bundle: gama.core.kernel,
- gama.core.lang,
- org.eclipse.core.runtime,
- gama.ext.libs,
- gama.ext.traffic,
- gama.ext.maths,
- gama.ext.databases,
- gama.core.application
+Bundle-Version: 2.0.0.qualifier
+Require-Bundle: gama.core.kernel;bundle-version="2.0.0",
+ gama.core.application;bundle-version="2.0.0",
+ gama.core.lang;bundle-version="2.0.0"
 Bundle-ActivationPolicy: lazy
 Export-Package: 
  gama.core.headless.common;uses:="msi.gama.headless.job",
- gama.core.headless.core;
-  uses:="msi.gama.headless.job,
-   msi.gama.kernel.model,
-   msi.gama.kernel.experiment,
-   msi.gama.kernel.simulation,
-   msi.gaml.expressions,
-   msi.gama.runtime",
- gama.core.headless.openmole;uses:="msi.gama.kernel.model,msi.gama.headless.core",
- gama.core.headless.runtime;
-  uses:="org.osgi.framework,
-   msi.gama.headless.job,
-   msi.gama.kernel.model,
-   org.eclipse.equinox.app,
-   msi.gama.kernel.experiment",
- gama.core.headless.script;uses:="msi.gama.kernel.model,org.w3c.dom",
- gama.core.headless.xml;uses:="msi.gama.headless.job"
+ gama.core.headless.core,
+ gama.core.headless.openmole,
+ gama.core.headless.runtime,
+ gama.core.headless.script,
+ gama.core.headless.xml
 Bundle-ClassPath: .
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Automatic-Module-Name: msi.gama.headless
+Automatic-Module-Name: gama.core.headless
+Bundle-Vendor: UMMISCO
+Import-Package: com.google.common.collect,
+ org.eclipse.core.runtime;version="3.7.0",
+ org.eclipse.equinox.app;version="1.1.0",
+ org.osgi.framework;version="1.10.0"

@@ -4,9 +4,9 @@
 	xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>msi.gama</groupId>
-	<artifactId>msi.gama.parent</artifactId>
-	<version>1.8.1-SNAPSHOT</version>
+	<groupId>gama</groupId>
+	<artifactId>gama.build.parent</artifactId>
+	<version>2.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<distributionManagement>
@@ -170,7 +170,7 @@
 		</repository>
 		<repository>
 			<id>annot-local-repo</id>
-			<url>${project.baseUri}../msi.gama.processor/processor/plugins</url>
+			<url>${project.baseUri}../gama.build.processor/processor/plugins</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -186,62 +186,62 @@
 		<!-- <module>../gama.target.platform</module> -->
 
 
-		<module>../msi.gama.ext</module>
-		<module>../msi.gama.core</module>
-		<module>../msi.gama.lang.gaml</module>
-		<module>../msi.gama.documentation</module>
-		<module>../ummisco.gama.ui.modeling</module>
-		<module>../ummisco.gama.ui.shared</module>
-		<module>../ummisco.gama.ui.navigator</module>
-		<module>../ummisco.gama.ui.experiment</module>
+		<module>../gama.ext.libs</module>
+		<module>../gama.core.kernel</module>
+		<module>../gama.core.lang</module>
+		<module>../gama.build.documentation</module>
+		<module>../gama.ui.modeling</module>
+		<module>../gama.ui.base</module>
+		<module>../gama.ui.navigator</module>
+		<module>../gama.ui.experiment</module>
 
-		<module>../msi.gama.application</module>
+		<module>../gama.core.application</module>
 
-		<module>../ummisco.gama.feature.models</module>
-		<module>../ummisco.gama.feature.dependencies</module>
-
-
-		<module>../ummisco.gama.feature.core</module>
-		<module>../ummisco.gama.feature.core.extensions</module>
-		<module>../ummisco.gama.feature.core.ui</module>
-		<module>../ummisco.gama.feature.experiment.ui</module>
-		<module>../ummisco.gama.feature.modeling.ui</module>
-		<module>../ummisco.gama.feature.serialize</module>
-		<module>../ummisco.gama.feature.network</module>
-
-		<module>../msi.gaml.extensions.fipa</module>
-		<module>../msi.gama.headless</module>
-		<module>../miat.gaml.extensions.pedestrian</module>
-		<module>../simtools.gaml.extensions.traffic</module>
-		<module>../simtools.gaml.extensions.physics</module>
+		<module>../gama.feature.models</module>
+		<module>../gama.feature.dependencies</module>
 
 
-		<module>../irit.gaml.extensions.database</module>
+		<module>../gama.feature.core</module>
+		<module>../gama.feature.extensions</module>
+		<module>../gama.feature.ui.core</module>
+		<module>../gama.feature.ui.experiment</module>
+		<module>../gama.feature.ui.modeling</module>
+		<module>../gama.feature.serialize</module>
+		<module>../gama.feature.network</module>
+
+		<module>../gaml.ext.fipa</module>
+		<module>../gama.core.headless</module>
+		<module>../gama.ext.pedestrian</module>
+		<module>../gama.ext.traffic</module>
+		<module>../gama.ext.physics</module>
+
+
+		<module>../gama.ext.databases</module>
 
 
 
-		<module>../msi.gama.models</module>
-		<module>../msi.gaml.architecture.simplebdi</module>
-		<module>../espacedev.gaml.extensions.genstar</module>
+		<module>../gama.models.library</module>
+		<module>../gama.ext.bdi</module>
+		<module>../gama.ext.genstar</module>
 
 
-		<module>../ummisco.gama.feature.audio</module>
+		<module>../gama.feature.audio</module>
 
-		<module>../ummisco.gama.feature.stats</module>
+		<module>../gama.feature.stats</module>
 
-		<module>../ummisco.gama.opengl</module>
-		<module>../ummisco.gama.java2d</module>
-		<module>../ummisco.gama.ui.viewers</module>
-		<module>../ummisco.gama.serialize</module>
-		<module>../ummisco.gama.network</module>
-		<module>../ummisco.gaml.extensions.maths</module>
+		<module>../gama.display.opengl</module>
+		<module>../gama.display.java2d</module>
+		<module>../gama.ui.viewers</module>
+		<module>../gama.ext.serialize</module>
+		<module>../gama.ext.network</module>
+		<module>../gaml.ext.maths</module>
 
-		<module>../ummisco.gaml.extensions.sound</module>
-		<module>../ummisco.gaml.extensions.stats</module>
+		<module>../gama.ext.audio</module>
+		<module>../gama.ext.stats</module>
 
-		<module>../ummisco.gama.product</module>
+		<module>../gama.build.product</module>
 
-		<module>../msi.gama.p2updatesite</module>
+		<module>../gama.build.p2updatesite</module>
 
 		<!-- -->
 	</modules>
@@ -252,7 +252,7 @@
 		<jetty-maven.version>8.1.5.v20120716</jetty-maven.version>
 		<tycho.version>2.2.0</tycho.version>
 		<jdk.version>15</jdk.version>
-		<project.version>1.8.1-SNAPSHOT</project.version>
+		<project.version>2.0.0-SNAPSHOT</project.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<geotools.version>14.5</geotools.version>
 		<math3.version>3.1.1</math3.version>
@@ -388,12 +388,12 @@
 					<target>${jdk.version}</target>
 					<!--<compilerArgument>-proc:none</compilerArgument> -->
 					<annotationProcessors>
-						<annotationProcessor>msi.gama.precompiler.GamaProcessor</annotationProcessor>
+						<annotationProcessor>gama.build.processor.GamaProcessor</annotationProcessor>
 					</annotationProcessors>
 				</configuration>
 				<dependencies>
 					<!-- dependency containing the annotation processor specified in the 
-						annotationProcessor element <dependency> <groupId>msi.gama</groupId> <artifactId>msi.gama.processor</artifactId> 
+						annotationProcessor element <dependency> <groupId>gama</groupId> <artifactId>msi.gama.processor</artifactId> 
 						<version>1.4.0</version> </dependency> -->
 				</dependencies>
 			</plugin>
@@ -406,8 +406,8 @@
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho.version}</version>
 				<configuration>
-					<!-- <target> <artifact> <groupId>msi.gama</groupId> <artifactId>gama.target.platform</artifactId> 
-						<version>1.8.1-SNAPSHOT</version> </artifact> </target> -->
+					<!-- <target> <artifact> <groupId>gama</groupId> <artifactId>gama.target.platform</artifactId> 
+						<version>2.0.0-SNAPSHOT</version> </artifact> </target> -->
 
 					<dependency-resolution>
 						<optionalDependencies>ignore</optionalDependencies>

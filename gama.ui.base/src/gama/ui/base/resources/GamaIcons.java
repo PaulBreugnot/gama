@@ -1,6 +1,6 @@
 /*********************************************************************************************
  *
- * 'GamaIcons.java, in plugin ummisco.gama.ui.shared, is part of the source code of the GAMA modeling and simulation
+ * 'GamaIcons.java, in plugin gama.ui.base, is part of the source code of the GAMA modeling and simulation
  * platform. (v. 1.8.1)
  *
  * (c) 2007-2020 UMI 209 UMMISCO IRD/UPMC & Partners
@@ -35,7 +35,7 @@ import gama.ui.base.utils.WorkbenchHelper;
  */
 public class GamaIcons implements IIconProvider {
 
-	public static final String PLUGIN_ID = "ummisco.gama.ui.shared";
+	public static final String PLUGIN_ID = "gama.ui.base";
 
 	static private GamaIcons instance = new GamaIcons();
 

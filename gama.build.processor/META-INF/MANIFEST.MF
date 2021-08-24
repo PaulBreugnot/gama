@@ -1,19 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: GAMA Processor
+Bundle-Name: GAMA Annotation Processor
 Bundle-SymbolicName: gama.build.processor;singleton:=true
-Bundle-Version: 1.4.0.qualifier
-Bundle-Vendor: MSI
-Export-Package: gama.build.processor;
-  uses:="org.w3c.dom,
-   javax.lang.model.util,
-   javax.lang.model,
-   javax.tools,
-   javax.lang.model.type,
-   javax.xml.parsers,
-   javax.xml.transform,
-   javax.annotation.processing,
-   javax.lang.model.element"
+Bundle-Version: 2.0.0.qualifier
+Bundle-Vendor: UMMISCO
+Export-Package: gama.build.processor
 Require-Bundle: gama.core.dev
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Automatic-Module-Name: msi.gama.processor
+Automatic-Module-Name: gama.build.processor
+
