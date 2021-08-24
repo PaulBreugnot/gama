@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ArrangeDisplayViews.java, in gama.ui.experiment, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ArrangeDisplayViews.java, in gama.ui.experiment, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.experiment.commands;
 
@@ -68,13 +68,14 @@ public class ArrangeDisplayViews extends AbstractHandler {
 	/**
 	 * Execute.
 	 *
-	 * @param layout the layout
+	 * @param layout
+	 *            the layout
 	 */
-	@SuppressWarnings ("unchecked")
+	@SuppressWarnings ({ "unchecked", "cast" })
 	public static void execute(final Object layout) {
 		listDisplayViews();
 		if (layout instanceof Integer) {
-			execute(((Integer) layout));
+			execute((Integer) layout);
 		} else if (layout instanceof GamaTree) {
 			execute((GamaTree<String>) layout);
 		} else if (layout instanceof GamaNode) {
@@ -87,9 +88,10 @@ public class ArrangeDisplayViews extends AbstractHandler {
 	/**
 	 * Execute.
 	 *
-	 * @param layout the layout
+	 * @param layout
+	 *            the layout
 	 */
-	public static void execute(final int layout) {
+	public static void execute(final Integer layout) {
 		execute(new LayoutTreeConverter().convert(layout));
 	}
 
@@ -123,7 +125,8 @@ public class ArrangeDisplayViews extends AbstractHandler {
 	/**
 	 * Execute.
 	 *
-	 * @param tree the tree
+	 * @param tree
+	 *            the tree
 	 */
 	public static void execute(final GamaTree<String> tree) {
 		listDisplayViews();
@@ -152,8 +155,10 @@ public class ArrangeDisplayViews extends AbstractHandler {
 	/**
 	 * Activate displays.
 	 *
-	 * @param holders the holders
-	 * @param focus the focus
+	 * @param holders
+	 *            the holders
+	 * @param focus
+	 *            the focus
 	 */
 	private static void activateDisplays(final List<MPlaceholder> holders, final boolean focus) {
 		holders.forEach(ph -> {
@@ -177,8 +182,10 @@ public class ArrangeDisplayViews extends AbstractHandler {
 	/**
 	 * Show displays.
 	 *
-	 * @param root the root
-	 * @param holders the holders
+	 * @param root
+	 *            the root
+	 * @param holders
+	 *            the holders
 	 */
 	public static void showDisplays(final MElementContainer<?> root, final List<MPlaceholder> holders) {
 		root.setVisible(true);
@@ -215,8 +222,10 @@ public class ArrangeDisplayViews extends AbstractHandler {
 	/**
 	 * Hide displays.
 	 *
-	 * @param displayStack the display stack
-	 * @param holders the holders
+	 * @param displayStack
+	 *            the display stack
+	 * @param holders
+	 *            the holders
 	 */
 	public static void hideDisplays(final MPartStack displayStack, final List<MPlaceholder> holders) {
 		final MElementContainer<MUIElement> parent = displayStack.getParent();
@@ -238,7 +247,8 @@ public class ArrangeDisplayViews extends AbstractHandler {
 	/**
 	 * Checks if is part of layout.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @return true, if is part of layout
 	 */
 	static boolean isPartOfLayout(final MUIElement e) {
@@ -248,9 +258,12 @@ public class ArrangeDisplayViews extends AbstractHandler {
 	/**
 	 * Process.
 	 *
-	 * @param uiRoot the ui root
-	 * @param treeRoot the tree root
-	 * @param holders the holders
+	 * @param uiRoot
+	 *            the ui root
+	 * @param treeRoot
+	 *            the tree root
+	 * @param holders
+	 *            the holders
 	 */
 	public static void process(final MElementContainer uiRoot, final GamaNode<String> treeRoot,
 			final List<MPlaceholder> holders) {
@@ -295,13 +308,16 @@ public class ArrangeDisplayViews extends AbstractHandler {
 	/**
 	 * Creates the.
 	 *
-	 * @param root the root
-	 * @param weight the weight
-	 * @param dir the dir
+	 * @param root
+	 *            the root
+	 * @param weight
+	 *            the weight
+	 * @param dir
+	 *            the dir
 	 * @return the m element container
 	 */
 	static MElementContainer create(final MElementContainer root, final String weight, final Boolean dir) {
-		if ((dir == null) && (root instanceof MPartStack && isPartOfLayout(root))) return root;
+		if (dir == null && root instanceof MPartStack && isPartOfLayout(root)) return root;
 		if (dir == null && (root instanceof MPartStack || !PerspectiveHelper.keepTabs())) return root;
 		final MElementContainer c = dir != null ? INSTANCE.createPartSashContainer() : INSTANCE.createPartStack();
 		c.getTransientData().put("Dynamic", true);

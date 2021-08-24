@@ -1,12 +1,11 @@
 /*******************************************************************************************************
  *
- * Types.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * Types.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gaml.types;
 
@@ -49,34 +48,34 @@ public class Types {
 
 	/** The type. */
 	public static IType AGENT, PATH, FONT, SKILL, DATE, MATERIAL, ACTION, TYPE;
-	
+
 	/** The int. */
 	public static GamaIntegerType INT;
-	
+
 	/** The float. */
 	public static GamaFloatType FLOAT;
-	
+
 	/** The color. */
 	public static GamaColorType COLOR;
-	
+
 	/** The bool. */
 	public static GamaBoolType BOOL;
-	
+
 	/** The string. */
 	public static GamaStringType STRING;
-	
+
 	/** The point. */
 	public static GamaPointType POINT;
-	
+
 	/** The geometry. */
 	public static GamaGeometryType GEOMETRY;
-	
+
 	/** The topology. */
 	public static GamaTopologyType TOPOLOGY;
-	
+
 	/** The field. */
 	public static GamaFieldType FIELD;
-	
+
 	/** The species. */
 	public static IContainerType LIST, MATRIX, MAP, GRAPH, FILE, PAIR, CONTAINER, SPECIES;
 
@@ -86,8 +85,10 @@ public class Types {
 	/**
 	 * Cache.
 	 *
-	 * @param id the id
-	 * @param instance the instance
+	 * @param id
+	 *            the id
+	 * @param instance
+	 *            the instance
 	 */
 	public static void cache(final int id, final IType instance) {
 		switch (id) {
@@ -165,6 +166,7 @@ public class Types {
 				break;
 			case IType.FIELD:
 				FIELD = (GamaFieldType) instance;
+				break;
 			default:
 		}
 	}
@@ -172,7 +174,8 @@ public class Types {
 	/**
 	 * Gets the.
 	 *
-	 * @param type the type
+	 * @param type
+	 *            the type
 	 * @return the i type
 	 */
 	public static IType get(final int type) {
@@ -231,7 +234,8 @@ public class Types {
 	/**
 	 * Gets the.
 	 *
-	 * @param type the type
+	 * @param type
+	 *            the type
 	 * @return the i type
 	 */
 	public static IType get(final String type) {
@@ -241,8 +245,10 @@ public class Types {
 	/**
 	 * Gets the.
 	 *
-	 * @param <T> the generic type
-	 * @param type the type
+	 * @param <T>
+	 *            the generic type
+	 * @param type
+	 *            the type
 	 * @return the i type
 	 */
 	public static <T> IType<T> get(final Class<T> type) {
@@ -253,24 +259,24 @@ public class Types {
 	/**
 	 * Internal get.
 	 *
-	 * @param <T> the generic type
-	 * @param type the type
+	 * @param <T>
+	 *            the generic type
+	 * @param type
+	 *            the type
 	 * @return the i type
 	 */
 	private static <T> IType<T> internalGet(final Class<T> type) {
 		final IType<T>[] t = new IType[] { builtInTypes.get(Types.CLASSES_TYPES_CORRESPONDANCE.get(type)) };
 		boolean newEntry = false;
-		if (t[0] == Types.NO_TYPE) {
-			if (!type.isInterface()) {
-				newEntry = !Types.CLASSES_TYPES_CORRESPONDANCE.forEachPair((support, id) -> {
-					if (support != Object.class && support.isAssignableFrom(type)) {
-						t[0] = (IType<T>) builtInTypes.get(id);
-						return false;
-					}
-					return true;
-				});
+		if ((t[0] == Types.NO_TYPE) && !type.isInterface()) {
+			newEntry = !Types.CLASSES_TYPES_CORRESPONDANCE.forEachPair((support, id) -> {
+				if (support != Object.class && support.isAssignableFrom(type)) {
+					t[0] = (IType<T>) builtInTypes.get(id);
+					return false;
+				}
+				return true;
+			});
 
-			}
 		}
 		if (newEntry) { Types.CLASSES_TYPES_CORRESPONDANCE.put(type, t[0].toString()); }
 		return t[0];
@@ -282,7 +288,7 @@ public class Types {
 	 * @return the type names
 	 */
 	public static Iterable<String> getTypeNames() {
-		return Iterables.transform(builtInTypes.getAllTypes(), each -> each.getName());
+		return Iterables.transform(builtInTypes.getAllTypes(), IType::getName);
 	}
 
 	/**
@@ -349,8 +355,10 @@ public class Types {
 	/**
 	 * Place.
 	 *
-	 * @param t the t
-	 * @param hierarchy the hierarchy
+	 * @param t
+	 *            the t
+	 * @param hierarchy
+	 *            the hierarchy
 	 */
 	private static void place(final IType t, final GamaTree<IType> hierarchy) {
 		final Map<GamaNode<IType>, Integer> map = hierarchy.mapByDepth(Order.PRE_ORDER);
@@ -386,8 +394,10 @@ public class Types {
 	/**
 	 * Int float case.
 	 *
-	 * @param t1 the t 1
-	 * @param t2 the t 2
+	 * @param t1
+	 *            the t 1
+	 * @param t2
+	 *            the t 2
 	 * @return true, if successful
 	 */
 	public static boolean intFloatCase(final IType t1, final IType t2) {
@@ -395,10 +405,13 @@ public class Types {
 	}
 
 	/**
-	 * Tests whether constant list expressions can still be compatible with a receiver even if their actual types differ.
+	 * Tests whether constant list expressions can still be compatible with a receiver even if their actual types
+	 * differ.
 	 *
-	 * @param receiverType the receiver type
-	 * @param expr2 the expr 2
+	 * @param receiverType
+	 *            the receiver type
+	 * @param expr2
+	 *            the expr 2
 	 * @return true, if is empty container case
 	 */
 	public static boolean isEmptyContainerCase(final IType receiverType, final IExpression expr2) {
@@ -421,7 +434,8 @@ public class Types {
 	/**
 	 * Checks if is empty.
 	 *
-	 * @param expr2 the expr 2
+	 * @param expr2
+	 *            the expr 2
 	 * @return true, if is empty
 	 */
 	public static boolean isEmpty(final IExpression expr2) {
@@ -446,7 +460,7 @@ public class Types {
 	 */
 	public static Iterable<OperatorProto> getAllFields() {
 		return Iterables
-				.concat(Iterables.transform(builtInTypes.getAllTypes(), (each) -> each.getFieldGetters().values()));
+				.concat(Iterables.transform(builtInTypes.getAllTypes(), each -> each.getFieldGetters().values()));
 	}
 
 }
