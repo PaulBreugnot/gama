@@ -19,11 +19,11 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.impl.DefaultResourceDescriptionStrategy;
 import org.eclipse.xtext.util.IAcceptor;
 
-import msi.gama.lang.gaml.gaml.ActionArguments;
-import msi.gama.lang.gaml.gaml.ArgumentDefinition;
-import msi.gama.lang.gaml.gaml.Block;
-import msi.gama.lang.gaml.gaml.Model;
-import msi.gama.lang.gaml.gaml.Statement;
+import gama.core.lang.gaml.ActionArguments;
+import gama.core.lang.gaml.ArgumentDefinition;
+import gama.core.lang.gaml.Block;
+import gama.core.lang.gaml.Model;
+import gama.core.lang.gaml.Statement;
 
 /**
  * The class GamlResourceDescriptionManager.

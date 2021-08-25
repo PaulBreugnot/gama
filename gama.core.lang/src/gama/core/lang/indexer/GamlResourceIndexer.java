@@ -34,11 +34,11 @@ import com.google.common.collect.Iterators;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.inject.Singleton;
 
-import msi.gama.lang.gaml.gaml.ExperimentFileStructure;
-import msi.gama.lang.gaml.gaml.GamlPackage;
-import msi.gama.lang.gaml.gaml.Import;
-import msi.gama.lang.gaml.gaml.Model;
-import msi.gama.lang.gaml.gaml.impl.ModelImpl;
+import gama.core.lang.gaml.ExperimentFileStructure;
+import gama.core.lang.gaml.GamlPackage;
+import gama.core.lang.gaml.Import;
+import gama.core.lang.gaml.Model;
+import gama.core.lang.gaml.impl.ModelImpl;
 import gama.common.interfaces.BiConsumerWithPruning;
 import gama.core.lang.resource.GamlResource;
 import gama.core.lang.resource.GamlResourceServices;
@@ -316,7 +316,7 @@ public class GamlResourceIndexer {
 	 *
 	 * @param uri the uri
 	 * @return the sets the
-	 * @see msi.gama.lang.gaml.indexer.IModelIndexer#directImportersOf(org.eclipse.emf.common.util.URI)
+	 * @see gama.core.lang.gaml.indexer.IModelIndexer#directImportersOf(org.eclipse.emf.common.util.URI)
 	 */
 	public static Set<URI> directImportersOf(final URI uri) {
 		final URI newURI = GamlResourceServices.properlyEncodedURI(uri);
@@ -329,7 +329,7 @@ public class GamlResourceIndexer {
 	 *
 	 * @param uri the uri
 	 * @return the sets the
-	 * @see msi.gama.lang.gaml.indexer.IModelIndexer#directImportsOf(org.eclipse.emf.common.util.URI)
+	 * @see gama.core.lang.gaml.indexer.IModelIndexer#directImportsOf(org.eclipse.emf.common.util.URI)
 	 */
 	public static Set<URI> directImportsOf(final URI uri) {
 		final URI newURI = GamlResourceServices.properlyEncodedURI(uri);
@@ -376,7 +376,7 @@ public class GamlResourceIndexer {
 	 *
 	 * @param uri the uri
 	 * @return the iterator
-	 * @see msi.gama.lang.gaml.indexer.IModelIndexer#allImportsOf(org.eclipse.emf.common.util.URI)
+	 * @see gama.core.lang.gaml.indexer.IModelIndexer#allImportsOf(org.eclipse.emf.common.util.URI)
 	 */
 	public static Iterator<URI> allImportsOf(final URI uri) {
 		if (!indexes(uri)) {

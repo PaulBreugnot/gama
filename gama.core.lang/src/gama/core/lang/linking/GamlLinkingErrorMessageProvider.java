@@ -18,12 +18,12 @@ import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.linking.impl.LinkingDiagnosticMessageProvider;
 
-import msi.gama.lang.gaml.gaml.ActionRef;
-import msi.gama.lang.gaml.gaml.EquationRef;
-import msi.gama.lang.gaml.gaml.SkillRef;
-import msi.gama.lang.gaml.gaml.TypeRef;
-import msi.gama.lang.gaml.gaml.VariableRef;
-import msi.gama.lang.gaml.gaml.util.GamlSwitch;
+import gama.core.lang.gaml.ActionRef;
+import gama.core.lang.gaml.EquationRef;
+import gama.core.lang.gaml.SkillRef;
+import gama.core.lang.gaml.TypeRef;
+import gama.core.lang.gaml.VariableRef;
+import gama.core.lang.gaml.util.GamlSwitch;
 
 /**
  * The Class GamlLinkingErrorMessageProvider.

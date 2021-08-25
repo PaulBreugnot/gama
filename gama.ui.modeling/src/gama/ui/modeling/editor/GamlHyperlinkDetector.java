@@ -28,9 +28,9 @@ import org.eclipse.xtext.util.concurrent.CancelableUnitOfWork;
 
 import com.google.inject.Inject;
 
-import msi.gama.lang.gaml.gaml.HeadlessExperiment;
-import msi.gama.lang.gaml.gaml.Import;
-import msi.gama.lang.gaml.gaml.StringLiteral;
+import gama.core.lang.gaml.HeadlessExperiment;
+import gama.core.lang.gaml.Import;
+import gama.core.lang.gaml.StringLiteral;
 import gama.common.util.FileUtils;
 import gama.ui.navigator.commands.FileOpener;
 

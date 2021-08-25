@@ -1,12 +1,11 @@
 /*******************************************************************************************************
  *
- * Main.java, in gama.core.lang, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * Main.java, in gama.core.lang, is part of the source code of the GAMA modeling and simulation platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.core.lang.generator;
 
@@ -36,7 +35,8 @@ public class Main {
 	/**
 	 * The main method.
 	 *
-	 * @param args the arguments
+	 * @param args
+	 *            the arguments
 	 */
 	public static void main(final String[] args) {
 		if (args.length == 0) {
@@ -44,7 +44,7 @@ public class Main {
 			return;
 		}
 		final Injector injector =
-				new msi.gama.lang.gaml.GamlStandaloneSetupGenerated().createInjectorAndDoEMFRegistration();
+				new gama.core.lang.GamlStandaloneSetupGenerated().createInjectorAndDoEMFRegistration();
 		final Main main = injector.getInstance(Main.class);
 		main.runGenerator(args[0]);
 	}
@@ -64,7 +64,8 @@ public class Main {
 	/**
 	 * Run generator.
 	 *
-	 * @param string the string
+	 * @param string
+	 *            the string
 	 */
 	protected void runGenerator(final String string) {
 		// load the resource

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
 	<name>ClockWithSound</name>
-	<comment>sound plugin</comment>
+	<comment>audio plugin</comment>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -13,7 +13,7 @@
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
-		<nature>msi.gama.application.gamaNature</nature>
-		<nature>msi.gama.application.pluginNature</nature>
+		<nature>gama.core.application.gamaNature</nature>
+		<nature>gama.core.application.pluginNature</nature>
 	</natures>
 </projectDescription>

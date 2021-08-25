@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * GamlRuntimeModule.java, in gama.core.lang, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * GamlRuntimeModule.java, in gama.core.lang, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.core.lang;
 
@@ -41,7 +41,6 @@ import gama.core.lang.validation.GamlResourceValidator;
 import gaml.compilation.GAML;
 import gaml.expressions.GamlExpressionFactory;
 import gaml.expressions.IExpressionCompiler;
-import msi.gama.lang.gaml.AbstractGamlRuntimeModule;
 
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.

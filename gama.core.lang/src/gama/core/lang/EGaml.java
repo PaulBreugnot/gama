@@ -1,12 +1,11 @@
 /*******************************************************************************************************
  *
- * EGaml.java, in gama.core.lang, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * EGaml.java, in gama.core.lang, is part of the source code of the GAMA modeling and simulation platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.core.lang;
 
@@ -20,55 +19,55 @@ import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 
 import gama.common.interfaces.IKeyword;
+import gama.core.lang.gaml.ActionRef;
+import gama.core.lang.gaml.ArgumentDefinition;
+import gama.core.lang.gaml.ArgumentPair;
+import gama.core.lang.gaml.Array;
+import gama.core.lang.gaml.BinaryOperator;
+import gama.core.lang.gaml.Block;
+import gama.core.lang.gaml.EquationRef;
+import gama.core.lang.gaml.Expression;
+import gama.core.lang.gaml.ExpressionList;
+import gama.core.lang.gaml.Facet;
+import gama.core.lang.gaml.Function;
+import gama.core.lang.gaml.GamlDefinition;
+import gama.core.lang.gaml.GamlFactory;
+import gama.core.lang.gaml.GamlPackage;
+import gama.core.lang.gaml.HeadlessExperiment;
+import gama.core.lang.gaml.If;
+import gama.core.lang.gaml.Model;
+import gama.core.lang.gaml.Parameter;
+import gama.core.lang.gaml.Point;
+import gama.core.lang.gaml.S_Action;
+import gama.core.lang.gaml.S_Assignment;
+import gama.core.lang.gaml.S_Definition;
+import gama.core.lang.gaml.S_DirectAssignment;
+import gama.core.lang.gaml.S_Display;
+import gama.core.lang.gaml.S_Equations;
+import gama.core.lang.gaml.S_If;
+import gama.core.lang.gaml.S_Reflex;
+import gama.core.lang.gaml.SkillRef;
+import gama.core.lang.gaml.Statement;
+import gama.core.lang.gaml.StringLiteral;
+import gama.core.lang.gaml.TerminalExpression;
+import gama.core.lang.gaml.TypeRef;
+import gama.core.lang.gaml.Unary;
+import gama.core.lang.gaml.UnitName;
+import gama.core.lang.gaml.VariableRef;
+import gama.core.lang.gaml.impl.ActionArgumentsImpl;
+import gama.core.lang.gaml.impl.BlockImpl;
+import gama.core.lang.gaml.impl.ExpressionListImpl;
+import gama.core.lang.gaml.impl.HeadlessExperimentImpl;
+import gama.core.lang.gaml.impl.ModelImpl;
+import gama.core.lang.gaml.impl.S_ActionImpl;
+import gama.core.lang.gaml.impl.S_EquationsImpl;
+import gama.core.lang.gaml.impl.S_IfImpl;
+import gama.core.lang.gaml.impl.StatementImpl;
+import gama.core.lang.gaml.util.GamlSwitch;
 import gama.util.GamaMapFactory;
 import gaml.compilation.GAML;
 import gaml.compilation.IGamlEcoreUtils;
 import gaml.compilation.ast.SyntacticFactory;
-import msi.gama.lang.gaml.gaml.ActionRef;
-import msi.gama.lang.gaml.gaml.ArgumentDefinition;
-import msi.gama.lang.gaml.gaml.ArgumentPair;
-import msi.gama.lang.gaml.gaml.Array;
-import msi.gama.lang.gaml.gaml.BinaryOperator;
-import msi.gama.lang.gaml.gaml.Block;
-import msi.gama.lang.gaml.gaml.EquationRef;
-import msi.gama.lang.gaml.gaml.Expression;
-import msi.gama.lang.gaml.gaml.ExpressionList;
-import msi.gama.lang.gaml.gaml.Facet;
-import msi.gama.lang.gaml.gaml.Function;
-import msi.gama.lang.gaml.gaml.GamlDefinition;
-import msi.gama.lang.gaml.gaml.GamlFactory;
-import msi.gama.lang.gaml.gaml.GamlPackage;
-import msi.gama.lang.gaml.gaml.HeadlessExperiment;
-import msi.gama.lang.gaml.gaml.If;
-import msi.gama.lang.gaml.gaml.Model;
-import msi.gama.lang.gaml.gaml.Parameter;
-import msi.gama.lang.gaml.gaml.Point;
-import msi.gama.lang.gaml.gaml.S_Action;
-import msi.gama.lang.gaml.gaml.S_Assignment;
-import msi.gama.lang.gaml.gaml.S_Definition;
-import msi.gama.lang.gaml.gaml.S_DirectAssignment;
-import msi.gama.lang.gaml.gaml.S_Display;
-import msi.gama.lang.gaml.gaml.S_Equations;
-import msi.gama.lang.gaml.gaml.S_If;
-import msi.gama.lang.gaml.gaml.S_Reflex;
-import msi.gama.lang.gaml.gaml.SkillRef;
-import msi.gama.lang.gaml.gaml.Statement;
-import msi.gama.lang.gaml.gaml.StringLiteral;
-import msi.gama.lang.gaml.gaml.TerminalExpression;
-import msi.gama.lang.gaml.gaml.TypeRef;
-import msi.gama.lang.gaml.gaml.Unary;
-import msi.gama.lang.gaml.gaml.UnitName;
-import msi.gama.lang.gaml.gaml.VariableRef;
-import msi.gama.lang.gaml.gaml.impl.ActionArgumentsImpl;
-import msi.gama.lang.gaml.gaml.impl.BlockImpl;
-import msi.gama.lang.gaml.gaml.impl.ExpressionListImpl;
-import msi.gama.lang.gaml.gaml.impl.HeadlessExperimentImpl;
-import msi.gama.lang.gaml.gaml.impl.ModelImpl;
-import msi.gama.lang.gaml.gaml.impl.S_ActionImpl;
-import msi.gama.lang.gaml.gaml.impl.S_EquationsImpl;
-import msi.gama.lang.gaml.gaml.impl.S_IfImpl;
-import msi.gama.lang.gaml.gaml.impl.StatementImpl;
-import msi.gama.lang.gaml.gaml.util.GamlSwitch;
 
 /**
  * The class EGaml.getInstance(). A stateless class, bunch of utilities to work with the various GAML statements and
@@ -407,11 +406,9 @@ public class EGaml implements IGamlEcoreUtils {
 	public String getNameOfRef(final EObject o) {
 		final ICompositeNode n = NodeModelUtils.getNode(o);
 		if (n != null) return NodeModelUtils.getTokenText(n);
-		if (o instanceof VariableRef)
-			return ((VariableRef) o).getRef().getName();
-		else if (o instanceof UnitName)
-			return ((UnitName) o).getRef().getName();
-		else if (o instanceof ActionRef)
+		if (o instanceof VariableRef) return ((VariableRef) o).getRef().getName();
+		if (o instanceof UnitName) return ((UnitName) o).getRef().getName();
+		if (o instanceof ActionRef)
 			return ((ActionRef) o).getRef().getName();
 		else if (o instanceof SkillRef)
 			return ((SkillRef) o).getRef().getName();
@@ -443,9 +440,8 @@ public class EGaml implements IGamlEcoreUtils {
 	@Override
 	public String toString(final EObject expr) {
 		if (expr == null) return null;
-		if (expr instanceof Statement)
-			return getNameOf(expr);
-		else if (expr instanceof Facet) return ((Facet) expr).getName();
+		if (expr instanceof Statement) return getNameOf(expr);
+		if (expr instanceof Facet) return ((Facet) expr).getName();
 
 		if (!(expr instanceof Expression)) return expr.toString();
 		final StringBuilder serializer = new StringBuilder(100);
@@ -457,8 +453,10 @@ public class EGaml implements IGamlEcoreUtils {
 	/**
 	 * Serialize an expression.
 	 *
-	 * @param serializer            a string builder to which the expression should be appended
-	 * @param expr            the expr
+	 * @param serializer
+	 *            a string builder to which the expression should be appended
+	 * @param expr
+	 *            the expr
 	 */
 	private void serialize(final StringBuilder serializer, final Expression expr) {
 		if (expr == null) {} else if (expr instanceof If) {
@@ -511,8 +509,10 @@ public class EGaml implements IGamlEcoreUtils {
 	/**
 	 * Serializes a function.
 	 *
-	 * @param serializer            a string builder to which the function should be appended
-	 * @param expr            the expr
+	 * @param serializer
+	 *            a string builder to which the function should be appended
+	 * @param expr
+	 *            the expr
 	 */
 	private void function(final StringBuilder serializer, final Function expr) {
 		final List<? extends EObject> args = getExprsOf(expr.getRight());
@@ -541,9 +541,12 @@ public class EGaml implements IGamlEcoreUtils {
 	/**
 	 * Serializes a list of arguments.
 	 *
-	 * @param serializer            a string builder to which the args should be appended
-	 * @param args            the args
-	 * @param arguments            the arguments
+	 * @param serializer
+	 *            a string builder to which the args should be appended
+	 * @param args
+	 *            the args
+	 * @param arguments
+	 *            the arguments
 	 */
 	private void array(final StringBuilder serializer, final List<? extends EObject> args, final boolean arguments) {
 		// if arguments is true, parses the list to transform it into a map of

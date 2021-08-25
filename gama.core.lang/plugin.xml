@@ -4,12 +4,12 @@
 <plugin>
 
   <extension point="org.eclipse.emf.ecore.generated_package">
-    <package 
-       uri = "http://www.gama.core/lang/Gaml" 
-       class = "gama.core.lang.gaml.GamlPackage"
-       genModel = "model/generated/Gaml.genmodel" /> 
-	
+		<package
+			uri = "http://gama/core/lang/Gaml"
+			class = "gama.core.lang.gaml.GamlPackage"
+			genModel = "model/generated/Gaml.genmodel" />
   </extension>
+
   <extension
         point="gaml.extension">
   </extension>

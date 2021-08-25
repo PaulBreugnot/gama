@@ -34,8 +34,8 @@ import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimaps;
 
-import msi.gama.lang.gaml.gaml.GamlPackage;
-import msi.gama.lang.gaml.gaml.Model;
+import gama.core.lang.gaml.GamlPackage;
+import gama.core.lang.gaml.Model;
 import gama.common.interfaces.IGamlIssue;
 import gama.core.lang.indexer.GamlResourceIndexer;
 import gama.runtime.IExecutionContext;

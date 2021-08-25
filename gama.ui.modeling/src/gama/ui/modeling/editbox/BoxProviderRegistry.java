@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * BoxProviderRegistry.java, in gama.ui.modeling, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * BoxProviderRegistry.java, in gama.ui.modeling, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.modeling.editbox;
 
@@ -18,7 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import ummisco.gama.ui.modeling.internal.ModelingActivator;
+import gama.ui.modeling.internal.ModelingActivator;
 
 /**
  * The Class BoxProviderRegistry.
@@ -28,7 +28,7 @@ public class BoxProviderRegistry {
 
 	/** The Constant PROVIDERS. */
 	private static final String PROVIDERS = "proivders";
-	
+
 	/** The Constant PROVIDER_ID_. */
 	private static final String PROVIDER_ID_ = "editbox.provider.";
 
@@ -92,7 +92,8 @@ public class BoxProviderRegistry {
 	/**
 	 * Sets the providers.
 	 *
-	 * @param newProviders the new providers
+	 * @param newProviders
+	 *            the new providers
 	 */
 	public void setProviders(final Collection<IBoxProvider> newProviders) {
 		providers = newProviders;
@@ -128,7 +129,8 @@ public class BoxProviderRegistry {
 	/**
 	 * Creates the provider.
 	 *
-	 * @param name the name
+	 * @param name
+	 *            the name
 	 * @return the box provider impl
 	 */
 	protected BoxProviderImpl createProvider(final String name) {
@@ -185,7 +187,8 @@ public class BoxProviderRegistry {
 	/**
 	 * Provider for name.
 	 *
-	 * @param name the name
+	 * @param name
+	 *            the name
 	 * @return the i box provider
 	 */
 	public IBoxProvider providerForName(final String name) {
@@ -201,7 +204,8 @@ public class BoxProviderRegistry {
 	/**
 	 * Removes the provider.
 	 *
-	 * @param name the name
+	 * @param name
+	 *            the name
 	 */
 	public void removeProvider(final String name) {
 		for (final Iterator<IBoxProvider> it = getBoxProviders().iterator(); it.hasNext();) {

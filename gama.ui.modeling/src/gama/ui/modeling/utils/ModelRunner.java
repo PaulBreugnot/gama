@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ModelRunner.java, in gama.ui.modeling, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ModelRunner.java, in gama.ui.modeling, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.modeling.utils;
 
@@ -44,12 +44,12 @@ import gama.runtime.GAMA;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gama.ui.base.interfaces.IModelRunner;
 import gama.ui.base.utils.WorkbenchHelper;
+import gama.ui.modeling.internal.ModelingActivator;
 import gama.ui.navigator.contents.WrappedGamaFile;
 import gaml.compilation.GamlCompilationError;
 import gaml.descriptions.ModelDescription;
 import gaml.statements.test.TestExperimentSummary;
 import gaml.statements.test.WithTestSummary;
-import ummisco.gama.ui.modeling.internal.ModelingActivator;
 
 /**
  * The class ModelRunner.
@@ -64,7 +64,8 @@ public class ModelRunner extends AbstractServiceFactory implements IModelRunner 
 	/**
 	 * Edits the model internal.
 	 *
-	 * @param eObject the e object
+	 * @param eObject
+	 *            the e object
 	 */
 	private void editModelInternal(final Object eObject) {
 		if (eObject instanceof URI) {
@@ -125,7 +126,8 @@ public class ModelRunner extends AbstractServiceFactory implements IModelRunner 
 	/**
 	 * Find model.
 	 *
-	 * @param object the object
+	 * @param object
+	 *            the object
 	 * @return the i model
 	 */
 	private IModel findModel(final Object object) {

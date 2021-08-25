@@ -23,9 +23,9 @@ import gaml.compilation.kernel.GamaSkillRegistry;
 import gaml.descriptions.BasicExpressionDescription;
 import gaml.descriptions.IDescription;
 import gaml.descriptions.IExpressionDescription;
-import msi.gama.lang.gaml.gaml.Array;
-import msi.gama.lang.gaml.gaml.Expression;
-import msi.gama.lang.gaml.gaml.VariableRef;
+import gama.core.lang.gaml.Array;
+import gama.core.lang.gaml.Expression;
+import gama.core.lang.gaml.VariableRef;
 
 /**
  * The class EcoreBasedExpressionDescription.

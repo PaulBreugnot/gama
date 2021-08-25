@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * Application.java, in gama.core.application, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * Application.java, in gama.core.application, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.core.application;
 
@@ -35,7 +35,7 @@ public class Application implements IApplication {
 
 	/** The Constant UI. */
 	private static final String UI = "ui";
-	
+
 	/** The Constant HEADLESS. */
 	private static final String HEADLESS = "headless";
 	{
@@ -48,7 +48,7 @@ public class Application implements IApplication {
 		try {
 			loadGamaCore();
 			IApplicationControl ui = loadHeadlessOrUIControl();
-			if ((ui == null) || !WorkspaceManager.checkWorkspace(ui)) return IApplication.EXIT_OK;
+			if (ui == null || !WorkspaceManager.checkWorkspace(ui)) return IApplication.EXIT_OK;
 			return ui.mainLoop();
 		} finally {
 			final Location instanceLoc = Platform.getInstanceLocation();
@@ -60,7 +60,8 @@ public class Application implements IApplication {
 	 * Loads one of the UI extensions defined in the framework depending on the argument passed to the application.
 	 *
 	 * @return the i application control
-	 * @throws CoreException the core exception
+	 * @throws CoreException
+	 *             the core exception
 	 */
 	private IApplicationControl loadHeadlessOrUIControl() throws CoreException {
 		String[] args = Platform.getApplicationArgs();

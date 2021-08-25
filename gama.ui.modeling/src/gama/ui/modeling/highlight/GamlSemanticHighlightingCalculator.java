@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * GamlSemanticHighlightingCalculator.java, in gama.ui.modeling, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * GamlSemanticHighlightingCalculator.java, in gama.ui.modeling, is part of the source code of the GAMA modeling and
+ * simulation platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.modeling.highlight;
 
@@ -44,19 +44,19 @@ import com.google.inject.Inject;
 
 import gama.common.util.StringUtils;
 import gama.core.lang.EGaml;
-import msi.gama.lang.gaml.gaml.ArgumentDefinition;
-import msi.gama.lang.gaml.gaml.ArgumentPair;
-import msi.gama.lang.gaml.gaml.Facet;
-import msi.gama.lang.gaml.gaml.GamlDefinition;
-import msi.gama.lang.gaml.gaml.GamlPackage;
-import msi.gama.lang.gaml.gaml.HeadlessExperiment;
-import msi.gama.lang.gaml.gaml.Parameter;
-import msi.gama.lang.gaml.gaml.Pragma;
-import msi.gama.lang.gaml.gaml.S_Assignment;
-import msi.gama.lang.gaml.gaml.S_Definition;
-import msi.gama.lang.gaml.gaml.S_Display;
-import msi.gama.lang.gaml.gaml.Statement;
-import msi.gama.lang.gaml.gaml.StringLiteral;
+import gama.core.lang.gaml.ArgumentDefinition;
+import gama.core.lang.gaml.ArgumentPair;
+import gama.core.lang.gaml.Facet;
+import gama.core.lang.gaml.GamlDefinition;
+import gama.core.lang.gaml.GamlPackage;
+import gama.core.lang.gaml.HeadlessExperiment;
+import gama.core.lang.gaml.Parameter;
+import gama.core.lang.gaml.Pragma;
+import gama.core.lang.gaml.S_Assignment;
+import gama.core.lang.gaml.S_Definition;
+import gama.core.lang.gaml.S_Display;
+import gama.core.lang.gaml.Statement;
+import gama.core.lang.gaml.StringLiteral;
 
 /**
  * The Class GamlSemanticHighlightingCalculator.
@@ -74,7 +74,7 @@ public class GamlSemanticHighlightingCalculator implements ISemanticHighlighting
 
 	/** The acceptor. */
 	private IHighlightedPositionAcceptor acceptor;
-	
+
 	/** The done. */
 	Set<INode> done = new HashSet<>();
 
@@ -94,8 +94,10 @@ public class GamlSemanticHighlightingCalculator implements ISemanticHighlighting
 	/**
 	 * Highlight tasks.
 	 *
-	 * @param resource the resource
-	 * @param acceptor the acceptor
+	 * @param resource
+	 *            the resource
+	 * @param acceptor
+	 *            the acceptor
 	 */
 	protected void highlightTasks(final XtextResource resource, final IHighlightedPositionAcceptor acceptor) {
 		final var tasks = taskFinder.findTasks(resource);
@@ -107,7 +109,8 @@ public class GamlSemanticHighlightingCalculator implements ISemanticHighlighting
 	/**
 	 * Process.
 	 *
-	 * @param object the object
+	 * @param object
+	 *            the object
 	 */
 	void process(final EObject object) {
 		if (object == null) return;
@@ -117,8 +120,10 @@ public class GamlSemanticHighlightingCalculator implements ISemanticHighlighting
 	/**
 	 * Process.
 	 *
-	 * @param object the object
-	 * @param clazz the clazz
+	 * @param object
+	 *            the object
+	 * @param clazz
+	 *            the clazz
 	 */
 	void process(final EObject object, final EClass clazz) {
 		final var id = clazz.getClassifierID();
@@ -191,7 +196,8 @@ public class GamlSemanticHighlightingCalculator implements ISemanticHighlighting
 	/**
 	 * Find name of.
 	 *
-	 * @param o the o
+	 * @param o
+	 *            the o
 	 * @return the string
 	 */
 	private String findNameOf(final EObject o) {
@@ -205,9 +211,12 @@ public class GamlSemanticHighlightingCalculator implements ISemanticHighlighting
 	/**
 	 * Sets the style.
 	 *
-	 * @param obj the obj
-	 * @param s the s
-	 * @param position the position
+	 * @param obj
+	 *            the obj
+	 * @param s
+	 *            the s
+	 * @param position
+	 *            the position
 	 * @return true, if successful
 	 */
 	private final boolean setStyle(final EObject obj, final String s, final int position) {
@@ -236,8 +245,10 @@ public class GamlSemanticHighlightingCalculator implements ISemanticHighlighting
 	/**
 	 * Sets the style.
 	 *
-	 * @param s the s
-	 * @param n the n
+	 * @param s
+	 *            the s
+	 * @param n
+	 *            the n
 	 * @return true, if successful
 	 */
 	private final boolean setStyle(final String s, final INode n) {
@@ -252,10 +263,14 @@ public class GamlSemanticHighlightingCalculator implements ISemanticHighlighting
 	/**
 	 * Sets the style.
 	 *
-	 * @param obj the obj
-	 * @param s the s
-	 * @param text the text
-	 * @param all the all
+	 * @param obj
+	 *            the obj
+	 * @param s
+	 *            the s
+	 * @param text
+	 *            the text
+	 * @param all
+	 *            the all
 	 * @return true, if successful
 	 */
 	private final boolean setStyle(final EObject obj, final String s, final String text, final boolean all) {
@@ -280,8 +295,10 @@ public class GamlSemanticHighlightingCalculator implements ISemanticHighlighting
 	/**
 	 * Equals facet or string.
 	 *
-	 * @param text the text
-	 * @param s the s
+	 * @param text
+	 *            the text
+	 * @param s
+	 *            the s
 	 * @return true, if successful
 	 */
 	boolean equalsFacetOrString(final String text, final String s) {

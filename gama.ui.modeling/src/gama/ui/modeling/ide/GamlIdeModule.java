@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * GamlIdeModule.java, in gama.ui.modeling, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * GamlIdeModule.java, in gama.ui.modeling, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.modeling.ide;
 
@@ -17,8 +17,8 @@ import org.eclipse.xtext.ide.editor.contentassist.antlr.IContentAssistParser;
 
 import com.google.inject.Binder;
 
-import msi.gama.lang.gaml.ide.AbstractGamlIdeModule;
-import msi.gama.lang.gaml.ide.contentassist.antlr.GamlParser;
+import gama.core.lang.ide.AbstractGamlIdeModule;
+import gama.core.lang.ide.contentassist.antlr.GamlParser;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -26,6 +26,10 @@ import msi.gama.lang.gaml.ide.contentassist.antlr.GamlParser;
 public class GamlIdeModule extends AbstractGamlIdeModule {
 
 	/**
+	 * Configure.
+	 *
+	 * @param binder
+	 *            the binder
 	 * @see org.eclipse.xtext.service.AbstractGenericModule#configure(com.google.inject.Binder)
 	 */
 	@Override

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * GamlUiModule.java, in gama.ui.modeling, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * GamlUiModule.java, in gama.ui.modeling, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.modeling;
 
@@ -56,19 +56,26 @@ import com.google.inject.Provider;
 import com.google.inject.name.Names;
 
 import gama.common.ui.IGamlLabelProvider;
+import gama.core.lang.ide.contentassist.antlr.GamlParser;
 import gama.core.lang.parsing.GamlSyntaxErrorMessageProvider;
 import gama.core.lang.resource.GamlEncodingProvider;
+import gama.core.lang.ui.AbstractGamlUiModule;
+import gama.core.lang.ui.contentassist.GamlTemplateProposalProvider;
+import gama.core.lang.ui.labeling.GamlLabelProvider;
+import gama.core.lang.ui.outline.GamlLinkWithEditorOutlineContribution;
+import gama.core.lang.ui.outline.GamlOutlinePage;
+import gama.core.lang.ui.outline.GamlSortOutlineContribution;
 import gama.ui.base.interfaces.IModelRunner;
-import gama.ui.modeling.contentassist.GamlTemplateProposalProvider;
+import gama.ui.modeling.InternalGamlLexer;
 import gama.ui.modeling.decorators.GamlImageHelper;
 import gama.ui.modeling.decorators.GamlMarkerUpdater;
 import gama.ui.modeling.editor.GamaAutoEditStrategyProvider;
 import gama.ui.modeling.editor.GamaSourceViewerFactory;
 import gama.ui.modeling.editor.GamlEditor;
+import gama.ui.modeling.editor.GamlEditor.GamaSourceViewerConfiguration;
 import gama.ui.modeling.editor.GamlEditorTickUpdater;
 import gama.ui.modeling.editor.GamlHyperlinkDetector;
 import gama.ui.modeling.editor.GamlMarkOccurrenceActionContributor;
-import gama.ui.modeling.editor.GamlEditor.GamaSourceViewerConfiguration;
 import gama.ui.modeling.editor.folding.GamaFoldingActionContributor;
 import gama.ui.modeling.editor.folding.GamaFoldingRegionProvider;
 import gama.ui.modeling.highlight.GamlHighlightingConfiguration;
@@ -78,28 +85,30 @@ import gama.ui.modeling.highlight.GamlTextAttributeProvider;
 import gama.ui.modeling.hover.GamlDocumentationProvider;
 import gama.ui.modeling.hover.GamlHoverProvider;
 import gama.ui.modeling.hover.GamlHoverProvider.GamlDispatchingEObjectTextHover;
-import gama.ui.modeling.labeling.GamlLabelProvider;
-import gama.ui.modeling.outline.GamlLinkWithEditorOutlineContribution;
-import gama.ui.modeling.outline.GamlOutlinePage;
-import gama.ui.modeling.outline.GamlSortOutlineContribution;
 import gama.ui.modeling.templates.GamlTemplateStore;
 import gama.ui.modeling.utils.ModelRunner;
-import msi.gama.lang.gaml.ide.contentassist.antlr.GamlParser;
 
 /**
  * Use this class to register components to be used within the IDE.
  */
-public class GamlUiModule extends gama.ui.modeling.AbstractGamlUiModule {
+public class GamlUiModule extends AbstractGamlUiModule {
 
 	/**
 	 * Instantiates a new gaml ui module.
 	 *
-	 * @param plugin the plugin
+	 * @param plugin
+	 *            the plugin
 	 */
 	public GamlUiModule(final AbstractUIPlugin plugin) {
 		super(plugin);
 	}
 
+	/**
+	 * Configure.
+	 *
+	 * @param binder
+	 *            the binder
+	 */
 	@SuppressWarnings ("unchecked")
 	@Override
 	public void configure(final Binder binder) {
@@ -120,6 +129,12 @@ public class GamlUiModule extends gama.ui.modeling.AbstractGamlUiModule {
 		// binder.bind(IHighlightingConfiguration.class).to(GamlHighlightingConfiguration.class).asEagerSingleton();
 	}
 
+	/**
+	 * Configure ui encoding provider.
+	 *
+	 * @param binder
+	 *            the binder
+	 */
 	@Override
 	public void configureUiEncodingProvider(final Binder binder) {
 		binder.bind(IEncodingProvider.class).annotatedWith(DispatchingProvider.Ui.class).to(GamlEncodingProvider.class);
@@ -128,11 +143,12 @@ public class GamlUiModule extends gama.ui.modeling.AbstractGamlUiModule {
 	/**
 	 * Bind parser based content assist context factory$ stateful factory.
 	 *
-	 * @return the class<? extends org.eclipse.xtext.ui.editor.contentassist.antlr. parser based content assist context factory. stateful factory>
+	 * @return the class<? extends org.eclipse.xtext.ui.editor.contentassist.antlr. parser based content assist context
+	 *         factory. stateful factory>
 	 */
 	public Class<? extends org.eclipse.xtext.ui.editor.contentassist.antlr.ParserBasedContentAssistContextFactory.StatefulFactory>
 			bindParserBasedContentAssistContextFactory$StatefulFactory() {
-		return gama.ui.modeling.contentassist.ContentAssistContextFactory.class;
+		return gama.core.lang.ui.contentassist.ContentAssistContextFactory.class;
 	}
 
 	/**
@@ -144,13 +160,23 @@ public class GamlUiModule extends gama.ui.modeling.AbstractGamlUiModule {
 		return GamaSourceViewerFactory.class;
 	}
 
+	/**
+	 * Bind I label provider.
+	 *
+	 * @return the class<? extends org.eclipse.jface.viewers. I label provider>
+	 */
 	@Override
 	@SingletonBinding (
 			eager = true)
 	public Class<? extends org.eclipse.jface.viewers.ILabelProvider> bindILabelProvider() {
-		return gama.ui.modeling.labeling.GamlLabelProvider.class;
+		return gama.core.lang.ui.labeling.GamlLabelProvider.class;
 	}
 
+	/**
+	 * Bind I template proposal provider.
+	 *
+	 * @return the class<? extends I template proposal provider>
+	 */
 	@Override
 	public Class<? extends ITemplateProposalProvider> bindITemplateProposalProvider() {
 		return GamlTemplateProposalProvider.class;
@@ -165,18 +191,34 @@ public class GamlUiModule extends gama.ui.modeling.AbstractGamlUiModule {
 		return GamaFoldingRegionProvider.class;
 	}
 
+	/**
+	 * Bind I text hover.
+	 *
+	 * @return the class<? extends org.eclipse.jface.text. I text hover>
+	 */
 	@Override
 	public Class<? extends org.eclipse.jface.text.ITextHover> bindITextHover() {
 		return GamlDispatchingEObjectTextHover.class;
 	}
 
 	// For performance issues on opening files : see
+	/**
+	 * Bind I resource set provider.
+	 *
+	 * @return the class<? extends I resource set provider>
+	 */
 	// http://alexruiz.developerblogs.com/?p=2359
 	@Override
 	public Class<? extends IResourceSetProvider> bindIResourceSetProvider() {
 		return SimpleResourceSetProvider.class;
 	}
 
+	/**
+	 * Configure xtext editor error tick updater.
+	 *
+	 * @param binder
+	 *            the binder
+	 */
 	@Override
 	public void configureXtextEditorErrorTickUpdater(final com.google.inject.Binder binder) {
 		binder.bind(IXtextEditorCallback.class).annotatedWith(Names.named("IXtextEditorCallBack")).to( //$NON-NLS-1$
@@ -214,6 +256,11 @@ public class GamlUiModule extends gama.ui.modeling.AbstractGamlUiModule {
 		return GamlTextAttributeProvider.class;
 	}
 
+	/**
+	 * Bind I xtext editor callback.
+	 *
+	 * @return the class<? extends org.eclipse.xtext.ui.editor. I xtext editor callback>
+	 */
 	@Override
 	public Class<? extends org.eclipse.xtext.ui.editor.IXtextEditorCallback> bindIXtextEditorCallback() {
 		// TODO Verify this as it is only needed, normally, for languages that
@@ -250,6 +297,11 @@ public class GamlUiModule extends gama.ui.modeling.AbstractGamlUiModule {
 		return GamlDocumentationProvider.class;
 	}
 
+	/**
+	 * Provide I all containers state.
+	 *
+	 * @return the provider
+	 */
 	@Override
 	public Provider<IAllContainersState> provideIAllContainersState() {
 		return org.eclipse.xtext.ui.shared.Access.getWorkspaceProjectsState();
@@ -273,11 +325,22 @@ public class GamlUiModule extends gama.ui.modeling.AbstractGamlUiModule {
 		return GamaSourceViewerConfiguration.class;
 	}
 
+	/**
+	 * Bind I hyperlink detector.
+	 *
+	 * @return the class<? extends I hyperlink detector>
+	 */
 	@Override
 	public Class<? extends IHyperlinkDetector> bindIHyperlinkDetector() {
 		return GamlHyperlinkDetector.class;
 	}
 
+	/**
+	 * Configure bracket matching action.
+	 *
+	 * @param binder
+	 *            the binder
+	 */
 	@Override
 	public void configureBracketMatchingAction(final Binder binder) {
 		// actually we want to override the first binding only...
@@ -291,6 +354,12 @@ public class GamlUiModule extends gama.ui.modeling.AbstractGamlUiModule {
 				org.eclipse.xtext.ui.editor.selection.AstSelectionActionContributor.class);
 	}
 
+	/**
+	 * Configure mark occurrences action.
+	 *
+	 * @param binder
+	 *            the binder
+	 */
 	@Override
 	public void configureMarkOccurrencesAction(final Binder binder) {
 		binder.bind(IActionContributor.class).annotatedWith(Names.named("markOccurrences"))
@@ -299,55 +368,108 @@ public class GamlUiModule extends gama.ui.modeling.AbstractGamlUiModule {
 				.to(GamlMarkOccurrenceActionContributor.class);
 	}
 
+	/**
+	 * Bind I resource for editor input factory.
+	 *
+	 * @return the class<? extends I resource for editor input factory>
+	 */
 	@Override
 	public Class<? extends IResourceForEditorInputFactory> bindIResourceForEditorInputFactory() {
 		return ResourceForIEditorInputFactory.class;
 	}
 
+	/**
+	 * Bind I content outline page.
+	 *
+	 * @return the class<? extends I content outline page>
+	 */
 	@Override
 	public Class<? extends IContentOutlinePage> bindIContentOutlinePage() {
 		return GamlOutlinePage.class;
 	}
 
+	/**
+	 * Bind I image helper.
+	 *
+	 * @return the class<? extends I image helper>
+	 */
 	@Override
 	public Class<? extends IImageHelper> bindIImageHelper() {
 		return GamlImageHelper.class;
 	}
 
+	/**
+	 * Bind I image descriptor helper.
+	 *
+	 * @return the class<? extends I image descriptor helper>
+	 */
 	@Override
 	public Class<? extends IImageDescriptorHelper> bindIImageDescriptorHelper() {
 		return GamlImageHelper.class;
 	}
 
+	/**
+	 * Configure I outline contribution$ composite.
+	 *
+	 * @param binder
+	 *            the binder
+	 */
 	@Override
 	public void configureIOutlineContribution$Composite(final Binder binder) {
 		binder.bind(IPreferenceStoreInitializer.class).annotatedWith(IOutlineContribution.All.class)
 				.to(IOutlineContribution.Composite.class);
 	}
 
+	/**
+	 * Bind abstract edit strategy provider.
+	 *
+	 * @return the class<? extends abstract edit strategy provider>
+	 */
 	@Override
 	public Class<? extends AbstractEditStrategyProvider> bindAbstractEditStrategyProvider() {
 		return GamaAutoEditStrategyProvider.class;
 	}
 
+	/**
+	 * Configure toggle sorting outline contribution.
+	 *
+	 * @param binder
+	 *            the binder
+	 */
 	@Override
 	public void configureToggleSortingOutlineContribution(final Binder binder) {
 		binder.bind(IOutlineContribution.class).annotatedWith(IOutlineContribution.Sort.class)
 				.to(GamlSortOutlineContribution.class);
 	}
 
+	/**
+	 * Configure toggle link with editor outline contribution.
+	 *
+	 * @param binder
+	 *            the binder
+	 */
 	@Override
 	public void configureToggleLinkWithEditorOutlineContribution(final Binder binder) {
 		binder.bind(IOutlineContribution.class).annotatedWith(IOutlineContribution.LinkWithEditor.class)
 				.to(GamlLinkWithEditorOutlineContribution.class);
 	}
 
+	/**
+	 * Bind template store.
+	 *
+	 * @return the class<? extends template store>
+	 */
 	@Override
 	@SingletonBinding
 	public Class<? extends TemplateStore> bindTemplateStore() {
 		return GamlTemplateStore.class;
 	}
 
+	/**
+	 * Bind I reconciler.
+	 *
+	 * @return the class<? extends I reconciler>
+	 */
 	@Override
 	public Class<? extends IReconciler> bindIReconciler() {
 		return GamlReconciler.class;
