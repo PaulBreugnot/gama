@@ -291,7 +291,7 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 				e.printStackTrace();
 			}
 		}
-		DEBUG.TIMER(DEBUG.PAD("> GAMA: GAML artefacts", 45, ' ') + DEBUG.PAD(" built in", 15, '_'), () -> {
+		GAMA.initializeAtStartup("GAML artefacts", () -> {
 			IUnits.initialize();
 			createDescriptions();
 		});

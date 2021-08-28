@@ -27,11 +27,11 @@
          </property>
          <property
                name="startupProgressRect"
-               value="71,515,500,12">
+               value="0,450,500,10">
          </property>
          <property
                name="startupMessageRect"
-               value="230,490,500,16">
+               value="0,475,500,16">
          </property>
          <property
                name="appName"

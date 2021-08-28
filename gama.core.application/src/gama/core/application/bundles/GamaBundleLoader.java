@@ -1,20 +1,19 @@
 /*******************************************************************************************************
  *
- * GamaBundleLoader.java, in gama.core.application, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * GamaBundleLoader.java, in gama.core.application, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.core.application.bundles;
 
 import static gama.core.dev.utils.DEBUG.ERR;
-import static gama.core.dev.utils.DEBUG.PAD;
-import static gama.core.dev.utils.DEBUG.TIMER_WITH_EXCEPTIONS;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -61,7 +60,8 @@ public class GamaBundleLoader {
 	/**
 	 * Error.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	public static void ERROR(final Exception e) {
 		ERRORED = true;
@@ -72,105 +72,106 @@ public class GamaBundleLoader {
 	/** The Constant LINE. */
 	public static final String LINE =
 			"\n\n****************************************************************************************************\n\n";
-	
+
 	/** The Constant ERROR_MESSAGE. */
 	public static final String ERROR_MESSAGE = LINE
 			+ "The initialization of GAML artefacts went wrong. If you use the developer version, please clean and recompile all plugins. \nOtherwise post an issue at https://github.com/gama-platform/gama/issues"
 			+ LINE;
-	
+
 	/** The loaded. */
 	public volatile static boolean LOADED = false;
-	
+
 	/** The errored. */
 	public volatile static boolean ERRORED = false;
-	
+
 	/** The last exception. */
 	public volatile static Exception LAST_EXCEPTION = null;
-	
+
 	/** The core plugin. */
 	public static Bundle CORE_PLUGIN = Platform.getBundle("gama.core.kernel");
-	
+
 	/** The core models. */
 	public static Bundle CORE_MODELS = Platform.getBundle(WorkspaceManager.MODELS_PATH);
-	
+
 	/** The core tests. */
 	public static String CORE_TESTS = "tests";
-	
+
 	/** The additions. */
 	public static String ADDITIONS = "gaml.additions.GamlAdditions";
-	
+
 	/** The Constant ADDITIONS_PACKAGE_BASE. */
 	public static final String ADDITIONS_PACKAGE_BASE = "gaml.additions";
-	
+
 	/** The Constant ADDITIONS_CLASS_NAME. */
 	public static final String ADDITIONS_CLASS_NAME = "GamlAdditions";
-	
+
 	/** The grammar extension deprecated. */
 	public static String GRAMMAR_EXTENSION_DEPRECATED = "gaml.grammar.addition";
-	
+
 	/** The grammar extension. */
 	public static String GRAMMAR_EXTENSION = "gaml.extension";
-	
+
 	/** The create extension. */
 	public static String CREATE_EXTENSION = "gama.create";
-	
+
 	/** The ui provider extension. */
 	public static String UI_PROVIDER_EXTENSION = "gama.ui.provider";
-	
+
 	/** The event layer extension. */
 	public static String EVENT_LAYER_EXTENSION = "gama.event_layer";
-	
+
 	/** The models extension. */
 	public static String MODELS_EXTENSION = "gama.models";
-	
+
 	/** The regular models layout. */
 	public static String REGULAR_MODELS_LAYOUT = "models";
-	
+
 	/** The regular tests layout. */
 	public static String REGULAR_TESTS_LAYOUT = "tests";
-	
+
 	/** The generated tests layout. */
 	public static String GENERATED_TESTS_LAYOUT = "gaml/tests";
-	
+
 	/** The content extension. */
 	public static String CONTENT_EXTENSION = "org.eclipse.core.contenttype.contentTypes";
-	
+
 	/** The gama plugins. */
 	private static Set<Bundle> GAMA_PLUGINS = new HashSet<>();
-	
+
 	/** The model plugins. */
 	private static Multimap<Bundle, String> MODEL_PLUGINS = ArrayListMultimap.create();
-	
+
 	/** The test plugins. */
 	private static Multimap<Bundle, String> TEST_PLUGINS = ArrayListMultimap.create();
-	
+
 	/** The ui providers. */
-	private static Map<String, IConfigurationElement> UI_PROVIDERS = new HashMap<>();
-	
+	private static Map<String, IConfigurationElement> UI_PROVIDERS = null;
+
 	/** The handled file extensions. */
 	public static Set<String> HANDLED_FILE_EXTENSIONS = new HashSet<>();
 
 	/** The Constant SYS_ARCH. */
 	public static final String SYS_ARCH = Platform.getOSArch(); // System.getProperty("os.arch");
-	
+
 	/** The Constant SYS_NAME. */
 	public static final String SYS_NAME = Platform.getOS();// System.getProperty("os.name");
-	
+
 	/** The Constant SYS_VERS. */
 	public static final String SYS_VERS = System.getProperty("os.version");
-	
+
 	/** The Constant SYS_JAVA. */
 	public static final String SYS_JAVA = System.getProperty("java.version");
 
 	/**
 	 * Pre build contributions.
 	 *
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	public static void preBuildContributions() throws Exception {
 		DEBUG.LOG(DEBUG.PAD("> GAMA: version " + GAMA.VERSION_NUMBER, 45, ' ') + DEBUG.PAD(" loading on", 15, '_') + " "
 				+ SYS_NAME + " " + SYS_VERS + ", " + SYS_ARCH + ", JDK " + SYS_JAVA);
-		DEBUG.TIMER(DEBUG.PAD("> GAMA: all plugins", 45, ' ') + DEBUG.PAD(" loaded in", 15, '_'), () -> {
+		GAMA.initializeAtStartup("all plugins", () -> {
 			final IExtensionRegistry registry = Platform.getExtensionRegistry();
 			// We retrieve the elements declared as extensions to the GAML language,
 			// either with the new or the deprecated extension
@@ -265,23 +266,6 @@ public class GamaBundleLoader {
 				}
 			}
 
-			// We gather all the extensions to IApplicationControlProvider and add them to a local registry
-			IExtensionPoint p = registry.getExtensionPoint(UI_PROVIDER_EXTENSION);
-			DEBUG.OUT("plugins with UI providers: " + DEBUG.TO_STRING(p.getExtensions()));
-			for (final IConfigurationElement e : registry.getConfigurationElementsFor(UI_PROVIDER_EXTENSION)) {
-				try {
-					String name = e.getAttribute("keyword");
-					UI_PROVIDERS.put(name, e);
-				} catch (final Exception e1) {
-
-					ERR(ERROR_MESSAGE);
-					ERR("Error in loading IApplicationControlProvider implementations : " + e1.getMessage());
-					// System.exit(0);
-					return;
-
-				}
-			}
-
 			// We gather all the GAMA_PLUGINS that explicitly declare models using
 			// the non-default scheme (plugin > models ...).
 			for (final IConfigurationElement e : registry.getConfigurationElementsFor(MODELS_EXTENSION)) {
@@ -313,44 +297,45 @@ public class GamaBundleLoader {
 	/**
 	 * Pre build.
 	 *
-	 * @param bundle the bundle
-	 * @throws Exception the exception
+	 * @param bundle
+	 *            the bundle
+	 * @throws Exception
+	 *             the exception
 	 */
 	@SuppressWarnings ("unchecked")
 	public static void preBuild(final Bundle bundle) throws Exception {
-		TIMER_WITH_EXCEPTIONS(PAD("> GAMA: " + bundle.getSymbolicName(), 45, ' ') + DEBUG.PAD(" loaded in", 15, '_'),
-				() -> {
-					String shortcut = bundle.getSymbolicName();
-					shortcut = shortcut.substring(shortcut.lastIndexOf('.') + 1);
-					GamaClassLoader.getInstance().addBundle(bundle);
-					Class<IGamlAdditions> gamlAdditions = null;
-					try {
-						gamlAdditions = (Class<IGamlAdditions>) bundle
-								.loadClass(ADDITIONS_PACKAGE_BASE + "." + shortcut + "." + ADDITIONS_CLASS_NAME);
+		GAMA.initializeAtStartup(bundle.getSymbolicName(), () -> {
+			String shortcut = bundle.getSymbolicName();
+			shortcut = shortcut.substring(shortcut.lastIndexOf('.') + 1);
+			GamaClassLoader.getInstance().addBundle(bundle);
+			Class<IGamlAdditions> gamlAdditions = null;
+			try {
+				gamlAdditions = (Class<IGamlAdditions>) bundle
+						.loadClass(ADDITIONS_PACKAGE_BASE + "." + shortcut + "." + ADDITIONS_CLASS_NAME);
 
-					} catch (final ClassNotFoundException e1) {
-						ERR(">> Impossible to load additions from " + bundle.toString() + " because of " + e1);
-						throw e1;
-					}
+			} catch (final ClassNotFoundException e1) {
+				ERR(">> Impossible to load additions from " + bundle.toString() + " because of " + e1);
+				throw e1;
+			}
 
-					IGamlAdditions add = null;
-					try {
-						add = gamlAdditions.getConstructor().newInstance();
-					} catch (final InstantiationException e) {
-						ERR(">> Impossible to instantiate additions from " + bundle);
-						throw e;
-					} catch (final IllegalAccessException e) {
-						ERR(">> Impossible to access additions from " + bundle);
-						throw e;
-					}
-					try {
-						add.initialize();
-					} catch (final SecurityException | NoSuchMethodException e) {
-						ERR(">> Impossible to instantiate additions from " + bundle);
-						throw e;
-					}
+			IGamlAdditions add = null;
+			try {
+				add = gamlAdditions.getConstructor().newInstance();
+			} catch (final InstantiationException e) {
+				ERR(">> Impossible to instantiate additions from " + bundle);
+				throw e;
+			} catch (final IllegalAccessException e) {
+				ERR(">> Impossible to access additions from " + bundle);
+				throw e;
+			}
+			try {
+				add.initialize();
+			} catch (final SecurityException | NoSuchMethodException e) {
+				ERR(">> Impossible to instantiate additions from " + bundle);
+				throw e;
+			}
 
-				});
+		});
 	}
 
 	/**
@@ -377,6 +362,26 @@ public class GamaBundleLoader {
 	 * @return the application control implementations
 	 */
 	public static Map<String, IConfigurationElement> getApplicationControlImplementations() {
+		// We gather all the extensions to IApplicationControlProvider and add them to a local registry
+		if (UI_PROVIDERS != null) return UI_PROVIDERS;
+		UI_PROVIDERS = new HashMap<>();
+		final IExtensionRegistry registry = Platform.getExtensionRegistry();
+
+		IExtensionPoint p = registry.getExtensionPoint(UI_PROVIDER_EXTENSION);
+		DEBUG.OUT("plugins with UI providers: " + DEBUG.TO_STRING(p.getExtensions()));
+		for (final IConfigurationElement e : registry.getConfigurationElementsFor(UI_PROVIDER_EXTENSION)) {
+			try {
+				String name = e.getAttribute("keyword");
+				UI_PROVIDERS.put(name, e);
+			} catch (final Exception e1) {
+
+				ERR(ERROR_MESSAGE);
+				ERR("Error in loading IApplicationControlProvider implementations : " + e1.getMessage());
+				// System.exit(0);
+				return Collections.EMPTY_MAP;
+
+			}
+		}
 		return UI_PROVIDERS;
 	}
 

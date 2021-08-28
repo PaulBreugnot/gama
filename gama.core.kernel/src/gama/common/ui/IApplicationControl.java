@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * IApplicationControl.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * IApplicationControl.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.common.ui;
 
@@ -29,8 +29,10 @@ public interface IApplicationControl {
 	 * Asks the UI/control to close. Optionnaly, if message is not null, it can be displayed if error is true or a
 	 * confirmation can be asked if it is false.
 	 *
-	 * @param error the error
-	 * @param message the message
+	 * @param error
+	 *            the error
+	 * @param message
+	 *            the message
 	 */
 	void close(boolean error, String message);
 
@@ -42,4 +44,13 @@ public interface IApplicationControl {
 	 */
 
 	IGui getGui();
+
+	/**
+	 * Provide a startup progress listener to plug into GAMA. Default does nothing
+	 *
+	 * @return the startup progress listener or null
+	 */
+	default IStartupProgress provideStartupProgress() {
+		return new IStartupProgress.Null();
+	}
 }

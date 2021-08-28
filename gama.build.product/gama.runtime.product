@@ -52,8 +52,8 @@
 
    <splash
       location="gama.core.application"
-      startupProgressRect="71,515,500,12"
-      startupMessageRect="230,490,500,16"
+      startupProgressRect="0,450,500,10"
+      startupMessageRect="0,475,500,16"
       startupForegroundColor="165E93" />
    <launcher name="Gama">
       <linux icon="launcher_icons/icon.xpm"/>
@@ -70,7 +70,6 @@
             winExtraLargeHigh="./icons/launcher_icons/icon256_32b.bmp"/>
       </win>
    </launcher>
-
 
    <vm>
       <macos include="false">org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-15</macos>
@@ -100,8 +99,8 @@
       <plugin id="org.eclipse.equinox.p2.reconciler.dropins" autoStart="true" startLevel="5" />
       <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
       <property name="version" value="2.0.0" />
-      <property name="org.eclipse.update.reconcile" value="false" />
       <property name="eclipse.buildId" value="${build.id}" />
+      <property name="org.eclipse.update.reconcile" value="false" />
    </configurations>
 
    <repositories>

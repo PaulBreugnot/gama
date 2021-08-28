@@ -12,7 +12,7 @@ global
 {
 
 //map used to filter the object to build from the OSM file according to attributes. for an exhaustive list, see: http://wiki.openstreetmap.org/wiki/Map_Features
-	map filtering <- map(["highway"::["primary", "secondary", "tertiary", "motorway", "living_street", "residential", "unclassified"], "building"::["yes"]]);
+	map filtering <- (["highway"::["primary", "secondary", "tertiary", "motorway", "living_street", "residential", "unclassified"], "building"::["yes"]]);
 	//OSM file to load
 	file<geometry> osmfile;
 
@@ -33,7 +33,7 @@ global
 			{
 				if (highway_str != nil)
 				{
-					create road with: [shape::shape, type:: highway_str];
+					create road with: [shape::shape, type:: highway_str]; 
 				} else if (building_str != nil)
 				{
 					create building with: [shape::shape];

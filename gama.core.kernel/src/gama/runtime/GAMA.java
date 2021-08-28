@@ -1,14 +1,17 @@
 /*******************************************************************************************************
  *
- * GAMA.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * GAMA.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.runtime;
+
+import static gama.core.dev.utils.DEBUG.PAD;
+import static gama.core.dev.utils.DEBUG.TIMER_WITH_EXCEPTIONS;
+import static java.lang.Thread.currentThread;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +21,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import gama.common.interfaces.IBenchmarkable;
 import gama.common.preferences.GamaPreferences;
 import gama.common.ui.IGui;
+import gama.common.ui.IStartupProgress;
 import gama.common.util.PoolUtils;
 import gama.common.util.RandomUtils;
 import gama.core.dev.utils.DEBUG;
+import gama.core.dev.utils.DEBUG.RunnableWithException;
 import gama.kernel.experiment.ExperimentAgent;
 import gama.kernel.experiment.ExperimentPlan;
 import gama.kernel.experiment.IExperimentController;
@@ -47,33 +52,33 @@ import gaml.compilation.kernel.GamaMetaModel;
 public class GAMA {
 
 	static {
-		DEBUG.OFF();
+		DEBUG.ON();
 	}
-	
+
 	/** The Constant VERSION_NUMBER. */
 	public final static String VERSION_NUMBER = "1.8.2";
-	
+
 	/** The Constant VERSION. */
 	public final static String VERSION = "GAMA " + VERSION_NUMBER;
-	
+
 	/** The Constant _WARNINGS. */
 	public static final String _WARNINGS = "warnings";
-	
+
 	/** The agent. */
 	private static volatile PlatformAgent agent;
-	
+
 	/** The benchmark agent. */
 	private static Benchmark benchmarkAgent;
-	
+
 	/** The is in headless mode. */
 	private static boolean isInHeadlessMode;
-	
+
 	/** The regular gui. */
 	private static IGui regularGui;
-	
+
 	/** The headless gui. */
 	private static IGui headlessGui = new HeadlessListener();
-	
+
 	/** The Constant controllers. */
 	// hqnghi: add several controllers to have multi-thread experiments
 	private final static List<IExperimentController> controllers = new CopyOnWriteArrayList<>();
@@ -99,8 +104,10 @@ public class GAMA {
 	/**
 	 * New control architecture.
 	 *
-	 * @param id the id
-	 * @param model the model
+	 * @param id
+	 *            the id
+	 * @param model
+	 *            the model
 	 */
 
 	/**
@@ -149,7 +156,8 @@ public class GAMA {
 	/**
 	 * Open experiment from gaml file.
 	 *
-	 * @param experiment the experiment
+	 * @param experiment
+	 *            the experiment
 	 */
 	public static void openExperimentFromGamlFile(final IExperimentPlan experiment) {
 		experiment.getController().directOpenExperiment();
@@ -158,10 +166,14 @@ public class GAMA {
 	/**
 	 * Add an experiment.
 	 *
-	 * @param model the model
-	 * @param expName the exp name
-	 * @param params the params
-	 * @param seed the seed
+	 * @param model
+	 *            the model
+	 * @param expName
+	 *            the exp name
+	 * @param params
+	 *            the params
+	 * @param seed
+	 *            the seed
 	 * @return the i experiment plan
 	 */
 	public static synchronized IExperimentPlan addHeadlessExperiment(final IModel model, final String expName,
@@ -200,7 +212,8 @@ public class GAMA {
 	/**
 	 * Close experiment.
 	 *
-	 * @param experiment the experiment
+	 * @param experiment
+	 *            the experiment
 	 */
 	public static void closeExperiment(final IExperimentPlan experiment) {
 		if (experiment == null) return;
@@ -210,8 +223,10 @@ public class GAMA {
 	/**
 	 * Close all experiments.
 	 *
-	 * @param andOpenModelingPerspective the and open modeling perspective
-	 * @param immediately the immediately
+	 * @param andOpenModelingPerspective
+	 *            the and open modeling perspective
+	 * @param immediately
+	 *            the immediately
 	 */
 	public static void closeAllExperiments(final boolean andOpenModelingPerspective, final boolean immediately) {
 		for (final IExperimentController controller : new ArrayList<>(controllers)) {
@@ -225,7 +240,8 @@ public class GAMA {
 	/**
 	 * Close controller.
 	 *
-	 * @param controller the controller
+	 * @param controller
+	 *            the controller
 	 */
 	private static void closeController(final IExperimentController controller) {
 		if (controller == null) return;
@@ -272,9 +288,12 @@ public class GAMA {
 	/**
 	 * Exception and life-cycle related utilities.
 	 *
-	 * @param scope the scope
-	 * @param g the g
-	 * @param shouldStopSimulation the should stop simulation
+	 * @param scope
+	 *            the scope
+	 * @param g
+	 *            the g
+	 * @param shouldStopSimulation
+	 *            the should stop simulation
 	 * @return true, if successful
 	 */
 
@@ -303,9 +322,12 @@ public class GAMA {
 	/**
 	 * Report and throw if needed.
 	 *
-	 * @param scope the scope
-	 * @param g the g
-	 * @param shouldStopSimulation the should stop simulation
+	 * @param scope
+	 *            the scope
+	 * @param g
+	 *            the g
+	 * @param shouldStopSimulation
+	 *            the should stop simulation
 	 */
 	public static void reportAndThrowIfNeeded(final IScope scope, final GamaRuntimeException g,
 			final boolean shouldStopSimulation) {
@@ -414,7 +436,8 @@ public class GAMA {
 	/**
 	 * Scoping utilities.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 */
 
 	public static void releaseScope(final IScope scope) {
@@ -424,7 +447,8 @@ public class GAMA {
 	/**
 	 * Copy runtime scope.
 	 *
-	 * @param additionalName the additional name
+	 * @param additionalName
+	 *            the additional name
 	 * @return the i scope
 	 */
 	private static IScope copyRuntimeScope(final String additionalName) {
@@ -464,7 +488,8 @@ public class GAMA {
 	/**
 	 * The Interface InScope.
 	 *
-	 * @param <T> the generic type
+	 * @param <T>
+	 *            the generic type
 	 */
 	public interface InScope<T> {
 
@@ -482,7 +507,8 @@ public class GAMA {
 			/**
 			 * Process.
 			 *
-			 * @param scope the scope
+			 * @param scope
+			 *            the scope
 			 */
 			public abstract void process(IScope scope);
 		}
@@ -490,7 +516,8 @@ public class GAMA {
 		/**
 		 * Run.
 		 *
-		 * @param scope the scope
+		 * @param scope
+		 *            the scope
 		 * @return the t
 		 */
 		T run(IScope scope);
@@ -499,8 +526,10 @@ public class GAMA {
 	/**
 	 * Run.
 	 *
-	 * @param <T> the generic type
-	 * @param r the r
+	 * @param <T>
+	 *            the generic type
+	 * @param r
+	 *            the r
 	 * @return the t
 	 */
 	public static <T> T run(final InScope<T> r) {
@@ -512,7 +541,8 @@ public class GAMA {
 	/**
 	 * Allows to update all outputs after running an experiment.
 	 *
-	 * @param r the r
+	 * @param r
+	 *            the r
 	 */
 	public static final void runAndUpdateAll(final Runnable r) {
 		r.run();
@@ -553,7 +583,8 @@ public class GAMA {
 	/**
 	 * Sets the headless gui.
 	 *
-	 * @param g the new headless gui
+	 * @param g
+	 *            the new headless gui
 	 */
 	public static void setHeadlessGui(final IGui g) {
 		headlessGui = g;
@@ -562,7 +593,8 @@ public class GAMA {
 	/**
 	 * Sets the regular gui.
 	 *
-	 * @param g the new regular gui
+	 * @param g
+	 *            the new regular gui
 	 */
 	public static void setRegularGui(final IGui g) {
 		regularGui = g;
@@ -611,8 +643,10 @@ public class GAMA {
 	/**
 	 * Benchmarking utilities.
 	 *
-	 * @param scope the scope
-	 * @param symbol the symbol
+	 * @param scope
+	 *            the scope
+	 * @param symbol
+	 *            the symbol
 	 * @return the stop watch
 	 */
 	public static StopWatch benchmark(final IScope scope, final Object symbol) {
@@ -625,7 +659,8 @@ public class GAMA {
 	/**
 	 * Start benchmark.
 	 *
-	 * @param experiment the experiment
+	 * @param experiment
+	 *            the experiment
 	 */
 	public static void startBenchmark(final IExperimentPlan experiment) {
 		if (experiment.shouldBeBenchmarked()) { benchmarkAgent = new Benchmark(experiment); }
@@ -634,11 +669,48 @@ public class GAMA {
 	/**
 	 * Stop benchmark.
 	 *
-	 * @param experiment the experiment
+	 * @param experiment
+	 *            the experiment
 	 */
 	public static void stopBenchmark(final IExperimentPlan experiment) {
 		if (benchmarkAgent != null) { benchmarkAgent.saveAndDispose(experiment); }
 		benchmarkAgent = null;
+	}
+
+	// Startup
+
+	/** The monitor. */
+	private static IStartupProgress monitor;
+
+	/**
+	 * Sets the startup monitor.
+	 *
+	 * @param splash
+	 *            the new startup monitor
+	 */
+	public static void setStartupProgressListener(final IStartupProgress splash) {
+		monitor = splash;
+	}
+
+	/**
+	 * Initialize at startup.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param title
+	 *            the title
+	 * @param runnable
+	 *            the runnable
+	 * @throws T
+	 *             the t
+	 */
+	public static <T extends Throwable> void initializeAtStartup(final String title,
+			final RunnableWithException<T> runnable) throws T {
+		TIMER_WITH_EXCEPTIONS(
+				PAD("> GAMA: " + title, 45, ' ') + PAD("[" + currentThread().getName() + "]", 20, '_') + " in ",
+				runnable);
+		if (monitor != null) { monitor.add(title); }
+
 	}
 
 }

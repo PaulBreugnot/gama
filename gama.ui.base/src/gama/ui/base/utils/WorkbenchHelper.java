@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * WorkbenchHelper.java, in gama.ui.base, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * WorkbenchHelper.java, in gama.ui.base, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.base.utils;
 
@@ -42,9 +42,9 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.commands.ICommandService;
 import org.eclipse.ui.handlers.IHandlerService;
+import org.eclipse.ui.internal.Workbench;
 import org.eclipse.ui.internal.WorkbenchWindow;
 import org.eclipse.ui.progress.UIJob;
 
@@ -81,22 +81,22 @@ public class WorkbenchHelper {
 
 	/** The Constant GAMA_NATURE. */
 	public final static String GAMA_NATURE = WorkspaceModelsManager.GAMA_NATURE; // NO_UCD (unused code)
-	
+
 	/** The Constant XTEXT_NATURE. */
 	public final static String XTEXT_NATURE = WorkspaceModelsManager.XTEXT_NATURE; // NO_UCD (unused code)
-	
+
 	/** The Constant PLUGIN_NATURE. */
 	public final static String PLUGIN_NATURE = WorkspaceModelsManager.PLUGIN_NATURE;
-	
+
 	/** The Constant TEST_NATURE. */
 	public final static String TEST_NATURE = WorkspaceModelsManager.TEST_NATURE;
-	
+
 	/** The Constant BUILTIN_NATURE. */
 	public final static String BUILTIN_NATURE = WorkspaceModelsManager.BUILTIN_NATURE;
 
 	/** The clipboard. */
 	private static Clipboard CLIPBOARD;
-	
+
 	/** The Constant TRANSFERS. */
 	private final static Transfer[] TRANSFERS = { TextTransfer.getInstance() };
 
@@ -125,7 +125,8 @@ public class WorkbenchHelper {
 	/**
 	 * Async run.
 	 *
-	 * @param r the r
+	 * @param r
+	 *            the r
 	 */
 	public static void asyncRun(final Runnable r) {
 		final Display d = getDisplay();
@@ -139,7 +140,8 @@ public class WorkbenchHelper {
 	/**
 	 * Run.
 	 *
-	 * @param r the r
+	 * @param r
+	 *            the r
 	 */
 	public static void run(final Runnable r) {
 		final Display d = getDisplay();
@@ -156,7 +158,9 @@ public class WorkbenchHelper {
 	 * @return the display
 	 */
 	public static Display getDisplay() {
-		return getWorkbench().getDisplay();
+		IWorkbench w = getWorkbench();
+		if (w == null) return Display.getDefault();
+		return w.getDisplay();
 	}
 
 	/**
@@ -176,7 +180,6 @@ public class WorkbenchHelper {
 	 * @return the shell
 	 */
 	public static Shell getShell() {
-
 		return getDisplay().getActiveShell();
 	}
 
@@ -230,13 +233,14 @@ public class WorkbenchHelper {
 	 * @return the workbench
 	 */
 	public static IWorkbench getWorkbench() {
-		return PlatformUI.getWorkbench();
+		return Workbench.getInstance();
 	}
 
 	/**
 	 * Find display.
 	 *
-	 * @param id the id
+	 * @param id
+	 *            the id
 	 * @return the i gama view. display
 	 */
 	public static IGamaView.Display findDisplay(final String id) {
@@ -252,7 +256,8 @@ public class WorkbenchHelper {
 	/**
 	 * Checks if is display.
 	 *
-	 * @param id the id
+	 * @param id
+	 *            the id
 	 * @return true, if is display
 	 */
 	public static boolean isDisplay(final String id) {
@@ -269,9 +274,12 @@ public class WorkbenchHelper {
 	/**
 	 * Find view.
 	 *
-	 * @param id the id
-	 * @param second the second
-	 * @param restore the restore
+	 * @param id
+	 *            the id
+	 * @param second
+	 *            the second
+	 * @param restore
+	 *            the restore
 	 * @return the i view part
 	 */
 	public static IViewPart findView(final String id, final String second, final boolean restore) {
@@ -297,7 +305,8 @@ public class WorkbenchHelper {
 	/**
 	 * Sets the workbench window title.
 	 *
-	 * @param title the new workbench window title
+	 * @param title
+	 *            the new workbench window title
 	 */
 	public static void setWorkbenchWindowTitle(final String title) {
 		asyncRun(() -> {
@@ -309,7 +318,8 @@ public class WorkbenchHelper {
 	/**
 	 * Hide view.
 	 *
-	 * @param id the id
+	 * @param id
+	 *            the id
 	 */
 	public static void hideView(final String id) {
 
@@ -325,7 +335,8 @@ public class WorkbenchHelper {
 	/**
 	 * Hide view.
 	 *
-	 * @param gamaViewPart the gama view part
+	 * @param gamaViewPart
+	 *            the gama view part
 	 */
 	public static void hideView(final IViewPart gamaViewPart) {
 		final IWorkbenchPage activePage = getPage();
@@ -337,8 +348,10 @@ public class WorkbenchHelper {
 	/**
 	 * Gets the service.
 	 *
-	 * @param <T> the generic type
-	 * @param class1 the class 1
+	 * @param <T>
+	 *            the generic type
+	 * @param class1
+	 *            the class 1
 	 * @return the service
 	 */
 	@SuppressWarnings ("unchecked")
@@ -354,7 +367,8 @@ public class WorkbenchHelper {
 	/**
 	 * Copy.
 	 *
-	 * @param o the o
+	 * @param o
+	 *            the o
 	 */
 	public static void copy(final String o) {
 		final Runnable r = () -> getClipboard().setContents(new String[] { o }, TRANSFERS);
@@ -390,7 +404,8 @@ public class WorkbenchHelper {
 	/**
 	 * Obtain full screen shell.
 	 *
-	 * @param id the id
+	 * @param id
+	 *            the id
 	 * @return the shell
 	 */
 	public static Shell obtainFullScreenShell(final int id) {
@@ -418,7 +433,8 @@ public class WorkbenchHelper {
 	/**
 	 * Display size of.
 	 *
-	 * @param composite the composite
+	 * @param composite
+	 *            the composite
 	 * @return the rectangle
 	 */
 	public static Rectangle displaySizeOf(final Control composite) {
@@ -430,9 +446,11 @@ public class WorkbenchHelper {
 	/**
 	 * Run command.
 	 *
-	 * @param string the string
+	 * @param string
+	 *            the string
 	 * @return true, if successful
-	 * @throws ExecutionException the execution exception
+	 * @throws ExecutionException
+	 *             the execution exception
 	 */
 	public static boolean runCommand(final String string) throws ExecutionException {
 		return runCommand(string, null);
@@ -441,7 +459,8 @@ public class WorkbenchHelper {
 	/**
 	 * Execute command.
 	 *
-	 * @param string the string
+	 * @param string
+	 *            the string
 	 * @return true, if successful
 	 */
 	public static boolean executeCommand(final String string) {
@@ -456,10 +475,13 @@ public class WorkbenchHelper {
 	/**
 	 * Run command.
 	 *
-	 * @param string the string
-	 * @param event the event
+	 * @param string
+	 *            the string
+	 * @param event
+	 *            the event
 	 * @return true, if successful
-	 * @throws ExecutionException the execution exception
+	 * @throws ExecutionException
+	 *             the execution exception
 	 */
 	public static boolean runCommand(final String string, final Event event) throws ExecutionException {
 		final Command c = getCommand(string);
@@ -471,10 +493,13 @@ public class WorkbenchHelper {
 	/**
 	 * Run command.
 	 *
-	 * @param c the c
-	 * @param event the event
+	 * @param c
+	 *            the c
+	 * @param event
+	 *            the event
 	 * @return true, if successful
-	 * @throws ExecutionException the execution exception
+	 * @throws ExecutionException
+	 *             the execution exception
 	 */
 	public static boolean runCommand(final Command c, final ExecutionEvent event) throws ExecutionException {
 		if (c.isEnabled()) {
@@ -491,7 +516,8 @@ public class WorkbenchHelper {
 	/**
 	 * Gets the command.
 	 *
-	 * @param string the string
+	 * @param string
+	 *            the string
 	 * @return the command
 	 */
 	public static Command getCommand(final String string) {
@@ -502,9 +528,12 @@ public class WorkbenchHelper {
 	/**
 	 * Run in UI.
 	 *
-	 * @param title the title
-	 * @param scheduleTime the schedule time
-	 * @param run the run
+	 * @param title
+	 *            the title
+	 * @param scheduleTime
+	 *            the schedule time
+	 * @param run
+	 *            the run
 	 */
 	public static void runInUI(final String title, final int scheduleTime, final Consumer<IProgressMonitor> run) {
 		final UIJob job = new UIJob(title) {

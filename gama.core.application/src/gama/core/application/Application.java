@@ -21,6 +21,7 @@ import org.eclipse.osgi.service.datalocation.Location;
 
 import gama.common.ui.IApplicationControl;
 import gama.common.ui.IApplicationControlProvider;
+import gama.common.ui.IStartupProgress;
 import gama.core.application.bundles.GamaBundleLoader;
 import gama.core.application.workspace.WorkspaceManager;
 import gama.core.dev.utils.DEBUG;
@@ -46,9 +47,12 @@ public class Application implements IApplication {
 	public Object start(final IApplicationContext context) throws Exception {
 
 		try {
-			loadGamaCore();
 			IApplicationControl ui = loadHeadlessOrUIControl();
-			if (ui == null || !WorkspaceManager.checkWorkspace(ui)) return IApplication.EXIT_OK;
+			if (ui == null) return IApplication.EXIT_OK;
+			try (IStartupProgress progress = ui.provideStartupProgress()) {
+				if (!WorkspaceManager.checkWorkspace(ui)) return IApplication.EXIT_OK;
+				loadGamaCore();
+			}
 			return ui.mainLoop();
 		} finally {
 			final Location instanceLoc = Platform.getInstanceLocation();

@@ -22,6 +22,7 @@ import org.eclipse.ui.texteditor.AbstractTextEditor;
 
 import gama.common.preferences.GamaPreferences;
 import gama.core.lang.GamlRuntimeModule;
+import gama.runtime.GAMA;
 import gama.ui.base.utils.GamlReferenceSearch;
 import gama.ui.modeling.editor.GamlEditorBindings;
 import gama.ui.modeling.reference.OperatorsReferenceMenu;
@@ -64,22 +65,24 @@ public class ActivatorHelper {
 	 * Early startup.
 	 */
 	public static void initializeOnActivation() {
-		GamaPreferences.Modeling.EDITOR_BASE_FONT.init(ActivatorHelper::getDefaultFontData).onChange(font -> {
-			try {
-				final FontData newValue = new FontData(font.getName(), font.getSize(), font.getStyle());
-				setValue(EditorsPlugin.getDefault().getPreferenceStore(), TEXT_FONT, newValue);
-			} catch (final Exception e) {}
-		});
-		GamaPreferences.Modeling.EDITOR_BACKGROUND_COLOR.init(ActivatorHelper::getDefaultBackground).onChange(c -> {
-			final RGB rgb = new RGB(c.getRed(), c.getGreen(), c.getBlue());
-			PreferenceConverter.setValue(EditorsPlugin.getDefault().getPreferenceStore(),
-					AbstractTextEditor.PREFERENCE_COLOR_BACKGROUND, rgb);
-			GamaPreferences.Modeling.OPERATORS_MENU_SORT
-					.onChange(newValue -> OperatorsReferenceMenu.byName = "Name".equals(newValue));
-		});
-		GamlRuntimeModule.staticInitialize();
-		GamlEditorBindings.install();
-		GamlReferenceSearch.install();
+		GAMA.initializeAtStartup("building search database", () -> {
+			GamaPreferences.Modeling.EDITOR_BASE_FONT.init(ActivatorHelper::getDefaultFontData).onChange(font -> {
+				try {
+					final FontData newValue = new FontData(font.getName(), font.getSize(), font.getStyle());
+					setValue(EditorsPlugin.getDefault().getPreferenceStore(), TEXT_FONT, newValue);
+				} catch (final Exception e) {}
+			});
+			GamaPreferences.Modeling.EDITOR_BACKGROUND_COLOR.init(ActivatorHelper::getDefaultBackground).onChange(c -> {
+				final RGB rgb = new RGB(c.getRed(), c.getGreen(), c.getBlue());
+				PreferenceConverter.setValue(EditorsPlugin.getDefault().getPreferenceStore(),
+						AbstractTextEditor.PREFERENCE_COLOR_BACKGROUND, rgb);
+				GamaPreferences.Modeling.OPERATORS_MENU_SORT
+						.onChange(newValue -> OperatorsReferenceMenu.byName = "Name".equals(newValue));
+			});
+			GamlRuntimeModule.staticInitialize();
+			GamlEditorBindings.install();
+			GamlReferenceSearch.install();
 
+		});
 	}
 }
