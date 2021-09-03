@@ -2,7 +2,7 @@
 
 This represents the development branch of the next major version of GAMA. 
 
-## The recommended configuration for working on this branch is [Eclipse for Java and DSL 2021-09](https://www.eclipse.org/downloads/packages/release/2021-09/r/eclipse-ide-java-and-dsl-developers) and JDK 15.
+## The recommended configuration for working on this branch is [Eclipse for Java and DSL 2021-09](https://www.eclipse.org/downloads/packages/release/2021-09/r/eclipse-ide-java-and-dsl-developers) and JDK 17 (source code compliance should however be set to JDK 16 for some time).
 
 
 [![Github Travis](https://github.com/gama-platform/gama/actions/workflows/github-travis.yml/badge.svg)](https://github.com/gama-platform/gama/actions/workflows/github-travis.yml)
