@@ -2,7 +2,7 @@
 
 This represents the development branch of the next major version of GAMA. 
 
-## The recommended configuration for working on this branch is [Eclipse for Java and DSL 2021-09](https://www.eclipse.org/downloads/packages/release/2021-09/r/eclipse-ide-java-and-dsl-developers) and JDK 17 (source code compliance should however be set to JDK 16 for some time).
+## The recommended configuration is [Eclipse for Java and DSL 2021-09](https://www.eclipse.org/downloads/packages/release/2021-09/r/eclipse-ide-java-and-dsl-developers) and JDK 17 (source code compliance set to JDK 16).
 
 Developers are advised to install [JAutoDoc v. 1.15](http://jautodoc.sourceforge.net) and to import the preferences available in [`gama.core.dev/Shared Utilities for Developers`](https://github.com/gama-platform/gama/tree/GAMA_2.0/gama.core.dev/Shared%20Utilities%20for%20Developers) to:
 - organize the plugins in a consistent manner using [projects sets](https://github.com/gama-platform/gama/blob/GAMA_2.0/gama.core.dev/Shared%20Utilities%20for%20Developers/Eclipe%20Projects%20Set%20for%20Gama.psf)
