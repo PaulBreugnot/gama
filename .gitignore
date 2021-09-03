@@ -5,6 +5,8 @@ target/*
 *.orig
 build
 build/*
+!gama/build
+!gama/build/*
 dist
 dist/*
 private
