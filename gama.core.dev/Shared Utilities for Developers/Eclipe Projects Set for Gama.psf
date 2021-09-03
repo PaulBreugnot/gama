@@ -28,14 +28,10 @@
 <project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.ext.serialize"/>
 <project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.ext.stats"/>
 <project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.ext.traffic"/>
-<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.feature.audio"/>
 <project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.feature.core"/>
 <project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.feature.dependencies"/>
 <project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.feature.extensions"/>
 <project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.feature.models"/>
-<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.feature.network"/>
-<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.feature.serialize"/>
-<project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.feature.stats"/>
 <project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.feature.ui.core"/>
 <project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.feature.ui.experiment"/>
 <project reference="1.0,https://github.com/gama-platform/gama.git,GAMA_2.0,gama.feature.ui.modeling"/>
@@ -79,9 +75,6 @@
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.feature.ui.modeling" type="4"/>
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.feature.extensions" type="4"/>
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.feature.ui.core" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.feature.audio" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.feature.serialize" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.feature.stats" type="4"/>
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/gama.feature.dependencies" type="4"/>
 </workingSets>
 <workingSets editPageId="org.eclipse.ui.resourceWorkingSetPage" id="1566438885822_8" label="=============================== MODELS" name="=============================== MODELS">
