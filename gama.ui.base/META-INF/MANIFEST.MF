@@ -16,11 +16,11 @@ Export-Package: gama.ui.base.bindings,
  gama.ui.base.resources,
  gama.ui.base.search,
  gama.ui.base.shared,
+ gama.ui.base.startup,
+ gama.ui.base.toolbar,
  gama.ui.base.utils,
  gama.ui.base.views,
- gama.ui.base.workbench,
- gama.ui.base.workspace,
- gama.ui.base.toolbar
+ gama.ui.base.workspace
 Automatic-Module-Name: gama.ui.base
 Import-Package: com.google.common.collect;version="30.1.0",
  one.util.streamex,

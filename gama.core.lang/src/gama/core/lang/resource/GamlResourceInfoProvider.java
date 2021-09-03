@@ -43,7 +43,7 @@ import gama.core.lang.gaml.S_Experiment;
 import gama.core.lang.gaml.StringLiteral;
 import gama.core.lang.indexer.GamlResourceIndexer;
 import gama.util.file.GamlFileInfo;
-import gama.util.file.IGamlResourceInfoProvider;
+import gama.util.file.IGamlResourceInfoServices;
 import gaml.compilation.ast.ISyntacticElement;
 
 /**
@@ -51,7 +51,7 @@ import gaml.compilation.ast.ISyntacticElement;
  */
 @Singleton
 @SuppressWarnings ({ "unchecked", "rawtypes" })
-public class GamlResourceInfoProvider implements IGamlResourceInfoProvider {
+public class GamlResourceInfoProvider implements IGamlResourceInfoServices {
 
 	/** The instance. */
 	public static GamlResourceInfoProvider INSTANCE = new GamlResourceInfoProvider();

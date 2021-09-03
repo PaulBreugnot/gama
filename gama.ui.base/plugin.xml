@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.ui.splashHandlers">
       <splashHandler
-            class="gama.ui.base.workbench.Splash"
+            class="gama.ui.base.startup.Splash"
             id="gama.splash">
       </splashHandler>
       <splashHandlerProductBinding

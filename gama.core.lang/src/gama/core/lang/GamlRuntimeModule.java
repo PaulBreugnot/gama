@@ -63,7 +63,7 @@ public class GamlRuntimeModule extends AbstractGamlRuntimeModule {
 		if (!initialized) {
 			GamlExpressionFactory.registerParserProvider(GamlExpressionCompiler::new);
 			GAML.registerInfoProvider(GamlResourceInfoProvider.INSTANCE);
-			GAML.registerGamlEcoreUtils(EGaml.getInstance());
+			GAML.registerEcoreServices(EGaml.getInstance());
 			initialized = true;
 
 		}

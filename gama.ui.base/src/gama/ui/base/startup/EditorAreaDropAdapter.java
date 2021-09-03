@@ -9,7 +9,7 @@
  * 
  ********************************************************************************************************/
 
-package gama.ui.base.workbench;
+package gama.ui.base.startup;
 
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;

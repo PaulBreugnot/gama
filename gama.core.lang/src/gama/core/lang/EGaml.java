@@ -66,7 +66,7 @@ import gama.core.lang.gaml.impl.StatementImpl;
 import gama.core.lang.gaml.util.GamlSwitch;
 import gama.util.GamaMapFactory;
 import gaml.compilation.GAML;
-import gaml.compilation.IGamlEcoreUtils;
+import gaml.compilation.IGamlEcoreServices;
 import gaml.compilation.ast.SyntacticFactory;
 
 /**
@@ -77,7 +77,7 @@ import gaml.compilation.ast.SyntacticFactory;
  * @since 2012
  *
  */
-public class EGaml implements IGamlEcoreUtils {
+public class EGaml implements IGamlEcoreServices {
 
 	/** The Constant instance. */
 	private static final EGaml instance = new EGaml();

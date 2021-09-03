@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * The Interface IGamlEcoreUtils.
  */
-public interface IGamlEcoreUtils {
+public interface IGamlEcoreServices {
 
 	/**
 	 * Gets the name of a statement.

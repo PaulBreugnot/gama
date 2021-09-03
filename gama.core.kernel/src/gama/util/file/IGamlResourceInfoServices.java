@@ -17,7 +17,7 @@ import gaml.compilation.ast.ISyntacticElement;
 /**
  * The Interface IGamlResourceInfoProvider.
  */
-public interface IGamlResourceInfoProvider {
+public interface IGamlResourceInfoServices {
 
 	/**
 	 * Gets the info.

@@ -8,7 +8,7 @@
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
  ********************************************************************************************************/
-package gama.ui.base.workbench;
+package gama.ui.base.startup;
 
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;

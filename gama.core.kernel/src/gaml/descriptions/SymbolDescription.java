@@ -451,11 +451,11 @@ public abstract class SymbolDescription implements IDescription {
 		}
 		if (facet instanceof String) {
 			if (getMeta() != null && !returnFacet && facet.equals(getMeta().getOmissible())) {
-				final EObject o = GAML.getEcoreUtils().getExprOf(element);
+				final EObject o = GAML.getEcoreServices().getExprOf(element);
 				if (o != null) return o;
 			}
 			if (returnFacet) {
-				final EObject facetObject = GAML.getEcoreUtils().getFacetsMapOf(element).get(facet);
+				final EObject facetObject = GAML.getEcoreServices().getFacetsMapOf(element).get(facet);
 				if (facetObject != null) return facetObject;
 			}
 			final IExpressionDescription f = getFacet((String) facet);
@@ -464,13 +464,13 @@ public abstract class SymbolDescription implements IDescription {
 				if (result != null)
 					return result;
 				else {
-					final EObject facetObject = GAML.getEcoreUtils().getFacetsMapOf(element).get(facet);
+					final EObject facetObject = GAML.getEcoreServices().getFacetsMapOf(element).get(facet);
 					if (facetObject != null) return facetObject;
 				}
 			}
 			// Last chance if the expression is a constant (no information on EObjects), see Issue #2760
 
-			final EObject facetExpr = GAML.getEcoreUtils().getExpressionAtKey(element, (String) facet);
+			final EObject facetExpr = GAML.getEcoreServices().getExpressionAtKey(element, (String) facet);
 			if (facetExpr != null) return facetExpr;
 
 		}

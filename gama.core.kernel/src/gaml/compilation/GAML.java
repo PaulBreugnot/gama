@@ -1,12 +1,11 @@
 /*******************************************************************************************************
  *
- * GAML.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * GAML.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gaml.compilation;
 
@@ -27,7 +26,7 @@ import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gama.util.IContainer;
 import gama.util.file.GamlFileInfo;
-import gama.util.file.IGamlResourceInfoProvider;
+import gama.util.file.IGamlResourceInfoServices;
 import gaml.compilation.ast.ISyntacticElement;
 import gaml.descriptions.ExperimentDescription;
 import gaml.descriptions.IDescription;
@@ -50,25 +49,28 @@ public class GAML {
 
 	/** The expression factory. */
 	public static IExpressionFactory expressionFactory = null;
-	
+
 	/** The model factory. */
 	public static ModelFactory modelFactory = null;
-	
+
 	/** The info provider. */
-	private static IGamlResourceInfoProvider infoProvider = null;
-	
+	private static IGamlResourceInfoServices infoProvider = null;
+
 	/** The gaml ecore utils. */
-	private static IGamlEcoreUtils gamlEcoreUtils = null;
-	
+	private static IGamlEcoreServices gamlEcoreUtils = null;
+
 	/** The command index. */
 	public static int COMMAND_INDEX = 0;
 
 	/**
 	 * Not null.
 	 *
-	 * @param <T> the generic type
-	 * @param scope the scope
-	 * @param object the object
+	 * @param <T>
+	 *            the generic type
+	 * @param scope
+	 *            the scope
+	 * @param object
+	 *            the object
 	 * @return the t
 	 */
 	public static <T> T notNull(final IScope scope, final T object) {
@@ -78,10 +80,14 @@ public class GAML {
 	/**
 	 * Not null.
 	 *
-	 * @param <T> the generic type
-	 * @param scope the scope
-	 * @param object the object
-	 * @param error the error
+	 * @param <T>
+	 *            the generic type
+	 * @param scope
+	 *            the scope
+	 * @param object
+	 *            the object
+	 * @param error
+	 *            the error
 	 * @return the t
 	 */
 	public static <T> T notNull(final IScope scope, final T object, final String error) {
@@ -92,14 +98,15 @@ public class GAML {
 	/** The html tags. */
 	private static String[] HTML_TAGS =
 			{ "<br/>", "<br>", "<b>", "</b>", "<i>", "</i>", "<ul>", "</ul>", "<li>", "</li>" };
-	
+
 	/** The replacements. */
 	private static String[] REPLACEMENTS = { Strings.LN, Strings.LN, "", "", "", "", "", "", Strings.LN + "- ", "" };
 
 	/**
 	 * To text.
 	 *
-	 * @param s the s
+	 * @param s
+	 *            the s
 	 * @return the string
 	 */
 	public static String toText(final String s) {
@@ -168,9 +175,12 @@ public class GAML {
 	 * Breaks the given string into lines as best possible, each of which no longer than <code>maxLength</code>
 	 * characters. By Tomer Godinger.
 	 *
-	 * @param s the s
-	 * @param maxLength            Maximum length of each line.
-	 * @param newLineString            The string to use for line breaking.
+	 * @param s
+	 *            the s
+	 * @param maxLength
+	 *            Maximum length of each line.
+	 * @param newLineString
+	 *            The string to use for line breaking.
 	 * @return The resulting multi-line string.
 	 */
 	public static String breakStringToLines(final String s, final int maxLength, final String newLineString) {
@@ -204,7 +214,8 @@ public class GAML {
 	/**
 	 * Gets the documentation on.
 	 *
-	 * @param query the query
+	 * @param query
+	 *            the query
 	 * @return the documentation on
 	 */
 	public static String getDocumentationOn(final String query) {
@@ -232,9 +243,12 @@ public class GAML {
 	/**
 	 * Empty check.
 	 *
-	 * @param <T> the generic type
-	 * @param scope the scope
-	 * @param container the container
+	 * @param <T>
+	 *            the generic type
+	 * @param scope
+	 *            the scope
+	 * @param container
+	 *            the container
 	 * @return the t
 	 */
 	@SuppressWarnings ("rawtypes")
@@ -268,10 +282,13 @@ public class GAML {
 	/**
 	 * Evaluate expression.
 	 *
-	 * @param expression the expression
-	 * @param a the a
+	 * @param expression
+	 *            the expression
+	 * @param a
+	 *            the a
 	 * @return the object
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	public static Object evaluateExpression(final String expression, final IAgent a) throws GamaRuntimeException {
 		if (a == null) return null;
@@ -288,11 +305,15 @@ public class GAML {
 	/**
 	 * Compile expression.
 	 *
-	 * @param expression the expression
-	 * @param agent the agent
-	 * @param onlyExpression the only expression
+	 * @param expression
+	 *            the expression
+	 * @param agent
+	 *            the agent
+	 * @param onlyExpression
+	 *            the only expression
 	 * @return the i expression
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	public static IExpression compileExpression(final String expression, final IAgent agent,
 			final boolean onlyExpression) throws GamaRuntimeException {
@@ -304,12 +325,17 @@ public class GAML {
 	/**
 	 * Compile expression.
 	 *
-	 * @param expression the expression
-	 * @param agent the agent
-	 * @param tempContext the temp context
-	 * @param onlyExpression the only expression
+	 * @param expression
+	 *            the expression
+	 * @param agent
+	 *            the agent
+	 * @param tempContext
+	 *            the temp context
+	 * @param onlyExpression
+	 *            the only expression
 	 * @return the i expression
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	public static IExpression compileExpression(final String expression, final IAgent agent,
 			final IExecutionContext tempContext, final boolean onlyExpression) throws GamaRuntimeException {
@@ -319,14 +345,12 @@ public class GAML {
 			return getExpressionFactory().createExpr(expression, context, tempContext);
 		} catch (final Throwable e) {
 			// Maybe it is a statement instead ?
-			if (!onlyExpression) {
-				try {
-					return getExpressionFactory().createTemporaryActionForAgent(agent, expression, tempContext);
-				} catch (final Throwable e2) {
-					throw GamaRuntimeException.create(e2, tempContext.getScope());
-				}
-			} else
-				throw GamaRuntimeException.create(e, tempContext.getScope());
+			if (onlyExpression) throw GamaRuntimeException.create(e, tempContext.getScope());
+			try {
+				return getExpressionFactory().createTemporaryActionForAgent(agent, expression, tempContext);
+			} catch (final Throwable e2) {
+				throw GamaRuntimeException.create(e2, tempContext.getScope());
+			}
 		}
 	}
 
@@ -343,7 +367,8 @@ public class GAML {
 	/**
 	 * Gets the experiment context.
 	 *
-	 * @param a the a
+	 * @param a
+	 *            the a
 	 * @return the experiment context
 	 */
 	public static ExperimentDescription getExperimentContext(final IAgent a) {
@@ -357,18 +382,20 @@ public class GAML {
 	/**
 	 * Register info provider.
 	 *
-	 * @param info the info
+	 * @param info
+	 *            the info
 	 */
-	public static void registerInfoProvider(final IGamlResourceInfoProvider info) {
+	public static void registerInfoProvider(final IGamlResourceInfoServices info) {
 		infoProvider = info;
 	}
 
 	/**
 	 * Register gaml ecore utils.
 	 *
-	 * @param utils the utils
+	 * @param utils
+	 *            the utils
 	 */
-	public static void registerGamlEcoreUtils(final IGamlEcoreUtils utils) {
+	public static void registerEcoreServices(final IGamlEcoreServices utils) {
 		gamlEcoreUtils = utils;
 	}
 
@@ -377,15 +404,17 @@ public class GAML {
 	 *
 	 * @return the ecore utils
 	 */
-	public static IGamlEcoreUtils getEcoreUtils() {
+	public static IGamlEcoreServices getEcoreServices() {
 		return gamlEcoreUtils;
 	}
 
 	/**
 	 * Gets the info.
 	 *
-	 * @param uri the uri
-	 * @param stamp the stamp
+	 * @param uri
+	 *            the uri
+	 * @param stamp
+	 *            the stamp
 	 * @return the info
 	 */
 	public static GamlFileInfo getInfo(final URI uri, final long stamp) {
@@ -395,7 +424,8 @@ public class GAML {
 	/**
 	 * Gets the contents.
 	 *
-	 * @param uri the uri
+	 * @param uri
+	 *            the uri
 	 * @return the contents
 	 */
 	public static ISyntacticElement getContents(final URI uri) {

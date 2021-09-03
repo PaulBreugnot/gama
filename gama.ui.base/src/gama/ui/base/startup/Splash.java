@@ -7,7 +7,7 @@
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  *
  ********************************************************************************************************/
-package gama.ui.base.workbench;
+package gama.ui.base.startup;
 
 import static org.eclipse.core.runtime.FileLocator.resolve;
 import static org.eclipse.jface.resource.ImageDescriptor.createFromURL;

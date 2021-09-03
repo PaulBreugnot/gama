@@ -8,7 +8,7 @@
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
  ********************************************************************************************************/
-package gama.ui.base.workbench;
+package gama.ui.base.startup;
 
 import java.util.List;
 import org.eclipse.core.runtime.Platform;

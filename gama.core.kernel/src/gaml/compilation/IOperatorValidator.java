@@ -62,7 +62,7 @@ public interface IOperatorValidator extends IValidator {
 	 */
 	default EObject getArg(final EObject emfContext, final int index) {
 		if (index < 0) { return emfContext; }
-		final List<? extends EObject> list = GAML.getEcoreUtils().getExprsOf(emfContext);
+		final List<? extends EObject> list = GAML.getEcoreServices().getExprsOf(emfContext);
 		if (list == null || list.isEmpty() || index > list.size() - 1) { return emfContext; }
 		return list.get(index);
 	}

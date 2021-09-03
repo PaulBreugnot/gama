@@ -17,8 +17,8 @@ import org.eclipse.ui.PlatformUI;
 import gama.common.ui.IApplicationControl;
 import gama.common.ui.IGui;
 import gama.common.ui.IStartupProgress;
-import gama.ui.base.workbench.GamaWorkbenchAdvisor;
-import gama.ui.base.workbench.Splash;
+import gama.ui.base.startup.GamaWorkbenchAdvisor;
+import gama.ui.base.startup.Splash;
 
 /**
  * The Class ApplicationControl.
