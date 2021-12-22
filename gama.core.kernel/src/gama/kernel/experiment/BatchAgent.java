@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.kernel.experiment;
 
@@ -43,6 +43,7 @@ import gaml.operators.Cast;
 import gaml.types.IType;
 import gaml.variables.IVariable;
 
+// TODO: Auto-generated Javadoc
 /**
  * Written by drogoul Modified on 28 mai 2011.
  *
@@ -56,22 +57,22 @@ public class BatchAgent extends ExperimentAgent {
 
 	/** The stop condition. */
 	final IExpression stopCondition;
-	
+
 	/** The run number. */
 	private int runNumber;
-	
+
 	/** The current solution. */
 	ParametersSet currentSolution;
-	
+
 	/** The last solution. */
 	ParametersSet lastSolution;
-	
+
 	/** The last fitness. */
 	Double lastFitness;
-	
+
 	/** The seeds. */
 	private Double[] seeds;
-	
+
 	/** The fitness values. */
 	final List<Double> fitnessValues = new ArrayList<>();
 
@@ -107,6 +108,11 @@ public class BatchAgent extends ExperimentAgent {
 		return IExpressionFactory.FALSE_EXPR;
 	}
 
+	/**
+	 * Schedule.
+	 *
+	 * @param scope the scope
+	 */
 	@Override
 	public void schedule(final IScope scope) {
 		super.schedule(scope);
@@ -120,6 +126,12 @@ public class BatchAgent extends ExperimentAgent {
 
 	}
 
+	/**
+	 * Inits the.
+	 *
+	 * @param scope the scope
+	 * @return the object
+	 */
 	@Override
 	public Object _init_(final IScope scope) {
 		getSpecies().getExplorationAlgorithm().initializeFor(scope, this);
@@ -130,11 +142,19 @@ public class BatchAgent extends ExperimentAgent {
 		return this;
 	}
 
+	/**
+	 * Automatically create first simulation.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	protected boolean automaticallyCreateFirstSimulation() {
 		return false;
 	}
 
+	/**
+	 * Reset.
+	 */
 	@SuppressWarnings ("null")
 	@Override
 	public void reset() {
@@ -180,23 +200,31 @@ public class BatchAgent extends ExperimentAgent {
 		if (output != null) { getSpecies().getLog().doRefreshWriteAndClose(currentSolution, lastFitnessValue); }
 		sim.dispose();
 	}
-	
-	public double ComputeFitnessAndCloseSimulation(final IAgent sim, ParametersSet sol) {
- 		final IExpression fitness = getSpecies().getExplorationAlgorithm().getFitnessExpression();
- 		final FileOutput output = getSpecies().getLog();
- 		double lastFitnessValue = 0;
- 		if (fitness != null) {
- 			lastFitnessValue = Cast.asFloat(sim.getScope(), fitness.value(sim.getScope()));
- 		}
- 		if (output != null) { getSpecies().getLog().doRefreshWriteAndClose(sol, lastFitnessValue); }
- 		sim.dispose();
- 		return lastFitnessValue;
- 	}
 
 	/**
+	 * Compute fitness and close simulation.
 	 *
-	 * Method step()
+	 * @param sim the sim
+	 * @param sol the sol
+	 * @return the double
+	 */
+	public double ComputeFitnessAndCloseSimulation(final IAgent sim, final ParametersSet sol) {
+		final IExpression fitness = getSpecies().getExplorationAlgorithm().getFitnessExpression();
+		final FileOutput output = getSpecies().getLog();
+		double lastFitnessValue = 0;
+		if (fitness != null) {
+			lastFitnessValue = Cast.asFloat(sim.getScope(), fitness.value(sim.getScope()));
+		}
+		if (output != null) { getSpecies().getLog().doRefreshWriteAndClose(sol, lastFitnessValue); }
+		sim.dispose();
+		return lastFitnessValue;
+	}
+
+	/**
+	 * Method step().
 	 *
+	 * @param scope the scope
+	 * @return true, if successful
 	 * @see gama.metamodel.agent.GamlAgent#step(gama.runtime.IScope) This method, called once by the front controller,
 	 *      actually serves as "launching" the batch process (entirely piloted by the exploration algorithm)
 	 */
@@ -232,122 +260,266 @@ public class BatchAgent extends ExperimentAgent {
 	public int getRunNumber() {
 		return this.runNumber;
 	}
-	
+
+
+
+	/**
+	 * Creates the simulation.
+	 *
+	 * @param sim the sim
+	 * @param simToParameter the sim to parameter
+	 * @return the simulation agent
+	 */
+	private SimulationAgent createSimulation(final Map<String, Object> sim, final Map<IAgent, ParametersSet> simToParameter) {
+		ParametersSet sol = (ParametersSet) sim.get("parameters");
+		final SimulationAgent s = createSimulation(sol, true);
+		s.setSeed((Double) sim.get("seed"));
+		simToParameter.put(s, sol);
+		return s;
+	}
+
+	/**
+	 * Launch simulations with solution.
+	 *
+	 * @param sols the sols
+	 * @return the map
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	public Map<ParametersSet, Double> launchSimulationsWithSolution(final List<ParametersSet> sols) throws GamaRuntimeException {
- 		// We first reset the currentSolution and the fitness values
- 		final SimulationPopulation pop = getSimulationPopulation();
- 		Map<ParametersSet,Double> fitnessRes = GamaMapFactory.create();
- 		if (pop == null) return fitnessRes;
- 		final List<Map<String, Object>> sims = new ArrayList<>();
+		// We first reset the currentSolution and the fitness values
+		final SimulationPopulation pop = getSimulationPopulation();
+		Map<ParametersSet,Double> fitnessRes = GamaMapFactory.create();
+		if (pop == null) return fitnessRes;
+		final List<Map<String, Object>> sims = new ArrayList<>();
 
- 		int numberOfCores = pop.getMaxNumberOfConcurrentSimulations();
- 		if (numberOfCores == 0) { numberOfCores = 1; }
+		int numberOfCores = pop.getMaxNumberOfConcurrentSimulations();
+		if (numberOfCores == 0) { numberOfCores = 1; }
 
- 		Map<ParametersSet, List<Double>> outputs = GamaMapFactory.create();
+		Map<ParametersSet, List<Double>> outputs = GamaMapFactory.create();
+		for (ParametersSet sol :sols ) {
+			for (int i = 0; i  < getSeeds().length ; i++) {
+				Map<String, Object> sim = new HashMap<>();
+				sim.put("parameters", sol);
+				sim.put("seed", getSeeds()[i]);
+				sims.add(sim);
+			}
+		}
 
- 		// The values present in the solution are passed to the parameters of 
- 			// the experiment
- 		for (ParametersSet sol :sols ) {
- 			for (int i = 0; i  < getSeeds().length ; i++) {
- 				Map<String, Object> sim = new HashMap<>();
- 				sim.put("parameters", sol);
- 				sim.put("seed", getSeeds()[i]);
- 				sims.add(sim);
- 			}
- 		}
- 		while (! sims.isEmpty()) {
- 			if (dead) break;
- 			int nb = Math.min(sims.size(), numberOfCores);
+		int nb = Math.min(sims.size(), numberOfCores);
 
- 			List<Map<String, Object>> simsToRun = new Vector<>();
- 			for (int i = 0; i < nb; i++) simsToRun.add(sims.remove(0));
- 			//sims.removeAll(simsToRun);
- 			Map<IAgent, ParametersSet> simToParameter = GamaMapFactory.create();
- 			Iterator<Map<String, Object>> it = simsToRun.iterator();
- 			while (it.hasNext()) {
- 				Map<String, Object> sim = it.next();
- 				ParametersSet sol = (ParametersSet) sim.get("parameters");
+		List<Map<String, Object>> simsToRun = new Vector<>();
 
- 				final SimulationAgent s = createSimulation(sol, true);
- 				s.setSeed((Double) sim.get("seed"));
- 				simToParameter.put(s, sol);
- 			}
+		for (int i = 0; i < nb; i++) {
+			simsToRun.add(sims.remove(0));
+		}
 
- 			while (pop.hasScheduledSimulations() && !dead) {
- 				// We step all the simulations
- 				pop.step(getScope());
- 				// String cycles = "";
- 						// We evaluate their stopCondition and unschedule the ones who
- 						// return true
- 				for (final IAgent sim : pop.toArray()) {
- 					final SimulationAgent agent = (SimulationAgent) sim;
- 					ParametersSet ps = simToParameter.get(agent);
+		Map<IAgent, ParametersSet> simToParameter = GamaMapFactory.create();
+		Iterator<Map<String, Object>> it = simsToRun.iterator();
+		while (it.hasNext()) {
+			createSimulation(it.next(), simToParameter);
+		}
 
- 							// test the condition first in case it is paused
- 					final boolean stopConditionMet =
- 								dead || Cast.asBool(sim.getScope(), sim.getScope().evaluate(stopCondition, sim).getValue());
- 					final boolean mustStop = stopConditionMet || agent.dead() || agent.getScope().isPaused();
- 					if (mustStop) {
- 						pop.unscheduleSimulation(agent);
- 						//if (!getSpecies().keepsSimulations()) { 
+		while (pop.hasScheduledSimulations() && !dead) {
+			// We step all the simulations
+			pop.step(getScope());
+			for (final IAgent sim : pop.toArray()) {
+				final SimulationAgent agent = (SimulationAgent) sim;
+				ParametersSet ps = simToParameter.get(agent);
 
- 							double val = ComputeFitnessAndCloseSimulation(agent, ps);
+				// test the condition first in case it is paused
+				final boolean stopConditionMet =
+						dead || Cast.asBool(sim.getScope(), sim.getScope().evaluate(stopCondition, sim).getValue());
+				final boolean mustStop = stopConditionMet || agent.dead() || agent.getScope().isPaused();
+				if (mustStop) {
+					pop.unscheduleSimulation(agent);
+					//if (!getSpecies().keepsSimulations()) {
 
- 							if (!outputs.containsKey(ps)) {
- 								outputs.put(ps, new ArrayList<>());
- 							}
- 							outputs.get(ps).add(val);
+					double val = ComputeFitnessAndCloseSimulation(agent, ps);
 
- 						//}
- 					}
- 				}
- 				// We then verify that the front scheduler has not been paused
- 				while (getSpecies().getController().getScheduler().paused && !dead) {
- 					try {
- 						Thread.sleep(100);
- 					} catch (final InterruptedException e) {
- 						e.printStackTrace();
- 					}
- 				}
- 			}
+					if (!outputs.containsKey(ps)) {
+						outputs.put(ps, new ArrayList<>());
+					}
+					outputs.get(ps).add(val);
 
- 		}
+					if (!sims.isEmpty()) {
+						createSimulation(sims.remove(0), simToParameter);
+					}
 
- 				// When the simulations are finished, we give a chance to the outputs of
- 				// the experiment and the experiment
- 				// agent itself to "step" once, effectively emulating what the front
- 				// scheduler should do. The simulations are
- 				// still "alive" at this stage (even if they are not scheduled anymore),
- 				// which allows to retrieve information from them
- 		super.step(getScope());
+				}
+			}
+			// We then verify that the front scheduler has not been paused
+			while (getSpecies().getController().getScheduler().paused && !dead) {
+				try {
+					Thread.sleep(100);
+				} catch (final InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 
- 				// If the agent is dead, we return immediately
- 		if (dead) return fitnessRes;
- 				// We reset the experiment agent to erase traces of the current
- 				// simulations if any
- 		this.reset();
 
- 				// We then return the combination (average, min or max) of the different
- 				// fitness values computed by the
- 				// different simulation.
- 		final short fitnessCombination = getSpecies().getExplorationAlgorithm().getCombination();
 
- 		for (ParametersSet p : outputs.keySet()) {
- 			lastSolution = p;
- 			lastFitness = fitnessCombination == IExploration.C_MAX ? Collections.max(outputs.get(p))
- 							: fitnessCombination == IExploration.C_MIN ? Collections.min(outputs.get(p))
- 							: Statistics.calculateMean(outputs.get(p));
- 			fitnessRes.put(p, lastFitness);
- 					// we update the best solution found so far
- 			getSpecies().getExplorationAlgorithm().updateBestFitness(lastSolution, lastFitness);
+		// When the simulations are finished, we give a chance to the outputs of
+		// the experiment and the experiment
+		// agent itself to "step" once, effectively emulating what the front
+		// scheduler should do. The simulations are
+		// still "alive" at this stage (even if they are not scheduled anymore),
+		// which allows to retrieve information from them
+		super.step(getScope());
 
- 		}
+		// If the agent is dead, we return immediately
+		if (dead) return fitnessRes;
+		// We reset the experiment agent to erase traces of the current
+		// simulations if any
+		this.reset();
 
- 		// At last, we update the parameters (last fitness and best fitness)
- 		getScope().getGui().showParameterView(getScope(), getSpecies());
- 		return fitnessRes;
+		// We then return the combination (average, min or max) of the different
+		// fitness values computed by the
+		// different simulation.
+		final short fitnessCombination = getSpecies().getExplorationAlgorithm().getCombination();
 
- 	}	
+		for (ParametersSet p : outputs.keySet()) {
+			lastSolution = p;
+			lastFitness = fitnessCombination == IExploration.C_MAX ? Collections.max(outputs.get(p))
+					: fitnessCombination == IExploration.C_MIN ? Collections.min(outputs.get(p))
+							: Statistics.calculateMean(outputs.get(p));
+			fitnessRes.put(p, lastFitness);
+			// we update the best solution found so far
+			getSpecies().getExplorationAlgorithm().updateBestFitness(lastSolution, lastFitness);
+
+		}
+
+		// At last, we update the parameters (last fitness and best fitness)
+		getScope().getGui().showParameterView(getScope(), getSpecies());
+		return fitnessRes;
+
+	}
+	
+	/**
+	 * Launch simulations with solution 222.
+	 *
+	 * @param sols the sols
+	 * @return the map
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
+	public Map<ParametersSet, Double> launchSimulationsWithSolution222(final List<ParametersSet> sols) throws GamaRuntimeException {
+		// We first reset the currentSolution and the fitness values
+		final SimulationPopulation pop = getSimulationPopulation();
+		Map<ParametersSet,Double> fitnessRes = GamaMapFactory.create();
+		if (pop == null) return fitnessRes;
+		final List<Map<String, Object>> sims = new ArrayList<>();
+
+		int numberOfCores = pop.getMaxNumberOfConcurrentSimulations();
+		if (numberOfCores == 0) { numberOfCores = 1; }
+
+		Map<ParametersSet, List<Double>> outputs = GamaMapFactory.create();
+		// The values present in the solution are passed to the parameters of
+		// the experiment
+		for (ParametersSet sol :sols ) {
+			for (int i = 0; i  < getSeeds().length ; i++) {
+				Map<String, Object> sim = new HashMap<>();
+				sim.put("parameters", sol);
+				sim.put("seed", getSeeds()[i]);
+				sims.add(sim);
+			}
+		}
+		while (! sims.isEmpty()) {
+			if (dead) {
+				break;
+			}
+			int nb = Math.min(sims.size(), numberOfCores);
+
+			List<Map<String, Object>> simsToRun = new Vector<>();
+			for (int i = 0; i < nb; i++) {
+				simsToRun.add(sims.remove(0));
+			}
+			//sims.removeAll(simsToRun);
+			Map<IAgent, ParametersSet> simToParameter = GamaMapFactory.create();
+			Iterator<Map<String, Object>> it = simsToRun.iterator();
+			while (it.hasNext()) {
+				Map<String, Object> sim = it.next();
+				ParametersSet sol = (ParametersSet) sim.get("parameters");
+
+				final SimulationAgent s = createSimulation(sol, true);
+				s.setSeed((Double) sim.get("seed"));
+				simToParameter.put(s, sol);
+			}
+
+			while (pop.hasScheduledSimulations() && !dead) {
+				// We step all the simulations
+				pop.step(getScope());
+				// String cycles = "";
+				// We evaluate their stopCondition and unschedule the ones who
+				// return true
+				for (final IAgent sim : pop.toArray()) {
+					final SimulationAgent agent = (SimulationAgent) sim;
+					ParametersSet ps = simToParameter.get(agent);
+
+					// test the condition first in case it is paused
+					final boolean stopConditionMet =
+							dead || Cast.asBool(sim.getScope(), sim.getScope().evaluate(stopCondition, sim).getValue());
+					final boolean mustStop = stopConditionMet || agent.dead() || agent.getScope().isPaused();
+					if (mustStop) {
+						pop.unscheduleSimulation(agent);
+						//if (!getSpecies().keepsSimulations()) {
+
+						double val = ComputeFitnessAndCloseSimulation(agent, ps);
+
+						if (!outputs.containsKey(ps)) {
+							outputs.put(ps, new ArrayList<>());
+						}
+						outputs.get(ps).add(val);
+
+						//}
+					}
+				}
+				// We then verify that the front scheduler has not been paused
+				while (getSpecies().getController().getScheduler().paused && !dead) {
+					try {
+						Thread.sleep(100);
+					} catch (final InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+		}
+
+		// When the simulations are finished, we give a chance to the outputs of
+		// the experiment and the experiment
+		// agent itself to "step" once, effectively emulating what the front
+		// scheduler should do. The simulations are
+		// still "alive" at this stage (even if they are not scheduled anymore),
+		// which allows to retrieve information from them
+		super.step(getScope());
+
+		// If the agent is dead, we return immediately
+		if (dead) return fitnessRes;
+		// We reset the experiment agent to erase traces of the current
+		// simulations if any
+		this.reset();
+
+		// We then return the combination (average, min or max) of the different
+		// fitness values computed by the
+		// different simulation.
+		final short fitnessCombination = getSpecies().getExplorationAlgorithm().getCombination();
+
+		for (ParametersSet p : outputs.keySet()) {
+			lastSolution = p;
+			lastFitness = fitnessCombination == IExploration.C_MAX ? Collections.max(outputs.get(p))
+					: fitnessCombination == IExploration.C_MIN ? Collections.min(outputs.get(p))
+							: Statistics.calculateMean(outputs.get(p));
+			fitnessRes.put(p, lastFitness);
+			// we update the best solution found so far
+			getSpecies().getExplorationAlgorithm().updateBestFitness(lastSolution, lastFitness);
+
+		}
+
+		// At last, we update the parameters (last fitness and best fitness)
+		getScope().getGui().showParameterView(getScope(), getSpecies());
+		return fitnessRes;
+
+	}
 
 	/**
 	 * Launch simulations with solution.
@@ -407,10 +579,10 @@ public class BatchAgent extends ExperimentAgent {
 				// We inform the status line
 				if (!dead) {
 					getScope().getGui().getStatus(getScope())
-							.setStatus(
-									"Run " + runNumber + " | " + repeatIndex + "/" + seeds.length
-											+ " simulations (using " + pop.getNumberOfActiveThreads() + " threads)",
-									"small.batch" + i / 5);
+					.setStatus(
+							"Run " + runNumber + " | " + repeatIndex + "/" + seeds.length
+							+ " simulations (using " + pop.getNumberOfActiveThreads() + " threads)",
+							"small.batch" + i / 5);
 				}
 				if (++i == 20) { i = 0; }
 				// We then verify that the front scheduler has not been paused
@@ -467,6 +639,11 @@ public class BatchAgent extends ExperimentAgent {
 		return new ArrayList(getSpecies().getExplorableParameters().values());
 	}
 
+	/**
+	 * Gets the default parameters.
+	 *
+	 * @return the default parameters
+	 */
 	@Override
 	public List<? extends IParameter.Batch> getDefaultParameters() {
 		final List<IParameter.Batch> params = (List<Batch>) super.getDefaultParameters();
@@ -599,6 +776,9 @@ public class BatchAgent extends ExperimentAgent {
 		this.seeds = seeds;
 	}
 
+	/**
+	 * Close simulations.
+	 */
 	@Override
 	public void closeSimulations() {
 		// We interrupt the simulation scope directly (as it cannot be
