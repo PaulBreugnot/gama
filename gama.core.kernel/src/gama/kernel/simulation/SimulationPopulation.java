@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.kernel.simulation;
 
@@ -25,8 +25,8 @@ import gama.metamodel.shape.GamaPoint;
 import gama.metamodel.topology.continuous.AmorphousTopology;
 import gama.runtime.IScope;
 import gama.runtime.concurrent.GamaExecutorService;
-import gama.runtime.concurrent.SimulationRunner;
 import gama.runtime.concurrent.GamaExecutorService.Caller;
+import gama.runtime.concurrent.SimulationRunner;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gama.util.GamaListFactory;
 import gama.util.IList;
@@ -35,6 +35,7 @@ import gaml.species.ISpecies;
 import gaml.statements.RemoteSequence;
 import gaml.variables.IVariable;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SimulationPopulation.
  */
@@ -43,7 +44,7 @@ public class SimulationPopulation extends GamaPopulation<SimulationAgent> {
 
 	/** The current simulation. */
 	private SimulationAgent currentSimulation;
-	
+
 	/** The runner. */
 	private final SimulationRunner runner;
 
@@ -64,14 +65,15 @@ public class SimulationPopulation extends GamaPopulation<SimulationAgent> {
 	 * @return the max number of concurrent simulations
 	 */
 	public int getMaxNumberOfConcurrentSimulations() {
-		if (getHost().getSpecies().isHeadless()) return 1;
 		return GamaExecutorService.getParallelism(getHost().getScope(), getSpecies().getConcurrency(),
 				Caller.SIMULATION);
 	}
 
 	/**
-	 * Method fireAgentRemoved()
+	 * Method fireAgentRemoved().
 	 *
+	 * @param scope the scope
+	 * @param agent the agent
 	 * @see gama.metamodel.population.GamaPopulation#fireAgentRemoved(gama.metamodel.agent.IAgent)
 	 */
 	@Override
@@ -80,12 +82,20 @@ public class SimulationPopulation extends GamaPopulation<SimulationAgent> {
 		runner.remove((SimulationAgent) agent);
 	}
 
+	/**
+	 * Initialize for.
+	 *
+	 * @param scope the scope
+	 */
 	@Override
 	public void initializeFor(final IScope scope) {
 		super.initializeFor(scope);
 		this.currentAgentIndex = 0;
 	}
 
+	/**
+	 * Dispose.
+	 */
 	@Override
 	public void dispose() {
 		runner.dispose();
@@ -93,15 +103,33 @@ public class SimulationPopulation extends GamaPopulation<SimulationAgent> {
 		super.dispose();
 	}
 
+	/**
+	 * Iterable.
+	 *
+	 * @param scope the scope
+	 * @return the iterable
+	 */
 	@Override
 	public Iterable<SimulationAgent> iterable(final IScope scope) {
 		return (Iterable<SimulationAgent>) getAgents(scope);
 	}
 
+	/**
+	 * Creates the agents.
+	 *
+	 * @param scope the scope
+	 * @param number the number
+	 * @param initialValues the initial values
+	 * @param isRestored the is restored
+	 * @param toBeScheduled the to be scheduled
+	 * @param sequence the sequence
+	 * @return the i list
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@Override
 	public IList<SimulationAgent> createAgents(final IScope scope, final int number,
 			final List<? extends Map<String, Object>> initialValues, final boolean isRestored,
-			final boolean toBeScheduled, final RemoteSequence sequence) throws GamaRuntimeException {
+					final boolean toBeScheduled, final RemoteSequence sequence) throws GamaRuntimeException {
 		final IList<SimulationAgent> result = GamaListFactory.create(SimulationAgent.class);
 
 		for (int i = 0; i < number; i++) {
@@ -137,7 +165,7 @@ public class SimulationPopulation extends GamaPopulation<SimulationAgent> {
 	 */
 	private void initSimulation(final IScope scope, final SimulationAgent sim,
 			final List<? extends Map<String, Object>> initialValues, final int index, final boolean isRestored,
-			final boolean toBeScheduled, final RemoteSequence sequence) {
+					final boolean toBeScheduled, final RemoteSequence sequence) {
 		scope.getGui().getStatus(scope).waitStatus("Instantiating agents");
 		if (toBeScheduled) { sim.prepareGuiForSimulation(scope); }
 
@@ -160,6 +188,12 @@ public class SimulationPopulation extends GamaPopulation<SimulationAgent> {
 		}
 	}
 
+	/**
+	 * Allow var init to be overriden by external init.
+	 *
+	 * @param var the var
+	 * @return true, if successful
+	 */
 	@Override
 	protected boolean allowVarInitToBeOverridenByExternalInit(final IVariable var) {
 		switch (var.getName()) {
@@ -171,11 +205,23 @@ public class SimulationPopulation extends GamaPopulation<SimulationAgent> {
 		}
 	}
 
+	/**
+	 * Gets the host.
+	 *
+	 * @return the host
+	 */
 	@Override
 	public ExperimentAgent getHost() {
 		return (ExperimentAgent) super.getHost();
 	}
 
+	/**
+	 * Gets the agent.
+	 *
+	 * @param scope the scope
+	 * @param value the value
+	 * @return the agent
+	 */
 	@Override
 	public SimulationAgent getAgent(final IScope scope, final GamaPoint value) {
 		return get(null, 0);
@@ -190,12 +236,24 @@ public class SimulationPopulation extends GamaPopulation<SimulationAgent> {
 		host = agent;
 	}
 
+	/**
+	 * Compute topology.
+	 *
+	 * @param scope the scope
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@Override
 	public void computeTopology(final IScope scope) throws GamaRuntimeException {
 		// Temporary topology set before the world gets a shape
 		topology = new AmorphousTopology();
 	}
 
+	/**
+	 * Step agents.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 */
 	@Override
 	protected boolean stepAgents(final IScope scope) {
 		runner.step();
