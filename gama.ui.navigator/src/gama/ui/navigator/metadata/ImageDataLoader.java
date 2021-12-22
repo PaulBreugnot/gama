@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.navigator.metadata;
 
@@ -52,6 +52,7 @@ import gama.common.util.ImageUtils;
 import gama.core.dev.utils.DEBUG;
 import it.geosolutions.imageioimpl.plugins.tiff.TIFFImageReaderSpi;
 
+// TODO: Auto-generated Javadoc
 /**
  * Class ImageDataLoader.
  *
@@ -70,7 +71,8 @@ public class ImageDataLoader {
 	/**
 	 * Gets the image data.
 	 *
-	 * @param file the file
+	 * @param file
+	 *            the file
 	 * @return the image data
 	 */
 	public static ImageData getImageData(final IFile file) {
@@ -79,6 +81,7 @@ public class ImageDataLoader {
 		try {
 			file.refreshLocal(IResource.DEPTH_ONE, null);
 		} catch (final CoreException e1) {
+			System.err.println("Impossible to load the metadata of " + file.getFullPath());
 			e1.printStackTrace();
 		}
 		if (ext != null) {
@@ -88,111 +91,112 @@ public class ImageDataLoader {
 				} else if ("pgm".equals(ext)) {
 					imageData = readPGM(in);
 				} else if (ext.contains("tif")) {
-					try {
-						imageData = new ImageData(in);
-						final PaletteData palette = imageData.palette;
-						if (!((imageData.depth == 1 || imageData.depth == 2 || imageData.depth == 4
-								|| imageData.depth == 8) && !palette.isDirect || imageData.depth == 8
-								|| (imageData.depth == 16 || imageData.depth == 24 || imageData.depth == 32)
-										&& palette.isDirect)) {
-							imageData = null;
-						}
-						if (imageData == null) {
-							final BufferedImage tif = ImageIO.read(in);
-							imageData = convertToSWT(tif);
-						}
-						if (imageData == null) {
-							try (ImageInputStream is =
-									createImageInputStream(new File(file.getLocation().toFile().getAbsolutePath()))) {
-								final ImageReader reader = READER_SPI.createReaderInstance();
-								reader.setInput(is);
-								final BufferedImage image = toCompatibleImage(reader.read(0));
-								imageData = convertToSWT(image);
-								image.flush();
-								imageData.type = SWT.IMAGE_TIFF;
-							} catch (final IOException e1) {
-								e1.printStackTrace();
-							}
-						}
-					} catch (Exception ex) {
-						try {
-							AbstractGridCoverage2DReader reader =
-									new GeoTiffReader(file.getLocation().toFile().getAbsolutePath());// format.getReader(file,
-																										// hints);
-							GridCoverage2D grid = reader.read(null);
-							reader.dispose();
-	
-							BufferedImage image = new BufferedImage(grid.getGridGeometry().getGridRange2D().width,
-									grid.getGridGeometry().getGridRange2D().height, BufferedImage.TYPE_4BYTE_ABGR);
-	
-							MapContent mapContent = new MapContent();
-							mapContent.getViewport().setCoordinateReferenceSystem(grid.getCoordinateReferenceSystem());
-							Layer rasterLayer = new GridCoverageLayer(grid, createStyle(1, -0.4, 0.2));
-							mapContent.addLayer(rasterLayer);
-							
-							//TODO: Patrick: I removed these lines to avoid an error with some geotiffs, but no idea of there roles
-							/*	GTRenderer draw = new StreamingRenderer();
-								draw.setMapContent(mapContent);
-								Graphics2D graphics = image.createGraphics();
-								draw.paint(graphics, grid.getGridGeometry().getGridRange2D(), mapContent.getMaxBounds());
-							*/
-								imageData = convertToSWT(image);
-								image.flush();
-								mapContent.dispose();
-								imageData.type = SWT.IMAGE_TIFF;
-						} catch (Exception e)	 {
-							try {
-								final BufferedImage image = toCompatibleImage(
-										read(new File(file.getLocation().toFile().getAbsolutePath())));
-								imageData = convertToSWT(image);
-								image.flush();
-								imageData.type =  SWT.IMAGE_TIFF;
-							} catch (final IOException e1) {
-								e1.printStackTrace();
-							}
-						}
-						
-					}
-
-					// AbstractGridFormat format = GridFormatFinder.findFormat(file);
-					// Hints hints = null;
-					// if (format instanceof GeoTiffFormat) {
-					// hints = new Hints(Hints.FORCE_LONGITUDE_FIRST_AXIS_ORDER, Boolean.TRUE);
-					// }
-
+					imageData = readTiff(file, in);
 				} else {
 					try {
 						imageData = new ImageData(in);
 					} catch (final SWTException e) {
 						// Bad format. Can happen for PNG. See #2825
 						if ("png".equals(ext) || "jpg".equals(ext)) {
-							try {
-								final BufferedImage image = toCompatibleImage(
-										read(new File(file.getLocation().toFile().getAbsolutePath())));
-								imageData = convertToSWT(image);
-								image.flush();
-								imageData.type = "png".equals(ext) ? SWT.IMAGE_PNG : SWT.IMAGE_JPEG;
-							} catch (final IOException e1) {
-								e1.printStackTrace();
-							}
+							final BufferedImage image =
+									toCompatibleImage(read(new File(file.getLocation().toFile().getAbsolutePath())));
+							imageData = convertToSWT(image);
+							image.flush();
+							imageData.type = "png".equals(ext) ? SWT.IMAGE_PNG : SWT.IMAGE_JPEG;
 						}
 					}
 				}
 			} catch (final Exception ex) {
+				System.err.println("Impossible to load the metadata of " + file.getFullPath());
 				ex.printStackTrace();
 			}
 		}
-		if (imageData == null) { DEBUG.ERR("null image data"); }
 		return imageData;
 
 	}
 
 	/**
+	 * Extracted.
+	 *
+	 * @param file            the file
+	 * @param in            the in
+	 * @return the image data
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	private static ImageData readTiff(final IFile file, final InputStream in) throws IOException {
+		ImageData imageData = new ImageData(in);
+		try {
+			final PaletteData palette = imageData.palette;
+			if ((imageData.depth != 1 && imageData.depth != 2 && imageData.depth != 4 && imageData.depth != 8
+					|| palette.isDirect) && imageData.depth != 8
+					&& (imageData.depth != 16 && imageData.depth != 24 && imageData.depth != 32 || !palette.isDirect)) {
+				imageData = null;
+			}
+			if (imageData == null) {
+				final BufferedImage tif = ImageIO.read(in);
+				imageData = convertToSWT(tif);
+			}
+			if (imageData == null) {
+				try (ImageInputStream is =
+						createImageInputStream(new File(file.getLocation().toFile().getAbsolutePath()))) {
+					final ImageReader reader = READER_SPI.createReaderInstance();
+					reader.setInput(is);
+					final BufferedImage image = toCompatibleImage(reader.read(0));
+					imageData = convertToSWT(image);
+					image.flush();
+					imageData.type = SWT.IMAGE_TIFF;
+				}
+			}
+		} catch (Exception ex) {
+			try {
+				AbstractGridCoverage2DReader reader = new GeoTiffReader(file.getLocation().toFile().getAbsolutePath());// format.getReader(file,
+				GridCoverage2D grid = reader.read(null);
+				reader.dispose();
+				BufferedImage image = new BufferedImage(grid.getGridGeometry().getGridRange2D().width,
+						grid.getGridGeometry().getGridRange2D().height, BufferedImage.TYPE_4BYTE_ABGR);
+
+				MapContent mapContent = new MapContent();
+				mapContent.getViewport().setCoordinateReferenceSystem(grid.getCoordinateReferenceSystem());
+				Layer rasterLayer = new GridCoverageLayer(grid, createStyle(1, -0.4, 0.2));
+				mapContent.addLayer(rasterLayer);
+
+				// TODO: Patrick: I removed these lines to avoid an error with some geotiffs, but no idea of there roles
+				/*
+				 * GTRenderer draw = new StreamingRenderer(); draw.setMapContent(mapContent); Graphics2D graphics =
+				 * image.createGraphics(); draw.paint(graphics, grid.getGridGeometry().getGridRange2D(),
+				 * mapContent.getMaxBounds());
+				 */
+				imageData = convertToSWT(image);
+				image.flush();
+				mapContent.dispose();
+				imageData.type = SWT.IMAGE_TIFF;
+			} catch (Exception e) {
+				final BufferedImage image =
+						toCompatibleImage(read(new File(file.getLocation().toFile().getAbsolutePath())));
+				imageData = convertToSWT(image);
+				image.flush();
+				imageData.type = SWT.IMAGE_TIFF;
+			}
+
+		}
+
+		// AbstractGridFormat format = GridFormatFinder.findFormat(file);
+		// Hints hints = null;
+		// if (format instanceof GeoTiffFormat) {
+		// hints = new Hints(Hints.FORCE_LONGITUDE_FIRST_AXIS_ORDER, Boolean.TRUE);
+		// }
+		return imageData;
+	}
+
+	/**
 	 * Creates the style.
 	 *
-	 * @param band the band
-	 * @param min the min
-	 * @param max the max
+	 * @param band
+	 *            the band
+	 * @param min
+	 *            the min
+	 * @param max
+	 *            the max
 	 * @return the style
 	 */
 	private static Style createStyle(final int band, final double min, final double max) {
@@ -212,15 +216,14 @@ public class ImageDataLoader {
 		cMap.addColorMapEntry(start);
 		cMap.addColorMapEntry(end);
 		sym.setColorMap(cMap);
-		Style style = SLD.wrapSymbolizers(sym);
-
-		return style;
+		return SLD.wrapSymbolizers(sym);
 	}
 
 	/**
 	 * Read PGM.
 	 *
-	 * @param filename the filename
+	 * @param filename
+	 *            the filename
 	 * @return the image data
 	 */
 	private static ImageData readPGM(final InputStream filename) {
@@ -229,7 +232,7 @@ public class ImageDataLoader {
 
 			// process the top 4 header lines
 			final String filetype = infile.nextLine();
-			if (!filetype.equalsIgnoreCase("p2")) {
+			if (!"p2".equalsIgnoreCase(filetype)) {
 				DEBUG.ERR("Not a PGM");
 				infile.close();
 				return null;
@@ -250,9 +253,7 @@ public class ImageDataLoader {
 				}
 			}
 			for (int r = 0; r < rows; r++) {
-				for (int c = 0; c < cols; c++) {
-					pixels[r][c] = (int) (pixels[r][c] / (double) maxValue);
-				}
+				for (int c = 0; c < cols; c++) { pixels[r][c] = (int) (pixels[r][c] / (double) maxValue); }
 			}
 		} catch (final Exception e) {
 			DEBUG.ERR(e.toString());
@@ -275,7 +276,8 @@ public class ImageDataLoader {
 	/**
 	 * Read ASC.
 	 *
-	 * @param filename the filename
+	 * @param filename
+	 *            the filename
 	 * @return the image data
 	 */
 	private static ImageData readASC(final InputStream filename) {
@@ -289,8 +291,8 @@ public class ImageDataLoader {
 			}
 
 			infile.useLocale(Locale.US);
-			int cols = 0;
-			int rows = 0;
+			int cols;
+			int rows;
 			double nodata = 0d;
 
 			// process the top 6 or 5 header lines
@@ -336,9 +338,7 @@ public class ImageDataLoader {
 				ratio = range / 255d;
 			}
 			for (int r = 0; r < rows; r++) {
-				for (int c = 0; c < cols; c++) {
-					pixels[r][c] = (int) ((pixels[r][c] - minValue) * ratio);
-				}
+				for (int c = 0; c < cols; c++) { pixels[r][c] = (int) ((pixels[r][c] - minValue) * ratio); }
 			}
 		} catch (final Exception e) {
 			DEBUG.ERR(e.toString());
@@ -362,7 +362,8 @@ public class ImageDataLoader {
 	/**
 	 * Convert to SWT.
 	 *
-	 * @param image the image
+	 * @param image
+	 *            the image
 	 * @return the image data
 	 */
 	public static ImageData convertToSWT(final java.awt.image.BufferedImage image) {
@@ -382,7 +383,8 @@ public class ImageDataLoader {
 				}
 			}
 			return data;
-		} else if (image.getColorModel() instanceof java.awt.image.IndexColorModel) {
+		}
+		if (image.getColorModel() instanceof java.awt.image.IndexColorModel) {
 			final java.awt.image.IndexColorModel colorModel = (java.awt.image.IndexColorModel) image.getColorModel();
 			final int size = colorModel.getMapSize();
 			final byte[] reds = new byte[size];
@@ -408,7 +410,8 @@ public class ImageDataLoader {
 				}
 			}
 			return data;
-		} else if (image.getColorModel() instanceof java.awt.image.ComponentColorModel) {
+		}
+		if (image.getColorModel() instanceof java.awt.image.ComponentColorModel) {
 
 			final java.awt.image.ComponentColorModel colorModel =
 					(java.awt.image.ComponentColorModel) image.getColorModel();
