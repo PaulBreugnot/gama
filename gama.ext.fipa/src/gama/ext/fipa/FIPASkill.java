@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ext.fipa;
 
@@ -24,6 +24,7 @@ import static gama.ext.fipa.Performative.request;
 import static gama.ext.fipa.Performative.request_when;
 import static gama.ext.fipa.Performative.subscribe;
 
+import java.util.Iterator;
 import java.util.List;
 
 import gama.common.interfaces.IKeyword;
@@ -48,6 +49,7 @@ import gaml.types.GamaMessageType;
 import gaml.types.IType;
 import gaml.types.Types;
 
+// TODO: Auto-generated Javadoc
 /**
  * Agents capable of communicate are equipped with this skill. The CommunicatingSkill supplies the communicating agents
  * with primitives to manipulate the Conversation and Message objects.
@@ -63,71 +65,71 @@ import gaml.types.Types;
 		of = ConversationType.CONV_ID,
 		init = "[]",
 		doc = @doc ("A list containing the current conversations of agent. Ended conversations are automatically removed from this list.")),
-		@variable (
-				name = "accept_proposals",
-				type = IType.LIST,
-				of = IType.MESSAGE,
-				doc = @doc ("A list of 'accept_proposal' performative messages in the agent's mailbox")),
-		@variable (
-				name = "agrees",
-				type = IType.LIST,
-				of = IType.MESSAGE,
-				doc = @doc ("A list of 'agree' performative messages.")),
-		@variable (
-				name = "cancels",
-				type = IType.LIST,
-				of = IType.MESSAGE,
-				doc = @doc ("A list of 'cancel' performative messages.")),
-		@variable (
-				name = "cfps",
-				type = IType.LIST,
-				of = IType.MESSAGE,
-				doc = @doc ("A list of 'cfp' (call for proposal) performative messages.")),
-		@variable (
-				name = "failures",
-				type = IType.LIST,
-				of = IType.MESSAGE,
-				doc = @doc ("A list of 'failure' performative messages.")),
-		@variable (
-				name = "informs",
-				type = IType.LIST,
-				of = IType.MESSAGE,
-				doc = @doc ("A list of 'inform' performative messages.")),
-		@variable (
-				name = "proposes",
-				type = IType.LIST,
-				of = IType.MESSAGE,
-				doc = @doc ("A list of 'propose' performative messages .")),
-		@variable (
-				name = "queries",
-				type = IType.LIST,
-				of = IType.MESSAGE,
-				doc = @doc ("A list of 'query' performative messages.")),
-		@variable (
-				name = "refuses",
-				type = IType.LIST,
-				of = IType.MESSAGE,
-				doc = @doc ("A list of 'propose' performative messages.")),
-		@variable (
-				name = "reject_proposals",
-				type = IType.LIST,
-				of = IType.MESSAGE,
-				doc = @doc ("A list of 'reject_proposal' performative messages.")),
-		@variable (
-				name = "requests",
-				type = IType.LIST,
-				of = IType.MESSAGE,
-				doc = @doc ("A list of 'request' performative messages.")),
-		@variable (
-				name = "requestWhens",
-				type = IType.LIST,
-				of = IType.MESSAGE,
-				doc = @doc ("A list of 'request-when' performative messages.")),
-		@variable (
-				name = "subscribes",
-				type = IType.LIST,
-				of = IType.MESSAGE,
-				doc = @doc ("A list of 'subscribe' performative messages.")), })
+	@variable (
+			name = "accept_proposals",
+			type = IType.LIST,
+			of = IType.MESSAGE,
+			doc = @doc ("A list of 'accept_proposal' performative messages in the agent's mailbox")),
+	@variable (
+			name = "agrees",
+			type = IType.LIST,
+			of = IType.MESSAGE,
+			doc = @doc ("A list of 'agree' performative messages.")),
+	@variable (
+			name = "cancels",
+			type = IType.LIST,
+			of = IType.MESSAGE,
+			doc = @doc ("A list of 'cancel' performative messages.")),
+	@variable (
+			name = "cfps",
+			type = IType.LIST,
+			of = IType.MESSAGE,
+			doc = @doc ("A list of 'cfp' (call for proposal) performative messages.")),
+	@variable (
+			name = "failures",
+			type = IType.LIST,
+			of = IType.MESSAGE,
+			doc = @doc ("A list of 'failure' performative messages.")),
+	@variable (
+			name = "informs",
+			type = IType.LIST,
+			of = IType.MESSAGE,
+			doc = @doc ("A list of 'inform' performative messages.")),
+	@variable (
+			name = "proposes",
+			type = IType.LIST,
+			of = IType.MESSAGE,
+			doc = @doc ("A list of 'propose' performative messages .")),
+	@variable (
+			name = "queries",
+			type = IType.LIST,
+			of = IType.MESSAGE,
+			doc = @doc ("A list of 'query' performative messages.")),
+	@variable (
+			name = "refuses",
+			type = IType.LIST,
+			of = IType.MESSAGE,
+			doc = @doc ("A list of 'propose' performative messages.")),
+	@variable (
+			name = "reject_proposals",
+			type = IType.LIST,
+			of = IType.MESSAGE,
+			doc = @doc ("A list of 'reject_proposal' performative messages.")),
+	@variable (
+			name = "requests",
+			type = IType.LIST,
+			of = IType.MESSAGE,
+			doc = @doc ("A list of 'request' performative messages.")),
+	@variable (
+			name = "requestWhens",
+			type = IType.LIST,
+			of = IType.MESSAGE,
+			doc = @doc ("A list of 'request-when' performative messages.")),
+	@variable (
+			name = "subscribes",
+			type = IType.LIST,
+			of = IType.MESSAGE,
+			doc = @doc ("A list of 'subscribe' performative messages.")), })
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class FIPASkill extends MessagingSkill {
 
@@ -144,7 +146,13 @@ public class FIPASkill extends MessagingSkill {
 	// /** The protocol indexes. */
 	// private static Map<String, Integer> protocolIndexes = new HashMap();
 
-	/** The performative indexes. */
+	/**
+	 *  The performative indexes.
+	 *
+	 * @param scope the scope
+	 * @return the FIPA message
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	// protected static Map<String, Integer> performativeIndexes = new HashMap();
 	// static {
 	// int i = 0;
@@ -161,23 +169,17 @@ public class FIPASkill extends MessagingSkill {
 
 	// }
 
-	@Override
-	@getter (
-			value = MAILBOX,
-			initializer = true)
-	public GamaMailbox getMailbox(final IAgent agent) {
-		final GamaMailbox mailbox = super.getMailbox(agent);
-		mailbox.clear();
-		mailbox.addAll(MessageBroker.getInstance(agent.getScope()).getMessagesFor(agent));
-		return mailbox;
-	}
-
 	/**
-	 * Prim start conversation.
+	 * @throws GamaRuntimeException
+	 *             Primitive sendMessage. Reads the input arguments, creates an instance of Message then sends it.
 	 *
-	 * @param scope the scope
+	 * @param args
+	 *            contains the properties of the message.
+	 *
 	 * @return the Action.CommandStatus indicating the success or failure in executing the primitive.
-	 * @throws GamaRuntimeException             Primitive sendMessage. Reads the input arguments, creates an instance of Message then sends it.
+	 *
+	 * @throws GamlException
+	 *             the gaml exception
 	 */
 	@action (
 			name = "start_conversation",
@@ -233,6 +235,13 @@ public class FIPASkill extends MessagingSkill {
 		return message;
 	}
 
+	/**
+	 * Prim send message.
+	 *
+	 * @param scope the scope
+	 * @return the FIPA message
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@Override
 	@action (
 			name = "send",
@@ -344,7 +353,8 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Gets the content arg.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the content arg
 	 */
 	private IList getContentArg(final IScope scope) {
@@ -354,7 +364,8 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Gets the message arg.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the message arg
 	 */
 	private IList<FIPAMessage> getMessageArg(final IScope scope) {
@@ -725,8 +736,30 @@ public class FIPASkill extends MessagingSkill {
 		final IList<FIPAMessage> result = MessageBroker.getInstance(scope).getMessagesFor(agent);
 		final List<FIPAMessage> received = MessageBroker.getInstance(scope).deliverMessagesFor(scope, agent);
 		result.addAll(received);
-		result.removeIf(m -> !m.isUnread());
+		for (final Iterator<FIPAMessage> it = result.iterator(); it.hasNext();) {
+			final FIPAMessage m = it.next();
+			if (!m.isUnread()) { it.remove(); }
+		}
+
 		return result;
+	}
+
+	/**
+	 * Gets the mailbox.
+	 *
+	 * @param scope the scope
+	 * @param agent the agent
+	 * @return the mailbox
+	 */
+	@Override
+	@getter (
+			value = MAILBOX,
+			initializer = true)
+	public GamaMailbox<FIPAMessage> getMailbox(final IScope scope, final IAgent agent) {
+		final GamaMailbox<FIPAMessage> mailbox = super.getMailbox(scope, agent);
+		mailbox.clear();
+		mailbox.addAll(getMessages(scope, agent));
+		return mailbox;
 	}
 
 	/**

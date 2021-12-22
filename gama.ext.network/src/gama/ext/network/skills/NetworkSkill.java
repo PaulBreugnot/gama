@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ext.network.skills;
 
@@ -20,7 +20,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import gama.core.dev.annotations.IConcept;
 import gama.core.dev.annotations.GamlAnnotations.action;
 import gama.core.dev.annotations.GamlAnnotations.arg;
 import gama.core.dev.annotations.GamlAnnotations.doc;
@@ -28,6 +27,7 @@ import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.skill;
 import gama.core.dev.annotations.GamlAnnotations.variable;
 import gama.core.dev.annotations.GamlAnnotations.vars;
+import gama.core.dev.annotations.IConcept;
 import gama.core.dev.utils.DEBUG;
 import gama.ext.network.common.ConnectorMessage;
 import gama.ext.network.common.IConnector;
@@ -35,17 +35,18 @@ import gama.ext.network.mqtt.MQTTConnector;
 import gama.ext.network.serial.ArduinoConnector;
 import gama.ext.network.tcp.TCPConnection;
 import gama.ext.network.udp.UDPConnector;
-import gaml.extensions.messaging.GamaMailbox;
-import gaml.extensions.messaging.GamaMessage;
-import gaml.extensions.messaging.MessagingSkill;
 import gama.metamodel.agent.IAgent;
 import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gama.util.GamaListFactory;
 import gama.util.IList;
+import gaml.extensions.messaging.GamaMailbox;
+import gaml.extensions.messaging.GamaMessage;
+import gaml.extensions.messaging.MessagingSkill;
 import gaml.operators.Cast;
 import gaml.types.IType;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class NetworkSkill.
  */
@@ -53,14 +54,14 @@ import gaml.types.IType;
 		name = INetworkSkill.NET_AGENT_NAME,
 		type = IType.STRING,
 		doc = @doc ("Net ID of the agent")),
-		@variable (
-				name = INetworkSkill.NET_AGENT_GROUPS,
-				type = IType.LIST,
-				doc = @doc ("The set of groups the agent belongs to")),
-		@variable (
-				name = INetworkSkill.NET_AGENT_SERVER,
-				type = IType.LIST,
-				doc = @doc ("The list of all the servers to which the agent is connected")) })
+	@variable (
+			name = INetworkSkill.NET_AGENT_GROUPS,
+			type = IType.LIST,
+			doc = @doc ("The set of groups the agent belongs to")),
+	@variable (
+			name = INetworkSkill.NET_AGENT_SERVER,
+			type = IType.LIST,
+			doc = @doc ("The list of all the servers to which the agent is connected")) })
 @skill (
 		name = INetworkSkill.NETWORK_SKILL,
 		concept = { IConcept.NETWORK, IConcept.COMMUNICATION, IConcept.SKILL })
@@ -74,14 +75,15 @@ public class NetworkSkill extends MessagingSkill {
 
 	/** The Constant REGISTERED_AGENTS. */
 	final static String REGISTERED_AGENTS = "registred_agents";
-	
+
 	/** The Constant REGISTRED_SERVER. */
 	final static String REGISTRED_SERVER = "registred_servers";
 
 	/**
 	 * System exec.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the string
 	 */
 	@action (
@@ -117,8 +119,10 @@ public class NetworkSkill extends MessagingSkill {
 	/**
 	 * Connect to server.
 	 *
-	 * @param scope the scope
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param scope
+	 *            the scope
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@SuppressWarnings ("unchecked")
 	@action (
@@ -170,13 +174,10 @@ public class NetworkSkill extends MessagingSkill {
 							@example (" do connect to:\\\"localhost\\\" port:9876 with_name:\"any_name\";"),
 							@example (" do connect to:\\\"localhost\\\" protocol:\\\"MQTT\\\" port:9876 with_name:\"any_name\";"),
 							@example (" do connect to:\"localhost\" protocol:\"udp_server\" port:9876 with_name:\"Server\"; "),
-							@example (" do connect to:\"localhost\" protocol:\"udp_client\" port:9876 with_name:\"Client\";"), 
-							@example ("	do connect to:\"localhost\" protocol:\"udp_server\" port:9877 size_packet: 4096;")
-					}))
+							@example (" do connect to:\"localhost\" protocol:\"udp_client\" port:9876 with_name:\"Client\";"),
+							@example ("	do connect to:\"localhost\" protocol:\"udp_server\" port:9877 size_packet: 4096;") }))
 	public void connectToServer(final IScope scope) throws GamaRuntimeException {
-		if (!scope.getExperiment().hasAttribute(REGISTRED_SERVER)) {
-			this.startSkill(scope);
-		}
+		if (!scope.getExperiment().hasAttribute(REGISTRED_SERVER)) { this.startSkill(scope); }
 		final IAgent agt = scope.getAgent();
 		final String serverURL = (String) scope.getArg(INetworkSkill.SERVER_URL, IType.STRING);
 		final String login = (String) scope.getArg(INetworkSkill.LOGIN, IType.STRING);
@@ -194,30 +195,30 @@ public class NetworkSkill extends MessagingSkill {
 		IConnector connector = myConnectors.get(serverKey);
 		if (connector == null) {
 
-			if (protocol != null && protocol.equals(INetworkSkill.UDP_SERVER)) {
+			if (INetworkSkill.UDP_SERVER.equals(protocol)) {
 				DEBUG.OUT("create UDP server");
 				connector = new UDPConnector(scope, true);
 				connector.configure(IConnector.SERVER_URL, serverURL);
-				connector.configure(IConnector.SERVER_PORT, "" + port);		
+				connector.configure(IConnector.SERVER_PORT, "" + port);
 				connector.configure(IConnector.PACKET_SIZE, packet_size);
-			} else if (protocol != null && protocol.equals(INetworkSkill.UDP_CLIENT)) {
+			} else if (INetworkSkill.UDP_CLIENT.equals(protocol)) {
 				DEBUG.OUT("create UDP client");
 				connector = new UDPConnector(scope, false);
 				connector.configure(IConnector.SERVER_URL, serverURL);
 				connector.configure(IConnector.SERVER_PORT, "" + port);
-				connector.configure(IConnector.PACKET_SIZE, "" + packet_size);				
-			} else if (protocol != null && protocol.equals(INetworkSkill.TCP_SERVER)) {
+				connector.configure(IConnector.PACKET_SIZE, "" + packet_size);
+			} else if (INetworkSkill.TCP_SERVER.equals(protocol)) {
 				DEBUG.OUT("create TCP serveur");
 				connector = new TCPConnection(scope, true);
 				connector.configure(IConnector.SERVER_URL, serverURL);
 				connector.configure(IConnector.SERVER_PORT, "" + port);
-			} else if (protocol != null && protocol.equals(INetworkSkill.TCP_CLIENT)) {
+			} else if (INetworkSkill.TCP_CLIENT.equals(protocol)) {
 				DEBUG.OUT("create TCP client");
 				connector = new TCPConnection(scope, false);
 				connector.configure(IConnector.SERVER_URL, serverURL);
 				connector.configure(IConnector.SERVER_PORT, "" + port);
-			} else if (protocol != null && protocol.equals("arduino")) {
-				connector = new ArduinoConnector(scope);			
+			} else if ("arduino".equals(protocol)) {
+				connector = new ArduinoConnector(scope);
 			} else // if(protocol.equals( INetworkSkill.MQTT))
 			{
 				DEBUG.OUT("create MQTT serveur " + login + " " + password);
@@ -230,17 +231,11 @@ public class NetworkSkill extends MessagingSkill {
 						connector.configure(IConnector.SERVER_PORT, port.toString());
 
 					}
-					if (login != null) {
-						connector.configure(IConnector.LOGIN, login);
-					}
-					if (password != null) {
-						connector.configure(IConnector.PASSWORD, password);
-					}
+					if (login != null) { connector.configure(IConnector.LOGIN, login); }
+					if (password != null) { connector.configure(IConnector.PASSWORD, password); }
 				}
 			}
-			if (force_local != null) {
-				connector.forceNetworkUse(force_local.booleanValue());
-			}
+			if (force_local != null) { connector.forceNetworkUse(force_local); }
 			// Fix to Issue #2618
 			myConnectors.put(serverKey, connector);
 
@@ -266,14 +261,15 @@ public class NetworkSkill extends MessagingSkill {
 			DEBUG.OUT(grp);
 			// connector.joinAGroup(agt, grp);
 		}
-		;
 	}
 
 	/**
 	 * Creates the server key.
 	 *
-	 * @param serverURL the server URL
-	 * @param port the port
+	 * @param serverURL
+	 *            the server URL
+	 * @param port
+	 *            the port
 	 * @return the string
 	 */
 	private static String createServerKey(final String serverURL, final Integer port) {
@@ -283,7 +279,8 @@ public class NetworkSkill extends MessagingSkill {
 	/**
 	 * Fetch message.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the gama message
 	 */
 	@action (
@@ -294,7 +291,7 @@ public class NetworkSkill extends MessagingSkill {
 					+ "	message mess <- fetch_message();" + "	write message.contents;" + "}") })
 	public GamaMessage fetchMessage(final IScope scope) {
 		final IAgent agent = scope.getAgent();
-		final GamaMailbox box = getMailbox(agent);
+		final GamaMailbox<GamaMessage> box = getMailbox(scope, agent);
 		GamaMessage msg = null;
 		if (!box.isEmpty()) {
 			msg = box.get(0);
@@ -306,7 +303,8 @@ public class NetworkSkill extends MessagingSkill {
 	/**
 	 * Checks for more message.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return true, if successful
 	 */
 	@action (
@@ -318,14 +316,15 @@ public class NetworkSkill extends MessagingSkill {
 							+ "	write message.contents;" + "}") })
 	public boolean hasMoreMessage(final IScope scope) {
 		final IAgent agent = scope.getAgent();
-		final GamaMailbox box = getMailbox(agent);
+		final GamaMailbox box = getMailbox(scope, agent);
 		return !box.isEmpty();
 	}
 
 	/**
 	 * Register to group.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 */
 	@action (
 			name = INetworkSkill.REGISTER_TO_GROUP,
@@ -339,22 +338,22 @@ public class NetworkSkill extends MessagingSkill {
 			doc = @doc (
 					value = "allow an agent to join a group of agents in order to broadcast messages to other members"
 							+ "or to receive messages sent by other members. Note that all members of the group called : \"ALL\".",
-					examples = { @example ("do join_group with_name:\"group name\";"),
-							@example ("do join_group with_name:\"group name\";"
-									+ "do send to:\"group name\" contents:\"I am new in this group\";") }))
+							examples = { @example ("do join_group with_name:\"group name\";"),
+									@example ("do join_group with_name:\"group name\";"
+											+ "do send to:\"group name\" contents:\"I am new in this group\";") }))
 	public void registerToGroup(final IScope scope) {
 		final IAgent agent = scope.getAgent();
 		final String groupName = (String) scope.getArg(INetworkSkill.WITHNAME, IType.STRING);
-		if (groupName != null) {
-			joinAGroup(scope, agent, groupName);
-		}
+		if (groupName != null) { joinAGroup(scope, agent, groupName); }
 	}
 
 	/**
 	 * Gets the groups.
 	 *
-	 * @param scope the scope
-	 * @param agent the agent
+	 * @param scope
+	 *            the scope
+	 * @param agent
+	 *            the agent
 	 * @return the groups
 	 */
 	private IList<String> getGroups(final IScope scope, final IAgent agent) {
@@ -370,24 +369,26 @@ public class NetworkSkill extends MessagingSkill {
 	/**
 	 * Join A group.
 	 *
-	 * @param scope the scope
-	 * @param agent the agent
-	 * @param groupName the group name
+	 * @param scope
+	 *            the scope
+	 * @param agent
+	 *            the agent
+	 * @param groupName
+	 *            the group name
 	 */
 	public void joinAGroup(final IScope scope, final IAgent agent, final String groupName) {
 		final IList<String> groups = getGroups(scope, agent);
 		groups.add(groupName);
 
 		final Collection<IConnector> connectors = getRegisteredServers(scope).values();
-		for (final IConnector con : connectors) {
-			con.joinAGroup(agent, groupName);
-		}
+		for (final IConnector con : connectors) { con.joinAGroup(agent, groupName); }
 	}
 
 	/**
 	 * Leave the group.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 */
 	@action (
 			name = INetworkSkill.LEAVE_THE_GROUP,
@@ -399,28 +400,31 @@ public class NetworkSkill extends MessagingSkill {
 			doc = @doc (
 					value = "leave a group of agents. The leaving agent will not receive any "
 							+ "message from the group. Overwhise, it can send messages to the left group",
-					examples = { @example (" do leave_group with_name:\"my_group\";\n") }))
+							examples = { @example (" do leave_group with_name:\"my_group\";\n") }))
 	public void leaveTheGroup(final IScope scope) {
 		final IAgent agent = scope.getAgent();
 		final String groupName = (String) scope.getArg(INetworkSkill.WITHNAME, IType.STRING);
-		if (groupName == null) { return; }
+		if (groupName == null) return;
 		final IList<String> groups = getGroups(scope, agent);
 
 		groups.remove(groupName);
 		final Collection<IConnector> connectors = getRegisteredServers(scope).values();
-		for (final IConnector con : connectors) {
-			con.leaveTheGroup(agent, groupName);
-		}
+		for (final IConnector con : connectors) { con.leaveTheGroup(agent, groupName); }
 
 	}
 
+	/**
+	 * Effective send.
+	 *
+	 * @param scope the scope
+	 * @param message the message
+	 * @param receiver the receiver
+	 */
 	@SuppressWarnings ({ "unchecked", "rawtypes" })
 	@Override
 	protected void effectiveSend(final IScope scope, final GamaMessage message, final Object receiver) {
 		if (receiver instanceof IList) {
-			for (final Object o : ((IList) receiver).iterable(scope)) {
-				effectiveSend(scope, message.copy(scope), o);
-			}
+			for (final Object o : ((IList) receiver).iterable(scope)) { effectiveSend(scope, message.copy(scope), o); }
 		}
 		String destName = receiver.toString();
 		if (receiver instanceof IAgent && getRegisteredAgents(scope).contains(receiver)) {
@@ -431,15 +435,14 @@ public class NetworkSkill extends MessagingSkill {
 		final IAgent agent = scope.getAgent();
 		final List<String> serverNames = (List<String>) agent.getAttribute(INetworkSkill.NET_AGENT_SERVER);
 		final Map<String, IConnector> connections = getRegisteredServers(scope);
-		for (final String servName : serverNames) {
-			connections.get(servName).send(agent, destName, message);
-		}
+		for (final String servName : serverNames) { connections.get(servName).send(agent, destName, message); }
 	}
 
 	/**
 	 * Fetch messages of agents.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 */
 	@action (
 			name = INetworkSkill.SIMULATE_STEP,
@@ -468,7 +471,8 @@ public class NetworkSkill extends MessagingSkill {
 	/**
 	 * Gets the registered agents.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the registered agents
 	 */
 	@SuppressWarnings ("unchecked")
@@ -483,7 +487,8 @@ public class NetworkSkill extends MessagingSkill {
 	/**
 	 * Gets the registered servers.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the registered servers
 	 */
 	@SuppressWarnings ("unchecked")
@@ -494,7 +499,8 @@ public class NetworkSkill extends MessagingSkill {
 	/**
 	 * Initialize.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 */
 	private void initialize(final IScope scope) {
 
@@ -505,7 +511,8 @@ public class NetworkSkill extends MessagingSkill {
 	/**
 	 * Start skill.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 */
 	protected void startSkill(final IScope scope) {
 		initialize(scope);
@@ -515,7 +522,8 @@ public class NetworkSkill extends MessagingSkill {
 	/**
 	 * Register simulation event.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 */
 	private void registerSimulationEvent(final IScope scope) {
 		scope.getSimulation().postEndAction(scope1 -> {
@@ -532,12 +540,11 @@ public class NetworkSkill extends MessagingSkill {
 	/**
 	 * Close all connection.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 */
 	private void closeAllConnection(final IScope scope) {
-		for (final IConnector connection : getRegisteredServers(scope).values()) {
-			connection.close(scope);
-		}
+		for (final IConnector connection : getRegisteredServers(scope).values()) { connection.close(scope); }
 		this.initialize(scope);
 	}
 
