@@ -31,6 +31,7 @@ import gama.kernel.experiment.IParameter;
 import gama.kernel.experiment.ParameterAdapter;
 import gama.kernel.experiment.ParametersSet;
 import gama.runtime.IScope;
+import gama.runtime.concurrent.GamaExecutorService;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gaml.descriptions.IDescription;
 import gaml.expressions.IExpression;
@@ -103,13 +104,13 @@ public class TabuSearch extends LocalSearchAlgorithm {
 
 	/** The Constant ITER_MAX. */
 	protected static final String ITER_MAX = "iter_max";
-
+	
 	/** The Constant LIST_SIZE. */
 	protected static final String LIST_SIZE = "tabu_list_size";
 
 	/** The tabu list size. */
 	int tabuListSize = 5;
-
+	
 	/** The stopping criterion. */
 	StoppingCriterion stoppingCriterion = new StoppingCriterionMaxIt(50);
 
@@ -122,6 +123,22 @@ public class TabuSearch extends LocalSearchAlgorithm {
 		super(species);
 		initParams();
 
+	}
+
+
+	/**
+	 * Keep sol.
+	 *
+	 * @param neighborSol the neighbor sol
+	 * @param neighborFitness the neighbor fitness
+	 * @param bestFitnessAlgo the best fitness algo
+	 * @return true, if successful
+	 */
+	public boolean keepSol(final ParametersSet neighborSol, final Double neighborFitness, final Double bestFitnessAlgo ) {
+		final boolean neighFitnessGreaterThanBest = neighborFitness > bestFitnessAlgo;
+		if (isMaximize() && neighFitnessGreaterThanBest || !isMaximize() && !neighFitnessGreaterThanBest) //setBestFitness(neighborFitness);
+			return true;
+		return false;
 	}
 
 	/**
@@ -143,7 +160,6 @@ public class TabuSearch extends LocalSearchAlgorithm {
 		setBestFitness(currentFitness);
 
 		int nbIt = 0;
-		double bestFitnessAlgo = currentFitness;
 		final Map<String, Object> endingCritParams = new Hashtable<>();
 		endingCritParams.put("Iteration", Integer.valueOf(nbIt));
 		while (!stoppingCriterion.stopSearchProcess(endingCritParams)) {
@@ -156,39 +172,44 @@ public class TabuSearch extends LocalSearchAlgorithm {
 				}
 				neighbors.add(tabuList.get(scope.getRandom().between(0, tabuList.size() - 1)));
 			}
+			double bestFitnessAlgo;
+
 			if (isMaximize()) {
-				bestFitnessAlgo = -Double.MAX_VALUE;
+				bestFitnessAlgo = Double.NEGATIVE_INFINITY;
 			} else {
-				bestFitnessAlgo = Double.MAX_VALUE;
+				bestFitnessAlgo = Double.POSITIVE_INFINITY;
 			}
 			ParametersSet bestNeighbor = null;
 
-			for (final ParametersSet neighborSol : neighbors) {
-				// scope.getGui().debug("TabuSearch.findBestSolution for parametersSet " + neighborSol);
-				if (neighborSol == null) {
-					continue;
-				}
-				Double neighborFitness = testedSolutions.get(neighborSol);
-				if ((neighborFitness != null) && (neighborFitness != Double.MAX_VALUE)) {
-					continue;
-				}
-				neighborFitness = currentExperiment.launchSimulationsWithSolution(neighborSol);
-				nbIt++;
-				testedSolutions.put(neighborSol, neighborFitness);
+			nbIt++;
 
-				// scope.getGui().debug("TabuSearch.findBestSolution neighborFitness = " + neighborFitness +
-				// " bestFitnessAlgo = " + bestFitnessAlgo + " bestFitness = " + getBestFitness() +
-				// " current fitness = " + currentFitness);
-				final boolean neighFitnessGreaterThanBest = neighborFitness > bestFitnessAlgo;
-				if (isMaximize() && neighFitnessGreaterThanBest || !isMaximize() && !neighFitnessGreaterThanBest) {
-					bestNeighbor = neighborSol;
-					bestFitnessAlgo = neighborFitness;
-				}
 
-				if (nbIt > iterMax) {
-					break;
+			if (GamaExecutorService.CONCURRENCY_SIMULATIONS_ALL.getValue() && ! currentExperiment.getParametersToExplore().isEmpty()) {
+				Map<ParametersSet,Double> result = testSolutions(neighbors);
+				for (ParametersSet p : result.keySet()) {
+					if (keepSol(p, result.get(p), bestFitnessAlgo)) {
+						bestNeighbor = p;
+					}
+				}
+			} else {
+				for (final ParametersSet neighborSol : neighbors) {
+					if (neighborSol == null) {
+						continue;
+					}
+					Double neighborFitness = testedSolutions.get(neighborSol);
+					if ((neighborFitness != null) && (neighborFitness != Double.MAX_VALUE)) {
+						continue;
+					}
+					neighborFitness = currentExperiment.launchSimulationsWithSolution(neighborSol);
+					testedSolutions.put(neighborSol, neighborFitness);
+
+					if (keepSol(neighborSol, neighborFitness, bestFitnessAlgo)) {
+						bestNeighbor = neighborSol;
+					}
+
 				}
 			}
+
 			if (bestNeighbor == null) {
 				break;
 			}

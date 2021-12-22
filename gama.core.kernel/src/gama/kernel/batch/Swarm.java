@@ -6,16 +6,16 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.kernel.batch;
-
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 import gama.common.interfaces.IKeyword;
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.ISymbolKind;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.facet;
@@ -23,14 +23,19 @@ import gama.core.dev.annotations.GamlAnnotations.facets;
 import gama.core.dev.annotations.GamlAnnotations.inside;
 import gama.core.dev.annotations.GamlAnnotations.symbol;
 import gama.core.dev.annotations.GamlAnnotations.usage;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.ISymbolKind;
 import gama.kernel.experiment.ParametersSet;
 import gama.runtime.IScope;
+import gama.runtime.concurrent.GamaExecutorService;
 import gama.runtime.exceptions.GamaRuntimeException;
+import gama.util.GamaMapFactory;
 import gaml.descriptions.IDescription;
 import gaml.expressions.IExpression;
 import gaml.operators.Cast;
 import gaml.types.IType;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Swarm.
  */
@@ -104,45 +109,45 @@ import gaml.types.IType;
 								isExecutable = false) }) })
 public class Swarm extends ParamSpaceExploAlgorithm {
 
-    /** The Constant DEFAULT_INERTIA. */
-    public static final double DEFAULT_INERTIA = 0.729844;
-    
-    /** The Constant DEFAULT_COGNITIVE. */
-    public static final double DEFAULT_COGNITIVE = 1.496180; // Cognitive component.
-    
-    /** The Constant DEFAULT_SOCIAL. */
-    public static final double DEFAULT_SOCIAL = 1.496180; // Social component.
+	/** The Constant DEFAULT_INERTIA. */
+	public static final double DEFAULT_INERTIA = 0.729844;
 
-    /** The Constant ITER_MAX. */
-    protected static final String ITER_MAX = "iter_max";
-	
+	/** The Constant DEFAULT_COGNITIVE. */
+	public static final double DEFAULT_COGNITIVE = 1.496180; // Cognitive component.
+
+	/** The Constant DEFAULT_SOCIAL. */
+	public static final double DEFAULT_SOCIAL = 1.496180; // Social component.
+
+	/** The Constant ITER_MAX. */
+	protected static final String ITER_MAX = "iter_max";
+
 	/** The Constant NUM_PARTICLES. */
 	protected static final String NUM_PARTICLES = "num_particles";
-	
+
 	/** The Constant INERTIA_WEIGHT. */
 	protected static final String INERTIA_WEIGHT = "weight_inertia";
-	
+
 	/** The Constant COGNITIVE_WEIGHT. */
 	protected static final String COGNITIVE_WEIGHT = "weight_cognitive";
-	
+
 	/** The Constant SOCIAL_WEIGHT. */
 	protected static final String SOCIAL_WEIGHT = "weight_social";
-	
+
 	/** The stopping criterion. */
 	StoppingCriterion stoppingCriterion = null;
-	
+
 	/** The max it. */
 	int maxIt;
-	
+
 	/** The num particles. */
 	int numParticles;
-	
+
 	/** The weight inertia. */
 	double weightInertia;
-	
+
 	/** The weight cognitive. */
 	double weightCognitive;
-	
+
 	/** The weight social. */
 	double weightSocial;
 
@@ -156,7 +161,12 @@ public class Swarm extends ParamSpaceExploAlgorithm {
 		initParams();
 	}
 
-   
+
+	/**
+	 * Inits the params.
+	 *
+	 * @param scope the scope
+	 */
 	@Override
 	public void initParams(final IScope scope) {
 		final IExpression maxItExp = getFacet(ITER_MAX);
@@ -164,28 +174,28 @@ public class Swarm extends ParamSpaceExploAlgorithm {
 			maxIt = Cast.asInt(scope, maxItExp.value(scope));
 			stoppingCriterion = new StoppingCriterionMaxIt(maxIt);
 		}
-		
+
 		final IExpression numParticExp = getFacet(NUM_PARTICLES);
 		if (maxItExp != null) {
 			numParticles = Cast.asInt(scope, numParticExp.value(scope));
 		} else {
 			numParticles = 10;
 		}
-		
+
 		final IExpression intertiaExp = getFacet(INERTIA_WEIGHT);
 		if (intertiaExp != null) {
 			weightInertia = Cast.asFloat(scope, intertiaExp.value(scope));
 		} else {
 			weightInertia = DEFAULT_INERTIA;
 		}
-		
+
 		final IExpression cognitiveExp = getFacet(COGNITIVE_WEIGHT);
 		if (cognitiveExp != null) {
 			weightCognitive = Cast.asFloat(scope, cognitiveExp.value(scope));
 		} else {
 			weightCognitive = DEFAULT_COGNITIVE ;
 		}
-		
+
 		final IExpression socialExp = getFacet(SOCIAL_WEIGHT);
 		if (socialExp != null) {
 			weightSocial = Cast.asFloat(scope, socialExp.value(scope));
@@ -194,145 +204,210 @@ public class Swarm extends ParamSpaceExploAlgorithm {
 		}
 	}
 
+	/**
+	 * Find best solution.
+	 *
+	 * @param scope the scope
+	 * @return the parameters set
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@Override
 	public ParametersSet findBestSolution(final IScope scope) throws GamaRuntimeException {
-		bestFitness = isMaximize ? Double.NEGATIVE_INFINITY : Double.POSITIVE_INFINITY;
 		Particle[] particles = initialize(scope);
-		
+
 		int nbIt = 0;
 
-        final Map<String, Object> endingCritParams = new Hashtable<>();
+		final Map<String, Object> endingCritParams = new Hashtable<>();
 		endingCritParams.put("Iteration", Integer.valueOf(nbIt));
 		while (!stoppingCriterion.stopSearchProcess(endingCritParams)) {
-		   
-            for (Particle p : particles) {
-                p.updatePersonalBest();
-                updateGlobalBest(p);
-            }
+			Map<ParametersSet, List<Particle>> soltTotest = GamaMapFactory.create();
 
-            for (Particle p : particles) {
-                updateVelocity(scope, p);
-                p.updatePosition(scope);
-            }
-            
-            nbIt++;
+			if (GamaExecutorService.CONCURRENCY_SIMULATIONS_ALL.getValue() && ! currentExperiment.getParametersToExplore().isEmpty()) {
+				for (Particle particle : particles ) {
+					List<Particle> ps = null;
+					if (soltTotest.containsKey(particle.getPosition())) {
+						ps = soltTotest.get(particle.getPosition());
+					} else {
+						ps = new ArrayList<>();
+					}
+					ps.add(particle);
+					soltTotest.put(particle.getPosition(), ps);
+				}
+			}
+			evaluation(particles, soltTotest);
+			for (Particle p : particles) {
+				updateVelocity(scope, p);
+				p.updatePosition(scope);
+			}
+
+			nbIt++;
 			endingCritParams.put("Iteration", Integer.valueOf(nbIt));
-        }
+		}
 
-       
+
 		return getBestSolution();
-    }
+	}
 
-    /**
-     * Create a set of particles, each with random starting positions.
-     *
-     * @param scope the scope
-     * @return  an array of particles
-     */
-    private Particle[] initialize (IScope scope) {
-        Particle[] particles = new Particle[numParticles];
-        for (int i = 0; i < numParticles; i++) {
-            Particle particle = new Particle(scope, currentExperiment, this, testedSolutions);
-            particles[i] = particle;
-            updateGlobalBest(particle);
-        }
-        return particles;
-    }
+	/**
+	 * Test solutions.
+	 *
+	 * @param solutions the solutions
+	 * @return the map
+	 */
+	public Map<ParametersSet, Double> testSolutions(final Collection<ParametersSet> solutions) {
+		Map<ParametersSet, Double> results = GamaMapFactory.create();
+		solutions.removeIf(a -> a == null);
+		List<ParametersSet> solTotest = new ArrayList<>();
+		for (ParametersSet sol : solutions) {
+			if (testedSolutions.containsKey(sol)) {
+				results.put(sol, testedSolutions.get(sol));
+			} else {
+				solTotest.add(sol);
+			}
+		}
+		Map<ParametersSet, Double> res = currentExperiment.launchSimulationsWithSolution(solTotest);
+		testedSolutions.putAll(res);
+		results.putAll(res);
 
-    /**
-     * Update the global best solution if a the specified particle has
-     * a better solution.
-     *
-     * @param particle  the particle to analyze
-     */
-    private void updateGlobalBest (Particle particle) {
-      
-    	  if (isMaximize() && particle.getBestEval() > bestFitness
-  				|| !isMaximize() && particle.getBestEval() < bestFitness) {
-           bestSolution = new ParametersSet(particle.getBestPosition());
-           bestFitness = particle.getBestEval();
-        }
-    }
+		return results;
+	}
 
-    /**
-     * Update the velocity of a particle using the velocity update formula.
-     *
-     * @param scope the scope
-     * @param particle  the particle to update
-     */
-    private void updateVelocity (IScope scope, Particle particle) {
-    	ParametersSet oldVelocity = particle.getVelocity();
-    	ParametersSet pBest = new ParametersSet(particle.getBestPosition());
-    	ParametersSet gBest = new ParametersSet(bestSolution);
-    	ParametersSet pos = particle.getPosition();
+	/**
+	 * Evaluation.
+	 *
+	 * @param particles the particles
+	 * @param soltTotest the solt totest
+	 */
+	public void evaluation(final Particle[] particles,  final Map<ParametersSet, List<Particle>> soltTotest ) {
+		if (GamaExecutorService.CONCURRENCY_SIMULATIONS_ALL.getValue() && ! currentExperiment.getParametersToExplore().isEmpty()) {
+			Map<ParametersSet, Double> res = testSolutions(soltTotest.keySet());
+			for (ParametersSet ps : res.keySet()) {
+				for (Particle particle : soltTotest.get(ps)) {
+					particle.updatePersonalBest();
+					//updateGlobalBest(particle);
+				}
+			}
 
-        double r1 = scope.getRandom().next();
-        double r2 =  scope.getRandom().next();
+		} else {
+			for (int i = 0; i < numParticles; i++) {
+				Particle particle = particles[i];
+				particle.eval();
 
-        // The first product of the formula.
-        ParametersSet newVelocity = new ParametersSet(oldVelocity);
-        newVelocity = mul(scope, newVelocity, weightInertia);
+				particle.updatePersonalBest();
+				// updateGlobalBest(particle);
+			}
+		}
 
-        // The second product of the formula.
-        pBest = sub(scope,pBest,pos);
-        pBest= mul(scope, pBest,weightCognitive);
-        pBest = mul(scope, pBest, r1);
-        newVelocity = add(scope, newVelocity, pBest);
+	}
 
-        // The third product of the formula.
-        gBest = sub(scope,gBest,pos);
-        pBest= mul(scope, gBest,weightSocial);
-        pBest = mul(scope, gBest, r2);
-        newVelocity = add(scope, newVelocity,gBest);
+	/**
+	 * Create a set of particles, each with random starting positions.
+	 *
+	 * @param scope the scope
+	 * @return  an array of particles
+	 */
+	private Particle[] initialize (final IScope scope) {
+		Particle[] particles = new Particle[numParticles];
+		Map<ParametersSet, List<Particle>> soltTotest = GamaMapFactory.create();
+		for (int i = 0; i < numParticles; i++) {
+			Particle particle = new Particle(scope, currentExperiment, this, testedSolutions);
+			particles[i] = particle;
+			if (GamaExecutorService.CONCURRENCY_SIMULATIONS_ALL.getValue() && ! currentExperiment.getParametersToExplore().isEmpty()) {
+				List<Particle> ps = null;
+				if (soltTotest.containsKey(particle.getPosition())) {
+					ps = soltTotest.get(particle.getPosition());
+				} else {
+					ps = new ArrayList<>();
+				}
+				ps.add(particle);
+				soltTotest.put(particle.getPosition(), ps);
+			}
+		}
+		evaluation(particles, soltTotest);
+
+		return particles;
+	}
 
 
-        particle.setVelocity(newVelocity);
-    }
-    
-    /**
-     * Mul.
-     *
-     * @param scope the scope
-     * @param set the set
-     * @param val the val
-     * @return the parameters set
-     */
-    protected ParametersSet mul(IScope scope, ParametersSet set, double val) {
-    	for (String key : set.keySet()) {
-      		set.put(key, Cast.asFloat(scope, set.get(key))* val );
-      	}
-    	return set;
-    }
-   
-    
-    /**
-     * Sub.
-     *
-     * @param scope the scope
-     * @param set1 the set 1
-     * @param set2 the set 2
-     * @return the parameters set
-     */
-    protected ParametersSet sub(IScope scope, ParametersSet set1,  ParametersSet set2) {
-    	for (String key : set1.keySet()) {
-      		set1.put(key, Cast.asFloat(scope, set1.get(key))+  Cast.asFloat(scope, set2.get(key)) );
-      	}
-    	return set1;
-    }
-    
-    /**
-     * Adds the.
-     *
-     * @param scope the scope
-     * @param set1 the set 1
-     * @param set2 the set 2
-     * @return the parameters set
-     */
-    protected ParametersSet add(IScope scope,ParametersSet set1,  ParametersSet set2) {
-    	for (String key : set1.keySet()) {
-      		set1.put(key, Cast.asFloat(scope, set1.get(key)) - Cast.asFloat(scope, set2.get(key)) );
-      	}
-    	return set1;
-    }
+
+	/**
+	 * Update the velocity of a particle using the velocity update formula.
+	 *
+	 * @param scope the scope
+	 * @param particle  the particle to update
+	 */
+	private void updateVelocity (final IScope scope, final Particle particle) {
+		ParametersSet oldVelocity = particle.getVelocity();
+		ParametersSet pBest = new ParametersSet(particle.getBestPosition());
+		ParametersSet gBest = new ParametersSet(bestSolution);
+		ParametersSet pos = particle.getPosition();
+
+		double r1 = scope.getRandom().next();
+		double r2 =  scope.getRandom().next();
+
+		// The first product of the formula.
+		ParametersSet newVelocity = new ParametersSet(oldVelocity);
+		newVelocity = mul(scope, newVelocity, weightInertia);
+
+		// The second product of the formula.
+		pBest = sub(scope,pBest,pos);
+		pBest= mul(scope, pBest,weightCognitive);
+		pBest = mul(scope, pBest, r1);
+		newVelocity = add(scope, newVelocity, pBest);
+
+		// The third product of the formula.
+		gBest = sub(scope,gBest,pos);
+		gBest= mul(scope, gBest,weightSocial);
+		gBest = mul(scope, gBest, r2);
+		newVelocity = add(scope, newVelocity,gBest);
+
+		particle.setVelocity(newVelocity);
+	}
+
+	/**
+	 * Mul.
+	 *
+	 * @param scope the scope
+	 * @param set the set
+	 * @param val the val
+	 * @return the parameters set
+	 */
+	protected ParametersSet mul(final IScope scope, final ParametersSet set, final double val) {
+		for (String key : set.keySet()) {
+			set.put(key, Cast.asFloat(scope, set.get(key))* val );
+		}
+		return set;
+	}
+
+
+	/**
+	 * Sub.
+	 *
+	 * @param scope the scope
+	 * @param set1 the set 1
+	 * @param set2 the set 2
+	 * @return the parameters set
+	 */
+	protected ParametersSet sub(final IScope scope, final ParametersSet set1,  final ParametersSet set2) {
+		for (String key : set1.keySet()) {
+			set1.put(key, Cast.asFloat(scope, set1.get(key))-  Cast.asFloat(scope, set2.get(key)) );
+		}
+		return set1;
+	}
+
+	/**
+	 * Adds the.
+	 *
+	 * @param scope the scope
+	 * @param set1 the set 1
+	 * @param set2 the set 2
+	 * @return the parameters set
+	 */
+	protected ParametersSet add(final IScope scope,final ParametersSet set1,  final ParametersSet set2) {
+		for (String key : set1.keySet()) {
+			set1.put(key, Cast.asFloat(scope, set1.get(key)) + Cast.asFloat(scope, set2.get(key)) );
+		}
+		return set1;
+	}
 
 }

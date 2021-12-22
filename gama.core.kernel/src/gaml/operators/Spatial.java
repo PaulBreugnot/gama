@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gaml.operators;
 
@@ -65,16 +65,16 @@ import gama.common.geometry.Rotation3D;
 import gama.common.geometry.Scaling3D;
 import gama.common.interfaces.IKeyword;
 import gama.common.preferences.GamaPreferences;
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.IOperatorCategory;
-import gama.core.dev.annotations.ITypeProvider;
-import gama.core.dev.annotations.Reason;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.no_test;
 import gama.core.dev.annotations.GamlAnnotations.operator;
 import gama.core.dev.annotations.GamlAnnotations.test;
 import gama.core.dev.annotations.GamlAnnotations.usage;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.IOperatorCategory;
+import gama.core.dev.annotations.ITypeProvider;
+import gama.core.dev.annotations.Reason;
 import gama.metamodel.agent.IAgent;
 import gama.metamodel.shape.GamaPoint;
 import gama.metamodel.shape.GamaShape;
@@ -112,6 +112,7 @@ import gaml.types.GamaType;
 import gaml.types.IType;
 import gaml.types.Types;
 
+// TODO: Auto-generated Javadoc
 /**
  * Written by drogoul Modified on 10 dec. 2010
  *
@@ -194,7 +195,7 @@ public abstract class Spatial {
 						equals = "a geometry as a circle of radius 10.",
 						test = false) },
 				see = { "around", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle", "square",
-						"triangle" })
+				"triangle" })
 		@no_test // (comment="See Creation.experiment in test models : {Circle tests with tolerance}")
 		public static IShape circle(final IScope scope, final Double radius) {
 			GamaPoint location;
@@ -225,7 +226,7 @@ public abstract class Spatial {
 								equals = "a geometry as a circle of radius 10, the center will be in the location {80,30}.",
 								test = false) }) },
 				see = { "around", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle", "square",
-						"triangle" })
+				"triangle" })
 		@no_test
 		public static IShape circle(final IScope scope, final Double radius, final GamaPoint position) {
 			GamaPoint location;
@@ -262,7 +263,7 @@ public abstract class Spatial {
 			GamaPoint location;
 			final IAgent a = scope.getAgent();
 			location = a != null ? a.getLocation() : new GamaPoint(0, 0);
-			if ((xRadius <= 0) && (yRadius <= 0)) return new GamaShape(location);
+			if (xRadius <= 0 && yRadius <= 0) return new GamaShape(location);
 			return GamaGeometryType.buildEllipse(xRadius, yRadius, location);
 		}
 
@@ -400,7 +401,8 @@ public abstract class Spatial {
 				double ang = i * (Math.PI / nPts);
 				double x = xRadius * Math.cos(ang);
 				double y = yRadius * Math.sin(ang);
-				pts[iPt++] = new Coordinate(x, y);
+				pts[iPt] = new Coordinate(x, y);
+				iPt++;
 			}
 			IShape shape = new GamaShape(GeometryUtils.GEOMETRY_FACTORY.createLineString(pts));
 			shape = Transformations.rotated_by(scope, shape, Relations.towards(scope, pt2, pt1));
@@ -487,7 +489,7 @@ public abstract class Spatial {
 						equals = "a geometry as a circle of radius 10.",
 						test = false) },
 				see = { "around", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle", "square",
-						"triangle" })
+				"triangle" })
 		@no_test // (comment="Dummy init in test models > Creation.experiment")
 		public static IShape cylinder(final IScope scope, final Double radius, final Double depth) {
 			GamaPoint location;
@@ -518,7 +520,7 @@ public abstract class Spatial {
 						equals = "a geometry as a circle of radius 10 but displays a sphere.",
 						test = false) },
 				see = { "around", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle", "square",
-						"triangle" })
+				"triangle" })
 		@no_test // (comment="Dummy init in test models > Creation.experiment")
 		public static IShape sphere(final IScope scope, final Double radius) {
 			GamaPoint location;
@@ -548,7 +550,7 @@ public abstract class Spatial {
 						equals = "a geometry as a circle of radius 10 but displays a teapot.",
 						test = false) },
 				see = { "around", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle", "square",
-						"triangle" })
+				"triangle" })
 		@no_test // (comment="Dummy init in test models > Creation.experiment")
 		public static IShape teapot(final IScope scope, final Double size) {
 			GamaPoint location;
@@ -592,9 +594,9 @@ public abstract class Spatial {
 			final double originx = origin.getX();
 			final double originy = origin.getY();
 			final double worldWidth = scope.getTopology().getWidth();// -
-																		// originx;
+			// originx;
 			final double worldHeight = scope.getTopology().getHeight();// -
-																		// originy;
+			// originy;
 			final double max = Math.max(worldWidth, worldHeight);
 			final double min_point_x = originx + Maths.cos(min_angle) * max;
 			final double min_point_y = originy + Maths.sin(min_angle) * max;
@@ -653,7 +655,7 @@ public abstract class Spatial {
 						equals = "a geometry as a cone with a base circle of radius 10 and a height of 5.",
 						test = false) },
 				see = { "around", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle", "square",
-						"triangle" })
+				"triangle" })
 		@no_test
 		public static IShape cone3D(final IScope scope, final Double radius, final Double height) {
 			GamaPoint location;
@@ -688,7 +690,7 @@ public abstract class Spatial {
 								equals = "100.0",
 								returnType = "float") },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle",
-						"triangle" })
+				"triangle" })
 		@test ("square(10).area = 100")
 		public static IShape square(final IScope scope, final Double side_size) {
 			GamaPoint location;
@@ -719,7 +721,7 @@ public abstract class Spatial {
 						equals = "a geometry as a square of side size 10.",
 						test = false) },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle",
-						"triangle" })
+				"triangle" })
 		@test ("cube(10).volume = 1000")
 		public static IShape cube(final IScope scope, final Double side_size) {
 			GamaPoint location;
@@ -748,7 +750,7 @@ public abstract class Spatial {
 						equals = "a geometry as a rectangle with width = 10 and height = 5.",
 						test = false) },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "square",
-						"triangle" })
+				"triangle" })
 		@test ("rectangle({10, 5}).area = 50.0")
 		public static IShape rectangle(final IScope scope, final GamaPoint p) {
 			GamaPoint location;
@@ -780,7 +782,7 @@ public abstract class Spatial {
 						equals = "a geometry as a rectangle with width = 10 and height = 5.",
 						test = false) },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "square",
-						"triangle" })
+				"triangle" })
 		@test ("rectangle(10, 5).area = 50.0")
 		public static IShape rectangle(final IScope scope, final double x, final double y) {
 			GamaPoint location;
@@ -808,7 +810,7 @@ public abstract class Spatial {
 						equals = "a geometry as a rectangle with {1.0,1.0} as the upper-left corner, {10.0,10.0} as the lower-right corner.",
 						test = false) },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "square",
-						"triangle" })
+				"triangle" })
 		@test ("rectangle({0.0,0.0}, {10.0,10.0}).area = 100.0")
 		public static IShape rectangle(final IScope scope, final GamaPoint upperLeftCorner,
 				final GamaPoint lowerRightCorner) {
@@ -907,7 +909,7 @@ public abstract class Spatial {
 						equals = "a geometry as a triangle with side_size = 5.",
 						test = false) },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle",
-						"square" })
+				"square" })
 		@no_test
 		public static IShape triangle(final IScope scope, final Double side_size) {
 			GamaPoint location;
@@ -938,7 +940,7 @@ public abstract class Spatial {
 						equals = "a geometry as a triangle with a base of 5m and a height of 10m.",
 						test = false) },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle",
-						"square" })
+				"square" })
 		@no_test
 		public static IShape triangle(final IScope scope, final Double base, final Double height) {
 			GamaPoint location;
@@ -969,7 +971,7 @@ public abstract class Spatial {
 						equals = "a geometry as a square with side_size = 5.",
 						test = false) },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle",
-						"square" })
+				"square" })
 		@no_test
 		public static IShape pyramid(final IScope scope, final Double side_size) {
 			GamaPoint location;
@@ -1000,7 +1002,7 @@ public abstract class Spatial {
 						equals = "a geometry as a hexagon of width of 10 and height of 10.",
 						test = false) },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle",
-						"triangle" })
+				"triangle" })
 		@no_test
 		public static IShape hexagon(final IScope scope, final Double size) {
 			GamaPoint location;
@@ -1028,7 +1030,7 @@ public abstract class Spatial {
 						equals = "a geometry as a hexagon of width of 10 and height of 5.",
 						test = false) },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle",
-						"triangle" })
+				"triangle" })
 		@no_test
 		public static IShape hexagon(final IScope scope, final GamaPoint size) {
 			GamaPoint location;
@@ -1059,7 +1061,7 @@ public abstract class Spatial {
 						equals = "a geometry as a hexagon of width of 10 and height of 5.",
 						test = false) },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle",
-						"triangle" })
+				"triangle" })
 		@no_test
 		public static IShape hexagon(final IScope scope, final Double width, final Double height) {
 			GamaPoint location;
@@ -1102,7 +1104,7 @@ public abstract class Spatial {
 								equals = "point(5.0,5.0,0.0)",
 								returnType = "point") },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polyline", "rectangle", "square",
-						"triangle" })
+				"triangle" })
 		@no_test
 		public static IShape polygon(final IScope scope, final IContainer<?, ? extends IShape> points) {
 			if (points == null || points.isEmpty(scope)) return new GamaShape(new GamaPoint(0, 0));
@@ -1143,7 +1145,7 @@ public abstract class Spatial {
 						equals = "a polygon geometry composed of the 4 points and of depth 10.",
 						test = false) },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polyline", "rectangle", "square",
-						"triangle" })
+				"triangle" })
 		@no_test
 		public static IShape polyhedron(final IScope scope, final IContainer<?, IShape> points, final Double depth) {
 			if (points == null || points.isEmpty(scope)) return new GamaShape(new GamaPoint(0, 0));
@@ -1628,7 +1630,7 @@ public abstract class Spatial {
 								equals = "\"MULTILINESTRING ((0 0, 0 10, 10 10), (10 10, 10 0))\"",
 								returnType = "string"), },
 				see = { "around", "circle", "cone", "link", "norm", "point", "polygone", "rectangle", "square",
-						"triangle" })
+				"triangle" })
 		@test ("points_along(line({0,0},{0,10}),[0.5])[0] = point({0,5})")
 		public static IShape line(final IScope scope, final IContainer<?, IShape> points) {
 			if (points == null || points.isEmpty(scope)) return new GamaShape(new GamaPoint(0, 0));
@@ -1695,7 +1697,7 @@ public abstract class Spatial {
 								equals = "a polyline geometry composed of the 4 points.",
 								test = false) }) },
 				see = { "around", "circle", "cone", "link", "norm", "point", "polygone", "rectangle", "square",
-						"triangle" })
+				"triangle" })
 		@no_test
 		public static IShape line(final IScope scope, final IContainer<?, IShape> points, final double radius) {
 			if (points == null || points.isEmpty(scope)) return new GamaShape(new GamaPoint(0, 0));
@@ -1730,7 +1732,7 @@ public abstract class Spatial {
 						equals = "a polyline geometry composed of the 4 points with a depth of 10.",
 						test = false) },
 				see = { "around", "circle", "cone", "link", "norm", "point", "polygone", "rectangle", "square",
-						"triangle" })
+				"triangle" })
 		@no_test
 		public static IShape plan(final IScope scope, final IContainer<?, IShape> points, final Double depth) {
 			if (points == null || points.isEmpty(scope)) return new GamaShape(new GamaPoint(0, 0));
@@ -1799,7 +1801,7 @@ public abstract class Spatial {
 						equals = "the ring geometry between 5 and 10.",
 						test = false) },
 				see = { "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle", "square",
-						"triangle" })
+				"triangle" })
 		@no_test
 		public static IShape around(final IScope scope, final Double width, final Object toBeCastedIntoGeometry)
 				throws GamaRuntimeException {
@@ -1852,7 +1854,7 @@ public abstract class Spatial {
 								equals = "200.0",
 								returnType = "float") }
 
-		)
+				)
 		public static IShape envelope(final IScope scope, final Object obj) {
 			Envelope3D env = Envelope3D.of(GeometryUtils.computeEnvelopeFrom(scope, obj));
 			try {
@@ -2085,8 +2087,7 @@ public abstract class Spatial {
 		 */
 		private static Geometry difference(final Geometry first, final Geometry g2) {
 			Geometry g1 = first;
-			if (g2 instanceof GeometryCollection) {
-				final GeometryCollection g2c = (GeometryCollection) g2;
+			if (g2 instanceof GeometryCollection g2c) {
 				final int nb = g2c.getNumGeometries();
 				for (int i = 0; i < nb; i++) {
 					g1 = difference(g1, g2c.getGeometryN(i));
@@ -3059,13 +3060,13 @@ public abstract class Spatial {
 		@doc (
 				value = "A geometry resulting from the application of a rotation by the operand angles (degree)"
 						+ " along the operand axis (last operand) to the left-hand operand (geometry, agent, point)",
-				masterDoc = true,
-				examples = { @example (
-						value = "rotated_by(pyramid(10),45.0, {1,0,0})",
-						equals = "the geometry resulting from a 45 degrees rotation along the {1,0,0} vector to the geometry of "
-								+ "the agent applying the operator.",
-						test = false) },
-				see = { "transformed_by", "translated_by" })
+						masterDoc = true,
+						examples = { @example (
+								value = "rotated_by(pyramid(10),45.0, {1,0,0})",
+								equals = "the geometry resulting from a 45 degrees rotation along the {1,0,0} vector to the geometry of "
+										+ "the agent applying the operator.",
+										test = false) },
+						see = { "transformed_by", "translated_by" })
 		@no_test
 		public static IShape rotated_by(final IScope scope, final IShape g1, final Double rotation,
 				final GamaPoint vector) {
@@ -3117,7 +3118,7 @@ public abstract class Spatial {
 						value = "rotated_by(pyramid(10),45.0::{1,0,0})",
 						equals = "the geometry resulting from a 45 degrees rotation along the {1,0,0} vector to the geometry of "
 								+ "the agent applying the operator.",
-						test = false) },
+								test = false) },
 				see = { "transformed_by", "translated_by" })
 		@no_test
 		public static IShape rotated_by(final IScope scope, final IShape g1, final GamaPair rotation) {
@@ -3167,12 +3168,12 @@ public abstract class Spatial {
 		@doc (
 				value = "A geometry resulting from the application of a rotation and a scaling (right-operand : "
 						+ "point {angle(degree), scale factor} of the left-hand operand (geometry, agent, point)",
-				examples = { @example (
-						value = "self transformed_by {45, 0.5}",
-						equals = "the geometry resulting from 45 degrees rotation and 50% scaling of the geometry "
-								+ "of the agent applying the operator.",
-						test = false) },
-				see = { "rotated_by", "translated_by" })
+						examples = { @example (
+								value = "self transformed_by {45, 0.5}",
+								equals = "the geometry resulting from 45 degrees rotation and 50% scaling of the geometry "
+										+ "of the agent applying the operator.",
+										test = false) },
+						see = { "rotated_by", "translated_by" })
 		public static IShape transformed_by(final IScope scope, final IShape g, final GamaPoint p) {
 			if (g == null) return null;
 			return scaled_by(scope, rotated_by(scope, g, p.x), p.y);
@@ -3252,7 +3253,7 @@ public abstract class Spatial {
 						value = "solid(self)",
 						equals = "the geometry corresponding to the geometry of the agent applying the operator without "
 								+ "its holes.",
-						test = false),
+								test = false),
 						@example (
 								value = "without_holes(polygon([{0,50}, {0,0}, {50,0}, {50,50}, {0,50}]) - square(10) at_location {10,10}).area",
 								equals = "2500.0",
@@ -3264,8 +3265,7 @@ public abstract class Spatial {
 			if (geom instanceof Polygon) {
 				result = GeometryUtils.GEOMETRY_FACTORY.createPolygon(GeometryUtils.GEOMETRY_FACTORY
 						.createLinearRing(((Polygon) geom).getExteriorRing().getCoordinates()), null);
-			} else if (geom instanceof MultiPolygon) {
-				final MultiPolygon mp = (MultiPolygon) geom;
+			} else if (geom instanceof MultiPolygon mp) {
 				final Polygon[] polys = new Polygon[mp.getNumGeometries()];
 				for (int i = 0; i < mp.getNumGeometries(); i++) {
 					final Polygon p = (Polygon) mp.getGeometryN(i);
@@ -4244,14 +4244,14 @@ public abstract class Spatial {
 						+ "by the second operand; the third operator is used to define if the operator should as well split the lines at their intersections(true to split the lines); the last operand"
 						+ "is used to specify if the operator should as well keep only the main connected component of the network. "
 						+ "Usage: clean_network(lines:list of geometries or agents, tolerance: float, split_lines: bool, keepMainConnectedComponent: bool)",
-				comment = "The cleaned set of polylines",
-				examples = { @example (
-						value = "clean_network(my_road_shapefile.contents, 1.0, true, false)",
-						equals = "returns the list of polulines resulting from the cleaning of the geometry of the agent applying the operator with a tolerance of 1m, and splitting the lines at their intersections.",
-						isExecutable = false),
-						@example (
-								value = "clean_network([line({10,10}, {20,20}), line({10,20},{20,10})],3.0,true,false)",
-								equals = "[line({10.0,20.0,0.0},{15.0,15.0,0.0}),line({15.0,15.0,0.0},{20.0,10.0,0.0}), line({10.0,10.0,0.0},{15.0,15.0,0.0}), line({15.0,15.0,0.0},{20.0,20.0,0.0})]") })
+						comment = "The cleaned set of polylines",
+						examples = { @example (
+								value = "clean_network(my_road_shapefile.contents, 1.0, true, false)",
+								equals = "returns the list of polulines resulting from the cleaning of the geometry of the agent applying the operator with a tolerance of 1m, and splitting the lines at their intersections.",
+								isExecutable = false),
+								@example (
+										value = "clean_network([line({10,10}, {20,20}), line({10,20},{20,10})],3.0,true,false)",
+										equals = "[line({10.0,20.0,0.0},{15.0,15.0,0.0}),line({15.0,15.0,0.0},{20.0,10.0,0.0}), line({10.0,10.0,0.0},{15.0,15.0,0.0}), line({15.0,15.0,0.0},{20.0,20.0,0.0})]") })
 		@test ("length(clean_network([line({10,10}, {20,20}), line({10,20},{20,10})],3.0,true,false)) = 4")
 		public static IList<IShape> clean(final IScope scope, final IList<IShape> polylines, final double tolerance,
 				final boolean splitlines, final boolean keepMainGraph) {
@@ -4323,7 +4323,7 @@ public abstract class Spatial {
 			tot.addAll(results);
 			tot.remove(shape);
 			final IShape closest = Queries.closest_to(scope, tot, pt);
-			if (closest.intersects(shape)) return false;
+			if ((closest == null) || closest.intersects(shape)) return false;
 			if (closest.euclidianDistanceTo(pt) <= tolerance) {
 				final GamaPoint fp = closest.getPoints().firstValue(scope);
 				if (pt.equals3D(fp)) return false;
@@ -4333,9 +4333,7 @@ public abstract class Spatial {
 					modifyPoint(scope, shape, fp, first);
 					return false;
 				}
-				if (pt.euclidianDistanceTo(lp) <= tolerance) {
-					modifyPoint(scope, shape, lp, first);
-				} else {
+				if (pt.euclidianDistanceTo(lp) > tolerance) {
 					final GamaPoint ptS = Punctal.closest_points_with(pt, closest).get(1);
 					modifyPoint(scope, shape, ptS, first);
 					final IList<IShape> spliL = Operators.split_at(closest, ptS);
@@ -4348,6 +4346,7 @@ public abstract class Spatial {
 					}
 					return true;
 				}
+				modifyPoint(scope, shape, lp, first);
 			}
 			return false;
 		}
@@ -4860,7 +4859,7 @@ public abstract class Spatial {
 						equals = "the path between ag1 and ag2 considering the topology of the agent applying the operator",
 						isExecutable = false) },
 				see = { "towards", "direction_to", "distance_between", "direction_between", "path_between",
-						"distance_to" })
+				"distance_to" })
 		@no_test // test already done in Spatial tests models
 		public static IPath path_to(final IScope scope, final IShape g, final IShape g1) throws GamaRuntimeException {
 			if (g == null) return null;
@@ -5494,7 +5493,7 @@ public abstract class Spatial {
 						equals = "returns all the agents located at a distance lower or equal to 1 to the agent applying the operator considering its topology.",
 						test = false) },
 				see = { "neighbors_at", "closest_to", "overlapping", "agents_overlapping", "agents_inside",
-						"agent_closest_to" })
+				"agent_closest_to" })
 		@no_test // already done in Spatial tests Models
 		public static IList neighbors_of(final IScope scope, final ITopology t, final IAgent agent) {
 			return _neighbors(scope, In.list(scope, agent.getPopulation()), agent, 1.0, t);
@@ -5529,7 +5528,7 @@ public abstract class Spatial {
 				final Double distance) {
 			return _neighbors(scope,
 					agent instanceof IAgent ? In.list(scope, ((IAgent) agent).getPopulation()) : Different.with(),
-					agent, distance, t);
+							agent, distance, t);
 			// TODO We could compute a filter based on the population if it is
 			// an agent
 		}
@@ -5561,7 +5560,7 @@ public abstract class Spatial {
 		public static IList neighbors_at(final IScope scope, final IShape agent, final Double distance) {
 			return _neighbors(scope,
 					agent instanceof IAgent ? In.list(scope, ((IAgent) agent).getPopulation()) : Different.with(),
-					agent, distance);
+							agent, distance);
 		}
 
 		/**
@@ -5585,22 +5584,20 @@ public abstract class Spatial {
 						equals = "the agents of the list located at a distance <= 20 from the caller agent (in the same order).",
 						isExecutable = false) },
 				see = { "neighbors_at", "neighbors_of", "agent_closest_to", "agents_inside", "closest_to", "inside",
-						"overlapping" })
+				"overlapping" })
 		@no_test // already done in Spatial tests Models
 		public static IList<? extends IShape> at_distance(final IScope scope,
 				final IContainer<?, ? extends IShape> list, final Double distance) {
 			if (GamaPreferences.External.AT_DISTANCE_OPTIMIZATION.getValue() && scope.getAgent().isPoint()) {
 				final ITopology topo = scope.getTopology();
-				if (topo.isContinuous() && !topo.isTorus()) {
-					if ((double) list.length(scope) / (double) scope.getSimulation().getMembersSize(scope) < 0.1) {
-						try (final Collector.AsList<IAgent> results = Collector.getList()) {
-							final IAgent ag = scope.getAgent();
-							for (final IShape sp : list.iterable(scope)) {
-								if (ag.euclidianDistanceTo(sp) <= distance) { results.add((IAgent) sp); }
-							}
-							results.remove(ag);
-							return results.items();
+				if ((topo.isContinuous() && !topo.isTorus()) && ((double) list.length(scope) / (double) scope.getSimulation().getMembersSize(scope) < 0.1)) {
+					try (final Collector.AsList<IAgent> results = Collector.getList()) {
+						final IAgent ag = scope.getAgent();
+						for (final IShape sp : list.iterable(scope)) {
+							if (ag.euclidianDistanceTo(sp) <= distance) { results.add((IAgent) sp); }
 						}
+						results.remove(ag);
+						return results.items();
 					}
 				}
 
@@ -5834,7 +5831,7 @@ public abstract class Spatial {
 								value = "(species1 + species2) overlapping self",
 								isExecutable = false) },
 				see = { "neighbors_at", "neighbors_of", "agent_closest_to", "agents_inside", "closest_to", "inside",
-						"agents_overlapping" })
+				"agents_overlapping" })
 		@no_test // test already done in Spatial tests models
 		public static IList<? extends IShape> overlapping(final IScope scope,
 				final IContainer<?, ? extends IShape> list, final IShape source) {
@@ -5890,7 +5887,7 @@ public abstract class Spatial {
 								value = "(species1 + species2) closest_to self",
 								isExecutable = false) },
 				see = { "neighbors_at", "neighbors_of", "inside", "overlapping", "agents_overlapping", "agents_inside",
-						"agent_closest_to" })
+				"agent_closest_to" })
 		@no_test // already done in Spatial tests Models
 		public static IShape closest_to(final IScope scope, final IContainer<?, ? extends IShape> list,
 				final IShape source) {
@@ -5928,7 +5925,7 @@ public abstract class Spatial {
 								value = "(species1 + species2) closest_to (self, 5)",
 								isExecutable = false) },
 				see = { "neighbors_at", "neighbors_of", "inside", "overlapping", "agents_overlapping", "agents_inside",
-						"agent_closest_to" })
+				"agent_closest_to" })
 		@no_test // already done in Spatial tests Models
 		public static IList<IShape> closest_to(final IScope scope, final IContainer<?, ? extends IShape> list,
 				final IShape source, final int number) {
@@ -6063,7 +6060,7 @@ public abstract class Spatial {
 						equals = "the closest agent to the agent applying the operator.",
 						test = false) },
 				see = { "neighbors_at", "neighbors_of", "agents_inside", "agents_overlapping", "closest_to", "inside",
-						"overlapping" })
+				"overlapping" })
 		@no_test // already done in Spatial tests Models
 		public static IAgent agent_closest_to(final IScope scope, final Object source) {
 			return _closest(scope, Different.with(), source);
@@ -6558,10 +6555,10 @@ public abstract class Spatial {
 				value = "Inverse Distance Weighting (IDW) is a type of deterministic method for multivariate "
 						+ "interpolation with a known scattered set of points. The assigned values to each geometry are calculated with a weighted average of the values available at the known points. See: http://en.wikipedia.org/wiki/Inverse_distance_weighting "
 						+ "Usage: IDW (list of geometries, map of points (key: point, value: value), power parameter)",
-				examples = { @example (
-						value = "IDW([ag1, ag2, ag3, ag4, ag5],[{10,10}::25.0, {10,80}::10.0, {100,10}::15.0], 2)",
-						equals = "for example, can return [ag1::12.0, ag2::23.0,ag3::12.0,ag4::14.0,ag5::17.0]",
-						isExecutable = false) })
+						examples = { @example (
+								value = "IDW([ag1, ag2, ag3, ag4, ag5],[{10,10}::25.0, {10,80}::10.0, {100,10}::15.0], 2)",
+								equals = "for example, can return [ag1::12.0, ag2::23.0,ag3::12.0,ag4::14.0,ag5::17.0]",
+								isExecutable = false) })
 		@test ("map<point, float> mapLocationPoints <- [{0,0}::10.0,{0,10}::-3.0];\r\n"
 				+ "		list<point> queryPoint <- [{0,5}];\r\n"
 				+ "		float((IDW(list(geometry(queryPoint)),mapLocationPoints,1)).pairs[0].value) with_precision 1 = 3.5")
@@ -6621,7 +6618,7 @@ public abstract class Spatial {
 		public static double moranIndex(final IScope scope, final IList<Double> vals, final IMatrix<Double> mat) {
 			final GamaMatrix<Double> weightMatrix = (GamaMatrix<Double>) mat;
 			if (weightMatrix == null || weightMatrix.numCols != weightMatrix.numRows) throw GamaRuntimeException
-					.error("A squared weight matrix should be given for the moran index computation", scope);
+			.error("A squared weight matrix should be given for the moran index computation", scope);
 			final int N = vals.size();
 			double I = 0.0;
 			double sumWeights = 0.0;
@@ -6674,7 +6671,7 @@ public abstract class Spatial {
 			final Geometry g = geom.getInnerGeometry();
 			if (g == null) return geom;
 			if (index < 0 || index > g.getNumPoints() - 1) throw GamaRuntimeException
-					.warning("Trying to modify a point outside the bounds of the geometry", scope);
+			.warning("Trying to modify a point outside the bounds of the geometry", scope);
 			g.apply(new CoordinateSequenceFilter() {
 
 				boolean done = false;
@@ -6726,7 +6723,7 @@ public abstract class Spatial {
 			if (g == null) return geom;
 			if (coords == null || coords.isEmpty(scope)) return null;
 			if (coords.length(scope) > g.getNumPoints()) throw GamaRuntimeException
-					.warning("Trying to modify a point outside the bounds of the geometry", scope);
+			.warning("Trying to modify a point outside the bounds of the geometry", scope);
 			final Double[] zs = coords.listValue(scope, Types.FLOAT, false).toArray(new Double[0]);
 			g.apply(new CoordinateSequenceFilter() {
 
@@ -6773,7 +6770,7 @@ public abstract class Spatial {
 		public static IList<GamaPoint> rgb_to_xyz(final IScope scope, final GamaFile file) {
 
 			final IList<GamaPoint> points = GamaListFactory.create(Types.POINT);
-			BufferedImage texture = null;
+			BufferedImage texture;
 			int rows, cols, x, y;
 
 			if (!(file instanceof GamaImageFile)) {

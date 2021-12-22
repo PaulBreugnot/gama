@@ -30,6 +30,7 @@ import gama.kernel.experiment.IParameter;
 import gama.kernel.experiment.ParameterAdapter;
 import gama.kernel.experiment.ParametersSet;
 import gama.runtime.IScope;
+import gama.runtime.concurrent.GamaExecutorService;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gaml.descriptions.IDescription;
 import gaml.expressions.IExpression;
@@ -115,6 +116,22 @@ public class HillClimbing extends LocalSearchAlgorithm {
 	}
 
 	/**
+	 * Keep sol.
+	 *
+	 * @param neighborSol the neighbor sol
+	 * @param neighborFitness the neighbor fitness
+	 * @return true, if successful
+	 */
+	public boolean keepSol(final ParametersSet neighborSol, final Double neighborFitness ) {
+		if (isMaximize() && neighborFitness.doubleValue() > getBestFitness()
+				|| !isMaximize() && neighborFitness.doubleValue() < getBestFitness()) {
+			setBestFitness(neighborFitness);
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Find best solution.
 	 *
 	 * @param scope the scope
@@ -139,22 +156,33 @@ public class HillClimbing extends LocalSearchAlgorithm {
 			setBestFitness(currentFitness);
 			ParametersSet bestNeighbor = null;
 
-			for (final ParametersSet neighborSol : neighbors) {
-				if (neighborSol == null) {
-					continue;
-				}
-				Double neighborFitness = testedSolutions.get(neighborSol);
-				if (neighborFitness == null) {
-					neighborFitness = currentExperiment.launchSimulationsWithSolution(neighborSol);
-				}
-				testedSolutions.put(neighborSol, neighborFitness);
 
-				if (isMaximize() && neighborFitness.doubleValue() > getBestFitness()
-						|| !isMaximize() && neighborFitness.doubleValue() < getBestFitness()) {
-					bestNeighbor = neighborSol;
-					setBestFitness(neighborFitness);
+			if (GamaExecutorService.CONCURRENCY_SIMULATIONS_ALL.getValue() && ! currentExperiment.getParametersToExplore().isEmpty()) {
+				Map<ParametersSet,Double> result = testSolutions(neighbors);
+				for (ParametersSet p : result.keySet()) {
+					if (keepSol(p, result.get(p))) {
+						bestNeighbor = p;
+					}
+				}
+			} else {
+				for (final ParametersSet neighborSol : neighbors) {
+					if (neighborSol == null) {
+						continue;
+					}
+					Double neighborFitness = testedSolutions.get(neighborSol);
+					if (neighborFitness == null) {
+						neighborFitness = currentExperiment.launchSimulationsWithSolution(neighborSol);
+					}
+					testedSolutions.put(neighborSol, neighborFitness);
+
+					if (keepSol(neighborSol, neighborFitness)) {
+						bestNeighbor = neighborSol;
+					}
+
 				}
 			}
+
+
 			if (bestNeighbor == null) {
 				break;
 			}
