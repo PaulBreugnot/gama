@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.kernel.batch;
 
@@ -16,8 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 import gama.common.interfaces.IKeyword;
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.ISymbolKind;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.facet;
@@ -25,6 +23,8 @@ import gama.core.dev.annotations.GamlAnnotations.facets;
 import gama.core.dev.annotations.GamlAnnotations.inside;
 import gama.core.dev.annotations.GamlAnnotations.symbol;
 import gama.core.dev.annotations.GamlAnnotations.usage;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.ISymbolKind;
 import gama.kernel.experiment.BatchAgent;
 import gama.kernel.experiment.IExperimentPlan;
 import gama.kernel.experiment.IParameter;
@@ -37,6 +37,7 @@ import gaml.expressions.IExpression;
 import gaml.operators.Cast;
 import gaml.types.IType;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class TabuSearch.
  */
@@ -59,6 +60,11 @@ import gaml.types.IType;
 						type = IType.INT,
 						optional = true,
 						doc = @doc ("number of iterations")),
+				@facet (
+						name = HillClimbing.INIT_SOL,
+						type = IType.MAP,
+						optional = true,
+						doc = @doc ("init solution: key: name of the variable, value: value of the variable")),
 				@facet (
 						name = TabuSearch.LIST_SIZE,
 						type = IType.INT,
@@ -97,13 +103,13 @@ public class TabuSearch extends LocalSearchAlgorithm {
 
 	/** The Constant ITER_MAX. */
 	protected static final String ITER_MAX = "iter_max";
-	
+
 	/** The Constant LIST_SIZE. */
 	protected static final String LIST_SIZE = "tabu_list_size";
 
 	/** The tabu list size. */
 	int tabuListSize = 5;
-	
+
 	/** The stopping criterion. */
 	StoppingCriterion stoppingCriterion = new StoppingCriterionMaxIt(50);
 
@@ -118,6 +124,13 @@ public class TabuSearch extends LocalSearchAlgorithm {
 
 	}
 
+	/**
+	 * Find best solution.
+	 *
+	 * @param scope the scope
+	 * @return the parameters set
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@Override
 	public ParametersSet findBestSolution(final IScope scope) throws GamaRuntimeException {
 		initializeTestedSolutions();
@@ -156,12 +169,11 @@ public class TabuSearch extends LocalSearchAlgorithm {
 					continue;
 				}
 				Double neighborFitness = testedSolutions.get(neighborSol);
-				if (neighborFitness == null || neighborFitness == Double.MAX_VALUE) {
-					neighborFitness = currentExperiment.launchSimulationsWithSolution(neighborSol);
-					nbIt++;
-				} else {
+				if ((neighborFitness != null) && (neighborFitness != Double.MAX_VALUE)) {
 					continue;
 				}
+				neighborFitness = currentExperiment.launchSimulationsWithSolution(neighborSol);
+				nbIt++;
 				testedSolutions.put(neighborSol, neighborFitness);
 
 				// scope.getGui().debug("TabuSearch.findBestSolution neighborFitness = " + neighborFitness +
@@ -177,16 +189,15 @@ public class TabuSearch extends LocalSearchAlgorithm {
 					break;
 				}
 			}
-			if (bestNeighbor != null) {
-				bestSolutionAlgo = bestNeighbor;
-				tabuList.add(bestSolutionAlgo);
-				if (tabuList.size() > tabuListSize) {
-					tabuList.remove(0);
-				}
-				// currentFitness = bestFitnessAlgo;
-			} else {
+			if (bestNeighbor == null) {
 				break;
 			}
+			bestSolutionAlgo = bestNeighbor;
+			tabuList.add(bestSolutionAlgo);
+			if (tabuList.size() > tabuListSize) {
+				tabuList.remove(0);
+			}
+			// currentFitness = bestFitnessAlgo;
 			endingCritParams.put("Iteration", Integer.valueOf(nbIt));
 		}
 		// DEBUG.LOG("Best solution : " + currentSol + " fitness : "
@@ -204,6 +215,11 @@ public class TabuSearch extends LocalSearchAlgorithm {
 	//
 	// }
 
+	/**
+	 * Inits the params.
+	 *
+	 * @param scope the scope
+	 */
 	@Override
 	public void initParams(final IScope scope) {
 		final IExpression maxIt = getFacet(ITER_MAX);
@@ -217,6 +233,12 @@ public class TabuSearch extends LocalSearchAlgorithm {
 		}
 	}
 
+	/**
+	 * Adds the parameters to.
+	 *
+	 * @param params the params
+	 * @param agent the agent
+	 */
 	@Override
 	public void addParametersTo(final List<IParameter.Batch> params, final BatchAgent agent) {
 		super.addParametersTo(params, agent);

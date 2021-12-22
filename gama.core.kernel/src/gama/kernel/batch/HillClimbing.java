@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.kernel.batch;
 
@@ -15,8 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 import gama.common.interfaces.IKeyword;
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.ISymbolKind;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.facet;
@@ -24,6 +22,8 @@ import gama.core.dev.annotations.GamlAnnotations.facets;
 import gama.core.dev.annotations.GamlAnnotations.inside;
 import gama.core.dev.annotations.GamlAnnotations.symbol;
 import gama.core.dev.annotations.GamlAnnotations.usage;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.ISymbolKind;
 import gama.kernel.experiment.BatchAgent;
 import gama.kernel.experiment.IExperimentPlan;
 import gama.kernel.experiment.IParameter;
@@ -36,6 +36,7 @@ import gaml.expressions.IExpression;
 import gaml.operators.Cast;
 import gaml.types.IType;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class HillClimbing.
  */
@@ -58,6 +59,11 @@ import gaml.types.IType;
 						type = IType.INT,
 						optional = true,
 						doc = @doc ("number of iterations")),
+				@facet (
+						name = HillClimbing.INIT_SOL,
+						type = IType.MAP,
+						optional = true,
+						doc = @doc ("init solution: key: name of the variable, value: value of the variable")),
 				@facet (
 						name = IKeyword.MAXIMIZE,
 						type = IType.FLOAT,
@@ -91,10 +97,10 @@ public class HillClimbing extends LocalSearchAlgorithm {
 
 	/** The Constant ITER_MAX. */
 	protected static final String ITER_MAX = "iter_max";
-	
+
 	/** The stopping criterion. */
 	StoppingCriterion stoppingCriterion = null;
-	
+
 	/** The max it. */
 	int maxIt;
 
@@ -108,6 +114,13 @@ public class HillClimbing extends LocalSearchAlgorithm {
 		initParams();
 	}
 
+	/**
+	 * Find best solution.
+	 *
+	 * @param scope the scope
+	 * @return the parameters set
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@Override
 	public ParametersSet findBestSolution(final IScope scope) throws GamaRuntimeException {
 		setBestSolution(this.solutionInit);
@@ -142,12 +155,11 @@ public class HillClimbing extends LocalSearchAlgorithm {
 					setBestFitness(neighborFitness);
 				}
 			}
-			if (bestNeighbor != null) {
-				setBestSolution(bestNeighbor);
-				currentFitness = getBestFitness();
-			} else {
+			if (bestNeighbor == null) {
 				break;
 			}
+			setBestSolution(bestNeighbor);
+			currentFitness = getBestFitness();
 			nbIt++;
 			endingCritParams.put("Iteration", Integer.valueOf(nbIt));
 		}
@@ -160,7 +172,12 @@ public class HillClimbing extends LocalSearchAlgorithm {
 	// public void initializeFor(final IScope scope, final BatchAgent agent) throws GamaRuntimeException {
 	// super.initializeFor(scope, agent);
 	// }
- 
+
+	/**
+	 * Inits the params.
+	 *
+	 * @param scope the scope
+	 */
 	@Override
 	protected void initParams(final IScope scope) {
 		final IExpression maxItExp = getFacet(ITER_MAX);
@@ -170,6 +187,12 @@ public class HillClimbing extends LocalSearchAlgorithm {
 		}
 	}
 
+	/**
+	 * Adds the parameters to.
+	 *
+	 * @param params the params
+	 * @param agent the agent
+	 */
 	@Override
 	public void addParametersTo(final List<IParameter.Batch> params, final BatchAgent agent) {
 		super.addParametersTo(params, agent);

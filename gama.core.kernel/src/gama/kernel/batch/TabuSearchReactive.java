@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.kernel.batch;
 
@@ -16,8 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 import gama.common.interfaces.IKeyword;
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.ISymbolKind;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.facet;
@@ -25,6 +23,8 @@ import gama.core.dev.annotations.GamlAnnotations.facets;
 import gama.core.dev.annotations.GamlAnnotations.inside;
 import gama.core.dev.annotations.GamlAnnotations.symbol;
 import gama.core.dev.annotations.GamlAnnotations.usage;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.ISymbolKind;
 import gama.kernel.experiment.BatchAgent;
 import gama.kernel.experiment.IExperimentPlan;
 import gama.kernel.experiment.IParameter;
@@ -37,6 +37,7 @@ import gaml.expressions.IExpression;
 import gaml.operators.Cast;
 import gaml.types.IType;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class TabuSearchReactive.
  */
@@ -58,6 +59,11 @@ import gaml.types.IType;
 						type = IType.INT,
 						optional = true,
 						doc = @doc ("number of iterations")),
+				@facet (
+						name = HillClimbing.INIT_SOL,
+						type = IType.MAP,
+						optional = true,
+						doc = @doc ("init solution: key: name of the variable, value: value of the variable")),
 				@facet (
 						name = TabuSearchReactive.LIST_SIZE_INIT,
 						type = IType.INT,
@@ -121,43 +127,43 @@ public class TabuSearchReactive extends LocalSearchAlgorithm {
 
 	/** The tabu list size init. */
 	int tabuListSizeInit = 5;
-	
+
 	/** The tabu list size max. */
 	int tabuListSizeMax = 2;
-	
+
 	/** The tabu list size min. */
 	int tabuListSizeMin = 10;
-	
+
 	/** The nb test without collision max. */
 	int nbTestWithoutCollisionMax = 20;
-	
+
 	/** The cycle size max. */
 	int cycleSizeMax = 20;
-	
+
 	/** The cycle size min. */
 	int cycleSizeMin = 2;
-	
+
 	/** The stopping criterion. */
 	StoppingCriterion stoppingCriterion = new StoppingCriterionMaxIt(100);
 
 	/** The Constant ITER_MAX. */
 	protected static final String ITER_MAX = "iter_max";
-	
+
 	/** The Constant LIST_SIZE_INIT. */
 	protected static final String LIST_SIZE_INIT = "tabu_list_size_init";
-	
+
 	/** The Constant LIST_SIZE_MAX. */
 	protected static final String LIST_SIZE_MAX = "tabu_list_size_max";
-	
+
 	/** The Constant LIST_SIZE_MIN. */
 	protected static final String LIST_SIZE_MIN = "tabu_list_size_min";
-	
+
 	/** The Constant NB_TESTS_MAX. */
 	protected static final String NB_TESTS_MAX = "nb_tests_wthout_col_max";
-	
+
 	/** The Constant CYCLE_SIZE_MAX. */
 	protected static final String CYCLE_SIZE_MAX = "cycle_size_max";
-	
+
 	/** The Constant CYCLE_SIZE_MIN. */
 	protected static final String CYCLE_SIZE_MIN = "cycle_size_min";
 
@@ -180,6 +186,11 @@ public class TabuSearchReactive extends LocalSearchAlgorithm {
 	// super.initializeFor(scope, agent);
 	// }
 
+	/**
+	 * Inits the params.
+	 *
+	 * @param scope the scope
+	 */
 	@Override
 	public void initParams(final IScope scope) {
 		final IExpression maxIt = getFacet(ITER_MAX);
@@ -213,6 +224,13 @@ public class TabuSearchReactive extends LocalSearchAlgorithm {
 		}
 	}
 
+	/**
+	 * Find best solution.
+	 *
+	 * @param scope the scope
+	 * @return the parameters set
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@Override
 	public ParametersSet findBestSolution(final IScope scope) throws GamaRuntimeException {
 		initializeTestedSolutions();
@@ -335,6 +353,12 @@ public class TabuSearchReactive extends LocalSearchAlgorithm {
 		return getBestSolution();
 	}
 
+	/**
+	 * Adds the parameters to.
+	 *
+	 * @param params the params
+	 * @param agent the agent
+	 */
 	@Override
 	public void addParametersTo(final List<IParameter.Batch> params, final BatchAgent agent) {
 		super.addParametersTo(params, agent);

@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.kernel.experiment;
 
@@ -18,21 +18,25 @@ import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gama.util.file.GamaFile;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ParametersSet.
  */
 @SuppressWarnings({ "rawtypes" })
 public class ParametersSet extends HashMap<String, Object> {
-	
+
+	/** The fitness. */
 	private Double fitness;
- 	private int currentIndex;
+	
+	/** The current index. */
+	private int currentIndex;
 
 	/**
 	 * Instantiates a new parameters set.
 	 */
 	public ParametersSet() {
 		fitness = Double.NaN;
- 		currentIndex = 0;
+		currentIndex = 0;
 	}
 
 	/**
@@ -43,7 +47,7 @@ public class ParametersSet extends HashMap<String, Object> {
 	public ParametersSet(final ParametersSet solution) {
 		this.putAll(solution);
 		fitness = solution.fitness;
- 		currentIndex = solution.currentIndex;
+		currentIndex = solution.currentIndex;
 	}
 
 	/**
@@ -64,7 +68,7 @@ public class ParametersSet extends HashMap<String, Object> {
 			}
 			put(var, varBat.value(scope));
 			fitness = Double.NaN;
-	 		currentIndex = 0;
+			currentIndex = 0;
 		}
 
 	}
@@ -86,9 +90,16 @@ public class ParametersSet extends HashMap<String, Object> {
 			put(p.getName(), p.value(scope));
 		}
 		fitness = Double.NaN;
- 		currentIndex = 0;
+		currentIndex = 0;
 	}
 
+	/**
+	 * Put.
+	 *
+	 * @param s the s
+	 * @param o the o
+	 * @return the object
+	 */
 	@Override
 	public Object put(final String s, final Object o) {
 		// Special case for files as they are not invariant. Their contents must
@@ -99,21 +110,6 @@ public class ParametersSet extends HashMap<String, Object> {
 		}
 		return super.put(s, o);
 	}
-	
-	public Double getFitness() {
- 		return fitness;
- 	}
 
- 	public void setFitness(Double fitness) {
- 		this.fitness = fitness;
- 	}
-
- 	public int getCurrentIndex() {
- 		return currentIndex;
- 	}
-
- 	public void setCurrentIndex(int currentIndex) {
- 		this.currentIndex = currentIndex;
- 	}
 
 }
