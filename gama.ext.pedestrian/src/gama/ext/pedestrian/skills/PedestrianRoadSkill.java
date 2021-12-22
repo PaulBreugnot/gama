@@ -1,13 +1,6 @@
-/*******************************************************************************************************
+/*
  *
- * PedestrianRoadSkill.java, in gama.ext.pedestrian, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
- *
- * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
- *
- * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
- ********************************************************************************************************/
+ */
 package gama.ext.pedestrian.skills;
 
 import java.util.Collection;
@@ -15,7 +8,6 @@ import java.util.stream.Stream;
 
 import org.locationtech.jts.operation.buffer.BufferParameters;
 
-import gama.core.dev.annotations.IConcept;
 import gama.core.dev.annotations.GamlAnnotations.action;
 import gama.core.dev.annotations.GamlAnnotations.arg;
 import gama.core.dev.annotations.GamlAnnotations.doc;
@@ -25,6 +17,7 @@ import gama.core.dev.annotations.GamlAnnotations.setter;
 import gama.core.dev.annotations.GamlAnnotations.skill;
 import gama.core.dev.annotations.GamlAnnotations.variable;
 import gama.core.dev.annotations.GamlAnnotations.vars;
+import gama.core.dev.annotations.IConcept;
 import gama.metamodel.agent.IAgent;
 import gama.metamodel.shape.GamaPoint;
 import gama.metamodel.shape.IShape;
@@ -46,6 +39,7 @@ import gaml.types.GamaIntegerType;
 import gaml.types.IType;
 import gaml.types.Types;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class PedestrianRoadSkill.
  */
@@ -59,61 +53,61 @@ import gaml.types.Types;
 		of = IType.AGENT,
 		init = "[]",
 		doc = @doc ("for each people on the road")),
-		@variable (
-				name = PedestrianRoadSkill.FREE_SPACE,
-				type = IType.GEOMETRY,
-				init = "nil",
-				doc = @doc ("for each people on the road")),
-		@variable (
-				name = PedestrianRoadSkill.PEDESTRIAN_ROAD_STATUS,
-				type = IType.INT,
-				init = "1",
-				doc = @doc ("When road status equals 1 it has 2D continuous space property for pedestrian; when equal to 2 is simply a 1D road")),
-		@variable (
-				name = PedestrianRoadSkill.INTERSECTION_AREAS,
-				type = IType.MAP,
-				init = "[]",
-				doc = @doc ("map of geometries to connect segments linked to this road")),
-		@variable (
-				name = PedestrianRoadSkill.LINKED_PEDESTRIAN_ROADS,
-				type = IType.LIST,
-				of = IType.AGENT,
-				init = "[]",
-				doc = @doc ("the close pedestrian roads")),
-		@variable (
-				name = PedestrianRoadSkill.EXIT_NODES_HUB,
-				type = IType.MAP,
-				init = "[]",
-				doc = @doc ("The exit hub (several exit connected to each road extremities) that makes it possible to reduce angular distance when travelling to connected pedestrian roads")) })
+	@variable (
+			name = PedestrianRoadSkill.FREE_SPACE,
+			type = IType.GEOMETRY,
+			init = "nil",
+			doc = @doc ("for each people on the road")),
+	@variable (
+			name = PedestrianRoadSkill.PEDESTRIAN_ROAD_STATUS,
+			type = IType.INT,
+			init = "1",
+			doc = @doc ("When road status equals 1 it has 2D continuous space property for pedestrian; when equal to 2 is simply a 1D road")),
+	@variable (
+			name = PedestrianRoadSkill.INTERSECTION_AREAS,
+			type = IType.MAP,
+			init = "[]",
+			doc = @doc ("map of geometries to connect segments linked to this road")),
+	@variable (
+			name = PedestrianRoadSkill.LINKED_PEDESTRIAN_ROADS,
+			type = IType.LIST,
+			of = IType.AGENT,
+			init = "[]",
+			doc = @doc ("the close pedestrian roads")),
+	@variable (
+			name = PedestrianRoadSkill.EXIT_NODES_HUB,
+			type = IType.MAP,
+			init = "[]",
+			doc = @doc ("The exit hub (several exit connected to each road extremities) that makes it possible to reduce angular distance when travelling to connected pedestrian roads")) })
 public class PedestrianRoadSkill extends Skill {
-  
+
 	/** The Constant PEDESTRIAN_ROAD_SKILL. */
 	public final static String PEDESTRIAN_ROAD_SKILL = "pedestrian_road";
-	
+
 	/** The Constant LINKED_PEDESTRIAN_ROADS. */
 	public final static String LINKED_PEDESTRIAN_ROADS = "linked_pedestrian_roads";
 
 	/** The Constant AGENTS_ON. */
 	public final static String AGENTS_ON = "agents_on";
-	
+
 	/** The Constant FREE_SPACE. */
 	public final static String FREE_SPACE = "free_space";
-	
+
 	/** The Constant PEDESTRIAN_ROAD_STATUS. */
 	public final static String PEDESTRIAN_ROAD_STATUS = "road_status";
-	
+
 	/** The Constant EXIT_NODES_HUB. */
 	public final static String EXIT_NODES_HUB = "exit_nodes";
-	
+
 	/** The Constant DISTANCE. */
 	public final static String DISTANCE = "distance";
-	
+
 	/** The Constant INTERSECTION_AREAS. */
 	public final static String INTERSECTION_AREAS = "intersection_areas";
 
 	/** The Constant SIMPLE_STATUS. */
 	public final static int SIMPLE_STATUS = 0; // use simple goto operator on those road
-	
+
 	/** The Constant COMPLEX_STATUS. */
 	public final static int COMPLEX_STATUS = 1; // use walk operator
 
@@ -139,7 +133,7 @@ public class PedestrianRoadSkill extends Skill {
 	public static IList<IAgent> getLinkedPedestrianRoads(final IAgent agent) {
 		return (IList<IAgent>) agent.getAttribute(LINKED_PEDESTRIAN_ROADS);
 	}
- 
+
 	/**
 	 * Gets the exit nodes hub.
 	 *
@@ -376,6 +370,7 @@ public class PedestrianRoadSkill extends Skill {
 				IShape g = Spatial.Operators.inter(scope, freeSpace, bds);
 				if (g != null) { freeSpace = g; }
 			}
+			if (freeSpace == null) return ;
 			if (freeSpace.getGeometries().size() > 1) {
 				for (IShape g : freeSpace.getGeometries()) {
 					if (agent.intersects(g)) {
@@ -431,7 +426,7 @@ public class PedestrianRoadSkill extends Skill {
 	public void primIntersectionAreas(final IScope scope) {
 		final IAgent agent = getCurrentAgent(scope);
 		if (!agent.isInstanceOf(PEDESTRIAN_ROAD_SKILL, true)) throw GamaRuntimeException
-				.error("Trying to manipulate agent with " + PEDESTRIAN_ROAD_SKILL + " while being " + agent, scope);
+		.error("Trying to manipulate agent with " + PEDESTRIAN_ROAD_SKILL + " while being " + agent, scope);
 		IShape g = PedestrianRoadSkill.getFreeSpace(agent);
 		final IGraph graph = (IGraph) scope.getVarValue(PedestrianSkill.PEDESTRIAN_GRAPH);
 		IMap<IAgent, IShape> connectedComp = GamaMapFactory.create();
@@ -491,7 +486,7 @@ public class PedestrianRoadSkill extends Skill {
 		// TODO : Exit hub should probably be symmetric ...
 		final IAgent agent = getCurrentAgent(scope);
 		if (!agent.isInstanceOf(PEDESTRIAN_ROAD_SKILL, true)) throw GamaRuntimeException
-				.error("Trying to manipulate agent with " + PEDESTRIAN_ROAD_SKILL + " while being " + agent, scope);
+		.error("Trying to manipulate agent with " + PEDESTRIAN_ROAD_SKILL + " while being " + agent, scope);
 
 		final Double dist = scope.getFloatArg("distance_between_targets");
 		@SuppressWarnings ("unchecked") IMap<GamaPoint, IList<GamaPoint>> exitHub = GamaMapFactory.create();
@@ -548,16 +543,14 @@ public class PedestrianRoadSkill extends Skill {
 	@SuppressWarnings ("unchecked")
 	public static IList<GamaPoint> getConnectedOutput(final IScope scope, final IShape currentRoad,
 			final GamaPoint target) {
-		if (currentRoad.hasAttribute(EXIT_NODES_HUB)) {
-			IMap<GamaPoint, IList<GamaPoint>> exitHub =
-					(IMap<GamaPoint, IList<GamaPoint>>) currentRoad.getAttribute(EXIT_NODES_HUB);
-			if (exitHub.containsKey(target))
-				return exitHub.get(target);
-			else
-				return GamaListFactory.create(Types.POINT, Stream.of(target));
-		} else
-			throw GamaRuntimeException.error("Looking for exit hub related to " + currentRoad + " but there is none",
-					scope);
+		if (!currentRoad.hasAttribute(EXIT_NODES_HUB)) throw GamaRuntimeException.error("Looking for exit hub related to " + currentRoad + " but there is none",
+				scope);
+		IMap<GamaPoint, IList<GamaPoint>> exitHub =
+				(IMap<GamaPoint, IList<GamaPoint>>) currentRoad.getAttribute(EXIT_NODES_HUB);
+		if (exitHub.containsKey(target))
+			return exitHub.get(target);
+		else
+			return GamaListFactory.create(Types.POINT, Stream.of(target));
 	}
 
 	/**
@@ -602,7 +595,7 @@ public class PedestrianRoadSkill extends Skill {
 	 */
 	/*
 	 * Create exit hub for a set of connected out edges
-	 */ 
+	 */
 	@SuppressWarnings ("unchecked")
 	private IList<GamaPoint> connectedRoads(final IScope scope, final IAgent currentRoad, final Double dist,
 			final GamaPoint lp, final GamaPoint pp, final IShape bounds) {
