@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.navigator;
 
@@ -63,11 +63,12 @@ import gama.ui.navigator.contents.WrappedFile;
 import gama.ui.navigator.contents.WrappedResource;
 import gama.ui.navigator.contents.WrappedSyntacticContent;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GamaNavigator.
  */
 public class GamaNavigator extends CommonNavigator
-		implements IToolbarDecoratedView, ISelectionChangedListener, IToolbarDecoratedView.Expandable {
+implements IToolbarDecoratedView, ISelectionChangedListener, IToolbarDecoratedView.Expandable {
 
 	/** The link. */
 	IAction link;
@@ -87,6 +88,11 @@ public class GamaNavigator extends CommonNavigator
 	/** The find control. */
 	private NavigatorSearchControl findControl;
 
+	/**
+	 * Creates the common manager.
+	 *
+	 * @return the common navigator manager
+	 */
 	@Override
 	protected CommonNavigatorManager createCommonManager() {
 		final CommonNavigatorManager manager = new CommonNavigatorManager(this, memento);
@@ -94,6 +100,11 @@ public class GamaNavigator extends CommonNavigator
 		return manager;
 	}
 
+	/**
+	 * Creates the part control.
+	 *
+	 * @param compo the compo
+	 */
 	@Override
 	public void createPartControl(final Composite compo) {
 		this.parent = GamaToolbarFactory.createToolbars(this, compo);
@@ -102,8 +113,7 @@ public class GamaNavigator extends CommonNavigator
 		restoreState();
 		final IToolBarManager tb = getViewSite().getActionBars().getToolBarManager();
 		for (final IContributionItem item : tb.getItems()) {
-			if (item instanceof ActionContributionItem) {
-				final ActionContributionItem aci = (ActionContributionItem) item;
+			if (item instanceof ActionContributionItem aci) {
 				final IAction action = aci.getAction();
 				if (action instanceof LinkEditorAction) {
 					link = action;
@@ -130,6 +140,11 @@ public class GamaNavigator extends CommonNavigator
 
 	}
 
+	/**
+	 * Save state.
+	 *
+	 * @param newMemento the new memento
+	 */
 	@Override
 	public void saveState(final IMemento newMemento) {
 		if (GamaPreferences.Interface.KEEP_NAVIGATOR_STATE.getValue()) {
@@ -178,6 +193,11 @@ public class GamaNavigator extends CommonNavigator
 		}
 	}
 
+	/**
+	 * Select reveal.
+	 *
+	 * @param selection the selection
+	 */
 	@Override
 	public void selectReveal(final ISelection selection) {
 		VirtualContent<?> current;
@@ -208,23 +228,38 @@ public class GamaNavigator extends CommonNavigator
 		if (!newSelection.isEmpty()) { super.selectReveal(newSelection); }
 	}
 
+	/**
+	 * Creates the common viewer object.
+	 *
+	 * @param aParent the a parent
+	 * @return the common viewer
+	 */
 	@Override
 	protected CommonViewer createCommonViewerObject(final Composite aParent) {
 		return new NavigatorCommonViewer(getViewSite().getId(), aParent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 	}
 
+	/**
+	 * Gets the initial input.
+	 *
+	 * @return the initial input
+	 */
 	@Override
 	protected Object getInitialInput() {
 		return NavigatorRoot.getInstance();
 	}
 
+	/**
+	 * Handle double click.
+	 *
+	 * @param anEvent the an event
+	 */
 	@Override
 	protected void handleDoubleClick(final DoubleClickEvent anEvent) {
 		final IStructuredSelection selection = (IStructuredSelection) anEvent.getSelection();
 		final Object element = selection.getFirstElement();
 		if (element instanceof VirtualContent && ((VirtualContent<?>) element).handleDoubleClick()) {
-			if (element instanceof Tag) {
-				Tag t = (Tag) element;
+			if (element instanceof Tag t) {
 				findControl.searchFor(t.getName());
 				return;
 			}
@@ -240,6 +275,11 @@ public class GamaNavigator extends CommonNavigator
 		}
 	}
 
+	/**
+	 * Creates the common action group.
+	 *
+	 * @return the action group
+	 */
 	@Override
 	protected ActionGroup createCommonActionGroup() {
 		return new CommonNavigatorActionGroup(this, getCommonViewer(), getLinkHelperService()) {
@@ -273,8 +313,9 @@ public class GamaNavigator extends CommonNavigator
 			new GamaCommand("navigator/navigator.link3", "", "Stay in sync with the editor", e -> link.run());
 
 	/**
-	 * Method createToolItem()
+	 * Method createToolItem().
 	 *
+	 * @param tb the tb
 	 * @see gama.ui.views.toolbar.IToolbarDecoratedView#createToolItem(int, gama.ui.views.toolbar.GamaToolbar2)
 	 */
 	@Override
@@ -292,8 +333,9 @@ public class GamaNavigator extends CommonNavigator
 	}
 
 	/**
-	 * Method selectionChanged()
+	 * Method selectionChanged().
 	 *
+	 * @param event the event
 	 * @see org.eclipse.jface.viewers.ISelectionChangedListener#selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent)
 	 */
 	@Override
@@ -325,16 +367,29 @@ public class GamaNavigator extends CommonNavigator
 		t.getControl().setToolTipText(tooltip == null ? message : tooltip);
 	}
 
+	/**
+	 * Expand all.
+	 */
 	@Override
 	public void expandAll() {
 		getCommonViewer().expandAll();
 
 	}
 
+	/**
+	 * Collapse all.
+	 */
 	@Override
 	public void collapseAll() {
 		getCommonViewer().collapseAll();
 
 	}
+
+	/**
+	 * Gets the selection.
+	 *
+	 * @return the selection
+	 */
+	public IStructuredSelection getSelection() { return getCommonViewer().getStructuredSelection(); }
 
 }

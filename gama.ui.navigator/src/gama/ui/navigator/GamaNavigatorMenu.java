@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.navigator;
 
@@ -25,30 +25,45 @@ import org.eclipse.ui.wizards.IWizardDescriptor;
 import gama.ui.base.menus.GamaMenu;
 import gama.ui.base.utils.WorkbenchHelper;
 
+// TODO: Auto-generated Javadoc
 /**
  * Class GamaNavigatorMenu.
- * 
+ *
  * @author drogoul
  * @since 8 mars 2015
- * 
+ *
  */
 public abstract class GamaNavigatorMenu extends GamaMenu {
 
+	/**
+	 * Open.
+	 *
+	 * @param c the c
+	 * @param trigger the trigger
+	 */
 	@Override
 	public void open(final Control c, final SelectionEvent trigger) {
+		final Point point = c.toDisplay(new Point(trigger.x, trigger.y));
+		open(point);
+	}
 
+	/**
+	 * Open.
+	 *
+	 * @param point
+	 *            the point
+	 */
+	public void open(final Point point) {
 		if (mainMenu == null) {
 			mainMenu = new Menu(WorkbenchHelper.getShell(), SWT.POP_UP);
 			fillMenu();
 		}
-
-		final Point point = c.toDisplay(new Point(trigger.x, trigger.y));
 		mainMenu.setLocation(point.x, point.y);
 		mainMenu.setVisible(true);
 	}
 
 	/**
-	 * 
+	 * Fill menu.
 	 */
 	@Override
 	protected abstract void fillMenu();
