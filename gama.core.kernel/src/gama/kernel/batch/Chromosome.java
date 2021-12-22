@@ -6,13 +6,14 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.kernel.batch;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 import gama.kernel.experiment.IParameter;
 import gama.kernel.experiment.ParametersSet;
@@ -21,6 +22,7 @@ import gama.runtime.exceptions.GamaRuntimeException;
 import gaml.operators.Cast;
 import gaml.types.IType;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Chromosome.
  */
@@ -28,10 +30,10 @@ public class Chromosome implements Comparable<Chromosome> {
 
 	/** The genes. */
 	private Object[] genes;
-	
+
 	/** The phenotype. */
 	private final String[] phenotype;
-	
+
 	/** The fitness. */
 	private double fitness;
 
@@ -124,7 +126,7 @@ public class Chromosome implements Comparable<Chromosome> {
 			} else if (var.getType().id() == IType.INT) {
 				genes[cpt] = Cast.asInt(scope, var.value(scope));
 			} else {
-				genes[cpt] = 0;
+				genes[cpt] = var.value(scope);
 			}
 			cpt++;
 		}
@@ -165,6 +167,12 @@ public class Chromosome implements Comparable<Chromosome> {
 		return sol;
 	}
 
+	/**
+	 * Compare to.
+	 *
+	 * @param other the other
+	 * @return the int
+	 */
 	@Override
 	public int compareTo(final Chromosome other) {
 		return Double.compare(this.fitness, other.fitness);
@@ -179,21 +187,28 @@ public class Chromosome implements Comparable<Chromosome> {
 		return phenotype;
 	}
 
+	/**
+	 * Hash code.
+	 *
+	 * @return the int
+	 */
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + Arrays.hashCode(genes);
-		return result;
+		return Objects.hash(Arrays.hashCode(genes));
 	}
 
+	/**
+	 * Equals.
+	 *
+	 * @param obj the obj
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean equals(final Object obj) {
-		if (this == obj) { return true; }
-		if (obj == null) { return false; }
-		if (getClass() != obj.getClass()) { return false; }
+		if (this == obj) return true;
+		if ((obj == null) || (getClass() != obj.getClass())) return false;
 		final Chromosome other = (Chromosome) obj;
-		if (!Arrays.equals(genes, other.genes)) { return false; }
+		if (!Arrays.equals(genes, other.genes)) return false;
 		return true;
 	}
 
