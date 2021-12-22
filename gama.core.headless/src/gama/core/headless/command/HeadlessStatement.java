@@ -6,18 +6,18 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.core.headless.command;
 
 import java.io.File;
 
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.ISymbolKind;
 import gama.core.dev.annotations.GamlAnnotations.facet;
 import gama.core.dev.annotations.GamlAnnotations.facets;
 import gama.core.dev.annotations.GamlAnnotations.inside;
 import gama.core.dev.annotations.GamlAnnotations.symbol;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.ISymbolKind;
 import gama.core.headless.job.ExperimentJob;
 import gama.core.headless.runtime.LocalSimulationRuntime;
 import gama.core.headless.runtime.SimulationRuntime;
@@ -28,6 +28,7 @@ import gaml.operators.Cast;
 import gaml.statements.AbstractStatement;
 import gaml.types.IType;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class HeadlessStatement.
  */
@@ -70,13 +71,13 @@ import gaml.types.IType;
 						optional = true) },
 		omissible = IKeywords.EXPERIMENT)
 public class HeadlessStatement extends AbstractStatement {
-	
+
 	/** The number of thread. */
 	private final int numberOfThread = 4;
-	
+
 	/** The processor queue. */
 	private final SimulationRuntime processorQueue;
-	
+
 	/** The max simulation ID. */
 	private int maxSimulationID = 0;
 
@@ -86,7 +87,7 @@ public class HeadlessStatement extends AbstractStatement {
 	 * @return the simulation id
 	 */
 	public String getSimulationId() {
-		return new Integer(maxSimulationID++).toString();
+		return Integer.toString(maxSimulationID++);
 	}
 
 	/**
@@ -107,10 +108,17 @@ public class HeadlessStatement extends AbstractStatement {
 	 * @return the string
 	 */
 	private String retrieveModelFileAbsolutePath(final IScope scope, final String filename) {
-		if (filename.charAt(0) == '/') { return filename; }
+		if (filename.charAt(0) == '/') return filename;
 		return new File(scope.getModel().getFilePath()).getParentFile().getAbsolutePath() + "/" + filename;
 	}
 
+	/**
+	 * Private execute in.
+	 *
+	 * @param scope the scope
+	 * @return the object
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@Override
 	protected Object privateExecuteIn(final IScope scope) throws GamaRuntimeException {
 

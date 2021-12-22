@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.kernel.experiment;
 
@@ -25,13 +25,13 @@ import com.google.common.collect.Iterables;
 import gama.common.interfaces.IGamlIssue;
 import gama.common.interfaces.IKeyword;
 import gama.common.preferences.GamaPreferences;
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.ISymbolKind;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.facet;
 import gama.core.dev.annotations.GamlAnnotations.facets;
 import gama.core.dev.annotations.GamlAnnotations.inside;
 import gama.core.dev.annotations.GamlAnnotations.symbol;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.ISymbolKind;
 import gama.kernel.batch.BatchOutput;
 import gama.kernel.batch.ExhaustiveSearch;
 import gama.kernel.batch.IExploration;
@@ -66,6 +66,7 @@ import gaml.species.ISpecies;
 import gaml.types.IType;
 import gaml.variables.IVariable;
 
+// TODO: Auto-generated Javadoc
 /**
  * Written by drogoul Modified on 28 mai 2011 Apr. 2013: Important modifications to enable running true experiment
  * agents
@@ -186,8 +187,9 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 	public static class BatchValidator implements IDescriptionValidator {
 
 		/**
-		 * Method validate()
+		 * Method validate().
 		 *
+		 * @param desc the desc
 		 * @see gaml.compilation.IDescriptionValidator#validate(gaml.descriptions.IDescription)
 		 */
 		@Override
@@ -205,7 +207,7 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 				desc.warning(
 						"No stopping condition have been defined (facet 'until:'). This may result in an endless run of the "
 								+ type + " experiment",
-						IGamlIssue.MISSING_FACET, desc.getUnderlyingElement(), UNTIL, "true");
+								IGamlIssue.MISSING_FACET, desc.getUnderlyingElement(), UNTIL, "true");
 			}
 		}
 	}
@@ -216,47 +218,47 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 	/** The original simulation outputs. */
 	// duplicated in all the simulations)
 	protected SimulationOutputManager originalSimulationOutputs;
-	
+
 	/** The experiment outputs. */
 	protected ExperimentOutputManager experimentOutputs;
-	
+
 	/** The parameters. */
 	// private ItemList parametersEditors;
 	protected final Map<String, IParameter> parameters = GamaMapFactory.create();
-	
+
 	/** The explorable parameters. */
 	protected final Map<String, IParameter.Batch> explorableParameters = GamaMapFactory.create();
-	
+
 	/** The agent. */
 	protected ExperimentAgent agent;
-	
+
 	/** The my scope. */
 	protected final Scope myScope = new Scope("in ExperimentPlan");
-	
+
 	/** The model. */
 	protected IModel model;
-	
+
 	/** The exploration. */
 	protected IExploration exploration;
-	
+
 	/** The log. */
 	private FileOutput log;
-	
+
 	/** The is headless. */
 	private boolean isHeadless;
-	
+
 	/** The keep seed. */
 	private final boolean keepSeed;
-	
+
 	/** The keep simulations. */
 	private final boolean keepSimulations;
-	
+
 	/** The experiment type. */
 	private final String experimentType;
-	
+
 	/** The autorun. */
 	private final boolean autorun;
-	
+
 	/** The benchmarkable. */
 	private final boolean benchmarkable;
 
@@ -274,10 +276,21 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 			super(null, expr);
 		}
 
+		/**
+		 * Creates the agents.
+		 *
+		 * @param scope the scope
+		 * @param number the number
+		 * @param initialValues the initial values
+		 * @param isRestored the is restored
+		 * @param toBeScheduled the to be scheduled
+		 * @return the i list
+		 * @throws GamaRuntimeException the gama runtime exception
+		 */
 		@Override
 		public IList<ExperimentAgent> createAgents(final IScope scope, final int number,
 				final List<? extends Map<String, Object>> initialValues, final boolean isRestored,
-				final boolean toBeScheduled) throws GamaRuntimeException {
+						final boolean toBeScheduled) throws GamaRuntimeException {
 			for (int i = 0; i < number; i++) {
 				agent = GamaMetaModel.INSTANCE.createExperimentAgent(getExperimentType(), this, currentAgentIndex++);
 				// agent.setIndex(currentAgentIndex++);
@@ -312,16 +325,35 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 
 		}
 
+		/**
+		 * Step agents.
+		 *
+		 * @param scope the scope
+		 * @return true, if successful
+		 */
 		@Override
 		protected boolean stepAgents(final IScope scope) {
 			return scope.step(agent).passed();
 		}
 
+		/**
+		 * Gets the agent.
+		 *
+		 * @param scope the scope
+		 * @param value the value
+		 * @return the agent
+		 */
 		@Override
 		public ExperimentAgent getAgent(final IScope scope, final GamaPoint value) {
 			return agent;
 		}
 
+		/**
+		 * Compute topology.
+		 *
+		 * @param scope the scope
+		 * @throws GamaRuntimeException the gama runtime exception
+		 */
 		@Override
 		public void computeTopology(final IScope scope) throws GamaRuntimeException {
 			topology = new AmorphousTopology();
@@ -329,16 +361,31 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 
 	}
 
+	/**
+	 * Checks if is headless.
+	 *
+	 * @return true, if is headless
+	 */
 	@Override
 	public boolean isHeadless() {
 		return GAMA.isInHeadLessMode() || isHeadless;
 	}
 
+	/**
+	 * Sets the headless.
+	 *
+	 * @param headless the new headless
+	 */
 	@Override
 	public void setHeadless(final boolean headless) {
 		isHeadless = headless;
 	}
 
+	/**
+	 * Gets the agent.
+	 *
+	 * @return the agent
+	 */
 	@Override
 	public ExperimentAgent getAgent() {
 		return agent;
@@ -379,21 +426,39 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		benchmarkable = bm != null && Cast.asBool(myScope, bm.value(myScope));
 	}
 
+	/**
+	 * Checks if is autorun.
+	 *
+	 * @return true, if is autorun
+	 */
 	@Override
 	public boolean isAutorun() {
 		return autorun;
 	}
 
+	/**
+	 * Keeps seed.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean keepsSeed() {
 		return keepSeed;
 	}
 
+	/**
+	 * Keeps simulations.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean keepsSimulations() {
 		return keepSimulations;
 	}
 
+	/**
+	 * Dispose.
+	 */
 	@Override
 	public void dispose() {
 		// DEBUG.LOG("ExperimentPlan.dipose BEGIN");
@@ -440,6 +505,11 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		addDefaultParameters();
 	}
 
+	/**
+	 * Gets the model.
+	 *
+	 * @return the model
+	 */
 	/*
 	 * public void createAgent() { final ExperimentPopulation pop = new ExperimentPopulation(this); final IScope scope =
 	 * getExperimentScope(); pop.initializeFor(scope); agent = (ExperimentAgent) pop.createAgents(scope, 1,
@@ -450,6 +520,11 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		return model;
 	}
 
+	/**
+	 * Sets the model.
+	 *
+	 * @param model the new model
+	 */
 	@Override
 	public void setModel(final IModel model) {
 		this.model = model;
@@ -485,11 +560,21 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		}
 	}
 
+	/**
+	 * Gets the experiment outputs.
+	 *
+	 * @return the experiment outputs
+	 */
 	@Override
 	public final IOutputManager getExperimentOutputs() {
 		return experimentOutputs;
 	}
 
+	/**
+	 * Sets the children.
+	 *
+	 * @param children the new children
+	 */
 	@Override
 	public void setChildren(final Iterable<? extends ISymbol> children) {
 		super.setChildren(children);
@@ -509,8 +594,7 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 				} else {
 					originalSimulationOutputs = (SimulationOutputManager) s;
 				}
-			} else if (s instanceof IParameter.Batch) {
-				final IParameter.Batch pb = (IParameter.Batch) s;
+			} else if (s instanceof IParameter.Batch pb) {
 				if (isBatch() && pb.canBeExplored()) {
 					pb.setEditable(false);
 					addExplorableParameter(pb);
@@ -571,16 +655,29 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 			this.getController().userStart();
 		} else if (isBatch()) {
 			agent.getScope().getGui().getStatus(agent.getScope())
-					.informStatus(isTest() ? "Tests ready. Click run to begin." : " Batch ready. Click run to begin.");
+			.informStatus(isTest() ? "Tests ready. Click run to begin." : " Batch ready. Click run to begin.");
 			agent.getScope().getGui().updateExperimentState(agent.getScope());
 		}
 	}
 
+	/**
+	 * Open.
+	 */
 	@Override
 	public synchronized void open() {
-		open(null);
-	}
+		Double seed = null;
+		if (isHeadless()) {
+			try {
+				seed = this.getAgent().getSeed();
+			} catch (Exception e) { // Catch no seed
+				seed = null;
+			}
+		}
+		open(seed);	}
 
+	/**
+	 * Reload.
+	 */
 	/*
 	 * @Override public synchronized void open() {
 	 *
@@ -603,32 +700,62 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		// }
 	}
 
+	/**
+	 * Checks for parameters or user commands.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean hasParametersOrUserCommands() {
 		return !parameters.isEmpty() || !explorableParameters.isEmpty() || !getUserCommands().isEmpty();
 	}
 
+	/**
+	 * Checks if is batch.
+	 *
+	 * @return true, if is batch
+	 */
 	// @Override
 	@Override
 	public boolean isBatch() {
 		return exploration != null;
 	}
 
+	/**
+	 * Checks if is test.
+	 *
+	 * @return true, if is test
+	 */
 	@Override
 	public boolean isTest() {
 		return TEST.equals(getExperimentType());
 	}
 
+	/**
+	 * Checks if is memorize.
+	 *
+	 * @return true, if is memorize
+	 */
 	@Override
 	public boolean isMemorize() {
 		return IKeyword.MEMORIZE.equals(getExperimentType());
 	}
 
+	/**
+	 * Checks if is gui.
+	 *
+	 * @return true, if is gui
+	 */
 	@Override
 	public boolean isGui() {
 		return true;
 	}
 
+	/**
+	 * Gets the experiment scope.
+	 *
+	 * @return the experiment scope
+	 */
 	@Override
 	public IScope getExperimentScope() {
 		return myScope;
@@ -673,6 +800,12 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		// VERIFY THE USAGE OF SCOPE HERE
 	}
 
+	/**
+	 * Checks for parameter.
+	 *
+	 * @param parameterName the parameter name
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean hasParameter(final String parameterName) {
 		return getParameter(parameterName) != null;
@@ -725,7 +858,7 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 	protected IParameter.Batch checkGetParameterByTitle(final String parameterName) throws GamaRuntimeException {
 		final IParameter.Batch v = getParameterByTitle(parameterName);
 		if (v == null) throw GamaRuntimeException
-				.error("No parameter named " + parameterName + " in experiment " + getName(), getExperimentScope());
+		.error("No parameter named " + parameterName + " in experiment " + getName(), getExperimentScope());
 		return v;
 	}
 
@@ -739,15 +872,25 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 	protected IParameter.Batch checkGetParameter(final String parameterName) throws GamaRuntimeException {
 		final IParameter.Batch v = getParameter(parameterName);
 		if (v == null) throw GamaRuntimeException
-				.error("No parameter named " + parameterName + " in experiment " + getName(), getExperimentScope());
+		.error("No parameter named " + parameterName + " in experiment " + getName(), getExperimentScope());
 		return v;
 	}
 
+	/**
+	 * Gets the parameters.
+	 *
+	 * @return the parameters
+	 */
 	@Override
 	public Map<String, IParameter> getParameters() {
 		return parameters;
 	}
 
+	/**
+	 * Gets the current simulation.
+	 *
+	 * @return the current simulation
+	 */
 	@Override
 	public SimulationAgent getCurrentSimulation() {
 		if (agent == null) return null;
@@ -773,6 +916,13 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 			super(null, additionalName);
 		}
 
+		/**
+		 * Sets the global var value.
+		 *
+		 * @param name the name
+		 * @param v the v
+		 * @throws GamaRuntimeException the gama runtime exception
+		 */
 		@Override
 		public void setGlobalVarValue(final String name, final Object v) throws GamaRuntimeException {
 			if (hasParameter(name)) {
@@ -784,6 +934,13 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 			if (a != null) { a.setDirectVarValue(this, name, v); }
 		}
 
+		/**
+		 * Gets the global var value.
+		 *
+		 * @param varName the var name
+		 * @return the global var value
+		 * @throws GamaRuntimeException the gama runtime exception
+		 */
 		@Override
 		public Object getGlobalVarValue(final String varName) throws GamaRuntimeException {
 			if (hasParameter(varName)) return getParameterValue(varName);
@@ -794,11 +951,21 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 
 	}
 
+	/**
+	 * Gets the exploration algorithm.
+	 *
+	 * @return the exploration algorithm
+	 */
 	@Override
 	public IExploration getExplorationAlgorithm() {
 		return exploration;
 	}
 
+	/**
+	 * Gets the log.
+	 *
+	 * @return the log
+	 */
 	@Override
 	public FileOutput getLog() {
 		return log;
@@ -815,14 +982,20 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		explorableParameters.put(p.getName(), p);
 	}
 
+	/**
+	 * Gets the explorable parameters.
+	 *
+	 * @return the explorable parameters
+	 */
 	@Override
 	public Map<String, IParameter.Batch> getExplorableParameters() {
 		return explorableParameters;
 	}
 
 	/**
-	 * Method getController()
+	 * Method getController().
 	 *
+	 * @return the controller
 	 * @see gama.kernel.experiment.IExperimentPlan#getController()
 	 */
 	@Override
@@ -832,7 +1005,7 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 	}
 
 	/**
-	 * Method refreshAllOutputs()
+	 * Method refreshAllOutputs().
 	 *
 	 * @see gama.kernel.experiment.IExperimentPlan#refreshAllOutputs()
 	 */
@@ -843,6 +1016,9 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		}
 	}
 
+	/**
+	 * Pause all outputs.
+	 */
 	@Override
 	public void pauseAllOutputs() {
 		for (final IOutputManager manager : getActiveOutputManagers()) {
@@ -850,6 +1026,9 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		}
 	}
 
+	/**
+	 * Resume all outputs.
+	 */
 	@Override
 	public void resumeAllOutputs() {
 		for (final IOutputManager manager : getActiveOutputManagers()) {
@@ -857,6 +1036,9 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		}
 	}
 
+	/**
+	 * Synchronize all outputs.
+	 */
 	@Override
 	public void synchronizeAllOutputs() {
 		for (final IOutputManager manager : getActiveOutputManagers()) {
@@ -864,6 +1046,9 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		}
 	}
 
+	/**
+	 * Un synchronize all outputs.
+	 */
 	@Override
 	public void unSynchronizeAllOutputs() {
 		for (final IOutputManager manager : getActiveOutputManagers()) {
@@ -871,6 +1056,9 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		}
 	}
 
+	/**
+	 * Close all outputs.
+	 */
 	@Override
 	public void closeAllOutputs() {
 		for (final IOutputManager manager : getActiveOutputManagers()) {
@@ -879,7 +1067,7 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 	}
 
 	/**
-	 * Same as the previous one, but forces the outputs to do one step of computation (if some values have changed)
+	 * Same as the previous one, but forces the outputs to do one step of computation (if some values have changed).
 	 */
 	@Override
 	public void recomputeAndRefreshAllOutputs() {
@@ -889,8 +1077,9 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 	}
 
 	/**
-	 * Method getOriginalSimulationOutputs()
+	 * Method getOriginalSimulationOutputs().
 	 *
+	 * @return the original simulation outputs
 	 * @see gama.kernel.experiment.IExperimentPlan#getOriginalSimulationOutputs()
 	 */
 	@Override
@@ -898,6 +1087,11 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 		return originalSimulationOutputs;
 	}
 
+	/**
+	 * Gets the experiment type.
+	 *
+	 * @return the experiment type
+	 */
 	@Override
 	public String getExperimentType() {
 		return experimentType;
@@ -906,7 +1100,7 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 	/**
 	 * Returns the output managers that are currently active. If no agent is defined, then an empty iterable is returned
 	 *
-	 * @return
+	 * @return the active output managers
 	 */
 
 	@Override
@@ -916,11 +1110,21 @@ public class ExperimentPlan extends GamlSpecies implements IExperimentPlan {
 
 	}
 
+	/**
+	 * Gets the description.
+	 *
+	 * @return the description
+	 */
 	@Override
 	public ExperimentDescription getDescription() {
 		return (ExperimentDescription) super.getDescription();
 	}
 
+	/**
+	 * Should be benchmarked.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean shouldBeBenchmarked() {
 		return benchmarkable;

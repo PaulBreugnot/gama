@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.core.headless.batch.validation;
 
@@ -35,6 +35,7 @@ import gama.kernel.model.IModel;
 import gaml.compilation.GamlCompilationError;
 import gaml.descriptions.ModelDescription;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ModelLibraryRunner.
  */
@@ -50,8 +51,14 @@ public class ModelLibraryRunner extends AbstractModelLibraryRunner {
 		DEBUG.ON();
 	}
 
+	/**
+	 * Start.
+	 *
+	 * @return the int
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	@Override
-	public int start(final List<String> args) throws IOException {
+	public int start() throws IOException {
 		final Injector injector = HeadlessSimulationLoader.getInjector();
 		final GamlModelBuilder builder = createBuilder(injector);
 		final int[] count = { 0 };
