@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.core.headless.runtime;
 
@@ -15,12 +15,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -33,17 +30,13 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
-import org.osgi.framework.Bundle;
 import org.w3c.dom.Document;
 
-import com.google.common.collect.Multimap;
 import com.google.inject.Injector;
 
 import gama.common.GamlFileExtension;
-import gama.core.application.bundles.GamaBundleLoader;
 import gama.core.dev.utils.DEBUG;
 import gama.core.headless.batch.documentation.ModelLibraryGenerator;
 import gama.core.headless.batch.test.ModelLibraryTester;
@@ -60,15 +53,13 @@ import gama.core.headless.xml.ConsoleReader;
 import gama.core.headless.xml.Reader;
 import gama.core.headless.xml.XMLWriter;
 import gama.core.lang.validation.GamlModelBuilder;
-import gama.kernel.experiment.BatchAgent;
-import gama.kernel.experiment.ExperimentPlan;
-import gama.kernel.experiment.IExperimentAgent;
 import gama.kernel.experiment.IExperimentPlan;
 import gama.kernel.model.IModel;
 import gama.runtime.GAMA;
 import gaml.compilation.GamlCompilationError;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Application.
  */
@@ -76,61 +67,61 @@ public class Application implements IApplication {
 
 	/** The Constant CONSOLE_PARAMETER. */
 	final public static String CONSOLE_PARAMETER = "-c";
-	
+
 	/** The Constant GAMA_VERSION. */
 	final public static String GAMA_VERSION = "-version";
-	
+
 	/** The Constant TUNNELING_PARAMETER. */
 	final public static String TUNNELING_PARAMETER = "-p";
-	
+
 	/** The Constant THREAD_PARAMETER. */
 	final public static String THREAD_PARAMETER = "-hpc";
-	
+
 	/** The Constant SOCKET_PARAMETER. */
 	final public static String SOCKET_PARAMETER = "-socket";
-	
+
 	/** The Constant VERBOSE_PARAMETER. */
 	final public static String VERBOSE_PARAMETER = "-v";
-	
+
 	/** The Constant HELP_PARAMETER. */
 	final public static String HELP_PARAMETER = "-help";
-	
+
 	/** The Constant BUILD_XML_PARAMETER. */
 	final public static String BUILD_XML_PARAMETER = "-xml";
-	
+
 	/** The Constant CHECK_MODEL_PARAMETER. */
 	final public static String CHECK_MODEL_PARAMETER = "-check";
-	
+
 	/** The Constant VALIDATE_LIBRARY_PARAMETER. */
 	final public static String VALIDATE_LIBRARY_PARAMETER = "-validate";
-	
+
 	/** The Constant RUN_LIBRARY_PARAMETER. */
 	final public static String RUN_LIBRARY_PARAMETER = "-runLibrary";
-	
+
 	/** The Constant TEST_LIBRARY_PARAMETER. */
 	final public static String TEST_LIBRARY_PARAMETER = "-test";
-	
+
 	/** The Constant BATCH_PARAMETER. */
 	final public static String BATCH_PARAMETER = "-batch";
 
 	/** The head less simulation. */
 	public static boolean headLessSimulation = false;
-	
+
 	/** The number of thread. */
 	public int numberOfThread = -1;
-	
+
 	/** The socket. */
 	public int socket = -1;
-	
+
 	/** The console mode. */
 	public boolean consoleMode = false;
-	
+
 	/** The tunneling mode. */
 	public boolean tunnelingMode = false;
-	
+
 	/** The verbose. */
 	public boolean verbose = false;
-	
+
 	/** The processor queue. */
 	public SimulationRuntime processorQueue;
 
@@ -140,7 +131,7 @@ public class Application implements IApplication {
 	 * @return the string
 	 */
 	private static String showHelp() {
-		final String res = " Welcome to Gama-platform.org version " + GAMA.VERSION + "\n"
+		return " Welcome to Gama-platform.org version " + GAMA.VERSION + "\n"
 				+ "sh ./gama-headless.sh [Options] [XML Input] [output directory]\n" + "\nList of available options:"
 				+ "\n      -help                        -- get the help of the command line"
 				+ "\n      -version                     -- get the the version of gama"
@@ -149,7 +140,7 @@ public class Application implements IApplication {
 				+ "\n      -v                           -- verbose mode"
 				+ "\n      -hpc [core]                  -- set the number of core available for experimentation"
 				+ "\n      -socket [socketPort]         -- start socket pipeline to interact with another framework"
-				+ "\n" 
+				+ "\n"
 				+ "\n      -p                           -- start pipeline to interact with another framework"
 				+ "\n"
 				+ "\n      -validate [directory]        -- invokes GAMA to validate the models present in the directory passed as argument"
@@ -157,11 +148,9 @@ public class Application implements IApplication {
 				+ "\n      -failed                      -- only display the failed and aborted test results"
 				+ "\n      -xml [experimentName] [modelFile.gaml] [xmlOutputFile.xml]"
 				+ "\n                                   -- build an xml parameter file from a model"
-				+ "\n" 
+				+ "\n"
 				+ "\n      -batch [experimentName] [modelFile.gaml]"
 				+ "\n                                   -- Run batch experiment in headless mode";
-
-		return res;
 	}
 
 	// private static boolean containParameter(final String[] args, final String param) {
@@ -183,7 +172,7 @@ public class Application implements IApplication {
 		int size = args.size();
 		boolean mustContainInFile = true;
 		boolean mustContainOutFile = true;
-		
+
 		if (args.contains(CONSOLE_PARAMETER)) {
 			size = size - 1;
 			mustContainInFile = false;
@@ -205,7 +194,7 @@ public class Application implements IApplication {
 			size = size - 3;
 			mustContainOutFile = false;
 		}
-		
+
 		if (args.contains(THREAD_PARAMETER)) { size = size - 2; }
 		if (args.contains(VERBOSE_PARAMETER)) { size = size - 1; }
 		if (mustContainInFile && mustContainOutFile && size < 2) {
@@ -253,6 +242,13 @@ public class Application implements IApplication {
 		return false;
 	}
 
+	/**
+	 * Start.
+	 *
+	 * @param context the context
+	 * @return the object
+	 * @throws Exception the exception
+	 */
 	@Override
 	public Object start(final IApplicationContext context) throws Exception {
 
@@ -361,9 +357,7 @@ public class Application implements IApplication {
 		final ArrayList<IExperimentJob> selectedJob = new ArrayList<>();
 		for (final File modelFile : modelPaths) {
 			final List<IExperimentJob> jb = ExperimentationPlanFactory.buildExperiment(modelFile.getAbsolutePath());
-			for (final IExperimentJob j : jb) {
-				selectedJob.add(j);
-			}
+			selectedJob.addAll(jb);
 		}
 
 		final Document dd = ExperimentationPlanFactory.buildXmlDocumentForModelLibrary(selectedJob);
@@ -409,7 +403,6 @@ public class Application implements IApplication {
 	 * @throws InterruptedException the interrupted exception
 	 */
 	public void runSimulation(final List<String> args) throws FileNotFoundException, InterruptedException {
-		if (!checkParameters(args)) { System.exit(-1); }
 
 		verbose = args.contains(VERBOSE_PARAMETER);
 		if (verbose) {
@@ -419,13 +412,13 @@ public class Application implements IApplication {
 		this.tunnelingMode = args.contains(TUNNELING_PARAMETER);
 		this.consoleMode = args.contains(CONSOLE_PARAMETER);
 		if (args.contains(SOCKET_PARAMETER)) {
-			this.socket = Integer.valueOf(after(args, SOCKET_PARAMETER));
+			this.socket = Integer.parseInt(after(args, SOCKET_PARAMETER));
 		} else {
 			this.socket = -1;
 		}
 
 		if (args.contains(THREAD_PARAMETER)) {
-			this.numberOfThread = Integer.valueOf(after(args, THREAD_PARAMETER));
+			this.numberOfThread = Integer.parseInt(after(args, THREAD_PARAMETER));
 		} else {
 			numberOfThread = SimulationRuntime.UNDEFINED_QUEUE_SIZE;
 		}
@@ -458,23 +451,23 @@ public class Application implements IApplication {
 	 */
 	public void runBatchSimulation(final List<String> args) throws FileNotFoundException, InterruptedException {
 		final String pathToModel = args.get(args.size() - 1);
-		
+
 		if (!GamlFileExtension.isGaml(pathToModel)) { System.exit(-1); }
-	
+
 		final Injector injector = HeadlessSimulationLoader.getInjector();
 		final GamlModelBuilder builder = new GamlModelBuilder(injector);
 
 		final List<GamlCompilationError> errors = new ArrayList<>();
 		final IModel mdl = builder.compile(URI.createFileURI(pathToModel), errors);
-		
+
 		final IExperimentPlan expPlan = mdl.getExperiment(args.get(args.size() - 2));
-		
+
 		expPlan.setHeadless(true);
 		expPlan.open();
-		
+
 		System.exit(0);
-	} 
-	
+	}
+
 	/**
 	 * Builds the and run simulation.
 	 *
@@ -502,6 +495,9 @@ public class Application implements IApplication {
 		}
 	}
 
+	/**
+	 * Stop.
+	 */
 	@Override
 	public void stop() {}
 
