@@ -23,11 +23,16 @@ import gama.util.file.GamaFile;
  */
 @SuppressWarnings({ "rawtypes" })
 public class ParametersSet extends HashMap<String, Object> {
+	
+	private Double fitness;
+ 	private int currentIndex;
 
 	/**
 	 * Instantiates a new parameters set.
 	 */
 	public ParametersSet() {
+		fitness = Double.NaN;
+ 		currentIndex = 0;
 	}
 
 	/**
@@ -37,6 +42,8 @@ public class ParametersSet extends HashMap<String, Object> {
 	 */
 	public ParametersSet(final ParametersSet solution) {
 		this.putAll(solution);
+		fitness = solution.fitness;
+ 		currentIndex = solution.currentIndex;
 	}
 
 	/**
@@ -56,6 +63,8 @@ public class ParametersSet extends HashMap<String, Object> {
 				((IParameter.Batch) varBat).reinitRandomly(scope);
 			}
 			put(var, varBat.value(scope));
+			fitness = Double.NaN;
+	 		currentIndex = 0;
 		}
 
 	}
@@ -76,6 +85,8 @@ public class ParametersSet extends HashMap<String, Object> {
 			}
 			put(p.getName(), p.value(scope));
 		}
+		fitness = Double.NaN;
+ 		currentIndex = 0;
 	}
 
 	@Override
@@ -88,5 +99,21 @@ public class ParametersSet extends HashMap<String, Object> {
 		}
 		return super.put(s, o);
 	}
+	
+	public Double getFitness() {
+ 		return fitness;
+ 	}
+
+ 	public void setFitness(Double fitness) {
+ 		this.fitness = fitness;
+ 	}
+
+ 	public int getCurrentIndex() {
+ 		return currentIndex;
+ 	}
+
+ 	public void setCurrentIndex(int currentIndex) {
+ 		this.currentIndex = currentIndex;
+ 	}
 
 }
