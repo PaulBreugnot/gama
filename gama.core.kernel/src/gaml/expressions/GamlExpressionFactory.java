@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gaml.expressions;
 
@@ -55,6 +55,7 @@ import gaml.types.IType;
 import gaml.types.Signature;
 import gaml.types.Types;
 
+// TODO: Auto-generated Javadoc
 /**
  * The static class ExpressionFactory.
  *
@@ -67,7 +68,7 @@ public class GamlExpressionFactory implements IExpressionFactory {
 	 * The Interface ParserProvider.
 	 */
 	public interface ParserProvider {
-		
+
 		/**
 		 * Gets the.
 		 *
@@ -82,7 +83,8 @@ public class GamlExpressionFactory implements IExpressionFactory {
 	/**
 	 * Register parser provider.
 	 *
-	 * @param f the f
+	 * @param f
+	 *            the f
 	 */
 	public static void registerParserProvider(final ParserProvider f) {
 		parser = new ThreadLocal() {
@@ -93,11 +95,17 @@ public class GamlExpressionFactory implements IExpressionFactory {
 		};
 	}
 
+	/**
+	 * Gets the parser.
+	 *
+	 * @return the parser
+	 */
 	@Override
-	public IExpressionCompiler getParser() {
-		return parser.get();
-	}
+	public IExpressionCompiler getParser() { return parser.get(); }
 
+	/**
+	 * Reset parser.
+	 */
 	@Override
 	public void resetParser() {
 		parser.get().dispose();
@@ -106,9 +114,17 @@ public class GamlExpressionFactory implements IExpressionFactory {
 	}
 
 	/**
-	 * Method createUnit()
+	 * Method createUnit().
 	 *
-	 * @see gaml.expressions.IExpressionFactory#createUnit(java.lang.Object, gaml.types.IType, java.lang.String)
+	 * @param value the value
+	 * @param t the t
+	 * @param name the name
+	 * @param doc the doc
+	 * @param deprecated the deprecated
+	 * @param isTime the is time
+	 * @param names the names
+	 * @return the unit constant expression
+	 * @see msi.gaml.expressions.IExpressionFactory#createUnit(java.lang.Object, msi.gaml.types.IType, java.lang.String)
 	 */
 	@Override
 	public UnitConstantExpression createUnit(final Object value, final IType t, final String name, final String doc,
@@ -119,11 +135,24 @@ public class GamlExpressionFactory implements IExpressionFactory {
 
 	}
 
+	/**
+	 * Creates a new GamlExpression object.
+	 *
+	 * @param val the val
+	 * @param type the type
+	 * @return the constant expression
+	 */
 	@Override
 	public ConstantExpression createConst(final Object val, final IType type) {
 		return createConst(val, type, null);
 	}
 
+	/**
+	 * Creates a new GamlExpression object.
+	 *
+	 * @param type the type
+	 * @return the species constant expression
+	 */
 	@Override
 	public SpeciesConstantExpression createSpeciesConstant(final IType type) {
 		if (type.getGamlType() != Types.SPECIES) return null;
@@ -132,6 +161,14 @@ public class GamlExpressionFactory implements IExpressionFactory {
 		return new SpeciesConstantExpression(sd.getName(), type);
 	}
 
+	/**
+	 * Creates a new GamlExpression object.
+	 *
+	 * @param val the val
+	 * @param type the type
+	 * @param name the name
+	 * @return the constant expression
+	 */
 	@Override
 	public ConstantExpression createConst(final Object val, final IType type, final String name) {
 		if (type.getGamlType() == Types.SPECIES) return createSpeciesConstant(type);
@@ -141,24 +178,50 @@ public class GamlExpressionFactory implements IExpressionFactory {
 		return new ConstantExpression(val, type, name);
 	}
 
+	/**
+	 * Gets the unit expr.
+	 *
+	 * @param unit the unit
+	 * @return the unit expr
+	 */
 	@Override
 	public UnitConstantExpression getUnitExpr(final String unit) {
 		return IUnits.UNITS_EXPR.get(unit);
 	}
 
+	/**
+	 * Creates a new GamlExpression object.
+	 *
+	 * @param ied the ied
+	 * @param context the context
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression createExpr(final IExpressionDescription ied, final IDescription context) {
-		if (ied == null) return null;
-		final IExpression p = ied.getExpression();
-		return p == null ? getParser().compile(ied, context) : p;
+		return getParser().compile(ied, context);
 	}
 
+	/**
+	 * Creates a new GamlExpression object.
+	 *
+	 * @param s the s
+	 * @param context the context
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression createExpr(final String s, final IDescription context) {
 		if (s == null || s.isEmpty()) return null;
 		return getParser().compile(StringBasedExpressionDescription.create(s), context);
 	}
 
+	/**
+	 * Creates a new GamlExpression object.
+	 *
+	 * @param s the s
+	 * @param context the context
+	 * @param additionalContext the additional context
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression createExpr(final String s, final IDescription context,
 			final IExecutionContext additionalContext) {
@@ -166,6 +229,14 @@ public class GamlExpressionFactory implements IExpressionFactory {
 		return getParser().compile(s, context, additionalContext);
 	}
 
+	/**
+	 * Creates a new GamlExpression object.
+	 *
+	 * @param action the action
+	 * @param args the args
+	 * @param context the context
+	 * @return the arguments
+	 */
 	@Override
 	public Arguments createArgumentMap(final ActionDescription action, final IExpressionDescription args,
 			final IDescription context) {
@@ -173,6 +244,16 @@ public class GamlExpressionFactory implements IExpressionFactory {
 		return getParser().parseArguments(action, args.getTarget(), context, false);
 	}
 
+	/**
+	 * Creates a new GamlExpression object.
+	 *
+	 * @param name the name
+	 * @param type the type
+	 * @param isConst the is const
+	 * @param scope the scope
+	 * @param definitionDescription the definition description
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression createVar(final String name, final IType type, final boolean isConst, final int scope,
 			final IDescription definitionDescription) {
@@ -198,8 +279,25 @@ public class GamlExpressionFactory implements IExpressionFactory {
 		}
 	}
 
+	/**
+	 * Creates a new GamlExpression object.
+	 *
+	 * @param elements the elements
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression createList(final Iterable<? extends IExpression> elements) {
+		return ListExpression.create(elements);
+	}
+
+	/**
+	 * Creates a new GamlExpression object.
+	 *
+	 * @param elements
+	 *            the elements
+	 * @return the i expression
+	 */
+	public IExpression createList(final IExpression[] elements) {
 		return ListExpression.create(elements);
 	}
 
@@ -209,23 +307,26 @@ public class GamlExpressionFactory implements IExpressionFactory {
 	 * @param elements the elements
 	 * @return the i expression
 	 */
-	public IExpression createList(final IExpression[] elements) {
-		return ListExpression.create(elements);
-	}
-
 	@Override
 	public IExpression createMap(final Iterable<? extends IExpression> elements) {
 		return MapExpression.create(elements);
 	}
 
+	/**
+	 * Checks for operator.
+	 *
+	 * @param op the op
+	 * @param context the context
+	 * @param object the object
+	 * @param args the args
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean hasOperator(final String op, final IDescription context, final EObject object,
 			final IExpression... args) {
 		// If arguments are invalid, we have no match
 		if (args == null || args.length == 0) return false;
-		for (final IExpression exp : args) {
-			if (exp == null) return false;
-		}
+		for (final IExpression exp : args) { if (exp == null) return false; }
 		// If the operator is not known, we have no match
 		if (!OPERATORS.containsKey(op)) return false;
 		final IMap<Signature, OperatorProto> ops = OPERATORS.get(op);
@@ -239,6 +340,15 @@ public class GamlExpressionFactory implements IExpressionFactory {
 		return matches;
 	}
 
+	/**
+	 * Creates a new GamlExpression object.
+	 *
+	 * @param op the op
+	 * @param context the context
+	 * @param eObject the e object
+	 * @param args the args
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression createOperator(final String op, final IDescription context, final EObject eObject,
 			final IExpression... args) {
@@ -267,7 +377,7 @@ public class GamlExpressionFactory implements IExpressionFactory {
 			if (size == 0)
 				// It is a varArg, we call recursively the method
 				return createOperator(op, context, eObject, createList(args));
-			else if (size == 1) {
+			if (size == 1) {
 				// Only one choice
 				userSignature = matching[0];
 			} else {
@@ -278,7 +388,8 @@ public class GamlExpressionFactory implements IExpressionFactory {
 					if (dist == 0) {
 						userSignature = s;
 						break;
-					} else if (dist < distance) {
+					}
+					if (dist < distance) {
 						distance = dist;
 						userSignature = s;
 					}
@@ -306,6 +417,14 @@ public class GamlExpressionFactory implements IExpressionFactory {
 		return createDirectly(context, eObject, proto, args);
 	}
 
+	/**
+	 * Creates a new GamlExpression object.
+	 *
+	 * @param context the context
+	 * @param toCast the to cast
+	 * @param type the type
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression createAs(final IDescription context, final IExpression toCast, final IExpression type) {
 		return OperatorProto.AS.create(context, null, toCast, type);
@@ -314,10 +433,14 @@ public class GamlExpressionFactory implements IExpressionFactory {
 	/**
 	 * Creates a new GamlExpression object.
 	 *
-	 * @param context the context
-	 * @param eObject the e object
-	 * @param proto the proto
-	 * @param args the args
+	 * @param context
+	 *            the context
+	 * @param eObject
+	 *            the e object
+	 * @param proto
+	 *            the proto
+	 * @param args
+	 *            the args
 	 * @return the i expression
 	 */
 	private IExpression createDirectly(final IDescription context, final EObject eObject, final OperatorProto proto,
@@ -334,6 +457,16 @@ public class GamlExpressionFactory implements IExpressionFactory {
 		return copy;
 	}
 
+	/**
+	 * Creates a new GamlExpression object.
+	 *
+	 * @param op the op
+	 * @param callerContext the caller context
+	 * @param action the action
+	 * @param call the call
+	 * @param arguments the arguments
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression createAction(final String op, final IDescription callerContext, final ActionDescription action,
 			final IExpression call, final Arguments arguments) {
@@ -343,15 +476,25 @@ public class GamlExpressionFactory implements IExpressionFactory {
 	}
 
 	/**
-	 * Method createCastingExpression()
+	 * Method createCastingExpression().
 	 *
-	 * @see gaml.expressions.IExpressionFactory#createCastingExpression(gaml.types.IType)
+	 * @param type the type
+	 * @return the i expression
+	 * @see msi.gaml.expressions.IExpressionFactory#createCastingExpression(msi.gaml.types.IType)
 	 */
 	@Override
 	public IExpression createTypeExpression(final IType type) {
 		return new TypeExpression(type);
 	}
 
+	/**
+	 * Creates a new GamlExpression object.
+	 *
+	 * @param agent the agent
+	 * @param action the action
+	 * @param tempContext the temp context
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression createTemporaryActionForAgent(final IAgent agent, final String action,
 			final IExecutionContext tempContext) {
@@ -359,9 +502,7 @@ public class GamlExpressionFactory implements IExpressionFactory {
 		final ActionDescription desc = (ActionDescription) DescriptionFactory.create(IKeyword.ACTION, context,
 				Collections.EMPTY_LIST, IKeyword.TYPE, IKeyword.UNKNOWN, IKeyword.NAME, TEMPORARY_ACTION_NAME);
 		final List<IDescription> children = getParser().compileBlock(action, context, tempContext);
-		for (final IDescription child : children) {
-			desc.addChild(child);
-		}
+		for (final IDescription child : children) { desc.addChild(child); }
 		desc.validate();
 		context.addChild(desc);
 		final ActionStatement a = (ActionStatement) desc.compile();
