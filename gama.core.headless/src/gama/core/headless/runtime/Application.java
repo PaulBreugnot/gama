@@ -67,19 +67,19 @@ public class Application implements IApplication {
 
 	/** The Constant HELP_PARAMETER. */
 	final public static String HELP_PARAMETER = "-help";
-	
+
 	/** The Constant GAMA_VERSION. */
 	final public static String GAMA_VERSION = "-version";
 
 	/** The Constant CONSOLE_PARAMETER. */
 	final public static String CONSOLE_PARAMETER = "-c";
-	
+
 	/** The Constant VERBOSE_PARAMETER. */
 	final public static String VERBOSE_PARAMETER = "-v";
-	
+
 	/** The Constant THREAD_PARAMETER. */
 	final public static String THREAD_PARAMETER = "-hpc";
-	
+
 	/** The Constant SOCKET_PARAMETER. */
 	final public static String SOCKET_PARAMETER = "-socket";
 
@@ -88,23 +88,23 @@ public class Application implements IApplication {
 
 	/** The Constant VALIDATE_LIBRARY_PARAMETER. */
 	final public static String VALIDATE_LIBRARY_PARAMETER = "-validate";
-	
+
 	/** The Constant TEST_LIBRARY_PARAMETER. */
 	final public static String TEST_LIBRARY_PARAMETER = "-test";
-	
+
 	/** The Constant BUILD_XML_PARAMETER. */
 	final public static String BUILD_XML_PARAMETER = "-xml";
-	
+
 	/** The Constant CHECK_MODEL_PARAMETER. */
 	final public static String CHECK_MODEL_PARAMETER = "-check";
-	
+
 	/** The Constant RUN_LIBRARY_PARAMETER. */
 	final public static String RUN_LIBRARY_PARAMETER = "-runLibrary";
 
 	/** The Constant BATCH_PARAMETER. */
 	// -> Code still exist, but not documented nor use
 	final public static String BATCH_PARAMETER = "-batch";
-	
+
 	/** The Constant GAML_PARAMETER. */
 	final public static String GAML_PARAMETER = "-gaml";
 
@@ -241,7 +241,7 @@ public class Application implements IApplication {
 
 		// Commands
 		// ========================
-		if (args.contains(GAMA_VERSION) || args.contains(HELP_PARAMETER) ) {
+		if (args.contains(GAMA_VERSION) || args.contains(HELP_PARAMETER) || args.contains(VALIDATE_LIBRARY_PARAMETER) || args.contains(TEST_LIBRARY_PARAMETER)) {
 			size = size - 1;
 			mustContainOutFile = mustContainInFile = false;
 		}
@@ -341,7 +341,7 @@ public class Application implements IApplication {
 			return ModelLibraryTester.getInstance().start();
 		if (args.contains(RUN_LIBRARY_PARAMETER))
 			return ModelLibraryRunner.getInstance().start();
-		else if (args.contains(CHECK_MODEL_PARAMETER)) {
+		if (args.contains(CHECK_MODEL_PARAMETER)) {
 			ModelLibraryGenerator.start(this, args);
 		} else if (args.contains(BATCH_PARAMETER)) {
 			runBatchSimulation(args.get(args.size() - 2), args.get(args.size() - 1));
