@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.runtime.concurrent;
 
@@ -32,6 +32,7 @@ import gaml.species.ISpecies;
 import gaml.statements.IExecutable;
 import gaml.types.IType;;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GamaExecutorService.
  */
@@ -62,40 +63,41 @@ public abstract class GamaExecutorService {
 	/** The Constant CONCURRENCY_SIMULATIONS. */
 	public static final Pref<Boolean> CONCURRENCY_SIMULATIONS =
 			create("pref_parallel_simulations", "Make experiments run simulations in parallel", true, IType.BOOL, true)
-					.in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY);
-	
-	
+			.in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY);
+
+
+	/** The Constant CONCURRENCY_SIMULATIONS_ALL. */
 	public static final Pref<Boolean> CONCURRENCY_SIMULATIONS_ALL =
- 			create("pref_parallel_simulations", "Allow parallel simulations with different parameter sets", false, IType.BOOL, true)
- 					.in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY);
-	
+			create("pref_parallel_simulations_all", "Allow parallel simulations with different parameter sets", false, IType.BOOL, true)
+			.in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY);
+
 	/** The Constant CONCURRENCY_GRID. */
 	public static final Pref<Boolean> CONCURRENCY_GRID =
 			create("pref_parallel_grids", "Make grids schedule their agents in parallel", false, IType.BOOL, true)
-					.in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY);
-	
+			.in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY);
+
 	/** The Constant CONCURRENCY_SPECIES. */
 	public static final Pref<Boolean> CONCURRENCY_SPECIES =
 			create("pref_parallel_species", "Make species schedule their agents in parallel", false, IType.BOOL, true)
-					.in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY);
-	
+			.in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY);
+
 	/** The Constant CONCURRENCY_THRESHOLD. */
 	public static final Pref<Integer> CONCURRENCY_THRESHOLD =
 			create("pref_parallel_threshold", "Number under which agents are executed sequentially", 20, IType.INT,
 					true).between(1, null).in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY);
-	
+
 	/** The Constant THREADS_NUMBER. */
 	public static final Pref<Integer> THREADS_NUMBER =
 			create("pref_parallel_threads",
 					"Max. number of threads to use (available processors: " + Runtime.getRuntime().availableProcessors()
-							+ ")",
+					+ ")",
 					4, IType.INT, true).between(1, null)
-							.in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY)
-							.onChange(newValue -> {
-								reset();
-								System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism",
-										String.valueOf(newValue));
-							});
+			.in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY)
+			.onChange(newValue -> {
+				reset();
+				System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism",
+						String.valueOf(newValue));
+			});
 
 	/**
 	 * Reset.
@@ -125,15 +127,15 @@ public abstract class GamaExecutorService {
 	 * The Enum Caller.
 	 */
 	public enum Caller {
-		
+
 		/** The species. */
-		SPECIES, 
- /** The grid. */
- GRID, 
- /** The none. */
- NONE, 
- /** The simulation. */
- SIMULATION
+		SPECIES,
+		/** The grid. */
+		GRID,
+		/** The none. */
+		NONE,
+		/** The simulation. */
+		SIMULATION
 	}
 
 	/**
