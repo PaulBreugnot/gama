@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.display.java2d;
 
@@ -64,8 +64,8 @@ import gama.metamodel.agent.IAgent;
 import gama.metamodel.shape.GamaPoint;
 import gama.metamodel.shape.IShape;
 import gama.outputs.LayeredDisplayData;
-import gama.outputs.LayeredDisplayOutput;
 import gama.outputs.LayeredDisplayData.Changes;
+import gama.outputs.LayeredDisplayOutput;
 import gama.outputs.display.AWTDisplayGraphics;
 import gama.outputs.display.LayerManager;
 import gama.outputs.layers.IEventLayerListener;
@@ -78,6 +78,7 @@ import gama.ui.experiment.views.displays.DisplaySurfaceMenu;
 import gaml.expressions.IExpression;
 import gaml.operators.Cast;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Java2DDisplaySurface.
  */
@@ -99,65 +100,66 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		});
 		// Forces the listener to run at least once
 		GamaPreferences.Displays.DISPLAY_NO_ACCELERATION
-				.set(GamaPreferences.Displays.DISPLAY_NO_ACCELERATION.getValue());
+		.set(GamaPreferences.Displays.DISPLAY_NO_ACCELERATION.getValue());
 	}
 
 	/** The output. */
 	final LayeredDisplayOutput output;
-	
+
 	/** The view port. */
 	protected final Rectangle viewPort = new Rectangle();
-	
+
 	/** The layer manager. */
 	// protected final AffineTransform translation = new AffineTransform();
 	protected final ILayerManager layerManager;
-	
+
 	/** The i graphics. */
 	protected IGraphics iGraphics;
 
 	/** The menu manager. */
 	protected DisplaySurfaceMenu menuManager;
-	
+
 	/** The temp focus. */
 	protected IExpression temp_focus;
-	
+
 	/** The render lock. */
 	Semaphore renderLock = new Semaphore(1);
-	
+
 	/** The previous panel size. */
 	protected Dimension previousPanelSize;
-	
+
 	/** The zoom increment. */
 	protected double zoomIncrement = 0.1;
-	
+
 	/** The zoom fit. */
 	protected boolean zoomFit = true;
-	
+
 	/** The disposed. */
 	protected volatile boolean disposed;
 
 	/** The scope. */
 	private IScope scope;
-	
+
 	/** The frames. */
 	int frames;
-	
+
 	/** The synchronizer. */
 	private IDisplaySynchronizer synchronizer;
-	
+
 	/** The rendered. */
 	private volatile boolean rendered = false;
-	
+
 	/** The listeners. */
 	Set<IEventLayerListener> listeners = new HashSet<>();
-	
+
 	/** The mouse position. */
 	Point mousePosition;
 
 	/**
 	 * Instantiates a new java 2 D display surface.
 	 *
-	 * @param args the args
+	 * @param args
+	 *            the args
 	 */
 	public Java2DDisplaySurface(final Object... args) {
 		output = (LayeredDisplayOutput) args[0];
@@ -191,11 +193,19 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 
 	}
 
+	/**
+	 * Sets the menu manager.
+	 *
+	 * @param menuManager the new menu manager
+	 */
 	@Override
-	public void setMenuManager(final Object menuManager) {
-		this.menuManager = (DisplaySurfaceMenu) menuManager;
-	}
+	public void setMenuManager(final Object menuManager) { this.menuManager = (DisplaySurfaceMenu) menuManager; }
 
+	/**
+	 * Gets the fps.
+	 *
+	 * @return the fps
+	 */
 	@Override
 	public int getFPS() {
 		final int result = frames;
@@ -203,13 +213,22 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		return result;
 	}
 
+	/**
+	 * Dispatch key event.
+	 *
+	 * @param e the e
+	 */
 	@Override
 	public void dispatchKeyEvent(final char e) {
-		for (final IEventLayerListener gl : listeners) {
-			gl.keyPressed(String.valueOf(e));
-		}
+		for (final IEventLayerListener gl : listeners) { gl.keyPressed(String.valueOf(e)); }
 	}
 
+	/**
+	 * Sets the mouse position.
+	 *
+	 * @param xm the xm
+	 * @param ym the ym
+	 */
 	@Override
 	public void setMousePosition(final int xm, final int ym) {
 		final int x = PlatformHelper.autoScaleUp(xm);
@@ -221,6 +240,12 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		}
 	}
 
+	/**
+	 * Dragged to.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 */
 	@Override
 	public void draggedTo(final int x, final int y) {
 		final Point origin = getOrigin();
@@ -233,11 +258,19 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		updateDisplay(true);
 	}
 
+	/**
+	 * Gets the mouse position.
+	 *
+	 * @return the mouse position
+	 */
 	@Override
-	public Point getMousePosition() {
-		return mousePosition;
-	}
+	public Point getMousePosition() { return mousePosition; }
 
+	/**
+	 * Dispatch mouse event.
+	 *
+	 * @param swtMouseEvent the swt mouse event
+	 */
 	@Override
 	public void dispatchMouseEvent(final int swtMouseEvent) {
 		final int x = mousePosition.x;
@@ -266,6 +299,9 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		}
 	}
 
+	/**
+	 * Output reloaded.
+	 */
 	@Override
 	public void outputReloaded() {
 		// We first copy the scope
@@ -278,28 +314,44 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		updateDisplay(true);
 	}
 
+	/**
+	 * Gets the scope.
+	 *
+	 * @return the scope
+	 */
 	@Override
-	public IScope getScope() {
-		return scope;
-	}
+	public IScope getScope() { return scope; }
 
+	/**
+	 * Gets the manager.
+	 *
+	 * @return the manager
+	 */
 	@Override
-	public ILayerManager getManager() {
-		return layerManager;
-	}
+	public ILayerManager getManager() { return layerManager; }
 
 	/**
 	 * Gets the origin.
 	 *
 	 * @return the origin
 	 */
-	Point getOrigin() {
-		return viewPort.getLocation();
-	}
+	Point getOrigin() { return viewPort.getLocation(); }
 
+	/**
+	 * Sets the font.
+	 *
+	 * @param f the new font
+	 */
 	@Override
 	public void setFont(final Font f) {}
 
+	/**
+	 * Gets the image.
+	 *
+	 * @param w the w
+	 * @param h the h
+	 * @return the image
+	 */
 	@Override
 	public BufferedImage getImage(final int w, final int h) {
 		final int previousWidth = getWidth();
@@ -365,24 +417,22 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	 *
 	 * @return the origin X
 	 */
-	protected int getOriginX() {
-		return getOrigin().x;
-	}
+	protected int getOriginX() { return getOrigin().x; }
 
 	/**
 	 * Gets the origin Y.
 	 *
 	 * @return the origin Y
 	 */
-	protected int getOriginY() {
-		return getOrigin().y;
-	}
+	protected int getOriginY() { return getOrigin().y; }
 
 	/**
 	 * Sets the origin.
 	 *
-	 * @param x the x
-	 * @param y the y
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 */
 	void setOrigin(final int x, final int y) {
 		// Temporarily reverts the changes introduced for #2367
@@ -390,6 +440,11 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		viewPort.setLocation(x - inset, y - inset);
 	}
 
+	/**
+	 * Update display.
+	 *
+	 * @param force the force
+	 */
 	@Override
 	public void updateDisplay(final boolean force) {
 		if (disposed) return;
@@ -397,6 +452,11 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		EventQueue.invokeLater(this::repaint);
 	}
 
+	/**
+	 * Focus on.
+	 *
+	 * @param geometry the geometry
+	 */
 	@Override
 	public void focusOn(final IShape geometry) {
 		final Rectangle2D r = this.getManager().focusOn(geometry, this);
@@ -413,16 +473,23 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		updateDisplay(true);
 	}
 
+	/**
+	 * Validate.
+	 */
 	@Override
 	public void validate() {}
 
+	/**
+	 * Do layout.
+	 */
 	@Override
 	public void doLayout() {}
 
 	/**
 	 * Zoom.
 	 *
-	 * @param in the in
+	 * @param in
+	 *            whether it is a Zoom in (true) or a Zoom out (false)
 	 */
 	private void zoom(final boolean in) {
 		final Point origin = getOrigin();
@@ -434,17 +501,25 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 			y = getHeight() / 2;
 		}
 		final double zoomFactor = applyZoom(1.0 + (in ? 1 : -1) * zoomIncrement);
-		final double newx = Math.round(zoomFactor * (x - origin.x) - x + getWidth() / 2d);
-		final double newy = Math.round(zoomFactor * (y - origin.y) - y + getHeight() / 2d);
+		final long newx = Math.round(zoomFactor * (x - origin.x) - x + getWidth() / 2d);
+		final long newy = Math.round(zoomFactor * (y - origin.y) - y + getHeight() / 2d);
 		centerOnDisplayCoordinates(new Point((int) newx, (int) newy));
+		// DEBUG.OUT("Zoom " + (in ? "in" : "out") + " Origin of image: " + oldOrig + " / Mouse position: " + p
+		// + " / Zoom factor: " + zoomFactor + " / New Origin " + origin);
 		updateDisplay(true);
 	}
 
+	/**
+	 * Zoom in.
+	 */
 	@Override
 	public void zoomIn() {
 		zoom(true);
 	}
 
+	/**
+	 * Zoom out.
+	 */
 	@Override
 	public void zoomOut() {
 		zoom(false);
@@ -478,31 +553,42 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Resize image.
 	 *
-	 * @param x the x
-	 * @param y the y
-	 * @param force the force
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 * @param force
+	 *            the force
 	 * @return true, if successful
 	 */
 	public boolean resizeImage(final int x, final int y, final boolean force) {
+		DEBUG.OUT("Try to resize image to " + x + " " + y + "(current size is: " + getDisplayWidth() + " "
+				+ getDisplayHeight());
 		if (!force && x == getDisplayWidth() && y == getDisplayHeight()) return true;
 		if (x < 10 || y < 10 || getWidth() <= 0 && getHeight() <= 0) return false;
-		// DEBUG.OUT("Resize display : " + x + " " + y);
+
 		final int[] point = computeBoundsFrom(x, y);
 		final int imageWidth = Math.max(1, point[0]);
 		final int imageHeight = Math.max(1, point[1]);
 		setDisplayHeight(imageHeight);
 		setDisplayWidth(imageWidth);
+		DEBUG.OUT("Resize Image suceeded : " + imageWidth + " " + imageHeight);
 		iGraphics = new AWTDisplayGraphics((Graphics2D) this.getGraphics());
 		iGraphics.setDisplaySurface(this);
 		return true;
 
 	}
 
+	/**
+	 * Paint component.
+	 *
+	 * @param g the g
+	 */
 	@Override
 	public void paintComponent(final Graphics g) {
 		final AWTDisplayGraphics gg = getIGraphics();
 		if (gg == null) return;
-		DEBUG.OUT("-- Surface effectively painting on Java2D context");
+		// DEBUG.OUT("-- Surface effectively painting on Java2D context");
 		super.paintComponent(g);
 		final Graphics2D g2d = (Graphics2D) g.create(getOrigin().x, getOrigin().y, (int) Math.round(getDisplayWidth()),
 				(int) Math.round(getDisplayHeight()));
@@ -530,10 +616,13 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	 *
 	 * @return the i graphics
 	 */
-	AWTDisplayGraphics getIGraphics() {
-		return (AWTDisplayGraphics) iGraphics;
-	}
+	AWTDisplayGraphics getIGraphics() { return (AWTDisplayGraphics) iGraphics; }
 
+	/**
+	 * Gets the model coordinates.
+	 *
+	 * @return the model coordinates
+	 */
 	@Override
 	public GamaPoint getModelCoordinates() {
 		final Point origin = getOrigin();
@@ -550,6 +639,12 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		return new GamaPoint();
 	}
 
+	/**
+	 * Gets the model coordinates info.
+	 *
+	 * @param sb the sb
+	 * @return the model coordinates info
+	 */
 	@Override
 	public void getModelCoordinatesInfo(final StringBuilder sb) {
 		final Point origin = getOrigin();
@@ -567,73 +662,99 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		sb.append("No world coordinates");
 	}
 
+	/**
+	 * Gets the env width.
+	 *
+	 * @return the env width
+	 */
 	@Override
-	public double getEnvWidth() {
-		return output.getData().getEnvWidth();
-	}
+	public double getEnvWidth() { return output.getData().getEnvWidth(); }
 
+	/**
+	 * Gets the env height.
+	 *
+	 * @return the env height
+	 */
 	@Override
-	public double getEnvHeight() {
-		return output.getData().getEnvHeight();
-	}
+	public double getEnvHeight() { return output.getData().getEnvHeight(); }
 
+	/**
+	 * Gets the display width.
+	 *
+	 * @return the display width
+	 */
 	@Override
-	public double getDisplayWidth() {
-		return viewPort.width;
-	}
+	public double getDisplayWidth() { return viewPort.width; }
 
 	/**
 	 * Sets the display width.
 	 *
-	 * @param displayWidth the new display width
+	 * @param displayWidth
+	 *            the new display width
 	 */
-	protected void setDisplayWidth(final int displayWidth) {
-		viewPort.width = displayWidth - 2;
-	}
+	protected void setDisplayWidth(final int displayWidth) { viewPort.width = displayWidth /*- 2*/; }
 
+	/**
+	 * Gets the data.
+	 *
+	 * @return the data
+	 */
 	@Override
-	public LayeredDisplayData getData() {
-		return output.getData();
-	}
+	public LayeredDisplayData getData() { return output.getData(); }
 
+	/**
+	 * Gets the display height.
+	 *
+	 * @return the display height
+	 */
 	@Override
-	public double getDisplayHeight() {
-		return viewPort.height;
-	}
+	public double getDisplayHeight() { return viewPort.height; }
 
 	/**
 	 * Sets the display height.
 	 *
-	 * @param displayHeight the new display height
+	 * @param displayHeight
+	 *            the new display height
 	 */
-	protected void setDisplayHeight(final int displayHeight) {
-		viewPort.height = displayHeight - 2;
-	}
+	protected void setDisplayHeight(final int displayHeight) { viewPort.height = displayHeight /*- 2*/; }
 
+	/**
+	 * Gets the output.
+	 *
+	 * @return the output
+	 */
 	@Override
-	public LayeredDisplayOutput getOutput() {
-		return output;
-	}
+	public LayeredDisplayOutput getOutput() { return output; }
 
 	/**
 	 * New zoom level.
 	 *
-	 * @param newZoomLevel the new zoom level
+	 * @param newZoomLevel
+	 *            the new zoom level
 	 */
 	public void newZoomLevel(final double newZoomLevel) {
 		getData().setZoomLevel(newZoomLevel, true, false);
 	}
 
+	/**
+	 * Gets the zoom level.
+	 *
+	 * @return the zoom level
+	 */
 	@Override
 	public double getZoomLevel() {
 		if (getData().getZoomLevel() == null) { getData().setZoomLevel(1.0, true, false); }
 		return getData().getZoomLevel();
 	}
 
+	/**
+	 * Zoom fit.
+	 */
 	@Override
 	public void zoomFit() {
-		final int w = getWidth();
-		final int h = getHeight();
+		final int w = getWidth() - 2;
+		final int h = getHeight() - 2;
+		// - 2 to accomodate for #2367
 		setMousePosition((int) Math.round((double) w / 2), (int) Math.round((double) h / 2));
 		if (resizeImage(w, h, false)) {
 			newZoomLevel(1d);
@@ -646,8 +767,10 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Compute bounds from.
 	 *
-	 * @param vwidth the vwidth
-	 * @param vheight the vheight
+	 * @param vwidth
+	 *            the vwidth
+	 * @param vheight
+	 *            the vheight
 	 * @return the int[]
 	 */
 	private int[] computeBoundsFrom(final int vwidth, final int vheight) {
@@ -664,6 +787,15 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		return dim;
 	}
 
+	/**
+	 * Gets the model coordinates from.
+	 *
+	 * @param xOnScreen the x on screen
+	 * @param yOnScreen the y on screen
+	 * @param sizeInPixels the size in pixels
+	 * @param positionInPixels the position in pixels
+	 * @return the model coordinates from
+	 */
 	@Override
 	public GamaPoint getModelCoordinatesFrom(final int xOnScreen, final int yOnScreen, final Point sizeInPixels,
 			final Point positionInPixels) {
@@ -676,6 +808,12 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		return new GamaPoint(xInModel, yInModel);
 	}
 
+	/**
+	 * Gets the visible region for layer.
+	 *
+	 * @param currentLayer the current layer
+	 * @return the visible region for layer
+	 */
 	@Override
 	public Envelope getVisibleRegionForLayer(final ILayer currentLayer) {
 		if (currentLayer instanceof OverlayLayer) return getScope().getSimulation().getEnvelope();
@@ -693,13 +831,19 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Sets the display scope.
 	 *
-	 * @param scope the new display scope
+	 * @param scope
+	 *            the new display scope
 	 */
 	protected void setDisplayScope(final IScope scope) {
 		if (this.scope != null) { GAMA.releaseScope(this.scope); }
 		this.scope = scope;
 	}
 
+	/**
+	 * Run and update.
+	 *
+	 * @param r the r
+	 */
 	@Override
 	public void runAndUpdate(final Runnable r) {
 		new Thread(() -> {
@@ -708,6 +852,9 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		}).start();
 	}
 
+	/**
+	 * Dispose.
+	 */
 	@Override
 	public void dispose() {
 		getData().removeListener(this);
@@ -720,29 +867,51 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		setDisplayScope(null);
 	}
 
+	/**
+	 * Adds the listener.
+	 *
+	 * @param ell the ell
+	 */
 	@Override
 	public void addListener(final IEventLayerListener ell) {
 		listeners.add(ell);
 	}
 
+	/**
+	 * Removes the listener.
+	 *
+	 * @param ell the ell
+	 */
 	@Override
 	public void removeListener(final IEventLayerListener ell) {
 		listeners.remove(ell);
 	}
 
+	/**
+	 * Gets the layer listeners.
+	 *
+	 * @return the layer listeners
+	 */
 	@Override
-	public Collection<IEventLayerListener> getLayerListeners() {
-		return listeners;
-	}
+	public Collection<IEventLayerListener> getLayerListeners() { return listeners; }
 
 	/**
-	 * Method followAgent()
+	 * Method followAgent().
 	 *
-	 * @see gama.common.ui.IDisplaySurface#followAgent(gama.metamodel.agent.IAgent)
+	 * @param a the a
+	 * @see msi.gama.common.interfaces.IDisplaySurface#followAgent(msi.gama.metamodel.agent.IAgent)
 	 */
 	@Override
 	public void followAgent(final IAgent a) {}
 
+	/**
+	 * Sets the bounds.
+	 *
+	 * @param arg0 the arg 0
+	 * @param arg1 the arg 1
+	 * @param arg2 the arg 2
+	 * @param arg3 the arg 3
+	 */
 	@Override
 	public void setBounds(final int arg0, final int arg1, final int arg2, final int arg3) {
 		// DEBUG.OUT("-- Java2D surface set bounds to " + arg0 + " " + arg1 + " | " + arg2 + " " + arg3);
@@ -753,15 +922,15 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Apply zoom.
 	 *
-	 * @param factor the factor
+	 * @param factor
+	 *            the factor
 	 * @return the double
 	 */
 	double applyZoom(final double factor) {
-		double real_factor = Math.min(factor, 10 / getZoomLevel());
-		real_factor = Math.max(MIN_ZOOM_FACTOR, real_factor);
-		real_factor = Math.min(MAX_ZOOM_FACTOR, real_factor);
-		final boolean success = resizeImage(Math.max(1, (int) Math.round(getDisplayWidth() * real_factor)),
-				Math.max(1, (int) Math.round(getDisplayHeight() * real_factor)), false);
+		double real_factor =
+				Math.max(MIN_ZOOM_FACTOR, Math.min(MAX_ZOOM_FACTOR, Math.min(factor, 10 / getZoomLevel())));
+		final boolean success = resizeImage(Math.max(10, (int) Math.round(getDisplayWidth() * real_factor)),
+				Math.max(10, (int) Math.round(getDisplayHeight() * real_factor)), false);
 
 		if (success) {
 			zoomFit = false;
@@ -779,7 +948,8 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Center on view coordinates.
 	 *
-	 * @param p the p
+	 * @param p
+	 *            the p
 	 */
 	private void centerOnViewCoordinates(final Point p) {
 		final Point origin = getOrigin();
@@ -792,13 +962,17 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Center on display coordinates.
 	 *
-	 * @param p the p
+	 * @param p
+	 *            the p
 	 */
 	void centerOnDisplayCoordinates(final Point p) {
 		final Point origin = getOrigin();
 		centerOnViewCoordinates(new Point(p.x + origin.x, p.y + origin.y));
 	}
 
+	/**
+	 * Select agents around mouse.
+	 */
 	@Override
 	public void selectAgentsAroundMouse() {
 		final int mousex = getMousePosition().x;
@@ -811,6 +985,13 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		WorkbenchHelper.run(() -> menuManager.buildMenu(mousex, mousey, xc, yc, layers));
 	}
 
+	/**
+	 * Select agent.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @return the collection
+	 */
 	@Override
 	public Collection<IAgent> selectAgent(final int x, final int y) {
 		final int xc = x - getOriginX();
@@ -824,13 +1005,18 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		return result;
 	}
 
+	/**
+	 * Layers changed.
+	 */
 	@Override
 	public void layersChanged() {}
 
 	/**
-	 * Method changed()
+	 * Method changed().
 	 *
-	 * @see gama.outputs.LayeredDisplayData.DisplayDataListener#changed(int, boolean)
+	 * @param property the property
+	 * @param value the value
+	 * @see msi.gama.outputs.LayeredDisplayData.DisplayDataListener#changed(int, boolean)
 	 */
 	@Override
 	public void changed(final Changes property, final Object value) {
@@ -845,16 +1031,28 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 
 	}
 
+	/**
+	 * Checks if is rendered.
+	 *
+	 * @return true, if is rendered
+	 */
 	@Override
-	public boolean isRendered() {
-		return rendered;
-	}
+	public boolean isRendered() { return rendered; }
 
+	/**
+	 * Checks if is disposed.
+	 *
+	 * @return true, if is disposed
+	 */
 	@Override
-	public boolean isDisposed() {
-		return disposed;
-	}
+	public boolean isDisposed() { return disposed; }
 
+	/**
+	 * Compute font.
+	 *
+	 * @param f the f
+	 * @return the font
+	 */
 	@Override
 	public Font computeFont(final Font f) {
 		if (f == null) return null;
@@ -864,6 +1062,11 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 
 	}
 
+	/**
+	 * Sets the display synchronizer.
+	 *
+	 * @param s the new display synchronizer
+	 */
 	@Override
 	public void setDisplaySynchronizer(final IDisplaySynchronizer s) {
 		synchronizer = s;
