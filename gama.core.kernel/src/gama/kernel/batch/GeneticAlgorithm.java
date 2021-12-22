@@ -307,7 +307,7 @@ public class GeneticAlgorithm extends ParamSpaceExploAlgorithm {
 	 * @param population the population
 	 * @throws GamaRuntimeException the gama runtime exception
 	 */
-	private void computePopFitness(final IScope scope, final List<Chromosome> population) throws GamaRuntimeException {
+	public void computePopFitness(final IScope scope, final List<Chromosome> population) throws GamaRuntimeException {
 		for (final Chromosome chromosome : population) {
 			computeChroFitness(scope, chromosome);
 		}
@@ -329,7 +329,7 @@ public class GeneticAlgorithm extends ParamSpaceExploAlgorithm {
 	 * @param population the population
 	 * @throws GamaRuntimeException the gama runtime exception
 	 */
-	private void computePopFitnessAll(final IScope scope, final List<Chromosome> population) throws GamaRuntimeException {
+	public void computePopFitnessAll(final IScope scope, final List<Chromosome> population) throws GamaRuntimeException {
 		List<ParametersSet> sets = new ArrayList<>();
 		Map<Chromosome,ParametersSet> paramToCh = GamaMapFactory.create();
 		for (final Chromosome chromosome : population) {
