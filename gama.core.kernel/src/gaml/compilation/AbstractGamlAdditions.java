@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gaml.compilation;
 
@@ -40,6 +40,8 @@ import java.util.Set;
 import com.google.common.base.Function;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.MultimapBuilder;
+import com.google.common.collect.SetMultimap;
 
 import gama.common.interfaces.IExperimentAgentCreator;
 import gama.common.interfaces.IExperimentAgentCreator.ExperimentAgentDescription;
@@ -47,12 +49,12 @@ import gama.common.interfaces.ISkill;
 import gama.common.ui.IDisplayCreator;
 import gama.common.ui.IDisplayCreator.DisplayDescription;
 import gama.common.ui.IGui;
+import gama.core.dev.annotations.GamlAnnotations;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.vars;
 import gama.core.dev.annotations.ISymbolKind;
 import gama.core.dev.annotations.ITypeProvider;
 import gama.util.GamaMapFactory;
-import gama.util.IMap;
 import gama.util.file.IGamaFile;
 import gaml.compilation.annotations.serializer;
 import gaml.compilation.annotations.validator;
@@ -79,6 +81,7 @@ import gaml.types.ParametricFileType;
 import gaml.types.Signature;
 import gaml.types.Types;
 
+// TODO: Auto-generated Javadoc
 /**
  *
  * The class AbstractGamlAdditions. Default base implementation for plugins' gaml additions.
@@ -89,38 +92,39 @@ import gaml.types.Types;
  */
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public abstract class AbstractGamlAdditions implements IGamlAdditions {
-	
+
 	/** The current plugin name. */
-	public static String CURRENT_PLUGIN_NAME = "gama.core.kernel";
-	
+	public static String CURRENT_PLUGIN_NAME;
+
 	/** The Constant CONSTANTS. */
 	public static final Set<String> CONSTANTS = new HashSet();
-	
+
 	/** The Constant ADDITIONS. */
 	final static Multimap<Class, IDescription> ADDITIONS = HashMultimap.create();
-	
+
 	/** The into descriptions. */
 	private static Function<Class, Collection<IDescription>> INTO_DESCRIPTIONS = input -> ADDITIONS.get(input);
-	
+
 	/** The Constant FIELDS. */
 	private final static Multimap<Class, OperatorProto> FIELDS = HashMultimap.create();
-	
+
 	/** The Constant VARTYPE2KEYWORDS. */
 	public final static Multimap<Integer, String> VARTYPE2KEYWORDS = HashMultimap.create();
-	
+
 	/** The Constant TEMPORARY_BUILT_IN_VARS_DOCUMENTATION. */
 	public final static Map<String, String> TEMPORARY_BUILT_IN_VARS_DOCUMENTATION = new HashMap<>();
-	
+
 	/** The Constant LISTENERS_BY_CLASS. */
 	public final static HashMultimap<Class, GamaHelper> LISTENERS_BY_CLASS = HashMultimap.create();
-	
+
 	/** The Constant LISTENERS_BY_NAME. */
 	public final static HashMultimap<String, Class> LISTENERS_BY_NAME = HashMultimap.create();
 
 	/**
 	 * S.
 	 *
-	 * @param strings the strings
+	 * @param strings
+	 *            the strings
 	 * @return the string[]
 	 */
 	protected static String[] S(final String... strings) {
@@ -130,7 +134,8 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * I.
 	 *
-	 * @param integers the integers
+	 * @param integers
+	 *            the integers
 	 * @return the int[]
 	 */
 	protected static int[] I(final int... integers) {
@@ -140,7 +145,8 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * P.
 	 *
-	 * @param protos the protos
+	 * @param protos
+	 *            the protos
 	 * @return the facet proto[]
 	 */
 	protected static FacetProto[] P(final FacetProto... protos) {
@@ -150,7 +156,8 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * C.
 	 *
-	 * @param classes the classes
+	 * @param classes
+	 *            the classes
 	 * @return the class[]
 	 */
 	protected static Class[] C(final Class... classes) {
@@ -160,7 +167,8 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * T.
 	 *
-	 * @param c the c
+	 * @param c
+	 *            the c
 	 * @return the i type
 	 */
 	protected static IType<?> T(final Class<?> c) {
@@ -170,7 +178,8 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Ti.
 	 *
-	 * @param c the c
+	 * @param c
+	 *            the c
 	 * @return the string
 	 */
 	protected static String Ti(final Class c) {
@@ -180,7 +189,8 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Ts.
 	 *
-	 * @param c the c
+	 * @param c
+	 *            the c
 	 * @return the string
 	 */
 	protected static String Ts(final Class c) {
@@ -190,7 +200,8 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * T.
 	 *
-	 * @param c the c
+	 * @param c
+	 *            the c
 	 * @return the i type
 	 */
 	protected static IType T(final String c) {
@@ -200,7 +211,8 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * T.
 	 *
-	 * @param c the c
+	 * @param c
+	 *            the c
 	 * @return the i type
 	 */
 	protected static IType T(final int c) {
@@ -210,8 +222,10 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Display.
 	 *
-	 * @param string the string
-	 * @param d the d
+	 * @param string
+	 *            the string
+	 * @param d
+	 *            the d
 	 */
 	public void _display(final String string, final IDisplayCreator d) {
 		CONSTANTS.add(string);
@@ -222,8 +236,10 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Experiment.
 	 *
-	 * @param string the string
-	 * @param d the d
+	 * @param string
+	 *            the string
+	 * @param d
+	 *            the d
 	 */
 	public void _experiment(final String string, final IExperimentAgentCreator d) {
 		CONSTANTS.add(string);
@@ -234,10 +250,14 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Species.
 	 *
-	 * @param name the name
-	 * @param clazz the clazz
-	 * @param helper the helper
-	 * @param skills the skills
+	 * @param name
+	 *            the name
+	 * @param clazz
+	 *            the clazz
+	 * @param helper
+	 *            the helper
+	 * @param skills
+	 *            the skills
 	 */
 	public void _species(final String name, final Class clazz, final IAgentConstructor helper, final String... skills) {
 		GamaMetaModel.INSTANCE.addSpecies(name, clazz, helper, skills);
@@ -247,11 +267,16 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Type.
 	 *
-	 * @param keyword the keyword
-	 * @param typeInstance the type instance
-	 * @param id the id
-	 * @param varKind the var kind
-	 * @param wraps the wraps
+	 * @param keyword
+	 *            the keyword
+	 * @param typeInstance
+	 *            the type instance
+	 * @param id
+	 *            the id
+	 * @param varKind
+	 *            the var kind
+	 * @param wraps
+	 *            the wraps
 	 */
 	protected void _type(final String keyword, final IType typeInstance, final int id, final int varKind,
 			final Class... wraps) {
@@ -261,13 +286,20 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * File.
 	 *
-	 * @param string the string
-	 * @param clazz the clazz
-	 * @param helper the helper
-	 * @param innerType the inner type
-	 * @param keyType the key type
-	 * @param contentType the content type
-	 * @param s the s
+	 * @param string
+	 *            the string
+	 * @param clazz
+	 *            the clazz
+	 * @param helper
+	 *            the helper
+	 * @param innerType
+	 *            the inner type
+	 * @param keyType
+	 *            the key type
+	 * @param contentType
+	 *            the content type
+	 * @param s
+	 *            the s
 	 */
 	protected void _file(final String string, final Class clazz, final GamaGetter.Unary<IGamaFile<?, ?>> helper,
 			final int innerType, final int keyType, final int contentType, final String[] s) {
@@ -280,9 +312,12 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Skill.
 	 *
-	 * @param name the name
-	 * @param clazz the clazz
-	 * @param species the species
+	 * @param name
+	 *            the name
+	 * @param clazz
+	 *            the clazz
+	 * @param species
+	 *            the species
 	 */
 	protected void _skill(final String name, final Class clazz, final String... species) {
 		GamaSkillRegistry.INSTANCE.register(name, clazz, CURRENT_PLUGIN_NAME, ADDITIONS.get(clazz), species);
@@ -291,31 +326,44 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Factories.
 	 *
-	 * @param factories the factories
+	 * @param factories
+	 *            the factories
 	 */
 	protected void _factories(final SymbolFactory... factories) {
-		for (final SymbolFactory f : factories) {
-			DescriptionFactory.addFactory(f);
-		}
+		for (final SymbolFactory f : factories) { DescriptionFactory.addFactory(f); }
 	}
 
 	/**
 	 * Symbol.
 	 *
-	 * @param names the names
-	 * @param c the c
-	 * @param sKind the s kind
-	 * @param remote the remote
-	 * @param args the args
-	 * @param scope the scope
-	 * @param sequence the sequence
-	 * @param unique the unique
-	 * @param name_unique the name unique
-	 * @param contextKeywords the context keywords
-	 * @param contextKinds the context kinds
-	 * @param fmd the fmd
-	 * @param omissible the omissible
-	 * @param sc the sc
+	 * @param names
+	 *            the names
+	 * @param c
+	 *            the c
+	 * @param sKind
+	 *            the s kind
+	 * @param remote
+	 *            the remote
+	 * @param args
+	 *            the args
+	 * @param scope
+	 *            the scope
+	 * @param sequence
+	 *            the sequence
+	 * @param unique
+	 *            the unique
+	 * @param name_unique
+	 *            the name unique
+	 * @param contextKeywords
+	 *            the context keywords
+	 * @param contextKinds
+	 *            the context kinds
+	 * @param fmd
+	 *            the fmd
+	 * @param omissible
+	 *            the omissible
+	 * @param sc
+	 *            the sc
 	 */
 	protected void _symbol(final String[] names, final Class c, final int sKind, final boolean remote,
 			final boolean args, final boolean scope, final boolean sequence, final boolean unique,
@@ -338,11 +386,7 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 		} else {
 			keywords = Arrays.asList(names);
 		}
-		if (fmd != null) {
-			for (final FacetProto f : fmd) {
-				f.buildDoc(c);
-			}
-		}
+		if (fmd != null) { for (final FacetProto f : fmd) { f.buildDoc(c); } }
 
 		final SymbolProto md = new SymbolProto(c, sequence, args, sKind, !scope, fmd, omissible, contextKeywords,
 				contextKinds, remote, unique, name_unique, sc, validator2, serializer2,
@@ -353,17 +397,28 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Iterator.
 	 *
-	 * @param keywords the keywords
-	 * @param method the method
-	 * @param classes the classes
-	 * @param expectedContentTypes the expected content types
-	 * @param ret the ret
-	 * @param c the c
-	 * @param t the t
-	 * @param content the content
-	 * @param index the index
-	 * @param contentContentType the content content type
-	 * @param helper the helper
+	 * @param keywords
+	 *            the keywords
+	 * @param method
+	 *            the method
+	 * @param classes
+	 *            the classes
+	 * @param expectedContentTypes
+	 *            the expected content types
+	 * @param ret
+	 *            the ret
+	 * @param c
+	 *            the c
+	 * @param t
+	 *            the t
+	 * @param content
+	 *            the content
+	 * @param index
+	 *            the index
+	 * @param contentContentType
+	 *            the content content type
+	 * @param helper
+	 *            the helper
 	 */
 	public void _iterator(final String[] keywords, final Method method, final Class[] classes,
 			final int[] expectedContentTypes, final Class ret, final boolean c, final int t, final int content,
@@ -375,17 +430,28 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Binary.
 	 *
-	 * @param keywords the keywords
-	 * @param method the method
-	 * @param classes the classes
-	 * @param expectedContentTypes the expected content types
-	 * @param returnClassOrType the return class or type
-	 * @param c the c
-	 * @param t the t
-	 * @param content the content
-	 * @param index the index
-	 * @param contentContentType the content content type
-	 * @param helper the helper
+	 * @param keywords
+	 *            the keywords
+	 * @param method
+	 *            the method
+	 * @param classes
+	 *            the classes
+	 * @param expectedContentTypes
+	 *            the expected content types
+	 * @param returnClassOrType
+	 *            the return class or type
+	 * @param c
+	 *            the c
+	 * @param t
+	 *            the t
+	 * @param content
+	 *            the content
+	 * @param index
+	 *            the index
+	 * @param contentContentType
+	 *            the content content type
+	 * @param helper
+	 *            the helper
 	 */
 	public void _binary(final String[] keywords, final AccessibleObject method, final Class[] classes,
 			final int[] expectedContentTypes, final Object returnClassOrType, final boolean c, final int t,
@@ -424,17 +490,28 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Operator.
 	 *
-	 * @param keywords the keywords
-	 * @param method the method
-	 * @param classes the classes
-	 * @param expectedContentTypes the expected content types
-	 * @param returnClassOrType the return class or type
-	 * @param c the c
-	 * @param t the t
-	 * @param content the content
-	 * @param index the index
-	 * @param contentContentType the content content type
-	 * @param helper the helper
+	 * @param keywords
+	 *            the keywords
+	 * @param method
+	 *            the method
+	 * @param classes
+	 *            the classes
+	 * @param expectedContentTypes
+	 *            the expected content types
+	 * @param returnClassOrType
+	 *            the return class or type
+	 * @param c
+	 *            the c
+	 * @param t
+	 *            the t
+	 * @param content
+	 *            the content
+	 * @param index
+	 *            the index
+	 * @param contentContentType
+	 *            the content content type
+	 * @param helper
+	 *            the helper
 	 */
 	public void _operator(final String[] keywords, final AccessibleObject method, final Class[] classes,
 			final int[] expectedContentTypes, final Object returnClassOrType, final boolean c, final int t,
@@ -481,9 +558,12 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Listener.
 	 *
-	 * @param varName the var name
-	 * @param clazz the clazz
-	 * @param helper the helper
+	 * @param varName
+	 *            the var name
+	 * @param clazz
+	 *            the clazz
+	 * @param helper
+	 *            the helper
 	 */
 	public void _listener(final String varName, final Class clazz, final IGamaHelper helper) {
 		GamaHelper gh = new GamaHelper(varName, clazz, helper);
@@ -494,17 +574,28 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Unary.
 	 *
-	 * @param keywords the keywords
-	 * @param method the method
-	 * @param classes the classes
-	 * @param expectedContentTypes the expected content types
-	 * @param returnClassOrType the return class or type
-	 * @param c the c
-	 * @param t the t
-	 * @param content the content
-	 * @param index the index
-	 * @param contentContentType the content content type
-	 * @param helper the helper
+	 * @param keywords
+	 *            the keywords
+	 * @param method
+	 *            the method
+	 * @param classes
+	 *            the classes
+	 * @param expectedContentTypes
+	 *            the expected content types
+	 * @param returnClassOrType
+	 *            the return class or type
+	 * @param c
+	 *            the c
+	 * @param t
+	 *            the t
+	 * @param content
+	 *            the content
+	 * @param index
+	 *            the index
+	 * @param contentContentType
+	 *            the content content type
+	 * @param helper
+	 *            the helper
 	 */
 	public void _unary(final String[] keywords, final AccessibleObject method, final Class[] classes,
 			final int[] expectedContentTypes, final Object returnClassOrType, final boolean c, final int t,
@@ -535,14 +626,22 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Operator.
 	 *
-	 * @param keywords the keywords
-	 * @param method the method
-	 * @param classes the classes
-	 * @param expectedContentTypes the expected content types
-	 * @param ret the ret
-	 * @param c the c
-	 * @param typeAlias the type alias
-	 * @param helper the helper
+	 * @param keywords
+	 *            the keywords
+	 * @param method
+	 *            the method
+	 * @param classes
+	 *            the classes
+	 * @param expectedContentTypes
+	 *            the expected content types
+	 * @param ret
+	 *            the ret
+	 * @param c
+	 *            the c
+	 * @param typeAlias
+	 *            the type alias
+	 * @param helper
+	 *            the helper
 	 */
 	// For files
 	public void _operator(final String[] keywords, final AccessibleObject method, final Class[] classes,
@@ -563,14 +662,22 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Binary.
 	 *
-	 * @param keywords the keywords
-	 * @param method the method
-	 * @param classes the classes
-	 * @param expectedContentTypes the expected content types
-	 * @param ret the ret
-	 * @param c the c
-	 * @param typeAlias the type alias
-	 * @param helper the helper
+	 * @param keywords
+	 *            the keywords
+	 * @param method
+	 *            the method
+	 * @param classes
+	 *            the classes
+	 * @param expectedContentTypes
+	 *            the expected content types
+	 * @param ret
+	 *            the ret
+	 * @param c
+	 *            the c
+	 * @param typeAlias
+	 *            the type alias
+	 * @param helper
+	 *            the helper
 	 */
 	public void _binary(final String[] keywords, final AccessibleObject method, final Class[] classes,
 			final int[] expectedContentTypes, final Class ret, final boolean c, final String typeAlias,
@@ -590,8 +697,10 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Adds the.
 	 *
-	 * @param clazz the clazz
-	 * @param desc the desc
+	 * @param clazz
+	 *            the clazz
+	 * @param desc
+	 *            the desc
 	 */
 	private void add(final Class clazz, final IDescription desc) {
 		ADDITIONS.put(clazz, desc);
@@ -600,11 +709,16 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Var.
 	 *
-	 * @param clazz the clazz
-	 * @param desc the desc
-	 * @param get the get
-	 * @param init the init
-	 * @param set the set
+	 * @param clazz
+	 *            the clazz
+	 * @param desc
+	 *            the desc
+	 * @param get
+	 *            the get
+	 * @param init
+	 *            the init
+	 * @param set
+	 *            the set
 	 */
 	protected void _var(final Class clazz, final IDescription desc, final IGamaHelper get, final IGamaHelper init,
 			final IGamaHelper set) {
@@ -617,13 +731,15 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Gets the var doc.
 	 *
-	 * @param name the name
-	 * @param clazz the clazz
+	 * @param name
+	 *            the name
+	 * @param clazz
+	 *            the clazz
 	 * @return the var doc
 	 */
 	private String getVarDoc(final String name, final Class<?> clazz) {
 		final vars vars = clazz.getAnnotationsByType(vars.class)[0];
-		for (final gama.core.dev.annotations.GamlAnnotations.variable v : vars.value()) {
+		for (final GamlAnnotations.variable v : vars.value()) {
 			if (v.name().equals(name)) {
 				final doc[] docs = v.doc();
 				// final String d = "";
@@ -637,14 +753,22 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Facet.
 	 *
-	 * @param name the name
-	 * @param types the types
-	 * @param ct the ct
-	 * @param kt the kt
-	 * @param values the values
-	 * @param optional the optional
-	 * @param internal the internal
-	 * @param isRemote the is remote
+	 * @param name
+	 *            the name
+	 * @param types
+	 *            the types
+	 * @param ct
+	 *            the ct
+	 * @param kt
+	 *            the kt
+	 * @param values
+	 *            the values
+	 * @param optional
+	 *            the optional
+	 * @param internal
+	 *            the internal
+	 * @param isRemote
+	 *            the is remote
 	 * @return the facet proto
 	 */
 	protected FacetProto _facet(final String name, final int[] types, final int ct, final int kt, final String[] values,
@@ -655,26 +779,35 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Proto.
 	 *
-	 * @param name the name
-	 * @param helper the helper
-	 * @param returnType the return type
-	 * @param signature the signature
-	 * @param typeProvider the type provider
-	 * @param contentTypeProvider the content type provider
-	 * @param keyTypeProvider the key type provider
+	 * @param name
+	 *            the name
+	 * @param helper
+	 *            the helper
+	 * @param returnType
+	 *            the return type
+	 * @param signature
+	 *            the signature
+	 * @param typeProvider
+	 *            the type provider
+	 * @param contentTypeProvider
+	 *            the content type provider
+	 * @param keyTypeProvider
+	 *            the key type provider
 	 * @return the operator proto
 	 */
 	protected OperatorProto _proto(final String name, final GamaGetter.Unary helper, final int returnType,
 			final Class signature, final int typeProvider, final int contentTypeProvider, final int keyTypeProvider) {
 		return new OperatorProto(name, null, helper, false, true, returnType, signature, false, typeProvider,
-				contentTypeProvider, keyTypeProvider, AI, CURRENT_PLUGIN_NAME);
+				contentTypeProvider, keyTypeProvider, AI);
 	}
 
 	/**
 	 * Field.
 	 *
-	 * @param clazz the clazz
-	 * @param getter the getter
+	 * @param clazz
+	 *            the clazz
+	 * @param getter
+	 *            the getter
 	 */
 	protected void _field(final Class clazz, final OperatorProto getter) {
 		FIELDS.put(clazz, getter);
@@ -683,9 +816,12 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Desc.
 	 *
-	 * @param keyword the keyword
-	 * @param children the children
-	 * @param facets the facets
+	 * @param keyword
+	 *            the keyword
+	 * @param children
+	 *            the children
+	 * @param facets
+	 *            the facets
 	 * @return the i description
 	 */
 	protected IDescription desc(final String keyword, final Children children, final String... facets) {
@@ -695,8 +831,10 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Desc.
 	 *
-	 * @param keyword the keyword
-	 * @param facets the facets
+	 * @param keyword
+	 *            the keyword
+	 * @param facets
+	 *            the facets
 	 * @return the i description
 	 */
 	protected IDescription desc(final String keyword, final String... facets) {
@@ -719,9 +857,12 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Action.
 	 *
-	 * @param e the e
-	 * @param desc the desc
-	 * @param method the method
+	 * @param e
+	 *            the e
+	 * @param desc
+	 *            the desc
+	 * @param method
+	 *            the method
 	 */
 	protected void _action(final IGamaHelper e, final IDescription desc, final Method method) {
 		final Class clazz = method.getDeclaringClass();
@@ -733,18 +874,21 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Inits the type.
 	 *
-	 * @param keyword the keyword
-	 * @param typeInstance the type instance
-	 * @param id the id
-	 * @param varKind the var kind
-	 * @param wraps the wraps
+	 * @param keyword
+	 *            the keyword
+	 * @param typeInstance
+	 *            the type instance
+	 * @param id
+	 *            the id
+	 * @param varKind
+	 *            the var kind
+	 * @param wraps
+	 *            the wraps
 	 */
 	public static void initType(final String keyword, final IType<?> typeInstance, final int id, final int varKind,
 			final Class... wraps) {
 		final IType<?> type = Types.builtInTypes.initType(keyword, typeInstance, id, varKind, wraps[0]);
-		for (final Class cc : wraps) {
-			Types.CLASSES_TYPES_CORRESPONDANCE.put(cc, type.getName());
-		}
+		for (final Class cc : wraps) { Types.CLASSES_TYPES_CORRESPONDANCE.put(cc, type.getName()); }
 		type.setDefiningPlugin(CURRENT_PLUGIN_NAME);
 		Types.cache(id, typeInstance);
 		VARTYPE2KEYWORDS.put(varKind, keyword);
@@ -753,7 +897,8 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Gets the additions.
 	 *
-	 * @param clazz the clazz
+	 * @param clazz
+	 *            the clazz
 	 * @return the additions
 	 */
 	public static Collection<IDescription> getAdditions(final Class clazz) {
@@ -763,16 +908,15 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Gets the all fields.
 	 *
-	 * @param clazz the clazz
+	 * @param clazz
+	 *            the clazz
 	 * @return the all fields
 	 */
 	public static Map<String, OperatorProto> getAllFields(final Class clazz) {
 		final List<Class> classes = collectImplementationClasses(clazz, Collections.EMPTY_SET, FIELDS.keySet());
 		final Map<String, OperatorProto> fieldsMap = create();
 		for (final Class c : classes) {
-			for (final OperatorProto desc : FIELDS.get(c)) {
-				fieldsMap.put(desc.getName(), desc);
-			}
+			for (final OperatorProto desc : FIELDS.get(c)) { fieldsMap.put(desc.getName(), desc); }
 		}
 		return fieldsMap;
 	}
@@ -780,8 +924,10 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Gets the all children of.
 	 *
-	 * @param base the base
-	 * @param skills the skills
+	 * @param base
+	 *            the base
+	 * @param skills
+	 *            the skills
 	 * @return the all children of
 	 */
 	public static Iterable<IDescription> getAllChildrenOf(final Class base,
@@ -795,9 +941,7 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	 *
 	 * @return the all fields
 	 */
-	public static Collection<OperatorProto> getAllFields() {
-		return FIELDS.values();
-	}
+	public static Collection<OperatorProto> getAllFields() { return FIELDS.values(); }
 
 	/**
 	 * Gets the all vars.
@@ -834,7 +978,8 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Gets the statements for skill.
 	 *
-	 * @param s the s
+	 * @param s
+	 *            the s
 	 * @return the statements for skill
 	 */
 	public static Collection<SymbolProto> getStatementsForSkill(final String s) {
@@ -852,16 +997,14 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	 * @return the all actions
 	 */
 	public static Collection<IDescription> getAllActions() {
-		final IMap<String, IDescription> result = createUnordered();
+		SetMultimap<String, IDescription> result = MultimapBuilder.hashKeys().linkedHashSetValues().build();
 
 		final DescriptionVisitor<IDescription> visitor = desc -> {
-			result.putIfAbsent(desc.getName(), desc);
+			result.put(desc.getName(), desc);
 			return true;
 		};
 
-		for (final TypeDescription s : getBuiltInSpecies()) {
-			s.visitOwnActions(visitor);
-		}
+		for (final TypeDescription s : getBuiltInSpecies()) { s.visitOwnActions(visitor); }
 		GamaSkillRegistry.INSTANCE.visitSkills(desc -> {
 			((SkillDescription) desc).visitOwnActions(visitor);
 			return true;
@@ -872,12 +1015,11 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Constants.
 	 *
-	 * @param strings the strings
+	 * @param strings
+	 *            the strings
 	 */
 	public static void _constants(final String[]... strings) {
-		for (final String[] s : strings) {
-			Collections.addAll(CONSTANTS, s);
-		}
+		for (final String[] s : strings) { Collections.addAll(CONSTANTS, s); }
 	}
 
 	/**
@@ -889,9 +1031,7 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	public static boolean isUnaryOperator(final String name) {
 		if (!OPERATORS.containsKey(name)) return false;
 		final Map<Signature, OperatorProto> map = OPERATORS.get(name);
-		for (final Signature s : map.keySet()) {
-			if (s.isUnary()) return true;
-		}
+		for (final Signature s : map.keySet()) { if (s.isUnary()) return true; }
 		return false;
 	}
 
