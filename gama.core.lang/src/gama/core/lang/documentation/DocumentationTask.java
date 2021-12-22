@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.core.lang.documentation;
 
@@ -17,17 +17,18 @@ import gama.common.interfaces.IGamlDescription;
 import gama.core.dev.utils.DEBUG;
 import gama.util.IMap;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class DocumentationTask.
  */
 class DocumentationTask {
-	
+
 	/** The object. */
 	final EObject object;
-	
+
 	/** The description. */
 	final IGamlDescription description;
-	
+
 	/** The documenter. */
 	final GamlResourceDocumenter documenter;
 
@@ -40,7 +41,6 @@ class DocumentationTask {
 	 */
 	public DocumentationTask(final EObject object, final IGamlDescription description,
 			final GamlResourceDocumenter documenter) {
-		super();
 		this.object = object;
 		this.description = description;
 		this.documenter = documenter;
@@ -51,10 +51,9 @@ class DocumentationTask {
 	 */
 	public void process() {
 		// DEBUG.LOG("Documenting " + description.getName());
-		if (description == null) { return; }
-		if (object == null) { return; }
+		if ((description == null) || (object == null)) return;
 		final Resource key = object.eResource();
-		if (key == null) { return; }
+		if (key == null) return;
 
 		DocumentationNode node = null;
 		try {

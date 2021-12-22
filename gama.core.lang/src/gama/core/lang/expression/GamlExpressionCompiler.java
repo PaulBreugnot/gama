@@ -123,6 +123,7 @@ import gaml.types.ITypesManager;
 import gaml.types.ParametricType;
 import gaml.types.Types;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GamlExpressionCompiler. Transforms Strings or XText Expressions into GAML IExpressions. Normally invoked by
  * an IExpressionFactory (the default being GAML.getExpressionFactory())
@@ -158,6 +159,13 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 		IExpressionCompiler.OPERATORS.put(MY, GamaMapFactory.createUnordered());
 	}
 
+	/**
+	 * Compile.
+	 *
+	 * @param s the s
+	 * @param parsingContext the parsing context
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression compile(final IExpressionDescription s, final IDescription parsingContext) {
 		// Cf. Issue 782. Returns the expression if an expression needs its
@@ -180,6 +188,14 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 
 	}
 
+	/**
+	 * Compile.
+	 *
+	 * @param expression the expression
+	 * @param parsingContext the parsing context
+	 * @param tempContext the temp context
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression compile(final String expression, final IDescription parsingContext,
 			final IExecutionContext tempContext) {
@@ -797,6 +813,13 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 	}
 
 	/**
+	 * Parses the arguments.
+	 *
+	 * @param action the action
+	 * @param o the o
+	 * @param command the command
+	 * @param actionParameters the action parameters
+	 * @return the arguments
 	 * @see msi.gaml.expressions.IExpressionParser#parseArguments(msi.gaml.descriptions.ExpressionDescription,
 	 *      gaml.descriptions.IDescription)
 	 */
@@ -833,22 +856,22 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 				ed = builder.create(((ArgumentPair) exp).getRight()/* , errors */);
 			} else
 
-			if (exp instanceof Parameter) {
-				arg = EGaml.getInstance().getKeyOf(exp);
-				ed = builder.create(((Parameter) exp).getRight()/* , errors */);
-			} else if (exp instanceof BinaryOperator && "::".equals(EGaml.getInstance().getKeyOf(exp))) {
-				arg = EGaml.getInstance().getKeyOf(((BinaryOperator) exp).getLeft());
-				ed = builder.create(((BinaryOperator) exp).getRight()/* , errors */);
-			} else if (completeArgs) {
-				final List<String> args = action == null ? null : action.getArgNames();
-				if (args != null && action != null && index == args.size()) {
-					command.error("Wrong number of arguments. Action " + action.getName() + " expects " + args);
-					return argMap;
-				}
-				arg = args == null ? String.valueOf(index++) : args.get(index++);
-				ed = builder.create(exp/* , errors */);
+				if (exp instanceof Parameter) {
+					arg = EGaml.getInstance().getKeyOf(exp);
+					ed = builder.create(((Parameter) exp).getRight()/* , errors */);
+				} else if (exp instanceof BinaryOperator && "::".equals(EGaml.getInstance().getKeyOf(exp))) {
+					arg = EGaml.getInstance().getKeyOf(((BinaryOperator) exp).getLeft());
+					ed = builder.create(((BinaryOperator) exp).getRight()/* , errors */);
+				} else if (completeArgs) {
+					final List<String> args = action == null ? null : action.getArgNames();
+					if (args != null && action != null && index == args.size()) {
+						command.error("Wrong number of arguments. Action " + action.getName() + " expects " + args);
+						return argMap;
+					}
+					arg = args == null ? String.valueOf(index++) : args.get(index++);
+					ed = builder.create(exp/* , errors */);
 
-			}
+				}
 			if (ed != null && actionParameters) { ed.compile(command); }
 			// if (!errors.isEmpty()) {
 			// for (final Diagnostic d : errors) {
@@ -867,12 +890,24 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 	// return binary(AS, object.getLeft(), object.getRight());
 	// }
 
+	/**
+	 * Case skill ref.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseSkillRef(final SkillRef object) {
 		// final String s = EGaml.getInstance().getKeyOf(object);
 		return skill(EGaml.getInstance().getKeyOf(object));
 	}
 
+	/**
+	 * Case action ref.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseActionRef(final ActionRef object) {
 		final String s = EGaml.getInstance().getKeyOf(object);
@@ -893,6 +928,12 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 		return new DenotedActionExpression(ad);
 	}
 
+	/**
+	 * Case expression.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseExpression(final Expression object) {
 		return null;
@@ -906,6 +947,12 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 		// return result;
 	}
 
+	/**
+	 * Case variable ref.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseVariableRef(final VariableRef object) {
 		final String s = EGaml.getInstance().getKeyOf(object);
@@ -913,6 +960,12 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 		return caseVar(s, object);
 	}
 
+	/**
+	 * Case type ref.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseTypeRef(final TypeRef object) {
 		final IType t = fromTypeRef(object);
@@ -921,11 +974,23 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 		return getFactory().createTypeExpression(t);
 	}
 
+	/**
+	 * Case equation ref.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseEquationRef(final EquationRef object) {
 		return getFactory().createConst(EGaml.getInstance().getKeyOf(object), Types.STRING);
 	}
 
+	/**
+	 * Case unit name.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseUnitName(final UnitName object) {
 		final String s = EGaml.getInstance().getKeyOf(object);
@@ -940,26 +1005,56 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 		return null;
 	}
 
+	/**
+	 * Case var definition.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseVarDefinition(final VarDefinition object) {
 		return skill(object.getName());
 	}
 
+	/**
+	 * Case type definition.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseTypeDefinition(final TypeDefinition object) {
 		return caseVar(object.getName(), object);
 	}
 
+	/**
+	 * Case skill fake definition.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseSkillFakeDefinition(final SkillFakeDefinition object) {
 		return caseVar(object.getName(), object);
 	}
 
+	/**
+	 * Case reserved literal.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseReservedLiteral(final ReservedLiteral object) {
 		return caseVar(EGaml.getInstance().getKeyOf(object), object);
 	}
 
+	/**
+	 * Case if.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseIf(final If object) {
 		final IExpression ifFalse = compile(object.getIfFalse());
@@ -980,6 +1075,12 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 		return binary("::", caseVar(EGaml.getInstance().getKeyOf(object), object), object.getRight());
 	}
 
+	/**
+	 * Case unit.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseUnit(final Unit object) {
 		// We simply return a multiplication, since the right member (the
@@ -990,17 +1091,15 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 		final String name = EGaml.getInstance().toString(object.getRight());
 		if (TimeUnitConstantExpression.UNCOMPUTABLE_DURATIONS.contains(name))
 			return binary(Dates.APPROXIMATE_TEMPORAL_QUERY, object.getLeft(), object.getRight());
-
-		// AD: removal of the hack to address #1325 -- needs to be tested in
-		// OpenGL
-		// if ( result != null && ((BinaryOperator) result).arg(1) instanceof
-		// PixelUnitExpression ) {
-		// result = factory.createOperator("+", getContext(), object,
-		// factory.createConst(1, Types.INT), result);
-		// }
 		return binary("*", object.getLeft(), object.getRight());
 	}
 
+	/**
+	 * Case unary.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseUnary(final Unary object) {
 		return unary(EGaml.getInstance().getKeyOf(object), object.getRight());
@@ -1021,6 +1120,12 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 		return null;
 	}
 
+	/**
+	 * Case access.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseAccess(final Access object) {
 		if (".".equals(object.getOp())) return caseDot(object);
@@ -1085,6 +1190,12 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 		}
 	}
 
+	/**
+	 * Case array.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseArray(final Array object) {
 		final List<? extends Expression> list = EGaml.getInstance().getExprsOf(object.getExprs());
@@ -1095,6 +1206,12 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 		return allPairs ? getFactory().createMap(result) : getFactory().createList(result);
 	}
 
+	/**
+	 * Case point.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression casePoint(final Point object) {
 		final Expression z = object.getZ();
@@ -1113,6 +1230,12 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 	// return getFactory().createMap(it);
 	// }
 
+	/**
+	 * Case expression list.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseExpressionList(final ExpressionList object) {
 		final List<Expression> list = EGaml.getInstance().getExprsOf(object);
@@ -1125,6 +1248,12 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 		return compile(list.get(0));
 	}
 
+	/**
+	 * Case function.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseFunction(final Function object) {
 		final String op = EGaml.getInstance().getKeyOf(object);
@@ -1221,6 +1350,12 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 				toArray(transform(args, this::compile), IExpression.class));
 	}
 
+	/**
+	 * Case int literal.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseIntLiteral(final IntLiteral object) {
 		try {
@@ -1233,6 +1368,12 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 		}
 	}
 
+	/**
+	 * Case double literal.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseDoubleLiteral(final DoubleLiteral object) {
 
@@ -1258,11 +1399,23 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 
 	}
 
+	/**
+	 * Case string literal.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseStringLiteral(final StringLiteral object) {
 		return getFactory().createConst(StringUtils.unescapeJava(EGaml.getInstance().getKeyOf(object)), Types.STRING);
 	}
 
+	/**
+	 * Case boolean literal.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseBooleanLiteral(final BooleanLiteral object) {
 		final String s = EGaml.getInstance().getKeyOf(object);
@@ -1270,6 +1423,12 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 		return TRUE.equalsIgnoreCase(s) ? TRUE_EXPR : FALSE_EXPR;
 	}
 
+	/**
+	 * Default case.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression defaultCase(final EObject object) {
 		final ValidationContext vc = getValidationContext();
@@ -1380,7 +1539,7 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 
 			getContext().error(
 					"The variable " + varName
-							+ " is not defined or accessible in this context. Check its name or declare it",
+					+ " is not defined or accessible in this context. Check its name or declare it",
 					IGamlIssue.UNKNOWN_VAR, object, varName);
 		}
 		return null;
@@ -1424,6 +1583,15 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 		}
 	}
 
+	/**
+	 * Compile block.
+	 *
+	 * @param string the string
+	 * @param actionContext the action context
+	 * @param tempContext the temp context
+	 * @return the list
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@Override
 	public List<IDescription> compileBlock(final String string, final IDescription actionContext,
 			final IExecutionContext tempContext) throws GamaRuntimeException {
@@ -1505,6 +1673,9 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 		return GAML.getExpressionFactory();
 	}
 
+	/**
+	 * Dispose.
+	 */
 	@Override
 	public void dispose() {
 		this.currentContext = null;
@@ -1514,11 +1685,23 @@ public class GamlExpressionCompiler extends GamlSwitch<IExpression> implements I
 
 	}
 
+	/**
+	 * Case terminal expression.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseTerminalExpression(final TerminalExpression object) {
 		return null;
 	}
 
+	/**
+	 * Case binary operator.
+	 *
+	 * @param object the object
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression caseBinaryOperator(final BinaryOperator object) {
 		return binary(object.getOp(), object.getLeft(), object.getRight());

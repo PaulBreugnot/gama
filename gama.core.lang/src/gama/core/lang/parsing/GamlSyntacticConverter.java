@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.core.lang.parsing;
 
@@ -118,6 +118,7 @@ import gaml.descriptions.SymbolProto;
 import gaml.factories.DescriptionFactory;
 import gaml.statements.Facets;
 
+// TODO: Auto-generated Javadoc
 /**
  *
  * The class GamlCompatibilityConverter. Performs a series of transformations between the EObject based representation
@@ -146,7 +147,8 @@ public class GamlSyntacticConverter {
 		if (uri.isFile()) {
 			uri = uri.trimSegments(1);
 			return uri.toFileString();
-		} else if (uri.isPlatform()) {
+		}
+		if (uri.isPlatform()) {
 			final IPath path = GamlResourceServices.getPathOf(r);
 			final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
 			final IContainer folder = file.getParent();
@@ -244,9 +246,7 @@ public class GamlSyntacticConverter {
 		if (keyword == null)
 			throw new NullPointerException(
 					"Trying to convert a statement with a null keyword. Please debug to understand the cause.");
-		else {
-			keyword = convertKeyword(keyword, upper.getKeyword());
-		}
+		keyword = convertKeyword(keyword, upper.getKeyword());
 
 		final boolean isVar = stm instanceof S_Definition && !DescriptionFactory.isStatementProto(keyword)
 				&& !doesNotDefineAttributes(upper.getKeyword()) && !EGaml.getInstance().hasChildren(stm);
@@ -283,8 +283,9 @@ public class GamlSyntacticConverter {
 			// V1, ID2:V2)"
 			final Expression e = stm.getExpr();
 			addFacet(elt, ACTION, convertToLabel(e, EGaml.getInstance().getKeyOf(e)), errors);
+			addFacet(elt, INTERNAL_FUNCTION, convExpr(e, errors), errors);
 			if (e instanceof Function) {
-				addFacet(elt, INTERNAL_FUNCTION, convExpr(e, errors), errors);
+
 				final Function f = (Function) e;
 
 				final ExpressionList list = f.getRight();

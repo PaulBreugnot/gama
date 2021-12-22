@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.core.lang.resource;
 
@@ -49,6 +49,7 @@ import gaml.descriptions.IDescription;
 import gaml.descriptions.ModelDescription;
 import gaml.descriptions.ValidationContext;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GamlResourceServices.
  */
@@ -56,27 +57,27 @@ import gaml.descriptions.ValidationContext;
 public class GamlResourceServices {
 
 	static {
-		DEBUG.OFF();
+		DEBUG.ON();
 	}
 
 	/** The resource count. */
 	private static int resourceCount = 0;
-	
+
 	/** The documenter. */
 	private static IDocManager documenter = new GamlResourceDocumenter();
-	
+
 	/** The converter. */
 	private static GamlSyntacticConverter converter = new GamlSyntacticConverter();
-	
+
 	/** The Constant resourceListeners. */
 	private static final Map<URI, IGamlBuilderListener> resourceListeners = GamaMapFactory.createUnordered();
-	
+
 	/** The Constant resourceErrors. */
 	private static final Map<URI, ValidationContext> resourceErrors = GamaMapFactory.createUnordered();
-	
+
 	/** The pool set. */
 	private static volatile XtextResourceSet poolSet;
-	
+
 	/** The Constant documentationCache. */
 	private static final LoadingCache<URI, IMap<EObject, IGamlDescription>> documentationCache =
 			CacheBuilder.newBuilder().build(new CacheLoader<URI, IMap<EObject, IGamlDescription>>() {
@@ -99,7 +100,7 @@ public class GamlResourceServices {
 
 	/**
 	 * Properly encodes and partially verifies the uri passed in parameter. In the case of an URI that does not use the
-	 * "resource:" scheme, it is first converted into a file URI so that headless operations that do not use a workspace
+	 * "platform:" scheme, it is first converted into a file URI so that headless operations that do not use a workspace
 	 * can still perform correctly
 	 *
 	 * @param uri the uri
@@ -108,22 +109,19 @@ public class GamlResourceServices {
 	 */
 	public static URI properlyEncodedURI(final URI uri) {
 		if (uri == null) return null;
-		URI pre_properlyEncodedURI = uri;
+		URI uriToReturn = uri;
 		if (GAMA.isInHeadLessMode() && !uri.isPlatformResource()) {
 			final String filePath = uri.toFileString();
-			if (filePath == null) return null;
-			final File file = new File(filePath);
-			try {
-				pre_properlyEncodedURI = URI.createFileURI(file.getCanonicalPath());
-			} catch (final IOException e) {
-				e.printStackTrace();
+			if (filePath != null) {
+				try {
+					uriToReturn = URI.createFileURI(new File(filePath).getCanonicalPath());
+				} catch (IOException e) {
+					e.printStackTrace();
+					return uri;
+				}
 			}
 		}
-
-		// if (DEBUG.IS_ON()) {
-		// DEBUG.OUT("Original URI: " + uri + " => " + result);
-		// }
-		return URI.createURI(pre_properlyEncodedURI.toString(), true);
+		return URI.createURI(uriToReturn.toString(), true);
 	}
 
 	/**
@@ -267,12 +265,10 @@ public class GamlResourceServices {
 		// Likely in a headless scenario (w/o workspace)
 		if (r.getURI().isFile())
 			return new Path(r.getURI().toFileString()).toOSString();
-		else {
-			final IPath path = getPathOf(r);
-			final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
-			final IPath fullPath = file.getLocation();
-			return fullPath == null ? "" : fullPath.toOSString();
-		}
+		final IPath path = getPathOf(r);
+		final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
+		final IPath fullPath = file.getLocation();
+		return fullPath == null ? "" : fullPath.toOSString();
 	}
 
 	/**
@@ -302,18 +298,17 @@ public class GamlResourceServices {
 		final URI uri = r.getURI();
 		if (uri == null) return "";
 		// Cf. #2983 -- we are likely in a headless scenario
-		if (uri.isFile()) {
-			File project = new File(uri.toFileString());
-			while (project != null && !isProject(project)) {
-				project = project.getParentFile();
-			}
-			return project == null ? "" : project.getAbsolutePath();
-		} else {
+		if (!uri.isFile()) {
 			final IPath path = getPathOf(r);
 			final IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
 			final IPath fullPath = file.getProject().getLocation();
 			return fullPath == null ? "" : fullPath.toOSString();
 		}
+		File project = new File(uri.toFileString());
+		while (project != null && !isProject(project)) {
+			project = project.getParentFile();
+		}
+		return project == null ? "" : project.getAbsolutePath();
 	}
 
 	// AD The removal of synchronized solves an issue where threads at startup would end up waiting for

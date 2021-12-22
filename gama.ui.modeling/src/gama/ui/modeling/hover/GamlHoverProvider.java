@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.modeling.hover;
 
@@ -44,14 +44,11 @@ import gama.core.lang.gaml.Facet;
 import gama.core.lang.gaml.Function;
 import gama.core.lang.gaml.Import;
 import gama.core.lang.gaml.S_Definition;
-import gama.core.lang.gaml.S_Do;
 import gama.core.lang.gaml.S_Global;
 import gama.core.lang.gaml.Statement;
 import gama.core.lang.gaml.TypeRef;
 import gama.core.lang.gaml.UnitFakeDefinition;
 import gama.core.lang.gaml.UnitName;
-import gama.core.lang.gaml.VarDefinition;
-import gama.core.lang.gaml.VariableRef;
 import gama.core.lang.resource.GamlResourceServices;
 import gama.ui.base.utils.WorkbenchHelper;
 import gaml.descriptions.FacetProto;
@@ -60,6 +57,7 @@ import gaml.expressions.units.UnitConstantExpression;
 import gaml.factories.DescriptionFactory;
 import gaml.operators.IUnits;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GamlHoverProvider.
  */
@@ -89,6 +87,14 @@ public class GamlHoverProvider extends DefaultEObjectHoverProvider {
 		/** The correct. */
 		EObject correct = null;
 
+		/**
+		 * Gets the xtext element at.
+		 *
+		 * @param resource the resource
+		 * @param offset the offset
+		 * @return the xtext element at
+		 * @see org.eclipse.xtext.ui.editor.hover.AbstractEObjectHover#getXtextElementAt(org.eclipse.xtext.resource.XtextResource, int)
+		 */
 		@Override
 		protected Pair<EObject, IRegion> getXtextElementAt(final XtextResource resource, final int offset) {
 			// BUGFIX AD 2/4/13 : getXtextElementAt() is called twice, one to
@@ -120,26 +126,31 @@ public class GamlHoverProvider extends DefaultEObjectHoverProvider {
 						region = locationInFileProvider.getFullTextRegion(o);
 					}
 				}
-				if (region == null) {
-					region = locationInFileProvider.getSignificantTextRegion(o);
-				}
+				if (region == null) { region = locationInFileProvider.getSignificantTextRegion(o); }
 				final IRegion region2 = new Region(region.getOffset(), region.getLength());
 				/*
 				 * if ( TextUtilities.overlaps(region2, new Region(offset, 0)) )
 				 */ {
-					return Tuples.create(o, region2);
-				}
-			} else {
-				final ILeafNode node =
-						NodeModelUtils.findLeafNodeAtOffset(resource.getParseResult().getRootNode(), offset);
-				if (node != null && node.getGrammarElement() instanceof Keyword) {
-					final IRegion region2 = new Region(node.getOffset(), node.getLength());
-					return Tuples.create(node.getGrammarElement(), region2);
-				}
+					 return Tuples.create(o, region2);
+				 }
+			}
+			final ILeafNode node = NodeModelUtils.findLeafNodeAtOffset(resource.getParseResult().getRootNode(), offset);
+			if (node != null && node.getGrammarElement() instanceof Keyword) {
+				final IRegion region2 = new Region(node.getOffset(), node.getLength());
+				return Tuples.create(node.getGrammarElement(), region2);
 			}
 			return null;
 		}
 
+		/**
+		 * Gets the hover info.
+		 *
+		 * @param first the first
+		 * @param textViewer the text viewer
+		 * @param hoverRegion the hover region
+		 * @return the hover info
+		 * @see org.eclipse.xtext.ui.editor.hover.DispatchingEObjectTextHover#getHoverInfo(org.eclipse.emf.ecore.EObject, org.eclipse.jface.text.ITextViewer, org.eclipse.jface.text.IRegion)
+		 */
 		@Override
 		public Object getHoverInfo(final EObject first, final ITextViewer textViewer, final IRegion hoverRegion) {
 			return super.getHoverInfo(first, textViewer, hoverRegion);
@@ -166,6 +177,13 @@ public class GamlHoverProvider extends DefaultEObjectHoverProvider {
 		 */
 		public class GamlInformationControl extends XtextBrowserInformationControl {
 
+			/**
+			 * Sets the size.
+			 *
+			 * @param width the width
+			 * @param height the height
+			 * @see org.eclipse.jface.internal.text.html.BrowserInformationControl#setSize(int, int)
+			 */
 			@Override
 			public void setSize(final int width, final int height) {
 				super.setSize(width, height);
@@ -187,6 +205,12 @@ public class GamlHoverProvider extends DefaultEObjectHoverProvider {
 				super(parent, symbolicFontName, statusFieldText);
 			}
 
+			/**
+			 * Gets the information presenter control creator.
+			 *
+			 * @return the information presenter control creator
+			 * @see org.eclipse.jface.text.AbstractInformationControl#getInformationPresenterControlCreator()
+			 */
 			/*
 			 * @see org.eclipse.jface.text.IInformationControlExtension5# getInformationPresenterControlCreator()
 			 */
@@ -196,36 +220,55 @@ public class GamlHoverProvider extends DefaultEObjectHoverProvider {
 			}
 		}
 
+		/**
+		 * Do create information control.
+		 *
+		 * @param parent the parent
+		 * @return the i information control
+		 * @see org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider.HoverControlCreator#doCreateInformationControl(org.eclipse.swt.widgets.Shell)
+		 */
 		@Override
 		public IInformationControl doCreateInformationControl(final Shell parent) {
 
 			final String tooltipAffordanceString = EditorsUI.getTooltipAffordanceString();
 			if (BrowserInformationControl.isAvailable(parent)) {
 				final String font = "org.eclipse.jdt.ui.javadocfont"; // FIXME:
-																		// PreferenceConstants.APPEARANCE_JAVADOC_FONT;
+				// PreferenceConstants.APPEARANCE_JAVADOC_FONT;
 				final IXtextBrowserInformationControl iControl =
 						new GamlInformationControl(parent, font, tooltipAffordanceString) {
 
-						};
+				};
 				addLinkListener(iControl);
 				return iControl;
-			} else {
-				return new DefaultInformationControl(parent, tooltipAffordanceString);
 			}
+			return new DefaultInformationControl(parent, tooltipAffordanceString);
 		}
 	}
 
 	/** The creator. */
 	private IInformationControlCreator creator;
 
+	/**
+	 * Gets the hover control creator.
+	 *
+	 * @return the hover control creator
+	 * @see org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider#getHoverControlCreator()
+	 */
 	@Override
 	public IInformationControlCreator getHoverControlCreator() {
-		if (creator == null) {
-			creator = new GamlHoverControlCreator(getInformationPresenterControlCreator());
-		}
+		if (creator == null) { creator = new GamlHoverControlCreator(getInformationPresenterControlCreator()); }
 		return creator;
 	}
 
+	/**
+	 * Gets the hover info.
+	 *
+	 * @param first the first
+	 * @param textViewer the text viewer
+	 * @param hoverRegion the hover region
+	 * @return the hover info
+	 * @see org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider#getHoverInfo(org.eclipse.emf.ecore.EObject, org.eclipse.jface.text.ITextViewer, org.eclipse.jface.text.IRegion)
+	 */
 	@Override
 	public IInformationControlCreatorProvider getHoverInfo(final EObject first, final ITextViewer textViewer,
 			final IRegion hoverRegion) {
@@ -242,6 +285,13 @@ public class GamlHoverProvider extends DefaultEObjectHoverProvider {
 	// return s;
 	// }
 
+	/**
+	 * Checks for hover.
+	 *
+	 * @param o the o
+	 * @return true, if successful
+	 * @see org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider#hasHover(org.eclipse.emf.ecore.EObject)
+	 */
 	@Override
 	protected boolean hasHover(final EObject o) {
 		return true;
@@ -249,77 +299,84 @@ public class GamlHoverProvider extends DefaultEObjectHoverProvider {
 		// return s != null && !s.isEmpty();
 	}
 
+	/**
+	 * Gets the first line.
+	 *
+	 * @param o the o
+	 * @return the first line
+	 * @see org.eclipse.xtext.ui.editor.hover.html.DefaultEObjectHoverProvider#getFirstLine(org.eclipse.emf.ecore.EObject)
+	 */
 	@Override
 	protected String getFirstLine(final EObject o) {
 		if (o instanceof Import) {
 			String uri = ((Import) o).getImportURI();
 			uri = uri.substring(uri.lastIndexOf('/') + 1);
 			final String model = ((Import) o).getName() != null ? "micro-model" : "model";
-			return "Import of the " + model + " defined in <b>" + uri + "</b>";
+			return "<b>Import of the " + model + " defined in <i>" + uri + "</i></b>";
 		}
-		if (o instanceof S_Global) { return "Global definitions of " + getFirstLine(o.eContainer().eContainer()); }
+		if (o instanceof S_Global) return "<b>Global definitions of </b>" + getFirstLine(o.eContainer().eContainer());
 		final Statement s = EGaml.getInstance().getStatement(o);
-		if (o instanceof TypeRef && s instanceof S_Definition && ((S_Definition) s).getTkey() == o) {
+		if (o instanceof TypeRef && s instanceof S_Definition && ((S_Definition) s).getTkey() == o)
 			return getFirstLine(s);
-		}
 		// Case of do xxx;
-		if (o instanceof VariableRef && o.eContainer() instanceof S_Do && ((S_Do) o.eContainer()).getExpr() == o) {
-			final VarDefinition vd = ((VariableRef) o).getRef();
-			final IGamlDescription description = GamlResourceServices.getResourceDocumenter().getGamlDocumentation(vd);
-			if (description != null) {
-				String result = description.getTitle();
-				if (result == null || result.isEmpty()) { return ""; }
-				result = "<b>" + result + "</b>";
-				return result;
-			}
-		}
+		// if (o instanceof VariableRef && o.eContainer() instanceof S_Do && ((S_Do) o.eContainer()).getExpr() == o) {
+		// final VarDefinition vd = ((VariableRef) o).getRef();
+		// final IGamlDescription description = GamlResourceServices.getResourceDocumenter().getGamlDocumentation(vd);
+		// if (description != null) {
+		// String result = description.getTitle();
+		// if (result == null || result.isEmpty()) return "";
+		// return "<b>" + result + "</b>";
+		// }
+		// if (vd != null && vd.eContainer() == null) {
+		// final IEObjectDescription desc = BuiltinGlobalScopeProvider.getVar(vd.getName());
+		// if (desc != null) {
+		// String userData = desc.getUserData("title");
+		// if (userData != null && !userData.isEmpty()) return "<b>" + userData + "</b>";
+		// }
+		// }
+		// }
 		if (o instanceof Function) {
 			final ActionRef ref = getActionFrom((Function) o);
 			if (ref != null) {
 				final ActionDefinition def = ref.getRef();
 				if (def != null) {
 					final String temp = getFirstLine(def);
-					if (!temp.isEmpty()) { return temp; }
+					if (!temp.isEmpty()) return temp;
 				}
 			}
 		} else if (o instanceof UnitName) {
 			final UnitFakeDefinition fake = ((UnitName) o).getRef();
-			if (fake == null) { return "<b> Unknown unit or constant </b>"; }
+			if (fake == null) return "<b> Unknown unit or constant </b>";
 			final UnitConstantExpression unit = IUnits.UNITS_EXPR.get(fake.getName());
-			if (unit == null) { return "<b> Unknown unit or constant </b>"; }
+			if (unit == null) return "<b> Unknown unit or constant </b>";
 			return "<b>" + unit.getTitle() + "</b>";
 		}
 
 		final IGamlDescription description = GamlResourceServices.getResourceDocumenter().getGamlDocumentation(o);
-		if (description == null) {
-			if (o instanceof Facet) { return "<b>" + getFirstLineOf((Facet) o) + "</b>"; }
-
-			if (s != null && DescriptionFactory.isStatementProto(EGaml.getInstance().getKeyOf(o))) {
-				if (s == o) { return ""; }
-				return getFirstLine(s);
-			} else {
-				if (o instanceof TypeRef) {
-					return "Type " + EGaml.getInstance().getKeyOf(o);
-				} else {
-					return "";
-				}
-			}
-		} else {
+		if (description != null) {
 			String result = description.getTitle();
-			if (result == null || result.isEmpty()) { return ""; }
-			result = "<b>" + result + "</b>";
-			return result;
+			if (result == null || result.isEmpty()) return "";
+			return "<b>" + result + "</b>";
 		}
+		if (o instanceof Facet) return "<b>" + getFirstLineOf((Facet) o) + "</b>";
+
+		if (s != null && DescriptionFactory.isStatementProto(EGaml.getInstance().getKeyOf(o))) {
+			if (s == o) return "";
+			return getFirstLine(s);
+		}
+		if (o instanceof TypeRef) return "<b>Type " + EGaml.getInstance().getKeyOf(o) + "</b>";
+		return "";
 	}
 
 	/**
 	 * Gets the action from.
 	 *
-	 * @param f the f
+	 * @param f
+	 *            the f
 	 * @return the action from
 	 */
 	private ActionRef getActionFrom(final Function f) {
-		if (f.getLeft() instanceof ActionRef) { return (ActionRef) f.getLeft(); }
+		if (f.getLeft() instanceof ActionRef) return (ActionRef) f.getLeft();
 		return null;
 	}
 
@@ -338,7 +395,7 @@ public class GamlHoverProvider extends DefaultEObjectHoverProvider {
 		final SymbolProto p = DescriptionFactory.getProto(key, null);
 		if (p != null) {
 			final FacetProto f = p.getPossibleFacets().get(facetName);
-			if (f != null) { return f.getTitle(); }
+			if (f != null) return f.getTitle();
 		}
 		return "Facet " + o.getKey();
 

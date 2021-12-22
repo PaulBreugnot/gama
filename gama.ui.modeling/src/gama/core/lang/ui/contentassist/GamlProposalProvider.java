@@ -33,11 +33,11 @@ import com.google.common.base.Function;
 import com.google.inject.Inject;
 
 import gama.core.lang.services.GamlGrammarAccess;
-import gama.core.lang.ui.contentassist.AbstractGamlProposalProvider;
 import gama.core.lang.ui.labeling.GamlLabelProvider;
 import gaml.descriptions.SymbolProto;
 import gaml.factories.DescriptionFactory;
 
+// TODO: Auto-generated Javadoc
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
  */
@@ -81,12 +81,9 @@ public class GamlProposalProvider extends AbstractGamlProposalProvider {
 		/**
 		 * Instantiates a new gaml proposal creator.
 		 *
-		 * @param contentAssistContext
-		 *            the content assist context
-		 * @param ruleName
-		 *            the rule name
-		 * @param qualifiedNameConverter
-		 *            the qualified name converter
+		 * @param contentAssistContext the content assist context
+		 * @param ruleName the rule name
+		 * @param qualifiedNameConverter the qualified name converter
 		 */
 		public GamlProposalCreator(final ContentAssistContext contentAssistContext, final String ruleName,
 				final IQualifiedNameConverter qualifiedNameConverter) {
@@ -95,11 +92,7 @@ public class GamlProposalProvider extends AbstractGamlProposalProvider {
 		}
 
 		/**
-		 * Apply.
-		 *
-		 * @param candidate
-		 *            the candidate
-		 * @return the i completion proposal
+		 * @see org.eclipse.xtext.ui.editor.contentassist.AbstractJavaBasedContentProposalProvider.DefaultProposalCreator#apply(org.eclipse.xtext.resource.IEObjectDescription)
 		 */
 		@Override
 		public ICompletionProposal apply(final IEObjectDescription candidate) {
@@ -114,26 +107,19 @@ public class GamlProposalProvider extends AbstractGamlProposalProvider {
 
 				final String type = candidate.getUserData("type");
 				if (type != null) {
+					cp.setDisplayString(cp.getDisplayString().concat(" (Built-in " + type + ") "));
 					if ("operator".equals(type)) {
 						isOperator = true;
-						cp.setDisplayString(cp.getDisplayString().concat(" (Built-in operator) "));
 						cp.setImage(actionImage);
-					} else if ("variable".equals(type)) {
-						cp.setDisplayString(cp.getDisplayString().concat(" (Built-in variable) "));
-						cp.setImage(varImage);
-					} else if ("field".equals(type)) {
-						cp.setDisplayString(cp.getDisplayString().concat(" (Built-in field) "));
+					} else if ("variable".equals(type) || "field".equals(type)) {
 						cp.setImage(varImage);
 					} else if ("action".equals(type)) {
-						cp.setDisplayString(cp.getDisplayString().concat(" (Built-in action) "));
 						cp.setImage(actionImage);
 					} else if ("unit".equals(type)) {
 						isOperator = true;
-						cp.setDisplayString(cp.getDisplayString().concat(" (Built-in unit) "));
 						cp.setImage(null);
 					} else if ("type".equals(type)) {
 						isOperator = true;
-						cp.setDisplayString(cp.getDisplayString().concat(" (Built-in type) "));
 						cp.setImage(typeImage);
 					}
 					cp.setPriority(1000);
@@ -157,22 +143,14 @@ public class GamlProposalProvider extends AbstractGamlProposalProvider {
 		/**
 		 * Instantiates a new gaml completion proposal.
 		 *
-		 * @param replacementString
-		 *            the replacement string
-		 * @param replacementOffset
-		 *            the replacement offset
-		 * @param replacementLength
-		 *            the replacement length
-		 * @param cursorPosition
-		 *            the cursor position
-		 * @param image
-		 *            the image
-		 * @param displayString
-		 *            the display string
-		 * @param contextInformation
-		 *            the context information
-		 * @param additionalProposalInfo
-		 *            the additional proposal info
+		 * @param replacementString the replacement string
+		 * @param replacementOffset the replacement offset
+		 * @param replacementLength the replacement length
+		 * @param cursorPosition the cursor position
+		 * @param image the image
+		 * @param displayString the display string
+		 * @param contextInformation the context information
+		 * @param additionalProposalInfo the additional proposal info
 		 */
 		public GamlCompletionProposal(final String replacementString, final int replacementOffset,
 				final int replacementLength, final int cursorPosition, final Image image,
@@ -182,6 +160,9 @@ public class GamlProposalProvider extends AbstractGamlProposalProvider {
 					contextInformation, additionalProposalInfo);
 		}
 
+		/**
+		 * @see org.eclipse.xtext.ui.editor.contentassist.ConfigurableCompletionProposal#getInformationControlCreator()
+		 */
 		@Override
 		public IInformationControlCreator getInformationControlCreator() {
 			return parent -> new DefaultInformationControl(parent, true);
@@ -227,24 +208,13 @@ public class GamlProposalProvider extends AbstractGamlProposalProvider {
 		/**
 		 * Sets the doc.
 		 *
-		 * @param documentation
-		 *            the new doc
+		 * @param documentation the new doc
 		 */
-		public void setDoc(final String documentation) {
-			this.documentation = documentation;
-		}
+		public void setDoc(final String documentation) { this.documentation = documentation; }
 	}
 
 	/**
-	 * Gets the display string.
-	 *
-	 * @param element
-	 *            the element
-	 * @param q
-	 *            the q
-	 * @param shortName
-	 *            the short name
-	 * @return the display string
+	 * @see org.eclipse.xtext.ui.editor.contentassist.AbstractContentProposalProvider#getDisplayString(org.eclipse.emf.ecore.EObject, java.lang.String, java.lang.String)
 	 */
 	@Override
 	protected String getDisplayString(final EObject element, final String q, final String shortName) {
@@ -278,12 +248,7 @@ public class GamlProposalProvider extends AbstractGamlProposalProvider {
 	@Inject private GamlGrammarAccess ga;
 
 	/**
-	 * Creates the proposals.
-	 *
-	 * @param context
-	 *            the context
-	 * @param acceptor
-	 *            the acceptor
+	 * @see org.eclipse.xtext.ui.editor.contentassist.AbstractJavaBasedContentProposalProvider#createProposals(org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext, org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor)
 	 */
 	@Override
 	public void createProposals(final ContentAssistContext context, final ICompletionProposalAcceptor acceptor) {
@@ -299,16 +264,11 @@ public class GamlProposalProvider extends AbstractGamlProposalProvider {
 	/**
 	 * Do create proposal.
 	 *
-	 * @param proposal
-	 *            the proposal
-	 * @param displayString
-	 *            the display string
-	 * @param image
-	 *            the image
-	 * @param priority
-	 *            the priority
-	 * @param context
-	 *            the context
+	 * @param proposal the proposal
+	 * @param displayString the display string
+	 * @param image the image
+	 * @param priority the priority
+	 * @param context the context
 	 * @return the configurable completion proposal
 	 * @see org.eclipse.xtext.ui.editor.contentassist.AbstractContentProposalProvider#doCreateProposal(java.lang.String,
 	 *      org.eclipse.jface.viewers.StyledString, org.eclipse.swt.graphics.Image, int,
@@ -323,10 +283,8 @@ public class GamlProposalProvider extends AbstractGamlProposalProvider {
 	/**
 	 * Adds the built in elements.
 	 *
-	 * @param context
-	 *            the context
-	 * @param acceptor
-	 *            TODO Filter the proposals (passing an argument ?) depending on the context in the dispatcher (see
+	 * @param context the context
+	 * @param acceptor            TODO Filter the proposals (passing an argument ?) depending on the context in the dispatcher (see
 	 *            commented methods below). TODO Build this list at once instead of recomputing it everytime (might be
 	 *            done in a dedicated data structure somewhere) and separate it by types (vars, units, etc.)
 	 */
@@ -401,16 +359,11 @@ public class GamlProposalProvider extends AbstractGamlProposalProvider {
 	/**
 	 * Do create proposal.
 	 *
-	 * @param proposal
-	 *            the proposal
-	 * @param displayString
-	 *            the display string
-	 * @param image
-	 *            the image
-	 * @param replacementOffset
-	 *            the replacement offset
-	 * @param replacementLength
-	 *            the replacement length
+	 * @param proposal the proposal
+	 * @param displayString the display string
+	 * @param image the image
+	 * @param replacementOffset the replacement offset
+	 * @param replacementLength the replacement length
 	 * @return the configurable completion proposal
 	 * @see org.eclipse.xtext.ui.editor.contentassist.AbstractContentProposalProvider#doCreateProposal(java.lang.String,
 	 *      org.eclipse.jface.viewers.StyledString, org.eclipse.swt.graphics.Image, int, int)
@@ -423,13 +376,7 @@ public class GamlProposalProvider extends AbstractGamlProposalProvider {
 	}
 
 	/**
-	 * Gets the proposal factory.
-	 *
-	 * @param ruleName
-	 *            the rule name
-	 * @param contentAssistContext
-	 *            the content assist context
-	 * @return the proposal factory
+	 * @see org.eclipse.xtext.ui.editor.contentassist.AbstractJavaBasedContentProposalProvider#getProposalFactory(java.lang.String, org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext)
 	 */
 	@Override
 	protected Function<IEObjectDescription, ICompletionProposal> getProposalFactory(final String ruleName,
@@ -438,15 +385,7 @@ public class GamlProposalProvider extends AbstractGamlProposalProvider {
 	}
 
 	/**
-	 * Checks if is valid proposal.
-	 *
-	 * @param proposal
-	 *            the proposal
-	 * @param prefix
-	 *            the prefix
-	 * @param context
-	 *            the context
-	 * @return true, if is valid proposal
+	 * @see org.eclipse.xtext.ui.editor.contentassist.AbstractCompletionProposalFactory#isValidProposal(java.lang.String, java.lang.String, org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext)
 	 */
 	@Override
 	protected boolean isValidProposal(final String proposal, final String prefix, final ContentAssistContext context) {
