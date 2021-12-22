@@ -2233,19 +2233,15 @@ public class DrivingSkill extends MovingSkill {
 			return null;
 		if (possibleRoads.size() == 1)
 			return possibleRoads.iterator().next();
-		else {
-			List<IAgent> roadList = GamaListFactory.create(scope, Types.AGENT, possibleRoads);
-			if (roadProba == null || roadProba.isEmpty())
-				return roadList.get(scope.getRandom().between(0, roadList.size() - 1));
-			else {
-				IList<Double> distribution = GamaListFactory.create(Types.FLOAT);
-				for (IAgent r : roadList) {
-					Double val = roadProba.get(r);
-					distribution.add(val == null ? 0.0 : val);
-				}
-				return roadList.get(Random.opRndChoice(scope, distribution));
-			}
+		List<IAgent> roadList = GamaListFactory.create(scope, Types.AGENT, possibleRoads);
+		if (roadProba == null || roadProba.isEmpty())
+			return roadList.get(scope.getRandom().between(0, roadList.size() - 1));
+		IList<Double> distribution = GamaListFactory.create(Types.FLOAT);
+		for (IAgent r : roadList) {
+			Double val = roadProba.get(r);
+			distribution.add(val == null ? 0.0 : val);
 		}
+		return roadList.get(Random.opRndChoice(scope, distribution));
 	}
 
 	/**
@@ -2513,8 +2509,7 @@ public class DrivingSkill extends MovingSkill {
 				setLocation(vehicle, endPt);
 				setDistanceToGoal(vehicle, 0.0);
 				// Return to the main loop in `drive` to continue moving across the intersection
-				return distToGoal < EPSILON ? time : distToGoal / newSpeed;
-			}
+				return distToGoal < EPSILON ? time : Math.max(0,time - distToGoal / newSpeed);			}
 			// Move to a new segment
 			distMoved -= distToGoal;
 			loc = endPt;
