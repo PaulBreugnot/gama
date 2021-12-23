@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gaml.statements;
 
@@ -44,6 +44,7 @@ import org.geotools.feature.SchemaException;
 import org.geotools.feature.simple.SimpleFeatureBuilder;
 import org.geotools.gce.geotiff.GeoTiffFormat;
 import org.geotools.geojson.feature.FeatureJSON;
+import org.geotools.geojson.geom.GeometryJSON;
 import org.geotools.geometry.Envelope2D;
 import org.geotools.referencing.CRS;
 import org.jgrapht.nio.GraphExporter;
@@ -74,8 +75,6 @@ import gama.common.interfaces.IGamlIssue;
 import gama.common.interfaces.IKeyword;
 import gama.common.interfaces.ITyped;
 import gama.common.preferences.GamaPreferences;
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.ISymbolKind;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.facet;
@@ -83,6 +82,8 @@ import gama.core.dev.annotations.GamlAnnotations.facets;
 import gama.core.dev.annotations.GamlAnnotations.inside;
 import gama.core.dev.annotations.GamlAnnotations.symbol;
 import gama.core.dev.annotations.GamlAnnotations.usage;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.ISymbolKind;
 import gama.metamodel.agent.IAgent;
 import gama.metamodel.population.IPopulation;
 import gama.metamodel.shape.IShape;
@@ -122,6 +123,7 @@ import gaml.types.GamaKmlExport;
 import gaml.types.IType;
 import gaml.types.Types;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SaveStatement.
  */
@@ -229,8 +231,9 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	public static class SaveValidator implements IDescriptionValidator<StatementDescription> {
 
 		/**
-		 * Method validate()
+		 * Method validate().
 		 *
+		 * @param description the description
 		 * @see gaml.compilation.IDescriptionValidator#validate(gaml.descriptions.IDescription)
 		 */
 		@Override
@@ -300,10 +303,10 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 
 	/** The with facet. */
 	private Arguments withFacet;
-	
+
 	/** The attributes facet. */
 	private final IExpression attributesFacet;
-	
+
 	/** The header. */
 	private final IExpression crsCode, item, file, rewriteExpr, header;
 
@@ -335,21 +338,26 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 
 	// TODO rewrite this with the GamaFile framework
 
+	/**
+	 * Private execute in.
+	 *
+	 * @param scope the scope
+	 * @return the object
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@SuppressWarnings ("unchecked")
 	@Override
 	public Object privateExecuteIn(final IScope scope) throws GamaRuntimeException {
 		if (item == null) return null;
 		// First case: we have a file as item;
 		if (file == null) {
-			if (Types.FILE.isAssignableFrom(item.getGamlType())) {
-				final IGamaFile file = (IGamaFile) item.value(scope);
-				if (file != null) {
-					// Passes directly the facets of the statement, like crs, etc.
-					file.save(scope, description.getFacets());
-				}
-				return file;
-			} else
-				return null;
+			if (!Types.FILE.isAssignableFrom(item.getGamlType())) return null;
+			final IGamaFile file = (IGamaFile) item.value(scope);
+			if (file != null) {
+				// Passes directly the facets of the statement, like crs, etc.
+				file.save(scope, description.getFacets());
+			}
+			return file;
 		}
 		final String typeExp = getLiteral(IKeyword.TYPE);
 		// Second case: a filename is indicated but not the type. In that case,
@@ -435,12 +443,10 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 					}
 					break;
 				default:
-					if (getAvailableWriters().contains(type)) {
-						final IGraph g = Cast.asGraph(scope, item);
-						if (g == null) return null;
-						this.saveGraph(g, fileToSave, type, scope);
-					} else
-						throw GamaRuntimeException.error("Format is not recognized ('" + type + "')", scope);
+					if (!getAvailableWriters().contains(type)) throw GamaRuntimeException.error("Format is not recognized ('" + type + "')", scope);
+					final IGraph g = Cast.asGraph(scope, item);
+					if (g == null) return null;
+					this.saveGraph(g, fileToSave, type, scope);
 			}
 		} catch (final GamaRuntimeException e) {
 			throw e;
@@ -481,13 +487,13 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 			savePrj(scope, f.getAbsolutePath());
 			final boolean nullProjection = scope.getSimulation().getProjectionFactory().getWorld() == null;
 			header.append("xllcorner     ")
-					.append(nullProjection ? "0"
-							: scope.getSimulation().getProjectionFactory().getWorld().getProjectedEnvelope().getMinX())
-					.append(Strings.LN);
+			.append(nullProjection ? "0"
+					: scope.getSimulation().getProjectionFactory().getWorld().getProjectedEnvelope().getMinX())
+			.append(Strings.LN);
 			header.append("yllcorner     ")
-					.append(nullProjection ? "0"
-							: scope.getSimulation().getProjectionFactory().getWorld().getProjectedEnvelope().getMinY())
-					.append(Strings.LN);
+			.append(nullProjection ? "0"
+					: scope.getSimulation().getProjectionFactory().getWorld().getProjectedEnvelope().getMinY())
+			.append(Strings.LN);
 			final double dx = scope.getSimulation().getEnvelope().getWidth() / nbCols;
 			final double dy = scope.getSimulation().getEnvelope().getHeight() / nbRows;
 			if (Comparison.equal(dx, dy)) {
@@ -529,13 +535,13 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 			savePrj(scope, f.getAbsolutePath());
 			final boolean nullProjection = scope.getSimulation().getProjectionFactory().getWorld() == null;
 			header.append("xllcorner     ")
-					.append(nullProjection ? "0"
-							: scope.getSimulation().getProjectionFactory().getWorld().getProjectedEnvelope().getMinX())
-					.append(Strings.LN);
+			.append(nullProjection ? "0"
+					: scope.getSimulation().getProjectionFactory().getWorld().getProjectedEnvelope().getMinX())
+			.append(Strings.LN);
 			header.append("yllcorner     ")
-					.append(nullProjection ? "0"
-							: scope.getSimulation().getProjectionFactory().getWorld().getProjectedEnvelope().getMinY())
-					.append(Strings.LN);
+			.append(nullProjection ? "0"
+					: scope.getSimulation().getProjectionFactory().getWorld().getProjectedEnvelope().getMinY())
+			.append(Strings.LN);
 			final double dx = scope.getSimulation().getEnvelope().getWidth() / nbCols;
 			final double dy = scope.getSimulation().getEnvelope().getHeight() / nbRows;
 			if (Comparison.equal(dx, dy)) {
@@ -715,10 +721,10 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 				ImageIO.write(image, "png", f);
 				final double cw =
 						scope.getSimulation().getProjectionFactory().getWorld().getProjectedEnvelope().getWidth()
-								/ cols;
+						/ cols;
 				final double ch =
 						scope.getSimulation().getProjectionFactory().getWorld().getProjectedEnvelope().getHeight()
-								/ rows;
+						/ rows;
 				x += cw / 2;
 				y += ch / 2;
 				try (final FileWriter fw = new FileWriter(path.replace(".png", ".pgw"));) {
@@ -921,7 +927,7 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 					throw GamaRuntimeException.error(
 							"The code " + code + " does not correspond to a known EPSG code. GAMA is unable to save "
 									+ f.getAbsolutePath(),
-							scope);
+									scope);
 				}
 			} else {
 				gis = scope.getSimulation().getProjectionFactory().getWorld();
@@ -949,8 +955,8 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 				if (cs.length == 2) {
 					final Double val = Double.parseDouble(cs[1]);
 					return new SimpleScalingProjection(val);
-				} else
-					return null;
+				}
+				return null;
 			}
 
 			try {
@@ -1155,8 +1161,7 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	 * @return the geometry
 	 */
 	private static Geometry fixesPolygonCWS(final Geometry g) {
-		if (g instanceof Polygon) {
-			final Polygon p = (Polygon) g;
+		if (g instanceof Polygon p) {
 			final boolean clockwise = Orientation.isCCW(p.getExteriorRing().getCoordinates());
 			if (p.getNumInteriorRing() == 0) return g;
 			boolean change = false;
@@ -1176,8 +1181,7 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 				}
 			}
 			if (change) return geomFact.createPolygon(p.getExteriorRing(), holes);
-		} else if (g instanceof GeometryCollection) {
-			final GeometryCollection gc = (GeometryCollection) g;
+		} else if (g instanceof GeometryCollection gc) {
 			boolean change = false;
 			final GeometryFactory geomFact = new GeometryFactory();
 			final Geometry[] geometries = new Geometry[gc.getNumGeometries()];
@@ -1292,7 +1296,7 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 			featureCollection.add(ff);
 		}
 
-		final FeatureJSON io = new FeatureJSON();
+		final FeatureJSON io = new FeatureJSON(new GeometryJSON(20));
 		io.writeFeatureCollection(featureCollection, f.getAbsolutePath());
 
 	}
@@ -1401,11 +1405,22 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 		return gg;
 	}
 
+	/**
+	 * Sets the formal args.
+	 *
+	 * @param args the new formal args
+	 */
 	@Override
 	public void setFormalArgs(final Arguments args) {
 		withFacet = args;
 	}
 
+	/**
+	 * Sets the runtime args.
+	 *
+	 * @param scope the scope
+	 * @param args the args
+	 */
 	@Override
 	public void setRuntimeArgs(final IScope scope, final Arguments args) {
 		// TODO Auto-generated method stub
