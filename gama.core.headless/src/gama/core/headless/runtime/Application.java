@@ -575,8 +575,13 @@ public class Application implements IApplication {
 	 *            the experiment name
 	 * @param pathToModel
 	 *            the path to model
+	 * @throws FileNotFoundException
+	 *             the file not found exception
+	 * @throws InterruptedException
+	 *             the interrupted exception
 	 */
-	public void runBatchSimulation(final String experimentName, final String pathToModel) {
+	public void runBatchSimulation(final String experimentName, final String pathToModel)
+			throws FileNotFoundException, InterruptedException {
 		if (!GamlFileExtension.isGaml(pathToModel)) { System.exit(-1); }
 
 		final Injector injector = HeadlessSimulationLoader.getInjector();
