@@ -1,7 +1,7 @@
 /*******************************************************************************************************
  *
- * Application.java, in gama.core.headless, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * Application.java, in gama.core.headless, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
@@ -57,7 +57,6 @@ import gama.kernel.experiment.IExperimentPlan;
 import gama.kernel.model.IModel;
 import gama.runtime.GAMA;
 import gaml.compilation.GamlCompilationError;
-
 
 // TODO: Auto-generated Javadoc
 /**
@@ -134,9 +133,7 @@ public class Application implements IApplication {
 	 */
 	private static void showVersion() {
 		DEBUG.ON();
-		DEBUG.LOG(
-				"Welcome to Gama-platform.org version " + GAMA.VERSION + "\n"
-				);
+		DEBUG.LOG("Welcome to Gama-platform.org version " + GAMA.VERSION + "\n");
 		DEBUG.OFF();
 	}
 
@@ -148,39 +145,37 @@ public class Application implements IApplication {
 	private static void showHelp() {
 		showVersion();
 		DEBUG.ON();
-		DEBUG.LOG(
-				"sh ./gama-headless.sh [Options]\n"
-						+ "\nList of available options:"
-						+ "\n\t=== Headless Options ==="
-						+ "\n\t\t-m [mem]                     -- allocate memory (ex 2048m)"
-						+ "\n\t\t" + CONSOLE_PARAMETER + "                           -- start the console to write xml parameter file"
-						+ "\n\t\t" + VERBOSE_PARAMETER + "                           -- verbose mode"
-						+ "\n\t\t" + THREAD_PARAMETER + " [core]                  -- set the number of core available for experimentation"
-						+ "\n\t\t" + SOCKET_PARAMETER + " [socketPort]         -- start socket pipeline to interact with another framework"
-						+ "\n\t\t" + TUNNELING_PARAMETER + "                           -- start pipeline to interact with another framework"
-						+ "\n\t=== Infos ==="
-						+ "\n\t\t" + HELP_PARAMETER + "                        -- get the help of the command line"
-						+ "\n\t\t" + GAMA_VERSION + "                     -- get the the version of gama"
-						+ "\n\t=== Library Runner ==="
-						+ "\n\t\t" + VALIDATE_LIBRARY_PARAMETER + "                    -- invokes GAMA to validate models present in built-in library and plugins"
-						+ "\n\t\t" + TEST_LIBRARY_PARAMETER + "                        -- invokes GAMA to execute the tests present in built-in library and plugins and display their results"
-						+ "\n\t=== GAMA Headless Runner ==="
-						+ "\n\t\t" + BATCH_PARAMETER + " [experimentName] [modelFile.gaml]"
-						+ "\n\t\t                             -- Run batch experiment in headless mode"
-						// + "\n\t\t" + GAML_PARAMETER + " [experimentName] [modelFile.gaml]"
-						// + "\n\t\t -- Run single gaml experiment in headless mode"
-						+ "\n\t\t" + BUILD_XML_PARAMETER + " [experimentName] [modelFile.gaml] [xmlOutputFile.xml]"
-						+ "\n\t\t                             -- build an xml parameter file from a model"
-						+ "\n\t\t[xmlHeadlessFile.xml] [outputDirectory]"
-						+ "\n\t\t                             -- default usage of GAMA headless"
-				);
+		DEBUG.LOG("sh ./gama-headless.sh [Options]\n" + "\nList of available options:" + "\n\t=== Headless Options ==="
+				+ "\n\t\t-m [mem]                     -- allocate memory (ex 2048m)" + "\n\t\t" + CONSOLE_PARAMETER
+				+ "                           -- start the console to write xml parameter file" + "\n\t\t"
+				+ VERBOSE_PARAMETER + "                           -- verbose mode" + "\n\t\t" + THREAD_PARAMETER
+				+ " [core]                  -- set the number of core available for experimentation" + "\n\t\t"
+				+ SOCKET_PARAMETER + " [socketPort]         -- start socket pipeline to interact with another framework"
+				+ "\n\t\t" + TUNNELING_PARAMETER
+				+ "                           -- start pipeline to interact with another framework"
+				+ "\n\t=== Infos ===" + "\n\t\t" + HELP_PARAMETER
+				+ "                        -- get the help of the command line" + "\n\t\t" + GAMA_VERSION
+				+ "                     -- get the the version of gama" + "\n\t=== Library Runner ===" + "\n\t\t"
+				+ VALIDATE_LIBRARY_PARAMETER
+				+ "                    -- invokes GAMA to validate models present in built-in library and plugins"
+				+ "\n\t\t" + TEST_LIBRARY_PARAMETER
+				+ "                        -- invokes GAMA to execute the tests present in built-in library and plugins and display their results"
+				+ "\n\t=== GAMA Headless Runner ===" + "\n\t\t" + BATCH_PARAMETER + " [experimentName] [modelFile.gaml]"
+				+ "\n\t\t                             -- Run batch experiment in headless mode"
+				// + "\n\t\t" + GAML_PARAMETER + " [experimentName] [modelFile.gaml]"
+				// + "\n\t\t -- Run single gaml experiment in headless mode"
+				+ "\n\t\t" + BUILD_XML_PARAMETER + " [experimentName] [modelFile.gaml] [xmlOutputFile.xml]"
+				+ "\n\t\t                             -- build an xml parameter file from a model"
+				+ "\n\t\t[xmlHeadlessFile.xml] [outputDirectory]"
+				+ "\n\t\t                             -- default usage of GAMA headless");
 		DEBUG.OFF();
 	}
 
 	/**
 	 * Check parameters.
 	 *
-	 * @param args the args
+	 * @param args
+	 *            the args
 	 * @return true, if successful
 	 */
 	private boolean checkParameters(final List<String> args) {
@@ -190,8 +185,10 @@ public class Application implements IApplication {
 	/**
 	 * Check parameters.
 	 *
-	 * @param args the args
-	 * @param apply the apply
+	 * @param args
+	 *            the args
+	 * @param apply
+	 *            the apply
 	 * @return true, if successful
 	 */
 	private boolean checkParameters(final List<String> args, final boolean apply) {
@@ -236,12 +233,14 @@ public class Application implements IApplication {
 			size = size - 2;
 
 			// Change value only if function should apply parameter
-			this.numberOfThread = apply ? Integer.parseInt(after(args, THREAD_PARAMETER)) : SimulationRuntime.UNDEFINED_QUEUE_SIZE;
+			this.numberOfThread =
+					apply ? Integer.parseInt(after(args, THREAD_PARAMETER)) : SimulationRuntime.UNDEFINED_QUEUE_SIZE;
 		}
 
 		// Commands
 		// ========================
-		if (args.contains(GAMA_VERSION) || args.contains(HELP_PARAMETER) || args.contains(VALIDATE_LIBRARY_PARAMETER) || args.contains(TEST_LIBRARY_PARAMETER)) {
+		if (args.contains(GAMA_VERSION) || args.contains(HELP_PARAMETER) || args.contains(VALIDATE_LIBRARY_PARAMETER)
+				|| args.contains(TEST_LIBRARY_PARAMETER)) {
 			size = size - 1;
 			mustContainOutFile = mustContainInFile = false;
 		}
@@ -252,8 +251,10 @@ public class Application implements IApplication {
 
 		// Runner verification
 		// ========================
-		if (mustContainInFile && mustContainOutFile && size < 2) return showError(HeadLessErrors.INPUT_NOT_DEFINED, null);
-		if (!mustContainInFile && mustContainOutFile && size < 1) return showError(HeadLessErrors.OUTPUT_NOT_DEFINED, null);
+		if (mustContainInFile && mustContainOutFile && size < 2)
+			return showError(HeadLessErrors.INPUT_NOT_DEFINED, null);
+		if (!mustContainInFile && mustContainOutFile && size < 1)
+			return showError(HeadLessErrors.OUTPUT_NOT_DEFINED, null);
 
 		// In/out files
 		// ========================
@@ -261,28 +262,27 @@ public class Application implements IApplication {
 			// Check and create output folder
 			Globals.OUTPUT_PATH = args.get(args.size() - 1);
 			final File output = new File(Globals.OUTPUT_PATH);
-			if (!output.exists()) {
-				output.mkdir();
-			}
+			if (!output.exists()) { output.mkdir(); }
 			// Check and create output image folder
 			Globals.IMAGES_PATH = Globals.OUTPUT_PATH + "/snapshot";
 			final File images = new File(Globals.IMAGES_PATH);
-			if (!images.exists()) {
-				images.mkdir();
-			}
+			if (!images.exists()) { images.mkdir(); }
 		}
 		if (mustContainInFile) {
 			final int inIndex = args.size() - (mustContainOutFile ? 2 : 1);
 			final File input = new File(args.get(inIndex));
 			if (!input.exists()) return showError(HeadLessErrors.NOT_EXIST_FILE_ERROR, args.get(inIndex));
 		}
-		return true;	}
+		return true;
+	}
 
 	/**
 	 * Show error.
 	 *
-	 * @param errorCode the error code
-	 * @param path the path
+	 * @param errorCode
+	 *            the error code
+	 * @param path
+	 *            the path
 	 * @return true, if successful
 	 */
 	private static boolean showError(final int errorCode, final String path) {
@@ -296,9 +296,11 @@ public class Application implements IApplication {
 	/**
 	 * Start.
 	 *
-	 * @param context the context
+	 * @param context
+	 *            the context
 	 * @return the object
-	 * @throws Exception the exception
+	 * @throws Exception
+	 *             the exception
 	 */
 	@Override
 	public Object start(final IApplicationContext context) throws Exception {
@@ -307,9 +309,7 @@ public class Application implements IApplication {
 		final List<String> args = Arrays.asList(mm.get("application.args"));
 
 		// Check and apply parameters
-		if ( !checkParameters(args, true) ) {
-			System.exit(-1);
-		}
+		if (!checkParameters(args, true)) { System.exit(-1); }
 
 		// ========================
 		// No GAMA run
@@ -324,9 +324,7 @@ public class Application implements IApplication {
 			shouldExit = true;
 		}
 
-		if (shouldExit) {
-			System.exit(0);
-		}
+		if (shouldExit) { System.exit(0); }
 
 		// ========================
 		// With GAMA run
@@ -335,12 +333,9 @@ public class Application implements IApplication {
 		DEBUG.OFF();
 
 		// Debug runner
-		if (args.contains(VALIDATE_LIBRARY_PARAMETER))
-			return ModelLibraryValidator.getInstance().start();
-		if (args.contains(TEST_LIBRARY_PARAMETER))
-			return ModelLibraryTester.getInstance().start();
-		if (args.contains(RUN_LIBRARY_PARAMETER))
-			return ModelLibraryRunner.getInstance().start();
+		if (args.contains(VALIDATE_LIBRARY_PARAMETER)) return ModelLibraryValidator.getInstance().start();
+		if (args.contains(TEST_LIBRARY_PARAMETER)) return ModelLibraryTester.getInstance().start();
+		if (args.contains(RUN_LIBRARY_PARAMETER)) return ModelLibraryRunner.getInstance().start();
 		if (args.contains(CHECK_MODEL_PARAMETER)) {
 			ModelLibraryGenerator.start(this, args);
 		} else if (args.contains(BATCH_PARAMETER)) {
@@ -359,16 +354,16 @@ public class Application implements IApplication {
 	/**
 	 * After.
 	 *
-	 * @param args the args
-	 * @param arg the arg
+	 * @param args
+	 *            the args
+	 * @param arg
+	 *            the arg
 	 * @return the string
 	 */
 	public String after(final List<String> args, final String arg) {
-		if (args == null || args.size() < 2)
-			return null;
+		if (args == null || args.size() < 2) return null;
 		for (int i = 0; i < args.size() - 1; i++) {
-			if (args.get(i).equals(arg))
-				return args.get(i + 1);
+			if (args.get(i).equals(arg)) return args.get(i + 1);
 		}
 		return null;
 	}
@@ -376,11 +371,16 @@ public class Application implements IApplication {
 	/**
 	 * Builds the XML.
 	 *
-	 * @param arg the arg
-	 * @throws ParserConfigurationException the parser configuration exception
-	 * @throws TransformerException the transformer exception
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws GamaHeadlessException the gama headless exception
+	 * @param arg
+	 *            the arg
+	 * @throws ParserConfigurationException
+	 *             the parser configuration exception
+	 * @throws TransformerException
+	 *             the transformer exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws GamaHeadlessException
+	 *             the gama headless exception
 	 */
 	public void buildXML(final List<String> arg)
 			throws ParserConfigurationException, TransformerException, IOException, GamaHeadlessException {
@@ -421,12 +421,18 @@ public class Application implements IApplication {
 	/**
 	 * Builds the XML for model library.
 	 *
-	 * @param modelPaths the model paths
-	 * @param outputPath the output path
-	 * @throws ParserConfigurationException the parser configuration exception
-	 * @throws TransformerException the transformer exception
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws GamaHeadlessException the gama headless exception
+	 * @param modelPaths
+	 *            the model paths
+	 * @param outputPath
+	 *            the output path
+	 * @throws ParserConfigurationException
+	 *             the parser configuration exception
+	 * @throws TransformerException
+	 *             the transformer exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws GamaHeadlessException
+	 *             the gama headless exception
 	 */
 	public void buildXMLForModelLibrary(final ArrayList<File> modelPaths, final String outputPath)
 			throws ParserConfigurationException, TransformerException, IOException, GamaHeadlessException {
@@ -452,8 +458,10 @@ public class Application implements IApplication {
 	/**
 	 * Run XML for model library.
 	 *
-	 * @param xmlPath the xml path
-	 * @throws FileNotFoundException the file not found exception
+	 * @param xmlPath
+	 *            the xml path
+	 * @throws FileNotFoundException
+	 *             the file not found exception
 	 */
 	public void runXMLForModelLibrary(final String xmlPath) throws FileNotFoundException {
 
@@ -475,9 +483,12 @@ public class Application implements IApplication {
 	/**
 	 * Run simulation.
 	 *
-	 * @param args the args
-	 * @throws FileNotFoundException the file not found exception
-	 * @throws InterruptedException the interrupted exception
+	 * @param args
+	 *            the args
+	 * @throws FileNotFoundException
+	 *             the file not found exception
+	 * @throws InterruptedException
+	 *             the interrupted exception
 	 */
 	public void runSimulation(final List<String> args) throws FileNotFoundException, InterruptedException {
 
@@ -520,35 +531,10 @@ public class Application implements IApplication {
 	}
 
 	/**
-	 * Run batch simulation.
-	 *
-	 * @param args the args
-	 * @throws FileNotFoundException the file not found exception
-	 * @throws InterruptedException the interrupted exception
-	 */
-	public void runBatchSimulation(final List<String> args) throws FileNotFoundException, InterruptedException {
-		final String pathToModel = args.get(args.size() - 1);
-
-		if (!GamlFileExtension.isGaml(pathToModel)) { System.exit(-1); }
-
-		final Injector injector = HeadlessSimulationLoader.getInjector();
-		final GamlModelBuilder builder = new GamlModelBuilder(injector);
-
-		final List<GamlCompilationError> errors = new ArrayList<>();
-		final IModel mdl = builder.compile(URI.createFileURI(pathToModel), errors);
-
-		final IExperimentPlan expPlan = mdl.getExperiment(args.get(args.size() - 2));
-
-		expPlan.setHeadless(true);
-		expPlan.open();
-
-		System.exit(0);
-	}
-
-	/**
 	 * Builds the and run simulation.
 	 *
-	 * @param sims the sims
+	 * @param sims
+	 *            the sims
 	 */
 	public void buildAndRunSimulation(final Collection<ExperimentJob> sims) {
 		final Iterator<ExperimentJob> it = sims.iterator();
@@ -576,8 +562,7 @@ public class Application implements IApplication {
 	 * Stop.
 	 */
 	@Override
-	public void stop() {
-	}
+	public void stop() {}
 
 	/*
 	 * New runner implementations
@@ -586,13 +571,13 @@ public class Application implements IApplication {
 	/**
 	 * Auto launch batch experiment in headless mode from a gaml file.
 	 *
-	 * @param experimentName the experiment name
-	 * @param pathToModel the path to model
+	 * @param experimentName
+	 *            the experiment name
+	 * @param pathToModel
+	 *            the path to model
 	 */
 	public void runBatchSimulation(final String experimentName, final String pathToModel) {
-		if (!GamlFileExtension.isGaml(pathToModel)) {
-			System.exit(-1);
-		}
+		if (!GamlFileExtension.isGaml(pathToModel)) { System.exit(-1); }
 
 		final Injector injector = HeadlessSimulationLoader.getInjector();
 		final GamlModelBuilder builder = new GamlModelBuilder(injector);
@@ -611,16 +596,17 @@ public class Application implements IApplication {
 	/**
 	 * Auto launch gui experiment in headless mode from a gaml file.
 	 *
-	 * @param args the args
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws GamaHeadlessException the gama headless exception
+	 * @param args
+	 *            the args
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws GamaHeadlessException
+	 *             the gama headless exception
 	 */
 	public void runGamlSimulation(final List<String> args) throws IOException, GamaHeadlessException {
 		final String pathToModel = args.get(args.size() - 1);
 
-		if (!GamlFileExtension.isGaml(pathToModel)) {
-			System.exit(-1);
-		}
+		if (!GamlFileExtension.isGaml(pathToModel)) { System.exit(-1); }
 		final String argExperimentName = args.get(args.size() - 2);
 		final String argGamlFile = args.get(args.size() - 1);
 
@@ -635,9 +621,7 @@ public class Application implements IApplication {
 
 		Globals.OUTPUT_PATH = args.get(args.size() - 3);
 
-		selectedJob.setBufferedWriter(
-				new XMLWriter(Globals.OUTPUT_PATH + "/" + Globals.OUTPUT_FILENAME + ".xml")
-				);
+		selectedJob.setBufferedWriter(new XMLWriter(Globals.OUTPUT_PATH + "/" + Globals.OUTPUT_FILENAME + ".xml"));
 
 		if (args.contains(THREAD_PARAMETER)) {
 			this.numberOfThread = Integer.parseInt(after(args, THREAD_PARAMETER));
