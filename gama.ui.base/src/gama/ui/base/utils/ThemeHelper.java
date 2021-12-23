@@ -1,12 +1,11 @@
 /*******************************************************************************************************
  *
- * ThemeHelper.java, in gama.ui.base, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ThemeHelper.java, in gama.ui.base, is part of the source code of the GAMA modeling and simulation platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.base.utils;
 
@@ -35,6 +34,7 @@ import gama.common.preferences.Pref;
 import gama.core.dev.utils.DEBUG;
 import gaml.types.IType;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ThemeHelper.
  */
@@ -42,25 +42,25 @@ public class ThemeHelper {
 
 	/** The Constant E4_DARK_THEME_ID. */
 	public static final String E4_DARK_THEME_ID = "org.eclipse.e4.ui.css.theme.e4_dark";
-	
+
 	/** The Constant E4_LIGHT_THEME_ID. */
 	public static final String E4_LIGHT_THEME_ID = "org.eclipse.e4.ui.css.theme.e4_default";
-	
+
 	/** The Constant E4_CLASSIC_THEME_ID. */
 	public static final String E4_CLASSIC_THEME_ID = "org.eclipse.e4.ui.css.theme.e4_classic";
-	
+
 	/** The Constant THEME_ID_PREFERENCE. */
 	public static final String THEME_ID_PREFERENCE = "themeid";
-	
+
 	/** The Constant THEME_ID. */
 	public static final String THEME_ID = "cssTheme";
-	
+
 	/** The Constant THEME_FOLLOW_PROPERTY. */
 	public static final String THEME_FOLLOW_PROPERTY = "org.eclipse.swt.display.useSystemTheme";
-	
+
 	/** The Constant ENABLED_THEME_KEY. */
 	public static final String ENABLED_THEME_KEY = "themeEnabled";
-	
+
 	/** The Constant SWT_PREFERENCES. */
 	public static final String SWT_PREFERENCES = "org.eclipse.e4.ui.workbench.renderers.swt";
 
@@ -126,7 +126,8 @@ public class ThemeHelper {
 	/**
 	 * Follow OS theme.
 	 *
-	 * @param follow the follow
+	 * @param follow
+	 *            the follow
 	 */
 	private static void followOSTheme(final Boolean follow) {
 		Display.getDefault().setData(THEME_FOLLOW_PROPERTY, follow);
@@ -202,7 +203,8 @@ public class ThemeHelper {
 	/**
 	 * Changes to a light or dark theme depending on the value of the argument.
 	 *
-	 * @param light            whether to choose a light (true) or dark (false) theme
+	 * @param light
+	 *            whether to choose a light (true) or dark (false) theme
 	 * @return whether a change has been necessary
 	 */
 	private static boolean changeTo(final boolean light) {
@@ -213,7 +215,8 @@ public class ThemeHelper {
 	/**
 	 * Changes the current theme in both the theme engine and the preferences (so that they can stick).
 	 *
-	 * @param id            the identifier of the theme
+	 * @param id
+	 *            the identifier of the theme
 	 * @return true, if successful
 	 */
 	private static boolean changeTo(final String id) {
@@ -236,7 +239,8 @@ public class ThemeHelper {
 	/**
 	 * Adds the listener.
 	 *
-	 * @param l the l
+	 * @param l
+	 *            the l
 	 */
 	public static void addListener(final IThemeListener l) {
 		if (!listeners.contains(l)) { listeners.add(l); }
@@ -245,7 +249,8 @@ public class ThemeHelper {
 	/**
 	 * Removes the listener.
 	 *
-	 * @param l the l
+	 * @param l
+	 *            the l
 	 */
 	public static void removeListener(final IThemeListener l) {
 		listeners.remove(l);
@@ -256,6 +261,11 @@ public class ThemeHelper {
 	 */
 	public static class WorkbenchThemeChangedHandler implements EventHandler {
 
+		/**
+		 * Handle event.
+		 *
+		 * @param event the event
+		 */
 		@Override
 		public void handleEvent(final Event event) {
 			final var theme = getTheme(event);
@@ -270,7 +280,8 @@ public class ThemeHelper {
 		/**
 		 * Gets the theme.
 		 *
-		 * @param event the event
+		 * @param event
+		 *            the event
 		 * @return the theme
 		 */
 		protected ITheme getTheme(final Event event) {
@@ -284,13 +295,10 @@ public class ThemeHelper {
 	}
 
 	/**
-	 * The listener interface for receiving ITheme events.
-	 * The class that is interested in processing a ITheme
-	 * event implements this interface, and the object created
-	 * with that class is registered with a component using the
-	 * component's <code>addIThemeListener<code> method. When
-	 * the ITheme event occurs, that object's appropriate
-	 * method is invoked.
+	 * The listener interface for receiving ITheme events. The class that is interested in processing a ITheme event
+	 * implements this interface, and the object created with that class is registered with a component using the
+	 * component's <code>addIThemeListener<code> method. When the ITheme event occurs, that object's appropriate method
+	 * is invoked.
 	 *
 	 * @see IThemeEvent
 	 */
@@ -299,7 +307,8 @@ public class ThemeHelper {
 		/**
 		 * Theme changed.
 		 *
-		 * @param light the light
+		 * @param light
+		 *            the light
 		 */
 		void themeChanged(boolean light);
 	}

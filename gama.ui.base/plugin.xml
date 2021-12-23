@@ -374,6 +374,16 @@
             class="gama.ui.base.shared.ApplicationUIControlFactory"
             keyword="ui">
       </implementation>
-   </extension>
+
+          </extension>
+             <extension
+          point="org.eclipse.e4.ui.css.swt.theme">
+       <stylesheet
+             uri="css/tabs.css">
+          <themeid
+                refid="org.eclipse.e4.ui.css.theme.e4_default">
+          </themeid>
+       </stylesheet>
+    </extension>
 
 </plugin>
