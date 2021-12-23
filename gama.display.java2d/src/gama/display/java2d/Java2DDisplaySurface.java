@@ -1,7 +1,7 @@
 /*******************************************************************************************************
  *
- * Java2DDisplaySurface.java, in gama.display.java2d, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * Java2DDisplaySurface.java, in gama.display.java2d, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
@@ -195,7 +195,8 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Sets the menu manager.
 	 *
-	 * @param menuManager the new menu manager
+	 * @param menuManager
+	 *            the new menu manager
 	 */
 	@Override
 	public void setMenuManager(final Object menuManager) { this.menuManager = (DisplaySurfaceMenu) menuManager; }
@@ -215,23 +216,40 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Dispatch key event.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	@Override
 	public void dispatchKeyEvent(final char e) {
-		for (final IEventLayerListener gl : listeners) { gl.keyPressed(String.valueOf(e)); }
+		for (final IEventLayerListener gl : listeners) {
+			gl.keyPressed(String.valueOf(e));
+		}
+	}
+
+	/**
+	 * Auto scale up.
+	 *
+	 * @param c
+	 *            the c
+	 * @return the int
+	 */
+	int autoScaleUp(final int c) {
+		if (PlatformHelper.isWindows() && PlatformHelper.getDeviceZoom() > 100) return c;
+		return PlatformHelper.autoScaleUp(c);
 	}
 
 	/**
 	 * Sets the mouse position.
 	 *
-	 * @param xm the xm
-	 * @param ym the ym
+	 * @param xm
+	 *            the xm
+	 * @param ym
+	 *            the ym
 	 */
 	@Override
 	public void setMousePosition(final int xm, final int ym) {
-		final int x = PlatformHelper.autoScaleUp(xm);
-		final int y = PlatformHelper.autoScaleUp(ym);
+		final int x = autoScaleUp(xm);
+		final int y = autoScaleUp(ym);
 		if (mousePosition == null) {
 			mousePosition = new Point(x, y);
 		} else {
@@ -242,17 +260,18 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Dragged to.
 	 *
-	 * @param x the x
-	 * @param y the y
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 */
 	@Override
 	public void draggedTo(final int x, final int y) {
 		final Point origin = getOrigin();
-		setOrigin(origin.x + PlatformHelper.autoScaleUp(x) - getMousePosition().x,
-				origin.y + PlatformHelper.autoScaleUp(y) - getMousePosition().y);
-		//	DEBUG.OUT("Translation on X : " + (PlatformHelper.autoScaleUp(x) - getMousePosition().x) + " | on Y : "
-		//			+ (PlatformHelper.autoScaleUp(y) - getMousePosition().y));
-		//	DEBUG.OUT("Old Origin = " + origin + " | New Origin = " + getOrigin());
+		setOrigin(origin.x + autoScaleUp(x) - getMousePosition().x, origin.y + autoScaleUp(y) - getMousePosition().y);
+		// DEBUG.OUT("Translation on X : " + (PlatformHelper.autoScaleUp(x) - getMousePosition().x) + " | on Y : "
+		// + (PlatformHelper.autoScaleUp(y) - getMousePosition().y));
+		// DEBUG.OUT("Old Origin = " + origin + " | New Origin = " + getOrigin());
 		setMousePosition(x, y);
 		updateDisplay(true);
 	}
@@ -268,7 +287,8 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Dispatch mouse event.
 	 *
-	 * @param swtMouseEvent the swt mouse event
+	 * @param swtMouseEvent
+	 *            the swt mouse event
 	 */
 	@Override
 	public void dispatchMouseEvent(final int swtMouseEvent) {
@@ -339,7 +359,8 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Sets the font.
 	 *
-	 * @param f the new font
+	 * @param f
+	 *            the new font
 	 */
 	@Override
 	public void setFont(final Font f) {}
@@ -347,8 +368,10 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Gets the image.
 	 *
-	 * @param w the w
-	 * @param h the h
+	 * @param w
+	 *            the w
+	 * @param h
+	 *            the h
 	 * @return the image
 	 */
 	@Override
@@ -442,7 +465,8 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Update display.
 	 *
-	 * @param force the force
+	 * @param force
+	 *            the force
 	 */
 	@Override
 	public void updateDisplay(final boolean force) {
@@ -454,7 +478,8 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Focus on.
 	 *
-	 * @param geometry the geometry
+	 * @param geometry
+	 *            the geometry
 	 */
 	@Override
 	public void focusOn(final IShape geometry) {
@@ -561,8 +586,8 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	 * @return true, if successful
 	 */
 	public boolean resizeImage(final int x, final int y, final boolean force) {
-		//		DEBUG.OUT("Try to resize image to " + x + " " + y + "(current size is: " + getDisplayWidth() + " "
-		//				+ getDisplayHeight());
+		// DEBUG.OUT("Try to resize image to " + x + " " + y + "(current size is: " + getDisplayWidth() + " "
+		// + getDisplayHeight());
 		if (!force && x == getDisplayWidth() && y == getDisplayHeight()) return true;
 		if (x < 10 || y < 10 || getWidth() <= 0 && getHeight() <= 0) return false;
 
@@ -571,7 +596,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		final int imageHeight = Math.max(1, point[1]);
 		setDisplayHeight(imageHeight);
 		setDisplayWidth(imageWidth);
-		//		DEBUG.OUT("Resize Image suceeded : " + imageWidth + " " + imageHeight);
+		// DEBUG.OUT("Resize Image suceeded : " + imageWidth + " " + imageHeight);
 		iGraphics = new AWTDisplayGraphics((Graphics2D) this.getGraphics());
 		iGraphics.setDisplaySurface(this);
 		return true;
@@ -581,7 +606,8 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Paint component.
 	 *
-	 * @param g the g
+	 * @param g
+	 *            the g
 	 */
 	@Override
 	public void paintComponent(final Graphics g) {
@@ -641,7 +667,8 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Gets the model coordinates info.
 	 *
-	 * @param sb the sb
+	 * @param sb
+	 *            the sb
 	 * @return the model coordinates info
 	 */
 	@Override
@@ -789,10 +816,14 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Gets the model coordinates from.
 	 *
-	 * @param xOnScreen the x on screen
-	 * @param yOnScreen the y on screen
-	 * @param sizeInPixels the size in pixels
-	 * @param positionInPixels the position in pixels
+	 * @param xOnScreen
+	 *            the x on screen
+	 * @param yOnScreen
+	 *            the y on screen
+	 * @param sizeInPixels
+	 *            the size in pixels
+	 * @param positionInPixels
+	 *            the position in pixels
 	 * @return the model coordinates from
 	 */
 	@Override
@@ -810,7 +841,8 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Gets the visible region for layer.
 	 *
-	 * @param currentLayer the current layer
+	 * @param currentLayer
+	 *            the current layer
 	 * @return the visible region for layer
 	 */
 	@Override
@@ -841,7 +873,8 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Run and update.
 	 *
-	 * @param r the r
+	 * @param r
+	 *            the r
 	 */
 	@Override
 	public void runAndUpdate(final Runnable r) {
@@ -869,7 +902,8 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Adds the listener.
 	 *
-	 * @param ell the ell
+	 * @param ell
+	 *            the ell
 	 */
 	@Override
 	public void addListener(final IEventLayerListener ell) {
@@ -879,7 +913,8 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Removes the listener.
 	 *
-	 * @param ell the ell
+	 * @param ell
+	 *            the ell
 	 */
 	@Override
 	public void removeListener(final IEventLayerListener ell) {
@@ -897,7 +932,8 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Method followAgent().
 	 *
-	 * @param a the a
+	 * @param a
+	 *            the a
 	 * @see msi.gama.common.interfaces.IDisplaySurface#followAgent(msi.gama.metamodel.agent.IAgent)
 	 */
 	@Override
@@ -906,10 +942,14 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Sets the bounds.
 	 *
-	 * @param arg0 the arg 0
-	 * @param arg1 the arg 1
-	 * @param arg2 the arg 2
-	 * @param arg3 the arg 3
+	 * @param arg0
+	 *            the arg 0
+	 * @param arg1
+	 *            the arg 1
+	 * @param arg2
+	 *            the arg 2
+	 * @param arg3
+	 *            the arg 3
 	 */
 	@Override
 	public void setBounds(final int arg0, final int arg1, final int arg2, final int arg3) {
@@ -985,13 +1025,16 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 			EventQueue.invokeAndWait(() -> menuManager.buildMenu(mousex, mousey, xc, yc, layers));
 		} catch (InvocationTargetException | InterruptedException e) {
 			e.printStackTrace();
-		}	}
+		}
+	}
 
 	/**
 	 * Select agent.
 	 *
-	 * @param x the x
-	 * @param y the y
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 * @return the collection
 	 */
 	@Override
@@ -1016,8 +1059,10 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Method changed().
 	 *
-	 * @param property the property
-	 * @param value the value
+	 * @param property
+	 *            the property
+	 * @param value
+	 *            the value
 	 * @see msi.gama.outputs.LayeredDisplayData.DisplayDataListener#changed(int, boolean)
 	 */
 	@Override
@@ -1052,7 +1097,8 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Compute font.
 	 *
-	 * @param f the f
+	 * @param f
+	 *            the f
 	 * @return the font
 	 */
 	@Override
@@ -1067,7 +1113,8 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	/**
 	 * Sets the display synchronizer.
 	 *
-	 * @param s the new display synchronizer
+	 * @param s
+	 *            the new display synchronizer
 	 */
 	@Override
 	public void setDisplaySynchronizer(final IDisplaySynchronizer s) {
