@@ -82,4 +82,10 @@ public class FLAGS {
 	 */
 	public static final boolean USE_PRECISE_AUTOSCALE = get("use_precise_autoscale", false);
 
+	/**
+	 * Used in msi.gama.application.workbench.ApplicationWorkbenchWindowAdvisor to impose the use of the "classic" view
+	 * tabs (with a visible border) and inject a specific CSS stylesheet. See #3187. True by default.
+	 */
+	public static final boolean USE_OLD_TABS = get("use_old_tabs", true);
+
 }

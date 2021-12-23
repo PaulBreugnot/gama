@@ -30,9 +30,11 @@ import org.eclipse.ui.internal.ide.application.IDEWorkbenchWindowAdvisor;
 import org.osgi.framework.Bundle;
 
 import gama.common.preferences.GamaPreferences;
+import gama.core.dev.utils.FLAGS;
 import gama.runtime.GAMA;
 import gama.runtime.ISimulationStateProvider;
 import gama.ui.base.utils.PerspectiveHelper;
+import gama.ui.base.utils.ThemeHelper;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -43,7 +45,8 @@ public class GamaWindowAdvisor extends IDEWorkbenchWindowAdvisor {
 	/**
 	 * Creates the action bar advisor.
 	 *
-	 * @param configurer the configurer
+	 * @param configurer
+	 *            the configurer
 	 * @return the action bar advisor
 	 */
 	@Override
@@ -111,6 +114,10 @@ public class GamaWindowAdvisor extends IDEWorkbenchWindowAdvisor {
 			@Override
 			public void pageOpened(final IWorkbenchPage page) {}
 		});
+		// See #3187 -
+		if (FLAGS.USE_OLD_TABS) {
+			ThemeHelper.injectCSS(".MPartStack {\n" + " swt-tab-renderer: null;\n" + " swt-simple: true;\n" + "}");
+		}
 		configurer.setShowMenuBar(true);
 		configurer.setShowCoolBar(true);
 		configurer.setShowStatusLine(true);
@@ -124,7 +131,8 @@ public class GamaWindowAdvisor extends IDEWorkbenchWindowAdvisor {
 	/**
 	 * Post window restore.
 	 *
-	 * @throws WorkbenchException the workbench exception
+	 * @throws WorkbenchException
+	 *             the workbench exception
 	 */
 	@Override
 	public void postWindowRestore() throws WorkbenchException {}
