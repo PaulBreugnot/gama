@@ -1993,6 +1993,7 @@ public class DrivingSkill extends MovingSkill {
 	 * Prim drive random.
 	 *
 	 * @param scope the scope
+	 * @return the boolean
 	 * @throws GamaRuntimeException the gama runtime exception
 	 */
 	@action(
@@ -2016,7 +2017,7 @@ public class DrivingSkill extends MovingSkill {
 					examples = { @example ("do drive_random init_node: some_node;") }
 					)
 			)
-	public void primDriveRandom(final IScope scope) throws GamaRuntimeException {
+	public Boolean primDriveRandom(final IScope scope) throws GamaRuntimeException {
 		IAgent vehicle = getCurrentAgent(scope);
 		GamaSpatialGraph graph = (GamaSpatialGraph) scope.getArg("graph", IType.GRAPH);
 		Map<IAgent, Double> roadProba = (Map) scope.getArg("proba_roads", IType.MAP);
@@ -2033,7 +2034,7 @@ public class DrivingSkill extends MovingSkill {
 			setNextRoad(vehicle, chooseNextRoadRandomly(scope, graph, initNode, roadProba));
 		}
 
-		moveAcrossRoads(scope, true, graph, roadProba);
+		return moveAcrossRoads(scope, true, graph, roadProba);
 	}
 
 	/**
@@ -2335,8 +2336,9 @@ public class DrivingSkill extends MovingSkill {
 	 * @param isDrivingRandomly the is driving randomly
 	 * @param graph the graph
 	 * @param roadProba the road proba
+	 * @return the boolean
 	 */
-	private void moveAcrossRoads(final IScope scope,
+	private Boolean moveAcrossRoads(final IScope scope,
 			final boolean isDrivingRandomly,
 			final GamaSpatialGraph graph,
 			final Map<IAgent, Double> roadProba) {
@@ -2356,15 +2358,15 @@ public class DrivingSkill extends MovingSkill {
 
 			if (!isDrivingRandomly && loc.equals(finalTarget.getLocation())) {  // Final node in path
 				clearDrivingStates(scope);
-				return;
+				return true;
 			}
 			if (loc.equals(targetLoc)) {  // Intermediate node in path
 				IAgent newRoad = getNextRoad(vehicle);
-				if (newRoad == null) return;
+				if (newRoad == null) return false;
 				GamaPoint srcNodeLoc = RoadSkill.getSourceNode(newRoad).getLocation();
 				boolean violatingOneway = !loc.equals(srcNodeLoc);
 				// check traffic lights and vehicles coming from other roads
-				if (!readyToCross(scope, vehicle, currentTarget, newRoad)) return;
+				if (!readyToCross(scope, vehicle, currentTarget, newRoad)) return true;
 
 				// Choose a lane on the new road
 				IStatement.WithArgs actionCL = context.getAction(ACT_CHOOSE_LANE);
@@ -2373,7 +2375,7 @@ public class DrivingSkill extends MovingSkill {
 				actionCL.setRuntimeArgs(scope, argsCL);
 				int lowestLane = (int) actionCL.executeOn(scope);
 				laneAndAccPair = MOBIL.chooseLane(scope, vehicle, newRoad, lowestLane);
-				if (laneAndAccPair == null) return;
+				if (laneAndAccPair == null) return true;
 				double newAccel = laneAndAccPair.getRight();
 				double newSpeed = computeSpeed(scope, newAccel, newRoad);
 				// Check if it is possible to move onto the new road
@@ -2387,7 +2389,7 @@ public class DrivingSkill extends MovingSkill {
 					if (currentRoad != null && goingToBlock) {
 						blockIntersection(scope, currentRoad, newRoad, currentTarget);
 					}
-					return;
+					return true;
 				}
 				IStatement.WithArgs actionOnNewRoad = context.getAction("on_entering_new_road");
 				actionOnNewRoad.executeOn(scope);
@@ -2397,7 +2399,7 @@ public class DrivingSkill extends MovingSkill {
 				argsEF.put("new_road", ConstantExpressionDescription.create(newRoad));
 				actionImpactEF.setRuntimeArgs(scope, argsEF);
 				remainingTime = (Double) actionImpactEF.executeOn(scope);
-				if (remainingTime <= 0.0) return;
+				if (remainingTime <= 0.0) return true;
 
 				// Find the new next road in advance in order to look for leaders further ahead
 				IAgent newTarget;
@@ -2434,6 +2436,7 @@ public class DrivingSkill extends MovingSkill {
 			double accel = laneAndAccPair.getRight();
 			remainingTime = moveAcrossSegments(scope, accel, remainingTime, lowestLane);
 		}
+		return true;
 	}
 
 
