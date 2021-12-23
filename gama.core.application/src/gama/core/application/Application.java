@@ -25,9 +25,11 @@ import gama.common.ui.IStartupProgress;
 import gama.core.application.bundles.GamaBundleLoader;
 import gama.core.application.workspace.WorkspaceManager;
 import gama.core.dev.utils.DEBUG;
+import gama.core.dev.utils.FLAGS;
 import gama.runtime.concurrent.GamaExecutorService;
 import gaml.operators.Dates;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class controls all aspects of the application's execution. AD Aug 2021. Now independent from the UI, controls
  * the lifecycle of GAMA.
@@ -41,8 +43,16 @@ public class Application implements IApplication {
 	private static final String HEADLESS = "headless";
 	{
 		DEBUG.ON();
+		if (FLAGS.USE_PRECISE_AUTOSCALE) { System.setProperty("swt.autoScale", "quarter"); }
 	}
 
+	/**
+	 * Start.
+	 *
+	 * @param context the context
+	 * @return the object
+	 * @throws Exception the exception
+	 */
 	@Override
 	public Object start(final IApplicationContext context) throws Exception {
 
@@ -94,6 +104,9 @@ public class Application implements IApplication {
 		Dates.initialize();
 	}
 
+	/**
+	 * Stop.
+	 */
 	@Override
 	public void stop() {}
 

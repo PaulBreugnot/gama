@@ -14,21 +14,35 @@ import static gama.common.preferences.GamaPreferences.Interface.APPEARANCE;
 import static gama.common.preferences.GamaPreferences.Interface.NAME;
 import static org.eclipse.swt.widgets.Display.isSystemDarkTheme;
 
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.e4.core.services.events.IEventBroker;
+import org.eclipse.e4.ui.css.core.dom.ExtendedDocumentCSS;
+import org.eclipse.e4.ui.css.core.engine.CSSEngine;
+import org.eclipse.e4.ui.css.swt.internal.theme.ThemeEngine;
 import org.eclipse.e4.ui.css.swt.theme.ITheme;
 import org.eclipse.e4.ui.css.swt.theme.IThemeEngine;
+import org.eclipse.e4.ui.css.swt.theme.IThemeManager;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 import org.osgi.service.prefs.BackingStoreException;
+import org.w3c.css.sac.CSSParseException;
+import org.w3c.dom.stylesheets.StyleSheet;
+import org.w3c.dom.stylesheets.StyleSheetList;
 
 import gama.common.preferences.Pref;
 import gama.core.dev.utils.DEBUG;
@@ -66,6 +80,12 @@ public class ThemeHelper {
 
 	/** The Constant listeners. */
 	private static final List<IThemeListener> listeners = new ArrayList<>();
+
+	/** The engine. */
+	private static IThemeEngine engine;
+
+	/** The bundle. */
+	private static Bundle bundle = Platform.getBundle("gama.ui.base");
 
 	static {
 		DEBUG.ON();
@@ -228,11 +248,9 @@ public class ThemeHelper {
 		} catch (final BackingStoreException e) {
 			e.printStackTrace();
 		}
-		final var themeEngine = getContext().get(IThemeEngine.class);
-		if (themeEngine == null) return true;
-		final var theme = themeEngine.getActiveTheme();
+		final var theme = getEngine().getActiveTheme();
 		if (theme != null && theme.getId().startsWith(id)) return false;
-		themeEngine.setTheme(id, true);
+		getEngine().setTheme(id, true);
 		return true;
 	}
 
@@ -257,6 +275,70 @@ public class ThemeHelper {
 	}
 
 	/**
+	 * Gets the engine.
+	 *
+	 * @return the engine
+	 */
+	public static IThemeEngine getEngine() {
+		if (engine == null) { engine = getThemeEngine(); }
+		return engine;
+	}
+
+	/**
+	 * Gets the theme engine.
+	 *
+	 * @return the theme engine
+	 */
+	private static ThemeEngine getThemeEngine() {
+		BundleContext context = bundle.getBundleContext();
+		ServiceReference ref = context.getServiceReference(IThemeManager.class.getName());
+		IThemeManager manager = (IThemeManager) context.getService(ref);
+		return (ThemeEngine) manager.getEngineForDisplay(PlatformUI.getWorkbench().getActiveWorkbenchWindow() == null
+				? Display.getCurrent() : PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().getDisplay());
+	}
+
+	/**
+	 * Inject CSS.
+	 *
+	 * @param cssText
+	 *            the css text
+	 */
+	public static void injectCSS(final String cssText) {
+		StringBuilder sb = new StringBuilder();
+		// FIXME: expose these new protocols: resetCurrentTheme() and
+		// getCSSEngines()
+		getThemeEngine().resetCurrentTheme();
+
+		int count = 0;
+		for (CSSEngine engine : getThemeEngine().getCSSEngines()) {
+			if (count++ > 0) { sb.append("\n\n"); }
+			sb.append("Engine[").append(engine.getClass().getSimpleName()).append("]");
+			ExtendedDocumentCSS doc = (ExtendedDocumentCSS) engine.getDocumentCSS();
+			List<StyleSheet> sheets = new ArrayList<>();
+			StyleSheetList list = doc.getStyleSheets();
+			for (int i = 0; i < list.getLength(); i++) {
+				sheets.add(list.item(i));
+			}
+
+			try {
+				Reader reader = new StringReader(cssText);
+				sheets.add(0, engine.parseStyleSheet(reader));
+				doc.removeAllStyleSheets();
+				for (StyleSheet sheet : sheets) {
+					doc.addStyleSheet(sheet);
+				}
+				engine.reapply();
+
+			} catch (CSSParseException e) {
+				sb.append("\nError: line ").append(e.getLineNumber()).append(" col ").append(e.getColumnNumber())
+						.append(": ").append(e.getLocalizedMessage());
+			} catch (IOException e) {
+				sb.append("\nError: ").append(e.getLocalizedMessage());
+			}
+		}
+	}
+
+	/**
 	 * The Class WorkbenchThemeChangedHandler.
 	 */
 	public static class WorkbenchThemeChangedHandler implements EventHandler {
@@ -264,7 +346,8 @@ public class ThemeHelper {
 		/**
 		 * Handle event.
 		 *
-		 * @param event the event
+		 * @param event
+		 *            the event
 		 */
 		@Override
 		public void handleEvent(final Event event) {
@@ -286,10 +369,7 @@ public class ThemeHelper {
 		 */
 		protected ITheme getTheme(final Event event) {
 			var theme = (ITheme) event.getProperty(IThemeEngine.Events.THEME);
-			if (theme == null) {
-				final var themeEngine = getContext().get(IThemeEngine.class);
-				theme = themeEngine != null ? themeEngine.getActiveTheme() : null;
-			}
+			if (theme == null) { theme = getEngine().getActiveTheme(); }
 			return theme;
 		}
 	}

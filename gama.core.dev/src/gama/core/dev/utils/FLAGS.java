@@ -1,15 +1,15 @@
 /*******************************************************************************************************
  *
- * FLAGS.java, in gama.core.dev, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * FLAGS.java, in gama.core.dev, is part of the source code of the GAMA modeling and simulation platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.core.dev.utils;
 
+// TODO: Auto-generated Javadoc
 /**
  * A class intended to host several flags used in the code, allowing to load them through VM properties/parameters. They
  * are distinct from preferences in that they are more low-level, internal to the code. Some might nevertheless be
@@ -33,8 +33,10 @@ public class FLAGS {
 	 * Returns the value of a named system property if it is set in the system/VM properties/arguments, and otherwise
 	 * the default value passed in parameter.
 	 *
-	 * @param name            the name of the property
-	 * @param def            the default value to use if the property is not defined
+	 * @param name
+	 *            the name of the property
+	 * @param def
+	 *            the default value to use if the property is not defined
 	 * @return either the value of the property passed as an argument to GAMA or the default value
 	 */
 	private static boolean get(final String name, final boolean def) {
@@ -45,7 +47,8 @@ public class FLAGS {
 	}
 
 	/**
-	 * For debugging purposes, see #3164. True by default until bugs on Linux are solved
+	 * For debugging purposes, see #3164. True by default until bugs on Linux regarding the use of multiple threads in
+	 * UI processes are solved.
 	 */
 	public static final boolean USE_OLD_ANIMATOR = get("use_old_animator", true);
 
@@ -71,5 +74,12 @@ public class FLAGS {
 	 * Used in GamlEditor, see #2950. Set to true to disable editing gaml files. False by default.
 	 */
 	public static final boolean IS_READ_ONLY = get("read_only", false);
+
+	/**
+	 * Used in msi.gama.application.Application to transmit the value of "quarter" (if true) to property
+	 * org.eclipse.swt.internal.DPIUtil.SWT_AUTOSCALE, enabling more precise scaling methods for HiDPI screens.
+	 * Otherwise the default is used by DPIUtil (see #3180). False by default.
+	 */
+	public static final boolean USE_PRECISE_AUTOSCALE = get("use_precise_autoscale", false);
 
 }

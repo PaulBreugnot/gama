@@ -22,8 +22,10 @@ import org.eclipse.swt.graphics.RGB;
 
 import gama.ui.base.interfaces.IIconProvider;
 import gama.ui.base.resources.GamaColors.GamaUIColor;
+import gama.ui.base.utils.PlatformHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 
+// TODO: Auto-generated Javadoc
 /**
  * Class GamaIcons.
  *
@@ -44,9 +46,7 @@ public class GamaIcons implements IIconProvider {
 	 *
 	 * @return single instance of GamaIcons
 	 */
-	public static GamaIcons getInstance() {
-		return instance;
-	}
+	public static GamaIcons getInstance() { return instance; }
 
 	/** The Constant DEFAULT_PATH. */
 	static public final String DEFAULT_PATH = "/icons/";
@@ -235,14 +235,16 @@ public class GamaIcons implements IIconProvider {
 		final GamaIcon blank = create("display.color2");
 		final Image image = new Image(WorkbenchHelper.getDisplay(), blank.image().getImageData());
 		final GC gc = new GC(image);
-		gc.setAntialias(SWT.ON);
+		// gc.setAntialias(SWT.ON);
 		gc.setBackground(gcolor.color());
 		gc.fillRoundRectangle(6, 6, 12, 12, 4, 4);
-		if (!gcolor.isDark()) {
-			gc.setForeground(IGamaColors.BLACK.color());
-			gc.drawRoundRectangle(6, 6, 12, 12, 4, 4);
-		}
-		gc.dispose();
+		// if (!gcolor.isDark()) {
+		// gc.setForeground(IGamaColors.BLACK.color());
+		// gc.drawRoundRectangle(6, 6, 12, 12, 4, 4);
+		// }
+		// See Issue #3138 about weird artefacts in handmade icons. dispose() does it on Retina screens. If removing
+		// this condition, the weird artefacts come back on Retina screens. Otherwise they do not.
+		if (!PlatformHelper.isMac() || !PlatformHelper.isHiDPI()) { gc.dispose(); }
 		getInstance().putImageInCache(name, image);
 		getInstance().putIconInCache(name, new GamaIcon(name));
 		return image;
@@ -263,25 +265,42 @@ public class GamaIcons implements IIconProvider {
 		final GamaIcon blank = create("display.color3");
 		final Image image = new Image(WorkbenchHelper.getDisplay(), blank.image().getImageData());
 		final GC gc = new GC(image);
-		gc.setAntialias(SWT.ON);
+		gc.setAdvanced(true);
+		// gc.setAntialias(SWT.ON);
 		gc.setBackground(gcolor.color());
-		gc.fillOval(6, 6, 12, 12);
-		if (!gcolor.isDark()) {
-			gc.setForeground(IGamaColors.BLACK.color());
-			gc.drawOval(6, 6, 12, 12);
-		}
-		gc.dispose();
+		gc.fillOval(6, 7, 12, 12);
+		// if (!gcolor.isDark()) {
+		// gc.setForeground(IGamaColors.BLACK.color());
+		// gc.drawOval(6, 6, 12, 12);
+		// }
+		// See Issue #3138 about weird artefacts in handmade icons. dispose() does it on Retina screens. If removing
+		// this condition, the weird artefacts come back on Retina screens. Otherwise they do not.
+		if (!PlatformHelper.isMac() || !PlatformHelper.isHiDPI()) { gc.dispose(); }
 		getInstance().putImageInCache(name, image);
 		getInstance().putIconInCache(name, new GamaIcon(name));
 		return image;
 	}
 
+	/**
+	 * Desc.
+	 *
+	 * @param name
+	 *            the name
+	 * @return the image descriptor
+	 */
 	@Override
 	public ImageDescriptor desc(final String name) {
 		final GamaIcon icon = create(name);
 		return icon.descriptor();
 	}
 
+	/**
+	 * Image.
+	 *
+	 * @param name
+	 *            the name
+	 * @return the image
+	 */
 	@Override
 	public Image image(final String name) {
 		final GamaIcon icon = create(name);
