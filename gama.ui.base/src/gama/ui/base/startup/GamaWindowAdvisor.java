@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * GamaWindowAdvisor.java, in gama.ui.base, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * GamaWindowAdvisor.java, in gama.ui.base, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.base.startup;
 
@@ -19,7 +19,9 @@ import org.eclipse.ui.IPageListener;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IPerspectiveListener;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPreferenceConstants;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.WorkbenchException;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
@@ -32,11 +34,18 @@ import gama.runtime.GAMA;
 import gama.runtime.ISimulationStateProvider;
 import gama.ui.base.utils.PerspectiveHelper;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GamaWindowAdvisor.
  */
 public class GamaWindowAdvisor extends IDEWorkbenchWindowAdvisor {
 
+	/**
+	 * Creates the action bar advisor.
+	 *
+	 * @param configurer the configurer
+	 * @return the action bar advisor
+	 */
 	@Override
 	public ActionBarAdvisor createActionBarAdvisor(final IActionBarConfigurer configurer) {
 		return new GamaActionBarAdvisor(configurer);
@@ -45,8 +54,10 @@ public class GamaWindowAdvisor extends IDEWorkbenchWindowAdvisor {
 	/**
 	 * Instantiates a new gama window advisor.
 	 *
-	 * @param adv the adv
-	 * @param configurer the configurer
+	 * @param adv
+	 *            the adv
+	 * @param configurer
+	 *            the configurer
 	 */
 	public GamaWindowAdvisor(final GamaWorkbenchAdvisor adv, final IWorkbenchWindowConfigurer configurer) {
 		super(adv, configurer);
@@ -60,6 +71,9 @@ public class GamaWindowAdvisor extends IDEWorkbenchWindowAdvisor {
 		configurer.getWindow().getShell().setImage(myImage.createImage());
 	}
 
+	/**
+	 * Pre window open.
+	 */
 	@Override
 	public void preWindowOpen() {
 		super.preWindowOpen();
@@ -103,18 +117,30 @@ public class GamaWindowAdvisor extends IDEWorkbenchWindowAdvisor {
 		configurer.setShowProgressIndicator(true);
 		configurer.setShowPerspectiveBar(false);
 		configurer.setTitle(GAMA.VERSION);
+		PlatformUI.getPreferenceStore().setValue(IWorkbenchPreferenceConstants.SHOW_MEMORY_MONITOR, true);
 		Resource.setNonDisposeHandler(null);
 	}
 
+	/**
+	 * Post window restore.
+	 *
+	 * @throws WorkbenchException the workbench exception
+	 */
 	@Override
 	public void postWindowRestore() throws WorkbenchException {}
 
+	/**
+	 * Post window create.
+	 */
 	@Override
 	public void postWindowCreate() {
 		final IWorkbenchWindow window = getWindowConfigurer().getWindow();
 		window.getShell().setMaximized(GamaPreferences.Interface.CORE_SHOW_MAXIMIZED.getValue());
 	}
 
+	/**
+	 * Post window open.
+	 */
 	@Override
 	public void postWindowOpen() {
 		PerspectiveHelper.cleanPerspectives();
