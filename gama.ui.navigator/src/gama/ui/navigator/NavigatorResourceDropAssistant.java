@@ -1,20 +1,20 @@
 /*******************************************************************************************************
  *
- * NavigatorResourceDropAssistant.java, in gama.ui.navigator, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * NavigatorResourceDropAssistant.java, in gama.ui.navigator, is part of the source code of the GAMA modeling and
+ * simulation platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.navigator;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
@@ -63,7 +63,9 @@ import org.eclipse.ui.part.ResourceTransfer;
 
 import gama.ui.navigator.contents.ResourceManager;
 import gama.ui.navigator.contents.TopLevelFolder;
+import gama.ui.navigator.metadata.FileMetaDataProvider;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class NavigatorResourceDropAssistant.
  */
@@ -74,15 +76,29 @@ public class NavigatorResourceDropAssistant extends ResourceDropAdapterAssistant
 
 	/** The refactoring status. */
 	private RefactoringStatus refactoringStatus;
-	
+
 	/** The return status. */
 	private IStatus returnStatus;
 
+	/**
+	 * Checks if is supported type.
+	 *
+	 * @param aTransferType the a transfer type
+	 * @return true, if is supported type
+	 */
 	@Override
 	public boolean isSupportedType(final TransferData aTransferType) {
 		return super.isSupportedType(aTransferType) || FileTransfer.getInstance().isSupportedType(aTransferType);
 	}
 
+	/**
+	 * Validate drop.
+	 *
+	 * @param target the target
+	 * @param aDropOperation the a drop operation
+	 * @param transferType the transfer type
+	 * @return the i status
+	 */
 	@Override
 	public IStatus validateDrop(final Object target, final int aDropOperation, final TransferData transferType) {
 		final IResource resource = ResourceManager.getResource(target);
@@ -146,7 +162,8 @@ public class NavigatorResourceDropAssistant extends ResourceDropAdapterAssistant
 	/**
 	 * All projects.
 	 *
-	 * @param res the res
+	 * @param res
+	 *            the res
 	 * @return true, if successful
 	 */
 	private boolean allProjects(final IResource[] res) {
@@ -160,7 +177,8 @@ public class NavigatorResourceDropAssistant extends ResourceDropAdapterAssistant
 	/**
 	 * Any projects.
 	 *
-	 * @param res the res
+	 * @param res
+	 *            the res
 	 * @return true, if successful
 	 */
 	private boolean anyProjects(final IResource[] res) {
@@ -171,6 +189,14 @@ public class NavigatorResourceDropAssistant extends ResourceDropAdapterAssistant
 		return false;
 	}
 
+	/**
+	 * Handle drop.
+	 *
+	 * @param aDropAdapter the a drop adapter
+	 * @param aDropTargetEvent the a drop target event
+	 * @param t the t
+	 * @return the i status
+	 */
 	@Override
 	public IStatus handleDrop(final CommonDropAdapter aDropAdapter, final DropTargetEvent aDropTargetEvent,
 			final Object t) {
@@ -215,9 +241,12 @@ public class NavigatorResourceDropAssistant extends ResourceDropAdapterAssistant
 	/**
 	 * Perform project copy.
 	 *
-	 * @param aDropAdapter the a drop adapter
-	 * @param shell the shell
-	 * @param resources the resources
+	 * @param aDropAdapter
+	 *            the a drop adapter
+	 * @param shell
+	 *            the shell
+	 * @param resources
+	 *            the resources
 	 * @return the i status
 	 */
 	private IStatus performProjectCopy(final CommonDropAdapter aDropAdapter, final Shell shell,
@@ -230,6 +259,13 @@ public class NavigatorResourceDropAssistant extends ResourceDropAdapterAssistant
 		return null;
 	}
 
+	/**
+	 * Validate plugin transfer drop.
+	 *
+	 * @param aDragSelection the a drag selection
+	 * @param aDropTarget the a drop target
+	 * @return the i status
+	 */
 	@Override
 	public IStatus validatePluginTransferDrop(final IStructuredSelection aDragSelection, final Object aDropTarget) {
 		if (!ResourceManager.isResource(aDropTarget)) return WorkbenchNavigatorPlugin.createStatus(IStatus.INFO, 0,
@@ -256,6 +292,13 @@ public class NavigatorResourceDropAssistant extends ResourceDropAdapterAssistant
 		return Status.OK_STATUS;
 	}
 
+	/**
+	 * Handle plugin transfer drop.
+	 *
+	 * @param aDragSelection the a drag selection
+	 * @param aDropTarget the a drop target
+	 * @return the i status
+	 */
 	@Override
 	public IStatus handlePluginTransferDrop(final IStructuredSelection aDragSelection, final Object aDropTarget) {
 
@@ -308,13 +351,19 @@ public class NavigatorResourceDropAssistant extends ResourceDropAdapterAssistant
 	 * @return the resource selection from the LocalSelectionTransfer
 	 */
 	private IResource[] getSelectedResources(final IStructuredSelection selection) {
+		// if (selection.toList().stream().anyMatch(each -> (each instanceof LinkedFile))) return new IResource[0];
 		final ArrayList<IResource> selectedResources = new ArrayList<>();
-
-		for (final Iterator<?> i = selection.iterator(); i.hasNext();) {
-			final IResource r = ResourceManager.getResource(i.next());
-			if (r != null) { selectedResources.add(r); }
+		for (Object name : selection) {
+			final IResource r = ResourceManager.getResource(name);
+			if (r != null) {
+				selectedResources.add(r);
+				if (ResourceManager.isFile(r)) {
+					selectedResources.addAll(FileMetaDataProvider.getInstance().getSupportFilesOf((IFile) r));
+				}
+			}
 		}
 		return selectedResources.toArray(new IResource[selectedResources.size()]);
+		// return selectedResources.toArray(new IResource[selectedResources.size()]);
 	}
 
 	/**
