@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.util.file;
 
@@ -25,7 +25,6 @@ import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringBufferInputStream;
@@ -55,18 +54,16 @@ import org.locationtech.jts.geom.Envelope;
 import org.opengis.geometry.DirectPosition;
 import org.opengis.parameter.GeneralParameterValue;
 import org.opengis.referencing.FactoryException;
-import org.opengis.referencing.NoSuchAuthorityCodeException;
 import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 import gama.common.geometry.Envelope3D;
-import gama.core.dev.annotations.IConcept;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.file;
+import gama.core.dev.annotations.IConcept;
 import gama.metamodel.shape.GamaPoint;
 import gama.metamodel.shape.GamaShape;
 import gama.metamodel.shape.IShape;
-import gama.runtime.GAMA;
 import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gama.util.GamaListFactory;
@@ -77,6 +74,7 @@ import gaml.types.GamaGeometryType;
 import gaml.types.IType;
 import gaml.types.Types;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GamaGridFile.
  */
@@ -94,54 +92,57 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 	/**
 	 * The Class Records.
 	 */
-	class Records {
-		
+	static class Records {
+
 		/** The x. */
 		double x[];
-		
+
 		/** The y. */
 		double y[];
-		
+
 		/** The bands. */
 		final List<double[]> bands = new ArrayList<>();
 
 		/**
 		 * Fill.
 		 *
-		 * @param i the i
-		 * @param bands2 the bands 2
+		 * @param i
+		 *            the i
+		 * @param bands2
+		 *            the bands 2
 		 */
 		public void fill(final int i, final IList<Double> bands2) {
-			for (double[] tab : bands) {
-				bands2.add(tab[i]);
-			}
+			for (double[] tab : bands) { bands2.add(tab[i]); }
 		}
 	}
 
 	/** The coverage. */
 	GridCoverage2D coverage;
-	
+
 	/** The num cols. */
 	public int nbBands, numRows, numCols;
-	
+
 	/** The geom. */
 	IShape geom;
-	
+
 	/** The no data. */
 	Number noData = -9999;
-	
+
 	/** The genv. */
 	GeneralEnvelope genv;
-	
+
 	/** The records. */
 	Records records;
 
 	/**
 	 * Instantiates a new gama grid file.
 	 *
-	 * @param scope the scope
-	 * @param pathName the path name
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param scope
+	 *            the scope
+	 * @param pathName
+	 *            the path name
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@doc (
 			value = "This file constructor allows to read a asc file or a tif (geotif) file",
@@ -156,10 +157,14 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 	/**
 	 * Instantiates a new gama grid file.
 	 *
-	 * @param scope the scope
-	 * @param pathName the path name
-	 * @param asMatrix the as matrix
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param scope
+	 *            the scope
+	 * @param pathName
+	 *            the path name
+	 * @param asMatrix
+	 *            the as matrix
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@doc (
 			value = "This file constructor allows to read a asc file or a tif (geotif) file, but without converting it into shapes. Only a matrix of float values is created",
@@ -174,10 +179,14 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 	/**
 	 * Instantiates a new gama grid file.
 	 *
-	 * @param scope the scope
-	 * @param pathName the path name
-	 * @param code the code
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param scope
+	 *            the scope
+	 * @param pathName
+	 *            the path name
+	 * @param code
+	 *            the code
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@doc (
 			value = "This file constructor allows to read a asc file or a tif (geotif) file specifying the coordinates system code, as an int (epsg code)",
@@ -191,9 +200,12 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 	/**
 	 * Instantiates a new gama grid file.
 	 *
-	 * @param scope the scope
-	 * @param pathName the path name
-	 * @param code the code
+	 * @param scope
+	 *            the scope
+	 * @param pathName
+	 *            the path name
+	 * @param code
+	 *            the code
 	 */
 	@doc (
 			value = "This file constructor allows to read a asc file or a tif (geotif) file specifying the coordinates system code (epg,...,), as a string ",
@@ -207,9 +219,12 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 	/**
 	 * Instantiates a new gama grid file.
 	 *
-	 * @param scope the scope
-	 * @param pathName the path name
-	 * @param field the field
+	 * @param scope
+	 *            the scope
+	 * @param pathName
+	 *            the path name
+	 * @param field
+	 *            the field
 	 */
 	@doc (
 			value = "This allows to build a writable grid file from the values of a field",
@@ -222,6 +237,12 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 		createCoverage(scope, field);
 	}
 
+	/**
+	 * Gets the attributes.
+	 *
+	 * @param scope the scope
+	 * @return the attributes
+	 */
 	@Override
 	public IList<String> getAttributes(final IScope scope) {
 		// No attributes
@@ -231,7 +252,8 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 	/**
 	 * Creates the coverage.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 */
 	private void createCoverage(final IScope scope) {
 		if (coverage == null) {
@@ -262,8 +284,10 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 	/**
 	 * Creates the coverage.
 	 *
-	 * @param scope the scope
-	 * @param field the field
+	 * @param scope
+	 *            the scope
+	 * @param field
+	 *            the field
 	 */
 	private void createCoverage(final IScope scope, final GamaField field) {
 		double[] data = field.getMatrix();
@@ -271,17 +295,18 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 		SampleModel sample = new BandedSampleModel(DataBuffer.TYPE_DOUBLE, field.numCols, field.numRows,
 				field.getBandsNumber(scope));
 		WritableRaster raster = Raster.createWritableRaster(sample, buffer, null);
-		Envelope2D envelope =
-				new Envelope2D(getCRS(scope), 0, 0, scope.getSimulation().getWidth(), scope.getSimulation().getHeight());
+		Envelope2D envelope = new Envelope2D(getCRS(scope), 0, 0, scope.getSimulation().getWidth(),
+				scope.getSimulation().getHeight());
 		GridCoverageFactory factory = CoverageFactoryFinder.getGridCoverageFactory(null);
 		GridCoverage2D cov = factory.create(getName(scope), raster, envelope);
 		coverage = cov;
 	}
-	
+
 	/**
 	 * Gets the crs.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the crs
 	 */
 	protected CoordinateReferenceSystem getCRS(final IScope scope) {
@@ -289,19 +314,23 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 		CoordinateReferenceSystem crs = null;
 		try {
 			crs = nullProjection ? CRS.decode("EPSG:3857")
-						: scope.getSimulation().getProjectionFactory().getWorld().getTargetCRS(scope);
-		} catch (NoSuchAuthorityCodeException e) {
-			e.printStackTrace();
+					: scope.getSimulation().getProjectionFactory().getWorld().getTargetCRS(scope);
 		} catch (FactoryException e) {
 			e.printStackTrace();
 		}
 		return crs;
 	}
 
+	/**
+	 * Flush buffer.
+	 *
+	 * @param scope the scope
+	 * @param facets the facets
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@Override
 	protected void flushBuffer(final IScope scope, final Facets facets) throws GamaRuntimeException {
-		if (!writable) return;
-		if (coverage == null) return;
+		if (!writable || coverage == null) return;
 		try {
 			final File f = getFile(scope);
 			f.setWritable(true);
@@ -320,10 +349,14 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 	/**
 	 * Private create coverage.
 	 *
-	 * @param scope the scope
-	 * @param fis the fis
-	 * @throws DataSourceException the data source exception
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @param scope
+	 *            the scope
+	 * @param fis
+	 *            the fis
+	 * @throws DataSourceException
+	 *             the data source exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	private void privateCreateCoverage(final IScope scope, final InputStream fis)
 			throws DataSourceException, IOException {
@@ -335,12 +368,10 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 				store = crs == null ? new GeoTiffReader(getFile(scope))
 						: new GeoTiffReader(getFile(scope), new Hints(DEFAULT_COORDINATE_REFERENCE_SYSTEM, crs));
 				noData = ((GeoTiffReader) store).getMetadata().getNoData();
+			} else if (crs == null) {
+				store = new ArcGridReader(fis);
 			} else {
-				if (crs == null) {
-					store = new ArcGridReader(fis);
-				} else {
-					store = new ArcGridReader(fis, new Hints(DEFAULT_COORDINATE_REFERENCE_SYSTEM, crs));
-				}
+				store = new ArcGridReader(fis, new Hints(DEFAULT_COORDINATE_REFERENCE_SYSTEM, crs));
 			}
 			genv = store.getOriginalEnvelope();
 			final Envelope3D env =
@@ -358,12 +389,13 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 	/**
 	 * Fix file header.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the input stream
 	 */
 	private InputStream fixFileHeader(final IScope scope) {
 		final StringBuilder text = new StringBuilder();
-		final String NL = System.getProperty("line.separator");
+		final String NL = System.lineSeparator();
 
 		try (Scanner scanner = new Scanner(getFile(scope))) {
 			// final int cpt = 0;
@@ -387,9 +419,12 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 	/**
 	 * Read.
 	 *
-	 * @param scope the scope
-	 * @param readAll the read all
-	 * @param createGeometries the create geometries
+	 * @param scope
+	 *            the scope
+	 * @param readAll
+	 *            the read all
+	 * @param createGeometries
+	 *            the create geometries
 	 */
 	void read(final IScope scope, final boolean readAll, final boolean createGeometries) {
 
@@ -439,13 +474,9 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 									maxYP - (yy * cellHeightP + cmyP)), (double[]) null);
 					nbBands = vd.length;
 					if (i == 0 && vd.length > 1) {
-						for (int j = 0; j < vd.length - 1; j++) {
-							records.bands.add(new double[numRows * numCols]);
-						}
+						for (int j = 0; j < vd.length - 1; j++) { records.bands.add(new double[numRows * numCols]); }
 					}
-					for (int j = 0; j < vd.length; j++) {
-						records.bands.get(j)[i] = vd[j];
-					}
+					for (int j = 0; j < vd.length; j++) { records.bands.get(j)[i] = vd[j]; }
 
 					// else if (byteValues) {
 					// final byte[] bv = (byte[]) vals;
@@ -491,6 +522,12 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 
 	}
 
+	/**
+	 * Compute envelope.
+	 *
+	 * @param scope the scope
+	 * @return the envelope 3 D
+	 */
 	@Override
 	public Envelope3D computeEnvelope(final IScope scope) {
 		if (gis == null) { createCoverage(scope); }
@@ -500,6 +537,11 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 		// return gis.getProjectedEnvelope();
 	}
 
+	/**
+	 * Fill buffer.
+	 *
+	 * @param scope the scope
+	 */
 	@Override
 	protected void fillBuffer(final IScope scope) {
 		if (getBuffer() != null) return;
@@ -510,7 +552,8 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 	/**
 	 * Gets the nb rows.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the nb rows
 	 */
 	public int getNbRows(final IScope scope) {
@@ -521,13 +564,20 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 	/**
 	 * Checks if is tiff.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return true, if is tiff
 	 */
 	public boolean isTiff(final IScope scope) {
 		return getExtension(scope).startsWith("tif");
 	}
 
+	/**
+	 * Gets the geometry.
+	 *
+	 * @param scope the scope
+	 * @return the geometry
+	 */
 	@Override
 	public IShape getGeometry(final IScope scope) {
 		createCoverage(scope);
@@ -535,6 +585,12 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 		return geom;
 	}
 
+	/**
+	 * Gets the own CRS.
+	 *
+	 * @param scope the scope
+	 * @return the own CRS
+	 */
 	@Override
 	protected CoordinateReferenceSystem getOwnCRS(final IScope scope) {
 		final File source = getFile(scope);
@@ -543,11 +599,11 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 		final String sourceAsString;
 		sourceAsString = source.getAbsolutePath();
 		final int index = sourceAsString.lastIndexOf('.');
-		final StringBuffer prjFileName;
+		final StringBuilder prjFileName;
 		if (index == -1) {
-			prjFileName = new StringBuffer(sourceAsString);
+			prjFileName = new StringBuilder(sourceAsString);
 		} else {
-			prjFileName = new StringBuffer(sourceAsString.substring(0, index));
+			prjFileName = new StringBuilder(sourceAsString.substring(0, index));
 		}
 		prjFileName.append(".prj");
 
@@ -559,15 +615,7 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 			try (FileInputStream fip = new FileInputStream(prjFile); final FileChannel channel = fip.getChannel();) {
 				projReader = new PrjFileReader(channel);
 				return projReader.getCoordinateReferenceSystem();
-			} catch (final FileNotFoundException e) {
-				// warn about the error but proceed, it is not fatal
-				// we have at least the default crs to use
-				return null;
-			} catch (final IOException e) {
-				// warn about the error but proceed, it is not fatal
-				// we have at least the default crs to use
-				return null;
-			} catch (final FactoryException e) {
+			} catch (final IOException | FactoryException e) {
 				// warn about the error but proceed, it is not fatal
 				// we have at least the default crs to use
 				return null;
@@ -582,7 +630,8 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 					}
 				}
 			}
-		} else if (isTiff(scope)) {
+		}
+		if (isTiff(scope)) {
 			try {
 				final GeoTiffReader store = new GeoTiffReader(getFile(scope));
 				return store.getCoordinateReferenceSystem();
@@ -594,6 +643,9 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 		return null;
 	}
 
+	/**
+	 * Invalidate contents.
+	 */
 	@Override
 	public void invalidateContents() {
 		super.invalidateContents();
@@ -604,8 +656,10 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 	/**
 	 * Value of.
 	 *
-	 * @param scope the scope
-	 * @param loc the loc
+	 * @param scope
+	 *            the scope
+	 * @param loc
+	 *            the loc
 	 * @return the double
 	 */
 	public Double valueOf(final IScope scope, final GamaPoint loc) {
@@ -615,9 +669,12 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 	/**
 	 * Value of.
 	 *
-	 * @param scope the scope
-	 * @param x the x
-	 * @param y the y
+	 * @param scope
+	 *            the scope
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 * @return the double
 	 */
 	public Double valueOf(final IScope scope, final double x, final double y) {
@@ -639,13 +696,13 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 			val = vd[0];
 		} else if (intValues) {
 			final int[] vi = (int[]) vals;
-			val = Double.valueOf(vi[0]);
+			val = (double) vi[0];
 		} else if (longValues) {
 			final long[] vi = (long[]) vals;
-			val = Double.valueOf(vi[0]);
+			val = (double) vi[0];
 		} else if (floatValues) {
 			final float[] vi = (float[]) vals;
-			val = Double.valueOf(vi[0]);
+			val = (double) vi[0];
 		} else if (byteValues) {
 			final byte[] bv = (byte[]) vals;
 			if (bv.length == 3) {
@@ -654,46 +711,89 @@ public class GamaGridFile extends GamaGisFile implements IFieldMatrixProvider {
 				final int blue = bv[0] < 0 ? 256 + bv[2] : bv[2];
 				val = (red + green + blue) / 3.0;
 			} else {
-				val = Double.valueOf(((byte[]) vals)[0]);
+				val = (double) ((byte[]) vals)[0];
 			}
 		}
 		return val;
 	}
 
+	/**
+	 * Length.
+	 *
+	 * @param scope the scope
+	 * @return the int
+	 */
 	@Override
 	public int length(final IScope scope) {
 		createCoverage(scope);
 		return numRows * numCols;
 	}
 
+	/**
+	 * Gets the feature collection.
+	 *
+	 * @param scope the scope
+	 * @return the feature collection
+	 */
 	@Override
 	protected SimpleFeatureCollection getFeatureCollection(final IScope scope) {
 		return null;
 	}
 
+	/**
+	 * Gets the no data.
+	 *
+	 * @param scope the scope
+	 * @return the no data
+	 */
 	@Override
 	public double getNoData(final IScope scope) {
 		return noData.doubleValue();
 	}
 
+	/**
+	 * Gets the rows.
+	 *
+	 * @param scope the scope
+	 * @return the rows
+	 */
 	@Override
 	public int getRows(final IScope scope) {
 		createCoverage(scope);
 		return numRows;
 	}
 
+	/**
+	 * Gets the cols.
+	 *
+	 * @param scope the scope
+	 * @return the cols
+	 */
 	@Override
 	public int getCols(final IScope scope) {
 		createCoverage(scope);
 		return numCols;
 	}
 
+	/**
+	 * Gets the bands number.
+	 *
+	 * @param scope the scope
+	 * @return the bands number
+	 */
 	@Override
 	public int getBandsNumber(final IScope scope) {
 		createCoverage(scope);
 		return nbBands;
 	}
 
+	/**
+	 * Gets the band.
+	 *
+	 * @param scope the scope
+	 * @param index the index
+	 * @return the band
+	 */
 	@Override
 	public double[] getBand(final IScope scope, final int index) {
 		createCoverage(scope);

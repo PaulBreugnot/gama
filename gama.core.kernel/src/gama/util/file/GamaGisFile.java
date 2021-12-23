@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.util.file;
 
@@ -15,6 +15,9 @@ import static gama.common.geometry.GeometryUtils.GEOMETRY_FACTORY;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
+import java.util.concurrent.ExecutionException;
 
 import org.geotools.data.simple.SimpleFeatureCollection;
 import org.locationtech.jts.geom.CoordinateFilter;
@@ -23,6 +26,9 @@ import org.locationtech.jts.geom.LinearRing;
 import org.locationtech.jts.geom.MultiPolygon;
 import org.locationtech.jts.geom.Polygon;
 import org.opengis.referencing.crs.CoordinateReferenceSystem;
+
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 
 import gama.common.geometry.Envelope3D;
 import gama.common.geometry.GeometryUtils;
@@ -42,6 +48,7 @@ import gama.util.GamaListFactory;
 import gaml.types.GamaGeometryType;
 import gaml.types.Types;
 
+// TODO: Auto-generated Javadoc
 /**
  * Class GamaGisFile.
  *
@@ -54,23 +61,27 @@ public abstract class GamaGisFile extends GamaGeometryFile {
 	/** The Constant ALREADY_PROJECTED_CODE. */
 	// The code to force reading the GIS data as already projected
 	public static final int ALREADY_PROJECTED_CODE = 0;
-	
+
 	/** The zero z. */
 	static CoordinateFilter ZERO_Z = coord -> coord.setZ(0);
-	
+
 	/** The gis. */
 	protected IProjection gis;
-	
+
 	/** The initial CRS code. */
 	protected Integer initialCRSCode = null;
-	
+
 	/** The initial CRS code str. */
 	protected String initialCRSCodeStr = null;
-	
+
 	/** The with 3 D. */
 	protected boolean with3D = false;
 
 	// Faire les tests sur ALREADY_PROJECTED ET LE PASSER AUSSI A GIS UTILS ???
+
+	/** The CRS cache. */
+	static Cache<String, CoordinateReferenceSystem> CRSCache = CacheBuilder.newBuilder().concurrencyLevel(10)
+			.expireAfterAccess(Duration.of(5, ChronoUnit.MINUTES)).build();
 
 	/**
 	 * Returns the CRS defined with this file (in a ".prj" file or passed by the user)
@@ -79,31 +90,37 @@ public abstract class GamaGisFile extends GamaGeometryFile {
 	 * @return the existing CRS
 	 */
 	protected final CoordinateReferenceSystem getExistingCRS(final IScope scope) {
-		if (initialCRSCode != null) {
-			try {
-				return scope.getSimulation().getProjectionFactory().getCRS(scope, initialCRSCode);
-			} catch (final GamaRuntimeException e) {
-				throw GamaRuntimeException.error(
-						"The code " + initialCRSCode
+		try {
+			return CRSCache.get(this.getPath(scope), () -> {
+				if (initialCRSCode != null) {
+					try {
+						return scope.getSimulation().getProjectionFactory().getCRS(scope, initialCRSCode);
+					} catch (final GamaRuntimeException e1) {
+						throw GamaRuntimeException.error("The code " + initialCRSCode
 								+ " does not correspond to a known EPSG code. GAMA is unable to load " + getPath(scope),
-						scope);
-			}
-		}
-		if (initialCRSCodeStr != null) {
-			try {
-				return scope.getSimulation().getProjectionFactory().getCRS(scope, initialCRSCodeStr);
-			} catch (final GamaRuntimeException e) {
-				throw GamaRuntimeException.error(
-						"The code " + initialCRSCodeStr
+								scope);
+					}
+				}
+				if (initialCRSCodeStr != null) {
+					try {
+						return scope.getSimulation().getProjectionFactory().getCRS(scope, initialCRSCodeStr);
+					} catch (final GamaRuntimeException e2) {
+						throw GamaRuntimeException.error("The code " + initialCRSCodeStr
 								+ " does not correspond to a known CRS code. GAMA is unable to load " + getPath(scope),
-						scope);
-			}
+								scope);
+					}
+				}
+				CoordinateReferenceSystem crs = getOwnCRS(scope);
+				if (crs == null && scope != null) {
+					crs = scope.getSimulation().getProjectionFactory().getDefaultInitialCRS(scope);
+				}
+				return crs;
+			});
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+			return scope.getSimulation().getProjectionFactory().getDefaultInitialCRS(scope);
 		}
-		CoordinateReferenceSystem crs = getOwnCRS(scope);
-		if (crs == null && scope != null) {
-			crs = scope.getSimulation().getProjectionFactory().getDefaultInitialCRS(scope);
-		}
-		return crs;
+
 	}
 
 	/**
@@ -128,7 +145,8 @@ public abstract class GamaGisFile extends GamaGeometryFile {
 	/**
 	 * Gets the feature collection.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the feature collection
 	 */
 	protected abstract SimpleFeatureCollection getFeatureCollection(final IScope scope);
@@ -136,7 +154,8 @@ public abstract class GamaGisFile extends GamaGeometryFile {
 	/**
 	 * Read shapes.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 */
 	protected void readShapes(final IScope scope) {
 		ProgressCounter counter = new ProgressCounter(scope, "Reading " + getName(scope));
@@ -178,8 +197,10 @@ public abstract class GamaGisFile extends GamaGeometryFile {
 	/**
 	 * Compute projection.
 	 *
-	 * @param scope the scope
-	 * @param env the env
+	 * @param scope
+	 *            the scope
+	 * @param env
+	 *            the env
 	 */
 	protected void computeProjection(final IScope scope, final Envelope3D env) {
 		if (scope == null) return;
@@ -197,7 +218,8 @@ public abstract class GamaGisFile extends GamaGeometryFile {
 	/**
 	 * Multi polygon management.
 	 *
-	 * @param geom the geom
+	 * @param geom
+	 *            the geom
 	 * @return the geometry
 	 */
 	protected Geometry multiPolygonManagement(final Geometry geom) {
@@ -225,23 +247,26 @@ public abstract class GamaGisFile extends GamaGeometryFile {
 	/**
 	 * Checks for null elements.
 	 *
-	 * @param array the array
+	 * @param array
+	 *            the array
 	 * @return true, if successful
 	 */
 	protected static boolean hasNullElements(final Object[] array) {
-		for (final Object element : array) {
-			if (element == null) return true;
-		}
+		for (final Object element : array) { if (element == null) return true; }
 		return false;
 	}
 
 	/**
 	 * Instantiates a new gama gis file.
 	 *
-	 * @param scope the scope
-	 * @param pathName the path name
-	 * @param code the code
-	 * @param withZ the with Z
+	 * @param scope
+	 *            the scope
+	 * @param pathName
+	 *            the path name
+	 * @param code
+	 *            the code
+	 * @param withZ
+	 *            the with Z
 	 */
 	public GamaGisFile(final IScope scope, final String pathName, final Integer code, final boolean withZ) {
 		super(scope, pathName);
@@ -252,9 +277,12 @@ public abstract class GamaGisFile extends GamaGeometryFile {
 	/**
 	 * Instantiates a new gama gis file.
 	 *
-	 * @param scope the scope
-	 * @param pathName the path name
-	 * @param code the code
+	 * @param scope
+	 *            the scope
+	 * @param pathName
+	 *            the path name
+	 * @param code
+	 *            the code
 	 */
 	public GamaGisFile(final IScope scope, final String pathName, final Integer code) {
 		super(scope, pathName);
@@ -264,9 +292,12 @@ public abstract class GamaGisFile extends GamaGeometryFile {
 	/**
 	 * Instantiates a new gama gis file.
 	 *
-	 * @param scope the scope
-	 * @param pathName the path name
-	 * @param code the code
+	 * @param scope
+	 *            the scope
+	 * @param pathName
+	 *            the path name
+	 * @param code
+	 *            the code
 	 */
 	public GamaGisFile(final IScope scope, final String pathName, final String code) {
 		super(scope, pathName);
@@ -276,10 +307,14 @@ public abstract class GamaGisFile extends GamaGeometryFile {
 	/**
 	 * Instantiates a new gama gis file.
 	 *
-	 * @param scope the scope
-	 * @param pathName the path name
-	 * @param code the code
-	 * @param withZ the with Z
+	 * @param scope
+	 *            the scope
+	 * @param pathName
+	 *            the path name
+	 * @param code
+	 *            the code
+	 * @param withZ
+	 *            the with Z
 	 */
 	public GamaGisFile(final IScope scope, final String pathName, final String code, final boolean withZ) {
 		super(scope, pathName);
@@ -290,9 +325,12 @@ public abstract class GamaGisFile extends GamaGeometryFile {
 	/**
 	 * Instantiates a new gama gis file.
 	 *
-	 * @param scope the scope
-	 * @param pathName the path name
-	 * @param b the b
+	 * @param scope
+	 *            the scope
+	 * @param pathName
+	 *            the path name
+	 * @param b
+	 *            the b
 	 */
 	public GamaGisFile(final IScope scope, final String pathName, final boolean b) {
 		super(scope, pathName, b);
@@ -301,7 +339,8 @@ public abstract class GamaGisFile extends GamaGeometryFile {
 	/**
 	 * Gets the gis.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the gis
 	 */
 	public IProjection getGis(final IScope scope) {
@@ -309,12 +348,22 @@ public abstract class GamaGisFile extends GamaGeometryFile {
 		return gis;
 	}
 
+	/**
+	 * Builds the geometry.
+	 *
+	 * @param scope the scope
+	 * @return the i shape
+	 */
 	@Override
 	protected IShape buildGeometry(final IScope scope) {
 		return GamaGeometryType.geometriesToGeometry(scope, getBuffer());
 	}
 
 	/**
+	 * Fill buffer.
+	 *
+	 * @param scope the scope
+	 * @throws GamaRuntimeException the gama runtime exception
 	 * @see msi.gama.util.GamaFile#fillBuffer()
 	 */
 	@Override
@@ -324,6 +373,12 @@ public abstract class GamaGisFile extends GamaGeometryFile {
 		readShapes(scope);
 	}
 
+	/**
+	 * Compute envelope.
+	 *
+	 * @param scope the scope
+	 * @return the envelope 3 D
+	 */
 	@Override
 	public Envelope3D computeEnvelope(final IScope scope) {
 		if (gis == null) {
@@ -336,6 +391,9 @@ public abstract class GamaGisFile extends GamaGeometryFile {
 
 	}
 
+	/**
+	 * Invalidate contents.
+	 */
 	@Override
 	public void invalidateContents() {
 		super.invalidateContents();
