@@ -73,7 +73,6 @@ import gama.outputs.layers.OverlayLayer;
 import gama.runtime.GAMA;
 import gama.runtime.IScope;
 import gama.ui.base.utils.PlatformHelper;
-import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.experiment.views.displays.DisplaySurfaceMenu;
 import gaml.expressions.IExpression;
 import gaml.operators.Cast;
@@ -251,9 +250,9 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		final Point origin = getOrigin();
 		setOrigin(origin.x + PlatformHelper.autoScaleUp(x) - getMousePosition().x,
 				origin.y + PlatformHelper.autoScaleUp(y) - getMousePosition().y);
-		DEBUG.OUT("Translation on X : " + (PlatformHelper.autoScaleUp(x) - getMousePosition().x) + " | on Y : "
-				+ (PlatformHelper.autoScaleUp(y) - getMousePosition().y));
-		DEBUG.OUT("Old Origin = " + origin + " | New Origin = " + getOrigin());
+		//	DEBUG.OUT("Translation on X : " + (PlatformHelper.autoScaleUp(x) - getMousePosition().x) + " | on Y : "
+		//			+ (PlatformHelper.autoScaleUp(y) - getMousePosition().y));
+		//	DEBUG.OUT("Old Origin = " + origin + " | New Origin = " + getOrigin());
 		setMousePosition(x, y);
 		updateDisplay(true);
 	}
@@ -562,8 +561,8 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	 * @return true, if successful
 	 */
 	public boolean resizeImage(final int x, final int y, final boolean force) {
-		DEBUG.OUT("Try to resize image to " + x + " " + y + "(current size is: " + getDisplayWidth() + " "
-				+ getDisplayHeight());
+		//		DEBUG.OUT("Try to resize image to " + x + " " + y + "(current size is: " + getDisplayWidth() + " "
+		//				+ getDisplayHeight());
 		if (!force && x == getDisplayWidth() && y == getDisplayHeight()) return true;
 		if (x < 10 || y < 10 || getWidth() <= 0 && getHeight() <= 0) return false;
 
@@ -572,7 +571,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		final int imageHeight = Math.max(1, point[1]);
 		setDisplayHeight(imageHeight);
 		setDisplayWidth(imageWidth);
-		DEBUG.OUT("Resize Image suceeded : " + imageWidth + " " + imageHeight);
+		//		DEBUG.OUT("Resize Image suceeded : " + imageWidth + " " + imageHeight);
 		iGraphics = new AWTDisplayGraphics((Graphics2D) this.getGraphics());
 		iGraphics.setDisplaySurface(this);
 		return true;
@@ -982,8 +981,11 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		final int yc = mousey - origin.y;
 		final List<ILayer> layers = layerManager.getLayersIntersecting(xc, yc);
 		if (layers.isEmpty()) return;
-		WorkbenchHelper.run(() -> menuManager.buildMenu(mousex, mousey, xc, yc, layers));
-	}
+		try {
+			EventQueue.invokeAndWait(() -> menuManager.buildMenu(mousex, mousey, xc, yc, layers));
+		} catch (InvocationTargetException | InterruptedException e) {
+			e.printStackTrace();
+		}	}
 
 	/**
 	 * Select agent.
