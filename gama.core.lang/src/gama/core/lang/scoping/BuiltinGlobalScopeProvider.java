@@ -14,6 +14,7 @@ package gama.core.lang.scoping;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -596,7 +597,7 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 	@Override
 	protected LinkedHashSet<URI> getImportedUris(final Resource resource) {
 		LinkedHashSet<URI> result = new LinkedHashSet<>();
-		Iterator<URI> uris = allImportsOf(resource.getURI());
+		Iterator<URI> uris = GamlResourceIndexer.allImportsOf(resource.getURI());
 		while (uris.hasNext()) { result.add(uris.next()); }
 		return result;
 	}

@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -19,8 +19,6 @@ import gama.common.ui.IDisplaySurface;
 import gama.common.ui.IOverlayProvider;
 import gama.common.ui.IUpdaterMessage;
 import gama.common.ui.IUpdaterTarget;
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.ISymbolKind;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.facet;
@@ -28,6 +26,8 @@ import gama.core.dev.annotations.GamlAnnotations.facets;
 import gama.core.dev.annotations.GamlAnnotations.inside;
 import gama.core.dev.annotations.GamlAnnotations.symbol;
 import gama.core.dev.annotations.GamlAnnotations.usage;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.ISymbolKind;
 import gama.outputs.LayeredDisplayOutput;
 import gama.outputs.layers.OverlayStatement.OverlayInfo;
 import gama.runtime.IScope;
@@ -39,6 +39,7 @@ import gaml.expressions.IExpression;
 import gaml.operators.Cast;
 import gaml.types.IType;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class OverlayStatement.
  */
@@ -77,6 +78,11 @@ import gaml.types.IType;
 						optional = true,
 						doc = @doc ("the transparency rate of the overlay (between 0 -- opaque and 1 -- fully transparent) when it is displayed inside the view. The bottom overlay will remain at 0.75")),
 				@facet (
+						name = IKeyword.VISIBLE,
+						type = IType.BOOL,
+						optional = true,
+						doc = @doc ("Defines whether this layer is visible or not")),
+				@facet (
 						name = IKeyword.LEFT,
 						type = IType.NONE,
 						optional = true,
@@ -105,7 +111,7 @@ import gaml.types.IType;
 // ,omissible = IKeyword.LEFT)
 @doc (
 		value = "`" + IKeyword.OVERLAY
-				+ "` allows the modeler to display a line to the already existing bottom overlay, where the results of 'left', 'center' and 'right' facets, when they are defined, are displayed with the corresponding color if defined.",
+		+ "` allows the modeler to display a line to the already existing bottom overlay, where the results of 'left', 'center' and 'right' facets, when they are defined, are displayed with the corresponding color if defined.",
 		usages = { @usage (
 				value = "To display information in the bottom overlay, the syntax is:",
 				examples = { @example (
@@ -117,13 +123,13 @@ public class OverlayStatement extends GraphicLayerStatement implements IOverlayP
 
 	/** The color. */
 	final IExpression left, right, center, color;
-	
+
 	/** The center value. */
 	String leftValue, rightValue, centerValue;
-	
+
 	/** The constant colors. */
 	List<int[]> constantColors;
-	
+
 	/** The overlay. */
 	IUpdaterTarget<OverlayInfo> overlay;
 
@@ -176,24 +182,24 @@ public class OverlayStatement extends GraphicLayerStatement implements IOverlayP
 	 * @return the list
 	 */
 	private List<int[]> computeColors(final IScope scope) {
-		if (constantColors != null) { return constantColors; }
-		if (color == null) { return null; }
-		if (color.getGamlType().id() == IType.LIST) {
-			final IList<?> list = Cast.asList(scope, color.value(scope));
-			final List<int[]> result = new ArrayList<>();
-			int i = 0;
-			for (final Object o : list) {
-				final int[] rgb = computeColor(scope, o);
-				result.add(rgb);
-				if (++i > 2) {
-					break;
-				}
-			}
-			return result;
-		} else {
+		if (constantColors != null) return constantColors;
+		if (color == null) return null;
+		if (color.getGamlType().id() != IType.LIST) {
 			final int[] rgb = computeColor(scope, color.value(scope));
 			return Arrays.asList(rgb, rgb, rgb);
 		}
+		final IList<?> list = Cast.asList(scope, color.value(scope));
+		final List<int[]> result = new ArrayList<>();
+		int i = 0;
+		for (final Object o : list) {
+			final int[] rgb = computeColor(scope, o);
+			result.add(rgb);
+			i++;
+			if (i > 2) {
+				break;
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -205,18 +211,29 @@ public class OverlayStatement extends GraphicLayerStatement implements IOverlayP
 	 */
 	private static int[] computeColor(final IScope scope, final Object color) {
 		final GamaColor c = Cast.asColor(scope, color);
-		final int[] rgb = new int[] { c.red(), c.green(), c.blue() };
-		return rgb;
+		return new int[] { c.red(), c.green(), c.blue() };
 	}
 
+	/**
+	 * Gets the type.
+	 *
+	 * @param output the output
+	 * @return the type
+	 */
 	@Override
 	public LayerType getType(final LayeredDisplayOutput output) {
 		return LayerType.OVERLAY;
 	}
 
+	/**
+	 * Step.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 */
 	@Override
 	protected boolean _step(final IScope scope) {
-		if (overlay == null) { return true; }
+		if (overlay == null) return true;
 		leftValue = left == null ? null : Cast.asString(scope, left.value(scope));
 		rightValue = right == null ? null : Cast.asString(scope, right.value(scope));
 		centerValue = center == null ? null : Cast.asString(scope, center.value(scope));
@@ -233,12 +250,23 @@ public class OverlayStatement extends GraphicLayerStatement implements IOverlayP
 		return new String[] { leftValue, centerValue, rightValue };
 	}
 
+	/**
+	 * Sets the target.
+	 *
+	 * @param overlay the overlay
+	 * @param surface the surface
+	 */
 	@Override
 	public void setTarget(final IUpdaterTarget<OverlayInfo> overlay, final IDisplaySurface surface) {
 		this.overlay = overlay;
 		_step(surface.getScope());
 	}
 
+	/**
+	 * Checks if is to create.
+	 *
+	 * @return true, if is to create
+	 */
 	@Override
 	public boolean isToCreate() {
 		return !aspect.isEmpty();

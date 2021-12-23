@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -35,6 +35,7 @@ import gaml.operators.Cast;
 import gaml.types.IType;
 import gaml.types.Types;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GridLayerData.
  */
@@ -45,46 +46,46 @@ public class GridLayerData extends LayerData {
 
 	/** The grid. */
 	IGrid grid;
-	
+
 	/** The name. */
 	final String name;
-	
+
 	/** The turn grid on. */
 	Boolean turnGridOn;
-	
+
 	/** The should compute image. */
 	private final boolean shouldComputeImage;
-	
+
 	/** The line. */
 	Attribute<GamaColor> line;
-	
+
 	/** The texture. */
 	Attribute<GamaImageFile> texture;
-	
+
 	/** The elevation. */
 	Attribute<double[]> elevation;
-	
+
 	/** The smooth. */
 	Attribute<Boolean> smooth;
-	
+
 	/** The triangulation. */
 	Attribute<Boolean> triangulation;
-	
+
 	/** The grayscale. */
 	Attribute<Boolean> grayscale;
-	
+
 	/** The text. */
 	Attribute<Boolean> text;
-	
+
 	/** The cell size. */
 	private GamaPoint cellSize;
-	
+
 	/** The wireframe. */
 	Attribute<Boolean> wireframe;
-	
+
 	/** The image. */
 	BufferedImage image;
-	
+
 	/** The dim. */
 	private final GamaPoint dim = new GamaPoint();
 
@@ -113,8 +114,7 @@ public class GridLayerData extends LayerData {
 					case IType.BOOL:
 						if ((Boolean) exp.value(scope))
 							return grid.getGridValue();
-						else
-							return null;
+						return null;
 				}
 			}
 			return null;
@@ -127,18 +127,25 @@ public class GridLayerData extends LayerData {
 			final Object result = exp.value(scope);
 			if (result instanceof GamaImageFile)
 				return (GamaImageFile) exp.value(scope);
-			else
-				throw GamaRuntimeException.error("The texture of a grid must be an image file", scope);
+			throw GamaRuntimeException.error("The texture of a grid must be an image file", scope);
 		}, Types.FILE, null, null);
 	}
 
+	/**
+	 * Compute.
+	 *
+	 * @param scope the scope
+	 * @param g the g
+	 * @return true, if successful
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@Override
-	public void compute(final IScope scope, final IGraphics g) throws GamaRuntimeException {
+	public boolean compute(final IScope scope, final IGraphics g) throws GamaRuntimeException {
 		if (grid == null) {
 			final IPopulation<? extends IAgent> gridPop = scope.getAgent().getPopulationFor(name);
 			if (gridPop == null)
 				throw error("No grid species named " + name + " can be found", scope);
-			else if (!gridPop.isGrid()) throw error("Species named " + name + " is not a grid", scope);
+			if (!gridPop.isGrid()) throw error("Species named " + name + " is not a grid", scope);
 			grid = (IGrid) gridPop.getTopology().getPlaces();
 			// final Envelope env = grid.getEnvironmentFrame().getEnvelope();
 			final Envelope env2 = scope.getSimulation().getEnvelope();
@@ -151,8 +158,9 @@ public class GridLayerData extends LayerData {
 			cellSize = new GamaPoint(width / cols, height / rows);
 			dim.setLocation(grid.getDimensions());
 		}
-		super.compute(scope, g);
+		boolean result = super.compute(scope, g);
 		if (shouldComputeImage) { computeImage(scope, g); }
+		return result;
 	}
 
 	/**

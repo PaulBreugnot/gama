@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -15,6 +15,7 @@ import gama.common.ui.ILayer;
 import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 
+// TODO: Auto-generated Javadoc
 /**
  * Written by drogoul Modified on 9 nov. 2009
  *
@@ -25,13 +26,13 @@ public abstract class AbstractLayer implements ILayer {
 
 	/** The definition. */
 	protected ILayerStatement definition;
-	
+
 	/** The name. */
 	private String name;
-	
+
 	/** The has been drawn once. */
 	boolean hasBeenDrawnOnce;
-	
+
 	/** The data. */
 	private final ILayerData data;
 
@@ -46,11 +47,21 @@ public abstract class AbstractLayer implements ILayer {
 		data = createData();
 	}
 
+	/**
+	 * Gets the definition.
+	 *
+	 * @return the definition
+	 */
 	@Override
 	public ILayerStatement getDefinition() {
 		return definition;
 	}
 
+	/**
+	 * Gets the data.
+	 *
+	 * @return the data
+	 */
 	@Override
 	public ILayerData getData() {
 		return data;
@@ -65,15 +76,24 @@ public abstract class AbstractLayer implements ILayer {
 		return new LayerData(definition);
 	}
 
+	/**
+	 * Force redrawing once.
+	 */
 	@Override
 	public void forceRedrawingOnce() {
 		hasBeenDrawnOnce = false;
 	}
 
+	/**
+	 * Draw.
+	 *
+	 * @param scope the scope
+	 * @param g the g
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@Override
 	public void draw(final IScope scope, final IGraphics g) throws GamaRuntimeException {
 		if (shouldNotDraw(g)) return;
-		getData().compute(scope, g);
 		g.setAlpha(1 - getData().getTransparency(scope));
 		g.beginDrawingLayer(this);
 		privateDraw(scope, g);
@@ -89,8 +109,8 @@ public abstract class AbstractLayer implements ILayer {
 	 * @return true if ok to draw, false otherwise
 	 */
 	protected boolean shouldNotDraw(final IGraphics g) {
-		return hasBeenDrawnOnce && (!g.is2D() && !getData().isDynamic() || g.isNotReadyToUpdate());
-	}
+		return !getData().isVisible()
+				|| hasBeenDrawnOnce && (!g.is2D() && !getData().isDynamic() || g.isNotReadyToUpdate());	}
 
 	/**
 	 * Private draw.
@@ -101,11 +121,21 @@ public abstract class AbstractLayer implements ILayer {
 	 */
 	protected abstract void privateDraw(IScope scope, final IGraphics g) throws GamaRuntimeException;
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	@Override
 	public final String getName() {
 		return name;
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	@Override
 	public final void setName(final String name) {
 		this.name = name;

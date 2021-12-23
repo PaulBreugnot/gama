@@ -6,14 +6,12 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.outputs.layers;
 
 import gama.common.interfaces.IGamlIssue;
 import gama.common.interfaces.IKeyword;
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.ISymbolKind;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.facet;
@@ -21,6 +19,8 @@ import gama.core.dev.annotations.GamlAnnotations.facets;
 import gama.core.dev.annotations.GamlAnnotations.inside;
 import gama.core.dev.annotations.GamlAnnotations.symbol;
 import gama.core.dev.annotations.GamlAnnotations.usage;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.ISymbolKind;
 import gama.outputs.LayeredDisplayOutput;
 import gama.outputs.layers.ImageLayerStatement.ImageLayerValidator;
 import gama.runtime.IScope;
@@ -34,6 +34,7 @@ import gaml.expressions.IExpressionFactory;
 import gaml.operators.Cast;
 import gaml.types.IType;
 
+// TODO: Auto-generated Javadoc
 /**
  * Written by drogoul Modified on 9 nov. 2009
  *
@@ -69,6 +70,11 @@ import gaml.types.IType;
 						optional = true,
 						doc = @doc ("the transparency level of the layer (between 0 -- opaque -- and 1 -- fully transparent)")),
 				@facet (
+						name = IKeyword.VISIBLE,
+						type = IType.BOOL,
+						optional = true,
+						doc = @doc ("Defines whether this layer is visible or not")),
+				@facet (
 						name = IKeyword.NAME,
 						type = { IType.STRING, IType.FILE },
 						optional = true,
@@ -91,7 +97,7 @@ import gaml.types.IType;
 		omissible = IKeyword.NAME)
 @doc (
 		value = "`" + IKeyword.IMAGE
-				+ "` allows modeler to display an image (e.g. as background of a simulation). Note that this image will not be dynamically changed or moved in OpenGL, unless the refresh: facet is set to true.",
+		+ "` allows modeler to display an image (e.g. as background of a simulation). Note that this image will not be dynamically changed or moved in OpenGL, unless the refresh: facet is set to true.",
 		usages = { @usage (
 				value = "The general syntax is:",
 				examples = { @example (
@@ -152,6 +158,11 @@ public class ImageLayerStatement extends AbstractLayerStatement {
 	 */
 	public static class ImageLayerValidator implements IDescriptionValidator<StatementDescription> {
 
+		/**
+		 * Validate.
+		 *
+		 * @param description the description
+		 */
 		@Override
 		public void validate(final StatementDescription description) {
 			if (!description.hasFacet(GIS)) {
@@ -159,11 +170,9 @@ public class ImageLayerStatement extends AbstractLayerStatement {
 					description.error("Missing facets " + IKeyword.NAME + " or " + IKeyword.FILE,
 							IGamlIssue.MISSING_FACET, description.getUnderlyingElement(), FILE, "\"\"");
 				}
-			} else {
-				if (description.hasFacet(FILE)) {
-					description.error("gis: and file: cannot be defined at the same time",
-							IGamlIssue.CONFLICTING_FACETS);
-				}
+			} else if (description.hasFacet(FILE)) {
+				description.error("gis: and file: cannot be defined at the same time",
+						IGamlIssue.CONFLICTING_FACETS);
 			}
 		}
 
@@ -184,7 +193,9 @@ public class ImageLayerStatement extends AbstractLayerStatement {
 	}
 
 	/**
-	 * In this particular case, returns false by default;
+	 * In this particular case, returns false by default;.
+	 *
+	 * @return the refresh facet
 	 */
 	@Override
 	public IExpression getRefreshFacet() {
@@ -195,12 +206,25 @@ public class ImageLayerStatement extends AbstractLayerStatement {
 		return exp;
 	}
 
+	/**
+	 * Gets the type.
+	 *
+	 * @param output the output
+	 * @return the type
+	 */
 	@Override
 	public LayerType getType(final LayeredDisplayOutput output) {
-		if (hasFacet(IKeyword.GIS)) { return LayerType.GIS; }
+		if (hasFacet(IKeyword.GIS)) return LayerType.GIS;
 		return LayerType.IMAGE;
 	}
 
+	/**
+	 * Inits the.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	// FIXME Use GamaImageFile
 	@Override
 	public boolean _init(final IScope scope) throws GamaRuntimeException {
@@ -212,6 +236,13 @@ public class ImageLayerStatement extends AbstractLayerStatement {
 		return true;
 	}
 
+	/**
+	 * Step.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@Override
 	public boolean _step(final IScope scope) throws GamaRuntimeException {
 		return true;

@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -15,8 +15,6 @@ import java.util.List;
 
 import gama.common.interfaces.IGamlIssue;
 import gama.common.interfaces.IKeyword;
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.ISymbolKind;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.facet;
@@ -24,6 +22,8 @@ import gama.core.dev.annotations.GamlAnnotations.facets;
 import gama.core.dev.annotations.GamlAnnotations.inside;
 import gama.core.dev.annotations.GamlAnnotations.symbol;
 import gama.core.dev.annotations.GamlAnnotations.usage;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.ISymbolKind;
 import gama.outputs.LayeredDisplayOutput;
 import gama.outputs.layers.SpeciesLayerStatement.SpeciesLayerSerializer;
 import gama.outputs.layers.SpeciesLayerStatement.SpeciesLayerValidator;
@@ -47,6 +47,7 @@ import gaml.statements.IExecutable;
 import gaml.statements.IStatement;
 import gaml.types.IType;
 
+// TODO: Auto-generated Javadoc
 /**
  * Written by drogoul Modified on 9 nov. 2009
  *
@@ -83,6 +84,11 @@ import gaml.types.IType;
 						optional = true,
 						doc = @doc ("the transparency level of the layer (between 0 -- opaque -- and 1 -- fully transparent)")),
 				@facet (
+						name = IKeyword.VISIBLE,
+						type = IType.BOOL,
+						optional = true,
+						doc = @doc ("Defines whether this layer is visible or not")),
+				@facet (
 						name = IKeyword.TRACE,
 						type = { IType.BOOL, IType.INT },
 						optional = true,
@@ -110,7 +116,7 @@ import gaml.types.IType;
 		omissible = IKeyword.SPECIES)
 @doc (
 		value = "The `" + IKeyword.POPULATION
-				+ "` statement is used using the `species keyword`. It allows modeler to display all the agent of a given species in the current display. In particular, modeler can choose the aspect used to display them.",
+		+ "` statement is used using the `species keyword`. It allows modeler to display all the agent of a given species in the current display. In particular, modeler can choose the aspect used to display them.",
 		usages = { @usage (
 				value = "The general syntax is:",
 				examples = { @example (
@@ -167,6 +173,13 @@ public class SpeciesLayerStatement extends AgentLayerStatement {
 	 */
 	public static class SpeciesLayerSerializer extends SymbolSerializer<StatementDescription> {
 
+		/**
+		 * Serialize keyword.
+		 *
+		 * @param desc the desc
+		 * @param sb the sb
+		 * @param includingBuiltIn the including built in
+		 */
 		@Override
 		protected void serializeKeyword(final SymbolDescription desc, final StringBuilder sb,
 				final boolean includingBuiltIn) {
@@ -180,15 +193,18 @@ public class SpeciesLayerStatement extends AgentLayerStatement {
 	 */
 	public static class SpeciesLayerValidator implements IDescriptionValidator<StatementDescription> {
 
+		/**
+		 * Validate.
+		 *
+		 * @param description the description
+		 */
 		@Override
 		public void validate(final StatementDescription description) {
 			// IExpressionDescription ed = description.getFacet(SPECIES);
-			SpeciesDescription target = null;
+			SpeciesDescription target;
 			target = description.getGamlType().getDenotedSpecies();
-			if (target == null) {
-				// Already caught by the type checking
+			if (target == null) // Already caught by the type checking
 				return;
-			}
 			final IExpressionDescription ed = description.getFacet(ASPECT);
 			if (ed != null) {
 				final String a = description.getLitteral(ASPECT);
@@ -209,10 +225,10 @@ public class SpeciesLayerStatement extends AgentLayerStatement {
 
 	/** The host species. */
 	protected ISpecies hostSpecies;
-	
+
 	/** The species. */
 	protected ISpecies species;
-	
+
 	/** The micro species layers. */
 	protected List<SpeciesLayerStatement> microSpeciesLayers;
 
@@ -227,6 +243,13 @@ public class SpeciesLayerStatement extends AgentLayerStatement {
 		setName(getFacet(IKeyword.SPECIES).literalValue());
 	}
 
+	/**
+	 * Inits the.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@Override
 	public boolean _init(final IScope scope) throws GamaRuntimeException {
 		// top level species layer is a direct micro-species of "world_species"
@@ -238,25 +261,34 @@ public class SpeciesLayerStatement extends AgentLayerStatement {
 		if (species == null && hostSpecies != null) {
 			species = hostSpecies.getMicroSpecies(getName());
 		}
-		if (species == null) {
-			throw GamaRuntimeException.error("not a suitable species to display: " + getName(), scope);
-		}
-		if (super._init(scope)) {
-			if (microSpeciesLayers != null) {
-				for (final SpeciesLayerStatement microLayer : microSpeciesLayers) {
-					microLayer.hostSpecies = species;
-					if (!scope.init(microLayer).passed()) { return false; }
-				}
+		if (species == null) throw GamaRuntimeException.error("not a suitable species to display: " + getName(), scope);
+		if (super._init(scope) && (microSpeciesLayers != null)) {
+			for (final SpeciesLayerStatement microLayer : microSpeciesLayers) {
+				microLayer.hostSpecies = species;
+				if (!scope.init(microLayer).passed()) return false;
 			}
 		}
 		return true;
 	}
 
+	/**
+	 * Step.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@Override
 	public boolean _step(final IScope scope) throws GamaRuntimeException {
 		return true;
 	}
 
+	/**
+	 * Gets the type.
+	 *
+	 * @param output the output
+	 * @return the type
+	 */
 	@Override
 	public LayerType getType(final LayeredDisplayOutput output) {
 		return LayerType.SPECIES;
@@ -271,19 +303,35 @@ public class SpeciesLayerStatement extends AgentLayerStatement {
 		return species.getAspectNames();
 	}
 
+	/**
+	 * Sets the aspect.
+	 *
+	 * @param currentAspect the new aspect
+	 */
 	@Override
 	public void setAspect(final String currentAspect) {
 		super.setAspect(currentAspect);
 		aspect = species.getAspect(constantAspectName);
 	}
 
+	/**
+	 * Compute aspect name.
+	 *
+	 * @param sim the sim
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@Override
 	public void computeAspectName(final IScope sim) throws GamaRuntimeException {
-		if (aspect != null) { return; }
+		if (aspect != null) return;
 		super.computeAspectName(sim);
 		aspect = species.getAspect(constantAspectName);
 	}
 
+	/**
+	 * Gets the aspect.
+	 *
+	 * @return the aspect
+	 */
 	@Override
 	public IExecutable getAspect() {
 		return aspect;
@@ -298,6 +346,11 @@ public class SpeciesLayerStatement extends AgentLayerStatement {
 		return species;
 	}
 
+	/**
+	 * Sets the children.
+	 *
+	 * @param commands the new children
+	 */
 	@Override
 	public void setChildren(final Iterable<? extends ISymbol> commands) {
 		final List<IStatement> aspectStatements = new ArrayList<>();
@@ -330,6 +383,11 @@ public class SpeciesLayerStatement extends AgentLayerStatement {
 		return microSpeciesLayers;
 	}
 
+	/**
+	 * To string.
+	 *
+	 * @return the string
+	 */
 	@Override
 	public String toString() {
 		return "SpeciesDisplayLayer species: " + getName();

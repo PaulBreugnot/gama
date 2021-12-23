@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -24,6 +24,7 @@ import gaml.compilation.Symbol;
 import gaml.descriptions.IDescription;
 import gaml.expressions.IExpression;
 
+// TODO: Auto-generated Javadoc
 /**
  * Written by drogoul Modified on 9 nov. 2009
  *
@@ -38,18 +39,13 @@ public abstract class AbstractLayerStatement extends Symbol implements ILayerSta
 
 	/** The output. */
 	LayeredDisplayOutput output;
-	
-	/** The layer to create. */
-	protected boolean layerToCreate = true;
 
 	/**
 	 * Checks if is to create.
 	 *
 	 * @return true, if is to create
 	 */
-	public boolean isToCreate() {
-		return layerToCreate;
-	}
+	public boolean isToCreate() { return true; }
 
 	/**
 	 * Instantiates a new abstract layer statement.
@@ -62,16 +58,33 @@ public abstract class AbstractLayerStatement extends Symbol implements ILayerSta
 		setName(desc.getName());
 	}
 
+	/**
+	 * Gets the refresh facet.
+	 *
+	 * @return the refresh facet
+	 */
 	@Override
 	public IExpression getRefreshFacet() {
 		return getFacet(IKeyword.REFRESH);
 	}
 
+	/**
+	 * Compare to.
+	 *
+	 * @param o the o
+	 * @return the int
+	 */
 	@Override
 	public int compareTo(final ILayerStatement o) {
 		return Ints.compare(getOrder(), o.getOrder());
 	}
 
+	/**
+	 * Inits the.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 */
 	@Override
 	public final boolean init(final IScope scope) {
 		return _init(scope);
@@ -85,6 +98,11 @@ public abstract class AbstractLayerStatement extends Symbol implements ILayerSta
 	 */
 	protected abstract boolean _init(IScope scope);
 
+	/**
+	 * Sets the display output.
+	 *
+	 * @param out the new display output
+	 */
 	@Override
 	public void setDisplayOutput(final IDisplayOutput out) {
 		output = (LayeredDisplayOutput) out;
@@ -105,13 +123,20 @@ public abstract class AbstractLayerStatement extends Symbol implements ILayerSta
 	 * @return the layered display data
 	 */
 	public LayeredDisplayData getLayeredDisplayData() {
-		if (output == null) { return null; }
+		if (output == null) return null;
 		return output.getData();
 	}
 
+	/**
+	 * Step.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@Override
 	public final boolean step(final IScope scope) throws GamaRuntimeException {
-		if (!scope.interrupted()) { return _step(scope); }
+		if (!scope.interrupted()) return _step(scope);
 		return false;
 	}
 
@@ -123,6 +148,11 @@ public abstract class AbstractLayerStatement extends Symbol implements ILayerSta
 	 */
 	protected abstract boolean _step(IScope scope);
 
+	/**
+	 * Sets the children.
+	 *
+	 * @param children the new children
+	 */
 	@Override
 	public void setChildren(final Iterable<? extends ISymbol> children) {}
 

@@ -6,13 +6,11 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.outputs.layers;
 
 import gama.common.interfaces.IKeyword;
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.ISymbolKind;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.facet;
@@ -20,12 +18,15 @@ import gama.core.dev.annotations.GamlAnnotations.facets;
 import gama.core.dev.annotations.GamlAnnotations.inside;
 import gama.core.dev.annotations.GamlAnnotations.symbol;
 import gama.core.dev.annotations.GamlAnnotations.usage;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.ISymbolKind;
 import gama.outputs.LayeredDisplayOutput;
 import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gaml.descriptions.IDescription;
 import gaml.types.IType;
 
+// TODO: Auto-generated Javadoc
 /**
  * Written by drogoul Modified on 9 nov. 2009
  *
@@ -65,6 +66,11 @@ import gaml.types.IType;
 						type = IType.FLOAT,
 						optional = true,
 						doc = @doc ("the transparency level of the layer (between 0 -- opaque -- and 1 -- fully transparent)")),
+				@facet (
+						name = IKeyword.VISIBLE,
+						type = IType.BOOL,
+						optional = true,
+						doc = @doc ("Defines whether this layer is visible or not")),
 				@facet (
 						name = IKeyword.BORDER,
 						type = IType.COLOR,
@@ -144,16 +150,36 @@ public class MeshLayerStatement extends AbstractLayerStatement {
 		setName(getFacet(IKeyword.SOURCE).literalValue());
 	}
 
+	/**
+	 * Inits the.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@Override
 	public boolean _init(final IScope scope) throws GamaRuntimeException {
 		return true;
 	}
 
+	/**
+	 * Gets the type.
+	 *
+	 * @param out the out
+	 * @return the type
+	 */
 	@Override
 	public LayerType getType(final LayeredDisplayOutput out) {
 		return LayerType.MESH;
 	}
 
+	/**
+	 * Step.
+	 *
+	 * @param sim the sim
+	 * @return true, if successful
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@Override
 	public boolean _step(final IScope sim) throws GamaRuntimeException {
 		return true;

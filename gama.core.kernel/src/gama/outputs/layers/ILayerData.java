@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -19,6 +19,7 @@ import gama.metamodel.shape.GamaPoint;
 import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 
+// TODO: Auto-generated Javadoc
 /**
  * The class IDisplayLayerBox.
  *
@@ -33,9 +34,10 @@ public interface ILayerData {
 	 *
 	 * @param sim the sim
 	 * @param g the g
+	 * @return true, if successful
 	 * @throws GamaRuntimeException the gama runtime exception
 	 */
-	void compute(final IScope sim, IGraphics g) throws GamaRuntimeException;
+	boolean compute(final IScope sim, IGraphics g) throws GamaRuntimeException;
 
 	/**
 	 * Sets the transparency.
@@ -204,5 +206,20 @@ public interface ILayerData {
 	default boolean isDynamic() {
 		return getRefresh() == null || getRefresh();
 	}
+
+	/**
+	 * Checks if is visible.
+	 *
+	 * @return true, if is visible
+	 */
+	Boolean isVisible();
+
+	/**
+	 * Sets the visible.
+	 *
+	 * @param b
+	 *            the new visible
+	 */
+	void setVisible(Boolean b);
 
 }

@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -15,8 +15,6 @@ import static gaml.expressions.IExpressionFactory.TRUE_EXPR;
 
 import gama.common.interfaces.IGamlIssue;
 import gama.common.interfaces.IKeyword;
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.ISymbolKind;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.facet;
@@ -24,6 +22,8 @@ import gama.core.dev.annotations.GamlAnnotations.facets;
 import gama.core.dev.annotations.GamlAnnotations.inside;
 import gama.core.dev.annotations.GamlAnnotations.symbol;
 import gama.core.dev.annotations.GamlAnnotations.usage;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.ISymbolKind;
 import gama.outputs.LayeredDisplayOutput;
 import gama.outputs.layers.GridLayerStatement.GridLayerSerializer;
 import gama.outputs.layers.GridLayerStatement.GridLayerValidator;
@@ -43,6 +43,7 @@ import gaml.expressions.IExpression;
 import gaml.types.IType;
 import gaml.types.Types;
 
+// TODO: Auto-generated Javadoc
 /**
  * Written by drogoul Modified on 9 nov. 2009
  *
@@ -78,6 +79,11 @@ import gaml.types.Types;
 						type = IType.FLOAT,
 						optional = true,
 						doc = @doc ("the transparency level of the layer (between 0 -- opaque -- and 1 -- fully transparent)")),
+				@facet (
+						name = IKeyword.VISIBLE,
+						type = IType.BOOL,
+						optional = true,
+						doc = @doc ("Defines whether this layer is visible or not")),
 				@facet (
 						name = IKeyword.SPECIES,
 						type = IType.SPECIES,
@@ -164,7 +170,7 @@ import gaml.types.Types;
 		omissible = IKeyword.SPECIES)
 @doc (
 		value = "`" + IKeyword.GRID_POPULATION + "` is used using the `" + IKeyword.GRID
-				+ "` keyword. It allows the modeler to display in an optimized way all cell agents of a grid (i.e. all agents of a species having a grid topology).",
+		+ "` keyword. It allows the modeler to display in an optimized way all cell agents of a grid (i.e. all agents of a species having a grid topology).",
 		usages = { @usage (
 				value = "The general syntax is:",
 				examples = { @example (
@@ -198,6 +204,13 @@ public class GridLayerStatement extends AbstractLayerStatement {
 	 */
 	public static class GridLayerSerializer extends SymbolSerializer<SymbolDescription> {
 
+		/**
+		 * Serialize keyword.
+		 *
+		 * @param desc the desc
+		 * @param sb the sb
+		 * @param includingBuiltIn the including built in
+		 */
 		@Override
 		protected void serializeKeyword(final SymbolDescription desc, final StringBuilder sb,
 				final boolean includingBuiltIn) {
@@ -211,6 +224,11 @@ public class GridLayerStatement extends AbstractLayerStatement {
 	 */
 	public static class GridLayerValidator implements IDescriptionValidator<StatementDescription> {
 
+		/**
+		 * Validate.
+		 *
+		 * @param d the d
+		 */
 		@Override
 		public void validate(final StatementDescription d) {
 			final IExpressionDescription empty = d.getFacet(IKeyword.EMPTY);
@@ -262,6 +280,13 @@ public class GridLayerStatement extends AbstractLayerStatement {
 		isFlatGrid = desc.hasFacet("flat");
 	}
 
+	/**
+	 * Inits the.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@Override
 	public boolean _init(final IScope scope) throws GamaRuntimeException {
 		return true;
@@ -278,11 +303,24 @@ public class GridLayerStatement extends AbstractLayerStatement {
 		return isOpenGL && isFlatGrid;
 	}
 
+	/**
+	 * Gets the type.
+	 *
+	 * @param out the out
+	 * @return the type
+	 */
 	@Override
 	public LayerType getType(final LayeredDisplayOutput out) {
 		return isHexagonal || isOpenGLFlatGrid(out) ? LayerType.GRID_AGENTS : LayerType.GRID;
 	}
 
+	/**
+	 * Step.
+	 *
+	 * @param sim the sim
+	 * @return true, if successful
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@Override
 	public boolean _step(final IScope sim) throws GamaRuntimeException {
 		return true;

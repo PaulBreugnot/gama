@@ -6,13 +6,11 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.outputs.layers;
 
 import gama.common.interfaces.IKeyword;
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.ISymbolKind;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.facet;
@@ -20,6 +18,8 @@ import gama.core.dev.annotations.GamlAnnotations.facets;
 import gama.core.dev.annotations.GamlAnnotations.inside;
 import gama.core.dev.annotations.GamlAnnotations.symbol;
 import gama.core.dev.annotations.GamlAnnotations.usage;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.ISymbolKind;
 import gama.outputs.LayeredDisplayOutput;
 import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
@@ -29,6 +29,7 @@ import gaml.factories.DescriptionFactory;
 import gaml.statements.AspectStatement;
 import gaml.types.IType;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GraphicLayerStatement.
  */
@@ -65,6 +66,11 @@ import gaml.types.IType;
 						type = IType.FLOAT,
 						optional = true,
 						doc = @doc ("the transparency level of the layer (between 0 -- opaque -- and 1 -- fully transparent)")),
+				@facet (
+						name = IKeyword.VISIBLE,
+						type = IType.BOOL,
+						optional = true,
+						doc = @doc ("Defines whether this layer is visible or not")),
 				@facet (
 						name = IKeyword.NAME,
 						type = IType.LABEL,
@@ -104,7 +110,7 @@ public class GraphicLayerStatement extends AbstractLayerStatement {
 
 	/** The aspect. */
 	AspectStatement aspect;
-	
+
 	/** The Layer index. */
 	static int LayerIndex;
 
@@ -121,6 +127,11 @@ public class GraphicLayerStatement extends AbstractLayerStatement {
 		aspect = new AspectStatement(d);
 	}
 
+	/**
+	 * Sets the children.
+	 *
+	 * @param children the new children
+	 */
 	@Override
 	public void setChildren(final Iterable<? extends ISymbol> children) {
 		aspect.setChildren(children);
@@ -135,16 +146,34 @@ public class GraphicLayerStatement extends AbstractLayerStatement {
 		return aspect;
 	}
 
+	/**
+	 * Gets the type.
+	 *
+	 * @param output the output
+	 * @return the type
+	 */
 	@Override
 	public LayerType getType(final LayeredDisplayOutput output) {
 		return LayerType.GRAPHICS;
 	}
 
+	/**
+	 * Inits the.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 */
 	@Override
 	protected boolean _init(final IScope scope) {
 		return true;
 	}
 
+	/**
+	 * Step.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 */
 	@Override
 	protected boolean _step(final IScope scope) {
 		return true;

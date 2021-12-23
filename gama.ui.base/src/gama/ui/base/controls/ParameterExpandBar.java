@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.base.controls;
 
@@ -33,6 +33,7 @@ import gama.ui.base.resources.GamaIcons;
 import gama.ui.base.resources.IGamaIcons;
 import gama.ui.base.utils.WorkbenchHelper;
 
+// TODO: Auto-generated Javadoc
 /**
  * Instances of this class support the layout of selectable expand bar items.
  * <p>
@@ -46,8 +47,9 @@ public class ParameterExpandBar extends Composite {
 	}
 
 	/**
-	 * Method setFocus()
+	 * Method setFocus().
 	 *
+	 * @return true, if successful
 	 * @see org.eclipse.swt.widgets.Composite#setFocus()
 	 */
 	@Override
@@ -59,37 +61,37 @@ public class ParameterExpandBar extends Composite {
 
 	/** The items. */
 	private ParameterExpandItem[] items;
-	
+
 	/** The hover item. */
 	private ParameterExpandItem focusItem, hoverItem;
-	
+
 	/** The item count. */
 	private int spacing, yCurrentScroll, itemCount;
-	
+
 	/** The listener. */
 	private final Listener listener;
-	
+
 	/** The in dispose. */
 	private boolean inDispose;
-	
+
 	/** The has closable toggle. */
 	final boolean hasClosableToggle;
-	
+
 	/** The has pausable toggle. */
 	final boolean hasPausableToggle;
-	
+
 	/** The has selectable toggle. */
 	final boolean hasSelectableToggle;
-	
+
 	/** The has visible toggle. */
 	final boolean hasVisibleToggle;
-	
+
 	/** The underlying objects. */
 	private final ItemList underlyingObjects;
-	
+
 	/** The band height. */
 	int bandHeight = ParameterExpandItem.CHEVRON_SIZE;
-	
+
 	/** The ignore mouse up. */
 	private boolean ignoreMouseUp;
 
@@ -182,6 +184,9 @@ public class ParameterExpandBar extends Composite {
 		if (verticalBar != null) { verticalBar.addListener(SWT.Selection, this::onScroll); }
 	}
 
+	/**
+	 * Check subclass.
+	 */
 	@Override
 	protected void checkSubclass() {}
 	//
@@ -401,6 +406,11 @@ public class ParameterExpandBar extends Composite {
 
 	}
 
+	/**
+	 * Sets the font.
+	 *
+	 * @param font the new font
+	 */
 	@Override
 	public void setFont(final Font font) {
 		super.setFont(font);
@@ -557,21 +567,19 @@ public class ParameterExpandBar extends Composite {
 				final Map<String, Runnable> menuContents = underlyingObjects.handleMenu(item.getData(), p.x, p.y);
 				if (menuContents == null)
 					return;
-				else {
-					final var menu = new Menu(getShell(), SWT.POP_UP);
+				final var menu = new Menu(getShell(), SWT.POP_UP);
 
-					for (final Map.Entry<String, Runnable> entry : menuContents.entrySet()) {
-						final var menuItem = new MenuItem(menu, SWT.PUSH);
-						menuItem.setText(entry.getKey());
-						menuItem.addListener(SWT.Selection, e -> entry.getValue().run());
-					}
-					menu.setLocation(p.x, p.y);
-					menu.setVisible(true);
-					while (!menu.isDisposed() && menu.isVisible()) {
-						if (!WorkbenchHelper.getDisplay().readAndDispatch()) { WorkbenchHelper.getDisplay().sleep(); }
-					}
-					menu.dispose();
+				for (final Map.Entry<String, Runnable> entry : menuContents.entrySet()) {
+					final var menuItem = new MenuItem(menu, SWT.PUSH);
+					menuItem.setText(entry.getKey());
+					menuItem.addListener(SWT.Selection, e -> entry.getValue().run());
 				}
+				menu.setLocation(p.x, p.y);
+				menu.setVisible(true);
+				while (!menu.isDisposed() && menu.isVisible()) {
+					if (!WorkbenchHelper.getDisplay().readAndDispatch()) { WorkbenchHelper.getDisplay().sleep(); }
+				}
+				menu.dispose();
 			}
 		}
 	}
@@ -603,13 +611,7 @@ public class ParameterExpandBar extends Composite {
 			}
 			if (hasVisibleToggle && item.visibleRequested(x, y)) {
 				ignoreMouseUp = true;
-				if (item.isVisible) {
-					if (underlyingObjects != null) { underlyingObjects.makeItemVisible(item.getData(), false); }
-					item.isVisible = false;
-				} else {
-					if (underlyingObjects != null) { underlyingObjects.makeItemVisible(item.getData(), true); }
-					item.isVisible = true;
-				}
+				if (underlyingObjects != null) { underlyingObjects.makeItemVisible(item.getData(), !isVisible(item)); }
 				showItem(item);
 				return;
 			}
@@ -739,6 +741,16 @@ public class ParameterExpandBar extends Composite {
 				return;
 			}
 		}
+	}
+
+	/**
+	 * Checks if is visible.
+	 *
+	 * @param item the item
+	 * @return true, if is visible
+	 */
+	public boolean isVisible(final ParameterExpandItem item) {
+		return underlyingObjects == null ? true : underlyingObjects.isItemVisible(item.getData());
 	}
 
 	// final Color backgroundColor =

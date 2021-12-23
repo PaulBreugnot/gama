@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.common.ui;
 
@@ -29,6 +29,7 @@ import gama.outputs.layers.ILayerStatement;
 import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 
+// TODO: Auto-generated Javadoc
 /**
  * Represents the concrete layers that are displayed on IDisplaySurface's and managed by its ILayerManager.
  *
@@ -112,7 +113,9 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	 * @param surface
 	 *            the display surface on which this layer is drawn
 	 */
-	default void enableOn(final IDisplaySurface surface) {}
+	default void enableOn(final IDisplaySurface surface) {
+		getData().setVisible(true);
+	}
 
 	/**
 	 * Indicates that this layer has been disabled on the surfaces. Useful when layers "hook" on the surface (for
@@ -122,7 +125,7 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	 *            the display surface on which this layer is drawn
 	 */
 	default void disableOn(final IDisplaySurface surface) {
-		forceRedrawingOnce();
+		getData().setVisible(false);
 	}
 
 	/**
@@ -185,6 +188,7 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	 * @return true if {x,y} is inside the layer, false otherwise
 	 */
 	default boolean containsScreenPoint(final int x, final int y) {
+		if (!getData().isVisible()) return false;
 		final Point p = getData().getPositionInPixels();
 		final Point s = getData().getSizeInPixels();
 		return x >= p.x && y >= p.y && x <= p.x + s.x && y <= p.y + s.y;

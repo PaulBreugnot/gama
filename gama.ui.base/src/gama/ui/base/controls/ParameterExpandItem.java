@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.base.controls;
 
@@ -22,12 +22,13 @@ import org.eclipse.swt.widgets.Item;
 
 import gama.common.interfaces.ItemList;
 import gama.ui.base.resources.GamaColors;
+import gama.ui.base.resources.GamaColors.GamaUIColor;
 import gama.ui.base.resources.GamaIcons;
 import gama.ui.base.resources.IGamaColors;
 import gama.ui.base.resources.IGamaIcons;
-import gama.ui.base.resources.GamaColors.GamaUIColor;
 import gama.ui.base.utils.ThemeHelper;
 
+// TODO: Auto-generated Javadoc
 /**
  * Instances of this class represent a selectable user interface object that represents a expandable item in a expand
  * bar.
@@ -36,55 +37,52 @@ public class ParameterExpandItem extends Item {
 
 	/** The parent. */
 	private ParameterExpandBar parent;
-	
+
 	/** The control. */
 	Composite control;
-	
+
 	/** The expanded. */
 	boolean expanded;
-	
+
 	/** The height. */
 	int x, y, width, height;
-	
+
 	/** The pause position. */
 	int pausePosition = -1;
-	
+
 	/** The visible position. */
 	int visiblePosition = -1;
-	
+
 	/** The selectable position. */
 	int selectablePosition = -1;
-	
+
 	/** The close position. */
 	int closePosition = -1;
-	
+
 	/** The header color. */
 	Color headerColor = ThemeHelper.isDark() ? IGamaColors.DARK_GRAY.color() : IGamaColors.VERY_LIGHT_GRAY.color();
 
 	/** The image width. */
 	private static int imageHeight = 16, imageWidth = 16;
-	
+
 	/** The is paused. */
 	boolean isPaused = false;
-	
-	/** The is visible. */
-	boolean isVisible = true;
-	
+
 	/** The is selectable. */
 	boolean isSelectable = true;
-	
+
 	/** The on expand block. */
 	private Runnable onExpandBlock;
-	
+
 	/** The Constant TEXT_INSET. */
 	private static final int TEXT_INSET = 4;
-	
+
 	/** The Constant SEPARATION. */
 	private static final int SEPARATION = 3;
-	
+
 	/** The Constant BORDER. */
 	static final int BORDER = 4;
-	
+
 	/** The Constant CHEVRON_SIZE. */
 	static final int CHEVRON_SIZE = 20;
 
@@ -119,6 +117,9 @@ public class ParameterExpandItem extends Item {
 		parent.createItem(this, style, index);
 	}
 
+	/**
+	 * Dispose.
+	 */
 	@Override
 	public void dispose() {
 		if (isDisposed()) return;
@@ -175,11 +176,10 @@ public class ParameterExpandItem extends Item {
 		}
 
 		if (parent.hasVisibleToggle) {
-			final var image =
-					isVisible ? GamaIcons.create("small.inspect").image() : GamaIcons.create("small.hidden").image();
-			endX -= 2 * TEXT_INSET + imageWidth;
-			visiblePosition = endX;
-			gc.drawImage(image, endX, imageY);
+			final var image = parent.isVisible(this) ? GamaIcons.create("small.inspect").image()
+					: GamaIcons.create("small.hidden").image();			endX -= 2 * TEXT_INSET + imageWidth;
+					visiblePosition = endX;
+					gc.drawImage(image, endX, imageY);
 		}
 		if (parent.hasSelectableToggle) {
 			final var image = isSelectable ? GamaIcons.create("small.selectable").image()
@@ -374,6 +374,11 @@ public class ParameterExpandItem extends Item {
 		parent.showItem(this);
 	}
 
+	/**
+	 * Sets the image.
+	 *
+	 * @param image the new image
+	 */
 	@Override
 	public void setImage(final Image image) {
 		super.setImage(image);
@@ -405,6 +410,11 @@ public class ParameterExpandItem extends Item {
 		if (expanded && parent != null) { parent.layoutItems(parent.indexOf(this) + 1, true); }
 	}
 
+	/**
+	 * Sets the text.
+	 *
+	 * @param string the new text
+	 */
 	@Override
 	public void setText(final String string) {
 		super.setText(string);

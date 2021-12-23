@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gaml.statements.draw;
 
@@ -20,6 +20,7 @@ import gaml.expressions.IExpression;
 import gaml.types.IType;
 import gaml.types.Types;
 
+// TODO: Auto-generated Javadoc
 /**
  * A class that facilitates the development of classes holding attributes declared in symbols' facets.
  *
@@ -29,7 +30,7 @@ public abstract class AttributeHolder {
 
 	/** The attributes. */
 	final Map<String, Attribute<?>> attributes = new HashMap<>(10);
-	
+
 	/** The symbol. */
 	final ISymbol symbol;
 
@@ -43,9 +44,10 @@ public abstract class AttributeHolder {
 		/**
 		 * Refresh.
 		 *
+		 * @param name the name
 		 * @param scope the scope
 		 */
-		void refresh(final IScope scope);
+		void refresh(final String name, final IScope scope);
 
 		/**
 		 * Gets the.
@@ -61,7 +63,7 @@ public abstract class AttributeHolder {
 	 * @param <V> the value type
 	 */
 	public interface IExpressionWrapper<V> {
-		
+
 		/**
 		 * Value.
 		 *
@@ -77,8 +79,8 @@ public abstract class AttributeHolder {
 	 *
 	 * @param <V> the value type
 	 */
-	public class ConstantAttribute<V> implements Attribute<V> {
-		
+	public static class ConstantAttribute<V> implements Attribute<V> {
+
 		/** The value. */
 		private final V value;
 
@@ -91,14 +93,31 @@ public abstract class AttributeHolder {
 			this.value = value;
 		}
 
+		/**
+		 * Refresh.
+		 *
+		 * @param name the name
+		 * @param scope the scope
+		 */
 		@Override
-		public void refresh(final IScope scope) {}
+		public void refresh(final String name, final IScope scope) {}
 
+		/**
+		 * Value.
+		 *
+		 * @param scope the scope
+		 * @return the v
+		 */
 		@Override
 		public V value(final IScope scope) {
 			return value;
 		}
 
+		/**
+		 * Gets the.
+		 *
+		 * @return the v
+		 */
 		@Override
 		public V get() {
 			return value;
@@ -112,38 +131,56 @@ public abstract class AttributeHolder {
 	 * @param <T> the generic type
 	 * @param <V> the value type
 	 */
-	class ExpressionAttribute<T extends IType<V>, V> implements Attribute<V> {
-		
+	static class ExpressionAttribute<T extends IType<V>, V> implements Attribute<V> {
+
 		/** The expression. */
 		final IExpression expression;
-		
+
 		/** The return type. */
 		final T returnType;
-		
+
 		/** The value. */
-		private V value;
+		private volatile V value;
 
 		/**
 		 * Instantiates a new expression attribute.
 		 *
 		 * @param type the type
 		 * @param ev the ev
+		 * @param init the init
 		 */
-		public ExpressionAttribute(final T type, final IExpression ev) {
+		public ExpressionAttribute(final T type, final IExpression ev, final V init) {
 			expression = ev;
 			returnType = type;
 		}
 
+		/**
+		 * Value.
+		 *
+		 * @param scope the scope
+		 * @return the v
+		 */
 		@Override
 		public V value(final IScope scope) {
 			return returnType.cast(scope, expression.value(scope), null, false);
 		}
 
+		/**
+		 * Refresh.
+		 *
+		 * @param name the name
+		 * @param scope the scope
+		 */
 		@Override
-		public void refresh(final IScope scope) {
+		public void refresh(final String name, final IScope scope) {
 			value = value(scope);
 		}
 
+		/**
+		 * Gets the.
+		 *
+		 * @return the v
+		 */
 		@Override
 		public V get() {
 			return value;
@@ -156,14 +193,14 @@ public abstract class AttributeHolder {
 	 *
 	 * @param <V> the value type
 	 */
-	class ExpressionEvaluator<V> implements Attribute<V> {
-		
+	static class ExpressionEvaluator<V> implements Attribute<V> {
+
 		/** The evaluator. */
 		final IExpressionWrapper<V> evaluator;
-		
+
 		/** The facet. */
 		final IExpression facet;
-		
+
 		/** The value. */
 		private V value;
 
@@ -178,16 +215,33 @@ public abstract class AttributeHolder {
 			facet = expression;
 		}
 
+		/**
+		 * Value.
+		 *
+		 * @param scope the scope
+		 * @return the v
+		 */
 		@Override
 		public V value(final IScope scope) {
 			return evaluator.value(scope, facet);
 		}
 
+		/**
+		 * Refresh.
+		 *
+		 * @param name the name
+		 * @param scope the scope
+		 */
 		@Override
-		public void refresh(final IScope scope) {
+		public void refresh(final String name, final IScope scope) {
 			value = value(scope);
 		}
 
+		/**
+		 * Gets the.
+		 *
+		 * @return the v
+		 */
 		@Override
 		public V get() {
 			return value;
@@ -202,7 +256,7 @@ public abstract class AttributeHolder {
 	 * @return the attribute holder
 	 */
 	public AttributeHolder refresh(final IScope scope) {
-		attributes.forEach((name, attribute) -> attribute.refresh(scope));
+		attributes.forEach((name, attribute) -> { attribute.refresh(name, scope); });
 		return this;
 	}
 
@@ -241,7 +295,7 @@ public abstract class AttributeHolder {
 	 */
 	protected <T extends IType<V>, V> Attribute<V> create(final String facet, final T type, final V def) {
 		final IExpression exp = symbol.getFacet(facet);
-		return create(facet, exp, type, def, (e) -> type.cast(null, e.getConstValue(), null, true));
+		return create(facet, exp, type, def, e -> type.cast(null, e.getConstValue(), null, true));
 	}
 
 	/**
@@ -265,7 +319,7 @@ public abstract class AttributeHolder {
 		if (exp == null || exp.isConst() && exp.isContextIndependant() && exp.getGamlType() != Types.BOOL) {
 			result = new ConstantAttribute<>(exp == null ? def : constCaster.apply(exp));
 		} else {
-			result = new ExpressionAttribute<>(type, exp);
+			result = new ExpressionAttribute<>(type, exp, def);
 		}
 		attributes.put(facet, result);
 		return result;

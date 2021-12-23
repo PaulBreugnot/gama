@@ -1287,6 +1287,9 @@ public interface IKeyword {
 	/** The vertex. */
 	String VERTEX = "vertex";
 
+	/** The visible. */
+	String VISIBLE = "visible";
+
 	/** The virtual. */
 	String VIRTUAL = "virtual";
 

@@ -6,14 +6,12 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.outputs.layers;
 
 import gama.common.interfaces.IGamlIssue;
 import gama.common.interfaces.IKeyword;
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.ISymbolKind;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.facet;
@@ -21,7 +19,8 @@ import gama.core.dev.annotations.GamlAnnotations.facets;
 import gama.core.dev.annotations.GamlAnnotations.inside;
 import gama.core.dev.annotations.GamlAnnotations.symbol;
 import gama.core.dev.annotations.GamlAnnotations.usage;
-import gama.metamodel.shape.GamaPoint;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.ISymbolKind;
 import gama.outputs.LayeredDisplayOutput;
 import gama.outputs.layers.LightStatement.LightStatementValidator;
 import gama.runtime.IScope;
@@ -38,6 +37,7 @@ import gaml.statements.AspectStatement;
 import gaml.types.IType;
 import gaml.types.Types;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class LightStatement.
  */
@@ -128,8 +128,9 @@ public class LightStatement extends AbstractLayerStatement {
 	public static class LightStatementValidator implements IDescriptionValidator<IDescription> {
 
 		/**
-		 * Method validate()
+		 * Method validate().
 		 *
+		 * @param desc the desc
 		 * @see gaml.compilation.IDescriptionValidator#validate(gaml.descriptions.IDescription)
 		 */
 		@Override
@@ -184,10 +185,10 @@ public class LightStatement extends AbstractLayerStatement {
 
 	/** The aspect. */
 	AspectStatement aspect;
-	
+
 	/** The i. */
 	static int i;
-	
+
 	/** The update. */
 	boolean update = true;
 
@@ -199,20 +200,31 @@ public class LightStatement extends AbstractLayerStatement {
 	 */
 	public LightStatement(final IDescription desc) throws GamaRuntimeException {
 		super(desc);
-		layerToCreate = false;
 		final IDescription d = DescriptionFactory.create(IKeyword.ASPECT, desc, IKeyword.NAME, "graphic_aspect" + i++);
 		aspect = new AspectStatement(d);
 	}
+
+	/**
+	 * Checks if is to create.
+	 *
+	 * @return true, if is to create
+	 */
+	@Override
+	public boolean isToCreate() { return false; }
 
 	/**
 	 * Gets the aspect.
 	 *
 	 * @return the aspect
 	 */
-	public AspectStatement getAspect() {
-		return aspect;
-	}
+	public AspectStatement getAspect() { return aspect; }
 
+	/**
+	 * Inits the.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 */
 	@Override
 	protected boolean _init(final IScope scope) {
 		if (getFacetValue(scope, IKeyword.UPDATE) != null) {
@@ -222,11 +234,23 @@ public class LightStatement extends AbstractLayerStatement {
 		return true;
 	}
 
+	/**
+	 * Gets the type.
+	 *
+	 * @param output the output
+	 * @return the type
+	 */
 	@Override
 	public LayerType getType(final LayeredDisplayOutput output) {
 		return LayerType.LIGHT;
 	}
 
+	/**
+	 * Step.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 */
 	@Override
 	protected boolean _step(final IScope scope) {
 		if (update) {

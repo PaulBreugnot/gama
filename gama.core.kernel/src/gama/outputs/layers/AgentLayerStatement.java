@@ -6,7 +6,7 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -15,8 +15,6 @@ import java.util.List;
 
 import gama.common.interfaces.IGamlIssue;
 import gama.common.interfaces.IKeyword;
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.ISymbolKind;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.facet;
@@ -24,6 +22,8 @@ import gama.core.dev.annotations.GamlAnnotations.facets;
 import gama.core.dev.annotations.GamlAnnotations.inside;
 import gama.core.dev.annotations.GamlAnnotations.symbol;
 import gama.core.dev.annotations.GamlAnnotations.usage;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.ISymbolKind;
 import gama.outputs.LayeredDisplayOutput;
 import gama.outputs.layers.AgentLayerStatement.AgentLayerValidator;
 import gama.runtime.IScope;
@@ -43,6 +43,7 @@ import gaml.statements.IExecutable;
 import gaml.statements.IStatement;
 import gaml.types.IType;
 
+// TODO: Auto-generated Javadoc
 /**
  * Written by drogoul Modified on 9 nov. 2009
  *
@@ -95,6 +96,11 @@ import gaml.types.IType;
 						optional = true,
 						doc = @doc ("the transparency level of the layer (between 0 -- opaque -- and 1 -- fully transparent)")),
 				@facet (
+						name = IKeyword.VISIBLE,
+						type = IType.BOOL,
+						optional = true,
+						doc = @doc ("Defines whether this layer is visible or not")),
+				@facet (
 						name = IKeyword.NAME,
 						type = IType.LABEL,
 						optional = true,
@@ -118,7 +124,7 @@ import gaml.types.IType;
 @validator (AgentLayerValidator.class)
 @doc (
 		value = "`" + IKeyword.AGENTS
-				+ "` allows the modeler to display only the agents that fulfill a given condition.",
+		+ "` allows the modeler to display only the agents that fulfill a given condition.",
 		usages = { @usage (
 				value = "The general syntax is:",
 				examples = { @example (
@@ -151,31 +157,28 @@ public class AgentLayerStatement extends AbstractLayerStatement {
 	public static class AgentLayerValidator implements IDescriptionValidator<StatementDescription> {
 
 		/**
-		 * Method validate()
+		 * Method validate().
 		 *
+		 * @param description the description
 		 * @see gaml.compilation.IDescriptionValidator#validate(gaml.descriptions.IDescription)
 		 */
 		@Override
 		public void validate(final StatementDescription description) {
 			// Should be broken down in subclasses
 			IExpressionDescription ed = description.getFacet(VALUE);
-			SpeciesDescription target = null;
-			if (ed == null || ed.getExpression() == null) { return; }
+			SpeciesDescription target;
+			if (ed == null || ed.getExpression() == null) return;
 			target = ed.getExpression().getGamlType().getContentType().getSpecies();
-			if (target == null) {
-				// Already caught by the type checking
+			if (target == null) // Already caught by the type checking
 				return;
-			}
 			ed = description.getFacet(ASPECT);
 			if (ed != null) {
 				final String a = description.getLitteral(ASPECT);
 				if (target.getAspect(a) != null) {
 					ed.compileAsLabel();
-				} else {
-					if (a != null && !a.equals(DEFAULT)) {
-						description.error(a + " is not the name of an aspect of " + target.getName(),
-								IGamlIssue.GENERAL, description.getFacet(ASPECT).getTarget());
-					}
+				} else if (a != null && !a.equals(DEFAULT)) {
+					description.error(a + " is not the name of an aspect of " + target.getName(),
+							IGamlIssue.GENERAL, description.getFacet(ASPECT).getTarget());
 				}
 
 			}
@@ -185,13 +188,13 @@ public class AgentLayerStatement extends AbstractLayerStatement {
 
 	/** The agents expr. */
 	private IExpression agentsExpr;
-	
+
 	/** The constant aspect name. */
 	protected String constantAspectName = null;
-	
+
 	/** The aspect expr. */
 	protected IExpression aspectExpr;
-	
+
 	/** The aspect. */
 	private IExecutable aspect = null;
 
@@ -213,17 +216,35 @@ public class AgentLayerStatement extends AbstractLayerStatement {
 		}
 	}
 
+	/**
+	 * Step.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean _step(final IScope scope) {
 		return true;
 	}
 
+	/**
+	 * Inits the.
+	 *
+	 * @param scope the scope
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean _init(final IScope scope) {
 		computeAspectName(scope);
 		return true;
 	}
 
+	/**
+	 * Gets the type.
+	 *
+	 * @param output the output
+	 * @return the type
+	 */
 	@Override
 	public LayerType getType(final LayeredDisplayOutput output) {
 		return LayerType.AGENTS;
@@ -238,7 +259,7 @@ public class AgentLayerStatement extends AbstractLayerStatement {
 	public void computeAspectName(final IScope scope) throws GamaRuntimeException {
 		final String aspectName = constantAspectName == null
 				? aspectExpr == null ? IKeyword.DEFAULT : Cast.asString(scope, aspectExpr.value(scope))
-				: constantAspectName;
+						: constantAspectName;
 		setAspect(aspectName);
 	}
 
@@ -287,6 +308,11 @@ public class AgentLayerStatement extends AbstractLayerStatement {
 		return aspect;
 	}
 
+	/**
+	 * Sets the children.
+	 *
+	 * @param commands the new children
+	 */
 	@Override
 	public void setChildren(final Iterable<? extends ISymbol> commands) {
 		final List<IStatement> aspectStatements = new ArrayList<>();

@@ -6,16 +6,14 @@
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.outputs.display;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import gama.common.interfaces.IKeyword;
 import gama.common.ui.IDisplaySurface;
@@ -40,8 +38,8 @@ import gama.outputs.layers.charts.ChartLayer;
 import gama.runtime.GAMA;
 import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
-import gama.util.GamaColor;
 
+// TODO: Auto-generated Javadoc
 /**
  * Written by drogoul Modified on 23 janv. 2011
  *
@@ -87,18 +85,12 @@ public class LayerManager implements ILayerManager {
 	}
 
 	/** The enabled layers. */
-	// Feb 2020: added to avoid concurrentModifications
-	private final List<ILayer> enabledLayers = new CopyOnWriteArrayList<>();
-	
-	/** The disabled layers. */
-	private final List<ILayer> disabledLayers = new ArrayList<>();
-	
-	/** The overlay. */
-	private OverlayLayer overlay = null;
-	
+	private final ILayer[] layers;
+
+
 	/** The surface. */
 	final IDisplaySurface surface;
-	
+
 	/** The count. */
 	private int count = 0;
 
@@ -110,71 +102,58 @@ public class LayerManager implements ILayerManager {
 	 */
 	public LayerManager(final IDisplaySurface surface, final LayeredDisplayOutput output) {
 		this.surface = surface;
-		final List<AbstractLayerStatement> layers = output.getLayers();
-		for (final AbstractLayerStatement layer : layers) {
+		OverlayLayer overlay = null;
+		final List<ILayer> layers = new ArrayList<>();
+		for (final AbstractLayerStatement layer : output.getLayers()) {
 			if (layer.isToCreate()) {
 				final ILayer result = createLayer(output, layer);
 				if (result instanceof OverlayLayer) {
 					overlay = (OverlayLayer) result;
-				} else {
-					addLayer(result);
+				} else if (result != null) {
+					layers.add(result);
+					addItem(result);
 				}
 			}
 		}
+		if (overlay != null) { layers.add(overlay); }
+		this.layers = layers.toArray(new ILayer[layers.size()]);
 	}
 
+	/**
+	 * Dispose.
+	 */
 	@Override
 	public void dispose() {
-		for (final ILayer d : enabledLayers) {
-			d.dispose();
-		}
-		for (final ILayer d : disabledLayers) {
-			d.dispose();
-		}
-		enabledLayers.clear();
-		disabledLayers.clear();
+		for (final ILayer d : layers) { d.dispose(); }
 	}
 
 	/**
-	 * Adds the layer.
+	 * Gets the layers intersecting.
 	 *
-	 * @param d the d
-	 * @return the i layer
+	 * @param x the x
+	 * @param y the y
+	 * @return the layers intersecting
 	 */
-	protected ILayer addLayer(final ILayer d) {
-		if (addItem(d)) return d;
-		return null;
-	}
-
-	/**
-	 * Removes the layer.
-	 *
-	 * @param found the found
-	 */
-	public void removeLayer(final ILayer found) {
-		if (found != null) { enabledLayers.remove(found); }
-		Collections.sort(enabledLayers);
-	}
-
 	@Override
 	public List<ILayer> getLayersIntersecting(final int x, final int y) {
 		final List<ILayer> result = new ArrayList<>();
-		for (final ILayer display : enabledLayers) {
-			if (display.containsScreenPoint(x, y)) { result.add(display); }
-		}
+		for (final ILayer layer : layers) { if (layer.containsScreenPoint(x, y)) { result.add(layer); } }
 		return result;
 	}
 
 	/**
-	 * Method focusOn()
+	 * Method focusOn().
 	 *
+	 * @param geometry the geometry
+	 * @param s the s
+	 * @return the rectangle 2 D
 	 * @see gama.common.ui.ILayerManager#focusOn(gama.metamodel.shape.IShape)
 	 */
 	@Override
 	public Rectangle2D focusOn(final IShape geometry, final IDisplaySurface s) {
 		if (geometry == null) return null;
 		Rectangle2D result = null;
-		for (final ILayer display : enabledLayers) {
+		for (final ILayer display : layers) {
 			final Rectangle2D r = display.focusOn(geometry, s);
 			if (r != null) {
 				if (result == null) {
@@ -187,31 +166,12 @@ public class LayerManager implements ILayerManager {
 		return result;
 	}
 
-	/**
-	 * Enable.
-	 *
-	 * @param found the found
-	 */
-	void enable(final ILayer found) {
-		found.enableOn(surface);
-		enabledLayers.add(found);
-		disabledLayers.remove(found);
-		Collections.sort(enabledLayers);
-	}
 
 	/**
-	 * Disable.
+	 * Draw layers on.
 	 *
-	 * @param found the found
+	 * @param g the g
 	 */
-	void disable(final ILayer found) {
-		if (found != null) {
-			found.disableOn(surface);
-			removeLayer(found);
-			disabledLayers.add(found);
-		}
-	}
-
 	@Override
 	public void drawLayersOn(final IGraphics g) {
 		if (g == null || g.cannotDraw()) return;
@@ -220,12 +180,22 @@ public class LayerManager implements ILayerManager {
 		if (scope == null || scope.interrupted()) return;
 		scope.setGraphics(g);
 		try {
+			boolean changed = false;
+			// First we compute all the data and verify if anything is changed
+			for (final ILayer dis : layers) {
+				if (scope.interrupted()) return;
+				changed |= dis.getData().compute(scope, g);
+			}
+			if (changed) {
+				for (final ILayer l : layers) { l.forceRedrawingOnce(); }
+				surface.layersChanged();
+			}
 			if (g.beginDrawingLayers()) {
-				for (final ILayer dis : enabledLayers) {
+				// We separate in two phases: updating of the data and then drawing
+				for (final ILayer dis : layers) {
 					if (scope.interrupted()) return;
 					dis.draw(scope, g);
 				}
-				if (overlay != null) { overlay.draw(scope, g); }
 			}
 		} catch (final Exception e) {
 			GAMA.reportAndThrowIfNeeded(scope, GamaRuntimeException.create(e, scope), false);
@@ -234,99 +204,91 @@ public class LayerManager implements ILayerManager {
 		}
 	}
 
+	/**
+	 * Gets the items.
+	 *
+	 * @return the items
+	 */
 	@Override
-	public List<ILayer> getItems() {
-		final List<ILayer> items = new ArrayList<>();
-		items.addAll(enabledLayers);
-		items.addAll(disabledLayers);
-		Collections.sort(items);
-		return items;
-	}
+	public List<ILayer> getItems() { return Arrays.asList(layers); }
 
-	@Override
-	public void removeItem(final ILayer found) {
-		if (found != null) { enabledLayers.remove(found); }
-		Collections.sort(enabledLayers);
-	}
 
-	@Override
-	public void pauseItem(final ILayer obj) {}
-
-	@Override
-	public void resumeItem(final ILayer obj) {}
-
+	/**
+	 * Gets the item display name.
+	 *
+	 * @param obj the obj
+	 * @param previousName the previous name
+	 * @return the item display name
+	 */
 	@Override
 	public String getItemDisplayName(final ILayer obj, final String previousName) {
 		return obj.getMenuName();
 	}
 
-	@Override
-	public GamaColor getItemDisplayColor(final ILayer o) {
-		return null;
-	}
 
-	@Override
-	public void focusItem(final ILayer obj) {}
-
+	/**
+	 * Adds the item.
+	 *
+	 * @param obj the obj
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean addItem(final ILayer obj) {
 		obj.getDefinition().setOrder(count++);
-		enabledLayers.add(obj);
-		Collections.sort(enabledLayers);
 		obj.firstLaunchOn(surface);
 		return true;
 	}
 
-	@Override
-	public void updateItemValues() {}
-
 	/**
-	 * Allows the layers to do some cleansing when the output of the display changes
+	 * Allows the layers to do some cleansing when the output of the display changes.
 	 *
 	 * @see gama.common.ui.ILayerManager#outputChanged()
 	 */
 	@Override
 	public void outputChanged() {
-		for (final ILayer i : enabledLayers) {
-			i.reloadOn(surface);
-		}
-		for (final ILayer i : disabledLayers) {
-			i.reloadOn(surface);
-		}
+		for (final ILayer i : layers) { i.reloadOn(surface); }
 	}
 
+	/**
+	 * Stay proportional.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean stayProportional() {
-		for (final ILayer i : enabledLayers) {
-			if (i.stayProportional()) return true;
-		}
+		for (final ILayer i : layers) { if (i.stayProportional()) return true; }
+
 		return false;
 	}
 
 	/**
-	 * Method makeItemSelectable()
+	 * Method makeItemSelectable().
 	 *
+	 * @param layer the layer
+	 * @param b the b
 	 * @see gama.common.interfaces.ItemList#makeItemSelectable(java.lang.Object, boolean)
 	 */
 	@Override
-	public void makeItemSelectable(final ILayer data, final boolean b) {
-		data.getData().setSelectable(b);
+	public void makeItemSelectable(final ILayer layer, final boolean b) {
+		layer.getData().setSelectable(b);
 	}
 
 	/**
-	 * Method makeItemVisible()
+	 * Method makeItemVisible().
 	 *
+	 * @param obj the obj
+	 * @param b the b
 	 * @see gama.common.interfaces.ItemList#makeItemVisible(java.lang.Object, boolean)
 	 */
 	@Override
 	public void makeItemVisible(final ILayer obj, final boolean b) {
 		surface.runAndUpdate(() -> {
 			if (b) {
-				enable(obj);
+				obj.enableOn(surface);
 			} else {
-				disable(obj);
+				obj.disableOn(surface);
 			}
-			for (final ILayer l : enabledLayers) {
+			for (final ILayer l : layers) {
 				l.forceRedrawingOnce();
 			}
 			surface.layersChanged();
@@ -334,16 +296,12 @@ public class LayerManager implements ILayerManager {
 		});
 	}
 
-	/**
-	 * Method handleMenu()
-	 *
-	 * @see gama.common.interfaces.ItemList#handleMenu(java.lang.Object, int, int)
-	 */
-	@Override
-	public Map<String, Runnable> handleMenu(final ILayer data, final int x, final int y) {
-		return null;
-	}
 
+	/**
+	 * Checks if is providing coordinates.
+	 *
+	 * @return true, if is providing coordinates
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -351,12 +309,15 @@ public class LayerManager implements ILayerManager {
 	 */
 	@Override
 	public boolean isProvidingCoordinates() {
-		for (final ILayer i : enabledLayers) {
-			if (i.isProvidingCoordinates()) return true;
-		}
+		for (final ILayer i : layers) { if (i.getData().isVisible() && i.isProvidingCoordinates()) return true; }
 		return false;
 	}
 
+	/**
+	 * Checks if is providing world coordinates.
+	 *
+	 * @return true, if is providing world coordinates
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -364,18 +325,32 @@ public class LayerManager implements ILayerManager {
 	 */
 	@Override
 	public boolean isProvidingWorldCoordinates() {
-		for (final ILayer i : enabledLayers) {
-			if (i.isProvidingWorldCoordinates()) return true;
+		for (final ILayer i : layers) { if (i.getData().isVisible() && i.isProvidingWorldCoordinates()) return true; }
+		return false;
+	}
+
+	/**
+	 * Checks for mouse menu event layer.
+	 *
+	 * @return true, if successful
+	 */
+	@Override
+	public boolean hasMouseMenuEventLayer() {
+		for (final ILayer i : layers) {
+			if (i instanceof EventLayer && IKeyword.MOUSE_MENU.equals(((EventLayer) i).getEvent())) return true;
 		}
 		return false;
 	}
 
+	/**
+	 * Checks if is item visible.
+	 *
+	 * @param obj the obj
+	 * @return true, if is item visible
+	 */
 	@Override
-	public boolean hasMouseMenuEventLayer() {
-		for (final ILayer i : enabledLayers) {
-			if (i instanceof EventLayer) { if (((EventLayer) i).getEvent().equals(IKeyword.MOUSE_MENU)) return true; }
-		}
-		return false;
+	public boolean isItemVisible(final ILayer obj) {
+		return obj.getData().isVisible();
 	}
 
 }
