@@ -99,7 +99,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 		});
 		// Forces the listener to run at least once
 		GamaPreferences.Displays.DISPLAY_NO_ACCELERATION
-		.set(GamaPreferences.Displays.DISPLAY_NO_ACCELERATION.getValue());
+				.set(GamaPreferences.Displays.DISPLAY_NO_ACCELERATION.getValue());
 	}
 
 	/** The output. */
@@ -234,7 +234,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	 * @return the int
 	 */
 	int autoScaleUp(final int c) {
-		if (PlatformHelper.isWindows() && PlatformHelper.getDeviceZoom() > 100) return c;
+		if (PlatformHelper.getDeviceZoom() > 100) return c;
 		return PlatformHelper.autoScaleUp(c);
 	}
 
