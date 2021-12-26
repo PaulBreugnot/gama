@@ -18,11 +18,10 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
-import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.graphics.PaletteData;
 
 import gama.ui.base.interfaces.IIconProvider;
 import gama.ui.base.resources.GamaColors.GamaUIColor;
-import gama.ui.base.utils.PlatformHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 
 // TODO: Auto-generated Javadoc
@@ -36,10 +35,10 @@ import gama.ui.base.utils.WorkbenchHelper;
 public class GamaIcons implements IIconProvider {
 
 	/** The Constant PLUGIN_ID. */
-	public static final String PLUGIN_ID = "gama.ui.base";
+	public static final String PLUGIN_ID = "ummisco.gama.ui.shared";
 
 	/** The instance. */
-	static private final GamaIcons instance = new GamaIcons();
+	static private GamaIcons instance = new GamaIcons();
 
 	/**
 	 * Gets the single instance of GamaIcons.
@@ -208,10 +207,10 @@ public class GamaIcons implements IIconProvider {
 			final GC gc = new GC(image);
 			gc.setAntialias(SWT.ON);
 			gc.setBackground(gcolor.color());
-			gc.fillRoundRectangle(0, 0, width, height, width / 3, height / 3);
+			gc.fillRectangle(0, 0, width, height);
 			gc.dispose();
 			final ImageData data = image.getImageData();
-			data.transparentPixel = data.palette.getPixel(new RGB(255, 255, 255));
+			// data.transparentPixel = data.palette.getPixel(new RGB(255, 255, 255));
 			icon = new GamaIcon(name);
 			getInstance().putImageInCache(name, new Image(WorkbenchHelper.getDisplay(), data));
 			image.dispose();
@@ -223,28 +222,34 @@ public class GamaIcons implements IIconProvider {
 	/**
 	 * Creates an icon that needs to be disposed afterwards.
 	 *
-	 * @param gcolor
-	 *            the gcolor
+	 * @param gcolor the gcolor
 	 * @return the image
 	 */
 	public static Image createTempColorIcon(final GamaUIColor gcolor) {
+
 		final String name = "color" + gcolor.getRGB().toString();
 		final GamaIcon icon = getInstance().getIcon(name);
 		if (icon != null) return icon.image();
-		// Color color = gcolor.color();
-		final GamaIcon blank = create("display.color2");
-		final Image image = new Image(WorkbenchHelper.getDisplay(), blank.image().getImageData());
+		int size = 16;
+		ImageData imData = new ImageData(size, size, 24, new PaletteData(0xff0000, 0x00ff00, 0x0000ff));
+		Image image = new Image(WorkbenchHelper.getDisplay(), imData);
 		final GC gc = new GC(image);
-		// gc.setAntialias(SWT.ON);
+		gc.setAntialias(SWT.ON);
+		gc.setBackground(IGamaColors.GRAY.color());
+		gc.fillRectangle(0, 0, size, size);
+		gc.setBackground(IGamaColors.WHITE.color());
+		gc.setForeground(IGamaColors.BLACK.color());
+
+		gc.fillRoundRectangle(0, 0, size - 1, size - 1, 4, 4);
+		gc.drawRoundRectangle(0, 0, size - 1, size - 1, 4, 4);
 		gc.setBackground(gcolor.color());
-		gc.fillRoundRectangle(6, 6, 12, 12, 4, 4);
-		// if (!gcolor.isDark()) {
-		// gc.setForeground(IGamaColors.BLACK.color());
-		// gc.drawRoundRectangle(6, 6, 12, 12, 4, 4);
-		// }
-		// See Issue #3138 about weird artefacts in handmade icons. dispose() does it on Retina screens. If removing
-		// this condition, the weird artefacts come back on Retina screens. Otherwise they do not.
-		if (!PlatformHelper.isMac() || !PlatformHelper.isHiDPI()) { gc.dispose(); }
+		gc.fillRoundRectangle(size / 4, size / 4, size / 2, size / 2, 4, 4);
+		// See Issue #3138 about weird artefacts in handmade icons.
+		gc.dispose();
+
+		ImageData imageData = image.getImageData();
+		imageData.transparentPixel = imageData.palette.getPixel(IGamaColors.GRAY.getRGB());
+		image = new Image(WorkbenchHelper.getDisplay(), imageData);
 		getInstance().putImageInCache(name, image);
 		getInstance().putIconInCache(name, new GamaIcon(name));
 		return image;
@@ -261,31 +266,60 @@ public class GamaIcons implements IIconProvider {
 		final String name = "roundcolor" + gcolor.getRGB().toString();
 		final GamaIcon icon = getInstance().getIcon(name);
 		if (icon != null) return icon.image();
-		// Color color = gcolor.color();
-		final GamaIcon blank = create("display.color3");
-		final Image image = new Image(WorkbenchHelper.getDisplay(), blank.image().getImageData());
+
+		// The mask gray value needs to be > tolerance, < 255 - tolerance, < gcolor.red - tolerance, > gcolor.red +
+		// tolerance
+		int tolerance = 10;
+		int gray = gcolor.getRGB().red > 127 ? 63 : 190;
+		Color mask = GamaColors.get(gray, gray, gray).color();
+		int size = 24;
+		ImageData imData = new ImageData(size, size, 24, new PaletteData(0xff0000, 0x00ff00, 0x0000ff));
+		Image image = new Image(WorkbenchHelper.getDisplay(), imData);
 		final GC gc = new GC(image);
-		gc.setAdvanced(true);
-		// gc.setAntialias(SWT.ON);
+		gc.setAntialias(SWT.ON);
+		gc.setBackground(mask);
+		gc.fillRectangle(0, 0, size, size);
+		gc.setBackground(IGamaColors.WHITE.color());
+		gc.setForeground(IGamaColors.BLACK.color());
+		gc.fillOval(0, 0, size - 1, size - 1);
+		gc.drawOval(0, 0, size - 1, size - 1);
 		gc.setBackground(gcolor.color());
-		gc.fillOval(6, 7, 12, 12);
-		// if (!gcolor.isDark()) {
-		// gc.setForeground(IGamaColors.BLACK.color());
-		// gc.drawOval(6, 6, 12, 12);
-		// }
-		// See Issue #3138 about weird artefacts in handmade icons. dispose() does it on Retina screens. If removing
-		// this condition, the weird artefacts come back on Retina screens. Otherwise they do not.
-		if (!PlatformHelper.isMac() || !PlatformHelper.isHiDPI()) { gc.dispose(); }
+		gc.fillOval(size / 4, size / 4, size / 2, size / 2);
+		// See Issue #3138 about weird artefacts in handmade icons.
+		gc.dispose();
+
+		imData = image.getImageData();
+
+		int grayPixelValue = imData.palette.getPixel(mask.getRGB());
+		int[] lineData = new int[imData.width];
+		for (int y = 0; y < imData.height; y++) {
+			imData.getPixels(0, y, size, lineData, 0);
+			// Analyze each pixel value in the line
+			for (int x = 0; x < lineData.length; x++) {
+				// Extract the red, green and blue component
+				int p = lineData[x];
+				int r = (p & 0xff0000) >> 16;
+				int g = (p & 0x00ff00) >> 8;
+				int b = (p & 0x0000ff) >> 0;
+				if (r > gray - tolerance && r < gray + tolerance && g > gray - tolerance && g < gray + tolerance
+						&& b > gray - tolerance && b < gray + tolerance) {
+					imData.setPixel(x, y, grayPixelValue);
+				}
+			}
+		}
+		// mask.dispose();
+		imData.transparentPixel = grayPixelValue;
+		image = new Image(WorkbenchHelper.getDisplay(), imData);
 		getInstance().putImageInCache(name, image);
 		getInstance().putIconInCache(name, new GamaIcon(name));
+
 		return image;
 	}
 
 	/**
 	 * Desc.
 	 *
-	 * @param name
-	 *            the name
+	 * @param name the name
 	 * @return the image descriptor
 	 */
 	@Override
@@ -297,8 +331,7 @@ public class GamaIcons implements IIconProvider {
 	/**
 	 * Image.
 	 *
-	 * @param name
-	 *            the name
+	 * @param name the name
 	 * @return the image
 	 */
 	@Override
