@@ -13,7 +13,6 @@ package gama.ui.base.toolbar;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -38,16 +37,11 @@ public class GamaToolbarSimple extends ToolBar {
 	/**
 	 * Instantiates a new gama toolbar simple.
 	 *
-	 * @param parent
-	 *            the parent
-	 * @param style
-	 *            the style
-	 * @param c
-	 *            the c
+	 * @param parent            the parent
+	 * @param style            the style
 	 */
-	public GamaToolbarSimple(final Composite parent, final int style, final Color c) {
+	public GamaToolbarSimple(final Composite parent, final int style) {
 		super(parent, style);
-		setBackground(c);
 	}
 
 	/**

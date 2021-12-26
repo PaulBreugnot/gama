@@ -59,6 +59,7 @@ import gama.ui.base.interfaces.IGamlEditor;
 import gama.ui.base.workspace.WorkspaceModelsManager;
 import one.util.streamex.StreamEx;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class WorkbenchHelper.
  */
@@ -179,9 +180,7 @@ public class WorkbenchHelper {
 	 *
 	 * @return the shell
 	 */
-	public static Shell getShell() {
-		return getDisplay().getActiveShell();
-	}
+	public static Shell getShell() { return getDisplay().getActiveShell(); }
 
 	/**
 	 * Gets the window.
@@ -232,9 +231,7 @@ public class WorkbenchHelper {
 	 *
 	 * @return the workbench
 	 */
-	public static IWorkbench getWorkbench() {
-		return Workbench.getInstance();
-	}
+	public static IWorkbench getWorkbench() { return Workbench.getInstance(); }
 
 	/**
 	 * Find display.

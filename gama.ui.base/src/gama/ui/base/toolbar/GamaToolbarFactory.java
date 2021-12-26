@@ -25,7 +25,11 @@ import org.eclipse.ui.IWorkbenchSite;
 
 import gama.common.ui.IGamaView;
 import gama.ui.base.controls.ITooltipDisplayer;
+import gama.ui.base.resources.GamaColors;
 import gama.ui.base.resources.GamaIcons;
+import gama.ui.base.resources.IGamaColors;
+import gama.ui.base.utils.ThemeHelper;
+import gama.ui.base.utils.WorkbenchHelper;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -276,13 +280,14 @@ public class GamaToolbarFactory {
 		layout.verticalSpacing = 0;
 		layout.horizontalSpacing = 0;
 		layout.marginWidth = 0;
-		final int margin = 1; // REDUCED_VIEW_TOOLBAR_HEIGHT.getValue() ? -1 : 0;
+		final int margin = 0; // REDUCED_VIEW_TOOLBAR_HEIGHT.getValue() ? -1 : 0;
 		layout.marginTop = margin;
 		layout.marginBottom = margin;
 		layout.marginHeight = margin;
 		toolbarComposite.setLayout(layout);
 		// toolbarComposite.setBackground(IGamaColors.WHITE.color());
-
+		GamaColors.setBackground(toolbarComposite,
+				ThemeHelper.isDark() ? WorkbenchHelper.getShell().getBackground() : IGamaColors.WHITE.color());
 		return toolbarComposite;
 
 	}

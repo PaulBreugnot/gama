@@ -31,8 +31,11 @@ import gama.ui.base.controls.FlatButton;
 import gama.ui.base.resources.GamaColors;
 import gama.ui.base.resources.GamaColors.GamaUIColor;
 import gama.ui.base.resources.GamaIcons;
+import gama.ui.base.resources.IGamaColors;
 import gama.ui.base.toolbar.GamaToolbarFactory.ToggleAction;
 import gama.ui.base.utils.PlatformHelper;
+import gama.ui.base.utils.ThemeHelper;
+import gama.ui.base.utils.WorkbenchHelper;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -112,7 +115,6 @@ public class GamaToolbar2 extends Composite {
 	 * Creates the layout.
 	 */
 	public void createLayout() {
-		// setBackground(isDark() ? WIDGET_BACKGROUND.color() : WHITE.color());
 		final var layout = new GridLayout(2, false);
 		layout.horizontalSpacing = 0;
 		layout.verticalSpacing = 0;
@@ -125,19 +127,21 @@ public class GamaToolbar2 extends Composite {
 	 * Creates the toolbars.
 	 */
 	public void createToolbars() {
-		left = new GamaToolbarSimple(this, SWT.FLAT | SWT.HORIZONTAL | SWT.WRAP | SWT.NO_FOCUS, getBackground());
+		left = new GamaToolbarSimple(this, SWT.FLAT | SWT.HORIZONTAL | SWT.WRAP | SWT.NO_FOCUS | SWT.INHERIT_FORCE);
 		var data = new GridData(SWT.FILL, SWT.CENTER, true, true);
 		data.verticalIndent = 0;
 		data.horizontalAlignment = SWT.LEFT;
 		data.minimumWidth = height * 2;
 		left.setLayoutData(data);
 
-		right = new GamaToolbarSimple(this, SWT.FLAT | SWT.HORIZONTAL | SWT.NO_FOCUS, getBackground());
+		right = new GamaToolbarSimple(this, SWT.FLAT | SWT.HORIZONTAL | SWT.NO_FOCUS | SWT.INHERIT_FORCE);
 		data = new GridData(SWT.FILL, SWT.FILL, true, false);
 		data.verticalIndent = 0;
 		data.horizontalAlignment = SWT.RIGHT;
 		data.minimumWidth = height * 2;
 		right.setLayoutData(data);
+		setBackgroundColor(
+				ThemeHelper.isDark() ? WorkbenchHelper.getShell().getBackground() : IGamaColors.WHITE.color());
 
 	}
 
@@ -150,8 +154,10 @@ public class GamaToolbar2 extends Composite {
 	/**
 	 * Sep.
 	 *
-	 * @param width            the n
-	 * @param side            the side
+	 * @param width
+	 *            the n
+	 * @param side
+	 *            the side
 	 * @return the tool item
 	 */
 	public ToolItem sep(final int width, final int side /* SWT.LEFT or SWT.RIGHT */) {
@@ -165,9 +171,12 @@ public class GamaToolbar2 extends Composite {
 	/**
 	 * Sep.
 	 *
-	 * @param width the width
-	 * @param height the height
-	 * @param side            the side
+	 * @param width
+	 *            the width
+	 * @param height
+	 *            the height
+	 * @param side
+	 *            the side
 	 * @return the tool item
 	 */
 	public ToolItem sep(final int width, final int height, final int side /* SWT.LEFT or SWT.RIGHT */) {
