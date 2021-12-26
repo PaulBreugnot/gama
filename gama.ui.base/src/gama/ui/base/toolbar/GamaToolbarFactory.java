@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * GamaToolbarFactory.java, in gama.ui.base, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * GamaToolbarFactory.java, in gama.ui.base, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.base.toolbar;
 
@@ -26,8 +26,8 @@ import org.eclipse.ui.IWorkbenchSite;
 import gama.common.ui.IGamaView;
 import gama.ui.base.controls.ITooltipDisplayer;
 import gama.ui.base.resources.GamaIcons;
-import gama.ui.base.resources.IGamaColors;
 
+// TODO: Auto-generated Javadoc
 /**
  * The class GamaToolbarFactory.
  *
@@ -52,8 +52,10 @@ public class GamaToolbarFactory {
 		/**
 		 * Instantiates a new gama composite.
 		 *
-		 * @param parent the parent
-		 * @param displayer the displayer
+		 * @param parent
+		 *            the parent
+		 * @param displayer
+		 *            the displayer
 		 */
 		public GamaComposite(final Composite parent, final ITooltipDisplayer displayer) {
 			super(parent, SWT.None);
@@ -65,7 +67,8 @@ public class GamaToolbarFactory {
 	/**
 	 * Find tooltip displayer.
 	 *
-	 * @param c the c
+	 * @param c
+	 *            the c
 	 * @return the i tooltip displayer
 	 */
 	public static ITooltipDisplayer findTooltipDisplayer(final Control c) {
@@ -76,7 +79,8 @@ public class GamaToolbarFactory {
 	/**
 	 * Find gama composite.
 	 *
-	 * @param c the c
+	 * @param c
+	 *            the c
 	 * @return the gama composite
 	 */
 	public static GamaComposite findGamaComposite(final Control c) {
@@ -102,7 +106,8 @@ public class GamaToolbarFactory {
 		/**
 		 * Sets the icon.
 		 *
-		 * @param show the new icon
+		 * @param show
+		 *            the new icon
 		 */
 		protected abstract void setIcon(boolean show);
 
@@ -198,15 +203,17 @@ public class GamaToolbarFactory {
 
 	/** The toolbar height. */
 	public static int TOOLBAR_HEIGHT = 24; // CORE_ICONS_HEIGHT.getValue();
-	
+
 	/** The toolbar sep. */
 	public static int TOOLBAR_SEP = 4;
 
 	/**
 	 * Creates a new GamaToolbar object.
 	 *
-	 * @param view the view
-	 * @param composite the composite
+	 * @param view
+	 *            the view
+	 * @param composite
+	 *            the composite
 	 * @return the composite
 	 */
 	private static Composite createIntermediateCompositeFor(final IToolbarDecoratedView view,
@@ -257,7 +264,8 @@ public class GamaToolbarFactory {
 	/**
 	 * Creates a new GamaToolbar object.
 	 *
-	 * @param composite the composite
+	 * @param composite
+	 *            the composite
 	 * @return the composite
 	 */
 	public static Composite createToolbarComposite(final Composite composite) {
@@ -273,7 +281,7 @@ public class GamaToolbarFactory {
 		layout.marginBottom = margin;
 		layout.marginHeight = margin;
 		toolbarComposite.setLayout(layout);
-		toolbarComposite.setBackground(IGamaColors.WHITE.color());
+		// toolbarComposite.setBackground(IGamaColors.WHITE.color());
 
 		return toolbarComposite;
 
@@ -282,8 +290,10 @@ public class GamaToolbarFactory {
 	/**
 	 * Creates a new GamaToolbar object.
 	 *
-	 * @param view the view
-	 * @param composite the composite
+	 * @param view
+	 *            the view
+	 * @param composite
+	 *            the composite
 	 * @return the composite
 	 */
 	public static Composite createToolbars(final IToolbarDecoratedView view, final Composite composite) {
@@ -371,8 +381,10 @@ public class GamaToolbarFactory {
 	/**
 	 * Dispose toolbar.
 	 *
-	 * @param view the view
-	 * @param tb the tb
+	 * @param view
+	 *            the view
+	 * @param tb
+	 *            the tb
 	 */
 	public static void disposeToolbar(final IToolbarDecoratedView view, final GamaToolbar2 tb) {
 		if (tb != null && !tb.isDisposed()) { tb.dispose(); }
@@ -381,8 +393,10 @@ public class GamaToolbarFactory {
 	/**
 	 * Builds the toolbar.
 	 *
-	 * @param view the view
-	 * @param tb the tb
+	 * @param view
+	 *            the view
+	 * @param tb
+	 *            the tb
 	 */
 	public static void buildToolbar(final IToolbarDecoratedView view, final GamaToolbar2 tb) {
 		if (view instanceof IToolbarDecoratedView.Sizable) {

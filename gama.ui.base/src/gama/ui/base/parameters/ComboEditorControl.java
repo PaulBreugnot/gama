@@ -1,19 +1,16 @@
 /*******************************************************************************************************
  *
- * ComboEditorControl.java, in gama.ui.base, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ComboEditorControl.java, in gama.ui.base, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.base.parameters;
 
 import static gama.common.util.StringUtils.toGaml;
-import static gama.ui.base.resources.IGamaColors.BLACK;
-import static gama.ui.base.resources.IGamaColors.VERY_LIGHT_GRAY;
-import static gama.ui.base.utils.ThemeHelper.isDark;
 
 import java.util.List;
 
@@ -27,6 +24,7 @@ import gama.common.util.StringUtils;
 import gaml.types.IType;
 import gaml.types.Types;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ComboEditorControl.
  */
@@ -38,10 +36,14 @@ public class ComboEditorControl extends EditorControl<Combo> {
 	/**
 	 * Instantiates a new combo editor control.
 	 *
-	 * @param editor the editor
-	 * @param parent the parent
-	 * @param expectedType the expected type
-	 * @param possibleValues the possible values
+	 * @param editor
+	 *            the editor
+	 * @param parent
+	 *            the parent
+	 * @param expectedType
+	 *            the expected type
+	 * @param possibleValues
+	 *            the possible values
 	 */
 	ComboEditorControl(final AbstractEditor editor, final Composite parent, final IType expectedType,
 			final List possibleValues) {
@@ -55,7 +57,7 @@ public class ComboEditorControl extends EditorControl<Combo> {
 				valuesAsString[i] = toGaml(possibleValues.get(i), false);
 			}
 		}
-		setForeground(isDark() ? VERY_LIGHT_GRAY.color() : BLACK.color());
+		// setForeground(isDark() ? VERY_LIGHT_GRAY.color() : BLACK.color());
 		// force text color, see #2601
 		control.setItems(valuesAsString);
 		control.addSelectionListener(new SelectionAdapter() {
@@ -69,6 +71,9 @@ public class ComboEditorControl extends EditorControl<Combo> {
 		control.pack();
 	}
 
+	/**
+	 * Display parameter value.
+	 */
 	@Override
 	public void displayParameterValue() {
 		if (control.isDisposed()) return;

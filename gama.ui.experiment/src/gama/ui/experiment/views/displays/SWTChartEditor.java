@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * SWTChartEditor.java, in gama.ui.experiment, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * SWTChartEditor.java, in gama.ui.experiment, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 
 package gama.ui.experiment.views.displays;
@@ -57,8 +57,8 @@ import org.jfree.chart.title.Title;
 
 import gama.ui.base.resources.GamaColors;
 import gama.ui.base.utils.GraphicsHelper;
-import gama.ui.base.utils.WorkbenchHelper;
 
+// TODO: Auto-generated Javadoc
 /**
  * An editor for chart properties.
  */
@@ -101,7 +101,7 @@ public class SWTChartEditor implements ChartEditor {
 	public SWTChartEditor(final Display display, final JFreeChart chart2edit, final Point position) {
 		this.shell = new Shell(display, SWT.APPLICATION_MODAL | SWT.NO_TRIM);
 		this.shell.setSize(400, 500);
-		this.shell.setBackground(WorkbenchHelper.getDisplay().getSystemColor(SWT.COLOR_BLACK));
+		// this.shell.setBackground(WorkbenchHelper.getDisplay().getSystemColor(SWT.COLOR_BLACK));
 		// this.shell.setAlpha(140);
 		this.chart = chart2edit;
 		this.shell.setText("Chart properties");
@@ -164,9 +164,7 @@ public class SWTChartEditor implements ChartEditor {
 		this.shell.open();
 		this.shell.layout();
 		while (!this.shell.isDisposed()) {
-			if (!this.shell.getDisplay().readAndDispatch()) {
-				this.shell.getDisplay().sleep();
-			}
+			if (!this.shell.getDisplay().readAndDispatch()) { this.shell.getDisplay().sleep(); }
 		}
 	}
 
@@ -286,9 +284,7 @@ public class SWTChartEditor implements ChartEditor {
 					dlg.setFontList(new FontData[] { SWTTitleEditor.this.titleFont });
 					if (dlg.open() != null) {
 						// Dispose of any fonts we have created
-						if (SWTTitleEditor.this.font != null) {
-							SWTTitleEditor.this.font.dispose();
-						}
+						if (SWTTitleEditor.this.font != null) { SWTTitleEditor.this.font.dispose(); }
 						// Create the new font and set it into the title
 						// label
 						SWTTitleEditor.this.font = new Font(getShell().getDisplay(), dlg.getFontList());
@@ -332,27 +328,21 @@ public class SWTChartEditor implements ChartEditor {
 		 *
 		 * @return The title text entered in the panel.
 		 */
-		public String getTitleText() {
-			return this.titleField.getText();
-		}
+		public String getTitleText() { return this.titleField.getText(); }
 
 		/**
 		 * Returns the font selected in the panel.
 		 *
 		 * @return The font selected in the panel.
 		 */
-		public FontData getTitleFont() {
-			return this.titleFont;
-		}
+		public FontData getTitleFont() { return this.titleFont; }
 
 		/**
 		 * Returns the font selected in the panel.
 		 *
 		 * @return The font selected in the panel.
 		 */
-		public Color getTitleColor() {
-			return this.titleColor;
-		}
+		public Color getTitleColor() { return this.titleColor; }
 
 		/**
 		 * Sets the properties of the specified title to match the properties defined on this panel.
@@ -435,9 +425,7 @@ public class SWTChartEditor implements ChartEditor {
 			Axis domainAxis = null;
 			if (plot instanceof CategoryPlot) {
 				domainAxis = ((CategoryPlot) plot).getDomainAxis();
-			} else if (plot instanceof XYPlot) {
-				domainAxis = ((XYPlot) plot).getDomainAxis();
-			}
+			} else if (plot instanceof XYPlot) { domainAxis = ((XYPlot) plot).getDomainAxis(); }
 			this.domainAxisPropertyPanel = SWTAxisEditor.getInstance(tabs, SWT.NONE, domainAxis);
 			item1.setControl(this.domainAxisPropertyPanel);
 
@@ -447,9 +435,7 @@ public class SWTChartEditor implements ChartEditor {
 			Axis rangeAxis = null;
 			if (plot instanceof CategoryPlot) {
 				rangeAxis = ((CategoryPlot) plot).getRangeAxis();
-			} else if (plot instanceof XYPlot) {
-				rangeAxis = ((XYPlot) plot).getRangeAxis();
-			}
+			} else if (plot instanceof XYPlot) { rangeAxis = ((XYPlot) plot).getRangeAxis(); }
 			this.rangeAxisPropertyPanel = SWTAxisEditor.getInstance(tabs, SWT.NONE, rangeAxis);
 			item2.setControl(this.rangeAxisPropertyPanel);
 
@@ -465,27 +451,21 @@ public class SWTChartEditor implements ChartEditor {
 		 *
 		 * @return The current outline stroke.
 		 */
-		public Color getBackgroundPaint() {
-			return this.plotAppearance.getBackGroundPaint();
-		}
+		public Color getBackgroundPaint() { return this.plotAppearance.getBackGroundPaint(); }
 
 		/**
 		 * Returns the current outline stroke.
 		 *
 		 * @return The current outline stroke.
 		 */
-		public Color getOutlinePaint() {
-			return this.plotAppearance.getOutlinePaint();
-		}
+		public Color getOutlinePaint() { return this.plotAppearance.getOutlinePaint(); }
 
 		/**
 		 * Returns the current outline stroke.
 		 *
 		 * @return The current outline stroke.
 		 */
-		public Stroke getOutlineStroke() {
-			return this.plotAppearance.getStroke();
-		}
+		public Stroke getOutlineStroke() { return this.plotAppearance.getStroke(); }
 
 		/**
 		 * Updates the plot properties to match the properties defined on the panel.
@@ -509,9 +489,7 @@ public class SWTChartEditor implements ChartEditor {
 					final XYPlot p = (XYPlot) plot;
 					domainAxis = p.getDomainAxis();
 				}
-				if (domainAxis != null) {
-					this.domainAxisPropertyPanel.setAxisProperties(domainAxis);
-				}
+				if (domainAxis != null) { this.domainAxisPropertyPanel.setAxisProperties(domainAxis); }
 			}
 			if (this.rangeAxisPropertyPanel != null) {
 				Axis rangeAxis = null;
@@ -522,9 +500,7 @@ public class SWTChartEditor implements ChartEditor {
 					final XYPlot p = (XYPlot) plot;
 					rangeAxis = p.getRangeAxis();
 				}
-				if (rangeAxis != null) {
-					this.rangeAxisPropertyPanel.setAxisProperties(rangeAxis);
-				}
+				if (rangeAxis != null) { this.rangeAxisPropertyPanel.setAxisProperties(rangeAxis); }
 			}
 			if (this.plotAppearance.getPlotOrientation() != null) {
 				if (plot instanceof CategoryPlot) {
@@ -697,9 +673,7 @@ public class SWTChartEditor implements ChartEditor {
 			// row 1
 			new Label(general, SWT.NONE).setText("Label");
 			this.label = new Text(general, SWT.BORDER);
-			if (axis.getLabel() != null) {
-				this.label.setText(axis.getLabel());
-			}
+			if (axis.getLabel() != null) { this.label.setText(axis.getLabel()); }
 			this.label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 			new Label(general, SWT.NONE).setText(""); // empty cell
 			// row 2
@@ -719,9 +693,7 @@ public class SWTChartEditor implements ChartEditor {
 					dlg.setFontList(new FontData[] { SWTAxisEditor.this.labelFont });
 					if (dlg.open() != null) {
 						// Dispose of any fonts we have created
-						if (SWTAxisEditor.this.font != null) {
-							SWTAxisEditor.this.font.dispose();
-						}
+						if (SWTAxisEditor.this.font != null) { SWTAxisEditor.this.font.dispose(); }
 						// Create the new font and set it into the title
 						// label
 						SWTAxisEditor.this.font = new Font(getShell().getDisplay(), dlg.getFontList());
@@ -790,9 +762,7 @@ public class SWTChartEditor implements ChartEditor {
 					dlg.setFontList(new FontData[] { SWTAxisEditor.this.tickLabelFont });
 					if (dlg.open() != null) {
 						// Dispose of any fonts we have created
-						if (SWTAxisEditor.this.font != null) {
-							SWTAxisEditor.this.font.dispose();
-						}
+						if (SWTAxisEditor.this.font != null) { SWTAxisEditor.this.font.dispose(); }
 						// Create the new font and set it into the title
 						// label
 						SWTAxisEditor.this.font = new Font(getShell().getDisplay(), dlg.getFontList());
@@ -823,16 +793,10 @@ public class SWTChartEditor implements ChartEditor {
 		 */
 		public static SWTAxisEditor getInstance(final Composite parent, final int style, final Axis axis) {
 
-			if (axis != null) {
-				// return the appropriate axis editor
-				if (axis instanceof NumberAxis) {
-					return new SWTNumberAxisEditor(parent, style, (NumberAxis) axis);
-				} else {
-					return new SWTAxisEditor(parent, style, axis);
-				}
-			} else {
-				return null;
-			}
+			if (axis == null) return null;
+			// return the appropriate axis editor
+			if (axis instanceof NumberAxis) return new SWTNumberAxisEditor(parent, style, (NumberAxis) axis);
+			return new SWTAxisEditor(parent, style, axis);
 		}
 
 		/**
@@ -840,36 +804,28 @@ public class SWTChartEditor implements ChartEditor {
 		 *
 		 * @return A reference to the tabbed composite.
 		 */
-		public TabFolder getOtherTabs() {
-			return this.otherTabs;
-		}
+		public TabFolder getOtherTabs() { return this.otherTabs; }
 
 		/**
 		 * Returns the current axis label.
 		 *
 		 * @return The current axis label.
 		 */
-		public String getLabel() {
-			return this.label.getText();
-		}
+		public String getLabel() { return this.label.getText(); }
 
 		/**
 		 * Returns the current label font.
 		 *
 		 * @return The current label font.
 		 */
-		public java.awt.Font getLabelFont() {
-			return GraphicsHelper.toAwtFont(getDisplay(), this.labelFont, true);
-		}
+		public java.awt.Font getLabelFont() { return GraphicsHelper.toAwtFont(getDisplay(), this.labelFont, true); }
 
 		/**
 		 * Returns the current label paint.
 		 *
 		 * @return The current label paint.
 		 */
-		public Paint getTickLabelPaint() {
-			return GamaColors.toAwtColor(this.tickLabelPaintColor);
-		}
+		public Paint getTickLabelPaint() { return GamaColors.toAwtColor(this.tickLabelPaintColor); }
 
 		/**
 		 * Returns the current label font.
@@ -885,9 +841,7 @@ public class SWTChartEditor implements ChartEditor {
 		 *
 		 * @return The current label paint.
 		 */
-		public Paint getLabelPaint() {
-			return GamaColors.toAwtColor(this.labelPaintColor);
-		}
+		public Paint getLabelPaint() { return GamaColors.toAwtColor(this.labelPaintColor); }
 
 		/**
 		 * Sets the properties of the specified axis to match the properties defined on this panel.
@@ -955,9 +909,7 @@ public class SWTChartEditor implements ChartEditor {
 		 *            the color.
 		 */
 		public void setColor(final Color color) {
-			if (this.myColor != null) {
-				this.myColor.dispose();
-			}
+			if (this.myColor != null) { this.myColor.dispose(); }
 			// this.myColor = new Color(getDisplay(), color.getRGB());
 			this.myColor = color;
 		}
@@ -967,9 +919,7 @@ public class SWTChartEditor implements ChartEditor {
 		 *
 		 * @return The color.
 		 */
-		public Color getColor() {
-			return this.myColor;
-		}
+		public Color getColor() { return this.myColor; }
 
 		/**
 		 * Overridden to do nothing.
@@ -978,9 +928,7 @@ public class SWTChartEditor implements ChartEditor {
 		 *            the color.
 		 */
 		@Override
-		public void setBackground(final Color c) {
-			return;
-		}
+		public void setBackground(final Color c) {}
 
 		/**
 		 * Overridden to do nothing.
@@ -989,9 +937,7 @@ public class SWTChartEditor implements ChartEditor {
 		 *            the color.
 		 */
 		@Override
-		public void setForeground(final Color c) {
-			return;
-		}
+		public void setForeground(final Color c) {}
 
 		/**
 		 * Frees resources.
@@ -1027,10 +973,10 @@ public class SWTChartEditor implements ChartEditor {
 
 		/** Orientation constants. */
 		final static String[] orientationNames = { "Vertical", "Horizontal" };
-		
+
 		/** The Constant ORIENTATION_VERTICAL. */
 		final static int ORIENTATION_VERTICAL = 0;
-		
+
 		/** The Constant ORIENTATION_HORIZONTAL. */
 		final static int ORIENTATION_HORIZONTAL = 1;
 
@@ -1128,9 +1074,7 @@ public class SWTChartEditor implements ChartEditor {
 			// row 4: orientation
 			if (plot instanceof CategoryPlot) {
 				this.plotOrientation = ((CategoryPlot) plot).getOrientation();
-			} else if (plot instanceof XYPlot) {
-				this.plotOrientation = ((XYPlot) plot).getOrientation();
-			}
+			} else if (plot instanceof XYPlot) { this.plotOrientation = ((XYPlot) plot).getOrientation(); }
 			if (this.plotOrientation != null) {
 				final boolean isVertical = this.plotOrientation.equals(PlotOrientation.VERTICAL);
 				final int index = isVertical ? ORIENTATION_VERTICAL : ORIENTATION_HORIZONTAL;
@@ -1160,36 +1104,28 @@ public class SWTChartEditor implements ChartEditor {
 		 *
 		 * @return The plot orientation.
 		 */
-		public PlotOrientation getPlotOrientation() {
-			return this.plotOrientation;
-		}
+		public PlotOrientation getPlotOrientation() { return this.plotOrientation; }
 
 		/**
 		 * Returns the background paint.
 		 *
 		 * @return The background paint.
 		 */
-		public Color getBackGroundPaint() {
-			return this.backgroundPaintCanvas.getColor();
-		}
+		public Color getBackGroundPaint() { return this.backgroundPaintCanvas.getColor(); }
 
 		/**
 		 * Returns the outline paint.
 		 *
 		 * @return The outline paint.
 		 */
-		public Color getOutlinePaint() {
-			return this.outlinePaintCanvas.getColor();
-		}
+		public Color getOutlinePaint() { return this.outlinePaintCanvas.getColor(); }
 
 		/**
 		 * Returns the stroke.
 		 *
 		 * @return The stroke.
 		 */
-		public Stroke getStroke() {
-			return this.strokeCanvas.getStroke();
-		}
+		public Stroke getStroke() { return this.strokeCanvas.getStroke(); }
 	}
 
 	/**
@@ -1297,9 +1233,7 @@ public class SWTChartEditor implements ChartEditor {
 		public boolean validateMinimum(final String candidate) {
 			boolean valid = true;
 			try {
-				if (Double.parseDouble(candidate) >= this.maximumValue) {
-					valid = false;
-				}
+				if (Double.parseDouble(candidate) >= this.maximumValue) { valid = false; }
 			} catch (final NumberFormatException e) {
 				valid = false;
 			}
@@ -1315,15 +1249,18 @@ public class SWTChartEditor implements ChartEditor {
 		public boolean validateMaximum(final String candidate) {
 			boolean valid = true;
 			try {
-				if (Double.parseDouble(candidate) <= this.minimumValue) {
-					valid = false;
-				}
+				if (Double.parseDouble(candidate) <= this.minimumValue) { valid = false; }
 			} catch (final NumberFormatException e) {
 				valid = false;
 			}
 			return valid;
 		}
 
+		/**
+		 * Focus gained.
+		 *
+		 * @param e the e
+		 */
 		/*
 		 * (non-Javadoc)
 		 *
@@ -1334,6 +1271,11 @@ public class SWTChartEditor implements ChartEditor {
 			// don't need to do anything
 		}
 
+		/**
+		 * Focus lost.
+		 *
+		 * @param e the e
+		 */
 		/*
 		 * (non-Javadoc)
 		 *
@@ -1369,9 +1311,7 @@ public class SWTChartEditor implements ChartEditor {
 			super.setAxisProperties(axis);
 			final NumberAxis numberAxis = (NumberAxis) axis;
 			numberAxis.setAutoRange(this.autoRange);
-			if (!this.autoRange) {
-				numberAxis.setRange(this.minimumValue, this.maximumValue);
-			}
+			if (!this.autoRange) { numberAxis.setRange(this.minimumValue, this.maximumValue); }
 		}
 	}
 
@@ -1416,11 +1356,9 @@ public class SWTChartEditor implements ChartEditor {
 		 *            the stroke.
 		 */
 		public void setStroke(final Stroke stroke) {
-			if (stroke instanceof BasicStroke) {
-				setData(stroke);
-			} else {
+			if (!(stroke instanceof BasicStroke))
 				throw new RuntimeException("Can only handle 'Basic Stroke' at present.");
-			}
+			setData(stroke);
 		}
 
 		/**
@@ -1428,9 +1366,7 @@ public class SWTChartEditor implements ChartEditor {
 		 *
 		 * @return The stroke.
 		 */
-		public BasicStroke getStroke() {
-			return (BasicStroke) this.getData();
-		}
+		public BasicStroke getStroke() { return (BasicStroke) this.getData(); }
 
 	}
 }

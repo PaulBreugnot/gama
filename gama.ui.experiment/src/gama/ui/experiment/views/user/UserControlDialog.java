@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * UserControlDialog.java, in gama.ui.experiment, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * UserControlDialog.java, in gama.ui.experiment, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.experiment.views.user;
 
@@ -40,13 +40,13 @@ import gama.ui.base.parameters.EditorFactory;
 import gama.ui.base.parameters.EditorsGroup;
 import gama.ui.base.resources.GamaIcons;
 import gama.ui.base.resources.IGamaIcons;
-import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.experiment.parameters.AgentAttributesEditorsList;
 import gaml.architecture.user.UserInputStatement;
 import gaml.architecture.user.UserPanelStatement;
 import gaml.statements.IStatement;
 import gaml.statements.UserCommandStatement;
 
+// TODO: Auto-generated Javadoc
 /**
  * The class EditorsDialog.
  *
@@ -63,20 +63,21 @@ public class UserControlDialog extends AbstractDetailsDialog {
 
 		/** The location. */
 		final Point location;
-		
+
 		/** The extent. */
 		final Point extent;
-		
+
 		/** The toggled. */
 		final boolean toggled;
-		
+
 		/** The name. */
 		final String name;
 
 		/**
 		 * Instantiates a new previous dialog.
 		 *
-		 * @param d the d
+		 * @param d
+		 *            the d
 		 */
 		PreviousDialog(final UserControlDialog d) {
 			location = d.getShell().getLocation();
@@ -89,21 +90,23 @@ public class UserControlDialog extends AbstractDetailsDialog {
 
 	/** The current. */
 	public static UserControlDialog current = null;
-	
+
 	/** The previous. */
 	private static PreviousDialog previous = null;
 
 	/** The user commands. */
 	private final List<IStatement> userCommands;
-	
+
 	/** The scope. */
 	final IScope scope;
 
 	/**
 	 * Instantiates a new user control dialog.
 	 *
-	 * @param scope the scope
-	 * @param panel the panel
+	 * @param scope
+	 *            the scope
+	 * @param panel
+	 *            the panel
 	 */
 	public UserControlDialog(final IScope scope, final UserPanelStatement panel) {
 		super((Shell) null, "[" + scope.getAgent().getName() + "] " + panel.getName(), null, null);
@@ -112,6 +115,11 @@ public class UserControlDialog extends AbstractDetailsDialog {
 		this.scope = scope;
 	}
 
+	/**
+	 * Close.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean close() {
 		previous = new PreviousDialog(this);
@@ -120,6 +128,11 @@ public class UserControlDialog extends AbstractDetailsDialog {
 		return super.close();
 	}
 
+	/**
+	 * Configure shell.
+	 *
+	 * @param newShell the new shell
+	 */
 	@Override
 	protected void configureShell(final Shell newShell) {
 		super.configureShell(newShell);
@@ -129,12 +142,23 @@ public class UserControlDialog extends AbstractDetailsDialog {
 
 	}
 
+	/**
+	 * Open.
+	 *
+	 * @return the int
+	 */
 	@Override
 	public int open() {
 		current = this;
 		return super.open();
 	}
 
+	/**
+	 * Creates the contents.
+	 *
+	 * @param parent the parent
+	 * @return the control
+	 */
 	@Override
 	protected Control createContents(final Composite parent) {
 		final Composite composite = (Composite) super.createContents(parent);
@@ -145,6 +169,11 @@ public class UserControlDialog extends AbstractDetailsDialog {
 
 	}
 
+	/**
+	 * Creates the buttons for button bar.
+	 *
+	 * @param parent the parent
+	 */
 	@Override
 	protected void createButtonsForButtonBar(final Composite parent) {
 		createButton(parent, IDialogConstants.OK_ID, "Continue", true);
@@ -154,6 +183,12 @@ public class UserControlDialog extends AbstractDetailsDialog {
 
 	}
 
+	/**
+	 * Creates the dialog area.
+	 *
+	 * @param parent the parent
+	 * @return the control
+	 */
 	@Override
 	protected Control createDialogArea(final Composite parent) {
 		final Composite above = (Composite) super.createDialogArea(parent);
@@ -197,11 +232,17 @@ public class UserControlDialog extends AbstractDetailsDialog {
 		return composite;
 	}
 
+	/**
+	 * Checks if is resizable.
+	 *
+	 * @return true, if is resizable
+	 */
 	@Override
-	protected boolean isResizable() {
-		return true;
-	}
+	protected boolean isResizable() { return true; }
 
+	/**
+	 * Toggle details area.
+	 */
 	@Override
 	protected void toggleDetailsArea() {
 		final Point oldWindowSize = getShell().getSize();
@@ -245,11 +286,17 @@ public class UserControlDialog extends AbstractDetailsDialog {
 		((Composite) getContents()).layout();
 	}
 
+	/**
+	 * Creates the details area.
+	 *
+	 * @param parent the parent
+	 * @return the control
+	 */
 	@SuppressWarnings ({ "rawtypes", "unchecked" })
 	@Override
 	protected Control createDetailsArea(final Composite parent) {
 		final EditorsGroup compo = new EditorsGroup(parent, SWT.BORDER | SWT.SHADOW_IN);
-		compo.setBackground(WorkbenchHelper.getDisplay().getSystemColor(SWT.COLOR_GRAY));
+		// compo.setBackground(WorkbenchHelper.getDisplay().getSystemColor(SWT.COLOR_GRAY));
 		final FillLayout layout = new FillLayout();
 		compo.setLayout(layout);
 		final IAgent agent = scope.getAgent();

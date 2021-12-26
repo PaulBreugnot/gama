@@ -1,12 +1,11 @@
 /*******************************************************************************************************
  *
- * EditorLabel.java, in gama.ui.base, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * EditorLabel.java, in gama.ui.base, is part of the source code of the GAMA modeling and simulation platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.base.parameters;
 
@@ -32,6 +31,7 @@ import gama.ui.base.resources.GamaColors;
 import gama.ui.base.resources.IGamaColors;
 import gama.ui.base.utils.ThemeHelper;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class EditorLabel.
  */
@@ -43,16 +43,16 @@ public class EditorLabel {
 
 	/** The Constant ERROR. */
 	public static final Color ERROR = IGamaColors.ERROR.color();
-	
+
 	/** The Constant CHANGED. */
 	public static final Color CHANGED = IGamaColors.TOOLTIP.color();
-	
+
 	/** The Constant DARK_ACTIVE. */
 	public static final Color DARK_ACTIVE = IGamaColors.VERY_LIGHT_GRAY.color();
-	
+
 	/** The Constant LIGHT_ACTIVE. */
 	public static final Color LIGHT_ACTIVE = IGamaColors.BLACK.color();
-	
+
 	/** The Constant INACTIVE. */
 	public static final Color INACTIVE = GamaColors.system(SWT.COLOR_GRAY);
 
@@ -60,28 +60,32 @@ public class EditorLabel {
 	 * The Enum State.
 	 */
 	enum State {
-		
+
 		/** The active. */
-		active, 
- /** The errored. */
- errored, 
- /** The changed. */
- changed;
+		active,
+		/** The errored. */
+		errored,
+		/** The changed. */
+		changed;
 	}
 
 	/** The label. */
 	@Nonnull private final Label label;
-	
+
 	/** The states. */
 	EnumSet<State> states = EnumSet.of(State.active);
 
 	/**
 	 * Instantiates a new editor label.
 	 *
-	 * @param ed the ed
-	 * @param parent the parent
-	 * @param title the title
-	 * @param isSubParameter the is sub parameter
+	 * @param ed
+	 *            the ed
+	 * @param parent
+	 *            the parent
+	 * @param title
+	 *            the title
+	 * @param isSubParameter
+	 *            the is sub parameter
 	 */
 	public EditorLabel(final AbstractEditor ed, final Composite parent, final String title,
 			final boolean isSubParameter) {
@@ -99,7 +103,8 @@ public class EditorLabel {
 	/**
 	 * Compute label tooltip.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @return the string
 	 */
 	protected String computeLabelTooltip(final AbstractEditor e) {
@@ -136,7 +141,8 @@ public class EditorLabel {
 	/**
 	 * Text color for.
 	 *
-	 * @param background the background
+	 * @param background
+	 *            the background
 	 * @return the color
 	 */
 	private Color textColorFor(final Color background) {
@@ -146,7 +152,8 @@ public class EditorLabel {
 	/**
 	 * Signal changed.
 	 *
-	 * @param changed the changed
+	 * @param changed
+	 *            the changed
 	 */
 	public void signalChanged(final boolean changed) {
 		if (changed) {
@@ -180,7 +187,8 @@ public class EditorLabel {
 	/**
 	 * Sets the active.
 	 *
-	 * @param active the new active
+	 * @param active
+	 *            the new active
 	 */
 	public void setActive(final boolean active) {
 		if (active) {
@@ -194,7 +202,8 @@ public class EditorLabel {
 	/**
 	 * Sets the text color.
 	 *
-	 * @param c the new text color
+	 * @param c
+	 *            the new text color
 	 */
 	private void setTextColor(final Color c) {
 		label.setForeground(c);
@@ -205,7 +214,8 @@ public class EditorLabel {
 	/**
 	 * Sets the background color.
 	 *
-	 * @param c the new background color
+	 * @param c
+	 *            the new background color
 	 */
 	private void setBackgroundColor(final Color c) {
 		label.setBackground(c);
@@ -216,11 +226,7 @@ public class EditorLabel {
 	 * Sets the CSS data.
 	 */
 	private void setCSSData() {
-		Color c = label.getForeground();
-		String foreground = String.format("#%02x%02x%02x", c.getRed(), c.getGreen(), c.getBlue());
-		c = label.getBackground();
-		String background = String.format("#%02x%02x%02x", c.getRed(), c.getGreen(), c.getBlue());
-		label.setData("style", "color: " + foreground + "; background-color: " + background + ";");
+		GamaColors.setBackAndForeground(label, label.getBackground(), label.getForeground());
 	}
 
 	/**
@@ -253,7 +259,8 @@ public class EditorLabel {
 	/**
 	 * Sets the menu.
 	 *
-	 * @param m the new menu
+	 * @param m
+	 *            the new menu
 	 */
 	public void setMenu(final Menu m) {
 		if (label.isDisposed()) return;
@@ -263,7 +270,8 @@ public class EditorLabel {
 	/**
 	 * Sets the horizontal alignment.
 	 *
-	 * @param lead the new horizontal alignment
+	 * @param lead
+	 *            the new horizontal alignment
 	 */
 	public void setHorizontalAlignment(final int lead) {
 		if (label.isDisposed()) return;

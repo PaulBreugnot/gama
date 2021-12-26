@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ExpandableItemsView.java, in gama.ui.base, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ExpandableItemsView.java, in gama.ui.base, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.base.views;
 
@@ -24,17 +24,17 @@ import org.eclipse.swt.widgets.Composite;
 import gama.common.interfaces.ItemList;
 import gama.ui.base.controls.ParameterExpandBar;
 import gama.ui.base.controls.ParameterExpandItem;
-import gama.ui.base.resources.IGamaColors;
 import gama.ui.base.resources.GamaColors.GamaUIColor;
-import gama.ui.base.utils.ThemeHelper;
+import gama.ui.base.toolbar.IToolbarDecoratedView;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.util.GamaColor;
-import gama.ui.base.toolbar.IToolbarDecoratedView;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ExpandableItemsView.
  *
- * @param <T> the generic type
+ * @param <T>
+ *            the generic type
  */
 public abstract class ExpandableItemsView<T> extends GamaViewPart
 		implements ItemList<T>, IToolbarDecoratedView.Expandable {
@@ -50,14 +50,13 @@ public abstract class ExpandableItemsView<T> extends GamaViewPart
 	 *
 	 * @return the viewer
 	 */
-	public ParameterExpandBar getViewer() {
-		return viewer;
-	}
+	public ParameterExpandBar getViewer() { return viewer; }
 
 	/**
 	 * Creates the viewer.
 	 *
-	 * @param parent the parent
+	 * @param parent
+	 *            the parent
 	 */
 	public void createViewer(final Composite parent) {
 		if (parent == null) return;
@@ -69,7 +68,7 @@ public abstract class ExpandableItemsView<T> extends GamaViewPart
 				final var data = new GridData(SWT.FILL, SWT.FILL, true, true);
 				viewer.setLayoutData(data);
 			}
-			viewer.setBackground(!ThemeHelper.isDark() ? IGamaColors.WHITE.color() : IGamaColors.DARK_GRAY.darker());
+			// viewer.setBackground(!ThemeHelper.isDark() ? IGamaColors.WHITE.color() : IGamaColors.DARK_GRAY.darker());
 			// viewer.computeSize(parent.getSize().x, SWT.DEFAULT);
 			viewer.setSpacing(8);
 		}
@@ -96,11 +95,16 @@ public abstract class ExpandableItemsView<T> extends GamaViewPart
 	/**
 	 * Creates the item.
 	 *
-	 * @param parent the parent
-	 * @param data the data
-	 * @param control the control
-	 * @param expanded the expanded
-	 * @param color the color
+	 * @param parent
+	 *            the parent
+	 * @param data
+	 *            the data
+	 * @param control
+	 *            the control
+	 * @param expanded
+	 *            the expanded
+	 * @param color
+	 *            the color
 	 * @return the parameter expand item
 	 */
 	protected ParameterExpandItem createItem(final Composite parent, final T data, final Composite control,
@@ -111,13 +115,20 @@ public abstract class ExpandableItemsView<T> extends GamaViewPart
 	/**
 	 * Creates the item.
 	 *
-	 * @param parent the parent
-	 * @param name the name
-	 * @param data the data
-	 * @param control the control
-	 * @param bar the bar
-	 * @param expanded the expanded
-	 * @param color the color
+	 * @param parent
+	 *            the parent
+	 * @param name
+	 *            the name
+	 * @param data
+	 *            the data
+	 * @param control
+	 *            the control
+	 * @param bar
+	 *            the bar
+	 * @param expanded
+	 *            the expanded
+	 * @param color
+	 *            the color
 	 * @return the parameter expand item
 	 */
 	protected ParameterExpandItem createItem(final Composite parent, final String name, final T data,
@@ -136,9 +147,12 @@ public abstract class ExpandableItemsView<T> extends GamaViewPart
 	/**
 	 * Builds the concrete item.
 	 *
-	 * @param bar the bar
-	 * @param data the data
-	 * @param color the color
+	 * @param bar
+	 *            the bar
+	 * @param data
+	 *            the data
+	 * @param color
+	 *            the color
 	 * @return the parameter expand item
 	 */
 	protected ParameterExpandItem buildConcreteItem(final ParameterExpandBar bar, final T data,
@@ -149,12 +163,18 @@ public abstract class ExpandableItemsView<T> extends GamaViewPart
 	/**
 	 * Creates the item.
 	 *
-	 * @param parent the parent
-	 * @param name the name
-	 * @param data the data
-	 * @param control the control
-	 * @param expanded the expanded
-	 * @param color the color
+	 * @param parent
+	 *            the parent
+	 * @param name
+	 *            the name
+	 * @param data
+	 *            the data
+	 * @param control
+	 *            the control
+	 * @param expanded
+	 *            the expanded
+	 * @param color
+	 *            the color
 	 * @return the parameter expand item
 	 */
 	protected ParameterExpandItem createItem(final Composite parent, final String name, final T data,
@@ -167,10 +187,14 @@ public abstract class ExpandableItemsView<T> extends GamaViewPart
 	/**
 	 * Creates the item.
 	 *
-	 * @param parent the parent
-	 * @param data the data
-	 * @param expanded the expanded
-	 * @param color the color
+	 * @param parent
+	 *            the parent
+	 * @param data
+	 *            the data
+	 * @param expanded
+	 *            the expanded
+	 * @param color
+	 *            the color
 	 * @return the parameter expand item
 	 */
 	protected ParameterExpandItem createItem(final Composite parent, final T data, final boolean expanded,
@@ -185,7 +209,8 @@ public abstract class ExpandableItemsView<T> extends GamaViewPart
 	/**
 	 * Creates the item contents for.
 	 *
-	 * @param data the data
+	 * @param data
+	 *            the data
 	 * @return the composite
 	 */
 	protected abstract Composite createItemContentsFor(T data);
@@ -204,6 +229,11 @@ public abstract class ExpandableItemsView<T> extends GamaViewPart
 		}
 	}
 
+	/**
+	 * Widget disposed.
+	 *
+	 * @param e the e
+	 */
 	@Override
 	public void widgetDisposed(final DisposeEvent e) {
 		reset();
@@ -211,39 +241,90 @@ public abstract class ExpandableItemsView<T> extends GamaViewPart
 		super.widgetDisposed(e);
 	}
 
+	/**
+	 * Reset.
+	 */
 	@Override
 	public void reset() {
 		disposeViewer();
 	}
 
+	/**
+	 * Sets the focus.
+	 */
 	@Override
 	public void setFocus() {
 		if (viewer != null) { viewer.setFocus(); }
 	}
 
+	/**
+	 * Removes the item.
+	 *
+	 * @param obj the obj
+	 */
 	@Override
 	public void removeItem(final T obj) {}
 
+	/**
+	 * Pause item.
+	 *
+	 * @param obj the obj
+	 */
 	@Override
 	public void pauseItem(final T obj) {}
 
+	/**
+	 * Resume item.
+	 *
+	 * @param obj the obj
+	 */
 	@Override
 	public void resumeItem(final T obj) {}
 
+	/**
+	 * Focus item.
+	 *
+	 * @param obj the obj
+	 */
 	@Override
 	public void focusItem(final T obj) {}
 
+	/**
+	 * Make item visible.
+	 *
+	 * @param obj the obj
+	 * @param b the b
+	 */
 	@Override
 	public void makeItemVisible(final T obj, final boolean b) {}
 
+	/**
+	 * Make item selectable.
+	 *
+	 * @param obj the obj
+	 * @param b the b
+	 */
 	@Override
 	public void makeItemSelectable(final T obj, final boolean b) {}
 
+	/**
+	 * Gets the item display name.
+	 *
+	 * @param obj the obj
+	 * @param previousName the previous name
+	 * @return the item display name
+	 */
 	@Override
 	public String getItemDisplayName(final T obj, final String previousName) {
 		return null;
 	}
 
+	/**
+	 * Gets the item display color.
+	 *
+	 * @param o the o
+	 * @return the item display color
+	 */
 	@Override
 	public GamaColor getItemDisplayColor(final T o) {
 		return null;
@@ -259,6 +340,11 @@ public abstract class ExpandableItemsView<T> extends GamaViewPart
 		}
 	}
 
+	/**
+	 * Creates the update job.
+	 *
+	 * @return the gama UI job
+	 */
 	@Override
 	protected GamaUIJob createUpdateJob() {
 		return new GamaUIJob() {
@@ -281,12 +367,23 @@ public abstract class ExpandableItemsView<T> extends GamaViewPart
 		};
 	}
 
+	/**
+	 * Gets the items.
+	 *
+	 * @return the items
+	 */
 	@Override
 	public abstract List<T> getItems();
 
+	/**
+	 * Update item values.
+	 */
 	@Override
 	public abstract void updateItemValues();
 
+	/**
+	 * Collapse all.
+	 */
 	@Override
 	public void collapseAll() {
 		for (final ParameterExpandItem p : getViewer().getItems()) {
@@ -294,6 +391,9 @@ public abstract class ExpandableItemsView<T> extends GamaViewPart
 		}
 	}
 
+	/**
+	 * Expand all.
+	 */
 	@Override
 	public void expandAll() {
 		for (final ParameterExpandItem p : getViewer().getItems()) {

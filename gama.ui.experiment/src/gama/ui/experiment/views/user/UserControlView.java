@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * UserControlView.java, in gama.ui.experiment, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * UserControlView.java, in gama.ui.experiment, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.experiment.views.user;
 
@@ -47,6 +47,7 @@ import gaml.architecture.user.UserPanelStatement;
 import gaml.statements.IStatement;
 import gaml.statements.UserCommandStatement;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class UserControlView.
  */
@@ -57,16 +58,22 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 
 	/** The scope. */
 	IScope scope;
-	
+
 	/** The panel. */
 	UserPanelStatement panel;
-	
+
 	/** The body. */
 	private Composite body;
-	
+
 	/** The continue item. */
 	ToolItem inspectItem, continueItem;
 
+	/**
+	 * Inits the for.
+	 *
+	 * @param scope the scope
+	 * @param panel the panel
+	 */
 	@Override
 	public void initFor(final IScope scope, final UserPanelStatement panel) {
 		this.panel = panel;
@@ -84,7 +91,8 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 	/**
 	 * Deactivate.
 	 *
-	 * @param parent the parent
+	 * @param parent
+	 *            the parent
 	 */
 	private void deactivate(final Composite parent) {
 		for (final Control c : parent.getChildren()) {
@@ -96,9 +104,14 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 		}
 	}
 
+	/**
+	 * Own create part control.
+	 *
+	 * @param parent the parent
+	 */
 	@Override
 	public void ownCreatePartControl(final Composite parent) {
-		parent.setBackground(IGamaColors.WHITE.color());
+		// parent.setBackground(IGamaColors.WHITE.color());
 		if (scope == null) return;
 		inspectItem.setEnabled(true);
 		continueItem.setEnabled(true);
@@ -111,7 +124,7 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 		body = new Composite(parent, SWT.None);
 		GridLayout layout = new GridLayout(3, false);
 		body.setLayout(layout);
-		body.setBackground(IGamaColors.WHITE.color());
+		// body.setBackground(IGamaColors.WHITE.color());
 		for (final IStatement statement : panel.getUserCommands()) {
 			if (statement instanceof UserCommandStatement) {
 				final UserCommandStatement c = (UserCommandStatement) statement;
@@ -120,7 +133,7 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 				commandComposite.setLayoutData(data);
 				// layout = new GridLayout(3, false);
 				// commandComposite.setLayout(layout);
-				commandComposite.setBackground(IGamaColors.WHITE.color());
+				// commandComposite.setBackground(IGamaColors.WHITE.color());
 				final List<UserInputStatement> inputs = c.getInputs();
 				final int nbLines = inputs.size() > 1 ? inputs.size() : 1;
 				final int nbCol = inputs.size() > 0 ? 1 : 3;
@@ -163,12 +176,22 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 		WorkbenchHelper.hideView(this);
 	}
 
+	/**
+	 * Widget disposed.
+	 *
+	 * @param e the e
+	 */
 	@Override
 	public void widgetDisposed(final DisposeEvent e) {
 		scope.setOnUserHold(false);
 		super.widgetDisposed(e);
 	}
 
+	/**
+	 * Creates the update job.
+	 *
+	 * @return the gama UI job
+	 */
 	@Override
 	protected GamaUIJob createUpdateJob() {
 		return new GamaUIJob() {
@@ -187,8 +210,9 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 	}
 
 	/**
-	 * Method createToolItem()
+	 * Method createToolItem().
 	 *
+	 * @param tb the tb
 	 * @see gama.ui.views.toolbar.IToolbarDecoratedView#createToolItem(int, gama.ui.views.toolbar.GamaToolbar2)
 	 */
 	@Override
@@ -203,6 +227,11 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 
 	}
 
+	/**
+	 * Needs output.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	protected boolean needsOutput() {
 		return false;

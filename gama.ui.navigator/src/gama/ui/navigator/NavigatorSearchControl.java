@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * NavigatorSearchControl.java, in gama.ui.navigator, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * NavigatorSearchControl.java, in gama.ui.navigator, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.navigator;
 
@@ -32,14 +32,14 @@ import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.progress.UIJob;
 import org.eclipse.ui.swt.IFocusService;
 
-import gama.ui.base.resources.IGamaColors;
+import gama.ui.base.toolbar.GamaToolbarSimple;
 import gama.ui.base.utils.PlatformHelper;
 import gama.ui.navigator.contents.ResourceManager;
 import gama.ui.navigator.contents.VirtualContent;
 import gama.ui.navigator.contents.WrappedGamaFile;
-import gama.ui.base.toolbar.GamaToolbarSimple;
 import one.util.streamex.StreamEx;
 
+// TODO: Auto-generated Javadoc
 /**
  * The class EditToolbarFindControls.
  *
@@ -52,14 +52,13 @@ public class NavigatorSearchControl {
 	/**
 	 * Should select.
 	 *
-	 * @param o the o
+	 * @param o
+	 *            the o
 	 * @return true, if successful
 	 */
 	boolean shouldSelect(final Object o) {
-		if (!(o instanceof WrappedGamaFile)) { return false; }
-		final WrappedGamaFile file = (WrappedGamaFile) o;
-		if (file.getName().toLowerCase().contains(pattern)) { return true; }
-		if (file.hasTag(pattern)) { return true; }
+		if (!(o instanceof WrappedGamaFile file)) return false;
+		if (file.getName().toLowerCase().contains(pattern) || file.hasTag(pattern)) return true;
 		return false;
 	}
 
@@ -83,6 +82,14 @@ public class NavigatorSearchControl {
 		 */
 		public NamePatternFilter() {}
 
+		/**
+		 * Select.
+		 *
+		 * @param viewer the viewer
+		 * @param parentElement the parent element
+		 * @param element the element
+		 * @return true, if successful
+		 */
 		@Override
 		public boolean select(final Viewer viewer, final Object parentElement, final Object element) {
 			return select((VirtualContent<?>) element, true);
@@ -91,13 +98,15 @@ public class NavigatorSearchControl {
 		/**
 		 * Select.
 		 *
-		 * @param element the element
-		 * @param b the b
+		 * @param element
+		 *            the element
+		 * @param b
+		 *            the b
 		 * @return true, if successful
 		 */
 		@SuppressWarnings ("unchecked")
 		private boolean select(final VirtualContent<?> element, final boolean b) {
-			if (alreadySelected.contains(element)) { return true; }
+			if (alreadySelected.contains(element)) return true;
 			if (internalSelect(element, b)) {
 				alreadySelected.add(element);
 				return true;
@@ -108,12 +117,14 @@ public class NavigatorSearchControl {
 		/**
 		 * Internal select.
 		 *
-		 * @param element the element
-		 * @param considerVirtualContent the consider virtual content
+		 * @param element
+		 *            the element
+		 * @param considerVirtualContent
+		 *            the consider virtual content
 		 * @return true, if successful
 		 */
 		private boolean internalSelect(final VirtualContent<?> element, final boolean considerVirtualContent) {
-			if (pattern.isEmpty()) { return true; }
+			if (pattern.isEmpty()) return true;
 			switch (element.getType()) {
 				case FILE:
 					return shouldSelect(element);
@@ -128,7 +139,7 @@ public class NavigatorSearchControl {
 				default:
 					final Object[] children = element.getNavigatorChildren();
 					for (final Object element2 : children) {
-						if (select((VirtualContent<?>) element2, false)) { return true; }
+						if (select((VirtualContent<?>) element2, false)) return true;
 					}
 					return false;
 			}
@@ -137,26 +148,27 @@ public class NavigatorSearchControl {
 
 	/** The find. */
 	Text find;
-	
+
 	/** The Constant EMPTY. */
 	private static final String EMPTY = "Find model..."; //$NON-NLS-1$
-	
+
 	/** The pattern. */
 	String pattern;
-	
+
 	/** The navigator. */
 	GamaNavigator navigator;
-	
+
 	/** The tree viewer. */
 	CommonViewer treeViewer;
-	
+
 	/** The filter. */
 	final NamePatternFilter filter = new NamePatternFilter();
 
 	/**
 	 * Instantiates a new navigator search control.
 	 *
-	 * @param navigator the navigator
+	 * @param navigator
+	 *            the navigator
 	 */
 	public NavigatorSearchControl(final GamaNavigator navigator) {
 		this.navigator = navigator;
@@ -172,7 +184,8 @@ public class NavigatorSearchControl {
 	/**
 	 * Fill.
 	 *
-	 * @param toolbar the toolbar
+	 * @param toolbar
+	 *            the toolbar
 	 * @return the navigator search control
 	 */
 	public NavigatorSearchControl fill(final GamaToolbarSimple toolbar) {
@@ -194,8 +207,8 @@ public class NavigatorSearchControl {
 		data.heightHint = 16;
 		data.widthHint = 100;
 		find.setLayoutData(data);
-		find.setBackground(IGamaColors.WHITE.color());
-		find.setForeground(IGamaColors.BLACK.color());
+		// find.setBackground(IGamaColors.WHITE.color());
+		// find.setForeground(IGamaColors.BLACK.color());
 		find.setMessage(EMPTY);
 		toolbar.control(parent == toolbar ? find : parent, 100);
 		find.addModifyListener(modifyListener);
@@ -243,9 +256,7 @@ public class NavigatorSearchControl {
 			searchJob.cancel();
 			resetJob.schedule(200);
 		} else {
-			if (searchJob.getState() == Job.SLEEPING || searchJob.getState() == Job.WAITING) {
-				searchJob.cancel();
-			}
+			if (searchJob.getState() == Job.SLEEPING || searchJob.getState() == Job.WAITING) { searchJob.cancel(); }
 			searchJob.schedule(200);
 
 		}
@@ -282,7 +293,8 @@ public class NavigatorSearchControl {
 	/**
 	 * Search for.
 	 *
-	 * @param name the name
+	 * @param name
+	 *            the name
 	 */
 	public void searchFor(final String name) {
 		find.setText(name);

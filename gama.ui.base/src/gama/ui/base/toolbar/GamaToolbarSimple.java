@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * GamaToolbarSimple.java, in gama.ui.base, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * GamaToolbarSimple.java, in gama.ui.base, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.base.toolbar;
 
@@ -21,8 +21,8 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
 import gama.ui.base.resources.GamaIcons;
-import gama.ui.base.resources.IGamaColors;
 
+// TODO: Auto-generated Javadoc
 /**
  * Class GamaToolbar. A declarative wrapper around toolbars
  *
@@ -38,9 +38,12 @@ public class GamaToolbarSimple extends ToolBar {
 	/**
 	 * Instantiates a new gama toolbar simple.
 	 *
-	 * @param parent the parent
-	 * @param style the style
-	 * @param c the c
+	 * @param parent
+	 *            the parent
+	 * @param style
+	 *            the style
+	 * @param c
+	 *            the c
 	 */
 	public GamaToolbarSimple(final Composite parent, final int style, final Color c) {
 		super(parent, style);
@@ -48,25 +51,22 @@ public class GamaToolbarSimple extends ToolBar {
 	}
 
 	/**
-	 * Instantiates a new gama toolbar simple.
-	 *
-	 * @param parent the parent
-	 * @param style the style
+	 * Check subclass.
 	 */
-	public GamaToolbarSimple(final Composite parent, final int style) {
-		this(parent, style, IGamaColors.WHITE.color());
-	}
-
 	@Override
 	protected void checkSubclass() {}
 
 	/**
 	 * Button.
 	 *
-	 * @param image the image
-	 * @param text the text
-	 * @param tip the tip
-	 * @param listener the listener
+	 * @param image
+	 *            the image
+	 * @param text
+	 *            the text
+	 * @param tip
+	 *            the tip
+	 * @param listener
+	 *            the listener
 	 * @return the tool item
 	 */
 	public ToolItem button(final String image, final String text, final String tip, final SelectionListener listener) {
@@ -76,10 +76,14 @@ public class GamaToolbarSimple extends ToolBar {
 	/**
 	 * Menu.
 	 *
-	 * @param image the image
-	 * @param text the text
-	 * @param tip the tip
-	 * @param listener the listener
+	 * @param image
+	 *            the image
+	 * @param text
+	 *            the text
+	 * @param tip
+	 *            the tip
+	 * @param listener
+	 *            the listener
 	 * @return the tool item
 	 */
 	public ToolItem menu(final String image, final String text, final String tip, final SelectionListener listener) {
@@ -89,8 +93,10 @@ public class GamaToolbarSimple extends ToolBar {
 	/**
 	 * Control.
 	 *
-	 * @param c the c
-	 * @param width the width
+	 * @param c
+	 *            the c
+	 * @param width
+	 *            the width
 	 * @return the tool item
 	 */
 	public ToolItem control(final Control c, final int width) {
@@ -107,26 +113,27 @@ public class GamaToolbarSimple extends ToolBar {
 	/**
 	 * Creates the.
 	 *
-	 * @param i the i
-	 * @param text the text
-	 * @param tip the tip
-	 * @param listener the listener
-	 * @param style the style
+	 * @param i
+	 *            the i
+	 * @param text
+	 *            the text
+	 * @param tip
+	 *            the tip
+	 * @param listener
+	 *            the listener
+	 * @param style
+	 *            the style
 	 * @return the tool item
 	 */
 	private ToolItem create(final String i, final String text, final String tip, final SelectionListener listener,
 			final int style) {
 		final ToolItem button = new ToolItem(this, style, getItems().length);
-		if (tip != null) {
-			button.setToolTipText(tip);
-		}
+		if (tip != null) { button.setToolTipText(tip); }
 		if (i != null) {
 			final Image image = GamaIcons.create(i).image();
 			button.setImage(image);
 		}
-		if (listener != null) {
-			button.addSelectionListener(listener);
-		}
+		if (listener != null) { button.addSelectionListener(listener); }
 		return button;
 	}
 

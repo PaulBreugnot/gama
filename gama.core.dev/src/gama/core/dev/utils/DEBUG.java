@@ -1,12 +1,11 @@
 /*******************************************************************************************************
  *
- * DEBUG.java, in gama.core.dev, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * DEBUG.java, in gama.core.dev, is part of the source code of the GAMA modeling and simulation platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.core.dev.utils;
 
@@ -21,6 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+// TODO: Auto-generated Javadoc
 /**
  * A simple and generic debugging/logging class that can be turned on / off on a class basis.
  *
@@ -33,11 +33,12 @@ public class DEBUG {
 	 * A custom security manager that exposes the getClassContext() information.
 	 */
 	static class MySecurityManager extends SecurityManager {
-		
+
 		/**
 		 * Gets the caller class name.
 		 *
-		 * @param callStackDepth the call stack depth
+		 * @param callStackDepth
+		 *            the call stack depth
 		 * @return the caller class name
 		 */
 		public String getCallerClassName(final int callStackDepth) {
@@ -51,15 +52,18 @@ public class DEBUG {
 	/** The Constant REGISTERED. */
 	// AD 08/18: Changes to ConcurrentHashMap for multi-threaded DEBUG operations
 	private static final ConcurrentHashMap<String, String> REGISTERED = new ConcurrentHashMap<>();
-	
+
 	/** The Constant COUNTERS. */
 	private static final ConcurrentHashMap<String, Integer> COUNTERS = new ConcurrentHashMap<>();
-	
+
 	/** The Constant TO_STRING. */
 	private static final ConcurrentHashMap<Class<?>, Function<Object, String>> TO_STRING = new ConcurrentHashMap<>();
-	
+
 	/** The Constant LOG_WRITERS. */
 	private static final ThreadLocal<PrintStream> LOG_WRITERS = ThreadLocal.withInitial(() -> System.out);
+
+	/** The Constant stackWalker. */
+	private static final StackWalker STACK_WALKER = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
 
 	static {
 		TO_STRING.put(int.class, o -> Arrays.toString((int[]) o));
@@ -122,14 +126,16 @@ public class DEBUG {
 	/**
 	 * The Interface RunnableWithException.
 	 *
-	 * @param <T> the generic type
+	 * @param <T>
+	 *            the generic type
 	 */
 	public interface RunnableWithException<T extends Throwable> {
-		
+
 		/**
 		 * Run.
 		 *
-		 * @throws T the t
+		 * @throws T
+		 *             the t
 		 */
 		void run() throws T;
 	}
@@ -138,11 +144,13 @@ public class DEBUG {
 	 * Simple timing utility to measure and output the number of ms taken by a runnable. If the class is registered,
 	 * outputs the title provided and the time taken once the runnable is finished, otherwise simply runs the runnable
 	 * (the overhead is minimal compared to simply executing the contents of the runnable).
-	 * 
+	 *
 	 * Usage: DEBUG.TIMER("Important task", ()-> importantTask(...)); Output: Important Taks: 100ms
 	 *
-	 * @param title            a string that will prefix the number of ms in the output
-	 * @param runnable the runnable
+	 * @param title
+	 *            a string that will prefix the number of ms in the output
+	 * @param runnable
+	 *            the runnable
 	 */
 
 	public static void TIMER(final String title, final Runnable runnable) {
@@ -158,10 +166,14 @@ public class DEBUG {
 	/**
 	 * Timer with exceptions.
 	 *
-	 * @param <T> the generic type
-	 * @param title the title
-	 * @param runnable the runnable
-	 * @throws T the t
+	 * @param <T>
+	 *            the generic type
+	 * @param title
+	 *            the title
+	 * @param runnable
+	 *            the runnable
+	 * @throws T
+	 *             the t
 	 */
 	public static <T extends Throwable> void TIMER_WITH_EXCEPTIONS(final String title,
 			final RunnableWithException<T> runnable) throws T {
@@ -179,15 +191,18 @@ public class DEBUG {
 	 * the timer accepting a runnable, this one returns a result. If the class is registered, outputs the title provided
 	 * and the time taken once the supplier is finished and returns its result, otherwise simply returns the result of
 	 * the supplier (the overhead is minimal compared to simply executing the contents of the provider)
-	 * 
+	 *
 	 * Usage: Integer i = DEBUG.TIMER("My important integer computation", ()->myIntegerComputation()); // provided
 	 * myIntegerComputation() returns an Integer.
-	 * 
+	 *
 	 * Output: My important integer computation: 100ms
 	 *
-	 * @param <T> the generic type
-	 * @param title            a string that will prefix the number of ms
-	 * @param supplier            an object that encapsulates the computation to measure
+	 * @param <T>
+	 *            the generic type
+	 * @param title
+	 *            a string that will prefix the number of ms
+	 * @param supplier
+	 *            an object that encapsulates the computation to measure
 	 * @return The result of the supplier passed in argument
 	 */
 
@@ -234,7 +249,8 @@ public class DEBUG {
 	/**
 	 * Unconditional output to System.err except if GLOBAL_OFF is true
 	 *
-	 * @param s the s
+	 * @param s
+	 *            the s
 	 */
 	public static final void ERR(final Object s) {
 		if (ENABLE_LOGGING) { System.err.println(TO_STRING(s)); }
@@ -243,8 +259,10 @@ public class DEBUG {
 	/**
 	 * Unconditional output to System.err except if GLOBAL_OFF is true. The stack trace is included
 	 *
-	 * @param s the s
-	 * @param t the t
+	 * @param s
+	 *            the s
+	 * @param t
+	 *            the t
 	 */
 	public static final void ERR(final Object s, final Throwable t) {
 		if (ENABLE_LOGGING) {
@@ -256,7 +274,8 @@ public class DEBUG {
 	/**
 	 * Unconditional output to System.out except if GLOBAL_OFF is true.
 	 *
-	 * @param string the string
+	 * @param string
+	 *            the string
 	 */
 	public static void LOG(final Object string) {
 		if (ENABLE_LOGGING) { LOG(string, true); }
@@ -284,7 +303,8 @@ public class DEBUG {
 	/**
 	 * Register log writer.
 	 *
-	 * @param writer the writer
+	 * @param writer
+	 *            the writer
 	 */
 	public static void REGISTER_LOG_WRITER(final OutputStream writer) {
 		LOG_WRITERS.set(new PrintStream(writer, true));
@@ -309,10 +329,8 @@ public class DEBUG {
 		if (object == null) return "null";
 		if (object.getClass().isArray()) {
 			final Class<?> clazz = object.getClass().getComponentType();
-			if (clazz.isPrimitive())
-				return TO_STRING.get(clazz).apply(object);
-			else
-				return Arrays.deepToString((Object[]) object);
+			if (clazz.isPrimitive()) return TO_STRING.get(clazz).apply(object);
+			return Arrays.deepToString((Object[]) object);
 		}
 		return object.toString();
 
@@ -321,7 +339,8 @@ public class DEBUG {
 	/**
 	 * Checks if is on.
 	 *
-	 * @param className the class name
+	 * @param className
+	 *            the class name
 	 * @return true, if successful
 	 */
 	private static boolean IS_ON(final String className) {
@@ -387,7 +406,8 @@ public class DEBUG {
 	/**
 	 * A utility method to output a "section" (i.e. a title padded with dashes between two lines of 80 chars
 	 *
-	 * @param s the s
+	 * @param s
+	 *            the s
 	 */
 	public static final void SECTION(final String s) {
 		if (s == null) return;
@@ -399,8 +419,10 @@ public class DEBUG {
 	/**
 	 * A utility method for padding a string with spaces in order to obtain a length of "minLength".
 	 *
-	 * @param string            the string to pad
-	 * @param minLength            the minimum length to reach (if the string is longer, it will be return as is)
+	 * @param string
+	 *            the string to pad
+	 * @param minLength
+	 *            the minimum length to reach (if the string is longer, it will be return as is)
 	 * @return a string of minimum length minLength
 	 */
 	public static String PAD(final String string, final int minLength) {
@@ -410,9 +432,12 @@ public class DEBUG {
 	/**
 	 * A utility method for padding a string with any character in order to obtain a length of "minLength".
 	 *
-	 * @param string            the string to pad
-	 * @param minLength            the minimum length to reach (if the string is longer, it will be return as is)
-	 * @param c the c
+	 * @param string
+	 *            the string to pad
+	 * @param minLength
+	 *            the minimum length to reach (if the string is longer, it will be return as is)
+	 * @param c
+	 *            the c
 	 * @return a string of minimum length minLength
 	 */
 
@@ -424,6 +449,30 @@ public class DEBUG {
 			sb.append(c);
 		}
 		return sb.toString();
+	}
+
+	/**
+	 * Return the caller method.
+	 *
+	 * @return the string
+	 */
+	public static String METHOD() {
+		StackWalker.StackFrame frame = STACK_WALKER.walk(stream1 -> stream1.skip(2).findFirst().orElse(null));
+		return frame == null ? "no calling method" : frame.getMethodName();
+		// return String.format("caller: %s#%s, %s", frame.getClassName(), frame.getMethodName(),
+		// frame.getLineNumber());
+	}
+
+	/**
+	 * Return the caller class.
+	 *
+	 * @return the string
+	 */
+	public static String CALLER() {
+		StackWalker.StackFrame frame = STACK_WALKER.walk(stream1 -> stream1.skip(2).findFirst().orElse(null));
+		return frame == null ? "no one" : frame.getClassName();
+		// return String.format("caller: %s#%s, %s", frame.getClassName(), frame.getMethodName(),
+		// frame.getLineNumber());
 	}
 
 }

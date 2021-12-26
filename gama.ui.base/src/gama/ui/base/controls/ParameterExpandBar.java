@@ -1,7 +1,7 @@
 /*******************************************************************************************************
  *
- * ParameterExpandBar.java, in gama.ui.base, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ParameterExpandBar.java, in gama.ui.base, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
@@ -98,12 +98,15 @@ public class ParameterExpandBar extends Composite {
 	/**
 	 * Instantiates a new parameter expand bar.
 	 *
-	 * @param parent            a composite control which will be the parent of the new instance (cannot be null)
-	 * @param style            the style of control to construct
+	 * @param parent
+	 *            a composite control which will be the parent of the new instance (cannot be null)
+	 * @param style
+	 *            the style of control to construct
 	 * @see SWT#V_SCROLL
 	 * @see Widget#checkSubclass
 	 * @see Widget#getStyle
-	 * @exception IllegalArgumentException                <ul>
+	 * @exception IllegalArgumentException
+	 *                <ul>
 	 *                <li>ERROR_NULL_ARGUMENT - if the parent is null</li>
 	 *                </ul>
 	 */
@@ -115,13 +118,20 @@ public class ParameterExpandBar extends Composite {
 	/**
 	 * Instantiates a new parameter expand bar.
 	 *
-	 * @param parent the parent
-	 * @param style the style
-	 * @param isClosable the is closable
-	 * @param isPausable the is pausable
-	 * @param isSelectable the is selectable
-	 * @param isVisible the is visible
-	 * @param underlyingObjects the underlying objects
+	 * @param parent
+	 *            the parent
+	 * @param style
+	 *            the style
+	 * @param isClosable
+	 *            the is closable
+	 * @param isPausable
+	 *            the is pausable
+	 * @param isSelectable
+	 *            the is selectable
+	 * @param isVisible
+	 *            the is visible
+	 * @param underlyingObjects
+	 *            the underlying objects
 	 */
 	public ParameterExpandBar(final Composite parent, final int style, final boolean isClosable,
 			final boolean isPausable, final boolean isSelectable, final boolean isVisible,
@@ -222,9 +232,12 @@ public class ParameterExpandBar extends Composite {
 	/**
 	 * Creates the item.
 	 *
-	 * @param item the item
-	 * @param style the style
-	 * @param index the index
+	 * @param item
+	 *            the item
+	 * @param style
+	 *            the style
+	 * @param index
+	 *            the index
 	 */
 	void createItem(final ParameterExpandItem item, final int style, final int index) {
 		if (0 > index || index > itemCount) { SWT.error(SWT.ERROR_INVALID_RANGE); }
@@ -244,7 +257,8 @@ public class ParameterExpandBar extends Composite {
 	/**
 	 * Destroy item.
 	 *
-	 * @param item the item
+	 * @param item
+	 *            the item
 	 */
 	public void destroyItem(final ParameterExpandItem item) {
 
@@ -288,7 +302,8 @@ public class ParameterExpandBar extends Composite {
 	/**
 	 * Gets the item.
 	 *
-	 * @param data the data
+	 * @param data
+	 *            the data
 	 * @return the item
 	 */
 	public ParameterExpandItem getItem(final Object data) {
@@ -309,9 +324,7 @@ public class ParameterExpandBar extends Composite {
 	 *                <li>ERROR_THREAD_INVALID_ACCESS - if not called from the thread that created the receiver</li>
 	 *                </ul>
 	 */
-	public int getItemCount() {
-		return itemCount;
-	}
+	public int getItemCount() { return itemCount; }
 
 	/**
 	 * Returns an array of <code>ExpandItem</code>s which are the items in the receiver.
@@ -364,8 +377,10 @@ public class ParameterExpandBar extends Composite {
 	/**
 	 * Layout items.
 	 *
-	 * @param index the index
-	 * @param setScrollbar the set scrollbar
+	 * @param index
+	 *            the index
+	 * @param setScrollbar
+	 *            the set scrollbar
 	 */
 	void layoutItems(final int index, final boolean setScrollbar) {
 		if (index < itemCount) {
@@ -409,7 +424,8 @@ public class ParameterExpandBar extends Composite {
 	/**
 	 * Sets the font.
 	 *
-	 * @param font the new font
+	 * @param font
+	 *            the new font
 	 */
 	@Override
 	public void setFont(final Font font) {
@@ -466,7 +482,8 @@ public class ParameterExpandBar extends Composite {
 	/**
 	 * Show item.
 	 *
-	 * @param item the item
+	 * @param item
+	 *            the item
 	 */
 	void showItem(final ParameterExpandItem item) {
 		final var control = item.control;
@@ -486,7 +503,8 @@ public class ParameterExpandBar extends Composite {
 	/**
 	 * On dispose.
 	 *
-	 * @param event the event
+	 * @param event
+	 *            the event
 	 */
 	void onDispose(final Event event) {
 		removeListener(SWT.Dispose, listener);
@@ -519,7 +537,8 @@ public class ParameterExpandBar extends Composite {
 	/**
 	 * On hover.
 	 *
-	 * @param event the event
+	 * @param event
+	 *            the event
 	 */
 	void onHover(final MouseEvent event) {
 		final var x = event.x;
@@ -539,7 +558,8 @@ public class ParameterExpandBar extends Composite {
 	/**
 	 * Change hover to.
 	 *
-	 * @param item the item
+	 * @param item
+	 *            the item
 	 */
 	void changeHoverTo(final ParameterExpandItem item) {
 		if (hoverItem == item) return;
@@ -552,7 +572,8 @@ public class ParameterExpandBar extends Composite {
 	/**
 	 * On contextual menu.
 	 *
-	 * @param event the event
+	 * @param event
+	 *            the event
 	 */
 	void onContextualMenu(final Event event) {
 		final var x = event.x;
@@ -565,8 +586,7 @@ public class ParameterExpandBar extends Composite {
 				ignoreMouseUp = true;
 				final var p = toDisplay(x, y);
 				final Map<String, Runnable> menuContents = underlyingObjects.handleMenu(item.getData(), p.x, p.y);
-				if (menuContents == null)
-					return;
+				if (menuContents == null) return;
 				final var menu = new Menu(getShell(), SWT.POP_UP);
 
 				for (final Map.Entry<String, Runnable> entry : menuContents.entrySet()) {
@@ -587,7 +607,8 @@ public class ParameterExpandBar extends Composite {
 	/**
 	 * On mouse down.
 	 *
-	 * @param event the event
+	 * @param event
+	 *            the event
 	 */
 	void onMouseDown(final Event event) {
 		if (event.button != 1) return;
@@ -646,7 +667,8 @@ public class ParameterExpandBar extends Composite {
 	/**
 	 * On mouse up.
 	 *
-	 * @param event the event
+	 * @param event
+	 *            the event
 	 */
 	void onMouseUp(final Event event) {
 		if (ignoreMouseUp) {
@@ -672,7 +694,8 @@ public class ParameterExpandBar extends Composite {
 	/**
 	 * On paint.
 	 *
-	 * @param event the event
+	 * @param event
+	 *            the event
 	 */
 	void onPaint(final Event event) {
 		for (var i = 0; i < itemCount; i++) {
@@ -699,7 +722,8 @@ public class ParameterExpandBar extends Composite {
 	/**
 	 * On scroll.
 	 *
-	 * @param event the event
+	 * @param event
+	 *            the event
 	 */
 	public void onScroll(final Event event) {
 		final var verticalBar = getVerticalBar();
@@ -712,7 +736,8 @@ public class ParameterExpandBar extends Composite {
 	/**
 	 * Sets the focus item.
 	 *
-	 * @param focusItem the new focus item
+	 * @param focusItem
+	 *            the new focus item
 	 */
 	void setFocusItem(final ParameterExpandItem focusItem) {
 		this.focusItem = focusItem;
@@ -724,14 +749,13 @@ public class ParameterExpandBar extends Composite {
 	 *
 	 * @return the focus item
 	 */
-	ParameterExpandItem getFocusItem() {
-		return focusItem;
-	}
+	ParameterExpandItem getFocusItem() { return focusItem; }
 
 	/**
 	 * Collapse item with data.
 	 *
-	 * @param data the data
+	 * @param data
+	 *            the data
 	 */
 	public void collapseItemWithData(final Object data) {
 		if (data == null) return;
@@ -746,27 +770,12 @@ public class ParameterExpandBar extends Composite {
 	/**
 	 * Checks if is visible.
 	 *
-	 * @param item the item
+	 * @param item
+	 *            the item
 	 * @return true, if is visible
 	 */
 	public boolean isVisible(final ParameterExpandItem item) {
 		return underlyingObjects == null ? true : underlyingObjects.isItemVisible(item.getData());
 	}
-
-	// final Color backgroundColor =
-	// ThemeHelper.isDark() ? IGamaColors.DARK_GRAY.color() : IGamaColors.VERY_LIGHT_GRAY.color();
-	//
-	// @Override
-	// public Color getBackground() {
-	// return backgroundColor;
-	// }
-	//
-	// @Override
-	// public void setBackground(final Color c) {
-	// DEBUG.OUT("Viewer set with background: " + c);
-	// // String background = String.format("#%02x%02x%02x", c.getRed(), c.getGreen(), c.getBlue());
-	// // setData("style", " background-color: " + background + ";");
-	// super.setBackground(c);
-	// }
 
 }

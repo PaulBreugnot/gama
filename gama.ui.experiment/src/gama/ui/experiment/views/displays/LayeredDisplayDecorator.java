@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * LayeredDisplayDecorator.java, in gama.ui.experiment, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * LayeredDisplayDecorator.java, in gama.ui.experiment, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.experiment.views.displays;
 
@@ -43,14 +43,15 @@ import gama.ui.base.dialogs.Dialogs;
 import gama.ui.base.resources.GamaColors;
 import gama.ui.base.resources.GamaIcons;
 import gama.ui.base.resources.IGamaIcons;
+import gama.ui.base.toolbar.GamaCommand;
+import gama.ui.base.toolbar.GamaToolbar2;
+import gama.ui.base.toolbar.GamaToolbarFactory;
 import gama.ui.base.utils.PerspectiveHelper;
 import gama.ui.base.utils.PlatformHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.base.views.InteractiveConsoleView;
-import gama.ui.base.toolbar.GamaCommand;
-import gama.ui.base.toolbar.GamaToolbar2;
-import gama.ui.base.toolbar.GamaToolbarFactory;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class LayeredDisplayDecorator.
  */
@@ -62,40 +63,40 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 
 	/** The key and mouse listener. */
 	protected SWTLayeredDisplayMultiListener keyAndMouseListener;
-	
+
 	/** The menu manager. */
 	protected DisplaySurfaceMenu menuManager;
-	
+
 	/** The view. */
 	protected final LayeredDisplayView view;
-	
+
 	/** The fs. */
 	ToolItem fs = null;
-	
+
 	/** The normal parent of full screen control. */
 	protected Composite normalParentOfFullScreenControl;
-	
+
 	/** The side control weights. */
 	int[] sideControlWeights = { 30, 70 };
-	
+
 	/** The full screen shell. */
 	protected Shell fullScreenShell;
-	
+
 	/** The side panel. */
 	protected Composite sidePanel;
-	
+
 	/** The overlay. */
 	public DisplayOverlay overlay;
-	
+
 	/** The toolbar. */
 	public GamaToolbar2 toolbar;
 
 	/** The interactive console visible. */
 	boolean isOverlayTemporaryVisible, sideControlsVisible, interactiveConsoleVisible;
-	
+
 	/** The perspective listener. */
 	protected IPerspectiveListener perspectiveListener;
-	
+
 	/** The relaunch experiment. */
 	final GamaCommand toggleSideControls, toggleOverlay, takeSnapshot, toggleFullScreen, toggleInteractiveConsole,
 			runExperiment, stepExperiment, closeExperiment, relaunchExperiment;
@@ -103,7 +104,8 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 	/**
 	 * Instantiates a new layered display decorator.
 	 *
-	 * @param view the view
+	 * @param view
+	 *            the view
 	 */
 	LayeredDisplayDecorator(final LayeredDisplayView view) {
 		this.view = view;
@@ -161,9 +163,9 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 			fullScreenShell.setVisible(true);
 			view.fullScreenSet();
 			display.setFocus();
-//			DEBUG.OUT("Full screen set. Display views visible: " + WorkbenchHelper.getDisplayViews()
-//					+ " / Active part: " + WorkbenchHelper.getActivePart() + " / Active shell: "
-//					+ WorkbenchHelper.getDisplay().getActiveShell());
+			// DEBUG.OUT("Full screen set. Display views visible: " + WorkbenchHelper.getDisplayViews()
+			// + " / Active part: " + WorkbenchHelper.getActivePart() + " / Active shell: "
+			// + WorkbenchHelper.getDisplay().getActiveShell());
 		}
 	}
 
@@ -241,7 +243,8 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 	/**
 	 * Creates the side panel.
 	 *
-	 * @param form the form
+	 * @param form
+	 *            the form
 	 */
 	public void createSidePanel(final SashForm form) {
 
@@ -258,7 +261,8 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 	/**
 	 * Creates the decorations.
 	 *
-	 * @param form the form
+	 * @param form
+	 *            the form
 	 */
 	public void createDecorations(final SashForm form) {
 		final LayerSideControls side = new LayerSideControls();
@@ -328,9 +332,7 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 	 *
 	 * @return true, if is full screen
 	 */
-	public boolean isFullScreen() {
-		return fullScreenShell != null;
-	}
+	public boolean isFullScreen() { return fullScreenShell != null; }
 
 	/**
 	 * Creates the full screen shell.
@@ -437,9 +439,7 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 				GamaIcons.create("display.fullscreen.toolbar2").descriptor()) {
 
 			@Override
-			public boolean isEnabled() {
-				return true;
-			}
+			public boolean isEnabled() { return true; }
 
 			@Override
 			public void run() {
@@ -452,7 +452,8 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 	/**
 	 * Creates the tool items.
 	 *
-	 * @param tb the tb
+	 * @param tb
+	 *            the tb
 	 */
 	public void createToolItems(final GamaToolbar2 tb) {
 		toolbar = tb;
@@ -462,7 +463,7 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 		tb.sep(GamaToolbarFactory.TOOLBAR_SEP, SWT.RIGHT);
 		tb.menu(IGamaIcons.MENU_POPULATION, "Browse displayed agents by layers", "Browse through all displayed agents",
 				trigger -> menuManager.buildToolbarMenu(trigger, (ToolItem) trigger.widget), SWT.RIGHT);
-		tb.setBackground(GamaColors.get(view.getOutput().getData().getToolbarColor()).color());
+		tb.setBackgroundColor(GamaColors.get(view.getOutput().getData().getToolbarColor()).color());
 	}
 
 	/**
@@ -489,6 +490,12 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 		fullScreenShell = null;
 	}
 
+	/**
+	 * Changed.
+	 *
+	 * @param changes the changes
+	 * @param value the value
+	 */
 	@Override
 	public void changed(final Changes changes, final Object value) {
 		switch (changes) {
