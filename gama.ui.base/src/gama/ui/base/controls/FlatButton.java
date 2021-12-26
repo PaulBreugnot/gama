@@ -289,6 +289,7 @@ public class FlatButton extends Canvas implements PaintListener, Listener {
 	 */
 	private void doHover(final boolean hover) {
 		hovered = hover;
+		if (!hover) { down = false; }
 		if (!isDisposed()) { redraw(); }
 	}
 
