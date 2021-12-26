@@ -24,6 +24,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -32,8 +33,11 @@ import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.progress.UIJob;
 import org.eclipse.ui.swt.IFocusService;
 
+import gama.ui.base.resources.GamaColors;
+import gama.ui.base.resources.IGamaColors;
 import gama.ui.base.toolbar.GamaToolbarSimple;
 import gama.ui.base.utils.PlatformHelper;
+import gama.ui.base.utils.ThemeHelper;
 import gama.ui.navigator.contents.ResourceManager;
 import gama.ui.navigator.contents.VirtualContent;
 import gama.ui.navigator.contents.WrappedGamaFile;
@@ -85,9 +89,12 @@ public class NavigatorSearchControl {
 		/**
 		 * Select.
 		 *
-		 * @param viewer the viewer
-		 * @param parentElement the parent element
-		 * @param element the element
+		 * @param viewer
+		 *            the viewer
+		 * @param parentElement
+		 *            the parent element
+		 * @param element
+		 *            the element
 		 * @return true, if successful
 		 */
 		@Override
@@ -190,6 +197,8 @@ public class NavigatorSearchControl {
 	 */
 	public NavigatorSearchControl fill(final GamaToolbarSimple toolbar) {
 		Composite parent = toolbar;
+		Color c = parent.getBackground();
+
 		if (PlatformHelper.isWindows()) {
 			parent = new Composite(toolbar, SWT.NONE);
 			final GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
@@ -198,6 +207,8 @@ public class NavigatorSearchControl {
 			parent.setLayoutData(data);
 			final GridLayout layout = new GridLayout();
 			parent.setLayout(layout);
+			GamaColors.setBackground(parent, c);
+
 		}
 
 		find = new Text(parent, SWT.SEARCH | SWT.ICON_SEARCH);
@@ -211,6 +222,9 @@ public class NavigatorSearchControl {
 		// find.setForeground(IGamaColors.BLACK.color());
 		find.setMessage(EMPTY);
 		toolbar.control(parent == toolbar ? find : parent, 100);
+		GamaColors.setBackground(find, c);
+		GamaColors.setForeground(find,
+				ThemeHelper.isDark() ? IGamaColors.VERY_LIGHT_GRAY.color() : IGamaColors.VERY_DARK_GRAY.color());
 		find.addModifyListener(modifyListener);
 		find.addKeyListener(new KeyListener() {
 
