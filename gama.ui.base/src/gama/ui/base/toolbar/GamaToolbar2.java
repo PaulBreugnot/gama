@@ -94,7 +94,8 @@ public class GamaToolbar2 extends Composite {
 	/**
 	 * Sets the visible.
 	 *
-	 * @param visible the new visible
+	 * @param visible
+	 *            the new visible
 	 */
 	@Override
 	public void setVisible(final boolean visible) { isVisible = visible; }
@@ -149,14 +150,28 @@ public class GamaToolbar2 extends Composite {
 	/**
 	 * Sep.
 	 *
-	 * @param n
-	 *            the n
-	 * @param side
-	 *            the side
+	 * @param width            the n
+	 * @param side            the side
 	 * @return the tool item
 	 */
-	public ToolItem sep(final int n, final int side /* SWT.LEFT or SWT.RIGHT */) {
-		final var icon = GamaIcons.createSizer(getBackground(), n, height);
+	public ToolItem sep(final int width, final int side /* SWT.LEFT or SWT.RIGHT */) {
+		final var icon = GamaIcons.createSizer(getBackground(), width, height);
+		final var item = create(icon.getCode(), null, null, null, SWT.NONE, false, null, side);
+		item.setDisabledImage(icon.image());
+		if (!PlatformHelper.isLinux()) { item.setEnabled(false); }
+		return item;
+	}
+
+	/**
+	 * Sep.
+	 *
+	 * @param width the width
+	 * @param height the height
+	 * @param side            the side
+	 * @return the tool item
+	 */
+	public ToolItem sep(final int width, final int height, final int side /* SWT.LEFT or SWT.RIGHT */) {
+		final var icon = GamaIcons.createSizer(getBackground(), width, height);
 		final var item = create(icon.getCode(), null, null, null, SWT.NONE, false, null, side);
 		item.setDisabledImage(icon.image());
 		if (!PlatformHelper.isLinux()) { item.setEnabled(false); }
@@ -457,8 +472,10 @@ public class GamaToolbar2 extends Composite {
 	 * Wipes the toolbar (left or right), including or not the simple tool items. Retuns the width of the toolbar once
 	 * wiped.
 	 *
-	 * @param side the side
-	 * @param includingToolItems the including tool items
+	 * @param side
+	 *            the side
+	 * @param includingToolItems
+	 *            the including tool items
 	 */
 	public void wipe(final int side /* SWT.LEFT or SWT.RIGHT */, final boolean includingToolItems) {
 
@@ -541,7 +558,8 @@ public class GamaToolbar2 extends Composite {
 	/**
 	 * Gets the toolbar.
 	 *
-	 * @param side the side
+	 * @param side
+	 *            the side
 	 * @return the toolbar
 	 */
 	public GamaToolbarSimple getToolbar(final int side) {
