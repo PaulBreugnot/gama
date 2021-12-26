@@ -53,6 +53,7 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
@@ -115,7 +116,6 @@ import gama.ui.base.toolbar.GamaToolbar2;
 import gama.ui.base.toolbar.GamaToolbarFactory;
 import gama.ui.base.toolbar.IToolbarDecoratedView;
 import gama.ui.base.toolbar.Selector;
-import gama.ui.base.utils.PlatformHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.modeling.decorators.GamlAnnotationImageProvider;
 import gama.ui.modeling.editbox.BoxDecoratorPartListener;
@@ -149,11 +149,26 @@ import gaml.descriptions.ValidationContext;
 public class GamlEditor extends XtextEditor implements IGamlBuilderListener, IGamlEditor, IBoxEnabledEditor,
 		IToolbarDecoratedView /* IToolbarDecoratedView.Sizable, ITooltipDisplayer */ {
 
+	/** The images. */
+	static Map<String, Image> images = new HashMap();
+
+	/** The max image height. */
+	static int maxImageHeight = 0;
+
+	/** The button padding. How much space between each experiment button */
+	static int buttonPadding = 4;
 	static {
 		final var store = EditorsUI.getPreferenceStore();
 		store.setDefault(AbstractDecoratedTextEditorPreferenceConstants.SHOW_RANGE_INDICATOR, false);
 		store.setDefault("spellingEnabled", false);
 		store.setValue("spellingEnabled", false);
+		images.put(IKeyword.BATCH, GamaIcons.create(IGamaIcons.BUTTON_BATCH).image());
+		images.put(IKeyword.MEMORIZE, GamaIcons.create(IGamaIcons.BUTTON_BACK).image());
+		images.put("regular", GamaIcons.create(IGamaIcons.BUTTON_GUI).image());
+		images.put("new", GamaIcons.create("small.plus").image());
+		for (Image im : images.values()) {
+			maxImageHeight = Math.max(maxImageHeight, im.getBounds().height);
+		}
 	}
 
 	/**
@@ -233,9 +248,12 @@ public class GamlEditor extends XtextEditor implements IGamlBuilderListener, IGa
 	/**
 	 * Inits the.
 	 *
-	 * @param site the site
-	 * @param input the input
-	 * @throws PartInitException the part init exception
+	 * @param site
+	 *            the site
+	 * @param input
+	 *            the input
+	 * @throws PartInitException
+	 *             the part init exception
 	 * @see org.eclipse.xtext.ui.editor.XtextEditor#init(org.eclipse.ui.IEditorSite, org.eclipse.ui.IEditorInput)
 	 */
 	@Override
@@ -287,7 +305,8 @@ public class GamlEditor extends XtextEditor implements IGamlBuilderListener, IGa
 	/**
 	 * Ruler context menu about to show.
 	 *
-	 * @param menu the menu
+	 * @param menu
+	 *            the menu
 	 * @see org.eclipse.xtext.ui.editor.XtextEditor#rulerContextMenuAboutToShow(org.eclipse.jface.action.IMenuManager)
 	 */
 	@Override
@@ -415,7 +434,8 @@ public class GamlEditor extends XtextEditor implements IGamlBuilderListener, IGa
 	/**
 	 * Creates the part control.
 	 *
-	 * @param compo the compo
+	 * @param compo
+	 *            the compo
 	 * @see org.eclipse.xtext.ui.editor.XtextEditor#createPartControl(org.eclipse.swt.widgets.Composite)
 	 */
 	@Override
@@ -549,7 +569,8 @@ public class GamlEditor extends XtextEditor implements IGamlBuilderListener, IGa
 	/**
 	 * Install folding support.
 	 *
-	 * @param projectionViewer the projection viewer
+	 * @param projectionViewer
+	 *            the projection viewer
 	 * @see org.eclipse.xtext.ui.editor.XtextEditor#installFoldingSupport(org.eclipse.jface.text.source.projection.ProjectionViewer)
 	 */
 	@Override
@@ -583,22 +604,24 @@ public class GamlEditor extends XtextEditor implements IGamlBuilderListener, IGa
 	 * @param listener
 	 *            the listener
 	 */
-	private void enableButton(final int index, final String text, final SelectionListener listener) {
+	private void enableExperimentButton(final int index, final String text, final SelectionListener listener) {
 		if (text == null) return;
 		final var expType = state.types.get(index);
-		final var image = IKeyword.BATCH.equals(expType) ? GamaIcons.create(IGamaIcons.BUTTON_BATCH).image()
-				: IKeyword.MEMORIZE.equals(expType) ? GamaIcons.create(IGamaIcons.BUTTON_BACK).image()
-				: GamaIcons.create(IGamaIcons.BUTTON_GUI).image();
-
-		final var t = toolbar.button(IGamaColors.OK, text, image, SWT.LEFT);
 		final var type =
 				IKeyword.BATCH.equals(expType) ? "batch" : IKeyword.MEMORIZE.equals(expType) ? "memorize" : "regular";
+		final var image = images.get(type);
 
-		t.getControl().setToolTipText("Executes the " + type + " experiment " + text);
-		((FlatButton) t.getControl()).addSelectionListener(listener);
+		final var t = toolbar.button(IGamaColors.OK, text, image, SWT.LEFT);
+
+		t.setWidth(t.getWidth() + buttonPadding);
+		final FlatButton b = (FlatButton) t.getControl();
+		b.setRightPadding(buttonPadding);
+		b.setImageHeight(maxImageHeight);
+		b.setToolTipText("Executes the " + type + " experiment " + text);
+		b.addSelectionListener(listener);
 		t.setData("index", index);
-		((FlatButton) t.getControl()).setData("exp", text);
-		toolbar.sep(4, SWT.LEFT);
+		b.setData("exp", text);
+		// toolbar.sep(4, SWT.LEFT);
 	}
 
 	/**
@@ -614,7 +637,7 @@ public class GamlEditor extends XtextEditor implements IGamlBuilderListener, IGa
 			WorkbenchHelper.runInUI("Editor refresh", 50, m -> {
 				if (toolbar == null || toolbar.isDisposed()) return;
 				toolbar.wipe(SWT.LEFT, true);
-				if (PlatformHelper.isWindows()) { toolbar.sep(4, SWT.LEFT); }
+				// if (PlatformHelper.isWindows()) { toolbar.sep(4, SWT.LEFT); }
 
 				final var c = state.getColor();
 				var msg = state.getStatus();
@@ -640,12 +663,13 @@ public class GamlEditor extends XtextEditor implements IGamlBuilderListener, IGa
 					// without the following line, the display of the
 					// text "msg" is not updated
 					// correctly (at least for Windows OS)
-					toolbar.sep(4, SWT.LEFT);
+					// toolbar.sep(4, SWT.LEFT);
+					// if (PlatformHelper.isWindows()) { toolbar.sep(4, SWT.LEFT); }
 				} else {
 					var i = 0;
 					if (newState.showExperiments) {
 						for (final String e : state.abbreviations) {
-							enableButton(i, e, listener);
+							enableExperimentButton(i, e, listener);
 							i++;
 
 						}
@@ -653,7 +677,7 @@ public class GamlEditor extends XtextEditor implements IGamlBuilderListener, IGa
 				}
 				if (newState.showExperiments
 						&& !GamlFileExtension.isExperiment(getDocument().getAdapter(IFile.class).getName())) {
-					toolbar.button(IGamaColors.NEUTRAL, "Add experiment", GamaIcons.create("small.plus").image(),
+					toolbar.button(IGamaColors.NEUTRAL, "Add experiment", images.get("new"),
 							new CreateExperimentSelectionListener(GamlEditor.this, toolbar.getToolbar(SWT.LEFT)),
 							SWT.LEFT);
 				}
@@ -668,19 +692,15 @@ public class GamlEditor extends XtextEditor implements IGamlBuilderListener, IGa
 	/**
 	 * Validation ended.
 	 *
-	 * @param newExperiments the new experiments
-	 * @param status the status
+	 * @param newExperiments
+	 *            the new experiments
+	 * @param status
+	 *            the status
 	 * @see gama.core.lang.validation.IGamlBuilderListener#validationEnded(java.lang.Iterable,
 	 *      gaml.descriptions.ValidationContext)
 	 */
 	@Override
 	public void validationEnded(final Iterable<? extends IDescription> newExperiments, final ValidationContext status) {
-		// final String platformString = getURI().toPlatformString(true);
-		// final IFile myFile = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(platformString));
-		// final WrappedGamaFile file =
-		// (WrappedGamaFile) NavigatorRoot.getInstance().getManager().findWrappedInstanceOf(myFile);
-		// NavigatorRoot.getInstance().getManager().refreshResource(file);
-		// NavigatorRoot.getInstance().getManager().resourceChanged(null);
 		if (newExperiments == null && state != null) {
 			updateToolbar(state, true);
 		} else {
@@ -698,8 +718,10 @@ public class GamlEditor extends XtextEditor implements IGamlBuilderListener, IGa
 		/**
 		 * Gets the text hover.
 		 *
-		 * @param sourceViewer the source viewer
-		 * @param contentType the content type
+		 * @param sourceViewer
+		 *            the source viewer
+		 * @param contentType
+		 *            the content type
 		 * @return the text hover
 		 * @see org.eclipse.xtext.ui.editor.XtextSourceViewerConfiguration#getTextHover(org.eclipse.jface.text.source.ISourceViewer,
 		 *      java.lang.String)
@@ -714,7 +736,8 @@ public class GamlEditor extends XtextEditor implements IGamlBuilderListener, IGa
 	/**
 	 * Do save.
 	 *
-	 * @param progressMonitor the progress monitor
+	 * @param progressMonitor
+	 *            the progress monitor
 	 * @see org.eclipse.xtext.ui.editor.XtextEditor#doSave(org.eclipse.core.runtime.IProgressMonitor)
 	 */
 	@Override
@@ -812,7 +835,8 @@ public class GamlEditor extends XtextEditor implements IGamlBuilderListener, IGa
 	/**
 	 * Enable updates.
 	 *
-	 * @param visible the visible
+	 * @param visible
+	 *            the visible
 	 * @see gama.ui.modeling.editbox.IBoxEnabledEditor#enableUpdates(boolean)
 	 */
 	@Override
@@ -1008,7 +1032,8 @@ public class GamlEditor extends XtextEditor implements IGamlBuilderListener, IGa
 	/**
 	 * Handle preference store changed.
 	 *
-	 * @param event the event
+	 * @param event
+	 *            the event
 	 * @see org.eclipse.xtext.ui.editor.XtextEditor#handlePreferenceStoreChanged(org.eclipse.jface.util.PropertyChangeEvent)
 	 */
 	@Override
@@ -1044,7 +1069,8 @@ public class GamlEditor extends XtextEditor implements IGamlBuilderListener, IGa
 	/**
 	 * Initialize drag and drop.
 	 *
-	 * @param viewer the viewer
+	 * @param viewer
+	 *            the viewer
 	 * @see org.eclipse.ui.texteditor.AbstractTextEditor#initializeDragAndDrop(org.eclipse.jface.text.source.ISourceViewer)
 	 */
 	@Override
@@ -1056,7 +1082,8 @@ public class GamlEditor extends XtextEditor implements IGamlBuilderListener, IGa
 	/**
 	 * Install text drag and drop.
 	 *
-	 * @param viewer the viewer
+	 * @param viewer
+	 *            the viewer
 	 * @see org.eclipse.ui.texteditor.AbstractTextEditor#installTextDragAndDrop(org.eclipse.jface.text.source.ISourceViewer)
 	 */
 	@Override
@@ -1067,7 +1094,8 @@ public class GamlEditor extends XtextEditor implements IGamlBuilderListener, IGa
 	/**
 	 * Uninstall text drag and drop.
 	 *
-	 * @param viewer the viewer
+	 * @param viewer
+	 *            the viewer
 	 * @see org.eclipse.ui.texteditor.AbstractTextEditor#uninstallTextDragAndDrop(org.eclipse.jface.text.source.ISourceViewer)
 	 */
 	@Override
