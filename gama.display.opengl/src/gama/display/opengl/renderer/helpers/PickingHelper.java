@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * PickingHelper.java, in gama.display.opengl, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * PickingHelper.java, in gama.display.opengl, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.display.opengl.renderer.helpers;
 
@@ -15,12 +15,14 @@ import java.nio.IntBuffer;
 import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.fixedfunc.GLMatrixFunc;
 import com.jogamp.opengl.glu.GLU;
 
 import gama.display.opengl.OpenGL;
 import gama.display.opengl.renderer.IOpenGLRenderer;
 import gaml.statements.draw.DrawingAttributes;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class PickingHelper.
  */
@@ -32,34 +34,39 @@ public class PickingHelper extends AbstractRendererHelper {
 	/**
 	 * Instantiates a new picking helper.
 	 *
-	 * @param r the r
+	 * @param r
+	 *            the r
 	 */
 	public PickingHelper(final IOpenGLRenderer r) {
 		super(r);
 	}
 
+	/**
+	 * Initialize.
+	 */
 	@Override
 	public void initialize() {}
 
 	/** The Constant NONE. */
 	final static int NONE = -2;
-	
+
 	/** The Constant WORLD. */
 	final static int WORLD = -1;
 
 	/** The is picking. */
 	volatile boolean isPicking;
-	
+
 	/** The is menu on. */
 	volatile boolean isMenuOn;
-	
+
 	/** The picked index. */
 	volatile int pickedIndex = NONE;
 
 	/**
 	 * Sets the picking.
 	 *
-	 * @param isPicking the new picking
+	 * @param isPicking
+	 *            the new picking
 	 */
 	public void setPicking(final boolean isPicking) {
 		this.isPicking = isPicking;
@@ -72,16 +79,16 @@ public class PickingHelper extends AbstractRendererHelper {
 	/**
 	 * Sets the menu on.
 	 *
-	 * @param isMenuOn the new menu on
+	 * @param isMenuOn
+	 *            the new menu on
 	 */
-	public void setMenuOn(final boolean isMenuOn) {
-		this.isMenuOn = isMenuOn;
-	}
+	public void setMenuOn(final boolean isMenuOn) { this.isMenuOn = isMenuOn; }
 
 	/**
 	 * Sets the picked index.
 	 *
-	 * @param pickedIndex the new picked index
+	 * @param pickedIndex
+	 *            the new picked index
 	 */
 	public void setPickedIndex(final int pickedIndex) {
 		this.pickedIndex = pickedIndex;
@@ -95,7 +102,8 @@ public class PickingHelper extends AbstractRendererHelper {
 	/**
 	 * Try pick.
 	 *
-	 * @param attributes the attributes
+	 * @param attributes
+	 *            the attributes
 	 */
 	public void tryPick(final DrawingAttributes attributes) {
 		attributes.markSelected(pickedIndex);
@@ -110,8 +118,15 @@ public class PickingHelper extends AbstractRendererHelper {
 	 *
 	 * @return true, if is beginning picking
 	 */
-	public boolean isBeginningPicking() {
-		return isPicking && pickedIndex == NONE;
+	public boolean isBeginningPicking() { return isPicking && pickedIndex == NONE; }
+
+	/**
+	 * Checks for picked.
+	 *
+	 * @return true, if successful
+	 */
+	public boolean hasPicked() {
+		return isPicking && pickedIndex != NONE;
 	}
 
 	/**
@@ -119,18 +134,14 @@ public class PickingHelper extends AbstractRendererHelper {
 	 *
 	 * @return true, if is menu on
 	 */
-	public boolean isMenuOn() {
-		return isMenuOn;
-	}
+	public boolean isMenuOn() { return isMenuOn; }
 
 	/**
 	 * Checks if is picking.
 	 *
 	 * @return true, if is picking
 	 */
-	public boolean isPicking() {
-		return isPicking;
-	}
+	public boolean isPicking() { return isPicking; }
 
 	// Picking method
 	// //////////////////////////////////////////////////////////////////////////////////////
@@ -160,7 +171,7 @@ public class PickingHelper extends AbstractRendererHelper {
 		 * Afterwards, the application should push the current matrix to save the normal rendering mode settings. Next
 		 * initialise the matrix
 		 */
-		openGL.pushIdentity(GL2.GL_PROJECTION);
+		openGL.pushIdentity(GLMatrixFunc.GL_PROJECTION);
 		/*
 		 * Define the viewing volume so that rendering is done only in a small area around the cursor. gluPickMatrix
 		 * method restrict the area where openGL will drawing objects
@@ -170,7 +181,7 @@ public class PickingHelper extends AbstractRendererHelper {
 		// JOGLRenderer r = getRenderer();
 		// FIXME Why do we have to call updatePerspective() here ?
 		openGL.updatePerspective(gl);
-		openGL.matrixMode(GL2.GL_MODELVIEW);
+		openGL.matrixMode(GLMatrixFunc.GL_MODELVIEW);
 	}
 
 	/**
@@ -184,8 +195,8 @@ public class PickingHelper extends AbstractRendererHelper {
 		// number of hits
 		final int howManyObjects = gl.glRenderMode(GL2.GL_RENDER);
 		// 6. Restore to normal settings
-		openGL.pop(GL2.GL_PROJECTION);
-		openGL.matrixMode(GL2.GL_MODELVIEW);
+		openGL.pop(GLMatrixFunc.GL_PROJECTION);
+		openGL.matrixMode(GLMatrixFunc.GL_MODELVIEW);
 		// 7. Seach the select buffer to find the nearest object
 		// code below derive which objects is nearest from monitor
 		//

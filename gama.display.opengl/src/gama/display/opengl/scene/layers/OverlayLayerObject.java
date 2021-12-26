@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * OverlayLayerObject.java, in gama.display.opengl, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * OverlayLayerObject.java, in gama.display.opengl, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.display.opengl.scene.layers;
 
@@ -25,6 +25,7 @@ import gama.runtime.IScope;
 import gaml.expressions.IExpression;
 import gaml.operators.Cast;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class OverlayLayerObject.
  */
@@ -37,13 +38,18 @@ public class OverlayLayerObject extends LayerObject {
 	/**
 	 * Instantiates a new overlay layer object.
 	 *
-	 * @param renderer the renderer
-	 * @param layer the layer
+	 * @param renderer
+	 *            the renderer
+	 * @param layer
+	 *            the layer
 	 */
 	public OverlayLayerObject(final IOpenGLRenderer renderer, final ILayer layer) {
 		super(renderer, layer);
 	}
 
+	/**
+	 * Compute scale.
+	 */
 	@Override
 	public void computeScale() {
 		scale.setLocation(0.9, 0.9, 1);
@@ -52,7 +58,8 @@ public class OverlayLayerObject extends LayerObject {
 	/**
 	 * Adds the frame.
 	 *
-	 * @param gl the gl
+	 * @param gl
+	 *            the gl
 	 */
 	protected void addFrame(final OpenGL gl) {
 		GamaPoint size = new GamaPoint(renderer.getEnvWidth(), renderer.getEnvHeight());
@@ -72,14 +79,25 @@ public class OverlayLayerObject extends LayerObject {
 		gl.popMatrix();
 	}
 
+	/**
+	 * Checks if is overlay.
+	 *
+	 * @return true, if is overlay
+	 */
 	@Override
-	public boolean isOverlay() {
-		return true;
-	}
+	public boolean isOverlay() { return true; }
 
+	/**
+	 * Increase Z.
+	 */
 	@Override
 	protected void increaseZ() {}
 
+	/**
+	 * Prepare drawing.
+	 *
+	 * @param gl the gl
+	 */
 	@Override
 	protected void prepareDrawing(final OpenGL gl) {
 		gl.getGL().glDisable(GL.GL_DEPTH_TEST);
@@ -106,6 +124,12 @@ public class OverlayLayerObject extends LayerObject {
 		gl.scaleBy(nonNullScale.x, nonNullScale.y, nonNullScale.z);
 	}
 
+	/**
+	 * Do drawing.
+	 *
+	 * @param gl the gl
+	 * @param picking the picking
+	 */
 	@Override
 	protected void doDrawing(final OpenGL gl, final boolean picking) {
 		if (!picking) {
@@ -114,6 +138,11 @@ public class OverlayLayerObject extends LayerObject {
 		}
 	}
 
+	/**
+	 * Stop drawing.
+	 *
+	 * @param gl the gl
+	 */
 	@Override
 	protected void stopDrawing(final OpenGL gl) {
 		super.stopDrawing(gl);
@@ -123,5 +152,13 @@ public class OverlayLayerObject extends LayerObject {
 		gl.pop(GLMatrixFunc.GL_MODELVIEW);
 		gl.pop(GLMatrixFunc.GL_PROJECTION);
 	}
+
+	/**
+	 * Checks if is pickable.
+	 *
+	 * @return true, if is pickable
+	 */
+	@Override
+	protected boolean isPickable() { return false; }
 
 }

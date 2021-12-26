@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * LayerObject.java, in gama.display.opengl, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * LayerObject.java, in gama.display.opengl, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.display.opengl.scene.layers;
 
@@ -47,6 +47,7 @@ import gaml.statements.draw.ShapeDrawingAttributes;
 import gaml.statements.draw.TextDrawingAttributes;
 import gaml.types.GamaGeometryType;
 
+// TODO: Auto-generated Javadoc
 /**
  * Class LayerObject.
  *
@@ -59,51 +60,53 @@ public class LayerObject {
 
 	/** The Constant NULL_OFFSET. */
 	final static GamaPoint NULL_OFFSET = new GamaPoint();
-	
+
 	/** The Constant NULL_SCALE. */
 	final static GamaPoint NULL_SCALE = new GamaPoint(1, 1, 1);
 
 	/** The offset. */
 	GamaPoint offset = new GamaPoint(NULL_OFFSET);
-	
+
 	/** The scale. */
 	GamaPoint scale = new GamaPoint(NULL_SCALE);
-	
+
 	/** The alpha. */
 	protected Double alpha = 1d;
-	
+
 	/** The layer. */
 	public final ILayer layer;
-	
+
 	/** The is invalid. */
 	volatile boolean isInvalid;
-	
+
 	/** The locked. */
 	volatile boolean locked;
-	
+
 	/** The is animated. */
 	boolean isAnimated;
-	
+
 	/** The renderer. */
 	protected final IOpenGLRenderer renderer;
-	
+
 	/** The traces. */
 	protected final LinkedList<List<AbstractObject<?, ?>>> traces;
-	
+
 	/** The current list. */
 	protected List<AbstractObject<?, ?>> currentList;
-	
+
 	/** The open GL list index. */
 	protected Integer openGLListIndex;
-	
+
 	/** The is fading. */
 	protected boolean isFading;
 
 	/**
 	 * Instantiates a new layer object.
 	 *
-	 * @param renderer2 the renderer 2
-	 * @param layer the layer
+	 * @param renderer2
+	 *            the renderer 2
+	 * @param layer
+	 *            the layer
 	 */
 	public LayerObject(final IOpenGLRenderer renderer2, final ILayer layer) {
 		this.renderer = renderer2;
@@ -163,9 +166,7 @@ public class LayerObject {
 	 *
 	 * @return true, if is light interaction
 	 */
-	public boolean isLightInteraction() {
-		return true;
-	}
+	public boolean isLightInteraction() { return true; }
 
 	/**
 	 * New current list.
@@ -181,14 +182,13 @@ public class LayerObject {
 	 *
 	 * @return true, if is pickable
 	 */
-	protected boolean isPickable() {
-		return layer == null ? false : layer.getData().isSelectable();
-	}
+	protected boolean isPickable() { return layer == null ? false : layer.getData().isSelectable(); }
 
 	/**
 	 * Draw.
 	 *
-	 * @param gl the gl
+	 * @param gl
+	 *            the gl
 	 */
 	public void draw(final OpenGL gl) {
 		if (isInvalid()) return;
@@ -198,12 +198,13 @@ public class LayerObject {
 	/**
 	 * Draw without shader.
 	 *
-	 * @param gl the gl
+	 * @param gl
+	 *            the gl
 	 */
 	private void drawWithoutShader(final OpenGL gl) {
 		prepareDrawing(gl);
 		try {
-			final boolean picking = renderer.getPickingHelper().isPicking() && isPickable();
+			final boolean picking = renderer.getPickingHelper().isPicking();
 			doDrawing(gl, picking);
 		} finally {
 			stopDrawing(gl);
@@ -214,12 +215,21 @@ public class LayerObject {
 	/**
 	 * Do drawing.
 	 *
-	 * @param gl the gl
-	 * @param picking the picking
+	 * @param gl
+	 *            the gl
+	 * @param picking
+	 *            the picking
 	 */
 	protected void doDrawing(final OpenGL gl, final boolean picking) {
 		if (picking) {
-			gl.runWithNames(() -> drawAllObjects(gl, true));
+			if (isPickable()) {
+				gl.runWithNames(() -> drawAllObjects(gl, true));
+			} else if (renderer.getPickingHelper().hasPicked()) {
+				// A pickable object from another layer has been picked
+				drawAllObjects(gl, false);
+			} else {
+				// We do not draw the layer during the picking process
+			}
 		} else if (isAnimated) {
 			drawAllObjects(gl, false);
 		} else {
@@ -231,7 +241,8 @@ public class LayerObject {
 	/**
 	 * Prepare drawing.
 	 *
-	 * @param gl the gl
+	 * @param gl
+	 *            the gl
 	 */
 	protected void prepareDrawing(final OpenGL gl) {
 		gl.getGL().glEnable(GL.GL_DEPTH_TEST);
@@ -245,7 +256,8 @@ public class LayerObject {
 	/**
 	 * Stop drawing.
 	 *
-	 * @param gl the gl
+	 * @param gl
+	 *            the gl
 	 */
 	protected void stopDrawing(final OpenGL gl) {
 		gl.pop(GLMatrixFunc.GL_MODELVIEW);
@@ -254,8 +266,10 @@ public class LayerObject {
 	/**
 	 * Draw all objects.
 	 *
-	 * @param gl the gl
-	 * @param picking the picking
+	 * @param gl
+	 *            the gl
+	 * @param picking
+	 *            the picking
 	 */
 	protected void drawAllObjects(final OpenGL gl, final boolean picking) {
 		if (traces != null) {
@@ -277,10 +291,14 @@ public class LayerObject {
 	/**
 	 * Draw objects.
 	 *
-	 * @param gl the gl
-	 * @param list the list
-	 * @param alpha the alpha
-	 * @param picking the picking
+	 * @param gl
+	 *            the gl
+	 * @param list
+	 *            the list
+	 * @param alpha
+	 *            the alpha
+	 * @param picking
+	 *            the picking
 	 */
 	protected void drawObjects(final OpenGL gl, final List<AbstractObject<?, ?>> list, final double alpha,
 			final boolean picking) {
@@ -304,25 +322,23 @@ public class LayerObject {
 	/**
 	 * Sets the alpha.
 	 *
-	 * @param a the new alpha
+	 * @param a
+	 *            the new alpha
 	 */
-	public void setAlpha(final Double a) {
-		alpha = a;
-	}
+	public void setAlpha(final Double a) { alpha = a; }
 
 	/**
 	 * Gets the offset.
 	 *
 	 * @return the offset
 	 */
-	public GamaPoint getOffset() {
-		return offset == null ? NULL_OFFSET : offset;
-	}
+	public GamaPoint getOffset() { return offset == null ? NULL_OFFSET : offset; }
 
 	/**
 	 * Sets the offset.
 	 *
-	 * @param offset the new offset
+	 * @param offset
+	 *            the new offset
 	 */
 	public void setOffset(final GamaPoint offset) {
 		if (offset != null) {
@@ -337,24 +353,23 @@ public class LayerObject {
 	 *
 	 * @return the scale
 	 */
-	public GamaPoint getScale() {
-		return scale == null ? NULL_SCALE : scale;
-	}
+	public GamaPoint getScale() { return scale == null ? NULL_SCALE : scale; }
 
 	/**
 	 * Sets the scale.
 	 *
-	 * @param scale the new scale
+	 * @param scale
+	 *            the new scale
 	 */
-	public void setScale(final GamaPoint scale) {
-		this.scale = new GamaPoint(scale);
-	}
+	public void setScale(final GamaPoint scale) { this.scale = new GamaPoint(scale); }
 
 	/**
 	 * Adds the string.
 	 *
-	 * @param string the string
-	 * @param attributes the attributes
+	 * @param string
+	 *            the string
+	 * @param attributes
+	 *            the attributes
 	 */
 	public void addString(final String string, final TextDrawingAttributes attributes) {
 		currentList.add(new StringObject(string, attributes));
@@ -363,8 +378,10 @@ public class LayerObject {
 	/**
 	 * Adds the file.
 	 *
-	 * @param file the file
-	 * @param attributes the attributes
+	 * @param file
+	 *            the file
+	 * @param attributes
+	 *            the attributes
 	 */
 	public void addFile(final GamaGeometryFile file, final DrawingAttributes attributes) {
 		currentList.add(new ResourceObject(file, attributes));
@@ -373,8 +390,10 @@ public class LayerObject {
 	/**
 	 * Adds the image.
 	 *
-	 * @param o the o
-	 * @param attributes the attributes
+	 * @param o
+	 *            the o
+	 * @param attributes
+	 *            the attributes
 	 */
 	public void addImage(final Object o, final DrawingAttributes attributes) {
 		// If no dimensions have been defined, then the image is considered as wide and tall as the environment
@@ -398,8 +417,10 @@ public class LayerObject {
 	/**
 	 * Adds the field.
 	 *
-	 * @param fieldValues the field values
-	 * @param attributes the attributes
+	 * @param fieldValues
+	 *            the field values
+	 * @param attributes
+	 *            the attributes
 	 */
 	public void addField(final IField fieldValues, final MeshDrawingAttributes attributes) {
 		currentList.add(new MeshObject(fieldValues, attributes));
@@ -408,8 +429,10 @@ public class LayerObject {
 	/**
 	 * Adds the geometry.
 	 *
-	 * @param geometry the geometry
-	 * @param attributes the attributes
+	 * @param geometry
+	 *            the geometry
+	 * @param attributes
+	 *            the attributes
 	 */
 	public void addGeometry(final Geometry geometry, final DrawingAttributes attributes) {
 		isAnimated = attributes.isAnimated();
@@ -441,7 +464,8 @@ public class LayerObject {
 	/**
 	 * Clear.
 	 *
-	 * @param gl the gl
+	 * @param gl
+	 *            the gl
 	 */
 	public void clear(final OpenGL gl) {
 
@@ -470,9 +494,7 @@ public class LayerObject {
 	 *
 	 * @return true, if is invalid
 	 */
-	public boolean isInvalid() {
-		return isInvalid;
-	}
+	public boolean isInvalid() { return isInvalid; }
 
 	/**
 	 * Invalidate.
@@ -495,9 +517,7 @@ public class LayerObject {
 	 *
 	 * @return true, if is locked
 	 */
-	public boolean isLocked() {
-		return locked;
-	}
+	public boolean isLocked() { return locked; }
 
 	/**
 	 * Lock.
@@ -518,9 +538,7 @@ public class LayerObject {
 	 *
 	 * @return true, if is overlay
 	 */
-	public boolean isOverlay() {
-		return false;
-	}
+	public boolean isOverlay() { return false; }
 
 	/**
 	 * Number of traces.
@@ -543,11 +561,16 @@ public class LayerObject {
 	/**
 	 * Adds the synthetic object.
 	 *
-	 * @param list the list
-	 * @param shape the shape
-	 * @param color the color
-	 * @param type the type
-	 * @param empty the empty
+	 * @param list
+	 *            the list
+	 * @param shape
+	 *            the shape
+	 * @param color
+	 *            the color
+	 * @param type
+	 *            the type
+	 * @param empty
+	 *            the empty
 	 */
 	protected void addSyntheticObject(final List<AbstractObject<?, ?>> list, final IShape shape, final GamaColor color,
 			final IShape.Type type, final boolean empty) {
@@ -562,7 +585,8 @@ public class LayerObject {
 	/**
 	 * Force redraw.
 	 *
-	 * @param gl the gl
+	 * @param gl
+	 *            the gl
 	 */
 	public void forceRedraw(final OpenGL gl) {
 		if (layer == null) return;

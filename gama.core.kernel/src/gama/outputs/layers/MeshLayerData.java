@@ -1,7 +1,7 @@
 /*******************************************************************************************************
  *
- * MeshLayerData.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * MeshLayerData.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
@@ -83,16 +83,17 @@ public class MeshLayerData extends LayerData {
 	/**
 	 * Instantiates a new mesh layer data.
 	 *
-	 * @param def the def
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param def
+	 *            the def
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@SuppressWarnings ("unchecked")
 	public MeshLayerData(final ILayerStatement def) throws GamaRuntimeException {
 		super(def);
 		size = create(IKeyword.SIZE, (scope, exp) -> {
 			Object result = exp.value(scope);
-			if (result instanceof Number)
-				return new GamaPoint(1, 1, ((Number) result).doubleValue());
+			if (result instanceof Number) return new GamaPoint(1, 1, ((Number) result).doubleValue());
 			return Cast.asPoint(scope, result);
 		}, Types.POINT, new GamaPoint(1, 1, 1), e -> {
 			Object v = e.getConstValue();
@@ -119,8 +120,7 @@ public class MeshLayerData extends LayerData {
 		noData = create("no_data", Types.FLOAT, IField.NO_NO_DATA);
 		texture = create(IKeyword.TEXTURE, (scope, exp) -> {
 			final Object result = exp.value(scope);
-			if (result instanceof GamaImageFile)
-				return (GamaImageFile) exp.value(scope);
+			if (result instanceof GamaImageFile) return (GamaImageFile) exp.value(scope);
 			throw GamaRuntimeException.error("The texture of a field must be an image file", scope);
 		}, Types.FILE, null, null);
 	}
@@ -128,17 +128,21 @@ public class MeshLayerData extends LayerData {
 	/**
 	 * Compute.
 	 *
-	 * @param scope the scope
-	 * @param g the g
+	 * @param scope
+	 *            the scope
+	 * @param g
+	 *            the g
 	 * @return true, if successful
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@Override
 	public boolean compute(final IScope scope, final IGraphics g) throws GamaRuntimeException {
 		final Envelope env2 = scope.getSimulation().getEnvelope();
 		final double width = env2.getWidth();
 		final double height = env2.getHeight();
-		boolean result = super.compute(scope, g);		shouldComputeValues = super.getRefresh();
+		boolean result = super.compute(scope, g);
+		shouldComputeValues = super.getRefresh();
 		// The size
 		cellSize = new GamaPoint(width / dim.x, height / dim.y);
 		return result;
@@ -147,8 +151,10 @@ public class MeshLayerData extends LayerData {
 	/**
 	 * Builds the values.
 	 *
-	 * @param scope the scope
-	 * @param from the from
+	 * @param scope
+	 *            the scope
+	 * @param from
+	 *            the from
 	 * @return the i field
 	 */
 	private IField buildValues(final IScope scope, final Object from) {
@@ -164,36 +170,28 @@ public class MeshLayerData extends LayerData {
 	 *
 	 * @return the boolean
 	 */
-	public Boolean isTriangulated() {
-		return triangulation.get();
-	}
+	public Boolean isTriangulated() { return triangulation.get(); }
 
 	/**
 	 * Checks if is gray scaled.
 	 *
 	 * @return the boolean
 	 */
-	public Boolean isGrayScaled() {
-		return grayscale.get();
-	}
+	public Boolean isGrayScaled() { return grayscale.get(); }
 
 	/**
 	 * Checks if is wireframe.
 	 *
 	 * @return the boolean
 	 */
-	public Boolean isWireframe() {
-		return wireframe.get();
-	}
+	public Boolean isWireframe() { return wireframe.get(); }
 
 	/**
 	 * Checks if is show text.
 	 *
 	 * @return the boolean
 	 */
-	public Boolean isShowText() {
-		return text.get();
-	}
+	public Boolean isShowText() { return text.get(); }
 
 	/**
 	 * Texture file.
@@ -209,9 +207,7 @@ public class MeshLayerData extends LayerData {
 	 *
 	 * @return the line color
 	 */
-	public GamaColor getLineColor() {
-		return line.get() == null && wireframe.get() ? defaultLineColor : line.get();
-	}
+	public GamaColor getLineColor() { return line.get() == null && wireframe.get() ? defaultLineColor : line.get(); }
 
 	/**
 	 * Draw lines.
@@ -227,23 +223,20 @@ public class MeshLayerData extends LayerData {
 	 *
 	 * @return the cell size
 	 */
-	public GamaPoint getCellSize() {
-		return cellSize;
-	}
+	public GamaPoint getCellSize() { return cellSize; }
 
 	/**
 	 * Gets the dimension.
 	 *
 	 * @return the dimension
 	 */
-	public GamaPoint getDimension() {
-		return dim;
-	}
+	public GamaPoint getDimension() { return dim; }
 
 	/**
 	 * Gets the elevation matrix.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the elevation matrix
 	 */
 	public IField getElevationMatrix(final IScope scope) {
@@ -265,26 +258,28 @@ public class MeshLayerData extends LayerData {
 	 *
 	 * @return the smooth
 	 */
-	public Integer getSmooth() {
-		return smooth.get();
-	}
+	public Integer getSmooth() { return smooth.get(); }
 
 	/**
 	 * Gets the scale.
 	 *
 	 * @return the scale
 	 */
-	public Double getScale() {
-		return scale.get();
-	}
+	public Double getScale() { return scale.get(); }
 
 	/**
 	 * Gets the no data value.
 	 *
 	 * @return the no data value
 	 */
-	public double getNoDataValue() {
-		return noData.get();
-	}
+	public double getNoDataValue() { return noData.get(); }
+
+	/**
+	 * Mesh objects are not selectable.
+	 *
+	 * @return the boolean
+	 */
+	@Override
+	public Boolean isSelectable() { return false; }
 
 }
