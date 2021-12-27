@@ -64,10 +64,10 @@ import gama.ui.base.utils.GraphicsHelper;
  */
 public class SWTChartEditor implements ChartEditor {
 
-	/**  The shell. */
+	/** The shell. */
 	final Shell shell;
 
-	/**  The chart which the properties have to be edited. */
+	/** The chart which the properties have to be edited. */
 	final JFreeChart chart;
 
 	/** A composite for displaying/editing the properties of the title. */
@@ -80,11 +80,14 @@ public class SWTChartEditor implements ChartEditor {
 	final SWTOtherEditor otherEditor;
 
 	/**
-	 *  The resourceBundle for the localization.
+	 * The resourceBundle for the localization.
 	 *
-	 * @param display the display
-	 * @param chart2edit the chart 2 edit
-	 * @param position the position
+	 * @param display
+	 *            the display
+	 * @param chart2edit
+	 *            the chart 2 edit
+	 * @param position
+	 *            the position
 	 */
 	// protected static ResourceBundle localizationResources =
 	// ResourceBundleWrapper
@@ -99,10 +102,8 @@ public class SWTChartEditor implements ChartEditor {
 	 *            the chart to edit.
 	 */
 	public SWTChartEditor(final Display display, final JFreeChart chart2edit, final Point position) {
-		this.shell = new Shell(display, SWT.APPLICATION_MODAL | SWT.NO_TRIM);
+		this.shell = new Shell(display, SWT.APPLICATION_MODAL | SWT.TOOL | SWT.TITLE);
 		this.shell.setSize(400, 500);
-		// this.shell.setBackground(WorkbenchHelper.getDisplay().getSystemColor(SWT.COLOR_BLACK));
-		// this.shell.setAlpha(140);
 		this.chart = chart2edit;
 		this.shell.setText("Chart properties");
 		this.shell.setLocation(position);
@@ -385,11 +386,14 @@ public class SWTChartEditor implements ChartEditor {
 		private final SWTPlotAppearanceEditor plotAppearance;
 
 		/**
-		 *  The resourceBundle for the localization.
+		 * The resourceBundle for the localization.
 		 *
-		 * @param parent the parent
-		 * @param style the style
-		 * @param plot the plot
+		 * @param parent
+		 *            the parent
+		 * @param style
+		 *            the style
+		 * @param plot
+		 *            the plot
 		 */
 		// protected static ResourceBundle localizationResources =
 		// ResourceBundleWrapper
@@ -528,11 +532,14 @@ public class SWTChartEditor implements ChartEditor {
 		final SWTPaintCanvas backgroundPaintCanvas;
 
 		/**
-		 *  The resourceBundle for the localization.
+		 * The resourceBundle for the localization.
 		 *
-		 * @param parent the parent
-		 * @param style the style
-		 * @param chart the chart
+		 * @param parent
+		 *            the parent
+		 * @param style
+		 *            the style
+		 * @param chart
+		 *            the chart
 		 */
 		// protected static ResourceBundle localizationResources =
 		// ResourceBundleWrapper
@@ -981,11 +988,14 @@ public class SWTChartEditor implements ChartEditor {
 		final static int ORIENTATION_HORIZONTAL = 1;
 
 		/**
-		 *  The resourceBundle for the localization.
+		 * The resourceBundle for the localization.
 		 *
-		 * @param parent the parent
-		 * @param style the style
-		 * @param plot the plot
+		 * @param parent
+		 *            the parent
+		 * @param style
+		 *            the style
+		 * @param plot
+		 *            the plot
 		 */
 		// protected static ResourceBundle localizationResources =
 		// ResourceBundleWrapper
@@ -1243,7 +1253,8 @@ public class SWTChartEditor implements ChartEditor {
 		/**
 		 * Revalidate the range maximum: it should be greater than the current minimum.
 		 *
-		 * @param candidate            the maximum value
+		 * @param candidate
+		 *            the maximum value
 		 * @return A boolean.
 		 */
 		public boolean validateMaximum(final String candidate) {
@@ -1259,7 +1270,8 @@ public class SWTChartEditor implements ChartEditor {
 		/**
 		 * Focus gained.
 		 *
-		 * @param e the e
+		 * @param e
+		 *            the e
 		 */
 		/*
 		 * (non-Javadoc)
@@ -1274,7 +1286,8 @@ public class SWTChartEditor implements ChartEditor {
 		/**
 		 * Focus lost.
 		 *
-		 * @param e the e
+		 * @param e
+		 *            the e
 		 */
 		/*
 		 * (non-Javadoc)

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * HeadlessListener.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * HeadlessListener.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.runtime;
 
@@ -51,14 +51,12 @@ import gaml.descriptions.ActionDescription;
 import gaml.statements.test.CompoundSummary;
 import gaml.statements.test.TestExperimentSummary;
 
+// TODO: Auto-generated Javadoc
 /**
- * The listener interface for receiving headless events.
- * The class that is interested in processing a headless
- * event implements this interface, and the object created
- * with that class is registered with a component using the
- * component's <code>addHeadlessListener<code> method. When
- * the headless event occurs, that object's appropriate
- * method is invoked.
+ * The listener interface for receiving headless events. The class that is interested in processing a headless event
+ * implements this interface, and the object created with that class is registered with a component using the
+ * component's <code>addHeadlessListener<code> method. When the headless event occurs, that object's appropriate method
+ * is invoked.
  *
  * @see HeadlessEvent
  */
@@ -85,15 +83,26 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Log.
 	 *
-	 * @param s the s
+	 * @param s
+	 *            the s
 	 */
 	private static void log(final String s) {
 		DEBUG.LOG(s);
 	}
 
+	/**
+	 * Open user input dialog.
+	 *
+	 * @param scope the scope
+	 * @param title the title
+	 * @param parameters the parameters
+	 * @param font the font
+	 * @param color the color
+	 * @return the map
+	 */
 	@Override
 	public Map<String, Object> openUserInputDialog(final IScope scope, final String title,
-			final List<IParameter> parameters, final GamaFont font) {
+			final List<IParameter> parameters, final GamaFont font, final GamaColor color) {
 		final Map<String, Object> initialValues = GamaMapFactory.create();
 		parameters.forEach(p -> {
 			initialValues.put(p.getName(), p.getInitialValue(scope));
@@ -101,6 +110,15 @@ public class HeadlessListener implements IGui {
 		return initialValues;
 	}
 
+	/**
+	 * Open wizard.
+	 *
+	 * @param scope the scope
+	 * @param title the title
+	 * @param finish the finish
+	 * @param pages the pages
+	 * @return the i map
+	 */
 	@Override
 	public IMap<String, IMap<String, Object>> openWizard(final IScope scope, final String title,
 			final ActionDescription finish, final IList<IMap<String, Object>> pages) {
@@ -122,46 +140,111 @@ public class HeadlessListener implements IGui {
 		return initialValues;
 	}
 
+	/**
+	 * Copy to clipboard.
+	 *
+	 * @param text the text
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean copyToClipboard(final String text) {
 		return false;
 	}
 
+	/**
+	 * Open user control panel.
+	 *
+	 * @param scope the scope
+	 * @param panel the panel
+	 */
 	@Override
 	public void openUserControlPanel(final IScope scope, final UserPanelStatement panel) {}
 
+	/**
+	 * Close dialogs.
+	 *
+	 * @param scope the scope
+	 */
 	@Override
 	public void closeDialogs(final IScope scope) {}
 
+	/**
+	 * Gets the highlighted agent.
+	 *
+	 * @return the highlighted agent
+	 */
 	@Override
-	public IAgent getHighlightedAgent() {
-		return null;
-	}
+	public IAgent getHighlightedAgent() { return null; }
 
+	/**
+	 * Sets the highlighted agent.
+	 *
+	 * @param a the new highlighted agent
+	 */
 	@Override
 	public void setHighlightedAgent(final IAgent a) {}
 
+	/**
+	 * Show view.
+	 *
+	 * @param scope the scope
+	 * @param viewId the view id
+	 * @param name the name
+	 * @param code the code
+	 * @return the i gama view
+	 */
 	@Override
 	public IGamaView showView(final IScope scope, final String viewId, final String name, final int code) {
 		return null;
 	}
 
+	/**
+	 * Show parameter view.
+	 *
+	 * @param scope the scope
+	 * @param exp the exp
+	 */
 	@Override
 	public void showParameterView(final IScope scope, final IExperimentPlan exp) {}
 
+	/**
+	 * Runtime error.
+	 *
+	 * @param scope the scope
+	 * @param g the g
+	 */
 	@Override
 	public void runtimeError(final IScope scope, final GamaRuntimeException g) {
 		error("Runtime error: ", g.getMessage());
 	}
 
+	/**
+	 * Confirm close.
+	 *
+	 * @param experiment the experiment
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean confirmClose(final IExperimentPlan experiment) {
 		return true;
 	}
 
+	/**
+	 * Prepare for experiment.
+	 *
+	 * @param scope the scope
+	 * @param exp the exp
+	 */
 	@Override
 	public void prepareForExperiment(final IScope scope, final IExperimentPlan exp) {}
 
+	/**
+	 * Open simulation perspective.
+	 *
+	 * @param model the model
+	 * @param id the id
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean openSimulationPerspective(final IModel model, final String id) {
 		return true;
@@ -169,10 +252,17 @@ public class HeadlessListener implements IGui {
 
 	// @SuppressWarnings ("rawtypes") static Map<String, Class> displayClasses = null;
 
+	/**
+	 * Creates the display surface for.
+	 *
+	 * @param output the output
+	 * @param objects the objects
+	 * @return the i display surface
+	 */
 	@Override
 	public IDisplaySurface createDisplaySurfaceFor(final LayeredDisplayOutput output, final Object... objects) {
 
-		IDisplaySurface surface = null;
+		IDisplaySurface surface;
 		final IDisplayCreator creator = DISPLAYS.get("image");
 		if (creator == null) return new NullDisplaySurface();
 		surface = creator.create(output);
@@ -180,15 +270,35 @@ public class HeadlessListener implements IGui {
 		return surface;
 	}
 
+	/**
+	 * Edits the model.
+	 *
+	 * @param scope the scope
+	 * @param eObject the e object
+	 */
 	@Override
 	public void editModel(final IScope scope, final Object eObject) {}
 
+	/**
+	 * Update parameter view.
+	 *
+	 * @param scope the scope
+	 * @param exp the exp
+	 */
 	@Override
 	public void updateParameterView(final IScope scope, final IExperimentPlan exp) {}
 
+	/**
+	 * Sets the selected agent.
+	 *
+	 * @param a the new selected agent
+	 */
 	@Override
 	public void setSelectedAgent(final IAgent a) {}
 
+	/**
+	 * Clean after experiment.
+	 */
 	@Override
 	public void cleanAfterExperiment() {
 		// DEBUG.LOG("[Headless] Clean after experiment.");
@@ -201,20 +311,30 @@ public class HeadlessListener implements IGui {
 
 	}
 
+	/**
+	 * Run model.
+	 *
+	 * @param object the object
+	 * @param exp the exp
+	 */
 	@Override
 	public void runModel(final Object object, final String exp) {}
 
 	/**
-	 * Method updateSpeedDisplay()
+	 * Method updateSpeedDisplay().
 	 *
+	 * @param scope the scope
+	 * @param d the d
+	 * @param notify the notify
 	 * @see gama.common.ui.IGui#updateSpeedDisplay(java.lang.Double)
 	 */
 	@Override
 	public void updateSpeedDisplay(final IScope scope, final Double d, final boolean notify) {}
 
 	/**
-	 * Method getMetaDataProvider()
+	 * Method getMetaDataProvider().
 	 *
+	 * @return the meta data provider
 	 * @see gama.common.ui.IGui#getMetaDataProvider()
 	 */
 	@Override
@@ -243,27 +363,19 @@ public class HeadlessListener implements IGui {
 					public void setModificationStamp(final long modificationStamp) {}
 
 					@Override
-					public Object getThumbnail() {
-						return "";
-					}
+					public Object getThumbnail() { return ""; }
 
 					@Override
-					public String getSuffix() {
-						return "";
-					}
+					public String getSuffix() { return ""; }
 
 					@Override
 					public void appendSuffix(final StringBuilder sb) {}
 
 					@Override
-					public long getModificationStamp() {
-						return 0;
-					}
+					public long getModificationStamp() { return 0; }
 
 					@Override
-					public String getDocumentation() {
-						return "";
-					}
+					public String getDocumentation() { return ""; }
 				};
 			}
 
@@ -271,8 +383,11 @@ public class HeadlessListener implements IGui {
 	}
 
 	/**
-	 * Method closeSimulationViews()
+	 * Method closeSimulationViews().
 	 *
+	 * @param scope the scope
+	 * @param andOpenModelingPerspective the and open modeling perspective
+	 * @param immediately the immediately
 	 * @see gama.common.ui.IGui#closeSimulationViews(boolean)
 	 */
 	@Override
@@ -280,8 +395,10 @@ public class HeadlessListener implements IGui {
 			final boolean immediately) {}
 
 	/**
-	 * Method getDisplayDescriptionFor()
+	 * Method getDisplayDescriptionFor().
 	 *
+	 * @param name the name
+	 * @return the display description for
 	 * @see gama.common.ui.IGui#getDisplayDescriptionFor(java.lang.String)
 	 */
 	@Override
@@ -290,8 +407,10 @@ public class HeadlessListener implements IGui {
 	}
 
 	/**
-	 * Method getFrontmostSimulationState()
+	 * Method getFrontmostSimulationState().
 	 *
+	 * @param uid the uid
+	 * @return the experiment state
 	 * @see gama.common.ui.IGui#getExperimentState()
 	 */
 	@Override
@@ -300,27 +419,46 @@ public class HeadlessListener implements IGui {
 	}
 
 	/**
-	 * Method updateSimulationState()
+	 * Method updateSimulationState().
 	 *
+	 * @param scope the scope
+	 * @param state the state
 	 * @see gama.common.ui.IGui#updateExperimentState(java.lang.String)
 	 */
 	@Override
 	public void updateExperimentState(final IScope scope, final String state) {}
 
 	/**
-	 * Method updateSimulationState()
+	 * Method updateSimulationState().
 	 *
+	 * @param scope the scope
 	 * @see gama.common.ui.IGui#updateExperimentState()
 	 */
 	@Override
 	public void updateExperimentState(final IScope scope) {}
 
+	/**
+	 * Update view title.
+	 *
+	 * @param output the output
+	 * @param agent the agent
+	 */
 	@Override
 	public void updateViewTitle(final IDisplayOutput output, final SimulationAgent agent) {}
 
+	/**
+	 * Open welcome page.
+	 *
+	 * @param b the b
+	 */
 	@Override
 	public void openWelcomePage(final boolean b) {}
 
+	/**
+	 * Update decorator.
+	 *
+	 * @param string the string
+	 */
 	@Override
 	public void updateDecorator(final String string) {}
 
@@ -402,19 +540,40 @@ public class HeadlessListener implements IGui {
 
 	};
 
+	/**
+	 * Gets the status.
+	 *
+	 * @param scope the scope
+	 * @return the status
+	 */
 	@Override
 	public IStatusDisplayer getStatus(final IScope scope) {
 		return status;
 	}
 
+	/**
+	 * Gets the console.
+	 *
+	 * @return the console
+	 */
 	@Override
-	public IConsoleDisplayer getConsole() {
-		return console;
-	}
+	public IConsoleDisplayer getConsole() { return console; }
 
+	/**
+	 * Clear errors.
+	 *
+	 * @param scope the scope
+	 */
 	@Override
 	public void clearErrors(final IScope scope) {}
 
+	/**
+	 * Run.
+	 *
+	 * @param taskName the task name
+	 * @param opener the opener
+	 * @param asynchronous the asynchronous
+	 */
 	@Override
 	public void run(final String taskName, final Runnable opener, final boolean asynchronous) {
 		if (opener != null) {
@@ -426,23 +585,53 @@ public class HeadlessListener implements IGui {
 		}
 	}
 
+	/**
+	 * Sets the focus on.
+	 *
+	 * @param o the new focus on
+	 */
 	@Override
 	public void setFocusOn(final IShape o) {}
 
+	/**
+	 * Apply layout.
+	 *
+	 * @param scope the scope
+	 * @param layout the layout
+	 */
 	@Override
 	public void applyLayout(final IScope scope, final Object layout) {}
 
+	/**
+	 * Display errors.
+	 *
+	 * @param scope the scope
+	 * @param list the list
+	 */
 	@Override
 	public void displayErrors(final IScope scope, final List<GamaRuntimeException> list) {}
 
+	/**
+	 * Gets the mouse location in model.
+	 *
+	 * @return the mouse location in model
+	 */
 	@Override
-	public GamaPoint getMouseLocationInModel() {
-		return new GamaPoint(0, 0);
-	}
+	public GamaPoint getMouseLocationInModel() { return new GamaPoint(0, 0); }
 
+	/**
+	 * Sets the mouse location in model.
+	 *
+	 * @param modelCoordinates the new mouse location in model
+	 */
 	@Override
 	public void setMouseLocationInModel(final GamaPoint modelCoordinates) {}
 
+	/**
+	 * Gets the gaml label provider.
+	 *
+	 * @return the gaml label provider
+	 */
 	@Override
 	public IGamlLabelProvider getGamlLabelProvider() {
 		return new IGamlLabelProvider() {
@@ -459,14 +648,29 @@ public class HeadlessListener implements IGui {
 		};
 	}
 
+	/**
+	 * Exit.
+	 */
 	@Override
 	public void exit() {
 		System.exit(0);
 	}
 
+	/**
+	 * Open interactive console.
+	 *
+	 * @param scope the scope
+	 */
 	@Override
 	public void openInteractiveConsole(final IScope scope) {}
 
+	/**
+	 * Open test view.
+	 *
+	 * @param scope the scope
+	 * @param remainOpen the remain open
+	 * @return the i gama view. test
+	 */
 	@Override
 	public IGamaView.Test openTestView(final IScope scope, final boolean remainOpen) {
 		// final String pathToFile = scope.getModel().getFilePath().replace(scope.getModel().getWorkingPath(), "");
@@ -476,64 +680,126 @@ public class HeadlessListener implements IGui {
 		return null;
 	}
 
+	/**
+	 * Display tests results.
+	 *
+	 * @param scope the scope
+	 * @param summary the summary
+	 */
 	@Override
 	public void displayTestsResults(final IScope scope, final CompoundSummary<?, ?> summary) {
 		log(summary.toString());
 	}
 
+	/**
+	 * Run headless tests.
+	 *
+	 * @param model the model
+	 * @return the list
+	 */
 	@Override
 	public List<TestExperimentSummary> runHeadlessTests(final Object model) {
 		return null;
 	}
 
+	/**
+	 * End test display.
+	 */
 	@Override
 	public void endTestDisplay() {}
 
+	/**
+	 * Toggle full screen mode.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean toggleFullScreenMode() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	/**
+	 * Refresh navigator.
+	 */
 	@Override
 	public void refreshNavigator() {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * Checks if is in display thread.
+	 *
+	 * @return true, if is in display thread
+	 */
 	@Override
 	public boolean isInDisplayThread() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
+	/**
+	 * Gets the all display surfaces.
+	 *
+	 * @return the all display surfaces
+	 */
 	@Override
-	public Iterable<IDisplaySurface> getAllDisplaySurfaces() {
-		return Collections.EMPTY_LIST;
-	}
+	public Iterable<IDisplaySurface> getAllDisplaySurfaces() { return Collections.EMPTY_LIST; }
 
+	/**
+	 * Error.
+	 *
+	 * @param title the title
+	 * @param message the message
+	 */
 	@Override
 	public void error(final String title, final String message) {
 		log(title + ": " + message);
 	}
 
+	/**
+	 * Inform.
+	 *
+	 * @param title the title
+	 * @param message the message
+	 */
 	@Override
 	public void inform(final String title, final String message) {
 		log(title + ": " + message);
 	}
 
+	/**
+	 * Question.
+	 *
+	 * @param title the title
+	 * @param message the message
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean question(final String title, final String message) {
 		log("Question: " + message);
 		return false;
 	}
 
+	/**
+	 * Confirm.
+	 *
+	 * @param title the title
+	 * @param message the message
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean confirm(final String title, final String message) {
 		log("Confirm: " + message);
 		return false;
 	}
 
+	/**
+	 * Choose workspace.
+	 *
+	 * @return the int
+	 */
 	@Override
 	public int chooseWorkspace() {
 		return 0;

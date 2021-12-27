@@ -76,6 +76,7 @@ import gama.ui.base.utils.PerspectiveHelper;
 import gama.ui.base.utils.PerspectiveHelper.SimulationPerspectiveDescriptor;
 import gama.ui.base.utils.WebHelper;
 import gama.ui.base.utils.WorkbenchHelper;
+import gama.util.GamaColor;
 import gama.util.GamaFont;
 import gama.util.GamaListFactory;
 import gama.util.GamaMapFactory;
@@ -434,25 +435,22 @@ public class SwtGui implements IGui {
 	/**
 	 * Open user input dialog.
 	 *
-	 * @param scope
-	 *            the scope
-	 * @param title
-	 *            the title
-	 * @param parameters
-	 *            the parameters
-	 * @param font
-	 *            the font
+	 * @param scope            the scope
+	 * @param title            the title
+	 * @param parameters            the parameters
+	 * @param font            the font
+	 * @param color the color
 	 * @return the map
 	 */
 	@Override
 	public Map<String, Object> openUserInputDialog(final IScope scope, final String title,
-			final List<IParameter> parameters, final GamaFont font) {
+			final List<IParameter> parameters, final GamaFont font, final GamaColor color) {
 		final IMap<String, Object> result = GamaMapFactory.createUnordered();
 		for (final IParameter p : parameters) {
 			result.put(p.getName(), p.getInitialValue(scope));
 		}
 		WorkbenchHelper.run(() -> {
-			final EditorsDialog dialog = new EditorsDialog(scope, null, parameters, title, font);
+			final EditorsDialog dialog = new EditorsDialog(scope, null, parameters, title, font, color);
 			if (dialog.open() == Window.OK) { result.putAll(dialog.getValues()); }
 		});
 		return result;

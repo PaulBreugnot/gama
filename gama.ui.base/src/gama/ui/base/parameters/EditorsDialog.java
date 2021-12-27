@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * EditorsDialog.java, in gama.ui.base, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * EditorsDialog.java, in gama.ui.base, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.base.parameters;
 
@@ -16,6 +16,7 @@ import java.util.Map;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
@@ -30,10 +31,12 @@ import gama.ui.base.interfaces.EditorListener;
 import gama.ui.base.resources.GamaColors;
 import gama.ui.base.resources.IGamaColors;
 import gama.ui.base.utils.WorkbenchHelper;
+import gama.util.GamaColor;
 import gama.util.GamaFont;
 import gama.util.GamaMapFactory;
 import gama.util.IMap;
 
+// TODO: Auto-generated Javadoc
 /**
  * The class EditorsDialog.
  *
@@ -45,56 +48,88 @@ public class EditorsDialog extends Dialog {
 
 	/** The values. */
 	private final IMap<String, Object> values = GamaMapFactory.createUnordered();
-	
+
 	/** The parameters. */
 	private final List<IParameter> parameters;
-	
+
 	/** The title. */
 	private final String title;
-	
+
 	/** The font. */
 	private final GamaFont font;
-	
+
 	/** The scope. */
 	private final IScope scope;
+
+	/** The color. */
+	private final Color color;
 
 	/**
 	 * Instantiates a new editors dialog.
 	 *
-	 * @param scope the scope
-	 * @param parentShell the parent shell
-	 * @param parameters the parameters
-	 * @param title the title
-	 * @param font the font
+	 * @param scope
+	 *            the scope
+	 * @param parentShell
+	 *            the parent shell
+	 * @param parameters
+	 *            the parameters
+	 * @param title
+	 *            the title
+	 * @param font
+	 *            the font
 	 */
 	public EditorsDialog(final IScope scope, final Shell parentShell, final List<IParameter> parameters,
 			final String title, final GamaFont font) {
+		this(scope, parentShell, parameters, title, font, GamaColors.toGamaColor(IGamaColors.OK.inactive()));
+	}
+
+	/**
+	 * Instantiates a new editors dialog.
+	 *
+	 * @param scope
+	 *            the scope.
+	 * @param parentShell
+	 *            the parent shell
+	 * @param parameters
+	 *            the parameters.
+	 * @param title
+	 *            the title.
+	 * @param font
+	 *            the font.
+	 * @param color
+	 *            the color
+	 */
+	public EditorsDialog(final IScope scope, final Shell parentShell, final List<IParameter> parameters,
+			final String title, final GamaFont font, final GamaColor color) {
 		super(parentShell);
 		this.scope = scope;
 		this.title = title;
 		this.font = font;
-		setShellStyle(SWT.RESIZE | SWT.BORDER);
+		this.color = GamaColors.toSwtColor(color);
+		setShellStyle(SWT.TITLE | SWT.RESIZE | SWT.TOOL | SWT.ON_TOP);
 		this.parameters = parameters;
 		parameters.forEach(p -> {
 			values.put(p.getName(), p.getInitialValue(scope));
 		});
 	}
 
+	/**
+	 * Creates the buttons for button bar.
+	 *
+	 * @param parent
+	 *            the parent
+	 */
 	@Override
 	protected void createButtonsForButtonBar(final Composite parent) {
 		createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
 	}
 
-	@Override
-	protected Control createButtonBar(final Composite parent) {
-
-		// composite.setBackground(IGamaColors.WHITE.color());
-		return super.createButtonBar(parent);
-	}
-
 	/**
-	 * Method createContents()
+	 * Method createContents().
 	 *
+	 * @param parent
+	 *            the parent
+	 * @return the control
 	 * @see org.eclipse.jface.dialogs.Dialog#createContents(org.eclipse.swt.widgets.Composite)
 	 */
 	@Override
@@ -104,6 +139,13 @@ public class EditorsDialog extends Dialog {
 		return super.createContents(parent);
 	}
 
+	/**
+	 * Creates the dialog area.
+	 *
+	 * @param parent
+	 *            the parent
+	 * @return the control
+	 */
 	@Override
 	protected Control createDialogArea(final Composite parent) {
 		final var above = (Composite) super.createDialogArea(parent);
@@ -112,8 +154,8 @@ public class EditorsDialog extends Dialog {
 		// final var layout = (GridLayout) composite.getLayout();
 		// layout.numColumns = 2;
 		final var text = new Label(composite, SWT.None);
-		text.setBackground(IGamaColors.OK.inactive());
-		text.setForeground(GamaColors.getTextColorForBackground(text.getBackground()).color());
+		text.setBackground(color);
+		text.setForeground(GamaColors.getTextColorForBackground(color).color());
 		if (font != null) {
 			text.setFont(new Font(WorkbenchHelper.getDisplay(), font.getFontName(), font.getSize(), font.getStyle()));
 		}
@@ -135,24 +177,30 @@ public class EditorsDialog extends Dialog {
 		return composite;
 	}
 
+	/**
+	 * Gets the initial size.
+	 *
+	 * @return the initial size
+	 */
 	@Override
 	protected Point getInitialSize() {
 		final var p = super.getInitialSize();
 		return new Point(p.x * 2, p.y);
 	}
 
+	/**
+	 * Checks if is resizable.
+	 *
+	 * @return true, if is resizable
+	 */
 	@Override
-	protected boolean isResizable() {
-		return true;
-	}
+	protected boolean isResizable() { return true; }
 
 	/**
 	 * Gets the values.
 	 *
 	 * @return the values
 	 */
-	public Map<String, Object> getValues() {
-		return values;
-	}
+	public Map<String, Object> getValues() { return values; }
 
 }
