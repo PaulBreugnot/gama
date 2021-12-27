@@ -192,8 +192,10 @@ public class CleanupHelper {
 		/**
 		 * Perspective activated.
 		 *
-		 * @param page the page
-		 * @param perspective the perspective
+		 * @param page
+		 *            the page
+		 * @param perspective
+		 *            the perspective
 		 */
 		@Override
 		public void perspectiveActivated(final IWorkbenchPage page, final IPerspectiveDescriptor perspective) {
@@ -230,7 +232,7 @@ public class CleanupHelper {
 					w.getMenuManager().update(true);
 					w.getMenuBarManager().update(true);
 					cm.updateAll(true);
-					WorkaroundForIssue3210.run(cm);
+					// WorkaroundForIssue3210.run(cm);
 				} catch (final Exception e) {}
 			});
 
@@ -239,9 +241,12 @@ public class CleanupHelper {
 		/**
 		 * Perspective changed.
 		 *
-		 * @param p the p
-		 * @param d the d
-		 * @param c the c
+		 * @param p
+		 *            the p
+		 * @param d
+		 *            the d
+		 * @param c
+		 *            the c
 		 */
 		@Override
 		public void perspectiveChanged(final IWorkbenchPage p, final IPerspectiveDescriptor d, final String c) {
