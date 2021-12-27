@@ -28,19 +28,24 @@ import org.apache.commons.lang3.tuple.Triple;
 import gama.ext.traffic.RoadNodeSkill;
 import gama.ext.traffic.RoadSkill;
 import gama.metamodel.agent.IAgent;
+import gama.metamodel.shape.GamaPoint;
 import gama.runtime.IScope;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class Utils.
+ *
+ * @author minhduc0711
  */
 public class Utils {
-	
+
 	/**
 	 * Attempts to make lane changing probabilities timestep-agnostic.
 	 *
-	 * @param probaInOneSecond            a probability with respect to one second
-	 * @param timeStep            the duration of a simulation step
+	 * @param probaInOneSecond
+	 *            a probability with respect to one second
+	 * @param timeStep
+	 *            the duration of a simulation step
 	 * @return the rescaled probability
 	 */
 	public static double rescaleProba(final double probaInOneSecond, final double timeStep) {
@@ -50,8 +55,10 @@ public class Utils {
 	/**
 	 * Compute linked lane limit.
 	 *
-	 * @param vehicle the vehicle
-	 * @param road the road
+	 * @param vehicle
+	 *            the vehicle
+	 * @param road
+	 *            the road
 	 * @return the int
 	 */
 	public static int computeLinkedLaneLimit(final IAgent vehicle, final IAgent road) {
@@ -72,11 +79,27 @@ public class Utils {
 	}
 
 	/**
+	 * Side of point.
+	 *
+	 * @param a the a
+	 * @param b the b
+	 * @param p the p
+	 * @return an integer indicating the position of point p w.r.t. the vector ab 1 if point p lies on the left side of
+	 *         vector ab -1 if point p lies on the right side of vector ab 0 if point p lies on vector ab
+	 */
+	public static int sideOfPoint(final GamaPoint a, final GamaPoint b, final GamaPoint p) {
+		return (int) Math.signum((p.x - a.x) * (b.y - a.y) - (p.y - a.y) * (b.x - a.x));
+	}
+
+	/**
 	 * Find leader.
 	 *
-	 * @param scope the scope
-	 * @param vehicle the vehicle
-	 * @param lowestLane the lowest lane
+	 * @param scope
+	 *            the scope
+	 * @param vehicle
+	 *            the vehicle
+	 * @param lowestLane
+	 *            the lowest lane
 	 * @return the triple
 	 */
 	public static Triple<IAgent, Double, Boolean> findLeader(final IScope scope, final IAgent vehicle,
@@ -117,7 +140,7 @@ public class Utils {
 			int lane = lowestLaneToCheck + i;
 			OrderedBidiMap<Double, IAgent> distMap =
 					RoadSkill.getVehicleOrderingMap(scope, nextRoad, lane).inverseBidiMap();
-			boolean wrongDirection = lane < numLanesNext == false;
+			boolean wrongDirection = (lane >= numLanesNext);
 			wrongDirection = willViolateOneway ^ wrongDirection;
 
 			if (distMap.isEmpty()) { continue; }
@@ -146,9 +169,12 @@ public class Utils {
 	/**
 	 * Find follower.
 	 *
-	 * @param scope the scope
-	 * @param vehicle the vehicle
-	 * @param lowestLane the lowest lane
+	 * @param scope
+	 *            the scope
+	 * @param vehicle
+	 *            the vehicle
+	 * @param lowestLane
+	 *            the lowest lane
 	 * @return the triple
 	 */
 	public static Triple<IAgent, Double, Boolean> findFollower(final IScope scope, final IAgent vehicle,
@@ -161,7 +187,7 @@ public class Utils {
 
 		// The second condition can be false when moving to a bigger road.
 		// In case there's new lane with higher index, consider that there's no back vehicle.
-		if ((road == null) || (lowestLane > RoadSkill.getNumLanesTotal(road) - numLanesOccupied))
+		if (road == null || lowestLane > RoadSkill.getNumLanesTotal(road) - numLanesOccupied)
 			return ImmutableTriple.of(null, 1e6, false);
 		Triple<IAgent, Double, Boolean> triple = findNeighborOnCurrentRoad(scope, vehicle, lowestLane, false);
 		if (triple != null) return triple;
@@ -211,10 +237,14 @@ public class Utils {
 	/**
 	 * Find neighbor on current road.
 	 *
-	 * @param scope the scope
-	 * @param vehicle the vehicle
-	 * @param lowestLane the lowest lane
-	 * @param isLeader the is leader
+	 * @param scope
+	 *            the scope
+	 * @param vehicle
+	 *            the vehicle
+	 * @param lowestLane
+	 *            the lowest lane
+	 * @param isLeader
+	 *            the is leader
 	 * @return the triple
 	 */
 	private static Triple<IAgent, Double, Boolean> findNeighborOnCurrentRoad(final IScope scope, final IAgent vehicle,
@@ -234,7 +264,7 @@ public class Utils {
 			int lane = lowestLane + i;
 			OrderedBidiMap<Double, IAgent> distMap =
 					RoadSkill.getVehicleOrderingMap(scope, road, lane).inverseBidiMap();
-			boolean wrongDirection = lane < numRoadLanes == false;
+			boolean wrongDirection = (lane >= numRoadLanes);
 			wrongDirection = violatingOneway ^ wrongDirection;
 			double tmpDistQuery =
 					!wrongDirection ? distToCurrentTarget : RoadSkill.getTotalLength(road) - distToCurrentTarget;
