@@ -123,9 +123,12 @@ public class FreeFlyCamera extends AbstractCamera {
 	/**
 	 * Sets the up vector.
 	 *
-	 * @param xPos the x pos
-	 * @param yPos the y pos
-	 * @param zPos the z pos
+	 * @param xPos
+	 *            the x pos
+	 * @param yPos
+	 *            the y pos
+	 * @param zPos
+	 *            the z pos
 	 */
 	@Override
 	public void setUpVector(final double xPos, final double yPos, final double zPos) {
@@ -161,7 +164,8 @@ public class FreeFlyCamera extends AbstractCamera {
 	/**
 	 * Zoom.
 	 *
-	 * @param level the level
+	 * @param level
+	 *            the level
 	 */
 	@Override
 	public void zoom(final double level) {
@@ -172,7 +176,8 @@ public class FreeFlyCamera extends AbstractCamera {
 	/**
 	 * Zoom.
 	 *
-	 * @param in the in
+	 * @param in
+	 *            the in
 	 */
 	@Override
 	public void zoom(final boolean in) {
@@ -186,7 +191,8 @@ public class FreeFlyCamera extends AbstractCamera {
 	/**
 	 * Sets the distance.
 	 *
-	 * @param distance the new distance
+	 * @param distance
+	 *            the new distance
 	 */
 	@Override
 	public void setDistance(final double distance) {
@@ -196,7 +202,8 @@ public class FreeFlyCamera extends AbstractCamera {
 	/**
 	 * Zoom focus.
 	 *
-	 * @param env the env
+	 * @param env
+	 *            the env
 	 */
 	@Override
 	public void zoomFocus(final Envelope3D env) {
@@ -214,17 +221,18 @@ public class FreeFlyCamera extends AbstractCamera {
 	/**
 	 * Internal mouse move.
 	 *
-	 * @param x the x
-	 * @param y the y
-	 * @param button the button
-	 * @param isCtrl the is ctrl
-	 * @param isShift the is shift
+	 * @param x            the x
+	 * @param y            the y
+	 * @param button            the button
+	 * @param buttonPressed the button pressed
+	 * @param isCtrl            the is ctrl
+	 * @param isShift            the is shift
 	 */
 	@Override
-	public void internalMouseMove(final int x, final int y, final int button, final boolean isCtrl,
-			final boolean isShift) {
-		super.internalMouseMove(x, y, button, isCtrl, isShift);
-		if (button == 0) return;
+	public void internalMouseMove(final int x, final int y, final int button, final boolean buttonPressed,
+			final boolean isCtrl, final boolean isShift) {
+		super.internalMouseMove(x, y, button, buttonPressed, isCtrl, isShift);
+		if (!buttonPressed) return;
 		if (isShift /** || alt(e)) */
 				&& isViewInXYPlan()) {
 			getMousePosition().x = x;

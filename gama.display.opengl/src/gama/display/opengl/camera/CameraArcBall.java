@@ -375,7 +375,8 @@ public class CameraArcBall extends AbstractCamera {
 	/**
 	 * Zoom.
 	 *
-	 * @param level the level
+	 * @param level
+	 *            the level
 	 */
 	@Override
 	public void zoom(final double level) {
@@ -386,7 +387,8 @@ public class CameraArcBall extends AbstractCamera {
 	/**
 	 * Zoom.
 	 *
-	 * @param in the in
+	 * @param in
+	 *            the in
 	 */
 	@Override
 	public void zoom(final boolean in) {
@@ -400,7 +402,8 @@ public class CameraArcBall extends AbstractCamera {
 	/**
 	 * Zoom focus.
 	 *
-	 * @param env the env
+	 * @param env
+	 *            the env
 	 */
 	@Override
 	public void zoomFocus(final Envelope3D env) {
@@ -418,15 +421,16 @@ public class CameraArcBall extends AbstractCamera {
 	/**
 	 * Internal mouse move.
 	 *
-	 * @param x the x
-	 * @param y the y
-	 * @param button the button
-	 * @param isCtrl the is ctrl
-	 * @param isShift the is shift
+	 * @param x            the x
+	 * @param y            the y
+	 * @param button            the button
+	 * @param buttonPressed the button pressed
+	 * @param isCtrl            the is ctrl
+	 * @param isShift            the is shift
 	 */
 	@Override
-	public void internalMouseMove(final int x, final int y, final int button, final boolean isCtrl,
-			final boolean isShift) {
+	public void internalMouseMove(final int x, final int y, final int button, final boolean buttonPressed,
+			final boolean isCtrl, final boolean isShift) {
 		// Do it before the mouse position is newly set (in super.internalMouseMove)
 		if (keystoneMode) {
 			final int selectedCorner = getRenderer().getKeystoneHelper().getCornerSelected();
@@ -441,12 +445,12 @@ public class CameraArcBall extends AbstractCamera {
 				final int cornerSelected = hoverOnKeystone(x, y);
 				getRenderer().getKeystoneHelper().setCornerHovered(cornerSelected);
 			}
-			super.internalMouseMove(x, y, button, isCtrl, isShift);
+			super.internalMouseMove(x, y, button, buttonPressed, isCtrl, isShift);
 			return;
 		}
 
-		super.internalMouseMove(x, y, button, isCtrl, isShift);
-		if (button == 0) return;
+		super.internalMouseMove(x, y, button, buttonPressed, isCtrl, isShift);
+		if (!buttonPressed) return;
 		final GamaPoint newPoint = new GamaPoint(x, y);
 		if (cameraInteraction && isCtrl) {
 			final int horizMovement = (int) (newPoint.x - lastMousePressedPosition.x);
@@ -532,7 +536,8 @@ public class CameraArcBall extends AbstractCamera {
 	/**
 	 * Can select on release.
 	 *
-	 * @param isShift the is shift
+	 * @param isShift
+	 *            the is shift
 	 * @return true, if successful
 	 */
 	@Override
@@ -559,7 +564,8 @@ public class CameraArcBall extends AbstractCamera {
 	/**
 	 * Sets the distance.
 	 *
-	 * @param distance the new distance
+	 * @param distance
+	 *            the new distance
 	 */
 	@Override
 	public void setDistance(final double distance) { this.distance = distance; }

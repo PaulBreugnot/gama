@@ -144,7 +144,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Apply preset.
 	 *
-	 * @param name the name
+	 * @param name
+	 *            the name
 	 */
 	@Override
 	public void applyPreset(final String name) {
@@ -214,9 +215,12 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Sets the position.
 	 *
-	 * @param xPos the x pos
-	 * @param yPos the y pos
-	 * @param zPos the z pos
+	 * @param xPos
+	 *            the x pos
+	 * @param yPos
+	 *            the y pos
+	 * @param zPos
+	 *            the z pos
 	 */
 	@Override
 	public void setPosition(final double xPos, final double yPos, final double zPos) {
@@ -242,9 +246,12 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Sets the up vector.
 	 *
-	 * @param xPos the x pos
-	 * @param yPos the y pos
-	 * @param zPos the z pos
+	 * @param xPos
+	 *            the x pos
+	 * @param yPos
+	 *            the y pos
+	 * @param zPos
+	 *            the z pos
 	 */
 	@Override
 	public void setUpVector(final double xPos, final double yPos, final double zPos) {
@@ -329,7 +336,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Method mouseScrolled().
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @see org.eclipse.swt.events.MouseWheelListener#mouseScrolled(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
@@ -344,7 +352,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Mouse wheel moved.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	@Override
 	public final void mouseWheelMoved(final com.jogamp.newt.event.MouseEvent e) {
@@ -357,7 +366,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Internal mouse scrolled.
 	 *
-	 * @param count the count
+	 * @param count
+	 *            the count
 	 */
 	protected void internalMouseScrolled(final int count) {
 		zoom(count > 0);
@@ -366,15 +376,16 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Method mouseMove().
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @see org.eclipse.swt.events.MouseMoveListener#mouseMove(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
 	public final void mouseMove(final org.eclipse.swt.events.MouseEvent e) {
 
 		invokeOnGLThread(drawable -> {
-			internalMouseMove(autoScaleUp(e.x), autoScaleUp(e.y), e.button, GamaKeyBindings.ctrl(e),
-					GamaKeyBindings.shift(e));
+			internalMouseMove(autoScaleUp(e.x), autoScaleUp(e.y), e.button, (e.stateMask & SWT.BUTTON_MASK) != 0,
+					GamaKeyBindings.ctrl(e), GamaKeyBindings.shift(e));
 			return false;
 		});
 
@@ -395,13 +406,14 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Mouse moved.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	@Override
 	public final void mouseMoved(final com.jogamp.newt.event.MouseEvent e) {
 		invokeOnGLThread(drawable -> {
-			internalMouseMove(autoScaleUp(e.getX()), autoScaleUp(e.getY()), e.getButton(), isControlDown(e),
-					e.isShiftDown());
+			internalMouseMove(autoScaleUp(e.getX()), autoScaleUp(e.getY()), e.getButton(), e.getButton() > 0,
+					isControlDown(e), e.isShiftDown());
 			return false;
 		});
 	}
@@ -414,7 +426,7 @@ public abstract class AbstractCamera implements ICamera {
 	 * @return true, if is control down
 	 */
 	private boolean isControlDown(final com.jogamp.newt.event.MouseEvent e) {
-		return PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown();
+		return e.isControlDown() || PlatformHelper.isMac() && e.isMetaDown();
 	}
 
 	/**
@@ -431,7 +443,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Mouse dragged.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	@Override
 	public final void mouseDragged(final com.jogamp.newt.event.MouseEvent e) {
@@ -447,13 +460,15 @@ public abstract class AbstractCamera implements ICamera {
 	 *            the y already scaled
 	 * @param button
 	 *            the button 0 for no activity
+	 * @param buttonPressed
+	 *            the button pressed
 	 * @param isCtrl
 	 *            the is ctrl
 	 * @param isShift
 	 *            the is shift
 	 */
-	protected void internalMouseMove(final int x, final int y, final int button, final boolean isCtrl,
-			final boolean isShift) {
+	protected void internalMouseMove(final int x, final int y, final int button, final boolean buttonPressed,
+			final boolean isCtrl, final boolean isShift) {
 		mousePosition.x = x;
 		mousePosition.y = y;
 		setCtrlPressed(isCtrl);
@@ -463,7 +478,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Method mouseEnter().
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @see org.eclipse.swt.events.MouseTrackListener#mouseEnter(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
@@ -472,7 +488,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Mouse entered.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	@Override
 	public final void mouseEntered(final com.jogamp.newt.event.MouseEvent e) {}
@@ -480,7 +497,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Method mouseExit().
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @see org.eclipse.swt.events.MouseTrackListener#mouseExit(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
@@ -489,7 +507,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Mouse exited.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	@Override
 	public final void mouseExited(final com.jogamp.newt.event.MouseEvent e) {}
@@ -497,7 +516,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Method mouseHover().
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @see org.eclipse.swt.events.MouseTrackListener#mouseHover(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
@@ -506,7 +526,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Method mouseDoubleClick().
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @see org.eclipse.swt.events.MouseListener#mouseDoubleClick(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
@@ -523,7 +544,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Mouse clicked.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	@Override
 	public final void mouseClicked(final com.jogamp.newt.event.MouseEvent e) {
@@ -542,7 +564,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Method mouseDown().
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @see org.eclipse.swt.events.MouseListener#mouseDown(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
@@ -559,7 +582,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Mouse pressed.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	@Override
 	public final void mousePressed(final com.jogamp.newt.event.MouseEvent e) {
@@ -590,8 +614,10 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Click on keystone.
 	 *
-	 * @param x the x
-	 * @param y the y
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 * @return the int
 	 */
 	private int clickOnKeystone(final int x, final int y) {
@@ -601,8 +627,10 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Hover on keystone.
 	 *
-	 * @param x the x
-	 * @param y the y
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 * @return the int
 	 */
 	protected int hoverOnKeystone(final int x, final int y) {
@@ -615,13 +643,18 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Internal mouse down.
 	 *
-	 * @param x            the x
-	 * @param y            the y
-	 * @param button the button
-	 * @param isCtrl the is ctrl
-	 * @param isShift the is shift
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 * @param button
+	 *            the button
+	 * @param isCtrl
+	 *            the is ctrl
+	 * @param isShift
+	 *            the is shift
 	 */
-	protected void internalMouseDown(final int x, final int y, final int button, final boolean isCtrl,
+	final void internalMouseDown(final int x, final int y, final int button, final boolean isCtrl,
 			final boolean isShift) {
 
 		if (firsttimeMouseDown) {
@@ -663,7 +696,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Method mouseUp().
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @see org.eclipse.swt.events.MouseListener#mouseUp(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
@@ -681,7 +715,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Mouse released.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	@Override
 	public final void mouseReleased(final com.jogamp.newt.event.MouseEvent e) {
@@ -696,8 +731,10 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Internal mouse up.
 	 *
-	 * @param button the button
-	 * @param isShift the is shift
+	 * @param button
+	 *            the button
+	 * @param isShift
+	 *            the is shift
 	 */
 	protected void internalMouseUp(final int button, final boolean isShift) {
 		firsttimeMouseDown = true;
@@ -727,7 +764,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Can select on release.
 	 *
-	 * @param isShift the is shift
+	 * @param isShift
+	 *            the is shift
 	 * @return true, if successful
 	 */
 	protected abstract boolean canSelectOnRelease(boolean isShift);
@@ -820,7 +858,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Method keyPressed().
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @see org.eclipse.swt.events.KeyListener#keyPressed(org.eclipse.swt.events.KeyEvent)
 	 */
 	@Override
@@ -888,7 +927,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Key pressed.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	@Override
 	public final void keyPressed(final com.jogamp.newt.event.KeyEvent e) {
@@ -1034,7 +1074,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Method keyReleased().
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @see org.eclipse.swt.events.KeyListener#keyReleased(org.eclipse.swt.events.KeyEvent)
 	 */
 	@Override
@@ -1076,7 +1117,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Key released.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	@Override
 	public final void keyReleased(final com.jogamp.newt.event.KeyEvent e) {
@@ -1144,7 +1186,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Sets the initial Z factor corrector.
 	 *
-	 * @param corrector the new initial Z factor corrector
+	 * @param corrector
+	 *            the new initial Z factor corrector
 	 */
 	@Override
 	public void setInitialZFactorCorrector(final double corrector) { zCorrector = corrector; }

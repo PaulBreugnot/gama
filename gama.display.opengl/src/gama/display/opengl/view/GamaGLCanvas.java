@@ -44,8 +44,10 @@ import com.jogamp.opengl.GLRunnable;
 import com.jogamp.opengl.swt.GLCanvas;
 
 import gama.core.dev.utils.FLAGS;
+import gama.display.opengl.camera.ICamera;
 import gama.display.opengl.renderer.IOpenGLRenderer;
 import gama.runtime.PlatformHelper;
+import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.bindings.IDelegateEventsToParent;
 
 // TODO: Auto-generated Javadoc
@@ -620,6 +622,60 @@ public class GamaGLCanvas extends Composite implements GLAutoDrawable, IDelegate
 	@Override
 	public boolean setFocus() {
 		return canvas.setFocus();
+	}
+
+	/**
+	 * Adds the camera listeners.
+	 *
+	 * @param camera
+	 *            the camera
+	 */
+	public void addCameraListeners(final ICamera camera) {
+		if (canvas.isDisposed()) return;
+		WorkbenchHelper.asyncRun(() -> {
+			canvas.addKeyListener(camera);
+			canvas.addMouseListener(camera);
+			canvas.addMouseMoveListener(camera);
+			canvas.addMouseWheelListener(camera);
+			canvas.addMouseTrackListener(camera);
+			addKeyListener(camera);
+			addMouseListener(camera);
+			addMouseMoveListener(camera);
+			addMouseWheelListener(camera);
+			addMouseTrackListener(camera);
+			if (drawable instanceof Window) {
+				Window w = (Window) drawable;
+				w.addKeyListener(camera);
+				w.addMouseListener(camera);
+			}
+		});
+	}
+
+	/**
+	 * Removes the camera listeners.
+	 *
+	 * @param camera
+	 *            the camera
+	 */
+	public void removeCameraListeners(final ICamera camera) {
+		if (canvas.isDisposed()) return;
+		WorkbenchHelper.asyncRun(() -> {
+			canvas.removeKeyListener(camera);
+			canvas.removeMouseListener(camera);
+			canvas.removeMouseMoveListener(camera);
+			canvas.removeMouseWheelListener(camera);
+			canvas.removeMouseTrackListener(camera);
+			removeKeyListener(camera);
+			removeMouseListener(camera);
+			removeMouseMoveListener(camera);
+			removeMouseWheelListener(camera);
+			removeMouseTrackListener(camera);
+			if (drawable instanceof Window) {
+				Window w = (Window) drawable;
+				w.removeKeyListener(camera);
+				w.removeMouseListener(camera);
+			}
+		});
 	}
 
 }
