@@ -24,6 +24,9 @@ import org.geotools.data.FileDataStore;
 import org.geotools.data.FileDataStoreFinder;
 import org.geotools.data.Query;
 import org.geotools.data.shapefile.ShapefileDataStore;
+import org.geotools.data.shapefile.files.ShpFiles;
+import org.geotools.data.shapefile.shp.ShapefileReader;
+import org.geotools.data.shapefile.shp.ShapefileReader.Record;
 import org.geotools.data.simple.SimpleFeatureCollection;
 import org.geotools.data.simple.SimpleFeatureSource;
 import org.geotools.geometry.jts.ReferencedEnvelope;
@@ -225,7 +228,8 @@ public class GamaShapeFile extends GamaGisFile {
 		/**
 		 * Append suffix.
 		 *
-		 * @param sb the sb
+		 * @param sb
+		 *            the sb
 		 */
 		@Override
 		public void appendSuffix(final StringBuilder sb) {
@@ -425,7 +429,8 @@ public class GamaShapeFile extends GamaGisFile {
 	/**
 	 * Gets the attributes.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the attributes
 	 */
 	@Override
@@ -470,7 +475,8 @@ public class GamaShapeFile extends GamaGisFile {
 	/**
 	 * Read shapes.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 */
 	@Override
 	protected final void readShapes(final IScope scope) {
@@ -504,8 +510,50 @@ public class GamaShapeFile extends GamaGisFile {
 							false);
 				}
 			}, counter);
-		} catch (final IOException e) {
-			throw GamaRuntimeException.create(e, scope);
+		} catch (final Exception ex) {
+			try {
+				ShpFiles shp = new ShpFiles(getFile(scope).toURI().toURL());
+				ShapefileReader reader = new ShapefileReader(shp, false, false, GeometryUtils.GEOMETRY_FACTORY);
+				reader.setFlatGeometry(true);
+				// System.out.println("count:" + reader.getCount(0));
+				while (reader.hasNext()) {
+					Record record = reader.nextRecord();
+					Geometry g = GeometryUtils.cleanGeometry((Geometry) record.shape());
+
+					if (g != null && !g.isEmpty() /* Fix for Issue 725 && 677 */ ) {
+
+						if (!with3D && g.getNumPoints() > 2) {
+							try {
+								if (!g.isValid()) { g = GeometryUtils.cleanGeometry(g); }
+							} catch (Exception e) {
+								g = GeometryUtils.cleanGeometry(g);
+							}
+						}
+						g = gis.transform(g);
+						if (!with3D) {
+							g.apply(ZERO_Z);
+							g.geometryChanged();
+						}
+						g = multiPolygonManagement(g);
+
+						for (int i = 0; i < g.getNumGeometries(); i++) {
+							GamaShape gt = new GamaGisGeometry(g.getGeometryN(i), null);
+							if (gt.getInnerGeometry() != null) { getBuffer().add(gt); }
+						}
+
+					} else if (g == null) {
+						// See Issue 725
+						GAMA.reportError(scope,
+								GamaRuntimeException.warning(
+										"geometry could not be added as it is " + "nil: " + record.number, scope),
+								false);
+					}
+				}
+				reader.close();
+
+			} catch (final IOException e2) {
+				throw GamaRuntimeException.create(e2, scope);
+			}
 		}
 		// finally {
 		// if (store != null) { store.dispose(); }
@@ -519,7 +567,8 @@ public class GamaShapeFile extends GamaGisFile {
 	/**
 	 * Gets the feature collection.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the feature collection
 	 */
 	@Override
@@ -545,7 +594,8 @@ public class GamaShapeFile extends GamaGisFile {
 	/**
 	 * Length.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the int
 	 */
 	@Override
