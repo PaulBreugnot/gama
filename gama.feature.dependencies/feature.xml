@@ -48,19 +48,17 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
-         
-     <plugin
-          id="org.eclipse.e4.ui.workbench.renderers.swt.cocoa"
-          os="macosx"
-          ws="cocoa"
-          arch="x86_64"
-          download-size="0"
-          install-size="0"
-          version="0.0.0"
-          fragment="true"
-          unpack="false"/>
-  
+
+   <plugin
+         id="org.eclipse.e4.ui.workbench.renderers.swt.cocoa"
+         os="macosx"
+         ws="cocoa"
+         arch="x86_64"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
 
    <plugin
          id="org.eclipse.equinox.p2.engine"
@@ -1396,6 +1394,13 @@
 
    <plugin
          id="org.eclipse.e4.core.commands.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.equinox.p2.touchpoint.natives"
          download-size="0"
          install-size="0"
          version="0.0.0"
