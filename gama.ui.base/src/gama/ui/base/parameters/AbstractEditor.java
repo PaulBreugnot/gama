@@ -1,7 +1,7 @@
 /*******************************************************************************************************
  *
- * AbstractEditor.java, in gama.ui.base, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * AbstractEditor.java, in gama.ui.base, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
@@ -9,6 +9,7 @@
  *
  ********************************************************************************************************/
 package gama.ui.base.parameters;
+
 import static gama.runtime.GAMA.getRuntimeScope;
 import static gama.runtime.GAMA.reportError;
 import static gama.runtime.exceptions.GamaRuntimeException.create;
@@ -52,7 +53,7 @@ import gaml.variables.Variable;
  *            the generic type
  */
 public abstract class AbstractEditor<T>
-implements SelectionListener, ModifyListener, Comparable<AbstractEditor<T>>, IParameterEditor<T> {
+		implements SelectionListener, ModifyListener, Comparable<AbstractEditor<T>>, IParameterEditor<T> {
 
 	/** The order. */
 	private static int ORDER;
@@ -171,7 +172,8 @@ implements SelectionListener, ModifyListener, Comparable<AbstractEditor<T>>, IPa
 	/**
 	 * Checks if is sub parameter.
 	 *
-	 * @param b the b
+	 * @param b
+	 *            the b
 	 */
 	@Override
 	public void isSubParameter(final boolean b) {
@@ -218,13 +220,14 @@ implements SelectionListener, ModifyListener, Comparable<AbstractEditor<T>>, IPa
 	/**
 	 * Sets the active.
 	 *
-	 * @param active the new active
+	 * @param active
+	 *            the new active
 	 */
 	@Override
 	public void setActive(final Boolean active) {
 		if (editorLabel != null) { editorLabel.setActive(active); }
 		editorToolbar.setActive(active);
-		if (active) { updateToolbar(); }
+		// if (active) { updateToolbar(); }
 		editorControl.setActive(active);
 	}
 
@@ -286,7 +289,8 @@ implements SelectionListener, ModifyListener, Comparable<AbstractEditor<T>>, IPa
 	/**
 	 * Compare to.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @return the int
 	 */
 	@Override
@@ -585,7 +589,8 @@ implements SelectionListener, ModifyListener, Comparable<AbstractEditor<T>>, IPa
 	/**
 	 * Modify text.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	@Override
 	public void modifyText(final ModifyEvent e) {}
@@ -593,7 +598,8 @@ implements SelectionListener, ModifyListener, Comparable<AbstractEditor<T>>, IPa
 	/**
 	 * Widget selected.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	@Override
 	public void widgetSelected(final SelectionEvent e) {}
@@ -601,7 +607,8 @@ implements SelectionListener, ModifyListener, Comparable<AbstractEditor<T>>, IPa
 	/**
 	 * Widget default selected.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	@Override
 	public void widgetDefaultSelected(final SelectionEvent e) {}
