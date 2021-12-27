@@ -105,6 +105,7 @@ import gama.common.preferences.IPreferenceChangeListener.IPreferenceAfterChangeL
 import gama.core.dev.utils.FLAGS;
 import gama.core.lang.resource.GamlResourceServices;
 import gama.core.lang.validation.IGamlBuilderListener;
+import gama.runtime.PlatformHelper;
 import gama.ui.base.controls.FlatButton;
 import gama.ui.base.interfaces.IGamlEditor;
 import gama.ui.base.interfaces.IModelRunner;
@@ -116,7 +117,6 @@ import gama.ui.base.toolbar.GamaToolbar2;
 import gama.ui.base.toolbar.GamaToolbarFactory;
 import gama.ui.base.toolbar.IToolbarDecoratedView;
 import gama.ui.base.toolbar.Selector;
-import gama.ui.base.utils.PlatformHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.modeling.decorators.GamlAnnotationImageProvider;
 import gama.ui.modeling.editbox.BoxDecoratorPartListener;

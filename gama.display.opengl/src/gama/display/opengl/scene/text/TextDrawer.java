@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * TextDrawer.java, in gama.display.opengl, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * TextDrawer.java, in gama.display.opengl, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.display.opengl.scene.text;
 
@@ -14,7 +14,6 @@ import static com.jogamp.common.nio.Buffers.newDirectDoubleBuffer;
 import static com.jogamp.opengl.glu.GLU.GLU_TESS_WINDING_NONZERO;
 import static com.jogamp.opengl.glu.GLU.GLU_TESS_WINDING_ODD;
 import static com.jogamp.opengl.glu.GLU.GLU_TESS_WINDING_RULE;
-import static gama.ui.base.utils.PlatformHelper.autoScaleUp;
 import static java.awt.geom.PathIterator.WIND_EVEN_ODD;
 
 import java.awt.Color;
@@ -40,8 +39,10 @@ import gama.display.opengl.ITesselator;
 import gama.display.opengl.OpenGL;
 import gama.display.opengl.scene.ObjectDrawer;
 import gama.metamodel.shape.GamaPoint;
+import gama.ui.base.utils.DPIHelper;
 import gaml.statements.draw.TextDrawingAttributes;
 
+// TODO: Auto-generated Javadoc
 /**
  *
  * The class StringDrawer.
@@ -56,56 +57,57 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 	/** The temp. */
 	// Utilities
 	ICoordinates temp = ICoordinates.ofLength(4);
-	
+
 	/** The normal. */
 	GamaPoint normal = new GamaPoint();
 
 	/** The tobj. */
 	final GLUtessellator tobj = GLU.gluNewTess();
-	
+
 	/** The previous Y. */
 	double previousX = Double.MIN_VALUE, previousY = Double.MIN_VALUE;
-	
+
 	/** The current index. */
 	int currentIndex = -1;
 
 	/** The Constant BUFFER_SIZE. */
 	// Constants
 	private static final int BUFFER_SIZE = 1000000;
-	
+
 	/** The Constant AT. */
 	private final static AffineTransform AT = AffineTransform.getScaleInstance(1.0, -1.0);
-	
+
 	/** The Constant context. */
 	private static final FontRenderContext context = new FontRenderContext(new AffineTransform(), true, true);
 
 	/** The face vertex buffer. */
 	// Buffers
 	final DoubleBuffer faceVertexBuffer = newDirectDoubleBuffer(BUFFER_SIZE);
-	
+
 	/** The face texture buffer. */
 	final DoubleBuffer faceTextureBuffer = newDirectDoubleBuffer(BUFFER_SIZE * 2 / 3);
-	
+
 	/** The indices. */
 	int[] indices = new int[1000]; // Indices of the "move_to" or "close"
-	
+
 	/** The side normal buffer. */
 	private final DoubleBuffer sideNormalBuffer = newDirectDoubleBuffer(BUFFER_SIZE);
-	
+
 	/** The side quads buffer. */
 	private final DoubleBuffer sideQuadsBuffer = newDirectDoubleBuffer(BUFFER_SIZE); // Contains the sides
 
 	/** The border. */
 	// Properties
 	Color border;
-	
+
 	/** The depth. */
 	double width, height, depth;
 
 	/**
 	 * Instantiates a new text drawer.
 	 *
-	 * @param gl the gl
+	 * @param gl
+	 *            the gl
 	 */
 	public TextDrawer(final OpenGL gl) {
 		super(gl);
@@ -117,6 +119,11 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 		GLU.gluTessCallback(tobj, GLU.GLU_TESS_EDGE_FLAG, this);
 	}
 
+	/**
+	 * Draw.
+	 *
+	 * @param s the s
+	 */
 	@Override
 	protected void _draw(final StringObject s) {
 		TextDrawingAttributes attributes = s.getAttributes();
@@ -124,7 +131,7 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 			drawBitmap(s.getObject(), attributes);
 		} else {
 			Font font = attributes.getFont();
-			final int fontSize = autoScaleUp(font.getSize());
+			final int fontSize = DPIHelper.autoScaleUp(font.getSize());
 			if (fontSize != font.getSize()) { font = font.deriveFont((float) fontSize); }
 			Shape shape = font.createGlyphVector(context, s.getObject()).getOutline();
 			final Rectangle2D bounds = shape.getBounds2D();
@@ -146,8 +153,10 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 	/**
 	 * Draw bitmap.
 	 *
-	 * @param object the object
-	 * @param attributes the attributes
+	 * @param object
+	 *            the object
+	 * @param attributes
+	 *            the attributes
 	 */
 	private void drawBitmap(final String object, final TextDrawingAttributes attributes) {
 		int fontToUse = GLUT.BITMAP_HELVETICA_18;
@@ -177,7 +186,8 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 	/**
 	 * Process.
 	 *
-	 * @param pi the pi
+	 * @param pi
+	 *            the pi
 	 */
 	void process(final PathIterator pi) {
 		boolean wireframe = gl.isWireframe();
@@ -228,8 +238,10 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 	/**
 	 * Draw text.
 	 *
-	 * @param attributes the attributes
-	 * @param y the y
+	 * @param attributes
+	 *            the attributes
+	 * @param y
+	 *            the y
 	 */
 	void drawText(final TextDrawingAttributes attributes, final double y) {
 		final AxisAngle rotation = attributes.getRotation();
@@ -302,8 +314,10 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 	/**
 	 * Add a point at altitude zero: creates automatically a point at altitude "depth" if depth > 0 in the quads.
 	 *
-	 * @param x            and y represent the new vertex to be added
-	 * @param y the y
+	 * @param x
+	 *            and y represent the new vertex to be added
+	 * @param y
+	 *            the y
 	 */
 	public void addContourVertex0(final double x, final double y) {
 		sideQuadsBuffer.put(x).put(y).put(0);
@@ -322,6 +336,9 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 		previousY = y;
 	}
 
+	/**
+	 * Dispose.
+	 */
 	@Override
 	public void dispose() {}
 
@@ -373,7 +390,8 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 	/**
 	 * Draw face.
 	 *
-	 * @param up the up
+	 * @param up
+	 *            the up
 	 */
 	void drawFace(final boolean up) {
 		if (faceVertexBuffer.limit() == 0) return;
@@ -393,12 +411,28 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 		gl.disable(GLPointerFunc.GL_VERTEX_ARRAY);
 	}
 
+	/**
+	 * Draw vertex.
+	 *
+	 * @param i the i
+	 * @param x the x
+	 * @param y the y
+	 * @param z the z
+	 */
 	@Override
 	public void drawVertex(final int i, final double x, final double y, final double z) {
 		if (gl.isTextured()) { faceTextureBuffer.put(x / width).put(y / height); }
 		faceVertexBuffer.put(x).put(y).put(z);
 	}
 
+	/**
+	 * Combine.
+	 *
+	 * @param coords the coords
+	 * @param data the data
+	 * @param weight the weight
+	 * @param outData the out data
+	 */
 	@Override
 	public void combine(final double[] coords, final Object[] data, final float[] weight, final Object[] outData) {
 		outData[0] = data[0];
@@ -407,7 +441,8 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 	/**
 	 * Fallback methods: use direct draw to OpenGL.
 	 *
-	 * @param up the up
+	 * @param up
+	 *            the up
 	 */
 
 	public void drawFaceFallback(final boolean up) {
@@ -425,12 +460,14 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 	/**
 	 * Draw side fallback.
 	 *
-	 * @param openGL the open GL
+	 * @param openGL
+	 *            the open GL
 	 */
 	public void drawSideFallback(final OpenGL openGL) {
 		var i = -1;
 		while (i < currentIndex) {
-			var begin = indices[++i];
+			i++;
+			var begin = indices[i];
 			var end = indices[++i];
 			openGL.beginDrawing(GL2.GL_QUAD_STRIP);
 			for (var index = begin; index < end; index += 3) {
@@ -451,7 +488,8 @@ public class TextDrawer extends ObjectDrawer<StringObject> implements ITesselato
 		var stride = depth == 0 ? 3 : 6;
 		var i = -1;
 		while (i < currentIndex) {
-			var begin = indices[++i];
+			i++;
+			var begin = indices[i];
 			var end = indices[++i];
 			gl.beginDrawing(GL.GL_LINE_LOOP);
 			for (var index = begin; index < end; index += stride) {

@@ -22,9 +22,9 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import gama.runtime.GAMA;
+import gama.runtime.PlatformHelper;
 import gama.ui.base.search.GamlSearchField;
 import gama.ui.base.utils.PerspectiveHelper;
-import gama.ui.base.utils.PlatformHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 
 /**

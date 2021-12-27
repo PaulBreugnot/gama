@@ -46,7 +46,7 @@ import org.eclipse.ui.part.ResourceTransfer;
 import org.eclipse.xtext.ui.editor.model.XtextDocument;
 
 import gama.common.util.FileUtils;
-import gama.ui.base.utils.PlatformHelper;
+import gama.runtime.PlatformHelper;
 import gama.ui.navigator.metadata.FileMetaDataProvider;
 import gaml.operators.Strings;
 import gaml.types.GamaFileType;

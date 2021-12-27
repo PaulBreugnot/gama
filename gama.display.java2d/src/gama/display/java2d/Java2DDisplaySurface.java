@@ -72,7 +72,8 @@ import gama.outputs.layers.IEventLayerListener;
 import gama.outputs.layers.OverlayLayer;
 import gama.runtime.GAMA;
 import gama.runtime.IScope;
-import gama.ui.base.utils.PlatformHelper;
+import gama.runtime.PlatformHelper;
+import gama.ui.base.utils.DPIHelper;
 import gama.ui.experiment.views.displays.DisplaySurfaceMenu;
 import gaml.expressions.IExpression;
 import gaml.operators.Cast;
@@ -234,8 +235,8 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	 * @return the int
 	 */
 	int autoScaleUp(final int c) {
-		if (PlatformHelper.getDeviceZoom() > 100) return c;
-		return PlatformHelper.autoScaleUp(c);
+		if (DPIHelper.getDeviceZoom() > 100) return c;
+		return DPIHelper.autoScaleUp(c);
 	}
 
 	/**
@@ -1104,8 +1105,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	@Override
 	public Font computeFont(final Font f) {
 		if (f == null) return null;
-		if (PlatformHelper.isWindows() && PlatformHelper.isHiDPI())
-			return f.deriveFont(PlatformHelper.autoScaleUp(f.getSize()));
+		if (PlatformHelper.isWindows() && DPIHelper.isHiDPI()) return f.deriveFont(DPIHelper.autoScaleUp(f.getSize()));
 		return f;
 
 	}

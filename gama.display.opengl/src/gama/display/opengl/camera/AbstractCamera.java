@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * AbstractCamera.java, in gama.display.opengl, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * AbstractCamera.java, in gama.display.opengl, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.display.opengl.camera;
 
@@ -24,8 +24,9 @@ import gama.display.opengl.renderer.helpers.CameraHelper;
 import gama.metamodel.shape.GamaPoint;
 import gama.outputs.LayeredDisplayData;
 import gama.ui.base.bindings.GamaKeyBindings;
-import gama.ui.base.utils.PlatformHelper;
+import gama.ui.base.utils.DPIHelper;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class AbstractCamera.
  */
@@ -37,67 +38,67 @@ public abstract class AbstractCamera implements ICamera {
 
 	/** The renderer. */
 	protected final IOpenGLRenderer renderer;
-	
+
 	/** The glu. */
 	private final GLU glu;
-	
+
 	/** The initialized. */
 	protected boolean initialized;
 
 	/** The mouse position. */
 	// Mouse
 	private final GamaPoint mousePosition = new GamaPoint(0, 0);
-	
+
 	/** The last mouse pressed position. */
 	protected final GamaPoint lastMousePressedPosition = new GamaPoint(0, 0);
-	
+
 	/** The first mouse pressed position. */
 	protected final GamaPoint firstMousePressedPosition = new GamaPoint(0, 0);
-	
+
 	/** The firsttime mouse down. */
 	protected boolean firsttimeMouseDown = true;
-	
+
 	/** The camera interaction. */
 	protected boolean cameraInteraction = true;
 
 	/** The position. */
 	protected final GamaPoint position = new GamaPoint(0, 0, 0);
-	
+
 	/** The target. */
 	protected final GamaPoint target = new GamaPoint(0, 0, 0);
-	
+
 	/** The up vector. */
 	protected final GamaPoint upVector = new GamaPoint(0, 0, 0);
-	
+
 	/** The initial up vector. */
 	protected GamaPoint initialPosition, initialTarget, initialUpVector;
 
 	/** The theta. */
 	protected double theta;
-	
+
 	/** The phi. */
 	protected double phi;
-	
+
 	/** The flipped. */
 	protected boolean flipped = false;
 	// protected double upVectorAngle;
 
 	/** The keyboard sensivity. */
 	private final double _keyboardSensivity = 1d;
-	
+
 	/** The sensivity. */
 	private final double _sensivity = 1;
 
 	/** The goes forward. */
 	// Mouse and keyboard state
 	private boolean goesForward;
-	
+
 	/** The goes backward. */
 	private boolean goesBackward;
-	
+
 	/** The strafe left. */
 	private boolean strafeLeft;
-	
+
 	/** The strafe right. */
 	private boolean strafeRight;
 
@@ -106,26 +107,27 @@ public abstract class AbstractCamera implements ICamera {
 
 	/** The ctrl pressed. */
 	protected boolean ctrlPressed = false;
-	
+
 	/** The shift pressed. */
 	protected boolean shiftPressed = false;
 
 	/** The keystone mode. */
 	protected boolean keystoneMode = false;
-	
+
 	/** The z corrector. */
 	protected double zCorrector = 1d;
-	
+
 	/** The use num keys. */
 	private final boolean useNumKeys = GamaPreferences.Displays.OPENGL_NUM_KEYS_CAM.getValue();
-	
+
 	/** The Constant UP_Z. */
 	private static final GamaPoint UP_Z = new GamaPoint(0, 0, 1);
 
 	/**
 	 * Instantiates a new abstract camera.
 	 *
-	 * @param renderer2 the renderer 2
+	 * @param renderer2
+	 *            the renderer 2
 	 */
 	public AbstractCamera(final IOpenGLRenderer renderer2) {
 		this.renderer = renderer2;
@@ -136,6 +138,12 @@ public abstract class AbstractCamera implements ICamera {
 		glu = new GLU();
 	}
 
+	/**
+	 * Apply preset.
+	 *
+	 * @param name
+	 *            the name
+	 */
 	@Override
 	public void applyPreset(final String name) {
 		final CameraPreset p = CameraHelper.PRESETS.get(name);
@@ -149,22 +157,34 @@ public abstract class AbstractCamera implements ICamera {
 		}
 	}
 
+	/**
+	 * Update position.
+	 */
 	@Override
 	public void updatePosition() {
 		position.setLocation(renderer.getData().getCameraPos());
 	}
 
+	/**
+	 * Update target.
+	 */
 	@Override
 	public void updateTarget() {
 		target.setLocation(renderer.getData().getCameraTarget());
 	}
 
+	/**
+	 * Update orientation.
+	 */
 	@Override
 	public void updateOrientation() {
 		// DEBUG.OUT("Upvector updatd as " + upVector);
 		upVector.setLocation(renderer.getData().getCameraOrientation());
 	}
 
+	/**
+	 * Update.
+	 */
 	@Override
 	public void update() {
 		final LayeredDisplayData data = renderer.getData();
@@ -189,6 +209,16 @@ public abstract class AbstractCamera implements ICamera {
 	 */
 	protected abstract void drawRotationHelper();
 
+	/**
+	 * Sets the position.
+	 *
+	 * @param xPos
+	 *            the x pos
+	 * @param yPos
+	 *            the y pos
+	 * @param zPos
+	 *            the z pos
+	 */
 	@Override
 	public void setPosition(final double xPos, final double yPos, final double zPos) {
 		position.setLocation(xPos, yPos, zPos);
@@ -198,15 +228,28 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Sets the target.
 	 *
-	 * @param xLPos the x L pos
-	 * @param yLPos the y L pos
-	 * @param zLPos the z L pos
+	 * @param xLPos
+	 *            the x L pos
+	 * @param yLPos
+	 *            the y L pos
+	 * @param zLPos
+	 *            the z L pos
 	 */
 	public void setTarget(final double xLPos, final double yLPos, final double zLPos) {
 		target.setLocation(xLPos, yLPos, zLPos);
 		getRenderer().getData().setCameraLookPos(new GamaPoint(target));
 	}
 
+	/**
+	 * Sets the up vector.
+	 *
+	 * @param xPos
+	 *            the x pos
+	 * @param yPos
+	 *            the y pos
+	 * @param zPos
+	 *            the z pos
+	 */
 	@Override
 	public void setUpVector(final double xPos, final double yPos, final double zPos) {
 		upVector.setLocation(xPos, yPos, zPos);
@@ -216,21 +259,33 @@ public abstract class AbstractCamera implements ICamera {
 
 	/* -------Get commands--------- */
 
+	/**
+	 * Gets the position.
+	 *
+	 * @return the position
+	 */
 	@Override
-	public GamaPoint getPosition() {
-		return position;
-	}
+	public GamaPoint getPosition() { return position; }
 
+	/**
+	 * Gets the target.
+	 *
+	 * @return the target
+	 */
 	@Override
-	public GamaPoint getTarget() {
-		return target;
-	}
+	public GamaPoint getTarget() { return target; }
 
+	/**
+	 * Gets the orientation.
+	 *
+	 * @return the orientation
+	 */
 	@Override
-	public GamaPoint getOrientation() {
-		return upVector;
-	}
+	public GamaPoint getOrientation() { return upVector; }
 
+	/**
+	 * Animate.
+	 */
 	@Override
 	public void animate() {
 		glu.gluLookAt(position.x, position.y, position.z, target.x, target.y, target.z, upVector.x, upVector.y,
@@ -242,25 +297,24 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Sets the shift pressed.
 	 *
-	 * @param value the new shift pressed
+	 * @param value
+	 *            the new shift pressed
 	 */
-	final void setShiftPressed(final boolean value) {
-		shiftPressed = value;
-	}
+	final void setShiftPressed(final boolean value) { shiftPressed = value; }
 
 	/**
 	 * Sets the ctrl pressed.
 	 *
-	 * @param value the new ctrl pressed
+	 * @param value
+	 *            the new ctrl pressed
 	 */
-	final void setCtrlPressed(final boolean value) {
-		ctrlPressed = value;
-	}
+	final void setCtrlPressed(final boolean value) { ctrlPressed = value; }
 
 	/**
 	 * Sets the mouse left pressed.
 	 *
-	 * @param b the new mouse left pressed
+	 * @param b
+	 *            the new mouse left pressed
 	 */
 	protected void setMouseLeftPressed(final boolean b) {
 		// TODO Auto-generated method stub
@@ -270,7 +324,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Invoke on GL thread.
 	 *
-	 * @param runnable the runnable
+	 * @param runnable
+	 *            the runnable
 	 */
 	protected void invokeOnGLThread(final GLRunnable runnable) {
 		// Fixing issue #2224
@@ -279,8 +334,10 @@ public abstract class AbstractCamera implements ICamera {
 	}
 
 	/**
-	 * Method mouseScrolled()
+	 * Method mouseScrolled().
 	 *
+	 * @param e
+	 *            the e
 	 * @see org.eclipse.swt.events.MouseWheelListener#mouseScrolled(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
@@ -295,15 +352,18 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Internal mouse scrolled.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	protected void internalMouseScrolled(final MouseEvent e) {
 		zoom(e.count > 0);
 	}
 
 	/**
-	 * Method mouseMove()
+	 * Method mouseMove().
 	 *
+	 * @param e
+	 *            the e
 	 * @see org.eclipse.swt.events.MouseMoveListener#mouseMove(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
@@ -321,42 +381,51 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Internal mouse move.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	protected void internalMouseMove(final MouseEvent e) {
-		mousePosition.x = PlatformHelper.autoScaleUp(e.x);
-		mousePosition.y = PlatformHelper.autoScaleUp(e.y);
+		mousePosition.x = DPIHelper.autoScaleUp(e.x);
+		mousePosition.y = DPIHelper.autoScaleUp(e.y);
 		setCtrlPressed(GamaKeyBindings.ctrl(e));
 		setShiftPressed(GamaKeyBindings.shift(e));
 	}
 
 	/**
-	 * Method mouseEnter()
+	 * Method mouseEnter().
 	 *
+	 * @param e
+	 *            the e
 	 * @see org.eclipse.swt.events.MouseTrackListener#mouseEnter(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
 	public final void mouseEnter(final org.eclipse.swt.events.MouseEvent e) {}
 
 	/**
-	 * Method mouseExit()
+	 * Method mouseExit().
 	 *
+	 * @param e
+	 *            the e
 	 * @see org.eclipse.swt.events.MouseTrackListener#mouseExit(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
 	public final void mouseExit(final org.eclipse.swt.events.MouseEvent e) {}
 
 	/**
-	 * Method mouseHover()
+	 * Method mouseHover().
 	 *
+	 * @param e
+	 *            the e
 	 * @see org.eclipse.swt.events.MouseTrackListener#mouseHover(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
 	public final void mouseHover(final org.eclipse.swt.events.MouseEvent e) {}
 
 	/**
-	 * Method mouseDoubleClick()
+	 * Method mouseDoubleClick().
 	 *
+	 * @param e
+	 *            the e
 	 * @see org.eclipse.swt.events.MouseListener#mouseDoubleClick(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
@@ -369,8 +438,10 @@ public abstract class AbstractCamera implements ICamera {
 	}
 
 	/**
-	 * Method mouseDown()
+	 * Method mouseDown().
 	 *
+	 * @param e
+	 *            the e
 	 * @see org.eclipse.swt.events.MouseListener#mouseDown(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
@@ -385,8 +456,10 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Gets the normalized coordinates.
 	 *
-	 * @param x the x
-	 * @param y the y
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 * @return the normalized coordinates
 	 */
 	protected GamaPoint getNormalizedCoordinates(final double x, final double y) {
@@ -399,14 +472,15 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Click on keystone.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @return the int
 	 */
 	private int clickOnKeystone(final MouseEvent e) {
 		// int x = e.x;
 		// int y = e.y;
-		final int x = PlatformHelper.autoScaleUp(e.x);
-		final int y = PlatformHelper.autoScaleUp(e.y);
+		final int x = DPIHelper.autoScaleUp(e.x);
+		final int y = DPIHelper.autoScaleUp(e.y);
 		// return the number of the corner clicked. Return -1 if no click on
 		// keystone.
 		// final GamaPoint p = getNormalizedCoordinates(e);
@@ -416,14 +490,15 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Hover on keystone.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @return the int
 	 */
 	protected int hoverOnKeystone(final MouseEvent e) {
 		// int x = e.x;
 		// int y = e.y;
-		final int x = PlatformHelper.autoScaleUp(e.x);
-		final int y = PlatformHelper.autoScaleUp(e.y);
+		final int x = DPIHelper.autoScaleUp(e.x);
+		final int y = DPIHelper.autoScaleUp(e.y);
 		// return the number of the corner clicked. Return -1 if no click on
 		// keystone. Return 10 if click on the center.
 		// final GamaPoint p = getNormalizedCoordinates(e);
@@ -433,11 +508,12 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Internal mouse down.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	protected void internalMouseDown(final MouseEvent e) {
-		final int x = PlatformHelper.autoScaleUp(e.x);
-		final int y = PlatformHelper.autoScaleUp(e.y);
+		final int x = DPIHelper.autoScaleUp(e.x);
+		final int y = DPIHelper.autoScaleUp(e.y);
 		if (firsttimeMouseDown) {
 			firstMousePressedPosition.setLocation(x, y, 0);
 			firsttimeMouseDown = false;
@@ -468,15 +544,17 @@ public abstract class AbstractCamera implements ICamera {
 		getMousePosition().x = x;
 		getMousePosition().y = y;
 
-		setMouseLeftPressed((e.button == 1));
+		setMouseLeftPressed(e.button == 1);
 		setCtrlPressed(e.button == 1 ? GamaKeyBindings.ctrl(e) : false);
 		setShiftPressed(e.button == 1 ? GamaKeyBindings.shift(e) : false);
 
 	}
 
 	/**
-	 * Method mouseUp()
+	 * Method mouseUp().
 	 *
+	 * @param e
+	 *            the e
 	 * @see org.eclipse.swt.events.MouseListener#mouseUp(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
@@ -494,7 +572,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Internal mouse up.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	protected void internalMouseUp(final MouseEvent e) {
 		firsttimeMouseDown = true;
@@ -506,11 +585,12 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Start ROI.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	private void startROI(final org.eclipse.swt.events.MouseEvent e) {
-		getMousePosition().x = PlatformHelper.autoScaleUp(e.x);
-		getMousePosition().y = PlatformHelper.autoScaleUp(e.y);
+		getMousePosition().x = DPIHelper.autoScaleUp(e.x);
+		getMousePosition().y = DPIHelper.autoScaleUp(e.y);
 		renderer.getOpenGLHelper().defineROI(new GamaPoint(firstMousePressedPosition), new GamaPoint(mousePosition));
 		ROICurrentlyDrawn = true;
 	}
@@ -528,7 +608,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Can select on release.
 	 *
-	 * @param arg0 the arg 0
+	 * @param arg0
+	 *            the arg 0
 	 * @return true, if successful
 	 */
 	protected abstract boolean canSelectOnRelease(org.eclipse.swt.events.MouseEvent arg0);
@@ -543,10 +624,13 @@ public abstract class AbstractCamera implements ICamera {
 	// DEBUG.LOG("_phi " + phi + " _theta " + theta);
 	// }
 
+	/**
+	 * Gets the mouse position.
+	 *
+	 * @return the mouse position
+	 */
 	@Override
-	public GamaPoint getMousePosition() {
-		return mousePosition;
-	}
+	public GamaPoint getMousePosition() { return mousePosition; }
 
 	/**
 	 * Checks if is view in XY plan.
@@ -558,77 +642,68 @@ public abstract class AbstractCamera implements ICamera {
 		// return phi > 170 || phi < 10;// && theta > -5 && theta < 5;
 	}
 
+	/**
+	 * Gets the last mouse pressed position.
+	 *
+	 * @return the last mouse pressed position
+	 */
 	@Override
-	public GamaPoint getLastMousePressedPosition() {
-		return lastMousePressedPosition;
-	}
+	public GamaPoint getLastMousePressedPosition() { return lastMousePressedPosition; }
 
 	/**
 	 * Gets the keyboard sensivity.
 	 *
 	 * @return the keyboard sensivity
 	 */
-	protected double getKeyboardSensivity() {
-		return _keyboardSensivity;
-	}
+	protected double getKeyboardSensivity() { return _keyboardSensivity; }
 
 	/**
 	 * Gets the sensivity.
 	 *
 	 * @return the sensivity
 	 */
-	protected double getSensivity() {
-		return _sensivity;
-	}
+	protected double getSensivity() { return _sensivity; }
 
 	/**
 	 * Checks if is forward.
 	 *
 	 * @return true, if is forward
 	 */
-	protected boolean isForward() {
-		return goesForward;
-	}
+	protected boolean isForward() { return goesForward; }
 
 	/**
 	 * Checks if is backward.
 	 *
 	 * @return true, if is backward
 	 */
-	protected boolean isBackward() {
-		return goesBackward;
-	}
+	protected boolean isBackward() { return goesBackward; }
 
 	/**
 	 * Checks if is strafe left.
 	 *
 	 * @return true, if is strafe left
 	 */
-	protected boolean isStrafeLeft() {
-		return strafeLeft;
-	}
+	protected boolean isStrafeLeft() { return strafeLeft; }
 
 	/**
 	 * Checks if is strafe right.
 	 *
 	 * @return true, if is strafe right
 	 */
-	protected boolean isStrafeRight() {
-		return strafeRight;
-	}
+	protected boolean isStrafeRight() { return strafeRight; }
 
 	/**
 	 * Gets the renderer.
 	 *
 	 * @return the renderer
 	 */
-	public IOpenGLRenderer getRenderer() {
-		return renderer;
-	}
+	public IOpenGLRenderer getRenderer() { return renderer; }
 
 	/**
-	 * Method keyPressed()
+	 * Method keyPressed().
 	 *
+	 * @param e
+	 *            the e
 	 * @see org.eclipse.swt.events.KeyListener#keyPressed(org.eclipse.swt.events.KeyEvent)
 	 */
 	@Override
@@ -688,7 +763,7 @@ public abstract class AbstractCamera implements ICamera {
 					default:
 						return true;
 				}
-			} else if ((e.character == 'k') && !GamaKeyBindings.ctrl(e)) { activateKeystoneMode(); }
+			} else if (e.character == 'k' && !GamaKeyBindings.ctrl(e)) { activateKeystoneMode(); }
 			return true;
 		});
 	}
@@ -732,8 +807,10 @@ public abstract class AbstractCamera implements ICamera {
 	}
 
 	/**
-	 * Method keyReleased()
+	 * Method keyReleased().
 	 *
+	 * @param e
+	 *            the e
 	 * @see org.eclipse.swt.events.KeyListener#keyReleased(org.eclipse.swt.events.KeyEvent)
 	 */
 	@Override
@@ -775,7 +852,8 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Sets the target.
 	 *
-	 * @param centre the new target
+	 * @param centre
+	 *            the new target
 	 */
 	public void setTarget(final GamaPoint centre) {
 		setTarget(centre.x, centre.y, centre.z);
@@ -785,17 +863,22 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Sets the position.
 	 *
-	 * @param centre the new position
+	 * @param centre
+	 *            the new position
 	 */
 	public void setPosition(final GamaPoint centre) {
 		setPosition(centre.x, centre.y, centre.z);
 
 	}
 
+	/**
+	 * Sets the initial Z factor corrector.
+	 *
+	 * @param corrector
+	 *            the new initial Z factor corrector
+	 */
 	@Override
-	public void setInitialZFactorCorrector(final double corrector) {
-		zCorrector = corrector;
-	}
+	public void setInitialZFactorCorrector(final double corrector) { zCorrector = corrector; }
 
 	/**
 	 * Gets the initial Z factor.

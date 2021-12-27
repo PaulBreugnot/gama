@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * JOGLRenderer.java, in gama.display.opengl, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * JOGLRenderer.java, in gama.display.opengl, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.display.opengl.renderer;
 
@@ -25,19 +25,19 @@ import gama.common.ui.IDisplaySurface;
 import gama.common.ui.ILayer;
 import gama.core.dev.utils.DEBUG;
 import gama.display.opengl.OpenGL;
+import gama.display.opengl.renderer.helpers.AbstractRendererHelper.Pass;
 import gama.display.opengl.renderer.helpers.CameraHelper;
 import gama.display.opengl.renderer.helpers.KeystoneHelper;
 import gama.display.opengl.renderer.helpers.LightHelper;
 import gama.display.opengl.renderer.helpers.PickingHelper;
 import gama.display.opengl.renderer.helpers.SceneHelper;
-import gama.display.opengl.renderer.helpers.AbstractRendererHelper.Pass;
 import gama.display.opengl.scene.ModelScene;
 import gama.display.opengl.view.SWTOpenGLDisplaySurface;
 import gama.metamodel.shape.GamaPoint;
 import gama.metamodel.shape.IShape;
 import gama.outputs.display.AbstractDisplayGraphics;
 import gama.outputs.layers.charts.ChartOutput;
-import gama.ui.base.utils.PlatformHelper;
+import gama.ui.base.utils.DPIHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.util.GamaColor;
 import gama.util.file.GamaFile;
@@ -51,6 +51,7 @@ import gaml.statements.draw.ShapeDrawingAttributes;
 import gaml.statements.draw.TextDrawingAttributes;
 import gaml.types.GamaGeometryType;
 
+// TODO: Auto-generated Javadoc
 /**
  * This class plays the role of Renderer and IGraphics. Class JOGLRenderer.
  *
@@ -68,16 +69,16 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 	/** The keystone helper. */
 	// Helpers
 	private final KeystoneHelper keystoneHelper = createKeystoneHelper();
-	
+
 	/** The picking helper. */
 	private final PickingHelper pickingHelper = new PickingHelper(this);
-	
+
 	/** The light helper. */
 	private final LightHelper lightHelper = new LightHelper(this);
-	
+
 	/** The camera helper. */
 	private final CameraHelper cameraHelper = new CameraHelper(this);
-	
+
 	/** The scene helper. */
 	private final SceneHelper sceneHelper = createSceneHelper();
 
@@ -93,6 +94,12 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 	// Canvas
 	protected GLCanvas canvas;
 
+	/**
+	 * Sets the display surface.
+	 *
+	 * @param d
+	 *            the new display surface
+	 */
 	@Override
 	public void setDisplaySurface(final IDisplaySurface d) {
 		super.setDisplaySurface(d);
@@ -118,6 +125,12 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 		return new KeystoneHelper(this);
 	}
 
+	/**
+	 * Sets the canvas.
+	 *
+	 * @param canvas
+	 *            the new canvas
+	 */
 	@Override
 	public void setCanvas(final GLCanvas canvas) {
 		this.canvas = canvas;
@@ -125,6 +138,12 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 		cameraHelper.hook();
 	}
 
+	/**
+	 * Inits the.
+	 *
+	 * @param drawable
+	 *            the drawable
+	 */
 	@Override
 	public void init(final GLAutoDrawable drawable) {
 		WorkbenchHelper.asyncRun(() -> canvas.setVisible(visible));
@@ -136,27 +155,47 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 		inited = true;
 	}
 
+	/**
+	 * Fill background.
+	 *
+	 * @param bgColor
+	 *            the bg color
+	 */
 	@Override
 	public void fillBackground(final Color bgColor) {
 		openGL.setCurrentObjectAlpha(1);
 	}
 
+	/**
+	 * Gets the surface.
+	 *
+	 * @return the surface
+	 */
 	@Override
-	public SWTOpenGLDisplaySurface getSurface() {
-		return (SWTOpenGLDisplaySurface) surface;
-	}
+	public SWTOpenGLDisplaySurface getSurface() { return (SWTOpenGLDisplaySurface) surface; }
 
+	/**
+	 * Gets the canvas.
+	 *
+	 * @return the canvas
+	 */
 	@Override
-	public final GLCanvas getCanvas() {
-		return canvas;
-	}
+	public final GLCanvas getCanvas() { return canvas; }
 
+	/**
+	 * Inits the scene.
+	 */
 	@Override
 	public void initScene() {
 		final ModelScene scene = sceneHelper.getSceneToRender();
 		if (scene != null) { scene.reload(); }
 	}
 
+	/**
+	 * Begin drawing layers.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean beginDrawingLayers() {
 		while (!inited) {
@@ -170,18 +209,32 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 
 	}
 
+	/**
+	 * Checks if is not ready to update.
+	 *
+	 * @return true, if is not ready to update
+	 */
 	@Override
 	public boolean isNotReadyToUpdate() {
 		if (data.isSynchronized()) return false;
 		return sceneHelper.isNotReadyToUpdate();
 	}
 
+	/**
+	 * Dispose.
+	 */
 	@Override
 	public void dispose() {
 		super.dispose();
 		dispose(canvas);
 	}
 
+	/**
+	 * Begin drawing layer.
+	 *
+	 * @param layer
+	 *            the layer
+	 */
 	@Override
 	public void beginDrawingLayer(final ILayer layer) {
 		super.beginDrawingLayer(layer);
@@ -189,7 +242,7 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 	}
 
 	/**
-	 * Method endDrawingLayers()
+	 * Method endDrawingLayers().
 	 *
 	 * @see gama.common.ui.IGraphics#endDrawingLayers()
 	 */
@@ -199,6 +252,12 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 		getSurface().invalidateVisibleRegions();
 	}
 
+	/**
+	 * Display.
+	 *
+	 * @param drawable
+	 *            the drawable
+	 */
 	@Override
 	public void display(final GLAutoDrawable drawable) {
 		if (!sceneHelper.isReady()) return;
@@ -220,9 +279,23 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 	/** The first. */
 	boolean first = true;
 
+	/**
+	 * Reshape.
+	 *
+	 * @param drawable
+	 *            the drawable
+	 * @param arg1
+	 *            the arg 1
+	 * @param arg2
+	 *            the arg 2
+	 * @param w
+	 *            the w
+	 * @param h
+	 *            the h
+	 */
 	@Override
 	public void reshape(final GLAutoDrawable drawable, final int arg1, final int arg2, final int w, final int h) {
-		int width = PlatformHelper.autoScaleDown(w), height = PlatformHelper.autoScaleDown(h);
+		int width = DPIHelper.autoScaleDown(w), height = DPIHelper.autoScaleDown(h);
 		// int width = w, height = h;
 		// See #2628 and https://github.com/sgothel/jogl/commit/ca7f0fb61b0a608b6e684a5bbde71f6ecb6e3fe0
 		// width = scaleDownIfMac(width);
@@ -235,6 +308,12 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 		surface.updateDisplay(true);
 	}
 
+	/**
+	 * Dispose.
+	 *
+	 * @param drawable
+	 *            the drawable
+	 */
 	@Override
 	public void dispose(final GLAutoDrawable drawable) {
 		sceneHelper.garbageCollect(openGL);
@@ -247,9 +326,9 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 	}
 
 	/**
+	 * IGraphics DRAWING METHODS.
 	 *
-	 * IGraphics DRAWING METHODS
-	 *
+	 * @return true, if successful
 	 */
 
 	@Override
@@ -258,6 +337,15 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 		return scene != null && scene.cannotAdd();
 	}
 
+	/**
+	 * Draw file.
+	 *
+	 * @param file
+	 *            the file
+	 * @param attributes
+	 *            the attributes
+	 * @return the rectangle 2 D
+	 */
 	@Override
 	public Rectangle2D drawFile(final GamaFile file, final DrawingAttributes attributes) {
 		if (file == null) return null;
@@ -275,6 +363,15 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 		return rect;
 	}
 
+	/**
+	 * Draw field.
+	 *
+	 * @param fieldValues
+	 *            the field values
+	 * @param attributes
+	 *            the attributes
+	 * @return the rectangle 2 D
+	 */
 	@Override
 	public Rectangle2D drawField(final IField fieldValues, final MeshDrawingAttributes attributes) {
 		final ModelScene scene = sceneHelper.getSceneToUpdate();
@@ -297,6 +394,12 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 	/**
 	 * Method drawShape. Add a given JTS Geometry in the list of all the existing geometry that will be displayed by
 	 * openGl.
+	 *
+	 * @param shape
+	 *            the shape
+	 * @param attributes
+	 *            the attributes
+	 * @return the rectangle 2 D
 	 */
 	@Override
 	public Rectangle2D drawShape(final Geometry shape, final DrawingAttributes attributes) {
@@ -308,6 +411,15 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 		return rect;
 	}
 
+	/**
+	 * Draw image.
+	 *
+	 * @param img
+	 *            the img
+	 * @param attributes
+	 *            the attributes
+	 * @return the rectangle 2 D
+	 */
 	@Override
 	public Rectangle2D drawImage(final BufferedImage img, final DrawingAttributes attributes) {
 		if (img == null) return null;
@@ -321,6 +433,13 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 		return rect;
 	}
 
+	/**
+	 * Draw chart.
+	 *
+	 * @param chart
+	 *            the chart
+	 * @return the rectangle 2 D
+	 */
 	@Override
 	public Rectangle2D drawChart(final ChartOutput chart) {
 		final ModelScene scene = sceneHelper.getSceneToUpdate();
@@ -338,7 +457,8 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 	/**
 	 * Try to highlight.
 	 *
-	 * @param attributes the attributes
+	 * @param attributes
+	 *            the attributes
 	 */
 	protected void tryToHighlight(final DrawingAttributes attributes) {
 		if (highlight) { attributes.setHighlighted(data.getHighlightColor()); }
@@ -347,8 +467,10 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 	/**
 	 * Draw grid line.
 	 *
-	 * @param dimensions the dimensions
-	 * @param lineColor the line color
+	 * @param dimensions
+	 *            the dimensions
+	 * @param lineColor
+	 *            the line color
 	 */
 	public void drawGridLine(final GamaPoint dimensions, final Color lineColor) {
 		final ModelScene scene = sceneHelper.getSceneToUpdate();
@@ -371,6 +493,15 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 		}
 	}
 
+	/**
+	 * Draw string.
+	 *
+	 * @param string
+	 *            the string
+	 * @param attributes
+	 *            the attributes
+	 * @return the rectangle 2 D
+	 */
 	@Override
 	public Rectangle2D drawString(final String string, final TextDrawingAttributes attributes) {
 		if (string == null || string.isEmpty()) return null;
@@ -383,7 +514,8 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 			for (final String s : string.split("\n")) {
 				// DEBUG.OUT("Attributes Font Size: " + attributes.font.getSize());
 				// DEBUG.OUT("Get Y Ratio: " + getyRatioBetweenPixelsAndModelUnits());
-				drawString(s, attributes.copyTranslatedBy(new GamaPoint(0, shift * i++)));
+				drawString(s, attributes.copyTranslatedBy(new GamaPoint(0, shift * i)));
+				i++;
 			}
 			return null;
 		}
@@ -394,36 +526,55 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 	}
 
 	/**
+	 * DIMENSIONS, RATIOS AND LOCATIONS METHODS.
 	 *
-	 * DIMENSIONS, RATIOS AND LOCATIONS METHODS
-	 *
+	 * @return the camera pos
 	 */
 
 	@Override
-	public final GamaPoint getCameraPos() {
-		return cameraHelper.getPosition();
-	}
+	public final GamaPoint getCameraPos() { return cameraHelper.getPosition(); }
 
+	/**
+	 * Gets the camera target.
+	 *
+	 * @return the camera target
+	 */
 	@Override
-	public final GamaPoint getCameraTarget() {
-		return cameraHelper.getTarget();
-	}
+	public final GamaPoint getCameraTarget() { return cameraHelper.getTarget(); }
 
+	/**
+	 * Gets the camera orientation.
+	 *
+	 * @return the camera orientation
+	 */
 	@Override
-	public final GamaPoint getCameraOrientation() {
-		return cameraHelper.getOrientation();
-	}
+	public final GamaPoint getCameraOrientation() { return cameraHelper.getOrientation(); }
 
+	/**
+	 * Gets the x ratio between pixels and model units.
+	 *
+	 * @return the x ratio between pixels and model units
+	 */
 	@Override
 	public double getxRatioBetweenPixelsAndModelUnits() {
-		return PlatformHelper.autoScaleDown(openGL.getRatios().x);
+		return DPIHelper.autoScaleDown(openGL.getRatios().x);
 	}
 
+	/**
+	 * Gets the y ratio between pixels and model units.
+	 *
+	 * @return the y ratio between pixels and model units
+	 */
 	@Override
 	public double getyRatioBetweenPixelsAndModelUnits() {
-		return PlatformHelper.autoScaleDown(openGL.getRatios().y);
+		return DPIHelper.autoScaleDown(openGL.getRatios().y);
 	}
 
+	/**
+	 * Gets the width.
+	 *
+	 * @return the width
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -445,6 +596,11 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 		// PlatformHelper.autoScaleDown(canvas.getSurfaceWidth()) * (float) surface.getZoomLevel();
 	}
 
+	/**
+	 * Gets the height.
+	 *
+	 * @return the height
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -456,6 +612,13 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 		// return canvas.getSurfaceHeight() * surface.getZoomLevel();
 	}
 
+	/**
+	 * Gets the real world point from window point.
+	 *
+	 * @param mouse
+	 *            the mouse
+	 * @return the real world point from window point
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -466,15 +629,21 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 		return openGL.getWorldPositionFrom(new GamaPoint(mouse.x, mouse.y));
 	}
 
+	/**
+	 * Gets the display width.
+	 *
+	 * @return the display width
+	 */
 	@Override
-	public final int getDisplayWidth() {
-		return (int) Math.round(getWidth());
-	}
+	public final int getDisplayWidth() { return (int) Math.round(getWidth()); }
 
+	/**
+	 * Gets the display height.
+	 *
+	 * @return the display height
+	 */
 	@Override
-	public final int getDisplayHeight() {
-		return (int) Math.round(getHeight());
-	}
+	public final int getDisplayHeight() { return (int) Math.round(getHeight()); }
 
 	/*
 	 * (non-Javadoc)
@@ -482,64 +651,85 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 	 * @see ummisco.gama.opengl.renderer.IOpenGLRenderer#getCameraHelper()
 	 */
 
+	/**
+	 * Gets the camera helper.
+	 *
+	 * @return the camera helper
+	 */
 	@Override
-	public CameraHelper getCameraHelper() {
-		return cameraHelper;
-	}
+	public CameraHelper getCameraHelper() { return cameraHelper; }
 
+	/**
+	 * Gets the keystone helper.
+	 *
+	 * @return the keystone helper
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
 	 * @see ummisco.gama.opengl.renderer.IOpenGLRenderer#getKeystoneHelper()
 	 */
 	@Override
-	public KeystoneHelper getKeystoneHelper() {
-		return keystoneHelper;
-	}
+	public KeystoneHelper getKeystoneHelper() { return keystoneHelper; }
 
+	/**
+	 * Gets the picking helper.
+	 *
+	 * @return the picking helper
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
 	 * @see ummisco.gama.opengl.renderer.IOpenGLRenderer#getPickingHelper()
 	 */
 	@Override
-	public PickingHelper getPickingHelper() {
-		return pickingHelper;
-	}
+	public PickingHelper getPickingHelper() { return pickingHelper; }
 
+	/**
+	 * Gets the open GL helper.
+	 *
+	 * @return the open GL helper
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
 	 * @see ummisco.gama.opengl.renderer.IOpenGLRenderer#getOpenGLHelper()
 	 */
 	@Override
-	public OpenGL getOpenGLHelper() {
-		return openGL;
-	}
+	public OpenGL getOpenGLHelper() { return openGL; }
 
+	/**
+	 * Gets the light helper.
+	 *
+	 * @return the light helper
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
 	 * @see ummisco.gama.opengl.renderer.IOpenGLRenderer#getLightHelper()
 	 */
 	@Override
-	public LightHelper getLightHelper() {
-		return lightHelper;
-	}
+	public LightHelper getLightHelper() { return lightHelper; }
 
+	/**
+	 * Gets the scene helper.
+	 *
+	 * @return the scene helper
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
 	 * @see ummisco.gama.opengl.renderer.IOpenGLRenderer#getSceneHelper()
 	 */
 	@Override
-	public SceneHelper getSceneHelper() {
-		return sceneHelper;
-	}
+	public SceneHelper getSceneHelper() { return sceneHelper; }
 
+	/**
+	 * Checks if is disposed.
+	 *
+	 * @return true, if is disposed
+	 */
 	@Override
-	public boolean isDisposed() {
-		return disposed;
-	}
+	public boolean isDisposed() { return disposed; }
 
 }

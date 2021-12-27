@@ -54,9 +54,9 @@ import org.eclipse.ui.swt.IFocusService;
 
 import gama.common.interfaces.IGamlDescription;
 import gama.core.dev.utils.DEBUG;
+import gama.runtime.PlatformHelper;
 import gama.ui.base.bindings.GamaKeyBindings;
 import gama.ui.base.resources.IGamaColors;
-import gama.ui.base.utils.PlatformHelper;
 import gama.ui.base.utils.WebHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 

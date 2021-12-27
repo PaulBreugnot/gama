@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Composite;
 
 import gama.display.java2d.Java2DDisplaySurface;
 import gama.display.java2d.WorkaroundForIssue2476;
-import gama.ui.base.utils.PlatformHelper;
+import gama.runtime.PlatformHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 
 /**

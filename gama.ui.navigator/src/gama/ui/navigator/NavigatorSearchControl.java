@@ -33,10 +33,10 @@ import org.eclipse.ui.navigator.CommonViewer;
 import org.eclipse.ui.progress.UIJob;
 import org.eclipse.ui.swt.IFocusService;
 
+import gama.runtime.PlatformHelper;
 import gama.ui.base.resources.GamaColors;
 import gama.ui.base.resources.IGamaColors;
 import gama.ui.base.toolbar.GamaToolbarSimple;
-import gama.ui.base.utils.PlatformHelper;
 import gama.ui.base.utils.ThemeHelper;
 import gama.ui.navigator.contents.ResourceManager;
 import gama.ui.navigator.contents.VirtualContent;

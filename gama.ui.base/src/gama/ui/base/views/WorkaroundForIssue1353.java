@@ -16,8 +16,8 @@ import org.eclipse.ui.IPartListener2;
 import org.eclipse.ui.IWorkbenchPartReference;
 
 import gama.core.dev.utils.DEBUG;
+import gama.runtime.PlatformHelper;
 import gama.ui.base.resources.IGamaColors;
-import gama.ui.base.utils.PlatformHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 
 /**

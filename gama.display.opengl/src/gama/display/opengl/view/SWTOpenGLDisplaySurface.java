@@ -66,9 +66,10 @@ import gama.outputs.layers.IEventLayerListener;
 import gama.outputs.layers.OverlayLayer;
 import gama.runtime.GAMA;
 import gama.runtime.IScope;
+import gama.runtime.PlatformHelper;
 import gama.ui.base.resources.GamaIcons;
 import gama.ui.base.resources.IGamaIcons;
-import gama.ui.base.utils.PlatformHelper;
+import gama.ui.base.utils.DPIHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.experiment.menus.AgentsMenu;
 import gama.ui.experiment.views.displays.DisplaySurfaceMenu;
@@ -201,7 +202,8 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Sets the menu manager.
 	 *
-	 * @param menuManager the new menu manager
+	 * @param menuManager
+	 *            the new menu manager
 	 */
 	@Override
 	public void setMenuManager(final Object menuManager) { this.menuManager = (DisplaySurfaceMenu) menuManager; }
@@ -209,8 +211,10 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Method getImage().
 	 *
-	 * @param w the w
-	 * @param h the h
+	 * @param w
+	 *            the w
+	 * @param h
+	 *            the h
 	 * @return the image
 	 * @see gama.common.ui.IDisplaySurface#getImage()
 	 */
@@ -272,8 +276,8 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	protected BufferedImage getImage(final GL2 gl3, final int ww, final int hh) {
 
 		// See #2628 and https://github.com/sgothel/jogl/commit/ca7f0fb61b0a608b6e684a5bbde71f6ecb6e3fe0
-		final int width = PlatformHelper.autoScaleDown(ww);
-		final int height = PlatformHelper.autoScaleDown(hh);
+		final int width = DPIHelper.autoScaleDown(ww);
+		final int height = DPIHelper.autoScaleDown(hh);
 		final BufferedImage screenshot = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 		final Graphics graphics = screenshot.getGraphics();
 
@@ -300,7 +304,8 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Method updateDisplay().
 	 *
-	 * @param force the force
+	 * @param force
+	 *            the force
 	 * @see gama.common.ui.IDisplaySurface#updateDisplay(boolean)
 	 */
 	@Override
@@ -397,7 +402,8 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Method focusOn().
 	 *
-	 * @param geometry the geometry
+	 * @param geometry
+	 *            the geometry
 	 * @see gama.common.ui.IDisplaySurface#focusOn(gama.metamodel.shape.IShape)
 	 */
 	@Override
@@ -413,7 +419,8 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Method waitForUpdateAndRun().
 	 *
-	 * @param r the r
+	 * @param r
+	 *            the r
 	 * @see gama.common.ui.IDisplaySurface#waitForUpdateAndRun(java.lang.Runnable)
 	 */
 	@Override
@@ -469,7 +476,8 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Method addMouseListener().
 	 *
-	 * @param listener the listener
+	 * @param listener
+	 *            the listener
 	 * @see gama.common.ui.IDisplaySurface#addMouseListener(java.awt.event.MouseListener)
 	 */
 	@Override
@@ -480,7 +488,8 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Method removeMouseListener().
 	 *
-	 * @param listener the listener
+	 * @param listener
+	 *            the listener
 	 * @see gama.common.ui.IDisplaySurface#removeMouseListener(java.awt.event.MouseListener)
 	 */
 	@Override
@@ -533,7 +542,8 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Gets the model coordinates info.
 	 *
-	 * @param sb the sb
+	 * @param sb
+	 *            the sb
 	 * @return the model coordinates info
 	 */
 	@Override
@@ -558,7 +568,8 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Gets the visible region for layer.
 	 *
-	 * @param currentLayer the current layer
+	 * @param currentLayer
+	 *            the current layer
 	 * @return the visible region for layer
 	 */
 	@Override
@@ -582,10 +593,14 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Method getModelCoordinatesFrom().
 	 *
-	 * @param xOnScreen the x on screen
-	 * @param yOnScreen the y on screen
-	 * @param sizeInPixels the size in pixels
-	 * @param positionInPixels the position in pixels
+	 * @param xOnScreen
+	 *            the x on screen
+	 * @param yOnScreen
+	 *            the y on screen
+	 * @param sizeInPixels
+	 *            the size in pixels
+	 * @param positionInPixels
+	 *            the position in pixels
 	 * @return the model coordinates from
 	 * @see gama.common.ui.IDisplaySurface#getModelCoordinatesFrom(int, int, java.awt.Point, java.awt.Point)
 	 */
@@ -600,8 +615,10 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Method selectAgent().
 	 *
-	 * @param x the x
-	 * @param y the y
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 * @return the collection
 	 * @see gama.common.ui.IDisplaySurface#selectAgent(int, int)
 	 */
@@ -615,7 +632,8 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Method followAgent().
 	 *
-	 * @param a the a
+	 * @param a
+	 *            the a
 	 * @see gama.common.ui.IDisplaySurface#followAgent(gama.metamodel.agent.IAgent)
 	 */
 	@Override
@@ -670,7 +688,8 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Method setPaused().
 	 *
-	 * @param paused the new paused
+	 * @param paused
+	 *            the new paused
 	 * @see gama.common.ui.IDisplaySurface.OpenGL#setPaused(boolean)
 	 */
 	@Override
@@ -688,7 +707,8 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Method selectAgents().
 	 *
-	 * @param attributes the attributes
+	 * @param attributes
+	 *            the attributes
 	 * @see gama.common.ui.IDisplaySurface.OpenGL#selectAgents(gama.metamodel.agent.IAgent)
 	 */
 	@Override
@@ -720,7 +740,8 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Method selectSeveralAgents().
 	 *
-	 * @param env the env
+	 * @param env
+	 *            the env
 	 * @see gama.common.ui.IDisplaySurface.OpenGL#selectSeveralAgents(java.util.Collection, int)
 	 */
 	@Override
@@ -800,8 +821,10 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Method changed().
 	 *
-	 * @param property the property
-	 * @param value the value
+	 * @param property
+	 *            the property
+	 * @param value
+	 *            the value
 	 * @see gama.outputs.LayeredDisplayData.DisplayDataListener#changed(int, boolean)
 	 */
 	@Override
@@ -851,8 +874,10 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Method setSize().
 	 *
-	 * @param x the x
-	 * @param y the y
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 * @see gama.common.ui.IDisplaySurface#setSize(int, int)
 	 */
 	@Override
@@ -923,7 +948,8 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Dispatch key event.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	@Override
 	public void dispatchKeyEvent(final char e) {
@@ -935,7 +961,8 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Dispatch mouse event.
 	 *
-	 * @param swtMouseEvent the swt mouse event
+	 * @param swtMouseEvent
+	 *            the swt mouse event
 	 */
 	@Override
 	public void dispatchMouseEvent(final int swtMouseEvent) {
@@ -969,8 +996,10 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Sets the mouse position.
 	 *
-	 * @param x the x
-	 * @param y the y
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 */
 	@Override
 	public void setMousePosition(final int x, final int y) {
@@ -989,8 +1018,10 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Dragged to.
 	 *
-	 * @param x the x
-	 * @param y the y
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 */
 	@Override
 	public void draggedTo(final int x, final int y) {
@@ -1001,7 +1032,8 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Sets the display synchronizer.
 	 *
-	 * @param s the new display synchronizer
+	 * @param s
+	 *            the new display synchronizer
 	 */
 	@Override
 	public void setDisplaySynchronizer(final IDisplaySynchronizer s) {

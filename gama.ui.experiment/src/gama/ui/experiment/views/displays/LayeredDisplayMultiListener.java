@@ -17,7 +17,7 @@ import org.eclipse.swt.graphics.Point;
 
 import gama.common.ui.IDisplaySurface;
 import gama.runtime.GAMA;
-import gama.ui.base.utils.PlatformHelper;
+import gama.runtime.PlatformHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.base.views.WorkaroundForIssue1353;
 

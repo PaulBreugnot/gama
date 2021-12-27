@@ -47,13 +47,13 @@ import org.eclipse.ui.navigator.CommonNavigatorManager;
 import org.eclipse.ui.navigator.CommonViewer;
 
 import gama.common.preferences.GamaPreferences;
+import gama.runtime.PlatformHelper;
 import gama.ui.base.resources.GamaColors.GamaUIColor;
 import gama.ui.base.toolbar.GamaCommand;
 import gama.ui.base.toolbar.GamaToolbar2;
 import gama.ui.base.toolbar.GamaToolbarFactory;
 import gama.ui.base.toolbar.IToolbarDecoratedView;
 import gama.ui.base.toolbar.Selector;
-import gama.ui.base.utils.PlatformHelper;
 import gama.ui.navigator.contents.NavigatorRoot;
 import gama.ui.navigator.contents.Tag;
 import gama.ui.navigator.contents.TopLevelFolder;

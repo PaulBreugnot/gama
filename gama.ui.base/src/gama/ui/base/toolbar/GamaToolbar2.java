@@ -27,13 +27,13 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ToolItem;
 
 import gama.core.dev.utils.DEBUG;
+import gama.runtime.PlatformHelper;
 import gama.ui.base.controls.FlatButton;
 import gama.ui.base.resources.GamaColors;
 import gama.ui.base.resources.GamaColors.GamaUIColor;
 import gama.ui.base.resources.GamaIcons;
 import gama.ui.base.resources.IGamaColors;
 import gama.ui.base.toolbar.GamaToolbarFactory.ToggleAction;
-import gama.ui.base.utils.PlatformHelper;
 import gama.ui.base.utils.ThemeHelper;
 
 // TODO: Auto-generated Javadoc

@@ -33,7 +33,7 @@ public class WorkaroundForIssue1594 {
 	public static void installOn(final AWTDisplayView view, final Composite parent, final Composite surfaceComposite,
 			final Java2DDisplaySurface displaySurface) {
 		// Install only on Windows
-		if (!gama.ui.base.utils.PlatformHelper.isWindows()) { return; }
+		if (!gama.runtime.PlatformHelper.isWindows()) { return; }
 		final IPartService ps = view.getSite().getService(IPartService.class);
 		ps.addPartListener(new IPartListener2() {
 

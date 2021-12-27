@@ -38,6 +38,7 @@ import gama.core.dev.utils.DEBUG;
 import gama.outputs.LayeredDisplayData.Changes;
 import gama.outputs.LayeredDisplayData.DisplayDataListener;
 import gama.runtime.GAMA;
+import gama.runtime.PlatformHelper;
 import gama.ui.base.bindings.GamaKeyBindings;
 import gama.ui.base.dialogs.Dialogs;
 import gama.ui.base.resources.GamaColors;
@@ -47,7 +48,6 @@ import gama.ui.base.toolbar.GamaCommand;
 import gama.ui.base.toolbar.GamaToolbar2;
 import gama.ui.base.toolbar.GamaToolbarFactory;
 import gama.ui.base.utils.PerspectiveHelper;
-import gama.ui.base.utils.PlatformHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.base.views.InteractiveConsoleView;
 

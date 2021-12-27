@@ -42,11 +42,11 @@ import gama.outputs.layers.GridLayer;
 import gama.outputs.layers.ImageLayer;
 import gama.outputs.layers.SpeciesLayer;
 import gama.outputs.layers.charts.ChartLayer;
+import gama.runtime.PlatformHelper;
 import gama.ui.base.menus.GamaMenu;
 import gama.ui.base.menus.MenuAction;
 import gama.ui.base.resources.GamaIcons;
 import gama.ui.base.resources.IGamaIcons;
-import gama.ui.base.utils.PlatformHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.experiment.menus.AgentsMenu;
 
