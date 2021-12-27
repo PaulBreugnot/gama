@@ -88,7 +88,7 @@ public class ThemeHelper {
 	private static Bundle bundle = Platform.getBundle("gama.ui.base");
 
 	static {
-		DEBUG.ON();
+		DEBUG.OFF();
 	}
 
 	/** The Constant CORE_THEME_FOLLOW. */
@@ -112,7 +112,8 @@ public class ThemeHelper {
 	 * @return whether a change has been made
 	 */
 	private static boolean chooseThemeBasedOnPreferences() {
-		return CORE_THEME_FOLLOW.getValue() && changeTo(!isSystemDarkTheme()) || changeTo(CORE_THEME_LIGHT.getValue());
+		if (CORE_THEME_FOLLOW.getValue()) return changeTo(!isSystemDarkTheme());
+		return changeTo(CORE_THEME_LIGHT.getValue());
 	}
 
 	/**
@@ -182,7 +183,7 @@ public class ThemeHelper {
 			final var theme = themeEngine.getActiveTheme();
 			id = theme == null ? null : theme.getId();
 		}
-		// DEBUG.OUT(" " + (id != null && id.contains("dark")) + " and OS is dark = " + isSystemDarkTheme());
+		DEBUG.OUT(" " + (id != null && id.contains("dark")) + " and OS is dark = " + isSystemDarkTheme());
 		return id != null && id.contains("dark");
 	}
 
@@ -192,7 +193,7 @@ public class ThemeHelper {
 	public static void install() {
 		// if ( !PlatformUI.isWorkbenchRunning() ) { return; }
 		// We transfer the preference to the system property (to be read by Eclipse)
-		System.setProperty(THEME_FOLLOW_PROPERTY, followOSTheme().toString());
+		System.setProperty(THEME_FOLLOW_PROPERTY, CORE_THEME_FOLLOW.getValue().toString());
 		final var eventBroker = PlatformUI.getWorkbench().getService(IEventBroker.class);
 		if (eventBroker != null) {
 			final var themeChangedHandler = new WorkbenchThemeChangedHandler();

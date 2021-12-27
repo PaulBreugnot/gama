@@ -149,10 +149,10 @@ public class InputParameter extends ParameterAdapter {
 	 * Clamp value.
 	 */
 	private void clamps() {
-		if (min.compareTo(max) > 0) { min = max; }
-		if (min.compareTo(value) > 0) {
+		if (value == null) return;
+		if (min != null && min.compareTo(value) > 0) {
 			value = min;
-		} else if (max.compareTo(value) < 0) { value = max; }
+		} else if (max != null && max.compareTo(value) < 0) { value = max; }
 	}
 
 	/**
@@ -166,8 +166,10 @@ public class InputParameter extends ParameterAdapter {
 	/**
 	 * Sets the value.
 	 *
-	 * @param scope the scope
-	 * @param value the value
+	 * @param scope
+	 *            the scope
+	 * @param value
+	 *            the value
 	 */
 	@Override
 	public void setValue(final IScope scope, final Object value) {
@@ -177,7 +179,8 @@ public class InputParameter extends ParameterAdapter {
 	/**
 	 * Gets the min value.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the min value
 	 */
 	@Override
@@ -188,7 +191,8 @@ public class InputParameter extends ParameterAdapter {
 	/**
 	 * Gets the max value.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the max value
 	 */
 	@Override
@@ -199,7 +203,8 @@ public class InputParameter extends ParameterAdapter {
 	/**
 	 * Gets the among value.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the among value
 	 */
 	@Override
@@ -210,7 +215,8 @@ public class InputParameter extends ParameterAdapter {
 	/**
 	 * Gets the step value.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the step value
 	 */
 	@Override
@@ -231,7 +237,8 @@ public class InputParameter extends ParameterAdapter {
 	/**
 	 * Value.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the object
 	 */
 	@Override
@@ -250,7 +257,8 @@ public class InputParameter extends ParameterAdapter {
 	/**
 	 * Gets the color.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the color
 	 */
 	@Override
@@ -261,7 +269,8 @@ public class InputParameter extends ParameterAdapter {
 	/**
 	 * Accepts slider.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return true, if successful
 	 */
 	@Override

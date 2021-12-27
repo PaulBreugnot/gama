@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ImageUtils.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ImageUtils.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.common.util;
 
@@ -21,21 +21,27 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.event.IIOReadProgressListener;
+import javax.imageio.stream.ImageInputStream;
 import javax.media.jai.JAI;
 import javax.media.jai.RenderedOp;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.google.common.io.Files;
 import com.sun.media.jai.codec.FileSeekableStream;
 
 import gama.runtime.GAMA;
 import gama.runtime.IScope;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ImageUtils.
  */
@@ -43,16 +49,16 @@ public class ImageUtils {
 
 	/** The no image. */
 	private static BufferedImage NO_IMAGE;
-	
+
 	/** The cache. */
 	private final Cache<String, BufferedImage> cache = CacheBuilder.newBuilder().expireAfterAccess(1, TimeUnit.MINUTES)
 			.removalListener(notification -> ((BufferedImage) notification.getValue()).flush()).build();
-	
+
 	/** The open GL cache. */
 	private final Cache<String, BufferedImage> openGLCache =
 			CacheBuilder.newBuilder().expireAfterAccess(1, TimeUnit.MINUTES)
 					.removalListener(notification -> ((BufferedImage) notification.getValue()).flush()).build();
-	
+
 	/** The gif cache. */
 	private final Cache<String, GifDecoder> gifCache = CacheBuilder.newBuilder().expireAfterAccess(1, TimeUnit.MINUTES)
 			.removalListener(notification -> ((GifDecoder) notification.getValue()).dispose()).build();
@@ -79,15 +85,13 @@ public class ImageUtils {
 	 * @return the no image
 	 */
 	public static BufferedImage getNoImage() {
-		if (NO_IMAGE == null) {
-			NO_IMAGE = new BufferedImage(4, 4, BufferedImage.TYPE_INT_ARGB);
-		}
+		if (NO_IMAGE == null) { NO_IMAGE = new BufferedImage(4, 4, BufferedImage.TYPE_INT_ARGB); }
 		return NO_IMAGE;
 	}
 
 	/** The Constant tiffExt. */
 	private static final List<String> tiffExt = Arrays.asList(".tiff", ".tif", ".TIF", ".TIFF");
-	
+
 	/** The Constant gifExt. */
 	private static final List<String> gifExt = Arrays.asList(".gif", ".GIF");
 
@@ -99,9 +103,7 @@ public class ImageUtils {
 	 *
 	 * @return single instance of ImageUtils
 	 */
-	public static ImageUtils getInstance() {
-		return instance;
-	}
+	public static ImageUtils getInstance() { return instance; }
 
 	/**
 	 * Instantiates a new image utils.
@@ -111,67 +113,79 @@ public class ImageUtils {
 	/**
 	 * fileName is supposed to be already absolute, and to have been checked before, as the calls come from GamaFile.
 	 *
-	 * @param scope the scope
-	 * @param fileName the file name
-	 * @param useCache the use cache
+	 * @param scope
+	 *            the scope
+	 * @param fileName
+	 *            the file name
+	 * @param useCache
+	 *            the use cache
+	 * @param listener
+	 *            the listener
 	 * @return the image from file
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
-	public BufferedImage getImageFromFile(final IScope scope, final String fileName, final boolean useCache)
-			throws IOException {
+	public BufferedImage getImageFromFile(final IScope scope, final String fileName, final boolean useCache,
+			final IIOReadProgressListener listener) throws IOException {
 		if (useCache) {
 			final BufferedImage image = cache.getIfPresent(fileName);
-			if (image != null) { return image; }
+			if (image != null) return image;
 			final GifDecoder gif = gifCache.getIfPresent(fileName);
-			if (gif != null) { return gif.getImage(); }
+			if (gif != null) return gif.getImage();
 		}
 		// final String s = scope != null ? FileUtils.constructAbsoluteFilePath(scope, fileName, true) : fileName;
 		final File f = new File(fileName);
-		final BufferedImage result = getImageFromFile(f, useCache, false);
+		final BufferedImage result = getImageFromFile(f, useCache, false, listener);
 		return result == getNoImage() ? null : result;
 	}
 
 	/**
 	 * Gets the frame count.
 	 *
-	 * @param path the path
+	 * @param path
+	 *            the path
 	 * @return the frame count
 	 */
 	public int getFrameCount(final String path) {
 		final GifDecoder gif = gifCache.getIfPresent(path);
-		if (gif == null) { return 1; }
+		if (gif == null) return 1;
 		return gif.getFrameCount();
 	}
 
 	/**
 	 * Gets the duration.
 	 *
-	 * @param path the path
+	 * @param path
+	 *            the path
 	 * @return the duration
 	 */
 	public int getDuration(final String path) {
 		final GifDecoder gif = gifCache.getIfPresent(path);
-		if (gif == null) { return 0; }
+		if (gif == null) return 0;
 		return gif.getDuration();
 	}
 
 	/**
 	 * Private read from file.
 	 *
-	 * @param file the file
-	 * @param forOpenGL the for open GL
+	 * @param file
+	 *            the file
+	 * @param forOpenGL
+	 *            the for open GL
+	 * @param listener
+	 *            the listener
 	 * @return the buffered image
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
-	private BufferedImage privateReadFromFile(final File file, final boolean forOpenGL) throws IOException {
+	private BufferedImage privateReadFromFile(final File file, final boolean forOpenGL,
+			final IIOReadProgressListener listener) throws IOException {
 		// DEBUG.OUT("READING " + file.getName());
 		BufferedImage result = getNoImage();
-		if (file == null) { return result; }
+		if (file == null) return result;
 		final String name = file.getName();
 		String ext = null;
-		if (name.contains(".")) {
-			ext = name.substring(file.getName().lastIndexOf('.'));
-		}
+		if (name.contains(".")) { ext = name.substring(file.getName().lastIndexOf('.')); }
 		if (tiffExt.contains(ext)) {
 			try (FileSeekableStream stream = new FileSeekableStream(file.getAbsolutePath())) {
 				/**
@@ -184,14 +198,15 @@ public class ImageUtils {
 				final RenderedOp image1 = JAI.create("tiff", params);
 				return image1.getAsBufferedImage();
 			}
-		} else if (gifExt.contains(ext)) {
+		}
+		if (gifExt.contains(ext)) {
 			final GifDecoder d = new GifDecoder();
 			d.read(new FileInputStream(file.getAbsolutePath()));
 			return d.getImage();
 		}
 
 		try {
-			result = forOpenGL ? ImageIO.read(file) : toCompatibleImage(ImageIO.read(file));
+			result = forOpenGL ? ioRead(file, listener) : toCompatibleImage(ioRead(file, listener));
 		} catch (final Exception e) {
 			return getNoImage();
 		}
@@ -199,11 +214,33 @@ public class ImageUtils {
 	}
 
 	/**
+	 * Io read.
+	 *
+	 * @param file
+	 *            the file
+	 * @param listener
+	 *            the listener
+	 * @return the buffered image
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
+	private BufferedImage ioRead(final File file, final IIOReadProgressListener listener) throws IOException {
+		Iterator<ImageReader> readers = ImageIO.getImageReadersBySuffix(Files.getFileExtension(file.getName()));
+		ImageReader imageReader = readers.next();
+		ImageInputStream imageInputStream = ImageIO.createImageInputStream(file);
+		imageReader.setInput(imageInputStream, false);
+		if (listener != null) { imageReader.addIIOReadProgressListener(listener); }
+		return imageReader.read(0);
+	}
+
+	/**
 	 * Private read gif from file.
 	 *
-	 * @param file the file
+	 * @param file
+	 *            the file
 	 * @return the gif decoder
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	private GifDecoder privateReadGifFromFile(final File file) throws IOException {
 		final GifDecoder d = new GifDecoder();
@@ -214,19 +251,23 @@ public class ImageUtils {
 	/**
 	 * Gets the image from file.
 	 *
-	 * @param file the file
-	 * @param useCache the use cache
-	 * @param forOpenGL the for open GL
+	 * @param file
+	 *            the file
+	 * @param useCache
+	 *            the use cache
+	 * @param forOpenGL
+	 *            the for open GL
+	 * @param listener
+	 *            the listener
 	 * @return the image from file
 	 */
-	public BufferedImage getImageFromFile(final File file, final boolean useCache, final boolean forOpenGL) {
+	public BufferedImage getImageFromFile(final File file, final boolean useCache, final boolean forOpenGL,
+			final IIOReadProgressListener listener) {
 		final BufferedImage image;
 		String name, ext = null;
 		try {
 			name = file.getName();
-			if (name.contains(".")) {
-				ext = name.substring(file.getName().lastIndexOf('.'));
-			}
+			if (name.contains(".")) { ext = name.substring(file.getName().lastIndexOf('.')); }
 			if (gifExt.contains(ext)) {
 				if (useCache) {
 					image = gifCache.get(file.getAbsolutePath(), () -> privateReadGifFromFile(file)).getImage();
@@ -235,12 +276,12 @@ public class ImageUtils {
 				}
 			} else if (useCache) {
 				if (forOpenGL) {
-					image = openGLCache.get(file.getAbsolutePath(), () -> privateReadFromFile(file, true));
+					image = openGLCache.get(file.getAbsolutePath(), () -> privateReadFromFile(file, true, listener));
 				} else {
-					image = cache.get(file.getAbsolutePath(), () -> privateReadFromFile(file, false));
+					image = cache.get(file.getAbsolutePath(), () -> privateReadFromFile(file, false, listener));
 				}
 			} else {
-				image = privateReadFromFile(file, forOpenGL);
+				image = privateReadFromFile(file, forOpenGL, listener);
 			}
 			return image == getNoImage() ? null : image;
 		} catch (final ExecutionException | IOException e) {
@@ -255,8 +296,10 @@ public class ImageUtils {
 	/**
 	 * Creates the premultiplied blank image.
 	 *
-	 * @param width the width
-	 * @param height the height
+	 * @param width
+	 *            the width
+	 * @param height
+	 *            the height
 	 * @return the buffered image
 	 */
 	public static BufferedImage createPremultipliedBlankImage(final int width, final int height) {
@@ -267,13 +310,16 @@ public class ImageUtils {
 	/**
 	 * Creates the compatible image.
 	 *
-	 * @param width the width
-	 * @param height the height
-	 * @param forOpenGL the for open GL
+	 * @param width
+	 *            the width
+	 * @param height
+	 *            the height
+	 * @param forOpenGL
+	 *            the for open GL
 	 * @return the buffered image
 	 */
 	public static BufferedImage createCompatibleImage(final int width, final int height, final boolean forOpenGL) {
-		if (forOpenGL) { return createPremultipliedBlankImage(width, height); }
+		if (forOpenGL) return createPremultipliedBlankImage(width, height);
 		BufferedImage new_image = null;
 		if (NO_GRAPHICS_ENVIRONMENT || GAMA.isInHeadLessMode() || GraphicsEnvironment.isHeadless()) {
 			new_image = new BufferedImage(width != 0 ? width : 1024, height != 0 ? height : 1024,
@@ -287,16 +333,17 @@ public class ImageUtils {
 	/**
 	 * To compatible image.
 	 *
-	 * @param image the image
+	 * @param image
+	 *            the image
 	 * @return the buffered image
 	 */
 	public static BufferedImage toCompatibleImage(final BufferedImage image) {
-		if (NO_GRAPHICS_ENVIRONMENT || GAMA.isInHeadLessMode() || GraphicsEnvironment.isHeadless()) { return image; }
-
 		/*
 		 * if image is already compatible and optimized for current system settings, simply return it
 		 */
-		if (image.getColorModel().equals(getCachedGC().getColorModel())) { return image; }
+		if (NO_GRAPHICS_ENVIRONMENT || GAMA.isInHeadLessMode() || GraphicsEnvironment.isHeadless()
+				|| image.getColorModel().equals(getCachedGC().getColorModel()))
+			return image;
 
 		// image is not optimized, so create a new image that is
 		final BufferedImage new_image =
@@ -358,16 +405,12 @@ public class ImageUtils {
 		do {
 			if (higherQuality && w > targetWidth) {
 				w /= 2;
-				if (w < targetWidth) {
-					w = targetWidth;
-				}
+				if (w < targetWidth) { w = targetWidth; }
 			}
 
 			if (higherQuality && h > targetHeight) {
 				h /= 2;
-				if (h < targetHeight) {
-					h = targetHeight;
-				}
+				if (h < targetHeight) { h = targetHeight; }
 			}
 
 			final BufferedImage tmp = new BufferedImage(w, h, type);
@@ -385,20 +428,24 @@ public class ImageUtils {
 	/**
 	 * Resize.
 	 *
-	 * @param snapshot the snapshot
-	 * @param width the width
-	 * @param height the height
+	 * @param snapshot
+	 *            the snapshot
+	 * @param width
+	 *            the width
+	 * @param height
+	 *            the height
 	 * @return the buffered image
 	 */
 	public static BufferedImage resize(final BufferedImage snapshot, final int width, final int height) {
-		if (width == snapshot.getWidth() && height == snapshot.getHeight()) { return snapshot; }
+		if (width == snapshot.getWidth() && height == snapshot.getHeight()) return snapshot;
 		return resize(snapshot, width, height, RenderingHints.VALUE_INTERPOLATION_BILINEAR, false);
 	}
 
 	/**
 	 * Clear cache.
 	 *
-	 * @param pathName the path name
+	 * @param pathName
+	 *            the path name
 	 */
 	public void clearCache(final String pathName) {
 		cache.invalidate(pathName);

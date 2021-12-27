@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * TextureCache2.java, in gama.display.opengl, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * TextureCache2.java, in gama.display.opengl, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.display.opengl.renderer.caches;
 
@@ -26,6 +26,7 @@ import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GLException;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureData;
+import com.jogamp.opengl.util.texture.TextureIO;
 import com.jogamp.opengl.util.texture.awt.AWTTextureIO;
 
 import gama.common.preferences.GamaPreferences;
@@ -33,6 +34,7 @@ import gama.common.util.ImageUtils;
 import gama.core.dev.utils.DEBUG;
 import gama.display.opengl.OpenGL;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class TextureCache2.
  */
@@ -44,24 +46,25 @@ public class TextureCache2 implements ITextureCache {
 
 	/** The volatile textures. */
 	private final LoadingCache<BufferedImage, Texture> volatileTextures;
-	
+
 	/** The static textures. */
 	private final Cache<String, Texture> staticTextures =
 			CacheBuilder.newBuilder().expireAfterAccess(10, TimeUnit.SECONDS).build();
-	
+
 	/** The textures to process. */
 	final List<String> texturesToProcess = new CopyOnWriteArrayList<>();
-	
+
 	/** The gl. */
 	final OpenGL gl;
-	
+
 	/** The is non power of 2 textures available. */
 	Boolean isNonPowerOf2TexturesAvailable;
 
 	/**
 	 * Instantiates a new texture cache 2.
 	 *
-	 * @param gl the gl
+	 * @param gl
+	 *            the gl
 	 */
 	public TextureCache2(final OpenGL gl) {
 		this.gl = gl;
@@ -74,6 +77,9 @@ public class TextureCache2 implements ITextureCache {
 		});
 	}
 
+	/**
+	 * Initialize.
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -86,13 +92,16 @@ public class TextureCache2 implements ITextureCache {
 					!GamaPreferences.Displays.DISPLAY_POWER_OF_TWO.getValue() && gl.getGL().isNPOTTextureAvailable();
 			GamaPreferences.Displays.DISPLAY_POWER_OF_TWO.onChange(newValue -> {
 				isNonPowerOf2TexturesAvailable = !newValue && gl.getGL().isNPOTTextureAvailable();
-				AWTTextureIO.setTexRectEnabled(newValue);
+				TextureIO.setTexRectEnabled(newValue);
 			});
-			AWTTextureIO.setTexRectEnabled(GamaPreferences.Displays.DISPLAY_POWER_OF_TWO.getValue());
+			TextureIO.setTexRectEnabled(GamaPreferences.Displays.DISPLAY_POWER_OF_TWO.getValue());
 			// DEBUG.OUT("Non power-of-two textures available: " + isNonPowerOf2TexturesAvailable);
 		}
 	}
 
+	/**
+	 * Delete volatile textures.
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -107,6 +116,9 @@ public class TextureCache2 implements ITextureCache {
 		volatileTextures.invalidateAll();
 	}
 
+	/**
+	 * Dispose.
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -122,6 +134,12 @@ public class TextureCache2 implements ITextureCache {
 		staticTextures.cleanUp();
 	}
 
+	/**
+	 * Processs.
+	 *
+	 * @param file
+	 *            the file
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -129,11 +147,12 @@ public class TextureCache2 implements ITextureCache {
 	 */
 	@Override
 	public void processs(final File file) {
-		if (!texturesToProcess.contains(file.getAbsolutePath())) {
-			texturesToProcess.add(file.getAbsolutePath());
-		}
+		if (!texturesToProcess.contains(file.getAbsolutePath())) { texturesToProcess.add(file.getAbsolutePath()); }
 	}
 
+	/**
+	 * Process unloaded.
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -146,6 +165,13 @@ public class TextureCache2 implements ITextureCache {
 		}
 	}
 
+	/**
+	 * Gets the texture.
+	 *
+	 * @param img
+	 *            the img
+	 * @return the texture
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -156,20 +182,29 @@ public class TextureCache2 implements ITextureCache {
 		return volatileTextures.getUnchecked(img);
 	}
 
+	/**
+	 * Gets the texture.
+	 *
+	 * @param file
+	 *            the file
+	 * @param isAnimated
+	 *            the is animated
+	 * @param useCache
+	 *            the use cache
+	 * @return the texture
+	 */
 	@Override
 	public Texture getTexture(final File file, final boolean isAnimated, final boolean useCache) {
-		if (file == null) { return null; }
+		if (file == null) return null;
 		Texture texture = null;
 		if (isAnimated || !useCache) {
-			final BufferedImage image = ImageUtils.getInstance().getImageFromFile(file, useCache, true);
+			final BufferedImage image = ImageUtils.getInstance().getImageFromFile(file, useCache, true,
+					null);/* new ProgressCounter(GAMA.getRuntimeScope(), file.getName()) */
 			texture = volatileTextures.getUnchecked(image);
 
 		} else {
 			try {
-				texture = staticTextures.get(file.getAbsolutePath(), () -> {
-					// DEBUG.OUT("Loading static texture : " + file.getName());
-					return buildTexture(gl.getGL(), file);
-				});
+				texture = staticTextures.get(file.getAbsolutePath(), () -> buildTexture(gl.getGL(), file));
 			} catch (final ExecutionException e) {
 				e.printStackTrace();
 			}
@@ -180,13 +215,18 @@ public class TextureCache2 implements ITextureCache {
 	/**
 	 * Builds the texture.
 	 *
-	 * @param gl the gl
-	 * @param file the file
+	 * @param gl
+	 *            the gl
+	 * @param file
+	 *            the file
 	 * @return the texture
 	 */
 	private Texture buildTexture(final GL gl, final File file) {
 
-		return buildTexture(gl, ImageUtils.getInstance().getImageFromFile(file, true, true));
+		return buildTexture(gl,
+				ImageUtils.getInstance().getImageFromFile(file,
+						GamaPreferences.Displays.OPENGL_USE_IMAGE_CACHE.getValue(), true,
+						null));/* new ProgressCounter(GAMA.getRuntimeScope(), file.getName()) */
 
 		// try {
 		// final TextureData data = AWTTextureIO.newTextureData(gl.getGLProfile(), file, true, null);
@@ -202,8 +242,10 @@ public class TextureCache2 implements ITextureCache {
 	/**
 	 * Builds the texture.
 	 *
-	 * @param gl the gl
-	 * @param im the im
+	 * @param gl
+	 *            the gl
+	 * @param im
+	 *            the im
 	 * @return the texture
 	 */
 	Texture buildTexture(final GL gl, final BufferedImage im) {

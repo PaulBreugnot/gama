@@ -82,7 +82,7 @@ import jogamp.opengl.glu.tessellator.GLUtessellatorImpl;
 public class OpenGL extends AbstractRendererHelper implements ITesselator {
 
 	static {
-		DEBUG.ON();
+		DEBUG.OFF();
 		GamaPreferences.Displays.DRAW_ROTATE_HELPER.onChange(v -> SHOULD_DRAW_ROTATION_SPHERE = v);
 	}
 
@@ -659,7 +659,8 @@ public class OpenGL extends AbstractRendererHelper implements ITesselator {
 	/**
 	 * Begin drawing.
 	 *
-	 * @param style the style
+	 * @param style
+	 *            the style
 	 */
 	@Override
 	public void beginDrawing(final int style) {
@@ -926,10 +927,14 @@ public class OpenGL extends AbstractRendererHelper implements ITesselator {
 	/**
 	 * Draw vertex.
 	 *
-	 * @param i the i
-	 * @param x the x
-	 * @param y the y
-	 * @param z the z
+	 * @param i
+	 *            the i
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 * @param z
+	 *            the z
 	 */
 	@Override
 	public void drawVertex(final int i, final double x, final double y, final double z) {
@@ -1457,15 +1462,16 @@ public class OpenGL extends AbstractRendererHelper implements ITesselator {
 		if (geometryCache == null || id == null) return;
 		final BuiltInGeometry object = geometryCache.get(id);
 		if (object != null) {
-			if (!isWireframe()) { object.draw(this); }
-			if (isWireframe() || border != null) {
-				final Color old = swapCurrentColor(border != null ? border : getCurrentColor());
-				getGL().glPolygonMode(GL.GL_FRONT_AND_BACK, GL2GL3.GL_LINE);
+			object.draw(this);
+			if (border != null) {
+				final Color old = swapCurrentColor(border);
+				final boolean wf = isWireframe();
+				setObjectWireframe(true);
 				try {
 					object.draw(this);
 				} finally {
 					setCurrentColor(old);
-					getGL().glPolygonMode(GL.GL_FRONT_AND_BACK, GL2GL3.GL_FILL);
+					setObjectWireframe(wf);
 				}
 			}
 		}
@@ -1497,11 +1503,12 @@ public class OpenGL extends AbstractRendererHelper implements ITesselator {
 	 */
 	public void beginObject(final AbstractObject object) {
 		// DEBUG.OUT("Object " + object + " begin and is " + (object.getAttributes().isEmpty() ? "empty" : "filled"));
-		setObjectWireframe(object.getAttributes().isEmpty());
+		boolean empty = object.getAttributes().isEmpty();
+		setObjectWireframe(empty);
 		setLineWidth(object.getAttributes().getLineWidth());
 		setCurrentTextures(object.getPrimaryTexture(this), object.getAlternateTexture(this));
 		setCurrentColor(object.getAttributes().getColor());
-		if (object.isFilled() && !object.getAttributes().isSynthetic()) {
+		if (!empty && !object.getAttributes().isSynthetic()) {
 			gl.glTexEnvi(GL2ES1.GL_TEXTURE_ENV, GL2ES1.GL_TEXTURE_ENV_MODE, GL2ES1.GL_DECAL);
 		}
 
@@ -1520,7 +1527,7 @@ public class OpenGL extends AbstractRendererHelper implements ITesselator {
 			gl.glTexEnvi(GL2ES1.GL_TEXTURE_ENV, GL2ES1.GL_TEXTURE_ENV_MODE, GL2ES1.GL_MODULATE);
 		}
 		// DEBUG.OUT("Object " + object + " ends and is " + (object.getAttributes().isEmpty() ? "empty" : "filled"));
-		// setObjectWireframe(!object.getAttributes().isEmpty());
+		setObjectWireframe(false);
 	}
 
 	/**

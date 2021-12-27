@@ -71,6 +71,7 @@ public class OverlayLayerObject extends LayerObject {
 			if (size.y <= 1) { size.y *= renderer.getEnvHeight(); }
 		}
 		gl.pushMatrix();
+		gl.setObjectWireframe(false);
 		gl.translateBy(0, -size.y, 0);
 		gl.scaleBy(size.x, size.y, 1);
 		gl.setCurrentColor(((OverlayLayer) layer).getData().getBackgroundColor(scope),
@@ -96,7 +97,8 @@ public class OverlayLayerObject extends LayerObject {
 	/**
 	 * Prepare drawing.
 	 *
-	 * @param gl the gl
+	 * @param gl
+	 *            the gl
 	 */
 	@Override
 	protected void prepareDrawing(final OpenGL gl) {
@@ -127,8 +129,10 @@ public class OverlayLayerObject extends LayerObject {
 	/**
 	 * Do drawing.
 	 *
-	 * @param gl the gl
-	 * @param picking the picking
+	 * @param gl
+	 *            the gl
+	 * @param picking
+	 *            the picking
 	 */
 	@Override
 	protected void doDrawing(final OpenGL gl, final boolean picking) {
@@ -141,7 +145,8 @@ public class OverlayLayerObject extends LayerObject {
 	/**
 	 * Stop drawing.
 	 *
-	 * @param gl the gl
+	 * @param gl
+	 *            the gl
 	 */
 	@Override
 	protected void stopDrawing(final OpenGL gl) {

@@ -12,7 +12,6 @@ import org.eclipse.ui.internal.CoolBarToTrimManager;
 
 import gama.common.ui.IGamaView;
 import gama.runtime.PlatformHelper;
-import gama.ui.base.toolbar.GamaToolbarFactory;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -21,7 +20,7 @@ import gama.ui.base.toolbar.GamaToolbarFactory;
 public class WorkaroundForIssue3210 {
 
 	/**
-	 * Run.
+	 * Run.This workaround doesnt seem to be necessary anymore
 	 *
 	 * @param cm
 	 *            the cm
@@ -30,8 +29,8 @@ public class WorkaroundForIssue3210 {
 		// Workaround for issue #3210. Only visible on macOS so far and for specific version of Eclipse (all the ones <
 		// 2021-09)
 		if (PlatformHelper.isMac() && Library.SWT_VERSION < 4946) {
-			ToolBar tb = findToolBar(cm.getTopTrim().getWidget());
-			GamaToolbarFactory.visuallyUpdate(tb);
+			findToolBar(cm.getTopTrim().getWidget());
+			// GamaToolbarFactory.visuallyUpdate(tb);
 			for (IViewPart p : WorkbenchHelper.getPage().getViews()) {
 				if (p instanceof IGamaView) { ((IGamaView) p).updateToolbarState(); }
 			}

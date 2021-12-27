@@ -1,7 +1,7 @@
 /*******************************************************************************************************
  *
- * SaveStatement.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * SaveStatement.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
@@ -233,7 +233,8 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 		/**
 		 * Method validate().
 		 *
-		 * @param description the description
+		 * @param description
+		 *            the description
 		 * @see gaml.compilation.IDescriptionValidator#validate(gaml.descriptions.IDescription)
 		 */
 		@Override
@@ -313,7 +314,8 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Instantiates a new save statement.
 	 *
-	 * @param desc the desc
+	 * @param desc
+	 *            the desc
 	 */
 	public SaveStatement(final IDescription desc) {
 		super(desc);
@@ -328,7 +330,8 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Should overwrite.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return true, if successful
 	 */
 	private boolean shouldOverwrite(final IScope scope) {
@@ -341,9 +344,11 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Private execute in.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the object
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@SuppressWarnings ("unchecked")
 	@Override
@@ -443,7 +448,8 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 					}
 					break;
 				default:
-					if (!getAvailableWriters().contains(type)) throw GamaRuntimeException.error("Format is not recognized ('" + type + "')", scope);
+					if (!getAvailableWriters().contains(type))
+						throw GamaRuntimeException.error("Format is not recognized ('" + type + "')", scope);
 					final IGraph g = Cast.asGraph(scope, item);
 					if (g == null) return null;
 					this.saveGraph(g, fileToSave, type, scope);
@@ -460,7 +466,8 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Creates the parents.
 	 *
-	 * @param outputFile the output file
+	 * @param outputFile
+	 *            the output file
 	 */
 	private static void createParents(final File outputFile) {
 		final File parent = outputFile.getParentFile();
@@ -471,9 +478,12 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Save asc.
 	 *
-	 * @param field the field
-	 * @param f the f
-	 * @param scope the scope
+	 * @param field
+	 *            the field
+	 * @param f
+	 *            the f
+	 * @param scope
+	 *            the scope
 	 */
 	public void saveAsc(final GamaField field, final File f, final IScope scope) {
 		if (field == null || field.isEmpty(scope)) return;
@@ -487,13 +497,13 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 			savePrj(scope, f.getAbsolutePath());
 			final boolean nullProjection = scope.getSimulation().getProjectionFactory().getWorld() == null;
 			header.append("xllcorner     ")
-			.append(nullProjection ? "0"
-					: scope.getSimulation().getProjectionFactory().getWorld().getProjectedEnvelope().getMinX())
-			.append(Strings.LN);
+					.append(nullProjection ? "0"
+							: scope.getSimulation().getProjectionFactory().getWorld().getProjectedEnvelope().getMinX())
+					.append(Strings.LN);
 			header.append("yllcorner     ")
-			.append(nullProjection ? "0"
-					: scope.getSimulation().getProjectionFactory().getWorld().getProjectedEnvelope().getMinY())
-			.append(Strings.LN);
+					.append(nullProjection ? "0"
+							: scope.getSimulation().getProjectionFactory().getWorld().getProjectedEnvelope().getMinY())
+					.append(Strings.LN);
 			final double dx = scope.getSimulation().getEnvelope().getWidth() / nbCols;
 			final double dy = scope.getSimulation().getEnvelope().getHeight() / nbRows;
 			if (Comparison.equal(dx, dy)) {
@@ -518,9 +528,12 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Save asc.
 	 *
-	 * @param species the species
-	 * @param f the f
-	 * @param scope the scope
+	 * @param species
+	 *            the species
+	 * @param f
+	 *            the f
+	 * @param scope
+	 *            the scope
 	 */
 	public void saveAsc(final ISpecies species, final File f, final IScope scope) {
 		if (f.exists()) { f.delete(); }
@@ -535,13 +548,13 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 			savePrj(scope, f.getAbsolutePath());
 			final boolean nullProjection = scope.getSimulation().getProjectionFactory().getWorld() == null;
 			header.append("xllcorner     ")
-			.append(nullProjection ? "0"
-					: scope.getSimulation().getProjectionFactory().getWorld().getProjectedEnvelope().getMinX())
-			.append(Strings.LN);
+					.append(nullProjection ? "0"
+							: scope.getSimulation().getProjectionFactory().getWorld().getProjectedEnvelope().getMinX())
+					.append(Strings.LN);
 			header.append("yllcorner     ")
-			.append(nullProjection ? "0"
-					: scope.getSimulation().getProjectionFactory().getWorld().getProjectedEnvelope().getMinY())
-			.append(Strings.LN);
+					.append(nullProjection ? "0"
+							: scope.getSimulation().getProjectionFactory().getWorld().getProjectedEnvelope().getMinY())
+					.append(Strings.LN);
 			final double dx = scope.getSimulation().getEnvelope().getWidth() / nbCols;
 			final double dy = scope.getSimulation().getEnvelope().getHeight() / nbRows;
 			if (Comparison.equal(dx, dy)) {
@@ -567,10 +580,14 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Save raster image.
 	 *
-	 * @param species the species
-	 * @param p the p
-	 * @param scope the scope
-	 * @param toGeotiff the to geotiff
+	 * @param species
+	 *            the species
+	 * @param p
+	 *            the p
+	 * @param scope
+	 *            the scope
+	 * @param toGeotiff
+	 *            the to geotiff
 	 */
 	public void saveRasterImage(final ISpecies species, final String p, final IScope scope, final boolean toGeotiff) {
 
@@ -654,8 +671,10 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Save prj.
 	 *
-	 * @param scope the scope
-	 * @param path the path
+	 * @param scope
+	 *            the scope
+	 * @param path
+	 *            the path
 	 * @return the coordinate reference system
 	 */
 	CoordinateReferenceSystem savePrj(final IScope scope, final String path) {
@@ -682,10 +701,14 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Save raster image.
 	 *
-	 * @param field the field
-	 * @param p the p
-	 * @param scope the scope
-	 * @param toGeotiff the to geotiff
+	 * @param field
+	 *            the field
+	 * @param p
+	 *            the p
+	 * @param scope
+	 *            the scope
+	 * @param toGeotiff
+	 *            the to geotiff
 	 */
 	public void saveRasterImage(final GamaField field, final String p, final IScope scope, final boolean toGeotiff) {
 		if (field == null || field.isEmpty(scope)) return;
@@ -721,10 +744,10 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 				ImageIO.write(image, "png", f);
 				final double cw =
 						scope.getSimulation().getProjectionFactory().getWorld().getProjectedEnvelope().getWidth()
-						/ cols;
+								/ cols;
 				final double ch =
 						scope.getSimulation().getProjectionFactory().getWorld().getProjectedEnvelope().getHeight()
-						/ rows;
+								/ rows;
 				x += cw / 2;
 				y += ch / 2;
 				try (final FileWriter fw = new FileWriter(path.replace(".png", ".pgw"));) {
@@ -779,9 +802,12 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Creates the coverage byte from float.
 	 *
-	 * @param name the name
-	 * @param matrix the matrix
-	 * @param envelope the envelope
+	 * @param name
+	 *            the name
+	 * @param matrix
+	 *            the matrix
+	 * @param envelope
+	 *            the envelope
 	 * @return the grid coverage 2 D
 	 */
 	// from org.geotools.coverage.grid.GridCoverageFactory
@@ -816,7 +842,8 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Gets the geometry type.
 	 *
-	 * @param agents the agents
+	 * @param agents
+	 *            the agents
 	 * @return the geometry type
 	 */
 	public static String getGeometryType(final List<? extends IShape> agents) {
@@ -844,10 +871,14 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Save graph.
 	 *
-	 * @param g the g
-	 * @param f the f
-	 * @param type the type
-	 * @param scope the scope
+	 * @param g
+	 *            the g
+	 * @param f
+	 *            the f
+	 * @param type
+	 *            the type
+	 * @param scope
+	 *            the scope
 	 */
 	public void saveGraph(final IGraph g, final File f, final String type, final IScope scope) {
 		GraphExporter exp = GraphExporters.getGraphWriter(type);
@@ -857,11 +888,16 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Save shape.
 	 *
-	 * @param agents the agents
-	 * @param f the f
-	 * @param scope the scope
-	 * @param geoJson the geo json
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param agents
+	 *            the agents
+	 * @param f
+	 *            the f
+	 * @param scope
+	 *            the scope
+	 * @param geoJson
+	 *            the geo json
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	public void saveShape(final IList<? extends IShape> agents, final File f, final IScope scope, final boolean geoJson)
 			throws GamaRuntimeException {
@@ -904,8 +940,10 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Define projection.
 	 *
-	 * @param scope the scope
-	 * @param f the f
+	 * @param scope
+	 *            the scope
+	 * @param f
+	 *            the f
 	 * @return the i projection
 	 */
 	public IProjection defineProjection(final IScope scope, final File f) {
@@ -927,7 +965,7 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 					throw GamaRuntimeException.error(
 							"The code " + code + " does not correspond to a known EPSG code. GAMA is unable to save "
 									+ f.getAbsolutePath(),
-									scope);
+							scope);
 				}
 			} else {
 				gis = scope.getSimulation().getProjectionFactory().getWorld();
@@ -974,11 +1012,16 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Save text.
 	 *
-	 * @param type the type
-	 * @param fileTxt the file txt
-	 * @param header the header
-	 * @param scope the scope
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param type
+	 *            the type
+	 * @param fileTxt
+	 *            the file txt
+	 * @param header
+	 *            the header
+	 * @param scope
+	 *            the scope
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	public void saveText(final String type, final File fileTxt, final boolean header, final IScope scope)
 			throws GamaRuntimeException {
@@ -1061,7 +1104,8 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * To clean string.
 	 *
-	 * @param o the o
+	 * @param o
+	 *            the o
 	 * @return the string
 	 */
 	public String toCleanString(final Object o) {
@@ -1081,7 +1125,8 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Type.
 	 *
-	 * @param var the var
+	 * @param var
+	 *            the var
 	 * @return the string
 	 */
 	public String type(final ITyped var) {
@@ -1104,11 +1149,16 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Compute inits from with facet.
 	 *
-	 * @param scope the scope
-	 * @param withFacet the with facet
-	 * @param values the values
-	 * @param species the species
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param scope
+	 *            the scope
+	 * @param withFacet
+	 *            the with facet
+	 * @param values
+	 *            the values
+	 * @param species
+	 *            the species
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	private void computeInitsFromWithFacet(final IScope scope, final Arguments withFacet,
 			final Map<String, IExpression> values, final SpeciesDescription species) throws GamaRuntimeException {
@@ -1128,10 +1178,14 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Compute inits from attributes facet.
 	 *
-	 * @param scope the scope
-	 * @param values the values
-	 * @param species the species
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param scope
+	 *            the scope
+	 * @param values
+	 *            the values
+	 * @param species
+	 *            the species
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	private void computeInitsFromAttributesFacet(final IScope scope, final Map<String, IExpression> values,
 			final SpeciesDescription species) throws GamaRuntimeException {
@@ -1157,7 +1211,8 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Fixes polygon CWS.
 	 *
-	 * @param g the g
+	 * @param g
+	 *            the g
 	 * @return the geometry
 	 */
 	private static Geometry fixesPolygonCWS(final Geometry g) {
@@ -1202,11 +1257,16 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Builds the feature.
 	 *
-	 * @param scope the scope
-	 * @param ff the ff
-	 * @param ag the ag
-	 * @param gis the gis
-	 * @param attributeValues the attribute values
+	 * @param scope
+	 *            the scope
+	 * @param ff
+	 *            the ff
+	 * @param ag
+	 *            the ag
+	 * @param gis
+	 *            the gis
+	 * @param attributeValues
+	 *            the attribute values
 	 * @return true, if successful
 	 */
 	public static boolean buildFeature(final IScope scope, final SimpleFeature ff, final IShape ag,
@@ -1261,15 +1321,24 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Save geo J son file.
 	 *
-	 * @param scope the scope
-	 * @param f the f
-	 * @param agents the agents
-	 * @param specs the specs
-	 * @param attributes the attributes
-	 * @param gis the gis
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws SchemaException the schema exception
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param scope
+	 *            the scope
+	 * @param f
+	 *            the f
+	 * @param agents
+	 *            the agents
+	 * @param specs
+	 *            the specs
+	 * @param attributes
+	 *            the attributes
+	 * @param gis
+	 *            the gis
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws SchemaException
+	 *             the schema exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	// AD 2/1/16 Replace IAgent by IShape so as to be able to save geometries
 	public static void saveGeoJSonFile(final IScope scope, final File f, final List<? extends IShape> agents,
@@ -1304,15 +1373,24 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Save shape file.
 	 *
-	 * @param scope the scope
-	 * @param f the f
-	 * @param agents the agents
-	 * @param specs the specs
-	 * @param attributes the attributes
-	 * @param gis the gis
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws SchemaException the schema exception
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param scope
+	 *            the scope
+	 * @param f
+	 *            the f
+	 * @param agents
+	 *            the agents
+	 * @param specs
+	 *            the specs
+	 * @param attributes
+	 *            the attributes
+	 * @param gis
+	 *            the gis
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws SchemaException
+	 *             the schema exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	// AD 2/1/16 Replace IAgent by IShape so as to be able to save geometries
 	public static void saveShapeFile(final IScope scope, final File f, final List<? extends IShape> agents,
@@ -1335,6 +1413,9 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 			final Collection<IExpression> attributeValues =
 					attributes == null ? Collections.EMPTY_LIST : attributes.values();
 			for (final IShape ag : agents) {
+				if (ag.getGeometries().size() > 1) {
+					ag.setInnerGeometry(geometryCollectionManagement(ag.getInnerGeometry()));
+				}
 				final SimpleFeature ff = (SimpleFeature) fw.next();
 				final boolean ok = buildFeature(scope, ff, ag, gis, attributeValues);
 				if (!ok) { break; }
@@ -1365,7 +1446,8 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Geometry collection management.
 	 *
-	 * @param gg the gg
+	 * @param gg
+	 *            the gg
 	 * @return the geometry
 	 */
 	private static Geometry geometryCollectionManagement(final Geometry gg) {
@@ -1408,18 +1490,19 @@ public class SaveStatement extends AbstractStatementSequence implements IStateme
 	/**
 	 * Sets the formal args.
 	 *
-	 * @param args the new formal args
+	 * @param args
+	 *            the new formal args
 	 */
 	@Override
-	public void setFormalArgs(final Arguments args) {
-		withFacet = args;
-	}
+	public void setFormalArgs(final Arguments args) { withFacet = args; }
 
 	/**
 	 * Sets the runtime args.
 	 *
-	 * @param scope the scope
-	 * @param args the args
+	 * @param scope
+	 *            the scope
+	 * @param args
+	 *            the args
 	 */
 	@Override
 	public void setRuntimeArgs(final IScope scope, final Arguments args) {

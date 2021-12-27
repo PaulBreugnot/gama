@@ -79,13 +79,13 @@ public class GamaToolbar2 extends Composite {
 		createToolbars();
 	}
 
-	/**
-	 * Visually update.
-	 */
-	public void visuallyUpdate() {
-		GamaToolbarFactory.visuallyUpdate(left);
-		GamaToolbarFactory.visuallyUpdate(right);
-	}
+	// /**
+	// * Visually update.
+	// */
+	// public void visuallyUpdate() {
+	// GamaToolbarFactory.visuallyUpdate(left);
+	// GamaToolbarFactory.visuallyUpdate(right);
+	// }
 
 	/**
 	 * Sets the background color.
