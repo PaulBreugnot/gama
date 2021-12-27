@@ -811,7 +811,7 @@ public class Colors {
 		 * Instantiates a new gama gradient.
 		 */
 		protected GamaGradient() {
-			super(100, Types.COLOR, Types.FLOAT);
+			super(5, Types.COLOR, Types.FLOAT);
 		}
 
 		/**
@@ -892,12 +892,12 @@ public class Colors {
 			category = { IOperatorCategory.COLOR },
 			concept = {})
 	@doc (
-			value = "returns the definition of a linear gradient between two colors, represented internally as a color map [start::0.5,stop::0.5]")
+			value = "returns the definition of a linear gradient between two colors, represented internally as a color map [start::0.0,stop::1.0]")
 	@no_test
 	public static GamaGradient gradient(final GamaColor start, final GamaColor stop) {
 		var cm = new GamaGradient();
-		cm.put(start, 0.5);
-		cm.put(stop, 0.5);
+		cm.put(start, 0d);
+		cm.put(stop,1d);
 		return cm;
 	}
 
@@ -918,13 +918,14 @@ public class Colors {
 			category = { IOperatorCategory.COLOR },
 			concept = {})
 	@doc (
-			value = "returns the definition of a linear gradient between two colors, with a ratio (between 0 and 1, otherwise clamped) represented internally as a color map [start::r,stop::(1-r)]")
+			value = "returns the definition of a linear gradient between two colors, with a ratio (between 0 and 1, otherwise clamped) represented internally as a color map [start::0.0,(start*r+stop*(1-r))::r, stop::1.0]")
 	@no_test
 	public static GamaGradient gradient(final GamaColor start, final GamaColor stop, final Double r) {
 		var val = r < 0 ? 0 : r > 1 ? 1 : r;
 		var cm = new GamaGradient();
-		cm.put(start, val);
-		cm.put(stop, 1 - val);
+		cm.put(start, 0d);
+ 		cm.put(blend(start, stop, val), val);
+ 		cm.put(stop, 1d);
 		return cm;
 	}
 
@@ -970,20 +971,27 @@ public class Colors {
 			category = { IOperatorCategory.COLOR },
 			concept = {})
 	@doc (
-			value = "returns the definition of a linear gradient between n colors provided with their weight. "
-					+ "A similar color map is returned, in the same color order, with all the weights normalized (so that they range from 0 to 1 and sum up to 1): [c1::x,c2::y, ... cn::z] where x+y+...+z = 1 and each> 0 ")
+			value = "returns the definition of a linear gradient between n colors provided with their positions on a scale between 0 and 1. "
+ 					+ "A similar color map is returned, in the same color order, with all the positions normalized (so that they are shifted and scaled to fit between 0 and 1). Throws an error if the number of colors is less than 2 or if the positions are not strictly ordered")
 	@no_test
-	public static GamaGradient gradient(final IMap<GamaColor, Number> colors) {
+	public static GamaGradient gradient(IScope scope , final IMap<GamaColor, Number> colors) {
 		var cm = new GamaGradient();
-		var sum = 0d;
 		Double min = Double.MAX_VALUE;
+		Double max = Double.MIN_VALUE;
+ 		Double previous = -Double.MIN_VALUE;
 		for (Number n : colors.values()) {
-			var v = n.doubleValue();
-			if (v < min) { min = v; }
-			sum += Math.abs(v);
+			var v = n.doubleValue(); 
+ 			if (v <= previous) {
+ 				throw GamaRuntimeException.error(
+ 						"The positions of the colors in the gradient must be provided in a stricly increasing order",
+ 						scope);
+ 			}
+ 			if (v < min) { min = v; } else
+ 			if (v > max) {max = v;}
 		}
-		final var div = sum;
-		colors.forEach((c, f) -> cm.put(c, f.doubleValue() / div));
+		var low = min;
+ 		var div = max - min;
+ 		colors.forEach((c, f) -> cm.put(c, (f.doubleValue() + low)/div));
 		return cm;
 		// final double div = sum;
 		// Il faut calculer la distance entre chacun des stops et normaliser ça. Et aprés trouver les ratios qui
@@ -1039,8 +1047,8 @@ public class Colors {
 			concept = { IConcept.COLOR })
 	@doc (
 			see = "gradient",
-			value = "Expects a gradient, i.e. a map<rgb,float>, where values represent the weight of colors. "
-					+ "First normalizes the passed gradient, and then applies the resulting weights to the interval represented by min and max, so as to return a scale (i.e. absolute values instead of the weights")
+			value = "Expects a gradient, i.e. a map<rgb,float>, where values represent the different stops of the colors. "
+ 					+ "First normalizes the passed gradient, and then applies the resulting weights to the interval represented by min and max, so as to return a scale (i.e. absolute values instead of the stops")
 	@no_test
 	public static GamaScale scale(final IScope scope, final IMap<GamaColor, Object> colors, final double min,
 			final double max) {
@@ -1076,7 +1084,7 @@ public class Colors {
 			value = "returns a list of n colors chosen in the gradient provided. Colors are chosen by interpolating the stops of the gradient (the colors) using their weight, in the order described in the gradient. In case the map<rgb, float> passed in argument is not a gradient but a scale, the colors will be chosen in the set of colors and might appear duplicated in the palette")
 	@no_test
 	public static GamaPalette palette(final IScope scope, final IMap<GamaColor, Number> colors, final int nb) {
-		var cm = gradient(colors); // to make sure it is normalized
+		var cm = gradient(scope, colors); // to make sure it is normalized
 		// Not yet ready...
 		return null;
 	}
