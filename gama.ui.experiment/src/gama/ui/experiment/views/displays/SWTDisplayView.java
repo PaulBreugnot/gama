@@ -56,13 +56,13 @@ public abstract class SWTDisplayView extends LayeredDisplayView {
 	 */
 	@Override
 	public void close(final IScope scope) {
+		if (closing) return;
+		closing = true;
 		DEBUG.OUT("Closing " + this.getPartName());
 		WorkbenchHelper.asyncRun(() -> {
 			try {
 				if (getDisplaySurface() != null) { getDisplaySurface().dispose(); }
-				if (getSite() != null && getSite().getPage() != null) {
-					getSite().getPage().hideView(SWTDisplayView.this);
-				}
+				WorkbenchHelper.hideView(SWTDisplayView.this);
 			} catch (final Exception e) {}
 		});
 
