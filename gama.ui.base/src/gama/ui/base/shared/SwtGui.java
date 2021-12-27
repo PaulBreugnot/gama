@@ -74,7 +74,6 @@ import gama.ui.base.parameters.GamaWizardDialog;
 import gama.ui.base.parameters.GamaWizardPage;
 import gama.ui.base.utils.PerspectiveHelper;
 import gama.ui.base.utils.PerspectiveHelper.SimulationPerspectiveDescriptor;
-import gama.ui.base.utils.PreferencesHelper;
 import gama.ui.base.utils.WebHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.util.GamaFont;
@@ -101,13 +100,20 @@ public class SwtGui implements IGui {
 	static {
 		DEBUG.OFF();
 	}
-	
+
+	/** The instance. */
 	private static SwtGui INSTANCE = new SwtGui();
 
-	public static IGui getInstance() {
-		return INSTANCE;
-	}
+	/**
+	 * Gets the single instance of SwtGui.
+	 *
+	 * @return single instance of SwtGui
+	 */
+	public static IGui getInstance() { return INSTANCE; }
 
+	/**
+	 * Instantiates a new swt gui.
+	 */
 	private SwtGui() {}
 
 	/** The all tests running. */
@@ -121,9 +127,8 @@ public class SwtGui implements IGui {
 
 	static {
 		// GamaFonts.setLabelFont(PreferencesHelper.BASE_BUTTON_FONT.getValue());
-		//PreferencesHelper.initialize();
+		// PreferencesHelper.initialize();
 	}
-
 
 	/**
 	 * Confirm close.
@@ -143,8 +148,10 @@ public class SwtGui implements IGui {
 	/**
 	 * Question.
 	 *
-	 * @param title the title
-	 * @param msg the msg
+	 * @param title
+	 *            the title
+	 * @param msg
+	 *            the msg
 	 * @return true, if successful
 	 */
 	@Override
@@ -660,7 +667,7 @@ public class SwtGui implements IGui {
 		WorkbenchHelper.asyncRun(() -> {
 			if (WorkbenchHelper.getPage() == null || a == null) return;
 			try {
-				final InspectDisplayOutput output = new InspectDisplayOutput(a);
+				final InspectDisplayOutput output = InspectDisplayOutput.inspect(a, null);
 				output.launch(a.getScope());
 			} catch (final GamaRuntimeException g) {
 				g.addContext("In opening the agent inspector");
@@ -899,8 +906,8 @@ public class SwtGui implements IGui {
 	public void updateExperimentState(final IScope scope, final String forcedState) {
 		// DEBUG.OUT("STATE: " + forcedState);
 		final ISourceProviderService service = WorkbenchHelper.getService(ISourceProviderService.class);
-		final ISimulationStateProvider stateProvider = (ISimulationStateProvider) service
-				.getSourceProvider(ISimulationStateProvider.SIMULATION_RUNNING_STATE);
+		final ISimulationStateProvider stateProvider =
+				(ISimulationStateProvider) service.getSourceProvider(ISimulationStateProvider.SIMULATION_RUNNING_STATE);
 		if (stateProvider != null) { WorkbenchHelper.run(() -> stateProvider.updateStateTo(forcedState)); }
 	}
 
@@ -1089,6 +1096,11 @@ public class SwtGui implements IGui {
 	@Override
 	public boolean isInDisplayThread() { return EventQueue.isDispatchThread() || Display.getCurrent() != null; }
 
+	/**
+	 * Choose workspace.
+	 *
+	 * @return the int
+	 */
 	@Override
 	public int chooseWorkspace() {
 		int[] result = { 0 };
