@@ -11,7 +11,6 @@
 package gama.ui.base.toolbar;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
@@ -31,14 +30,21 @@ import gama.ui.base.resources.GamaIcons;
  */
 public class GamaToolbarSimple extends ToolBar {
 
-	/** The width listener. */
-	ControlListener widthListener;
+	/**
+	 *  The width listener.
+	 *
+	 * @param parent the parent
+	 * @param style the style
+	 */
+	// ControlListener widthListener;
 
 	/**
 	 * Instantiates a new gama toolbar simple.
 	 *
-	 * @param parent            the parent
-	 * @param style            the style
+	 * @param parent
+	 *            the parent
+	 * @param style
+	 *            the style
 	 */
 	public GamaToolbarSimple(final Composite parent, final int style) {
 		super(parent, style);
