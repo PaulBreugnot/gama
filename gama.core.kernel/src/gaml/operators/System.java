@@ -1,12 +1,11 @@
 /*******************************************************************************************************
  *
- * System.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * System.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gaml.operators;
 
@@ -21,15 +20,15 @@ import org.eclipse.core.runtime.Platform;
 
 import gama.common.interfaces.IKeyword;
 import gama.common.interfaces.IValue;
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.IOperatorCategory;
-import gama.core.dev.annotations.ITypeProvider;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.no_test;
 import gama.core.dev.annotations.GamlAnnotations.operator;
 import gama.core.dev.annotations.GamlAnnotations.test;
 import gama.core.dev.annotations.GamlAnnotations.usage;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.IOperatorCategory;
+import gama.core.dev.annotations.ITypeProvider;
 import gama.kernel.experiment.IParameter;
 import gama.kernel.experiment.InputParameter;
 import gama.metamodel.agent.IAgent;
@@ -48,6 +47,7 @@ import gaml.types.GamaType;
 import gaml.types.IType;
 import gaml.types.Types;
 
+// TODO: Auto-generated Javadoc
 /**
  * Written by drogoul Modified on 10 d�c. 2010
  *
@@ -59,8 +59,10 @@ public class System {
 	/**
 	 * Op dead.
 	 *
-	 * @param scope the scope
-	 * @param a the a
+	 * @param scope
+	 *            the scope
+	 * @param a
+	 *            the a
 	 * @return the boolean
 	 */
 	@operator (
@@ -81,8 +83,10 @@ public class System {
 	/**
 	 * Checks if is error.
 	 *
-	 * @param scope the scope
-	 * @param expr the expr
+	 * @param scope
+	 *            the scope
+	 * @param expr
+	 *            the expr
 	 * @return the boolean
 	 */
 	@operator (
@@ -103,8 +107,10 @@ public class System {
 	/**
 	 * Checks if is warning.
 	 *
-	 * @param scope the scope
-	 * @param expr the expr
+	 * @param scope
+	 *            the scope
+	 * @param expr
+	 *            the expr
 	 * @return the boolean
 	 */
 	@operator (
@@ -125,8 +131,10 @@ public class System {
 	/**
 	 * Console.
 	 *
-	 * @param scope the scope
-	 * @param s the s
+	 * @param scope
+	 *            the scope
+	 * @param s
+	 *            the s
 	 * @return the string
 	 */
 	@operator (
@@ -144,9 +152,12 @@ public class System {
 	/**
 	 * Console.
 	 *
-	 * @param scope the scope
-	 * @param s the s
-	 * @param directory the directory
+	 * @param scope
+	 *            the scope
+	 * @param s
+	 *            the s
+	 * @param directory
+	 *            the directory
 	 * @return the string
 	 */
 	@operator (
@@ -162,10 +173,14 @@ public class System {
 	/**
 	 * Console.
 	 *
-	 * @param scope the scope
-	 * @param s the s
-	 * @param directory the directory
-	 * @param environment the environment
+	 * @param scope
+	 *            the scope
+	 * @param s
+	 *            the s
+	 * @param directory
+	 *            the directory
+	 * @param environment
+	 *            the environment
 	 * @return the string
 	 */
 	@operator (
@@ -213,11 +228,15 @@ public class System {
 	/**
 	 * Op get value.
 	 *
-	 * @param scope the scope
-	 * @param a the a
-	 * @param s the s
+	 * @param scope
+	 *            the scope
+	 * @param a
+	 *            the a
+	 * @param s
+	 *            the s
 	 * @return the object
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@operator (
 			value = { IKeyword._DOT, IKeyword.OF },
@@ -259,10 +278,13 @@ public class System {
 	/**
 	 * Op copy.
 	 *
-	 * @param scope the scope
-	 * @param o the o
+	 * @param scope
+	 *            the scope
+	 * @param o
+	 *            the o
 	 * @return the object
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@operator (
 			value = "copy",
@@ -281,9 +303,12 @@ public class System {
 	/**
 	 * User input.
 	 *
-	 * @param scope the scope
-	 * @param map the map
-	 * @param font the font
+	 * @param scope
+	 *            the scope
+	 * @param map
+	 *            the map
+	 * @param font
+	 *            the font
 	 * @return the i map
 	 */
 	@operator (
@@ -322,10 +347,14 @@ public class System {
 	/**
 	 * User input.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param map the map
-	 * @param font the font
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param map
+	 *            the map
+	 * @param font
+	 *            the font
 	 * @return the i map
 	 */
 	@operator (
@@ -355,9 +384,12 @@ public class System {
 	/**
 	 * User input deprecated.
 	 *
-	 * @param scope the scope
-	 * @param parameters the parameters
-	 * @param font the font
+	 * @param scope
+	 *            the scope
+	 * @param parameters
+	 *            the parameters
+	 * @param font
+	 *            the font
 	 * @return the i map
 	 */
 	@operator (
@@ -383,8 +415,10 @@ public class System {
 	/**
 	 * User input.
 	 *
-	 * @param scope the scope
-	 * @param map the map
+	 * @param scope
+	 *            the scope
+	 * @param map
+	 *            the map
 	 * @return the i map
 	 */
 	@operator (
@@ -422,9 +456,12 @@ public class System {
 	/**
 	 * User input.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param map the map
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param map
+	 *            the map
 	 * @return the i map
 	 */
 	@operator (
@@ -454,9 +491,12 @@ public class System {
 	/**
 	 * User input deprecated.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param parameters the parameters
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param parameters
+	 *            the parameters
 	 * @return the i map
 	 */
 	@SuppressWarnings ("unchecked")
@@ -483,8 +523,10 @@ public class System {
 	/**
 	 * User input deprecated.
 	 *
-	 * @param scope the scope
-	 * @param parameters the parameters
+	 * @param scope
+	 *            the scope
+	 * @param parameters
+	 *            the parameters
 	 * @return the i map
 	 */
 	@operator (
@@ -508,10 +550,14 @@ public class System {
 	/**
 	 * User input deprecated.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param parameters the parameters
-	 * @param font the font
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param parameters
+	 *            the parameters
+	 * @param font
+	 *            the font
 	 * @return the i map
 	 */
 	@SuppressWarnings ("unchecked")
@@ -538,9 +584,12 @@ public class System {
 	/**
 	 * User input dialog.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param parameters the parameters
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param parameters
+	 *            the parameters
 	 * @return the i map
 	 */
 	@SuppressWarnings ("unchecked")
@@ -565,8 +614,10 @@ public class System {
 	/**
 	 * User input dialog.
 	 *
-	 * @param scope the scope
-	 * @param parameters the parameters
+	 * @param scope
+	 *            the scope
+	 * @param parameters
+	 *            the parameters
 	 * @return the i map
 	 */
 	@operator (
@@ -589,10 +640,14 @@ public class System {
 	/**
 	 * User input dialog.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param parameters the parameters
-	 * @param font the font
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param parameters
+	 *            the parameters
+	 * @param font
+	 *            the font
 	 * @return the i map
 	 */
 	@SuppressWarnings ("unchecked")
@@ -619,10 +674,14 @@ public class System {
 	/**
 	 * Open wizard.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param finish the finish
-	 * @param pages the pages
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param finish
+	 *            the finish
+	 * @param pages
+	 *            the pages
 	 * @return the i map
 	 */
 	@operator (
@@ -645,9 +704,12 @@ public class System {
 	/**
 	 * Open wizard.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param pages the pages
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param pages
+	 *            the pages
 	 * @return the i map
 	 */
 	@operator (
@@ -668,10 +730,14 @@ public class System {
 	/**
 	 * Wizard page.
 	 *
-	 * @param title the title
-	 * @param description the description
-	 * @param parameters the parameters
-	 * @param font the font
+	 * @param title
+	 *            the title
+	 * @param description
+	 *            the description
+	 * @param parameters
+	 *            the parameters
+	 * @param font
+	 *            the font
 	 * @return the i map
 	 */
 	@operator (
@@ -697,9 +763,12 @@ public class System {
 	/**
 	 * Wizard page.
 	 *
-	 * @param title the title
-	 * @param description the description
-	 * @param parameters the parameters
+	 * @param title
+	 *            the title
+	 * @param description
+	 *            the description
+	 * @param parameters
+	 *            the parameters
 	 * @return the i map
 	 */
 	@operator (
@@ -724,9 +793,12 @@ public class System {
 	/**
 	 * User confirm dialog.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param message the message
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param message
+	 *            the message
 	 * @return the boolean
 	 */
 	@operator (
@@ -746,9 +818,12 @@ public class System {
 	/**
 	 * Enter value.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param type the type
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param type
+	 *            the type
 	 * @return the i parameter
 	 */
 	@operator (
@@ -756,7 +831,8 @@ public class System {
 			category = { IOperatorCategory.SYSTEM, IOperatorCategory.USER_CONTROL },
 			value = IKeyword.ENTER)
 	@doc (
-			value = "Allows the user to enter a value by specifying a title and a type")
+			value = "Allows the user to enter an int by specifying a title, an initial value, a min and a max value. "
+					+ "The initial value is clamped if it is lower than min or higher than max.")
 	@no_test
 	public static IParameter enterValue(final IScope scope, final String title, final IType type) {
 		return enterValue(scope, title, type, type.getDefault());
@@ -765,9 +841,12 @@ public class System {
 	/**
 	 * Enter value.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param init the init
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param init
+	 *            the init
 	 * @return the i parameter
 	 */
 	@operator (
@@ -784,11 +863,16 @@ public class System {
 	/**
 	 * Enter value.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param init the init
-	 * @param min the min
-	 * @param max the max
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param init
+	 *            the init
+	 * @param min
+	 *            the min
+	 * @param max
+	 *            the max
 	 * @return the i parameter
 	 */
 	@operator (
@@ -796,7 +880,8 @@ public class System {
 			category = { IOperatorCategory.SYSTEM, IOperatorCategory.USER_CONTROL },
 			value = IKeyword.ENTER)
 	@doc (
-			value = "Allows the user to enter an int by specifying a title, an initial value, a min and a max value")
+			value = "Allows the user to enter an int by specifying a title, an initial value, a min and a max value. "
+					+ "The initial value is clamped if it is lower than min or higher than max.")
 	@no_test
 	public static IParameter enterValue(final IScope scope, final String title, final Integer init, final Integer min,
 			final Integer max) {
@@ -806,12 +891,18 @@ public class System {
 	/**
 	 * Enter value.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param init the init
-	 * @param min the min
-	 * @param max the max
-	 * @param step the step
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param init
+	 *            the init
+	 * @param min
+	 *            the min
+	 * @param max
+	 *            the max
+	 * @param step
+	 *            the step
 	 * @return the i parameter
 	 */
 	@operator (
@@ -819,7 +910,8 @@ public class System {
 			category = { IOperatorCategory.SYSTEM, IOperatorCategory.USER_CONTROL },
 			value = IKeyword.ENTER)
 	@doc (
-			value = "Allows the user to enter an int by specifying a title, an initial value, a min, a max and a step value",
+			value = "Allows the user to enter an int by specifying a title, an initial value, a min, a max and a step value. "
+					+ "The initial value is clamped if it is lower than min or higher than max.",
 			usages = { @usage (
 					value = "The GUI is then a slider when an init value, a min (int or float), a max (int or float) (and eventually a  step (int or float) ) operands.",
 					examples = { @example (
@@ -840,11 +932,16 @@ public class System {
 	/**
 	 * Enter value.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param init the init
-	 * @param min the min
-	 * @param max the max
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param init
+	 *            the init
+	 * @param min
+	 *            the min
+	 * @param max
+	 *            the max
 	 * @return the i parameter
 	 */
 	@operator (
@@ -852,7 +949,8 @@ public class System {
 			category = { IOperatorCategory.SYSTEM, IOperatorCategory.USER_CONTROL },
 			value = IKeyword.ENTER)
 	@doc (
-			value = "Allows the user to enter an int by specifying a title, an initial value, a min and a max value")
+			value = "Allows the user to enter an int by specifying a title, an initial value, a min and a max value"
+					+ "The initial value is clamped if it is lower than min or higher than max.")
 	@no_test
 	public static IParameter enterValue(final IScope scope, final String title, final Double init, final Double min,
 			final Double max) {
@@ -862,12 +960,18 @@ public class System {
 	/**
 	 * Enter value.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param init the init
-	 * @param min the min
-	 * @param max the max
-	 * @param step the step
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param init
+	 *            the init
+	 * @param min
+	 *            the min
+	 * @param max
+	 *            the max
+	 * @param step
+	 *            the step
 	 * @return the i parameter
 	 */
 	@operator (
@@ -875,7 +979,8 @@ public class System {
 			category = { IOperatorCategory.SYSTEM, IOperatorCategory.USER_CONTROL },
 			value = IKeyword.ENTER)
 	@doc (
-			value = "Allows the user to enter a float by specifying a title, an initial value, a min, a max and a step value")
+			value = "Allows the user to enter a float by specifying a title, an initial value, a min, a max and a step value. "
+					+ "The initial value is clamped if it is lower than min or higher than max.")
 	@no_test
 	public static IParameter enterValue(final IScope scope, final String title, final Double init, final Double min,
 			final Double max, final Double step) {
@@ -885,9 +990,12 @@ public class System {
 	/**
 	 * Enter value.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param init the init
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param init
+	 *            the init
 	 * @return the i parameter
 	 */
 	@operator (
@@ -904,9 +1012,12 @@ public class System {
 	/**
 	 * Enter value.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param init the init
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param init
+	 *            the init
 	 * @return the i parameter
 	 */
 	@operator (
@@ -931,9 +1042,12 @@ public class System {
 	/**
 	 * Enter value.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param init the init
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param init
+	 *            the init
 	 * @return the i parameter
 	 */
 	@operator (
@@ -951,10 +1065,14 @@ public class System {
 	/**
 	 * Enter value.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param type the type
-	 * @param init the init
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param type
+	 *            the type
+	 * @param init
+	 *            the init
 	 * @return the i parameter
 	 */
 	@operator (
@@ -971,9 +1089,12 @@ public class System {
 	/**
 	 * Enter value.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param init the init
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param init
+	 *            the init
 	 * @return the i parameter
 	 */
 	@operator (
@@ -990,11 +1111,16 @@ public class System {
 	/**
 	 * Enter value.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param type the type
-	 * @param init the init
-	 * @param among the among
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param type
+	 *            the type
+	 * @param init
+	 *            the init
+	 * @param among
+	 *            the among
 	 * @return the i parameter
 	 */
 	@operator (
@@ -1012,8 +1138,10 @@ public class System {
 	/**
 	 * Op eval gaml.
 	 *
-	 * @param scope the scope
-	 * @param gaml the gaml
+	 * @param scope
+	 *            the scope
+	 * @param gaml
+	 *            the gaml
 	 * @return the object
 	 */
 	@operator (
@@ -1044,8 +1172,10 @@ public class System {
 	/**
 	 * Copy to clipboard.
 	 *
-	 * @param scope the scope
-	 * @param text the text
+	 * @param scope
+	 *            the scope
+	 * @param text
+	 *            the text
 	 * @return the boolean
 	 */
 	@operator (
