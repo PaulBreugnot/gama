@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ExperimentController.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ExperimentController.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.kernel.experiment;
 
@@ -19,6 +19,7 @@ import gama.runtime.ISimulationStateProvider;
 import gama.runtime.concurrent.GamaExecutorService;
 import gama.runtime.exceptions.GamaRuntimeException;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ExperimentController.
  */
@@ -26,26 +27,27 @@ public class ExperimentController implements Runnable, IExperimentController {
 
 	/** The experiment. */
 	private final IExperimentPlan experiment;
-	
+
 	/** The disposing. */
 	private boolean disposing;
-	
+
 	/** The commands. */
 	protected volatile ArrayBlockingQueue<Integer> commands;
-	
+
 	/** The command thread. */
 	public volatile Thread commandThread;
-	
+
 	/** The running. */
 	protected volatile boolean running = true;
-	
+
 	/** The scheduler. */
 	private final ExperimentScheduler scheduler;
 
 	/**
 	 * Instantiates a new experiment controller.
 	 *
-	 * @param experiment the experiment
+	 * @param experiment
+	 *            the experiment
 	 */
 	public ExperimentController(final IExperimentPlan experiment) {
 		this.scheduler = new ExperimentScheduler(experiment);
@@ -68,16 +70,25 @@ public class ExperimentController implements Runnable, IExperimentController {
 
 	}
 
+	/**
+	 * Checks if is disposing.
+	 *
+	 * @return true, if is disposing
+	 */
 	@Override
-	public boolean isDisposing() {
-		return disposing;
-	}
+	public boolean isDisposing() { return disposing; }
 
+	/**
+	 * Gets the experiment.
+	 *
+	 * @return the experiment
+	 */
 	@Override
-	public IExperimentPlan getExperiment() {
-		return experiment;
-	}
+	public IExperimentPlan getExperiment() { return experiment; }
 
+	/**
+	 * Run.
+	 */
 	@Override
 	public void run() {
 		while (running) {
@@ -95,7 +106,8 @@ public class ExperimentController implements Runnable, IExperimentController {
 	/**
 	 * Offer.
 	 *
-	 * @param command the command
+	 * @param command
+	 *            the command
 	 */
 	public void offer(final int command) {
 		if (isDisposing()) return;
@@ -109,7 +121,8 @@ public class ExperimentController implements Runnable, IExperimentController {
 	/**
 	 * Process user command.
 	 *
-	 * @param command the command
+	 * @param command
+	 *            the command
 	 */
 	protected void processUserCommand(final int command) {
 		final IScope scope = experiment.getExperimentScope();
@@ -125,7 +138,6 @@ public class ExperimentController implements Runnable, IExperimentController {
 						experiment.open();
 					} else {
 						new Thread(() -> experiment.open()).start();
-
 					}
 				} catch (final Exception e) {
 					DEBUG.ERR("Error when opening the experiment: " + e.getMessage());
@@ -143,7 +155,10 @@ public class ExperimentController implements Runnable, IExperimentController {
 				}
 				break;
 			case IExperimentController._PAUSE:
-				experiment.getExperimentScope().getGui().updateExperimentState(scope, ISimulationStateProvider.PAUSED);
+				if (!disposing) {
+					experiment.getExperimentScope().getGui().updateExperimentState(scope,
+							ISimulationStateProvider.PAUSED);
+				}
 				scheduler.pause();
 				break;
 			case IExperimentController._STEP:
@@ -178,29 +193,44 @@ public class ExperimentController implements Runnable, IExperimentController {
 		}
 	}
 
+	/**
+	 * User pause.
+	 */
 	@Override
 	public void userPause() {
 		// TODO Should maybe be done directly (so as to pause immediately)
 		offer(IExperimentController._PAUSE);
 	}
 
+	/**
+	 * Direct pause.
+	 */
 	@Override
 	public void directPause() {
 		processUserCommand(IExperimentController._PAUSE);
 	}
 
+	/**
+	 * User step.
+	 */
 	@Override
 	public void userStep() {
 		if (experiment == null) return;
 		offer(IExperimentController._STEP);
 	}
 
+	/**
+	 * Step back.
+	 */
 	@Override
 	public void stepBack() {
 		if (experiment == null) return;
 		offer(IExperimentController._BACK);
 	}
 
+	/**
+	 * User reload.
+	 */
 	@Override
 	public void userReload() {
 		// TODO Should maybe be done directly (so as to reload immediately)
@@ -209,21 +239,33 @@ public class ExperimentController implements Runnable, IExperimentController {
 		offer(IExperimentController._RELOAD);
 	}
 
+	/**
+	 * Direct open experiment.
+	 */
 	@Override
 	public void directOpenExperiment() {
 		processUserCommand(IExperimentController._OPEN);
 	}
 
+	/**
+	 * User start.
+	 */
 	@Override
 	public void userStart() {
 		offer(IExperimentController._START);
 	}
 
+	/**
+	 * User open.
+	 */
 	@Override
 	public void userOpen() {
 		offer(_OPEN);
 	}
 
+	/**
+	 * Dispose.
+	 */
 	@Override
 	public void dispose() {
 		if (experiment != null) {
@@ -248,6 +290,9 @@ public class ExperimentController implements Runnable, IExperimentController {
 		}
 	}
 
+	/**
+	 * Start pause.
+	 */
 	@Override
 	public void startPause() {
 		if (experiment == null) {} else if (scheduler.paused) {
@@ -257,6 +302,9 @@ public class ExperimentController implements Runnable, IExperimentController {
 		}
 	}
 
+	/**
+	 * Close.
+	 */
 	@Override
 	public void close() {
 		closeExperiment(null);
@@ -265,7 +313,8 @@ public class ExperimentController implements Runnable, IExperimentController {
 	/**
 	 * Close experiment.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	public void closeExperiment(final Exception e) {
 		disposing = true;
@@ -275,9 +324,12 @@ public class ExperimentController implements Runnable, IExperimentController {
 		experiment.dispose(); // will call own dispose() later
 	}
 
+	/**
+	 * Gets the scheduler.
+	 *
+	 * @return the scheduler
+	 */
 	@Override
-	public ExperimentScheduler getScheduler() {
-		return scheduler;
-	}
+	public ExperimentScheduler getScheduler() { return scheduler; }
 
 }

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * AgentLayer.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * AgentLayer.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -30,6 +30,7 @@ import gaml.species.ISpecies;
 import gaml.statements.AspectStatement;
 import gaml.statements.IExecutable;
 
+// TODO: Auto-generated Javadoc
 /**
  * Written by drogoul Modified on 23 août 2008.
  *
@@ -40,7 +41,8 @@ public class AgentLayer extends AbstractLayer {
 	/**
 	 * Instantiates a new agent layer.
 	 *
-	 * @param layer the layer
+	 * @param layer
+	 *            the layer
 	 */
 	public AgentLayer(final ILayerStatement layer) {
 		super(layer);
@@ -48,14 +50,15 @@ public class AgentLayer extends AbstractLayer {
 
 	/** The shapes. */
 	protected final IMap<IAgent, Rectangle2D> shapes = GamaMapFactory.createUnordered();
-	
+
 	/** The Constant DUMMY_RECT. */
 	protected static final Rectangle2D DUMMY_RECT = new Rectangle2D.Double();
 
 	/**
 	 * Fill shapes.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 */
 	@SuppressWarnings ("unchecked")
 	protected void fillShapes(final IScope scope) {
@@ -64,20 +67,26 @@ public class AgentLayer extends AbstractLayer {
 		Iterable<? extends IAgent> agents = Collections.EMPTY_LIST;
 		if (o instanceof ISpecies) {
 			agents = ((ISpecies) o).iterable(scope);
-		} else if (o instanceof IList) {
-			agents = (IList) o;
-		}
+		} else if (o instanceof IList) { agents = (IList) o; }
 		for (final IAgent a : agents) {
 			shapes.put(a, DUMMY_RECT);
 		}
 	}
 
+	/**
+	 * Private draw.
+	 *
+	 * @param scope the scope
+	 * @param g the g
+	 * @throws GamaRuntimeException the gama runtime exception
+	 */
 	@Override
 	public void privateDraw(final IScope scope, final IGraphics g) throws GamaRuntimeException {
+		if (scope == null || scope.interrupted()) return;
 		fillShapes(scope);
 		final String aspectName = ((AgentLayerStatement) definition).getAspectName();
 
-		shapes.entrySet().forEach((entry) -> {
+		shapes.entrySet().forEach(entry -> {
 			final IAgent a = entry.getKey();
 			IExecutable aspect = null;
 			if (a != null) {
@@ -85,24 +94,24 @@ public class AgentLayer extends AbstractLayer {
 					aspect = a.getSpecies().getAspect("highlighted");
 				} else {
 					aspect = ((AgentLayerStatement) definition).getAspect();
-					if (aspect == null) {
-						aspect = a.getSpecies().getAspect(aspectName);
-					}
+					if (aspect == null) { aspect = a.getSpecies().getAspect(aspectName); }
 				}
-				if (aspect == null) {
-					aspect = AspectStatement.DEFAULT_ASPECT;
-				}
+				if (aspect == null) { aspect = AspectStatement.DEFAULT_ASPECT; }
 
 				final ExecutionResult result = scope.execute(aspect, a, null);
 				final Object r = result.getValue();
-				if (r instanceof Rectangle2D) {
-					entry.setValue((Rectangle2D) r);
-				}
+				if (r instanceof Rectangle2D) { entry.setValue((Rectangle2D) r); }
 			}
 		});
 
 	}
 
+	/**
+	 * Gets the agents for menu.
+	 *
+	 * @param scope the scope
+	 * @return the agents for menu
+	 */
 	@Override
 	public Collection<IAgent> getAgentsForMenu(final IScope scope) {
 		// if (shapes.isEmpty()) { return getAgentsToDisplay(); }
@@ -114,6 +123,14 @@ public class AgentLayer extends AbstractLayer {
 	// return ((AgentLayerStatement) definition).getAgentsToDisplay();
 	// }
 
+	/**
+	 * Collect agents at.
+	 *
+	 * @param x the x
+	 * @param y the y
+	 * @param g the g
+	 * @return the sets the
+	 */
 	@Override
 	public Set<IAgent> collectAgentsAt(final int x, final int y, final IDisplaySurface g) {
 		try (final Collector.AsSet<IAgent> selectedAgents = Collector.getSet()) {
@@ -121,9 +138,7 @@ public class AgentLayer extends AbstractLayer {
 			selection.setFrameFromCenter(x, y, x + IDisplaySurface.SELECTION_SIZE / 2,
 					y + IDisplaySurface.SELECTION_SIZE / 2);
 			shapes.forEachPair((a, b) -> {
-				if (b.intersects(selection)) {
-					selectedAgents.add(a);
-				}
+				if (b.intersects(selection)) { selectedAgents.add(a); }
 				return true;
 			});
 
@@ -131,18 +146,28 @@ public class AgentLayer extends AbstractLayer {
 		}
 	}
 
+	/**
+	 * Focus on.
+	 *
+	 * @param geometry the geometry
+	 * @param s the s
+	 * @return the rectangle 2 D
+	 */
 	@Override
 	public Rectangle2D focusOn(final IShape geometry, final IDisplaySurface s) {
 		if (geometry instanceof IAgent) {
 			final Rectangle2D r = shapes.get(geometry);
-			if (r != null) { return r; }
+			if (r != null) return r;
 		}
 		return super.focusOn(geometry, s);
 	}
 
+	/**
+	 * Gets the type.
+	 *
+	 * @return the type
+	 */
 	@Override
-	public String getType() {
-		return "Agents layer";
-	}
+	public String getType() { return "Agents layer"; }
 
 }

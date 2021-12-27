@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * CleanupHelper.java, in gama.ui.base, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * CleanupHelper.java, in gama.ui.base, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.base.utils;
 
@@ -52,6 +52,7 @@ import gama.core.dev.utils.DEBUG;
 import gama.ui.base.resources.GamaIcons;
 import gama.ui.base.views.GamaPreferencesView;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class CleanupHelper.
  */
@@ -88,7 +89,7 @@ public class CleanupHelper {
 	 * The Class RemoveActivities.
 	 */
 	static class RemoveActivities {
-		
+
 		/**
 		 * Run.
 		 */
@@ -102,7 +103,7 @@ public class CleanupHelper {
 	 * The Class ForceMaximizeRestoration.
 	 */
 	static class ForceMaximizeRestoration {
-		
+
 		/**
 		 * Run.
 		 */
@@ -167,7 +168,7 @@ public class CleanupHelper {
 		/** The toolbar action sets to remove. */
 		String[] TOOLBAR_ACTION_SETS_TO_REMOVE =
 				{ "org.eclipse", "gama.core.lang.Gaml", "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo" };
-		
+
 		/** The menus to remove. */
 		String[] MENUS_TO_REMOVE = { "org.eclipse.ui.run", "window", "navigate", "project" };
 
@@ -188,6 +189,12 @@ public class CleanupHelper {
 			}
 		}
 
+		/**
+		 * Perspective activated.
+		 *
+		 * @param page the page
+		 * @param perspective the perspective
+		 */
 		@Override
 		public void perspectiveActivated(final IWorkbenchPage page, final IPerspectiveDescriptor perspective) {
 			// if (perspective != null) {
@@ -219,17 +226,23 @@ public class CleanupHelper {
 						w.getMenuBarManager().remove(s2);
 						w.getMenuManager().remove(s2);
 					}
-					// Update the tool and menu bars
-					w.getCoolBarManager2().update(true);
+
 					w.getMenuManager().update(true);
 					w.getMenuBarManager().update(true);
-				} catch (final Exception e) {
-					// remove trace of exceptions
-				}
+					cm.updateAll(true);
+					WorkaroundForIssue3210.run(cm);
+				} catch (final Exception e) {}
 			});
 
 		}
 
+		/**
+		 * Perspective changed.
+		 *
+		 * @param p the p
+		 * @param d the d
+		 * @param c the c
+		 */
 		@Override
 		public void perspectiveChanged(final IWorkbenchPage p, final IPerspectiveDescriptor d, final String c) {
 			if (IWorkbenchPage.CHANGE_RESET_COMPLETE.equals(c)) { perspectiveActivated(p, d); }
@@ -282,7 +295,8 @@ public class CleanupHelper {
 		/**
 		 * Gets the all wizards.
 		 *
-		 * @param categories the categories
+		 * @param categories
+		 *            the categories
 		 * @return the all wizards
 		 */
 		static private IWizardDescriptor[] getAllWizards(final IWizardCategory[] categories) {
@@ -308,7 +322,7 @@ public class CleanupHelper {
 				"converstLineDelimitersTo", "org.eclipse.equinox.p2.ui.sdk.update",
 				"org.eclipse.equinox.p2.ui.sdk.install", "org.eclipse.equinox.p2.ui.sdk.installationDetails",
 				"org.eclipse.e4.ui.importer.openDirectory.menu"));
-		
+
 		/** The Constant MENU_IMAGES. */
 		public final static Map<String, String> MENU_IMAGES = new HashMap<>() {
 			{
@@ -362,7 +376,8 @@ public class CleanupHelper {
 		/**
 		 * Process items.
 		 *
-		 * @param menu the menu
+		 * @param menu
+		 *            the menu
 		 */
 		private static void processItems(final IMenuManager menu) {
 			// final StringBuilder sb = new StringBuilder();
@@ -387,9 +402,12 @@ public class CleanupHelper {
 		/**
 		 * Change icon.
 		 *
-		 * @param menu the menu
-		 * @param item the item
-		 * @param image the image
+		 * @param menu
+		 *            the menu
+		 * @param item
+		 *            the item
+		 * @param image
+		 *            the image
 		 */
 		private static void changeIcon(final IMenuManager menu, final IContributionItem item,
 				final ImageDescriptor image) {

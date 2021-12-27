@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * GamaViewPart.java, in gama.ui.base, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * GamaViewPart.java, in gama.ui.base, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.base.views;
 
@@ -40,11 +40,12 @@ import gama.runtime.GAMA;
 import gama.runtime.IScope;
 import gama.ui.base.controls.ITooltipDisplayer;
 import gama.ui.base.resources.GamaColors.GamaUIColor;
-import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.base.toolbar.GamaToolbar2;
 import gama.ui.base.toolbar.GamaToolbarFactory;
 import gama.ui.base.toolbar.IToolbarDecoratedView;
+import gama.ui.base.utils.WorkbenchHelper;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GamaViewPart.
  *
@@ -59,19 +60,19 @@ public abstract class GamaViewPart extends ViewPart
 
 	/** The outputs. */
 	public final List<IDisplayOutput> outputs = new ArrayList<>();
-	
+
 	/** The parent. */
 	private Composite parent;
-	
+
 	/** The toolbar. */
 	protected GamaToolbar2 toolbar;
-	
+
 	/** The update job. */
 	private GamaUIJob updateJob;
-	
+
 	/** The toolbar updater. */
 	private StateListener toolbarUpdater;
-	
+
 	/** The root composite. */
 	private Composite rootComposite;
 
@@ -79,15 +80,15 @@ public abstract class GamaViewPart extends ViewPart
 	 * The Enum UpdatePriority.
 	 */
 	public enum UpdatePriority {
-		
+
 		/** The high. */
-		HIGH, 
- /** The low. */
- LOW, 
- /** The highest. */
- HIGHEST, 
- /** The lowest. */
- LOWEST;
+		HIGH,
+		/** The low. */
+		LOW,
+		/** The highest. */
+		HIGHEST,
+		/** The lowest. */
+		LOWEST;
 	}
 
 	/**
@@ -133,24 +134,47 @@ public abstract class GamaViewPart extends ViewPart
 
 	}
 
+	/**
+	 * Reset.
+	 */
 	@Override
 	public void reset() {}
 
+	/**
+	 * Adds the state listener.
+	 *
+	 * @param listener the listener
+	 */
 	@Override
 	public void addStateListener(final StateListener listener) {
 		toolbarUpdater = listener;
 	}
 
+	/**
+	 * Update toolbar state.
+	 */
 	@Override
 	public void updateToolbarState() {
 		if (toolbarUpdater != null) { toolbarUpdater.updateToReflectState(); }
+		toolbar.visuallyUpdate();
 	}
 
+	/**
+	 * Creates the tool items.
+	 *
+	 * @param tb the tb
+	 */
 	@Override
 	public void createToolItems(final GamaToolbar2 tb) {
 		this.toolbar = tb;
 	}
 
+	/**
+	 * Inits the.
+	 *
+	 * @param site the site
+	 * @throws PartInitException the part init exception
+	 */
 	@Override
 	public void init(final IViewSite site) throws PartInitException {
 		super.init(site);
@@ -213,8 +237,10 @@ public abstract class GamaViewPart extends ViewPart
 	/**
 	 * Contains point.
 	 *
-	 * @param x the x
-	 * @param y the y
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 * @return true, if successful
 	 */
 	public boolean containsPoint(final int x, final int y) {
@@ -223,6 +249,11 @@ public abstract class GamaViewPart extends ViewPart
 		return new Rectangle(o.x, o.y, s.x, s.y).contains(x, y);
 	}
 
+	/**
+	 * Creates the part control.
+	 *
+	 * @param composite the composite
+	 */
 	@Override
 	public void createPartControl(final Composite composite) {
 		this.rootComposite = composite;
@@ -246,7 +277,8 @@ public abstract class GamaViewPart extends ViewPart
 	/**
 	 * Own create part control.
 	 *
-	 * @param parent the parent
+	 * @param parent
+	 *            the parent
 	 */
 	public abstract void ownCreatePartControl(Composite parent);
 
@@ -267,6 +299,11 @@ public abstract class GamaViewPart extends ViewPart
 	 */
 	protected abstract GamaUIJob createUpdateJob();
 
+	/**
+	 * Update.
+	 *
+	 * @param output the output
+	 */
 	@Override
 	public void update(final IDisplayOutput output) {
 		final GamaUIJob job = getUpdateJob();
@@ -279,12 +316,22 @@ public abstract class GamaViewPart extends ViewPart
 		}
 	}
 
+	/**
+	 * Gets the output.
+	 *
+	 * @return the output
+	 */
 	@Override
 	public IDisplayOutput getOutput() {
 		if (outputs.isEmpty()) return null;
 		return outputs.get(0);
 	}
 
+	/**
+	 * Adds the output.
+	 *
+	 * @param out the out
+	 */
 	@Override
 	public void addOutput(final IDisplayOutput out) {
 		if (out == null) return;
@@ -298,15 +345,26 @@ public abstract class GamaViewPart extends ViewPart
 
 	}
 
+	/**
+	 * Sets the focus.
+	 */
 	@Override
 	public void setFocus() {}
 
+	/**
+	 * Widget disposed.
+	 *
+	 * @param e the e
+	 */
 	@Override
 	public void widgetDisposed(final DisposeEvent e) {
 		toolbar = null;
 		outputs.clear();
 	}
 
+	/**
+	 * Dispose.
+	 */
 	@Override
 	public void dispose() {
 		// DEBUG.OUT("+++ Part " + this.getPartName() + " is being disposed");
@@ -317,7 +375,7 @@ public abstract class GamaViewPart extends ViewPart
 
 	/**
 	 * Needs to be redefined for views that use the left toolbar (so that they maintain their previous state) Method
-	 * stopDisplayingTooltips()
+	 * stopDisplayingTooltips().
 	 *
 	 * @see gama.ui.base.controls.ITooltipDisplayer#stopDisplayingTooltips()
 	 */
@@ -327,12 +385,23 @@ public abstract class GamaViewPart extends ViewPart
 		if (toolbar.hasTooltip()) { toolbar.wipe(SWT.LEFT, false); }
 	}
 
+	/**
+	 * Display tooltip.
+	 *
+	 * @param text the text
+	 * @param color the color
+	 */
 	@Override
 	public void displayTooltip(final String text, final GamaUIColor color) {
 		if (toolbar == null || toolbar.isDisposed()) return;
 		toolbar.tooltip(text, color, SWT.LEFT);
 	}
 
+	/**
+	 * Close.
+	 *
+	 * @param scope the scope
+	 */
 	@Override
 	public void close(final IScope scope) {
 
@@ -346,12 +415,22 @@ public abstract class GamaViewPart extends ViewPart
 
 	}
 
+	/**
+	 * Removes the output.
+	 *
+	 * @param output the output
+	 */
 	@Override
 	public void removeOutput(final IDisplayOutput output) {
 		outputs.remove(output);
 		if (outputs.isEmpty()) { close(output.getScope()); }
 	}
 
+	/**
+	 * Change part name with simulation.
+	 *
+	 * @param agent the agent
+	 */
 	@Override
 	public void changePartNameWithSimulation(final SimulationAgent agent) {
 		final String old = getPartName();
@@ -368,10 +447,14 @@ public abstract class GamaViewPart extends ViewPart
 	/**
 	 * Overlay.
 	 *
-	 * @param str the str
-	 * @param over the over
-	 * @param s the s
-	 * @param e the e
+	 * @param str
+	 *            the str
+	 * @param over
+	 *            the over
+	 * @param s
+	 *            the s
+	 * @param e
+	 *            the e
 	 * @return the string
 	 */
 	// To avoid a dependency towards apache.commons.lang
@@ -395,6 +478,11 @@ public abstract class GamaViewPart extends ViewPart
 				.append(overlay).append(str.substring(end)).toString();
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	@Override
 	public void setName(final String name) {
 		super.setPartName(name);
@@ -406,17 +494,14 @@ public abstract class GamaViewPart extends ViewPart
 	 *
 	 * @return the parent composite
 	 */
-	public Composite getParentComposite() {
-		return parent;
-	}
+	public Composite getParentComposite() { return parent; }
 
 	/**
 	 * Sets the parent composite.
 	 *
-	 * @param parent the new parent composite
+	 * @param parent
+	 *            the new parent composite
 	 */
-	public void setParentComposite(final Composite parent) {
-		this.parent = parent;
-	}
+	public void setParentComposite(final Composite parent) { this.parent = parent; }
 
 }
