@@ -55,7 +55,7 @@ public abstract class GamaViewPart extends ViewPart
 		implements DisposeListener, IGamaView, IToolbarDecoratedView, ITooltipDisplayer {
 
 	static {
-		DEBUG.OFF();
+		DEBUG.ON();
 	}
 
 	/** The outputs. */
@@ -143,7 +143,8 @@ public abstract class GamaViewPart extends ViewPart
 	/**
 	 * Adds the state listener.
 	 *
-	 * @param listener the listener
+	 * @param listener
+	 *            the listener
 	 */
 	@Override
 	public void addStateListener(final StateListener listener) {
@@ -156,13 +157,30 @@ public abstract class GamaViewPart extends ViewPart
 	@Override
 	public void updateToolbarState() {
 		if (toolbarUpdater != null) { toolbarUpdater.updateToReflectState(); }
-		toolbar.visuallyUpdate();
+		if (toolbar != null && toolbar.isVisible()) { toolbar.visuallyUpdate(); }
+	}
+
+	/**
+	 * Show toolbar.
+	 */
+	@Override
+	public void showToolbar() {
+		if (toolbar != null) { toolbar.show(); }
+	}
+
+	/**
+	 * Hide toolbar.
+	 */
+	@Override
+	public void hideToolbar() {
+		if (toolbar != null) { toolbar.hide(); }
 	}
 
 	/**
 	 * Creates the tool items.
 	 *
-	 * @param tb the tb
+	 * @param tb
+	 *            the tb
 	 */
 	@Override
 	public void createToolItems(final GamaToolbar2 tb) {
@@ -172,8 +190,10 @@ public abstract class GamaViewPart extends ViewPart
 	/**
 	 * Inits the.
 	 *
-	 * @param site the site
-	 * @throws PartInitException the part init exception
+	 * @param site
+	 *            the site
+	 * @throws PartInitException
+	 *             the part init exception
 	 */
 	@Override
 	public void init(final IViewSite site) throws PartInitException {
@@ -252,7 +272,8 @@ public abstract class GamaViewPart extends ViewPart
 	/**
 	 * Creates the part control.
 	 *
-	 * @param composite the composite
+	 * @param composite
+	 *            the composite
 	 */
 	@Override
 	public void createPartControl(final Composite composite) {
@@ -302,7 +323,8 @@ public abstract class GamaViewPart extends ViewPart
 	/**
 	 * Update.
 	 *
-	 * @param output the output
+	 * @param output
+	 *            the output
 	 */
 	@Override
 	public void update(final IDisplayOutput output) {
@@ -330,7 +352,8 @@ public abstract class GamaViewPart extends ViewPart
 	/**
 	 * Adds the output.
 	 *
-	 * @param out the out
+	 * @param out
+	 *            the out
 	 */
 	@Override
 	public void addOutput(final IDisplayOutput out) {
@@ -354,7 +377,8 @@ public abstract class GamaViewPart extends ViewPart
 	/**
 	 * Widget disposed.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	@Override
 	public void widgetDisposed(final DisposeEvent e) {
@@ -388,8 +412,10 @@ public abstract class GamaViewPart extends ViewPart
 	/**
 	 * Display tooltip.
 	 *
-	 * @param text the text
-	 * @param color the color
+	 * @param text
+	 *            the text
+	 * @param color
+	 *            the color
 	 */
 	@Override
 	public void displayTooltip(final String text, final GamaUIColor color) {
@@ -400,11 +426,12 @@ public abstract class GamaViewPart extends ViewPart
 	/**
 	 * Close.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 */
 	@Override
 	public void close(final IScope scope) {
-
+		DEBUG.OUT("Closing " + this.getPartName());
 		WorkbenchHelper.asyncRun(() -> {
 			try {
 				WorkbenchHelper.hideView(GamaViewPart.this);
@@ -418,7 +445,8 @@ public abstract class GamaViewPart extends ViewPart
 	/**
 	 * Removes the output.
 	 *
-	 * @param output the output
+	 * @param output
+	 *            the output
 	 */
 	@Override
 	public void removeOutput(final IDisplayOutput output) {
@@ -429,7 +457,8 @@ public abstract class GamaViewPart extends ViewPart
 	/**
 	 * Change part name with simulation.
 	 *
-	 * @param agent the agent
+	 * @param agent
+	 *            the agent
 	 */
 	@Override
 	public void changePartNameWithSimulation(final SimulationAgent agent) {
@@ -481,7 +510,8 @@ public abstract class GamaViewPart extends ViewPart
 	/**
 	 * Sets the name.
 	 *
-	 * @param name the new name
+	 * @param name
+	 *            the new name
 	 */
 	@Override
 	public void setName(final String name) {

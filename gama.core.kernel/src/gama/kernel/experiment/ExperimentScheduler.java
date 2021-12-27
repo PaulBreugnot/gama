@@ -1,18 +1,18 @@
 /*******************************************************************************************************
  *
- * ExperimentScheduler.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ExperimentScheduler.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.kernel.experiment;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.Semaphore;
 
 import gama.common.interfaces.IStepable;
@@ -21,12 +21,37 @@ import gama.runtime.GAMA;
 import gama.runtime.IScope;
 import gama.runtime.concurrent.GamaExecutorService;
 import gama.runtime.exceptions.GamaRuntimeException;
-import gama.util.GamaMapFactory;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ExperimentScheduler.
  */
 public class ExperimentScheduler implements Runnable {
+
+	/**
+	 * The Class Stepped.
+	 */
+	static class Stepped {
+
+		/**
+		 * Instantiates a new stepped.
+		 *
+		 * @param stepable
+		 *            the I scope.
+		 * @param scope
+		 *            the scope.
+		 */
+		public Stepped(final IStepable stepable, final IScope scope) {
+			this.stepable = stepable;
+			this.scope = scope;
+		}
+
+		/** The I scope. */
+		IStepable stepable;
+
+		/** The scope. */
+		IScope scope;
+	}
 
 	/** The alive. */
 	public volatile boolean alive = true;
@@ -34,27 +59,28 @@ public class ExperimentScheduler implements Runnable {
 	/** The paused. */
 	// unless the application is shutting down)
 	public volatile boolean paused = true;
-	
+
 	/** The to step. */
 	/* The stepables that need to be stepped */
-	private final Map<IStepable, IScope> toStep = GamaMapFactory.create();
-	
+	private final Set<Stepped> toStep = new CopyOnWriteArraySet<>();
+
 	/** The to stop. */
 	private volatile Set<IStepable> toStop = new HashSet<>();
-	
+
 	/** The execution thread. */
 	private Thread executionThread;
-	
+
 	/** The lock. */
 	volatile Semaphore lock = new Semaphore(1);
-	
+
 	/** The experiment. */
 	final IExperimentPlan experiment;
 
 	/**
 	 * Instantiates a new experiment scheduler.
 	 *
-	 * @param experiment the experiment
+	 * @param experiment
+	 *            the experiment
 	 */
 	ExperimentScheduler(final IExperimentPlan experiment) {
 		this.experiment = experiment;
@@ -106,8 +132,8 @@ public class ExperimentScheduler implements Runnable {
 		}
 		try {
 			// synchronized (toStep) {
-			toStep.forEach((stepable, scope) -> {
-				if (!scope.step(stepable).passed()) { toStop.add(stepable); }
+			toStep.forEach(s -> {
+				if (!s.scope.step(s.stepable).passed()) { toStop.add(s.stepable); }
 			});
 			// }
 		} catch (RuntimeException e) {
@@ -122,15 +148,24 @@ public class ExperimentScheduler implements Runnable {
 		if (toStop.isEmpty()) return;
 		synchronized (toStop) {
 			for (final IStepable s : toStop) {
-				final IScope scope = toStep.get(s);
-				if (scope != null && !scope.interrupted()) { scope.setInterrupted(); }
-				toStep.remove(s);
+				Stepped found = null;
+				for (final Stepped st : toStep) {
+					if (st.stepable == s) { found = st; }
+				}
+				if (found != null) {
+					IScope scope = found.scope;
+					if (scope != null && !scope.interrupted()) { scope.setInterrupted(); }
+					toStep.remove(found);
+				}
 			}
 			if (toStep.isEmpty()) { this.pause(); }
 			toStop.clear();
 		}
 	}
 
+	/**
+	 * Run.
+	 */
 	@Override
 	public void run() {
 		while (alive) {
@@ -181,12 +216,21 @@ public class ExperimentScheduler implements Runnable {
 	/**
 	 * Schedule.
 	 *
-	 * @param stepable the stepable
-	 * @param scope the scope
+	 * @param stepable
+	 *            the stepable
+	 * @param scope
+	 *            the scope
 	 */
 	public void schedule(final IStepable stepable, final IScope scope) {
-		if (toStep.containsKey(stepable)) { toStep.remove(stepable); }
-		toStep.put(stepable, scope);
+		boolean replaced = false;
+		for (Stepped st : toStep) {
+			if (st.stepable == stepable) {
+				st.scope = scope;
+				replaced = true;
+				break;
+			}
+		}
+		if (!replaced) { toStep.add(new Stepped(stepable, scope)); }
 		// We first init the stepable before it is scheduled
 		// DEBUG.OUT("ExperimentScheduler.schedule " + stepable);
 		try {
@@ -194,10 +238,8 @@ public class ExperimentScheduler implements Runnable {
 		} catch (final Throwable e) {
 			if (scope != null && scope.interrupted()) {
 				toStop.add(stepable);
-			} else {
-				if (!(e instanceof GamaRuntimeException)) {
-					GAMA.reportError(scope, GamaRuntimeException.create(e, scope), true);
-				}
+			} else if (!(e instanceof GamaRuntimeException)) {
+				GAMA.reportError(scope, GamaRuntimeException.create(e, scope), true);
 			}
 		}
 

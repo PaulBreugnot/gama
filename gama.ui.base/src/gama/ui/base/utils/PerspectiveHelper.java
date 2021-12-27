@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * PerspectiveHelper.java, in gama.ui.base, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * PerspectiveHelper.java, in gama.ui.base, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.base.utils;
 
@@ -38,6 +38,7 @@ import gama.common.ui.IGui;
 import gama.core.dev.utils.DEBUG;
 import gama.kernel.model.IModel;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class PerspectiveHelper.
  */
@@ -53,26 +54,27 @@ public class PerspectiveHelper {
 
 	/** The Constant PERSPECTIVE_MODELING_ID. */
 	public static final String PERSPECTIVE_MODELING_ID = IGui.PERSPECTIVE_MODELING_ID;
-	
+
 	/** The Constant PERSPECTIVE_SIMULATION_ID. */
 	public static final String PERSPECTIVE_SIMULATION_ID = "gama.perspective.simulation";
-	
+
 	/** The Constant PERSPECTIVE_SIMULATION_FRAGMENT. */
 	public static final String PERSPECTIVE_SIMULATION_FRAGMENT = "Simulation";
 
 	/** The current perspective id. */
 	public static String currentPerspectiveId = PERSPECTIVE_MODELING_ID;
-	
+
 	/** The current simulation perspective. */
 	public static IPerspectiveDescriptor currentSimulationPerspective = null;
-	
+
 	/** The active editor. */
 	public static IEditorInput activeEditor;
 
 	/**
 	 * Matches.
 	 *
-	 * @param id the id
+	 * @param id
+	 *            the id
 	 * @return true, if successful
 	 */
 	static boolean matches(final String id) {
@@ -107,7 +109,8 @@ public class PerspectiveHelper {
 	/**
 	 * Delete perspective from application.
 	 *
-	 * @param d the d
+	 * @param d
+	 *            the d
 	 */
 	public static void deletePerspectiveFromApplication(final IPerspectiveDescriptor d) {
 		final MApplication a = PlatformUI.getWorkbench().getService(MApplication.class);
@@ -134,23 +137,20 @@ public class PerspectiveHelper {
 	 *
 	 * @return true, if is modeling perspective
 	 */
-	public static boolean isModelingPerspective() {
-		return PERSPECTIVE_MODELING_ID.equals(currentPerspectiveId);
-	}
+	public static boolean isModelingPerspective() { return PERSPECTIVE_MODELING_ID.equals(currentPerspectiveId); }
 
 	/**
 	 * Checks if is simulation perspective.
 	 *
 	 * @return true, if is simulation perspective
 	 */
-	public static boolean isSimulationPerspective() {
-		return isSimulationPerspective(currentPerspectiveId);
-	}
+	public static boolean isSimulationPerspective() { return isSimulationPerspective(currentPerspectiveId); }
 
 	/**
 	 * Checks if is simulation perspective.
 	 *
-	 * @param perspectiveId the perspective id
+	 * @param perspectiveId
+	 *            the perspective id
 	 * @return true, if is simulation perspective
 	 */
 	private static boolean isSimulationPerspective(final String perspectiveId) {
@@ -160,8 +160,10 @@ public class PerspectiveHelper {
 	/**
 	 * Open modeling perspective.
 	 *
-	 * @param immediately the immediately
-	 * @param memorizeEditors the memorize editors
+	 * @param immediately
+	 *            the immediately
+	 * @param memorizeEditors
+	 *            the memorize editors
 	 * @return true, if successful
 	 */
 	public static final boolean openModelingPerspective(final boolean immediately, final boolean memorizeEditors) {
@@ -172,7 +174,8 @@ public class PerspectiveHelper {
 	/**
 	 * Gets the trim status.
 	 *
-	 * @param window the window
+	 * @param window
+	 *            the window
 	 * @return the trim status
 	 */
 	/* Get the MUIElement representing the status bar for the given window */
@@ -185,8 +188,10 @@ public class PerspectiveHelper {
 	/**
 	 * Show bottom tray.
 	 *
-	 * @param window the window
-	 * @param show the show
+	 * @param window
+	 *            the window
+	 * @param show
+	 *            the show
 	 */
 	public static void showBottomTray(final WorkbenchWindow window, final Boolean show) {
 
@@ -215,15 +220,18 @@ public class PerspectiveHelper {
 		final IWorkbenchPage page = activePage;
 		final WorkbenchWindow window = (WorkbenchWindow) page.getWorkbenchWindow();
 		if (page.getPerspective().equals(currentSimulationPerspective)) return true;
-		Display.getDefault().syncExec(() -> {
+		Display.getDefault().asyncExec(() -> {
 			memorizeActiveEditor(page);
 			try {
+				DEBUG.OUT("Switching to " + currentSimulationPerspective.getId());
 				page.setPerspective(currentSimulationPerspective);
 			} catch (final NullPointerException e) {
 				// DEBUG.ERR(
 				// "NPE in WorkbenchPage.setPerspective(). See Issue #1602.
 				// Working around the bug in e4...");
 				page.setPerspective(currentSimulationPerspective);
+			} catch (final Exception e) {
+				DEBUG.OUT("Error in setPerspective():" + e.getMessage());
 			}
 			final Boolean showControls = keepControls();
 			if (showControls != null) { window.setCoolBarVisible(showControls); }
@@ -238,8 +246,10 @@ public class PerspectiveHelper {
 	/**
 	 * Open simulation perspective.
 	 *
-	 * @param model the model
-	 * @param experimentName the experiment name
+	 * @param model
+	 *            the model
+	 * @param experimentName
+	 *            the experiment name
 	 * @return true, if successful
 	 */
 	public static final boolean openSimulationPerspective(final IModel model, final String experimentName) {
@@ -260,7 +270,8 @@ public class PerspectiveHelper {
 	/**
 	 * Find or build perspective with id.
 	 *
-	 * @param id the id
+	 * @param id
+	 *            the id
 	 * @return the i perspective descriptor
 	 */
 	private static IPerspectiveDescriptor findOrBuildPerspectiveWithId(final String id) {
@@ -279,7 +290,8 @@ public class PerspectiveHelper {
 	/**
 	 * Dirty save perspective.
 	 *
-	 * @param sp the sp
+	 * @param sp
+	 *            the sp
 	 */
 	@SuppressWarnings ({ "rawtypes", "unchecked" })
 	static void dirtySavePerspective(final SimulationPerspectiveDescriptor sp) {
@@ -296,10 +308,14 @@ public class PerspectiveHelper {
 	/**
 	 * Open perspective.
 	 *
-	 * @param perspectiveId the perspective id
-	 * @param immediately the immediately
-	 * @param withAutoSave the with auto save
-	 * @param memorizeEditors the memorize editors
+	 * @param perspectiveId
+	 *            the perspective id
+	 * @param immediately
+	 *            the immediately
+	 * @param withAutoSave
+	 *            the with auto save
+	 * @param memorizeEditors
+	 *            the memorize editors
 	 * @return true, if successful
 	 */
 	public static boolean openPerspective(final String perspectiveId, final boolean immediately,
@@ -369,7 +385,8 @@ public class PerspectiveHelper {
 	/**
 	 * Apply active editor.
 	 *
-	 * @param page the page
+	 * @param page
+	 *            the page
 	 */
 	private static void applyActiveEditor(final IWorkbenchPage page) {
 		if (activeEditor == null) return;
@@ -386,7 +403,8 @@ public class PerspectiveHelper {
 	/**
 	 * Memorize active editor.
 	 *
-	 * @param page the page
+	 * @param page
+	 *            the page
 	 */
 	private static void memorizeActiveEditor(final IWorkbenchPage page) {
 		// DEBUG.OUT("Trying to memorize editor in " + page.getPerspective().getId());
@@ -400,7 +418,8 @@ public class PerspectiveHelper {
 	/**
 	 * Activate auto save.
 	 *
-	 * @param activate the activate
+	 * @param activate
+	 *            the activate
 	 */
 	public static void activateAutoSave(final boolean activate) {
 		// DEBUG.OUT("auto-save activated: " + activate);
@@ -483,12 +502,18 @@ public class PerspectiveHelper {
 		/**
 		 * Instantiates a new simulation perspective factory.
 		 *
-		 * @param original the original
+		 * @param original
+		 *            the original
 		 */
 		SimulationPerspectiveFactory(final IPerspectiveFactory original) {
 			this.original = original;
 		}
 
+		/**
+		 * Creates a new SimulationPerspective object.
+		 *
+		 * @param layout the layout
+		 */
 		@Override
 		public void createInitialLayout(final IPageLayout layout) {
 			original.createInitialLayout(layout);
@@ -504,26 +529,32 @@ public class PerspectiveHelper {
 
 		/** The keep tabs. */
 		Boolean keepTabs = true;
-		
+
 		/** The keep toolbars. */
 		Boolean keepToolbars = null;
-		
+
 		/** The keep controls. */
 		Boolean keepControls = true;
-		
+
 		/** The keep tray. */
 		Boolean keepTray = true;
 
 		/**
 		 * Instantiates a new simulation perspective descriptor.
 		 *
-		 * @param id the id
+		 * @param id
+		 *            the id
 		 */
 		SimulationPerspectiveDescriptor(final String id) {
 			super(id, id, getSimulationDescriptor());
 			dirtySavePerspective(this);
 		}
 
+		/**
+		 * Creates the factory.
+		 *
+		 * @return the i perspective factory
+		 */
 		@Override
 		public IPerspectiveFactory createFactory() {
 
@@ -536,35 +567,55 @@ public class PerspectiveHelper {
 			}
 		}
 
+		/**
+		 * Checks for custom definition.
+		 *
+		 * @return true, if successful
+		 */
 		@Override
 		public boolean hasCustomDefinition() {
 			return true;
 		}
 
+		/**
+		 * Checks if is predefined.
+		 *
+		 * @return true, if is predefined
+		 */
 		@Override
-		public boolean isPredefined() {
-			return false;
-		}
+		public boolean isPredefined() { return false; }
 
+		/**
+		 * Gets the config element.
+		 *
+		 * @return the config element
+		 */
 		@Override
-		public IConfigurationElement getConfigElement() {
-			return getSimulationDescriptor().getConfigElement();
-		}
+		public IConfigurationElement getConfigElement() { return getSimulationDescriptor().getConfigElement(); }
 
+		/**
+		 * Gets the description.
+		 *
+		 * @return the description
+		 */
 		@Override
-		public String getDescription() {
-			return "Perspective for " + getId();
-		}
+		public String getDescription() { return "Perspective for " + getId(); }
 
+		/**
+		 * Gets the original id.
+		 *
+		 * @return the original id
+		 */
 		@Override
-		public String getOriginalId() {
-			return getId();
-		}
+		public String getOriginalId() { return getId(); }
 
+		/**
+		 * Gets the plugin id.
+		 *
+		 * @return the plugin id
+		 */
 		@Override
-		public String getPluginId() {
-			return getSimulationDescriptor().getPluginId();
-		}
+		public String getPluginId() { return getSimulationDescriptor().getPluginId(); }
 
 		/**
 		 * Keep tabs.
@@ -578,7 +629,8 @@ public class PerspectiveHelper {
 		/**
 		 * Keep tabs.
 		 *
-		 * @param b the b
+		 * @param b
+		 *            the b
 		 */
 		public void keepTabs(final Boolean b) {
 			keepTabs = b;
@@ -596,7 +648,8 @@ public class PerspectiveHelper {
 		/**
 		 * Keep toolbars.
 		 *
-		 * @param b the b
+		 * @param b
+		 *            the b
 		 */
 		public void keepToolbars(final Boolean b) {
 			keepToolbars = b;
@@ -605,7 +658,8 @@ public class PerspectiveHelper {
 		/**
 		 * Keep controls.
 		 *
-		 * @param b the b
+		 * @param b
+		 *            the b
 		 */
 		public void keepControls(final Boolean b) {
 			keepControls = b;
@@ -623,7 +677,8 @@ public class PerspectiveHelper {
 		/**
 		 * Keep tray.
 		 *
-		 * @param b the b
+		 * @param b
+		 *            the b
 		 */
 		public void keepTray(final Boolean b) {
 			keepTray = b;
@@ -643,8 +698,10 @@ public class PerspectiveHelper {
 	/**
 	 * Gets the new perspective name.
 	 *
-	 * @param model the model
-	 * @param experiment the experiment
+	 * @param model
+	 *            the model
+	 * @param experiment
+	 *            the experiment
 	 * @return the new perspective name
 	 */
 	public static String getNewPerspectiveName(final String model, final String experiment) {

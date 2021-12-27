@@ -41,6 +41,7 @@ import gama.util.tree.GamaNode;
 import gama.util.tree.GamaTree;
 import one.util.streamex.StreamEx;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ArrangeDisplayViews.
  */
@@ -57,11 +58,18 @@ public class ArrangeDisplayViews extends AbstractHandler {
 	/** The Constant DISPLAY_INDEX_KEY. */
 	static final String DISPLAY_INDEX_KEY = "GamaIndex";
 
+	/**
+	 * Execute.
+	 *
+	 * @param e
+	 *            the e
+	 * @return the object
+	 */
 	@Override
 	public Object execute(final ExecutionEvent e) {
 		final String layout = e.getParameter(LAYOUT_KEY);
 		final int orientation = GamaPreferences.Displays.LAYOUTS.indexOf(layout);
-		execute(orientation);
+		executeInteger(orientation);
 		return true;
 	}
 
@@ -75,7 +83,7 @@ public class ArrangeDisplayViews extends AbstractHandler {
 	public static void execute(final Object layout) {
 		listDisplayViews();
 		if (layout instanceof Integer) {
-			execute((Integer) layout);
+			executeInteger((Integer) layout);
 		} else if (layout instanceof GamaTree) {
 			execute((GamaTree<String>) layout);
 		} else if (layout instanceof GamaNode) {
@@ -91,7 +99,7 @@ public class ArrangeDisplayViews extends AbstractHandler {
 	 * @param layout
 	 *            the layout
 	 */
-	public static void execute(final Integer layout) {
+	public static void executeInteger(final Integer layout) {
 		execute(new LayoutTreeConverter().convert(layout));
 	}
 
@@ -100,27 +108,21 @@ public class ArrangeDisplayViews extends AbstractHandler {
 	 *
 	 * @return the part service
 	 */
-	private static EPartService getPartService() {
-		return WorkbenchHelper.getService(EPartService.class);
-	}
+	private static EPartService getPartService() { return WorkbenchHelper.getService(EPartService.class); }
 
 	/**
 	 * Gets the application.
 	 *
 	 * @return the application
 	 */
-	private static MApplication getApplication() {
-		return WorkbenchHelper.getService(MApplication.class);
-	}
+	private static MApplication getApplication() { return WorkbenchHelper.getService(MApplication.class); }
 
 	/**
 	 * Gets the model service.
 	 *
 	 * @return the model service
 	 */
-	private static EModelService getModelService() {
-		return WorkbenchHelper.getService(EModelService.class);
-	}
+	private static EModelService getModelService() { return WorkbenchHelper.getService(EModelService.class); }
 
 	/**
 	 * Execute.
@@ -245,17 +247,6 @@ public class ArrangeDisplayViews extends AbstractHandler {
 	}
 
 	/**
-	 * Checks if is part of layout.
-	 *
-	 * @param e
-	 *            the e
-	 * @return true, if is part of layout
-	 */
-	static boolean isPartOfLayout(final MUIElement e) {
-		return e.getTransientData().containsKey(LAYOUT);
-	}
-
-	/**
 	 * Process.
 	 *
 	 * @param uiRoot
@@ -297,7 +288,8 @@ public class ArrangeDisplayViews extends AbstractHandler {
 		for (final MPlaceholder h : holders) {
 			final IGamaView.Display display = findDisplay(h.getElementId());
 			if (display != null) {
-				display.setIndex(currentIndex++);
+				display.setIndex(currentIndex);
+				currentIndex++;
 				h.getTransientData().put(DISPLAY_INDEX_KEY, String.valueOf(currentIndex - 1));
 			}
 		}
@@ -317,7 +309,7 @@ public class ArrangeDisplayViews extends AbstractHandler {
 	 * @return the m element container
 	 */
 	static MElementContainer create(final MElementContainer root, final String weight, final Boolean dir) {
-		if (dir == null && root instanceof MPartStack && isPartOfLayout(root)) return root;
+		if (dir == null && root instanceof MPartStack && root.getTransientData().containsKey(LAYOUT)) return root;
 		if (dir == null && (root instanceof MPartStack || !PerspectiveHelper.keepTabs())) return root;
 		final MElementContainer c = dir != null ? INSTANCE.createPartSashContainer() : INSTANCE.createPartStack();
 		c.getTransientData().put("Dynamic", true);

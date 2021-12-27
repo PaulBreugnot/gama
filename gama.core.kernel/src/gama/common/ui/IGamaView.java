@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * IGamaView.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * IGamaView.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.common.ui;
 
@@ -23,6 +23,7 @@ import gama.util.GamaColor;
 import gaml.architecture.user.UserPanelStatement;
 import gaml.statements.test.CompoundSummary;
 
+// TODO: Auto-generated Javadoc
 /**
  * An abstract representation of the 'views', in a UI sense, that are used to display outputs or present information to
  * the user. A view can display one or several outputs (for instance, several monitors)
@@ -32,23 +33,36 @@ import gaml.statements.test.CompoundSummary;
 public interface IGamaView {
 
 	/**
+	 * Hide toolbar.
+	 */
+	void hideToolbar();
+
+	/**
+	 * Show toolbar.
+	 */
+	void showToolbar();
+
+	/**
 	 * Update.
 	 *
-	 * @param output the output
+	 * @param output
+	 *            the output
 	 */
 	void update(IDisplayOutput output);
 
 	/**
 	 * Adds the output.
 	 *
-	 * @param output the output
+	 * @param output
+	 *            the output
 	 */
 	void addOutput(IDisplayOutput output);
 
 	/**
 	 * Removes the output.
 	 *
-	 * @param putput the putput
+	 * @param putput
+	 *            the putput
 	 */
 	void removeOutput(IDisplayOutput putput);
 
@@ -62,14 +76,16 @@ public interface IGamaView {
 	/**
 	 * Close.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 */
 	void close(IScope scope);
 
 	/**
 	 * Change part name with simulation.
 	 *
-	 * @param agent the agent
+	 * @param agent
+	 *            the agent
 	 */
 	void changePartNameWithSimulation(SimulationAgent agent);
 
@@ -88,7 +104,8 @@ public interface IGamaView {
 	/**
 	 * Sets the name.
 	 *
-	 * @param name the new name
+	 * @param name
+	 *            the new name
 	 */
 	void setName(String name);
 
@@ -101,26 +118,30 @@ public interface IGamaView {
 	 * The Interface Test.
 	 */
 	public interface Test {
-		
+
 		/**
 		 * Adds the test result.
 		 *
-		 * @param summary the summary
+		 * @param summary
+		 *            the summary
 		 */
 		void addTestResult(final CompoundSummary<?, ?> summary);
 
 		/**
 		 * Start new test sequence.
 		 *
-		 * @param all the all
+		 * @param all
+		 *            the all
 		 */
 		void startNewTestSequence(boolean all);
 
 		/**
 		 * Display progress.
 		 *
-		 * @param number the number
-		 * @param total the total
+		 * @param number
+		 *            the number
+		 * @param total
+		 *            the total
 		 */
 		void displayProgress(int number, int total);
 
@@ -139,8 +160,10 @@ public interface IGamaView {
 		/**
 		 * Contains point.
 		 *
-		 * @param x the x
-		 * @param y the y
+		 * @param x
+		 *            the x
+		 * @param y
+		 *            the y
 		 * @return true, if successful
 		 */
 		boolean containsPoint(int x, int y);
@@ -185,16 +208,6 @@ public interface IGamaView {
 		void hideOverlay();
 
 		/**
-		 * Hide toolbar.
-		 */
-		void hideToolbar();
-
-		/**
-		 * Show toolbar.
-		 */
-		void showToolbar();
-
-		/**
 		 * Gets the output.
 		 *
 		 * @return the output
@@ -212,7 +225,8 @@ public interface IGamaView {
 		/**
 		 * Sets the index.
 		 *
-		 * @param i the new index
+		 * @param i
+		 *            the new index
 		 */
 		void setIndex(int i);
 
@@ -221,9 +235,7 @@ public interface IGamaView {
 		 *
 		 * @return the camera names
 		 */
-		default List<String> getCameraNames() {
-			return Collections.EMPTY_LIST;
-		}
+		default List<String> getCameraNames() { return Collections.EMPTY_LIST; }
 
 		/**
 		 * Take snapshot.
@@ -247,11 +259,12 @@ public interface IGamaView {
 	 * The Interface Html.
 	 */
 	public interface Html {
-		
+
 		/**
 		 * Sets the url.
 		 *
-		 * @param url the new url
+		 * @param url
+		 *            the new url
 		 */
 		void setUrl(String url);
 	}
@@ -260,11 +273,12 @@ public interface IGamaView {
 	 * The Interface Parameters.
 	 */
 	public interface Parameters {
-		
+
 		/**
 		 * Adds the item.
 		 *
-		 * @param exp the exp
+		 * @param exp
+		 *            the exp
 		 */
 		void addItem(IExperimentPlan exp);
 
@@ -282,9 +296,12 @@ public interface IGamaView {
 		/**
 		 * Append.
 		 *
-		 * @param msg the msg
-		 * @param root the root
-		 * @param color the color
+		 * @param msg
+		 *            the msg
+		 * @param root
+		 *            the root
+		 * @param color
+		 *            the color
 		 */
 		void append(String msg, ITopLevelAgent root, GamaColor color);
 
@@ -294,12 +311,14 @@ public interface IGamaView {
 	 * The Interface User.
 	 */
 	public interface User {
-		
+
 		/**
 		 * Inits the for.
 		 *
-		 * @param scope the scope
-		 * @param panel the panel
+		 * @param scope
+		 *            the scope
+		 * @param panel
+		 *            the panel
 		 */
 		void initFor(final IScope scope, final UserPanelStatement panel);
 	}

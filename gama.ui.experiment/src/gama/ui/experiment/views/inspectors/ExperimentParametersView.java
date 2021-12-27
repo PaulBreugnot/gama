@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ExperimentParametersView.java, in gama.ui.experiment, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ExperimentParametersView.java, in gama.ui.experiment, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.experiment.views.inspectors;
 
@@ -33,13 +33,14 @@ import gama.kernel.simulation.SimulationAgent;
 import gama.runtime.GAMA;
 import gama.ui.base.resources.GamaIcons;
 import gama.ui.base.resources.IGamaIcons;
+import gama.ui.base.toolbar.GamaToolbar2;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.experiment.commands.ArrangeDisplayViews;
 import gama.ui.experiment.parameters.EditorsList;
 import gama.ui.experiment.parameters.ExperimentsParametersList;
 import gaml.operators.IUnits;
-import gama.ui.base.toolbar.GamaToolbar2;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ExperimentParametersView.
  */
@@ -47,13 +48,18 @@ public class ExperimentParametersView extends AttributesEditorsView<String> impl
 
 	/** The Constant ID. */
 	public static final String ID = IGui.PARAMETER_VIEW_ID;
-	
+
 	/** The Constant REVERT. */
 	public final static int REVERT = 0;
-	
+
 	/** The experiment. */
 	private IExperimentPlan experiment;
 
+	/**
+	 * Own create part control.
+	 *
+	 * @param view the view
+	 */
 	@Override
 	public void ownCreatePartControl(final Composite view) {
 		final Composite intermediate = new Composite(view, SWT.NONE);
@@ -68,6 +74,11 @@ public class ExperimentParametersView extends AttributesEditorsView<String> impl
 		setParentComposite(intermediate);
 	}
 
+	/**
+	 * Adds the item.
+	 *
+	 * @param exp the exp
+	 */
 	@Override
 	public void addItem(final IExperimentPlan exp) {
 		if (exp != null) {
@@ -88,6 +99,11 @@ public class ExperimentParametersView extends AttributesEditorsView<String> impl
 		}
 	}
 
+	/**
+	 * Creates the tool items.
+	 *
+	 * @param tb the tb
+	 */
 	@Override
 	public void createToolItems(final GamaToolbar2 tb) {
 		super.createToolItems(tb);
@@ -103,15 +119,21 @@ public class ExperimentParametersView extends AttributesEditorsView<String> impl
 					if (sim == null) return;
 					WorkbenchHelper.runInUI("", 0, m -> {
 						if ("None".equals(CORE_DISPLAY_LAYOUT.getValue())) {
-							ArrangeDisplayViews.execute(IUnits.split);
+							ArrangeDisplayViews.executeInteger(IUnits.split);
 						} else {
-							ArrangeDisplayViews.execute(LAYOUTS.indexOf(CORE_DISPLAY_LAYOUT.getValue()));
+							ArrangeDisplayViews.executeInteger(LAYOUTS.indexOf(CORE_DISPLAY_LAYOUT.getValue()));
 						}
 					});
 				}, SWT.RIGHT);
 
 	}
 
+	/**
+	 * Adds the item.
+	 *
+	 * @param object the object
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean addItem(final String object) {
 		createItem(getParentComposite(), object, GamaPreferences.Runtime.CORE_EXPAND_PARAMS.getValue(), null);
@@ -123,28 +145,43 @@ public class ExperimentParametersView extends AttributesEditorsView<String> impl
 	 *
 	 * @return the experiment
 	 */
-	public IExperimentPlan getExperiment() {
-		return experiment;
-	}
+	public IExperimentPlan getExperiment() { return experiment; }
 
+	/**
+	 * Stop displaying tooltips.
+	 */
 	@Override
 	public void stopDisplayingTooltips() {
 		toolbar.wipe(SWT.LEFT, true);
 	}
 
+	/**
+	 * Creates the update job.
+	 *
+	 * @return the gama UI job
+	 */
 	@Override
 	protected GamaUIJob createUpdateJob() {
 		return null;
 	}
 
+	/**
+	 * Needs output.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	protected boolean needsOutput() {
 		return false;
 	}
 
 	/**
-	 * Method handleMenu()
+	 * Method handleMenu().
 	 *
+	 * @param data the data
+	 * @param x the x
+	 * @param y the y
+	 * @return the map
 	 * @see gama.common.interfaces.ItemList#handleMenu(java.lang.Object, int, int)
 	 */
 	@Override

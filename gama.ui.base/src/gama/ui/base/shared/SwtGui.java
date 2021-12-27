@@ -98,7 +98,7 @@ import one.util.streamex.StreamEx;
 public class SwtGui implements IGui {
 
 	static {
-		DEBUG.OFF();
+		DEBUG.ON();
 	}
 
 	/** The instance. */
@@ -862,10 +862,7 @@ public class SwtGui implements IGui {
 
 			for (final IViewReference view : views) {
 				final IViewPart part = view.getView(false);
-				if (part instanceof IGamaView) {
-					DEBUG.OUT("Closing " + view.getId());
-					((IGamaView) part).close(scope);
-				}
+				if (part instanceof IGamaView) { ((IGamaView) part).close(scope); }
 			}
 			if (openModelingPerspective) {
 				DEBUG.OUT("Deleting simulation perspective and opening immediately the modeling perspective = "
@@ -904,7 +901,7 @@ public class SwtGui implements IGui {
 	 */
 	@Override
 	public void updateExperimentState(final IScope scope, final String forcedState) {
-		// DEBUG.OUT("STATE: " + forcedState);
+		DEBUG.OUT("STATE: " + forcedState);
 		final ISourceProviderService service = WorkbenchHelper.getService(ISourceProviderService.class);
 		final ISimulationStateProvider stateProvider =
 				(ISimulationStateProvider) service.getSourceProvider(ISimulationStateProvider.SIMULATION_RUNNING_STATE);

@@ -288,7 +288,7 @@ public class LayeredDisplayData {
 
 	/** The z far. */
 	private double zFar = -1.0;
-	
+
 	/** Overlay. */
 
 	// private boolean isDisplayingScale = GamaPreferences.Displays.CORE_SCALE.getValue();
@@ -310,6 +310,7 @@ public class LayeredDisplayData {
 	 */
 	public void dispose() {
 		GamaPreferences.Displays.CORE_HIGHLIGHT.removeChangeListener(highlightListener);
+		listeners.clear();
 	}
 
 	/**
@@ -322,7 +323,8 @@ public class LayeredDisplayData {
 	/**
 	 * Sets the background color.
 	 *
-	 * @param backgroundColor            the backgroundColor to set
+	 * @param backgroundColor
+	 *            the backgroundColor to set
 	 */
 	public void setBackgroundColor(final GamaColor backgroundColor) {
 		this.backgroundColor = backgroundColor;
@@ -339,7 +341,8 @@ public class LayeredDisplayData {
 	/**
 	 * Sets the autosave.
 	 *
-	 * @param autosave            the autosave to set
+	 * @param autosave
+	 *            the autosave to set
 	 */
 	public void setAutosave(final boolean autosave) { this.isAutosaving = autosave; }
 
@@ -383,7 +386,8 @@ public class LayeredDisplayData {
 	/**
 	 * Sets the ortho.
 	 *
-	 * @param ortho            the ortho to set
+	 * @param ortho
+	 *            the ortho to set
 	 */
 	public void setOrtho(final boolean ortho) { this.ortho = ortho; }
 
@@ -412,7 +416,8 @@ public class LayeredDisplayData {
 	/**
 	 * Sets the showfps.
 	 *
-	 * @param showfps            the showfps to set
+	 * @param showfps
+	 *            the showfps to set
 	 */
 	public void setShowfps(final boolean showfps) { this.isShowingFPS = showfps; }
 
@@ -444,7 +449,8 @@ public class LayeredDisplayData {
 	/**
 	 * Sets the draw env.
 	 *
-	 * @param drawEnv            the drawEnv to set
+	 * @param drawEnv
+	 *            the drawEnv to set
 	 */
 	public void setDrawEnv(final boolean drawEnv) { this.isDrawingEnvironment = drawEnv; }
 
@@ -458,7 +464,8 @@ public class LayeredDisplayData {
 	/**
 	 * Sets the light on.
 	 *
-	 * @param isLightOn            the isLightOn to set
+	 * @param isLightOn
+	 *            the isLightOn to set
 	 */
 	public void setLightOn(final boolean isLightOn) { this.isLightOn = isLightOn; }
 
@@ -624,7 +631,8 @@ public class LayeredDisplayData {
 	/**
 	 * Sets the ambient light color.
 	 *
-	 * @param ambientLightColor            the ambientLightColor to set
+	 * @param ambientLightColor
+	 *            the ambientLightColor to set
 	 */
 	public void setAmbientLightColor(final GamaColor ambientLightColor) { this.ambientColor = ambientLightColor; }
 
@@ -659,7 +667,8 @@ public class LayeredDisplayData {
 	/**
 	 * Sets the camera pos.
 	 *
-	 * @param point the new camera pos
+	 * @param point
+	 *            the new camera pos
 	 */
 	public void setCameraPos(final GamaPoint point) {
 		if (point == null) return;
@@ -684,7 +693,8 @@ public class LayeredDisplayData {
 	/**
 	 * Sets the camera look pos.
 	 *
-	 * @param point the new camera look pos
+	 * @param point
+	 *            the new camera look pos
 	 */
 	public void setCameraLookPos(final GamaPoint point) {
 		if (point == null) return;
@@ -709,7 +719,8 @@ public class LayeredDisplayData {
 	/**
 	 * Sets the camera orientation.
 	 *
-	 * @param point the new camera orientation
+	 * @param point
+	 *            the new camera orientation
 	 */
 	public void setCameraOrientation(final GamaPoint point) {
 		if (point == null) return;
@@ -735,7 +746,8 @@ public class LayeredDisplayData {
 	/**
 	 * Sets the camera lens.
 	 *
-	 * @param cameraLens            the cameraLens to set
+	 * @param cameraLens
+	 *            the cameraLens to set
 	 */
 	public void setCameraLens(final int cameraLens) {
 		if (this.cameraLens != cameraLens) { this.cameraLens = cameraLens; }
@@ -751,7 +763,8 @@ public class LayeredDisplayData {
 	/**
 	 * Sets the display type.
 	 *
-	 * @param displayType            the displayType to set
+	 * @param displayType
+	 *            the displayType to set
 	 */
 	public void setDisplayType(final String displayType) {
 		this.displayType = displayType;
@@ -769,7 +782,8 @@ public class LayeredDisplayData {
 	/**
 	 * Sets the image dimension.
 	 *
-	 * @param imageDimension            the imageDimension to set
+	 * @param imageDimension
+	 *            the imageDimension to set
 	 */
 	public void setImageDimension(final GamaPoint imageDimension) { this.imageDimension = imageDimension; }
 
@@ -783,7 +797,8 @@ public class LayeredDisplayData {
 	/**
 	 * Sets the env width.
 	 *
-	 * @param envWidth            the envWidth to set
+	 * @param envWidth
+	 *            the envWidth to set
 	 */
 	public void setEnvWidth(final double envWidth) { this.envWidth = envWidth; }
 
@@ -797,7 +812,8 @@ public class LayeredDisplayData {
 	/**
 	 * Sets the env height.
 	 *
-	 * @param envHeight            the envHeight to set
+	 * @param envHeight
+	 *            the envHeight to set
 	 */
 	public void setEnvHeight(final double envHeight) { this.envHeight = envHeight; }
 
@@ -982,9 +998,12 @@ public class LayeredDisplayData {
 	/**
 	 * Sets the zoom level.
 	 *
-	 * @param zoomLevel            the zoomLevel to set
-	 * @param notify the notify
-	 * @param force the force
+	 * @param zoomLevel
+	 *            the zoomLevel to set
+	 * @param notify
+	 *            the notify
+	 * @param force
+	 *            the force
 	 */
 	public void setZoomLevel(final Double zoomLevel, final boolean notify, final boolean force) {
 		if (this.zoomLevel != null && this.zoomLevel.equals(zoomLevel)) return;
