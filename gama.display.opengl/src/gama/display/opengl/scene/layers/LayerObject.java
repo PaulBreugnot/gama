@@ -182,7 +182,7 @@ public class LayerObject {
 	 *
 	 * @return true, if is pickable
 	 */
-	protected boolean isPickable() { return layer == null ? false : layer.getData().isSelectable(); }
+	protected boolean isPickable() { return layer != null && layer.getData().isSelectable(); }
 
 	/**
 	 * Draw.
@@ -224,10 +224,10 @@ public class LayerObject {
 		if (picking) {
 			if (isPickable()) {
 				gl.runWithNames(() -> drawAllObjects(gl, true));
-			} else if (renderer.getPickingHelper().hasPicked()) {
-				// A pickable object from another layer has been picked
-				drawAllObjects(gl, false);
-			} else {
+				// } else if (renderer.getPickingHelper().hasPicked()) {
+				// // A pickable object from another layer has been picked
+				// drawAllObjects(gl, false);
+				// } else {
 				// We do not draw the layer during the picking process
 			}
 		} else if (isAnimated) {

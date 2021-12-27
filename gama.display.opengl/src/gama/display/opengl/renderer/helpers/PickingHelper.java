@@ -120,14 +120,14 @@ public class PickingHelper extends AbstractRendererHelper {
 	 */
 	public boolean isBeginningPicking() { return isPicking && pickedIndex == NONE; }
 
-	/**
-	 * Checks for picked.
-	 *
-	 * @return true, if successful
-	 */
-	public boolean hasPicked() {
-		return isPicking && pickedIndex != NONE;
-	}
+	// /**
+	// * Checks for picked.
+	// *
+	// * @return true, if successful
+	// */
+	// public boolean hasPicked() {
+	// return isPicking && pickedIndex != NONE;
+	// }
 
 	/**
 	 * Checks if is menu on.
