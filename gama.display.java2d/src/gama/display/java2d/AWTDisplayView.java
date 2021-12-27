@@ -14,7 +14,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
 import gama.display.java2d.swing.SwingControl;
-import gama.ui.base.views.WorkaroundForIssue1353;
 import gama.ui.experiment.views.displays.LayeredDisplayView;
 
 // TODO: Auto-generated Javadoc
@@ -26,7 +25,8 @@ public class AWTDisplayView extends LayeredDisplayView {
 	/**
 	 * Creates the surface composite.
 	 *
-	 * @param parent the parent
+	 * @param parent
+	 *            the parent
 	 * @return the composite
 	 */
 	@Override
@@ -45,7 +45,7 @@ public class AWTDisplayView extends LayeredDisplayView {
 		surfaceComposite.setEnabled(false);
 		WorkaroundForIssue1594.installOn(this, parent, surfaceComposite, (Java2DDisplaySurface) getDisplaySurface());
 		// WorkaroundForIssue2745.installOn(this);
-		WorkaroundForIssue1353.install();
+		// WorkaroundForIssue1353.install();
 		return surfaceComposite;
 	}
 

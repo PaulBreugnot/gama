@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * WorkaroundForIssue2476.java, in gama.display.java2d, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * WorkaroundForIssue2476.java, in gama.display.java2d, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.display.java2d;
 
@@ -19,6 +19,7 @@ import gama.common.ui.IDisplaySurface;
 import gama.core.dev.utils.DEBUG;
 import gama.runtime.GAMA;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class WorkaroundForIssue2476.
  */
@@ -31,9 +32,12 @@ public class WorkaroundForIssue2476 {
 	/**
 	 * Sets the mouse position.
 	 *
-	 * @param surface the surface
-	 * @param x the x
-	 * @param y the y
+	 * @param surface
+	 *            the surface
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 */
 	private static void setMousePosition(final IDisplaySurface surface, final int x, final int y) {
 		surface.setMousePosition(x, y);
@@ -43,8 +47,10 @@ public class WorkaroundForIssue2476 {
 	/**
 	 * Install on.
 	 *
-	 * @param applet the applet
-	 * @param surface the surface
+	 * @param applet
+	 *            the applet
+	 * @param surface
+	 *            the surface
 	 */
 	public static void installOn(final Panel applet, final IDisplaySurface surface) {
 		// Install only on Linux
@@ -75,7 +81,7 @@ public class WorkaroundForIssue2476 {
 			@Override
 			public void mouseReleased(final java.awt.event.MouseEvent e) {
 				surface.setMousePosition(e.getX(), e.getY());
-				surface.dispatchMouseEvent(SWT.MouseUp);
+				surface.dispatchMouseEvent(SWT.MouseUp, e.getX(), e.getY());
 			}
 
 			@Override
@@ -85,12 +91,12 @@ public class WorkaroundForIssue2476 {
 
 			@Override
 			public void mouseExited(final java.awt.event.MouseEvent e) {
-				surface.dispatchMouseEvent(SWT.MouseExit);
+				surface.dispatchMouseEvent(SWT.MouseExit, e.getX(), e.getY());
 			}
 
 			@Override
 			public void mouseEntered(final java.awt.event.MouseEvent e) {
-				surface.dispatchMouseEvent(SWT.MouseEnter);
+				surface.dispatchMouseEvent(SWT.MouseEnter, e.getX(), e.getY());
 			}
 
 			@Override
@@ -100,7 +106,7 @@ public class WorkaroundForIssue2476 {
 					inMenu = surface.canTriggerContextualMenu();
 					setMousePosition(surface, e.getX(), e.getY());
 					if (inMenu) { surface.selectAgentsAroundMouse(); }
-					surface.dispatchMouseEvent(SWT.MenuDetect);
+					surface.dispatchMouseEvent(SWT.MenuDetect, e.getX(), e.getY());
 					return;
 				}
 
@@ -110,7 +116,7 @@ public class WorkaroundForIssue2476 {
 				}
 				// DEBUG.OUT("Click on " + e.getX() + " " + e.getY());
 				setMousePosition(surface, e.getX(), e.getY());
-				surface.dispatchMouseEvent(SWT.MouseDown);
+				surface.dispatchMouseEvent(SWT.MouseDown, e.getX(), e.getY());
 
 			}
 		});

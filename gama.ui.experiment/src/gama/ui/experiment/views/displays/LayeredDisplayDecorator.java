@@ -1,19 +1,22 @@
+/*
+ *
+ */
+package gama.ui.experiment.views.displays;
+
 /*******************************************************************************************************
  *
- * LayeredDisplayDecorator.java, in gama.ui.experiment, is part of the source code of the GAMA modeling and simulation
- * platform (v.2.0.0).
+ * LayeredDisplayDecorator.java, in ummisco.gama.ui.experiment, is part of the source code of the GAMA modeling and
+ * simulation platform (v.1.8.2).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  *
  ********************************************************************************************************/
-package gama.ui.experiment.views.displays;
 
 import static gama.ui.base.bindings.GamaKeyBindings.COMMAND;
 import static gama.ui.base.bindings.GamaKeyBindings.format;
 import static gama.ui.base.resources.IGamaIcons.DISPLAY_TOOLBAR_SNAPSHOT;
-import static gama.ui.base.toolbar.GamaToolbarFactory.createToolbarComposite;
 import static gama.ui.experiment.controls.SimulationSpeedContributionItem.create;
 import static gama.ui.experiment.controls.SimulationSpeedContributionItem.totalWidth;
 
@@ -21,16 +24,23 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Item;
+import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.ui.IPartListener2;
+import org.eclipse.ui.IPartService;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IPerspectiveListener;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchPartReference;
 
+import gama.common.interfaces.IDisposable;
 import gama.common.preferences.GamaPreferences;
 import gama.common.ui.IDisplaySurface;
 import gama.common.ui.IGui;
@@ -58,23 +68,23 @@ import gama.ui.base.views.InteractiveConsoleView;
 public class LayeredDisplayDecorator implements DisplayDataListener {
 
 	static {
-		DEBUG.OFF();
+		DEBUG.ON();
 	}
 
 	/** The key and mouse listener. */
-	protected SWTLayeredDisplayMultiListener keyAndMouseListener;
+	protected IDisposable keyAndMouseListener;
 
 	/** The menu manager. */
 	protected DisplaySurfaceMenu menuManager;
 
 	/** The view. */
-	protected final LayeredDisplayView view;
+	public final LayeredDisplayView view;
 
 	/** The fs. */
 	ToolItem fs = null;
 
 	/** The normal parent of full screen control. */
-	protected Composite normalParentOfFullScreenControl;
+	protected Composite normalParentOfFullScreenControl, normalParentOfToolbar;
 
 	/** The side control weights. */
 	int[] sideControlWeights = { 30, 70 };
@@ -98,7 +108,7 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 	protected IPerspectiveListener perspectiveListener;
 
 	/** The relaunch experiment. */
-	final GamaCommand toggleSideControls, toggleOverlay, takeSnapshot, toggleFullScreen, toggleInteractiveConsole,
+	GamaCommand toggleSideControls, toggleOverlay, takeSnapshot, toggleFullScreen, toggleInteractiveConsole,
 			runExperiment, stepExperiment, closeExperiment, relaunchExperiment;
 
 	/**
@@ -109,6 +119,16 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 	 */
 	LayeredDisplayDecorator(final LayeredDisplayView view) {
 		this.view = view;
+		createCommands();
+		final IPartService ps = ((IWorkbenchPart) view).getSite().getService(IPartService.class);
+		ps.addPartListener(overlayListener);
+
+	}
+
+	/**
+	 * Creates the commands.
+	 */
+	private void createCommands() {
 		toggleSideControls = new GamaCommand("display.layers2", "Toggle side controls " + format(COMMAND, 'L'),
 				e -> toggleSideControls());
 		toggleOverlay =
@@ -136,93 +156,151 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 				e -> new Thread(() -> GAMA.closeAllExperiments(true, false)).start());
 		relaunchExperiment = new GamaCommand("menu.reload4", "Reload experiment" + GamaKeyBindings.RELOAD_STRING,
 				e -> GAMA.reloadFrontmostExperiment());
-
 	}
+
+	/** The overlay listener. */
+	private final IPartListener2 overlayListener = new IPartListener2() {
+
+		private boolean ok(final IWorkbenchPartReference partRef) {
+			return partRef.getPart(false) == view && view.surfaceComposite != null
+					&& !view.surfaceComposite.isDisposed() && !view.isFullScreen();
+		}
+
+		@Override
+		public void partActivated(final IWorkbenchPartReference partRef) {
+
+			if (ok(partRef)) {
+				DEBUG.OUT("Part Activated:" + partRef.getTitle());
+				WorkbenchHelper.asyncRun(() -> {
+					if (overlay != null) { overlay.display(); }
+					view.showCanvas();
+				});
+			}
+		}
+
+		@Override
+		public void partClosed(final IWorkbenchPartReference partRef) {
+			if (ok(partRef) && overlay != null) { overlay.close(); }
+		}
+
+		@Override
+		public void partDeactivated(final IWorkbenchPartReference partRef) {
+
+			if (ok(partRef) && !view.surfaceComposite.isVisible()) {
+				DEBUG.OUT("Part Deactivated:" + partRef.getTitle());
+				WorkbenchHelper.asyncRun(() -> {
+					if (overlay != null) { overlay.hide(); }
+					view.hideCanvas();
+				});
+			}
+		}
+
+		@Override
+		public void partHidden(final IWorkbenchPartReference partRef) {
+			// This event is wrongly sent when tabs are not displayed for the views
+
+			if (ok(partRef) && !view.surfaceComposite.isVisible()) {
+				DEBUG.OUT("Part hidden:" + partRef.getTitle());
+				WorkbenchHelper.asyncRun(() -> {
+					if (overlay != null) { overlay.hide(); }
+					view.hideCanvas();
+				});
+			}
+		}
+
+		@Override
+		public void partVisible(final IWorkbenchPartReference partRef) {
+
+			if (ok(partRef)) {
+				DEBUG.OUT("Part Visible:" + partRef.getTitle());
+				WorkbenchHelper.asyncRun(() -> {
+					if (overlay != null) { overlay.display(); }
+					view.showCanvas();
+				});
+			}
+		}
+
+	};
 
 	/**
 	 * Toggle full screen.
 	 */
 	public void toggleFullScreen() {
 		if (isFullScreen()) {
+			fs.setImage(GamaIcons.create("display.fullscreen2").image());
 			if (interactiveConsoleVisible) { toggleInteractiveConsole(); }
-			view.controlToSetFullScreen().setParent(normalParentOfFullScreenControl);
+			// Toolbar
+			if (!toolbar.isDisposed()) {
+				toolbar.wipe(SWT.LEFT, true);
+				toolbar.setParent(normalParentOfToolbar);
+				normalParentOfToolbar.layout(true, true);
+			}
+			view.getSash().setParent(normalParentOfFullScreenControl);
 			createOverlay();
 			normalParentOfFullScreenControl.layout(true, true);
 			destroyFullScreenShell();
-			adaptToolbar();
-			view.setFocus();
 		} else {
+			fs.setImage(GamaIcons.create("display.fullscreen3").image());
 			fullScreenShell = createFullScreenShell();
-			if (DEBUG.IS_ON()) { DEBUG.SECTION(" FULLSCREEN WITH SIZE " + fullScreenShell.getSize()); }
-			normalParentOfFullScreenControl = view.controlToSetFullScreen().getParent();
-			final Control display = view.controlToSetFullScreen();
-			display.setParent(fullScreenShell);
-			createOverlay();
-			adaptToolbar();
+			normalParentOfFullScreenControl = view.getSash().getParent();
+			view.getSash().setParent(fullScreenShell);
 			fullScreenShell.layout(true, true);
 			fullScreenShell.setVisible(true);
-			view.fullScreenSet();
-			display.setFocus();
-			// DEBUG.OUT("Full screen set. Display views visible: " + WorkbenchHelper.getDisplayViews()
-			// + " / Active part: " + WorkbenchHelper.getActivePart() + " / Active shell: "
-			// + WorkbenchHelper.getDisplay().getActiveShell());
+			createOverlay();
+			// Toolbar
+			if (!toolbar.isDisposed()) {
+				toolbar.wipe(SWT.LEFT, true);
+				addFullscreenToolbarCommands();
+				normalParentOfToolbar = toolbar.getParent();
+				toolbar.setParent(fullScreenShell);
+			}
 		}
+		toolbar.refresh(true);
+		toolbar.getParent().layout(true, true);
+		if (overlay.isVisible()) {
+			WorkbenchHelper.runInUI("Overlay", 50, m -> {
+				toggleOverlay();
+				toggleOverlay();
+			});
+		}
+		view.focusCanvas();
 	}
-
-	/** The tp. */
-	Composite tp;
 
 	/**
 	 * Toggle toolbar.
 	 */
 	public void toggleToolbar() {
-		if (toolbar.isVisible()) {
+		// If in fullscreen the hierarchy is simplified
+		if (isFullScreen()) {
+			boolean visible = toolbar.isVisible();
+			toolbar.setVisible(!visible);
+			((GridData) toolbar.getLayoutData()).exclude = visible;
+		} else if (toolbar.isVisible()) {
 			toolbar.hide();
 		} else {
 			toolbar.show();
 		}
+		toolbar.getParent().layout(true, true);
 	}
 
 	/**
-	 * Adapt toolbar.
+	 * Adds the fullscreen toolbar commands.
 	 */
-	private void adaptToolbar() {
-		final boolean isFullScreen = isFullScreen();
-		fs.setImage(GamaIcons.create(isFullScreen ? "display.fullscreen3" : "display.fullscreen2").image());
-		toolbar.wipe(SWT.LEFT, true);
-		if (isFullScreen) { // We're entering full screen
-			toolbar.button(toggleSideControls, SWT.LEFT);
-			toolbar.button(toggleOverlay, SWT.LEFT);
-			toolbar.button(toggleInteractiveConsole, SWT.LEFT);
-			toolbar.sep(GamaToolbarFactory.TOOLBAR_SEP, SWT.LEFT);
-			final ToolItem item = toolbar.button(runExperiment, SWT.LEFT);
-			if (GAMA.isPaused()) {
-				item.setImage(GamaIcons.create(IGamaIcons.MENU_RUN_ACTION).image());
-			} else {
-				item.setImage(GamaIcons.create("menu.pause4").image());
-			}
-			toolbar.button(stepExperiment, SWT.LEFT);
-			toolbar.control(create(toolbar.getToolbar(SWT.LEFT)), totalWidth(), SWT.LEFT);
-			toolbar.button(relaunchExperiment, SWT.LEFT);
-			toolbar.button(closeExperiment, SWT.LEFT);
-			tp = toolbar.getParent();
-			final Composite forToolbar = createToolbarComposite(view.getParentComposite().getParent());
-			toolbar.setParent(forToolbar);
-		} else { // We're leaving full screen
-			final Composite forToolbar = toolbar.getParent();
-			toolbar.setParent(tp);
-			tp = null;
-			if (forToolbar != null && !forToolbar.isDisposed()) { forToolbar.dispose(); }
-			view.getParentComposite().getParent().layout(true, true);
-		}
-		if (toolbar.isVisible()) {
-			toolbar.show();
-			toolbar.refresh(true);
+	public void addFullscreenToolbarCommands() {
+		toolbar.button(toggleSideControls, SWT.LEFT);
+		toolbar.button(toggleOverlay, SWT.LEFT);
+		toolbar.button(toggleInteractiveConsole, SWT.LEFT);
+		toolbar.sep(GamaToolbarFactory.TOOLBAR_SEP, SWT.LEFT);
+		final ToolItem item = toolbar.button(runExperiment, SWT.LEFT);
+		if (GAMA.isPaused()) {
+			item.setImage(GamaIcons.create(IGamaIcons.MENU_RUN_ACTION).image());
 		} else {
-			toolbar.hide();
+			item.setImage(GamaIcons.create("menu.pause4").image());
 		}
-		toolbar.getParent().layout();
-
+		toolbar.button(stepExperiment, SWT.LEFT);
+		toolbar.control(create(toolbar.getToolbar(SWT.LEFT)), totalWidth(), SWT.LEFT);
+		toolbar.button(relaunchExperiment, SWT.LEFT);
+		toolbar.button(closeExperiment, SWT.LEFT);
 	}
 
 	/**
@@ -237,7 +315,10 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 		overlay = new DisplayOverlay(view, view.surfaceComposite, view.getOutput().getOverlayProvider());
 		if (wasVisible) { overlay.setVisible(true); }
 
-		if (overlay.isVisible()) { overlay.update(); }
+		if (overlay.isVisible()) {
+			overlay.relocate();
+			overlay.update();
+		}
 	}
 
 	/**
@@ -247,7 +328,6 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 	 *            the form
 	 */
 	public void createSidePanel(final SashForm form) {
-
 		sidePanel = new Composite(form, SWT.BORDER);
 		final GridLayout layout = new GridLayout(1, true);
 		layout.horizontalSpacing = 0;
@@ -255,7 +335,6 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 		layout.marginHeight = 0;
 		layout.marginWidth = 0;
 		sidePanel.setLayout(layout);
-		// sidePanel.setBackground(IGamaColors.WHITE.color());
 	}
 
 	/**
@@ -269,7 +348,7 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 		side.fill(sidePanel, view);
 		createOverlay();
 		addPerspectiveListener();
-		keyAndMouseListener = new SWTLayeredDisplayMultiListener(this, view.getDisplaySurface());
+		keyAndMouseListener = view.getMultiListener();
 		menuManager = new DisplaySurfaceMenu(view.getDisplaySurface(), view.getParentComposite(), presentationMenu());
 		final boolean tbVisible = view.getOutput().getData().isToolbarVisible();
 		WorkbenchHelper.runInUI("Toolbar", 0, m -> {
@@ -291,7 +370,7 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 	/**
 	 * Adds the perspective listener.
 	 */
-	public void addPerspectiveListener() {
+	private void addPerspectiveListener() {
 		perspectiveListener = new IPerspectiveListener() {
 			boolean previousState = false;
 
@@ -307,19 +386,30 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 						previousState = view.getOutput().isPaused();
 						view.getOutput().setPaused(true);
 					}
-					if (overlay != null) { overlay.hide(); }
+					// Seems necessary in addition to the IPartListener
+					if (PlatformHelper.isMac()) {
+						WorkbenchHelper.asyncRun(() -> {
+							if (overlay != null) { overlay.hide(); }
+							view.hideCanvas();
+						});
+					}
 				} else {
 					// Issue #2639
 					if (PlatformHelper.isMac() && !view.isOpenGL()) {
 						final IDisplaySurface ds = view.getDisplaySurface();
 						if (ds != null) { ds.updateDisplay(true); }
 					}
-
 					if (!GamaPreferences.Displays.CORE_DISPLAY_PERSPECTIVE.getValue() && view.getOutput() != null
 							&& view.getDisplaySurface() != null) {
 						view.getOutput().setPaused(previousState);
 					}
-					if (overlay != null) { overlay.update(); }
+					// Seems necessary in addition to the IPartListener
+					if (PlatformHelper.isMac()) {
+						WorkbenchHelper.asyncRun(() -> {
+							if (overlay != null) { overlay.display(); }
+							view.showCanvas();
+						});
+					}
 				}
 
 			}
@@ -341,7 +431,32 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 	 */
 	private Shell createFullScreenShell() {
 		final int monitorId = view.getOutput().getData().fullScreen();
-		return WorkbenchHelper.obtainFullScreenShell(monitorId);
+		final Monitor[] monitors = WorkbenchHelper.getDisplay().getMonitors();
+		int monitorId1 = Math.min(monitors.length - 1, Math.max(0, monitorId));
+		final Rectangle bounds = monitors[monitorId1].getBounds();
+		final Shell fullScreenShell = new Shell(WorkbenchHelper.getDisplay(), SWT.NO_TRIM | SWT.ON_TOP);
+		fullScreenShell.setBounds(bounds);
+		// For DEBUG purposes:
+		// fullScreenShell.setBounds(new Rectangle(0, 0, bounds.width / 2, bounds.height / 2));
+		fullScreenShell.setLayout(shellLayout());
+		return fullScreenShell;
+	}
+
+	/**
+	 * Shell layout.
+	 *
+	 * @return the layout used for the contents of the shell
+	 */
+	private GridLayout shellLayout() {
+		final GridLayout layout = new GridLayout(1, false);
+		layout.verticalSpacing = 0;
+		layout.horizontalSpacing = 0;
+		layout.marginWidth = 0;
+		final int margin = 0; // REDUCED_VIEW_TOOLBAR_HEIGHT.getValue() ? -1 : 0;
+		layout.marginTop = margin;
+		layout.marginBottom = margin;
+		layout.marginHeight = margin;
+		return layout;
 	}
 
 	/**
@@ -385,21 +500,20 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 		overlay.setVisible(!overlay.isVisible());
 	}
 
-	// public void makeOverlayVisibleByDefault() {
-	// overlay.setVisible(GamaPreferences.Displays.CORE_OVERLAY.getValue());
-	// }
-
 	/**
 	 * Toggle side controls.
 	 */
 	public void toggleSideControls() {
+		SashForm display = view.getSash();
 		if (sideControlsVisible) {
-			sideControlWeights = view.form.getWeights();
-			view.form.setMaximizedControl(view.getParentComposite().getParent());
+			sideControlWeights = display.getWeights();
+			display.setMaximizedControl(view.getParentComposite()/* .getParent() */);
+			display.layout(true, true);
 			sideControlsVisible = false;
 		} else {
-			view.form.setWeights(sideControlWeights);
-			view.form.setMaximizedControl(null);
+			display.setWeights(sideControlWeights);
+			display.setMaximizedControl(null);
+			display.layout(true, true);
 			sideControlsVisible = true;
 		}
 	}
@@ -473,6 +587,8 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 		// FIXME Remove the listeners
 		try {
 			WorkbenchHelper.getWindow().removePerspectiveListener(perspectiveListener);
+			final IPartService ps = ((IWorkbenchPart) view).getSite().getService(IPartService.class);
+			if (ps != null) { ps.removePartListener(overlayListener); }
 		} catch (final Exception e) {
 
 		}
@@ -495,13 +611,14 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 		}
 
 		fs = null;
-		tp = null;
+		normalParentOfToolbar = null;
 		sidePanel = null;
 		normalParentOfFullScreenControl = null;
 		if (fullScreenShell != null && !fullScreenShell.isDisposed()) {
 			fullScreenShell.dispose();
 			fullScreenShell = null;
 		}
+
 	}
 
 	/**

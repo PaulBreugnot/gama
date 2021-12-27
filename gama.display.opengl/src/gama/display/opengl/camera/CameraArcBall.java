@@ -10,15 +10,11 @@
  ********************************************************************************************************/
 package gama.display.opengl.camera;
 
-import org.eclipse.swt.SWT;
-
 import gama.common.geometry.Envelope3D;
 import gama.common.preferences.GamaPreferences;
 import gama.display.opengl.renderer.IOpenGLRenderer;
 import gama.metamodel.shape.GamaPoint;
 import gama.outputs.LayeredDisplayData;
-import gama.ui.base.bindings.GamaKeyBindings;
-import gama.ui.base.utils.DPIHelper;
 import gaml.operators.Maths;
 
 // TODO: Auto-generated Javadoc
@@ -422,38 +418,37 @@ public class CameraArcBall extends AbstractCamera {
 	/**
 	 * Internal mouse move.
 	 *
-	 * @param e the e
+	 * @param x the x
+	 * @param y the y
+	 * @param button the button
+	 * @param isCtrl the is ctrl
+	 * @param isShift the is shift
 	 */
 	@Override
-	public void internalMouseMove(final org.eclipse.swt.events.MouseEvent e) {
-		int x = e.x;
-		int y = e.y;
-		// int x = PlatformHelper.autoScaleUp(e.x);
-		// int y = PlatformHelper.autoScaleUp(e.y);
+	public void internalMouseMove(final int x, final int y, final int button, final boolean isCtrl,
+			final boolean isShift) {
 		// Do it before the mouse position is newly set (in super.internalMouseMove)
 		if (keystoneMode) {
 			final int selectedCorner = getRenderer().getKeystoneHelper().getCornerSelected();
 			if (selectedCorner != -1) {
 				final GamaPoint origin = getNormalizedCoordinates(getMousePosition().x, getMousePosition().y);
-				x = DPIHelper.autoScaleUp(e.x);
-				y = DPIHelper.autoScaleUp(e.y);
 				GamaPoint p = getNormalizedCoordinates(x, y);
 				final GamaPoint translation = origin.minus(p).yNegated();
 				p = getRenderer().getKeystoneHelper().getKeystoneCoordinates(selectedCorner).plus(-translation.x,
 						translation.y, 0);
 				getRenderer().getKeystoneHelper().setKeystoneCoordinates(selectedCorner, p);
 			} else {
-				final int cornerSelected = hoverOnKeystone(e);
+				final int cornerSelected = hoverOnKeystone(x, y);
 				getRenderer().getKeystoneHelper().setCornerHovered(cornerSelected);
 			}
-			super.internalMouseMove(e);
+			super.internalMouseMove(x, y, button, isCtrl, isShift);
 			return;
 		}
 
-		super.internalMouseMove(e);
-		if ((e.stateMask & SWT.BUTTON_MASK) == 0) return;
-		final GamaPoint newPoint = new GamaPoint(DPIHelper.autoScaleUp(x), DPIHelper.autoScaleUp(y));
-		if (cameraInteraction && GamaKeyBindings.ctrl(e)) {
+		super.internalMouseMove(x, y, button, isCtrl, isShift);
+		if (button == 0) return;
+		final GamaPoint newPoint = new GamaPoint(x, y);
+		if (cameraInteraction && isCtrl) {
 			final int horizMovement = (int) (newPoint.x - lastMousePressedPosition.x);
 			final int vertMovement = (int) (newPoint.y - lastMousePressedPosition.y);
 			// if (flipped) {
@@ -506,8 +501,8 @@ public class CameraArcBall extends AbstractCamera {
 			// phi = phi - vertMovement_real * get_sensivity();
 			updateCartesianCoordinatesFromAngles();
 		} else if (shiftPressed && isViewInXYPlan()) {
-			getMousePosition().x = DPIHelper.autoScaleUp(x);
-			getMousePosition().y = DPIHelper.autoScaleUp(y);
+			getMousePosition().x = x;
+			getMousePosition().y = y;
 			getRenderer().getOpenGLHelper().defineROI(
 					new GamaPoint(firstMousePressedPosition.x, firstMousePressedPosition.y),
 					new GamaPoint(getMousePosition().x, getMousePosition().y));
@@ -516,10 +511,9 @@ public class CameraArcBall extends AbstractCamera {
 			GamaPoint p = getRenderer().getRealWorldPointFromWindowPoint(getMousePosition());
 			p = p.minus(getRenderer().getOpenGLHelper().getROIEnvelope().centre());
 			getRenderer().getOpenGLHelper().getROIEnvelope().translate(p.x, p.y);
-
 		} else if (cameraInteraction) {
-			int horizMovement = (int) (DPIHelper.autoScaleUp(x) - lastMousePressedPosition.x);
-			int vertMovement = (int) (DPIHelper.autoScaleUp(y) - lastMousePressedPosition.y);
+			int horizMovement = (int) (x - lastMousePressedPosition.x);
+			int vertMovement = (int) (y - lastMousePressedPosition.y);
 			if (flipped) {
 				horizMovement = -horizMovement;
 				vertMovement = -vertMovement;
@@ -538,11 +532,11 @@ public class CameraArcBall extends AbstractCamera {
 	/**
 	 * Can select on release.
 	 *
-	 * @param arg0 the arg 0
+	 * @param isShift the is shift
 	 * @return true, if successful
 	 */
 	@Override
-	protected boolean canSelectOnRelease(final org.eclipse.swt.events.MouseEvent arg0) {
+	protected boolean canSelectOnRelease(final boolean isShift) {
 		return true;
 	}
 
@@ -551,7 +545,7 @@ public class CameraArcBall extends AbstractCamera {
 	 */
 	@Override
 	protected void drawRotationHelper() {
-		renderer.getOpenGLHelper().isInRotationMode(ctrlPressed && cameraInteraction);
+		renderer.getOpenGLHelper().setRotationMode(ctrlPressed && cameraInteraction);
 	}
 
 	/**

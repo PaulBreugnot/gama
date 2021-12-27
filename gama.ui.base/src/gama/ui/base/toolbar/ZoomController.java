@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ZoomController.java, in gama.ui.base, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ZoomController.java, in gama.ui.base, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.base.toolbar;
 
@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Control;
 
 import gama.ui.base.resources.IGamaIcons;
 
+// TODO: Auto-generated Javadoc
 /**
  * Class ZoomController.
  *
@@ -34,14 +35,15 @@ public class ZoomController {
 	/** The including scrolling. */
 	// Fix for Issue #1291
 	final boolean includingScrolling;
-	
+
 	/** The view. */
 	final IToolbarDecoratedView.Zoomable view;
 
 	/**
 	 * Instantiates a new zoom controller.
 	 *
-	 * @param view the view
+	 * @param view
+	 *            the view
 	 */
 	public ZoomController(final IToolbarDecoratedView.Zoomable view) {
 		this.view = view;
@@ -51,16 +53,15 @@ public class ZoomController {
 	/**
 	 * Install.
 	 *
-	 * @param tb the tb
+	 * @param tb
+	 *            the tb
 	 */
 	public void install(final GamaToolbar2 tb) {
 		final GestureListener gl = ge -> {
 			if (ge.detail == SWT.GESTURE_MAGNIFY) {
 				if (ge.magnification > 1.0) {
 					view.zoomIn();
-				} else if (ge.magnification < 1.0) {
-					view.zoomOut();
-				}
+				} else if (ge.magnification < 1.0) { view.zoomOut(); }
 			}
 
 		};
@@ -69,9 +70,7 @@ public class ZoomController {
 
 			@Override
 			public void mouseDoubleClick(final MouseEvent e) {
-				if (e.button == 1) {
-					view.zoomFit();
-				}
+				if (e.button == 1) { view.zoomFit(); }
 			}
 		};
 
@@ -92,14 +91,12 @@ public class ZoomController {
 					if (c != null) {
 						c.addGestureListener(gl);
 						c.addMouseListener(ml);
-						if (includingScrolling) {
-							c.addMouseWheelListener(mw);
-						}
+						if (includingScrolling) { c.addMouseWheelListener(mw); }
 						// once installed the listener removes itself from the
 						// toolbar
-						tb.removeControlListener(this);
 					}
 				}
+				tb.removeControlListener(this);
 			}
 
 		});

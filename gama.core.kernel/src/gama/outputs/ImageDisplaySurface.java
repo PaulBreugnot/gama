@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ImageDisplaySurface.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ImageDisplaySurface.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.outputs;
 
@@ -45,6 +45,7 @@ import gama.util.GamaListFactory;
 import gama.util.IList;
 import gaml.operators.Files;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ImageDisplaySurface.
  */
@@ -53,36 +54,37 @@ public class ImageDisplaySurface implements IDisplaySurface {
 
 	/** The output. */
 	private final LayeredDisplayOutput output;
-	
+
 	/** The buff image. */
 	// private final boolean needsUpdate = true;
 	private BufferedImage buffImage = null;
-	
+
 	/** The g 2. */
 	private Graphics2D g2 = null;
-	
+
 	/** The height. */
 	private int width = 500, height = 500;
-	
+
 	/** The display graphics. */
 	private IGraphics displayGraphics;
-	
+
 	/** The manager. */
 	ILayerManager manager;
-	
+
 	/** The snapshot folder. */
 	public static String snapshotFolder = "/tmp/";
-	
+
 	/** The scope. */
 	protected IScope scope;
-	
+
 	/** The data. */
 	private final LayeredDisplayData data;
 
 	/**
 	 * Instantiates a new image display surface.
 	 *
-	 * @param args the args
+	 * @param args
+	 *            the args
 	 */
 	public ImageDisplaySurface(final Object... args) {
 		output = (LayeredDisplayOutput) args[0];
@@ -91,6 +93,8 @@ public class ImageDisplaySurface implements IDisplaySurface {
 	}
 
 	/**
+	 * Output reloaded.
+	 *
 	 * @see gama.common.ui.IDisplaySurface#initialize(double, double, gama.outputs.IDisplayOutput)
 	 */
 	@Override
@@ -105,15 +109,19 @@ public class ImageDisplaySurface implements IDisplaySurface {
 
 	}
 
+	/**
+	 * Gets the scope.
+	 *
+	 * @return the scope
+	 */
 	@Override
-	public IScope getScope() {
-		return scope;
-	}
+	public IScope getScope() { return scope; }
 
 	/**
 	 * Save this surface into an image passed as a parameter.
 	 *
-	 * @param image the image
+	 * @param image
+	 *            the image
 	 */
 	public void save(final RenderedImage image) {
 		try {
@@ -137,17 +145,23 @@ public class ImageDisplaySurface implements IDisplaySurface {
 		}
 	}
 
+	/**
+	 * Gets the manager.
+	 *
+	 * @return the manager
+	 */
 	@Override
-	public ILayerManager getManager() {
-		return manager;
-	}
+	public ILayerManager getManager() { return manager; }
 
 	/**
 	 * Resize image.
 	 *
-	 * @param newWidth the new width
-	 * @param newHeight the new height
-	 * @param force the force
+	 * @param newWidth
+	 *            the new width
+	 * @param newHeight
+	 *            the new height
+	 * @param force
+	 *            the force
 	 * @return true, if successful
 	 */
 	public boolean resizeImage(final int newWidth, final int newHeight, final boolean force) {
@@ -165,6 +179,12 @@ public class ImageDisplaySurface implements IDisplaySurface {
 		return true;
 	}
 
+	/**
+	 * Update display.
+	 *
+	 * @param force
+	 *            the force
+	 */
 	@Override
 	public void updateDisplay(final boolean force) {
 		// if ( needsUpdate || force ) {
@@ -202,6 +222,9 @@ public class ImageDisplaySurface implements IDisplaySurface {
 
 	}
 
+	/**
+	 * Dispose.
+	 */
 	@Override
 	public void dispose() {
 		if (g2 != null) { g2.dispose(); }
@@ -209,12 +232,24 @@ public class ImageDisplaySurface implements IDisplaySurface {
 		GAMA.releaseScope(scope);
 	}
 
+	/**
+	 * Gets the image.
+	 *
+	 * @param w
+	 *            the w
+	 * @param h
+	 *            the h
+	 * @return the image
+	 */
 	@Override
 	public BufferedImage getImage(final int w, final int h) {
 		paint();
 		return ImageUtils.resize(buffImage, w, h);
 	}
 
+	/**
+	 * Zoom in.
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -226,6 +261,9 @@ public class ImageDisplaySurface implements IDisplaySurface {
 
 	}
 
+	/**
+	 * Zoom out.
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -237,6 +275,9 @@ public class ImageDisplaySurface implements IDisplaySurface {
 
 	}
 
+	/**
+	 * Zoom fit.
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -259,6 +300,12 @@ public class ImageDisplaySurface implements IDisplaySurface {
 	//
 	// }
 
+	/**
+	 * Focus on.
+	 *
+	 * @param geometry
+	 *            the geometry
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -277,20 +324,22 @@ public class ImageDisplaySurface implements IDisplaySurface {
 	// }
 
 	/**
+	 * Gets the width.
+	 *
+	 * @return the width
 	 * @see gama.common.ui.IDisplaySurface#getWidth()
 	 */
 	@Override
-	public int getWidth() {
-		return width;
-	}
+	public int getWidth() { return width; }
 
 	/**
+	 * Gets the height.
+	 *
+	 * @return the height
 	 * @see gama.common.ui.IDisplaySurface#getHeight()
 	 */
 	@Override
-	public int getHeight() {
-		return height;
-	}
+	public int getHeight() { return height; }
 
 	// /**
 	// * @see msi.gama.common.interfaces.IDisplaySurface#getImageWidth()
@@ -324,63 +373,85 @@ public class ImageDisplaySurface implements IDisplaySurface {
 	// return 0;
 	// }
 
+	/**
+	 * Adds the listener.
+	 *
+	 * @param e
+	 *            the e
+	 */
 	@Override
 	public void addListener(final IEventLayerListener e) {}
 
+	/**
+	 * Gets the env width.
+	 *
+	 * @return the env width
+	 */
 	@Override
-	public double getEnvWidth() {
-		return data.getEnvWidth();
-	}
+	public double getEnvWidth() { return data.getEnvWidth(); }
 
+	/**
+	 * Gets the env height.
+	 *
+	 * @return the env height
+	 */
 	@Override
-	public double getEnvHeight() {
-		return data.getEnvHeight();
-	}
+	public double getEnvHeight() { return data.getEnvHeight(); }
 
+	/**
+	 * Gets the display width.
+	 *
+	 * @return the display width
+	 */
 	@Override
-	public double getDisplayWidth() {
-		return width;
-	}
+	public double getDisplayWidth() { return width; }
 
+	/**
+	 * Gets the display height.
+	 *
+	 * @return the display height
+	 */
 	@Override
-	public double getDisplayHeight() {
-		return this.getHeight();
-	}
+	public double getDisplayHeight() { return this.getHeight(); }
 
 	// @Override
 	// public void setZoomListener(final IZoomListener listener) {}
 	//
 	/**
-	 * Method getModelCoordinates()
+	 * Method getModelCoordinates().
 	 *
+	 * @return the model coordinates
 	 * @see gama.common.ui.IDisplaySurface#getModelCoordinates()
 	 */
 	@Override
-	public GamaPoint getModelCoordinates() {
-		return null;
-	}
+	public GamaPoint getModelCoordinates() { return null; }
 
 	/**
-	 * Method followAgent()
+	 * Method followAgent().
 	 *
+	 * @param a
+	 *            the a
 	 * @see gama.common.ui.IDisplaySurface#followAgent(gama.metamodel.agent.IAgent)
 	 */
 	@Override
 	public void followAgent(final IAgent a) {}
 
 	/**
-	 * Method getZoomLevel()
+	 * Method getZoomLevel().
 	 *
+	 * @return the zoom level
 	 * @see gama.common.ui.IDisplaySurface#getZoomLevel()
 	 */
 	@Override
-	public double getZoomLevel() {
-		return 1.0;
-	}
+	public double getZoomLevel() { return 1.0; }
 
 	/**
-	 * Method setSize()
+	 * Method setSize().
 	 *
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 * @see gama.common.ui.IDisplaySurface#setSize(int, int)
 	 */
 	@Override
@@ -389,18 +460,36 @@ public class ImageDisplaySurface implements IDisplaySurface {
 	}
 
 	/**
-	 * Method removeMouseListener()
+	 * Method removeMouseListener().
 	 *
+	 * @param e
+	 *            the e
 	 * @see gama.common.ui.IDisplaySurface#removeMouseListener(java.awt.event.MouseListener)
 	 */
 	@Override
 	public void removeListener(final IEventLayerListener e) {}
 
+	/**
+	 * Gets the layer listeners.
+	 *
+	 * @return the layer listeners
+	 */
 	@Override
-	public Collection<IEventLayerListener> getLayerListeners() {
-		return Collections.EMPTY_LIST;
-	}
+	public Collection<IEventLayerListener> getLayerListeners() { return Collections.EMPTY_LIST; }
 
+	/**
+	 * Gets the model coordinates from.
+	 *
+	 * @param xOnScreen
+	 *            the x on screen
+	 * @param yOnScreen
+	 *            the y on screen
+	 * @param sizeInPixels
+	 *            the size in pixels
+	 * @param positionInPixels
+	 *            the position in pixels
+	 * @return the model coordinates from
+	 */
 	@Override
 	public GamaPoint getModelCoordinatesFrom(final int xOnScreen, final int yOnScreen, final Point sizeInPixels,
 			final Point positionInPixels) {
@@ -413,6 +502,15 @@ public class ImageDisplaySurface implements IDisplaySurface {
 		return new GamaPoint(xInModel, yInModel);
 	}
 
+	/**
+	 * Select agent.
+	 *
+	 * @param xc
+	 *            the xc
+	 * @param yc
+	 *            the yc
+	 * @return the i list
+	 */
 	@Override
 	public IList<IAgent> selectAgent(final int xc, final int yc) {
 		return GamaListFactory.EMPTY_LIST;
@@ -431,18 +529,19 @@ public class ImageDisplaySurface implements IDisplaySurface {
 	}
 
 	/**
-	 * Method getOutput()
+	 * Method getOutput().
 	 *
+	 * @return the output
 	 * @see gama.common.ui.IDisplaySurface#getOutput()
 	 */
 	@Override
-	public LayeredDisplayOutput getOutput() {
-		return output;
-	}
+	public LayeredDisplayOutput getOutput() { return output; }
 
 	/**
-	 * Method waitForUpdateAndRun()
+	 * Method waitForUpdateAndRun().
 	 *
+	 * @param r
+	 *            the r
 	 * @see gama.common.ui.IDisplaySurface#waitForUpdateAndRun(java.lang.Runnable)
 	 */
 	@Override
@@ -451,17 +550,16 @@ public class ImageDisplaySurface implements IDisplaySurface {
 	}
 
 	/**
-	 * Method getData()
+	 * Method getData().
 	 *
+	 * @return the data
 	 * @see gama.common.ui.IDisplaySurface#getData()
 	 */
 	@Override
-	public LayeredDisplayData getData() {
-		return data;
-	}
+	public LayeredDisplayData getData() { return data; }
 
 	/**
-	 * Method setSWTMenuManager()
+	 * Method setSWTMenuManager().
 	 *
 	 * @see msi.gama.common.interfaces.IDisplaySurface#setSWTMenuManager(java.lang.Object)
 	 */
@@ -478,8 +576,12 @@ public class ImageDisplaySurface implements IDisplaySurface {
 	public void layersChanged() {}
 
 	/**
-	 * Method changed()
+	 * Method changed().
 	 *
+	 * @param property
+	 *            the property
+	 * @param value
+	 *            the value
 	 * @see gama.outputs.LayeredDisplayData.DisplayDataListener#changed(gama.outputs.LayeredDisplayData.Changes,
 	 *      boolean)
 	 */
@@ -487,8 +589,11 @@ public class ImageDisplaySurface implements IDisplaySurface {
 	public void changed(final Changes property, final Object value) {}
 
 	/**
-	 * Method getVisibleRegionForLayer()
+	 * Method getVisibleRegionForLayer().
 	 *
+	 * @param currentLayer
+	 *            the current layer
+	 * @return the visible region for layer
 	 * @see gama.common.ui.IDisplaySurface#getVisibleRegionForLayer(gama.common.ui.ILayer)
 	 */
 	@Override
@@ -497,35 +602,38 @@ public class ImageDisplaySurface implements IDisplaySurface {
 	}
 
 	/**
-	 * Method getFPS()
+	 * Method getFPS().
 	 *
+	 * @return the fps
 	 * @see gama.common.ui.IDisplaySurface#getFPS()
 	 */
 	@Override
-	public int getFPS() {
-		return 0;
-	}
-	//
-	// @Override
-	// public boolean isRealized() {
-	// return true;
-	// }
+	public int getFPS() { return 0; }
 
 	/**
-	 * Method isRendered()
+	 * Method isRendered().
 	 *
+	 * @return true, if is rendered
 	 * @see gama.common.ui.IDisplaySurface#isRendered()
 	 */
 	@Override
-	public boolean isRendered() {
-		return true;
-	}
+	public boolean isRendered() { return true; }
 
+	/**
+	 * Checks if is disposed.
+	 *
+	 * @return true, if is disposed
+	 */
 	@Override
-	public boolean isDisposed() {
-		return false;
-	}
+	public boolean isDisposed() { return false; }
 
+	/**
+	 * Gets the model coordinates info.
+	 *
+	 * @param sb
+	 *            the sb
+	 * @return the model coordinates info
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -534,40 +642,63 @@ public class ImageDisplaySurface implements IDisplaySurface {
 	@Override
 	public void getModelCoordinatesInfo(final StringBuilder sb) {}
 
+	/**
+	 * Dispatch key event.
+	 *
+	 * @param character
+	 *            the character
+	 */
 	@Override
-	public void dispatchKeyEvent(final char character) {
-		// TODO Auto-generated method stub
+	public void dispatchKeyEvent(final char character) {}
 
-	}
-
+	/**
+	 * Dispatch mouse event.
+	 *
+	 * @param swtEventType
+	 *            the swt event type
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 */
 	@Override
-	public void dispatchMouseEvent(final int swtEventType) {
-		// TODO Auto-generated method stub
+	public void dispatchMouseEvent(final int swtEventType, final int x, final int y) {}
 
-	}
-
+	/**
+	 * Sets the mouse position.
+	 *
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 */
 	@Override
-	public void setMousePosition(final int x, final int y) {
-		// TODO Auto-generated method stub
+	public void setMousePosition(final int x, final int y) {}
 
-	}
-
+	/**
+	 * Dragged to.
+	 *
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 */
 	@Override
-	public void draggedTo(final int x, final int y) {
-		// TODO Auto-generated method stub
+	public void draggedTo(final int x, final int y) {}
 
-	}
-
+	/**
+	 * Select agents around mouse.
+	 */
 	@Override
-	public void selectAgentsAroundMouse() {
-		// TODO Auto-generated method stub
+	public void selectAgentsAroundMouse() {}
 
-	}
-
+	/**
+	 * Sets the menu manager.
+	 *
+	 * @param displaySurfaceMenu
+	 *            the new menu manager
+	 */
 	@Override
-	public void setMenuManager(final Object displaySurfaceMenu) {
-		// TODO Auto-generated method stub
-
-	}
+	public void setMenuManager(final Object displaySurfaceMenu) {}
 
 }

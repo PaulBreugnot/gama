@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * GamaKeyBindings.java, in gama.ui.base, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * GamaKeyBindings.java, in gama.ui.base, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.base.bindings;
 
@@ -27,6 +27,7 @@ import gama.ui.base.search.GamlSearchField;
 import gama.ui.base.utils.PerspectiveHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 
+// TODO: Auto-generated Javadoc
 /**
  * The purpose of this class is to install global key bindings that can work in any of the contexts of GAMA (incl.
  * fullscreen)
@@ -42,19 +43,19 @@ public class GamaKeyBindings implements Listener {
 
 	/** The command. */
 	public static int COMMAND = PlatformHelper.isMac() ? SWT.COMMAND : SWT.CTRL;
-	
+
 	/** The search string. */
 	public static String SEARCH_STRING = format(COMMAND + SWT.SHIFT, 'H');
-	
+
 	/** The play string. */
 	public static String PLAY_STRING = format(COMMAND, 'P');
-	
+
 	/** The step string. */
 	public static String STEP_STRING = format(COMMAND + SWT.SHIFT, 'P');
-	
+
 	/** The reload string. */
 	public static String RELOAD_STRING = format(COMMAND, 'R');
-	
+
 	/** The quit string. */
 	public static String QUIT_STRING = format(COMMAND + SWT.SHIFT, 'X');
 
@@ -69,8 +70,10 @@ public class GamaKeyBindings implements Listener {
 		/**
 		 * Instantiates a new pluggable binding.
 		 *
-		 * @param modifiers the modifiers
-		 * @param keyCode the key code
+		 * @param modifiers
+		 *            the modifiers
+		 * @param keyCode
+		 *            the key code
 		 */
 		public PluggableBinding(final int modifiers, final int keyCode) {
 			this.key = KeyStroke.getInstance(modifiers, keyCode);
@@ -86,6 +89,11 @@ public class GamaKeyBindings implements Listener {
 	 */
 	GamaKeyBindings() {}
 
+	/**
+	 * Handle event.
+	 *
+	 * @param event the event
+	 */
 	@Override
 	public void handleEvent(final Event event) {
 		if (event.keyCode == SWT.ESC) {
@@ -150,7 +158,8 @@ public class GamaKeyBindings implements Listener {
 	/**
 	 * Consume.
 	 *
-	 * @param event the event
+	 * @param event
+	 *            the event
 	 */
 	private void consume(final Event event) {
 		event.doit = false;
@@ -170,7 +179,8 @@ public class GamaKeyBindings implements Listener {
 	/**
 	 * Ctrl.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @return true, if successful
 	 */
 	public static boolean ctrl(final Event e) {
@@ -180,7 +190,8 @@ public class GamaKeyBindings implements Listener {
 	/**
 	 * Ctrl.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @return true, if successful
 	 */
 	public static boolean ctrl(final KeyEvent e) {
@@ -190,7 +201,8 @@ public class GamaKeyBindings implements Listener {
 	/**
 	 * Ctrl.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @return true, if successful
 	 */
 	public static boolean ctrl(final MouseEvent e) {
@@ -200,7 +212,8 @@ public class GamaKeyBindings implements Listener {
 	/**
 	 * Shift.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @return true, if successful
 	 */
 	public static boolean shift(final Event e) {
@@ -210,7 +223,8 @@ public class GamaKeyBindings implements Listener {
 	/**
 	 * Shift.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @return true, if successful
 	 */
 	public static boolean shift(final MouseEvent e) {
@@ -220,8 +234,10 @@ public class GamaKeyBindings implements Listener {
 	/**
 	 * Format.
 	 *
-	 * @param mod the mod
-	 * @param key the key
+	 * @param mod
+	 *            the mod
+	 * @param key
+	 *            the key
 	 * @return the string
 	 */
 	public static String format(final int mod, final int key) {
@@ -232,7 +248,8 @@ public class GamaKeyBindings implements Listener {
 	/**
 	 * Plug.
 	 *
-	 * @param newBinding the new binding
+	 * @param newBinding
+	 *            the new binding
 	 */
 	public static void plug(final PluggableBinding newBinding) {
 		bindings.put(newBinding.key, newBinding);

@@ -26,20 +26,15 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MenuEvent;
 import org.eclipse.swt.events.MenuListener;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
 import org.locationtech.jts.geom.Envelope;
 
 import com.jogamp.common.nio.Buffers;
-import com.jogamp.opengl.FPSCounter;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAnimatorControl;
 import com.jogamp.opengl.GLAutoDrawable;
-import com.jogamp.opengl.GLCapabilities;
-import com.jogamp.opengl.GLProfile;
-import com.jogamp.opengl.swt.GLCanvas;
 
 import gama.common.geometry.Envelope3D;
 import gama.common.interfaces.IKeyword;
@@ -51,7 +46,6 @@ import gama.common.ui.ILayerManager;
 import gama.core.dev.annotations.GamlAnnotations.display;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.utils.DEBUG;
-import gama.core.dev.utils.FLAGS;
 import gama.display.opengl.renderer.IOpenGLRenderer;
 import gama.display.opengl.renderer.JOGLRenderer;
 import gama.metamodel.agent.IAgent;
@@ -66,7 +60,6 @@ import gama.outputs.layers.IEventLayerListener;
 import gama.outputs.layers.OverlayLayer;
 import gama.runtime.GAMA;
 import gama.runtime.IScope;
-import gama.runtime.PlatformHelper;
 import gama.ui.base.resources.GamaIcons;
 import gama.ui.base.resources.IGamaIcons;
 import gama.ui.base.utils.DPIHelper;
@@ -146,7 +139,7 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 		setDisplayScope(output.getScope().copy("in opengl display"));
 		renderer = createRenderer();
 		renderer.setDisplaySurface(this);
-		animator = createAnimator();
+		animator = new GamaGLCanvas(parent, renderer).getAnimator();
 		layerManager = new LayerManager(this, output);
 		temp_focus = output.getFacet(IKeyword.FOCUS);
 		animator.start();
@@ -159,44 +152,6 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	 */
 	protected IOpenGLRenderer createRenderer() {
 		return new JOGLRenderer();
-	}
-
-	/**
-	 * Creates the animator.
-	 *
-	 * @return the GL animator control
-	 */
-	private GLAnimatorControl createAnimator() {
-		final GLAutoDrawable drawable = createCanvas(parent);
-		return drawable.getAnimator();
-	}
-
-	/**
-	 * Creates the canvas.
-	 *
-	 * @param parent
-	 *            the parent
-	 * @return the GL canvas
-	 */
-	public GLCanvas createCanvas(final Composite parent) {
-		final GLProfile profile = GLProfile.getDefault();
-		final GLCapabilities cap = new GLCapabilities(profile);
-		cap.setDepthBits(24);
-		cap.setDoubleBuffered(true);
-		cap.setHardwareAccelerated(true);
-		cap.setSampleBuffers(true);
-		cap.setAlphaBits(8);
-		cap.setNumSamples(8);
-		final GLCanvas canvas = new GLCanvas(parent, SWT.NONE, cap, null);
-		canvas.setAutoSwapBufferMode(true);
-		// See issue #3164. No multithreaded animator on Linux
-		GLAnimatorControl animator = FLAGS.USE_OLD_ANIMATOR || PlatformHelper.isLinux()
-				? new SingleThreadGLAnimator(canvas) : new MultithreadGLAnimator(canvas);
-		animator.setUpdateFPSFrames(FPSCounter.DEFAULT_FRAMES_PER_INTERVAL, null);
-		renderer.setCanvas(canvas);
-		final FillLayout gl = new FillLayout();
-		canvas.setLayout(gl);
-		return canvas;
 	}
 
 	/**
@@ -227,7 +182,7 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 				e.printStackTrace();
 			}
 		}
-		final GLCanvas glad = renderer.getCanvas();
+		final GLAutoDrawable glad = renderer.getCanvas();
 		if (glad == null || glad.getGL() == null || glad.getGL().getContext() == null) return null;
 		final boolean current = glad.getGL().getContext().isCurrent();
 		if (!current) { glad.getGL().getContext().makeCurrent(); }
@@ -961,14 +916,12 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	/**
 	 * Dispatch mouse event.
 	 *
-	 * @param swtMouseEvent
-	 *            the swt mouse event
+	 * @param swtMouseEvent            the swt mouse event
+	 * @param x the x
+	 * @param y the y
 	 */
 	@Override
-	public void dispatchMouseEvent(final int swtMouseEvent) {
-		final GamaPoint p = renderer.getCameraHelper().getMousePosition();
-		final int x = (int) p.x;
-		final int y = (int) p.y;
+	public void dispatchMouseEvent(final int swtMouseEvent, final int x, final int y) {
 		for (final IEventLayerListener gl : listeners) {
 			switch (swtMouseEvent) {
 				case SWT.MouseDown:

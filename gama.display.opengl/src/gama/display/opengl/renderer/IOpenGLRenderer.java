@@ -1,17 +1,16 @@
 /*******************************************************************************************************
  *
- * IOpenGLRenderer.java, in gama.display.opengl, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * IOpenGLRenderer.java, in gama.display.opengl, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.display.opengl.renderer;
 
 import com.jogamp.opengl.GLEventListener;
-import com.jogamp.opengl.swt.GLCanvas;
 
 import gama.common.ui.IGraphics;
 import gama.display.opengl.OpenGL;
@@ -20,10 +19,12 @@ import gama.display.opengl.renderer.helpers.KeystoneHelper;
 import gama.display.opengl.renderer.helpers.LightHelper;
 import gama.display.opengl.renderer.helpers.PickingHelper;
 import gama.display.opengl.renderer.helpers.SceneHelper;
+import gama.display.opengl.view.GamaGLCanvas;
 import gama.display.opengl.view.SWTOpenGLDisplaySurface;
 import gama.metamodel.shape.GamaPoint;
 import gama.outputs.LayeredDisplayData;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface IOpenGLRenderer.
  */
@@ -32,16 +33,17 @@ public interface IOpenGLRenderer extends GLEventListener, IGraphics.ThreeD {
 	/**
 	 * Sets the canvas.
 	 *
-	 * @param canvas the new canvas
+	 * @param canvas
+	 *            the new canvas
 	 */
-	void setCanvas(GLCanvas canvas);
+	void setCanvas(GamaGLCanvas canvas);
 
 	/**
 	 * Gets the canvas.
 	 *
 	 * @return the canvas
 	 */
-	GLCanvas getCanvas();
+	GamaGLCanvas getCanvas();
 
 	/**
 	 * Inits the scene.
@@ -65,7 +67,8 @@ public interface IOpenGLRenderer extends GLEventListener, IGraphics.ThreeD {
 	/**
 	 * Gets the real world point from window point.
 	 *
-	 * @param mouse the mouse
+	 * @param mouse
+	 *            the mouse
 	 * @return the real world point from window point
 	 */
 	GamaPoint getRealWorldPointFromWindowPoint(final GamaPoint mouse);
@@ -125,9 +128,7 @@ public interface IOpenGLRenderer extends GLEventListener, IGraphics.ThreeD {
 	 *
 	 * @return the data
 	 */
-	default LayeredDisplayData getData() {
-		return getSurface().getData();
-	}
+	default LayeredDisplayData getData() { return getSurface().getData(); }
 
 	/**
 	 * Gets the layer width.

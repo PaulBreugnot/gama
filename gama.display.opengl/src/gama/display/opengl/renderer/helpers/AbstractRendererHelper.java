@@ -1,23 +1,24 @@
 /*******************************************************************************************************
  *
- * AbstractRendererHelper.java, in gama.display.opengl, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * AbstractRendererHelper.java, in gama.display.opengl, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.display.opengl.renderer.helpers;
 
 import com.jogamp.opengl.GL2;
-import com.jogamp.opengl.swt.GLCanvas;
 
 import gama.display.opengl.OpenGL;
 import gama.display.opengl.renderer.IOpenGLRenderer;
+import gama.display.opengl.view.GamaGLCanvas;
 import gama.display.opengl.view.SWTOpenGLDisplaySurface;
 import gama.outputs.LayeredDisplayData;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class AbstractRendererHelper.
  */
@@ -42,7 +43,8 @@ public abstract class AbstractRendererHelper {
 	/**
 	 * Instantiates a new abstract renderer helper.
 	 *
-	 * @param renderer the renderer
+	 * @param renderer
+	 *            the renderer
 	 */
 	public AbstractRendererHelper(final IOpenGLRenderer renderer) {
 		this.renderer = renderer;
@@ -53,81 +55,63 @@ public abstract class AbstractRendererHelper {
 	 *
 	 * @return the renderer
 	 */
-	public IOpenGLRenderer getRenderer() {
-		return renderer;
-	}
+	public IOpenGLRenderer getRenderer() { return renderer; }
 
 	/**
 	 * Gets the data.
 	 *
 	 * @return the data
 	 */
-	protected LayeredDisplayData getData() {
-		return renderer.getData();
-	}
+	protected LayeredDisplayData getData() { return renderer.getData(); }
 
 	/**
 	 * Gets the gl.
 	 *
 	 * @return the gl
 	 */
-	protected GL2 getGL() {
-		return renderer.getOpenGLHelper().getGL();
-	}
+	protected GL2 getGL() { return renderer.getOpenGLHelper().getGL(); }
 
 	/**
 	 * Gets the open GL.
 	 *
 	 * @return the open GL
 	 */
-	protected OpenGL getOpenGL() {
-		return renderer.getOpenGLHelper();
-	}
+	protected OpenGL getOpenGL() { return renderer.getOpenGLHelper(); }
 
 	/**
 	 * Gets the canvas.
 	 *
 	 * @return the canvas
 	 */
-	protected GLCanvas getCanvas() {
-		return renderer.getCanvas();
-	}
+	protected GamaGLCanvas getCanvas() { return renderer.getCanvas(); }
 
 	/**
 	 * Gets the surface.
 	 *
 	 * @return the surface
 	 */
-	protected SWTOpenGLDisplaySurface getSurface() {
-		return renderer.getSurface();
-	}
+	protected SWTOpenGLDisplaySurface getSurface() { return renderer.getSurface(); }
 
 	/**
 	 * Gets the max env dim.
 	 *
 	 * @return the max env dim
 	 */
-	public double getMaxEnvDim() {
-		return renderer.getMaxEnvDim();
-	}
+	public double getMaxEnvDim() { return renderer.getMaxEnvDim(); }
 
 	/**
 	 * Gets the z near.
 	 *
 	 * @return the z near
 	 */
-	public double getZNear() {
-		return renderer.getData().getzNear();
-	}
+	public double getZNear() { return renderer.getData().getzNear(); }
 
 	/**
 	 * Gets the z far.
 	 *
 	 * @return the z far
 	 */
-	public double getZFar() {
-		return renderer.getData().getzFar();
-	}
+	public double getZFar() { return renderer.getData().getzFar(); }
 
 	/**
 	 * Initialize.

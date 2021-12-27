@@ -19,10 +19,13 @@ import com.jogamp.opengl.glu.GLU;
 import gama.common.geometry.Envelope3D;
 import gama.common.preferences.GamaPreferences;
 import gama.core.dev.utils.DEBUG;
+import gama.core.dev.utils.FLAGS;
 import gama.display.opengl.renderer.IOpenGLRenderer;
 import gama.display.opengl.renderer.helpers.CameraHelper;
 import gama.metamodel.shape.GamaPoint;
 import gama.outputs.LayeredDisplayData;
+import gama.runtime.GAMA;
+import gama.runtime.PlatformHelper;
 import gama.ui.base.bindings.GamaKeyBindings;
 import gama.ui.base.utils.DPIHelper;
 
@@ -141,8 +144,7 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Apply preset.
 	 *
-	 * @param name
-	 *            the name
+	 * @param name the name
 	 */
 	@Override
 	public void applyPreset(final String name) {
@@ -212,12 +214,9 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Sets the position.
 	 *
-	 * @param xPos
-	 *            the x pos
-	 * @param yPos
-	 *            the y pos
-	 * @param zPos
-	 *            the z pos
+	 * @param xPos the x pos
+	 * @param yPos the y pos
+	 * @param zPos the z pos
 	 */
 	@Override
 	public void setPosition(final double xPos, final double yPos, final double zPos) {
@@ -243,12 +242,9 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Sets the up vector.
 	 *
-	 * @param xPos
-	 *            the x pos
-	 * @param yPos
-	 *            the y pos
-	 * @param zPos
-	 *            the z pos
+	 * @param xPos the x pos
+	 * @param yPos the y pos
+	 * @param zPos the z pos
 	 */
 	@Override
 	public void setUpVector(final double xPos, final double yPos, final double zPos) {
@@ -316,10 +312,7 @@ public abstract class AbstractCamera implements ICamera {
 	 * @param b
 	 *            the new mouse left pressed
 	 */
-	protected void setMouseLeftPressed(final boolean b) {
-		// TODO Auto-generated method stub
-
-	}
+	protected void setMouseLeftPressed(final boolean b) {}
 
 	/**
 	 * Invoke on GL thread.
@@ -336,86 +329,153 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Method mouseScrolled().
 	 *
-	 * @param e
-	 *            the e
+	 * @param e the e
 	 * @see org.eclipse.swt.events.MouseWheelListener#mouseScrolled(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
 	public final void mouseScrolled(final MouseEvent e) {
 		invokeOnGLThread(drawable -> {
-			if (cameraInteraction) { internalMouseScrolled(e); }
+			if (cameraInteraction) { internalMouseScrolled(e.count); }
 			return false;
 		});
 
 	}
 
 	/**
+	 * Mouse wheel moved.
+	 *
+	 * @param e the e
+	 */
+	@Override
+	public final void mouseWheelMoved(final com.jogamp.newt.event.MouseEvent e) {
+		invokeOnGLThread(drawable -> {
+			if (cameraInteraction) { internalMouseScrolled((int) e.getRotation()[1]); }
+			return false;
+		});
+	}
+
+	/**
 	 * Internal mouse scrolled.
 	 *
-	 * @param e
-	 *            the e
+	 * @param count the count
 	 */
-	protected void internalMouseScrolled(final MouseEvent e) {
-		zoom(e.count > 0);
+	protected void internalMouseScrolled(final int count) {
+		zoom(count > 0);
 	}
 
 	/**
 	 * Method mouseMove().
 	 *
-	 * @param e
-	 *            the e
+	 * @param e the e
 	 * @see org.eclipse.swt.events.MouseMoveListener#mouseMove(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
 	public final void mouseMove(final org.eclipse.swt.events.MouseEvent e) {
 
 		invokeOnGLThread(drawable -> {
-			// if (cameraInteraction) {
-			internalMouseMove(e);
-			// }
+			internalMouseMove(autoScaleUp(e.x), autoScaleUp(e.y), e.button, GamaKeyBindings.ctrl(e),
+					GamaKeyBindings.shift(e));
 			return false;
 		});
 
 	}
 
 	/**
+	 * Auto scale up.
+	 *
+	 * @param nb
+	 *            the nb
+	 * @return the int
+	 */
+	private int autoScaleUp(final int nb) {
+		if (FLAGS.USE_NATIVE_OPENGL_WINDOW) return nb;
+		return DPIHelper.autoScaleUp(nb);
+	}
+
+	/**
+	 * Mouse moved.
+	 *
+	 * @param e the e
+	 */
+	@Override
+	public final void mouseMoved(final com.jogamp.newt.event.MouseEvent e) {
+		invokeOnGLThread(drawable -> {
+			internalMouseMove(autoScaleUp(e.getX()), autoScaleUp(e.getY()), e.getButton(),
+					PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown(), e.isShiftDown());
+			return false;
+		});
+	}
+
+	/**
+	 * Mouse dragged.
+	 *
+	 * @param e the e
+	 */
+	@Override
+	public final void mouseDragged(final com.jogamp.newt.event.MouseEvent e) {
+		mouseMoved(e);
+	}
+
+	/**
 	 * Internal mouse move.
 	 *
-	 * @param e
-	 *            the e
+	 * @param x
+	 *            the x already scaled
+	 * @param y
+	 *            the y already scaled
+	 * @param button
+	 *            the button 0 for no activity
+	 * @param isCtrl
+	 *            the is ctrl
+	 * @param isShift
+	 *            the is shift
 	 */
-	protected void internalMouseMove(final MouseEvent e) {
-		mousePosition.x = DPIHelper.autoScaleUp(e.x);
-		mousePosition.y = DPIHelper.autoScaleUp(e.y);
-		setCtrlPressed(GamaKeyBindings.ctrl(e));
-		setShiftPressed(GamaKeyBindings.shift(e));
+	protected void internalMouseMove(final int x, final int y, final int button, final boolean isCtrl,
+			final boolean isShift) {
+		mousePosition.x = x;
+		mousePosition.y = y;
+		setCtrlPressed(isCtrl);
+		setShiftPressed(isShift);
 	}
 
 	/**
 	 * Method mouseEnter().
 	 *
-	 * @param e
-	 *            the e
+	 * @param e the e
 	 * @see org.eclipse.swt.events.MouseTrackListener#mouseEnter(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
 	public final void mouseEnter(final org.eclipse.swt.events.MouseEvent e) {}
 
 	/**
+	 * Mouse entered.
+	 *
+	 * @param e the e
+	 */
+	@Override
+	public final void mouseEntered(final com.jogamp.newt.event.MouseEvent e) {}
+
+	/**
 	 * Method mouseExit().
 	 *
-	 * @param e
-	 *            the e
+	 * @param e the e
 	 * @see org.eclipse.swt.events.MouseTrackListener#mouseExit(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
 	public final void mouseExit(final org.eclipse.swt.events.MouseEvent e) {}
 
 	/**
+	 * Mouse exited.
+	 *
+	 * @param e the e
+	 */
+	@Override
+	public final void mouseExited(final com.jogamp.newt.event.MouseEvent e) {}
+
+	/**
 	 * Method mouseHover().
 	 *
-	 * @param e
-	 *            the e
+	 * @param e the e
 	 * @see org.eclipse.swt.events.MouseTrackListener#mouseHover(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
@@ -424,33 +484,70 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Method mouseDoubleClick().
 	 *
-	 * @param e
-	 *            the e
+	 * @param e the e
 	 * @see org.eclipse.swt.events.MouseListener#mouseDoubleClick(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
 	public final void mouseDoubleClick(final org.eclipse.swt.events.MouseEvent e) {
 		// Already taken in charge by the ZoomListener in the view
 		if (keystoneMode) {
-			final int corner = clickOnKeystone(e);
+			final int x = autoScaleUp(e.x);
+			final int y = autoScaleUp(e.y);
+			final int corner = clickOnKeystone(x, y);
 			if (corner != -1) { getRenderer().getKeystoneHelper().resetCorner(corner); }
+		}
+	}
+
+	/**
+	 * Mouse clicked.
+	 *
+	 * @param e the e
+	 */
+	@Override
+	public final void mouseClicked(final com.jogamp.newt.event.MouseEvent e) {
+		if (e.getClickCount() == 2) {
+			if (keystoneMode) {
+				final int x = autoScaleUp(e.getX());
+				final int y = autoScaleUp(e.getY());
+				final int corner = clickOnKeystone(x, y);
+				if (corner != -1) { getRenderer().getKeystoneHelper().resetCorner(corner); }
+			} else {
+				getRenderer().getSurface().zoomFit();
+			}
 		}
 	}
 
 	/**
 	 * Method mouseDown().
 	 *
-	 * @param e
-	 *            the e
+	 * @param e the e
 	 * @see org.eclipse.swt.events.MouseListener#mouseDown(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
 	public final void mouseDown(final org.eclipse.swt.events.MouseEvent e) {
 		invokeOnGLThread(drawable -> {
-			internalMouseDown(e);
+			final int x = autoScaleUp(e.x);
+			final int y = autoScaleUp(e.y);
+			internalMouseDown(x, y, e.button, GamaKeyBindings.ctrl(e), GamaKeyBindings.shift(e));
 			return false;
 		});
 
+	}
+
+	/**
+	 * Mouse pressed.
+	 *
+	 * @param e the e
+	 */
+	@Override
+	public final void mousePressed(final com.jogamp.newt.event.MouseEvent e) {
+		invokeOnGLThread(drawable -> {
+			final int x = autoScaleUp(e.getX());
+			final int y = autoScaleUp(e.getY());
+			internalMouseDown(x, y, e.getButton(), PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown(),
+					e.isShiftDown());
+			return false;
+		});
 	}
 
 	/**
@@ -472,33 +569,22 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Click on keystone.
 	 *
-	 * @param e
-	 *            the e
+	 * @param x the x
+	 * @param y the y
 	 * @return the int
 	 */
-	private int clickOnKeystone(final MouseEvent e) {
-		// int x = e.x;
-		// int y = e.y;
-		final int x = DPIHelper.autoScaleUp(e.x);
-		final int y = DPIHelper.autoScaleUp(e.y);
-		// return the number of the corner clicked. Return -1 if no click on
-		// keystone.
-		// final GamaPoint p = getNormalizedCoordinates(e);
+	private int clickOnKeystone(final int x, final int y) {
 		return renderer.getKeystoneHelper().cornerSelected(new GamaPoint(x, y));
 	}
 
 	/**
 	 * Hover on keystone.
 	 *
-	 * @param e
-	 *            the e
+	 * @param x the x
+	 * @param y the y
 	 * @return the int
 	 */
-	protected int hoverOnKeystone(final MouseEvent e) {
-		// int x = e.x;
-		// int y = e.y;
-		final int x = DPIHelper.autoScaleUp(e.x);
-		final int y = DPIHelper.autoScaleUp(e.y);
+	protected int hoverOnKeystone(final int x, final int y) {
 		// return the number of the corner clicked. Return -1 if no click on
 		// keystone. Return 10 if click on the center.
 		// final GamaPoint p = getNormalizedCoordinates(e);
@@ -508,12 +594,15 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Internal mouse down.
 	 *
-	 * @param e
-	 *            the e
+	 * @param x            the x
+	 * @param y            the y
+	 * @param button the button
+	 * @param isCtrl the is ctrl
+	 * @param isShift the is shift
 	 */
-	protected void internalMouseDown(final MouseEvent e) {
-		final int x = DPIHelper.autoScaleUp(e.x);
-		final int y = DPIHelper.autoScaleUp(e.y);
+	protected void internalMouseDown(final int x, final int y, final int button, final boolean isCtrl,
+			final boolean isShift) {
+
 		if (firsttimeMouseDown) {
 			firstMousePressedPosition.setLocation(x, y, 0);
 			firsttimeMouseDown = false;
@@ -523,38 +612,37 @@ public abstract class AbstractCamera implements ICamera {
 				getRenderer().getKeystoneHelper().setCornerSelected(-1);
 				return;
 			}
-			final int cornerSelected = clickOnKeystone(e);
+			final int cornerSelected = clickOnKeystone(x, y);
 			if (cornerSelected != -1) { getRenderer().getKeystoneHelper().setCornerSelected(cornerSelected); }
 		}
 
 		lastMousePressedPosition.setLocation(x, y, 0);
 		// Activate Picking when press and right click
-		if (e.button == 3 && !keystoneMode) {
+		if (button == 3 && !keystoneMode) {
 			if (renderer.getOpenGLHelper().mouseInROI(lastMousePressedPosition)) {
 				renderer.getSurface().selectionIn(renderer.getOpenGLHelper().getROIEnvelope());
 			} else if (renderer.getSurface().canTriggerContextualMenu()) {
 				renderer.getPickingHelper().setPicking(true);
 			}
-		} else if (e.button == 2 && cameraInteraction) { // mouse wheel
+		} else if (button == 2 && cameraInteraction) { // mouse wheel
 			resetPivot();
-		} else if (GamaKeyBindings.shift(e) && isViewInXYPlan()) { startROI(e); }
+		} else if (isShift && isViewInXYPlan()) { startROI(); }
 		// else {
 		// renderer.getPickingState().setPicking(false);
 		// }
 		getMousePosition().x = x;
 		getMousePosition().y = y;
 
-		setMouseLeftPressed(e.button == 1);
-		setCtrlPressed(e.button == 1 ? GamaKeyBindings.ctrl(e) : false);
-		setShiftPressed(e.button == 1 ? GamaKeyBindings.shift(e) : false);
+		setMouseLeftPressed(button == 1);
+		setCtrlPressed(isCtrl);
+		setShiftPressed(isShift);
 
 	}
 
 	/**
 	 * Method mouseUp().
 	 *
-	 * @param e
-	 *            the e
+	 * @param e the e
 	 * @see org.eclipse.swt.events.MouseListener#mouseUp(org.eclipse.swt.events.MouseEvent)
 	 */
 	@Override
@@ -562,7 +650,7 @@ public abstract class AbstractCamera implements ICamera {
 
 		invokeOnGLThread(drawable -> {
 			// if (cameraInteraction) {
-			internalMouseUp(e);
+			internalMouseUp(e.button, GamaKeyBindings.shift(e));
 			// }
 			return false;
 		});
@@ -570,27 +658,37 @@ public abstract class AbstractCamera implements ICamera {
 	}
 
 	/**
+	 * Mouse released.
+	 *
+	 * @param e the e
+	 */
+	@Override
+	public final void mouseReleased(final com.jogamp.newt.event.MouseEvent e) {
+		invokeOnGLThread(drawable -> {
+			// if (cameraInteraction) {
+			internalMouseUp(e.getButton(), e.isShiftDown());
+			// }
+			return false;
+		});
+	}
+
+	/**
 	 * Internal mouse up.
 	 *
-	 * @param e
-	 *            the e
+	 * @param button the button
+	 * @param isShift the is shift
 	 */
-	protected void internalMouseUp(final MouseEvent e) {
+	protected void internalMouseUp(final int button, final boolean isShift) {
 		firsttimeMouseDown = true;
-		if (canSelectOnRelease(e) && isViewInXYPlan() && GamaKeyBindings.shift(e)) { finishROISelection(); }
-		if (e.button == 1) { setMouseLeftPressed(false); }
+		if (canSelectOnRelease(isShift) && isViewInXYPlan() && isShift) { finishROISelection(); }
+		if (button == 1) { setMouseLeftPressed(false); }
 
 	}
 
 	/**
 	 * Start ROI.
-	 *
-	 * @param e
-	 *            the e
 	 */
-	private void startROI(final org.eclipse.swt.events.MouseEvent e) {
-		getMousePosition().x = DPIHelper.autoScaleUp(e.x);
-		getMousePosition().y = DPIHelper.autoScaleUp(e.y);
+	private void startROI() {
 		renderer.getOpenGLHelper().defineROI(new GamaPoint(firstMousePressedPosition), new GamaPoint(mousePosition));
 		ROICurrentlyDrawn = true;
 	}
@@ -608,11 +706,10 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Can select on release.
 	 *
-	 * @param arg0
-	 *            the arg 0
+	 * @param isShift the is shift
 	 * @return true, if successful
 	 */
-	protected abstract boolean canSelectOnRelease(org.eclipse.swt.events.MouseEvent arg0);
+	protected abstract boolean canSelectOnRelease(boolean isShift);
 	//
 	// protected void dump() {
 	// DEBUG.LOG("xPos:" + position.x + " yPos:" + position.y + "
@@ -702,8 +799,7 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Method keyPressed().
 	 *
-	 * @param e
-	 *            the e
+	 * @param e the e
 	 * @see org.eclipse.swt.events.KeyListener#keyPressed(org.eclipse.swt.events.KeyEvent)
 	 */
 	@Override
@@ -769,6 +865,116 @@ public abstract class AbstractCamera implements ICamera {
 	}
 
 	/**
+	 * Key pressed.
+	 *
+	 * @param e the e
+	 */
+	@Override
+	public final void keyPressed(final com.jogamp.newt.event.KeyEvent e) {
+
+		invokeOnGLThread(drawable -> {
+			if (!keystoneMode) {
+				switch (e.getKeyCode()) {
+					// We need to register here all the keystrokes used in the Workbench and on the view, as they might
+					// be caught by the NEWT key listener. Those dedicated to modelling are left over for the moment
+					// (like CTRL+SHIFT+H)
+					// First the global keystrokes
+					case com.jogamp.newt.event.KeyEvent.VK_ESCAPE:
+						GAMA.getGui().toggleFullScreenMode();
+						break;
+					case 'p':
+					case 'P':
+						if (PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown()) {
+							if (e.isShiftDown()) {
+								GAMA.stepFrontmostExperiment();
+							} else {
+								GAMA.startPauseFrontmostExperiment();
+							}
+						}
+						break;
+					case 'R':
+					case 'r':
+						if (PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown()) {
+							if (e.isShiftDown()) {
+								GAMA.relaunchFrontmostExperiment();
+							} else {
+								GAMA.reloadFrontmostExperiment();
+							}
+						}
+						break;
+					case 'X':
+					case 'x':
+						if ((PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown()) && e.isShiftDown()) {
+							GAMA.closeAllExperiments(true, false);
+						}
+						break;
+
+					// Finally the keystrokes for the display itself
+					case com.jogamp.newt.event.KeyEvent.VK_LEFT:
+						setCtrlPressed(PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown());
+						if (cameraInteraction) { AbstractCamera.this.strafeLeft = true; }
+						break;
+					case com.jogamp.newt.event.KeyEvent.VK_RIGHT:
+						setCtrlPressed(PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown());
+						if (cameraInteraction) { AbstractCamera.this.strafeRight = true; }
+						break;
+					case com.jogamp.newt.event.KeyEvent.VK_UP:
+						setCtrlPressed(PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown());
+						if (cameraInteraction) { AbstractCamera.this.goesForward = true; }
+						break;
+					case com.jogamp.newt.event.KeyEvent.VK_DOWN:
+						setCtrlPressed(PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown());
+						if (cameraInteraction) { AbstractCamera.this.goesBackward = true; }
+						break;
+					case com.jogamp.newt.event.KeyEvent.VK_SPACE:
+						if (cameraInteraction) { resetPivot(); }
+						break;
+					case com.jogamp.newt.event.KeyEvent.VK_CONTROL:
+						// The press and release of these keys does not seem to work. Caught after
+						setCtrlPressed(!firsttimeMouseDown);
+						break;
+					case com.jogamp.newt.event.KeyEvent.VK_META:
+						// The press and release of these keys does not seem to work. Caught after
+						setCtrlPressed(!firsttimeMouseDown);
+						break;
+				}
+				switch (e.getKeyChar()) {
+					case 0:
+						setCtrlPressed(e.isControlDown() || PlatformHelper.isMac() ? e.isMetaDown() : false);
+						setShiftPressed(e.isShiftDown());
+						break;
+					case '+':
+						if (cameraInteraction) { zoom(true); }
+						break;
+					case '-':
+						if (cameraInteraction) { zoom(false); }
+						break;
+					case '4':
+						if (cameraInteraction && useNumKeys) { quickLeftTurn(); }
+						break;
+					case '6':
+						if (cameraInteraction && useNumKeys) { quickRightTurn(); }
+						break;
+					case '8':
+						if (cameraInteraction && useNumKeys) { quickUpTurn(); }
+						break;
+					case '2':
+						if (cameraInteraction && useNumKeys) { quickDownTurn(); }
+						break;
+					case 'k':
+						if (!(PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown())) { activateKeystoneMode(); }
+						break;
+					default:
+						return true;
+				}
+			} else if (e.getKeyChar() == 'k' && !(PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown())) {
+				activateKeystoneMode();
+			}
+			return true;
+		});
+	}
+
+	/**
 	 * Reset pivot.
 	 */
 	protected void resetPivot() {}
@@ -809,8 +1015,7 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Method keyReleased().
 	 *
-	 * @param e
-	 *            the e
+	 * @param e the e
 	 * @see org.eclipse.swt.events.KeyListener#keyReleased(org.eclipse.swt.events.KeyEvent)
 	 */
 	@Override
@@ -850,6 +1055,52 @@ public abstract class AbstractCamera implements ICamera {
 	}
 
 	/**
+	 * Key released.
+	 *
+	 * @param e the e
+	 */
+	@Override
+	public final void keyReleased(final com.jogamp.newt.event.KeyEvent e) {
+
+		invokeOnGLThread(drawable -> {
+			if (!keystoneMode) {
+				if (e.getKeyChar() == 0) {
+					setCtrlPressed(!(e.isControlDown() || PlatformHelper.isMac() ? e.isMetaDown() : false));
+					setShiftPressed(!e.isShiftDown());
+					return true;
+				}
+				switch (e.getKeyCode()) {
+					case com.jogamp.newt.event.KeyEvent.VK_LEFT: // turns left (scene rotates right)
+						if (cameraInteraction) { strafeLeft = false; }
+						break;
+					case com.jogamp.newt.event.KeyEvent.VK_RIGHT: // turns right (scene rotates left)
+						if (cameraInteraction) { strafeRight = false; }
+						break;
+					case com.jogamp.newt.event.KeyEvent.VK_UP:
+						if (cameraInteraction) { goesForward = false; }
+						break;
+					case com.jogamp.newt.event.KeyEvent.VK_DOWN:
+						if (cameraInteraction) { goesBackward = false; }
+						break;
+					case com.jogamp.newt.event.KeyEvent.VK_CONTROL:
+						setCtrlPressed(false);
+						break;
+					case com.jogamp.newt.event.KeyEvent.VK_META:
+						setCtrlPressed(false);
+						break;
+					case com.jogamp.newt.event.KeyEvent.VK_SHIFT:
+						setShiftPressed(false);
+						finishROISelection();
+						break;
+					default:
+						return true;
+				}
+			}
+			return false;
+		});
+	}
+
+	/**
 	 * Sets the target.
 	 *
 	 * @param centre
@@ -874,8 +1125,7 @@ public abstract class AbstractCamera implements ICamera {
 	/**
 	 * Sets the initial Z factor corrector.
 	 *
-	 * @param corrector
-	 *            the new initial Z factor corrector
+	 * @param corrector the new initial Z factor corrector
 	 */
 	@Override
 	public void setInitialZFactorCorrector(final double corrector) { zCorrector = corrector; }

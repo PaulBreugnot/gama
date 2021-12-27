@@ -68,6 +68,17 @@ public class GamaToolbarFactory {
 	}
 
 	/**
+	 * Layout data for toolbar.
+	 *
+	 * @return the grid data
+	 */
+	public static GridData layoutDataForToolbar() {
+		final GridData data = new GridData(SWT.FILL, SWT.FILL, true, false);
+		data.minimumWidth = TOOLBAR_HEIGHT * 2;
+		return data;
+	}
+
+	/**
 	 * Find tooltip displayer.
 	 *
 	 * @param c
@@ -309,8 +320,7 @@ public class GamaToolbarFactory {
 
 		final GamaToolbar2 tb =
 				new GamaToolbar2(toolbarComposite, SWT.FLAT | SWT.HORIZONTAL | SWT.NO_FOCUS, TOOLBAR_HEIGHT);
-		final GridData data = new GridData(SWT.FILL, SWT.FILL, true, false);
-		data.minimumWidth = TOOLBAR_HEIGHT * 2;
+		final GridData data = layoutDataForToolbar();
 		tb.setLayoutData(data);
 		composite.addDisposeListener(e -> disposeToolbar(view, tb));
 		buildToolbar(view, tb);
@@ -322,7 +332,7 @@ public class GamaToolbarFactory {
 			public void run() {
 				final boolean show = !tb.isVisible();
 				tb.setVisible(show);
-				((GridData) tb.getParent().getLayoutData()).exclude = !show;
+				((GridData) tb.getLayoutData()).exclude = !show;
 				tb.getParent().setVisible(show);
 				tb.getParent().getParent().layout();
 				setIcon(show);

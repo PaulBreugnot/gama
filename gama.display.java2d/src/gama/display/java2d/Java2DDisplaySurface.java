@@ -290,11 +290,13 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	 *
 	 * @param swtMouseEvent
 	 *            the swt mouse event
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 */
 	@Override
-	public void dispatchMouseEvent(final int swtMouseEvent) {
-		final int x = mousePosition.x;
-		final int y = mousePosition.y;
+	public void dispatchMouseEvent(final int swtMouseEvent, final int x, final int y) {
 		for (final IEventLayerListener gl : listeners) {
 			switch (swtMouseEvent) {
 				case SWT.MouseDown:
@@ -890,12 +892,10 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	 */
 	@Override
 	public void dispose() {
-		getData().removeListener(this);
 		if (disposed) return;
-		// setRealized(false);
 		disposed = true;
+		getData().removeListener(this);
 		if (layerManager != null) { layerManager.dispose(); }
-
 		GAMA.releaseScope(getScope());
 		setDisplayScope(null);
 	}

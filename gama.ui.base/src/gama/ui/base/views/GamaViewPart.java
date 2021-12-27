@@ -440,9 +440,7 @@ public abstract class GamaViewPart extends ViewPart
 		WorkbenchHelper.asyncRun(() -> {
 			try {
 				WorkbenchHelper.hideView(GamaViewPart.this);
-			} catch (final Exception e) {
-				e.printStackTrace();
-			}
+			} catch (final Exception e) {}
 		});
 
 	}

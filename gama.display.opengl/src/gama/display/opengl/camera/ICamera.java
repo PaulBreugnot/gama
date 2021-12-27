@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ICamera.java, in gama.display.opengl, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ICamera.java, in gama.display.opengl, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.display.opengl.camera;
 
@@ -18,6 +18,7 @@ import org.eclipse.swt.events.MouseWheelListener;
 import gama.common.geometry.Envelope3D;
 import gama.metamodel.shape.GamaPoint;
 
+// TODO: Auto-generated Javadoc
 /**
  * Class ICamera.
  *
@@ -26,18 +27,19 @@ import gama.metamodel.shape.GamaPoint;
  *
  */
 public interface ICamera extends org.eclipse.swt.events.KeyListener, MouseListener, MouseMoveListener,
-		MouseTrackListener, MouseWheelListener {
-	
+		MouseTrackListener, MouseWheelListener, com.jogamp.newt.event.MouseListener, com.jogamp.newt.event.KeyListener {
+
 	/**
 	 * The Interface CameraPreset.
 	 */
 	@FunctionalInterface
 	public interface CameraPreset {
-		
+
 		/**
 		 * Apply to.
 		 *
-		 * @param camera the camera
+		 * @param camera
+		 *            the camera
 		 */
 		void applyTo(AbstractCamera camera);
 	}
@@ -84,7 +86,8 @@ public interface ICamera extends org.eclipse.swt.events.KeyListener, MouseListen
 	/**
 	 * Sets the distance.
 	 *
-	 * @param distance the new distance
+	 * @param distance
+	 *            the new distance
 	 */
 	void setDistance(final double distance);
 
@@ -121,7 +124,8 @@ public interface ICamera extends org.eclipse.swt.events.KeyListener, MouseListen
 	/**
 	 * Apply preset.
 	 *
-	 * @param preset the preset
+	 * @param preset
+	 *            the preset
 	 */
 	void applyPreset(String preset);
 
@@ -137,39 +141,48 @@ public interface ICamera extends org.eclipse.swt.events.KeyListener, MouseListen
 	/**
 	 * Zoom.
 	 *
-	 * @param in the in
+	 * @param in
+	 *            the in
 	 */
 	void zoom(boolean in);
 
 	/**
 	 * Zoom.
 	 *
-	 * @param level the level
+	 * @param level
+	 *            the level
 	 */
 	void zoom(double level);
 
 	/**
 	 * Zoom focus.
 	 *
-	 * @param env the env
+	 * @param env
+	 *            the env
 	 */
 	void zoomFocus(Envelope3D env);
 
 	/**
 	 * Sets the position.
 	 *
-	 * @param x the x
-	 * @param d the d
-	 * @param e the e
+	 * @param x
+	 *            the x
+	 * @param d
+	 *            the d
+	 * @param e
+	 *            the e
 	 */
 	void setPosition(double x, double d, double e);
 
 	/**
 	 * Sets the up vector.
 	 *
-	 * @param i the i
-	 * @param j the j
-	 * @param k the k
+	 * @param i
+	 *            the i
+	 * @param j
+	 *            the j
+	 * @param k
+	 *            the k
 	 */
 	void setUpVector(double i, double j, double k);
 
@@ -193,7 +206,8 @@ public interface ICamera extends org.eclipse.swt.events.KeyListener, MouseListen
 	/**
 	 * Sets the initial Z factor corrector.
 	 *
-	 * @param factor the new initial Z factor corrector
+	 * @param factor
+	 *            the new initial Z factor corrector
 	 */
 	void setInitialZFactorCorrector(double factor);
 

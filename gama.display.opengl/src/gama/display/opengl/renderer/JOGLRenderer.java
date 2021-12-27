@@ -19,11 +19,11 @@ import org.locationtech.jts.geom.Geometry;
 
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
-import com.jogamp.opengl.swt.GLCanvas;
 
 import gama.common.ui.IDisplaySurface;
 import gama.common.ui.ILayer;
 import gama.core.dev.utils.DEBUG;
+import gama.core.dev.utils.FLAGS;
 import gama.display.opengl.OpenGL;
 import gama.display.opengl.renderer.helpers.AbstractRendererHelper.Pass;
 import gama.display.opengl.renderer.helpers.CameraHelper;
@@ -32,6 +32,7 @@ import gama.display.opengl.renderer.helpers.LightHelper;
 import gama.display.opengl.renderer.helpers.PickingHelper;
 import gama.display.opengl.renderer.helpers.SceneHelper;
 import gama.display.opengl.scene.ModelScene;
+import gama.display.opengl.view.GamaGLCanvas;
 import gama.display.opengl.view.SWTOpenGLDisplaySurface;
 import gama.metamodel.shape.GamaPoint;
 import gama.metamodel.shape.IShape;
@@ -92,7 +93,7 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 
 	/** The canvas. */
 	// Canvas
-	protected GLCanvas canvas;
+	protected GamaGLCanvas canvas;
 
 	/**
 	 * Sets the display surface.
@@ -132,7 +133,7 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 	 *            the new canvas
 	 */
 	@Override
-	public void setCanvas(final GLCanvas canvas) {
+	public void setCanvas(final GamaGLCanvas canvas) {
 		this.canvas = canvas;
 		canvas.addGLEventListener(this);
 		cameraHelper.hook();
@@ -146,7 +147,7 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 	 */
 	@Override
 	public void init(final GLAutoDrawable drawable) {
-		WorkbenchHelper.asyncRun(() -> canvas.setVisible(visible));
+		if (!FLAGS.USE_NATIVE_OPENGL_WINDOW) { WorkbenchHelper.asyncRun(() -> canvas.setVisible(visible)); }
 		openGL.setGL2(drawable.getGL().getGL2());
 		cameraHelper.initialize();
 		openGL.initializeGLStates(data.getBackgroundColor());
@@ -180,7 +181,7 @@ public class JOGLRenderer extends AbstractDisplayGraphics implements IOpenGLRend
 	 * @return the canvas
 	 */
 	@Override
-	public final GLCanvas getCanvas() { return canvas; }
+	public final GamaGLCanvas getCanvas() { return canvas; }
 
 	/**
 	 * Inits the scene.
