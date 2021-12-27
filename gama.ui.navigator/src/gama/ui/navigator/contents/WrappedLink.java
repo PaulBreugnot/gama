@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * WrappedLink.java, in gama.ui.navigator, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * WrappedLink.java, in gama.ui.navigator, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.navigator.contents;
 
@@ -14,10 +14,10 @@ import static gama.common.util.FileUtils.SEPARATOR;
 import static gama.common.util.FileUtils.URL_SEPARATOR_REPLACEMENT;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.jface.dialogs.MessageDialog;
 
-import gama.ui.base.utils.WorkbenchHelper;
+import gama.ui.base.dialogs.Dialogs;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class WrappedLink.
  */
@@ -29,8 +29,10 @@ public class WrappedLink extends WrappedFile {
 	/**
 	 * Instantiates a new wrapped link.
 	 *
-	 * @param root the root
-	 * @param wrapped the wrapped
+	 * @param root
+	 *            the root
+	 * @param wrapped
+	 *            the wrapped
 	 */
 	public WrappedLink(final WrappedContainer<?> root, final IFile wrapped) {
 		super(root, wrapped);
@@ -42,33 +44,58 @@ public class WrappedLink extends WrappedFile {
 	// return GamaFonts.getNavigLinkFont();
 	// }
 
+	/**
+	 * Checks for children.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean hasChildren() {
 		return false;
 	}
 
+	/**
+	 * Handle double click.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean handleDoubleClick() {
 		if (!getManager().validateLocation(getResource())) {
-			MessageDialog.openError(WorkbenchHelper.getShell(), "Unknown file",
-					"The file at location '" + getResource().getLocation() + " does not exist");
+			Dialogs.error("Unknown file", "The file at location '" + getResource().getLocation() + " does not exist");
 			return true;
 		}
 		return false;
 
 	}
 
+	/**
+	 * Find max problem severity.
+	 *
+	 * @return the int
+	 */
 	@Override
 	public int findMaxProblemSeverity() {
 		if (!getManager().validateLocation(getResource())) return isWeb ? WEBLINK_BROKEN : LINK_BROKEN;
 		return isWeb ? WEBLINK_OK : LINK_OK;
 	}
 
+	/**
+	 * Can be decorated.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean canBeDecorated() {
 		return true;
 	}
 
+	/**
+	 * Gets the suffix.
+	 *
+	 * @param sb the sb
+	 * @return the suffix
+	 */
 	@Override
 	public void getSuffix(final StringBuilder sb) {
 		super.getSuffix(sb);

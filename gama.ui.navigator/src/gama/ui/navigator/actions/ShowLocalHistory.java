@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ShowLocalHistory.java, in gama.ui.navigator, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ShowLocalHistory.java, in gama.ui.navigator, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.navigator.actions;
 
@@ -17,10 +17,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFileState;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.dialogs.ErrorDialog;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.IShellProvider;
 import org.eclipse.team.internal.ui.TeamUIMessages;
@@ -33,9 +29,11 @@ import org.eclipse.team.ui.history.IHistoryView;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.WorkspaceAction;
 
+import gama.ui.base.dialogs.Dialogs;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.navigator.contents.ResourceManager;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ShowLocalHistory.
  */
@@ -43,14 +41,15 @@ public class ShowLocalHistory extends WorkspaceAction {
 
 	/** The is file. */
 	boolean isFile;
-	
+
 	/** The project action. */
 	AddFromHistoryAction projectAction = new AddFromHistoryAction();
 
 	/**
 	 * Instantiates a new show local history.
 	 *
-	 * @param provider the provider
+	 * @param provider
+	 *            the provider
 	 */
 	protected ShowLocalHistory(final IShellProvider provider) {
 		super(provider, "Local history...");
@@ -59,6 +58,9 @@ public class ShowLocalHistory extends WorkspaceAction {
 	/** The selection. */
 	private IStructuredSelection fSelection;
 
+	/**
+	 * Run.
+	 */
 	@Override
 	public void run() {
 		if (!isFile) {
@@ -75,20 +77,22 @@ public class ShowLocalHistory extends WorkspaceAction {
 					final IHistoryView view = TeamUI.showHistoryFor(TeamUIPlugin.getActivePage(), resource,
 							LocalHistoryPageSource.getInstance());
 					final IHistoryPage page = view.getHistoryPage();
-					if (page instanceof LocalHistoryPage) {
-						final LocalHistoryPage historyPage = (LocalHistoryPage) page;
-						historyPage.setClickAction(isCompare());
-					}
+					if (page instanceof LocalHistoryPage historyPage) { historyPage.setClickAction(isCompare()); }
 				};
 				WorkbenchHelper.asyncRun(r);
 			});
 		} catch (final InvocationTargetException exception) {
-			ErrorDialog.openError(WorkbenchHelper.getShell(), null, null,
-					new Status(IStatus.ERROR, TeamUIPlugin.PLUGIN_ID, IStatus.ERROR, TeamUIMessages.ShowLocalHistory_1,
-							exception.getTargetException()));
+			Dialogs.error(getPromptTitle(), TeamUIMessages.ShowLocalHistory_1);
 		} catch (final InterruptedException exception) {}
 	}
 
+	/**
+	 * Update selection.
+	 *
+	 * @param sel
+	 *            the sel
+	 * @return true, if successful
+	 */
 	@Override
 	protected boolean updateSelection(final IStructuredSelection sel) {
 		fSelection = sel;
@@ -103,18 +107,14 @@ public class ShowLocalHistory extends WorkspaceAction {
 	 *
 	 * @return true, if is compare
 	 */
-	protected boolean isCompare() {
-		return false;
-	}
+	protected boolean isCompare() { return false; }
 
 	/**
 	 * Gets the selection.
 	 *
 	 * @return the selection
 	 */
-	public IStructuredSelection getSelection() {
-		return fSelection;
-	}
+	public IStructuredSelection getSelection() { return fSelection; }
 
 	/**
 	 * Gets the local history.
@@ -127,13 +127,12 @@ public class ShowLocalHistory extends WorkspaceAction {
 		try {
 			if (file != null) { states = file.getHistory(null); }
 		} catch (final CoreException ex) {
-			MessageDialog.openError(WorkbenchHelper.getShell(), getPromptTitle(), ex.getMessage());
+			Dialogs.error(getPromptTitle(), ex.getMessage());
 			return null;
 		}
 
 		if (states == null || states.length <= 0) {
-			MessageDialog.openInformation(WorkbenchHelper.getShell(), getPromptTitle(),
-					TeamUIMessages.ShowLocalHistory_0);
+			Dialogs.inform(getPromptTitle(), TeamUIMessages.ShowLocalHistory_0);
 		}
 		return states;
 	}
@@ -143,13 +142,14 @@ public class ShowLocalHistory extends WorkspaceAction {
 	 *
 	 * @return the prompt title
 	 */
-	protected String getPromptTitle() {
-		return TeamUIMessages.ShowLocalHistory_2;
-	}
+	protected String getPromptTitle() { return TeamUIMessages.ShowLocalHistory_2; }
 
+	/**
+	 * Gets the operation message.
+	 *
+	 * @return the operation message
+	 */
 	@Override
-	protected String getOperationMessage() {
-		return TeamUIMessages.ShowLocalHistory_2;
-	}
+	protected String getOperationMessage() { return TeamUIMessages.ShowLocalHistory_2; }
 
 }

@@ -1,12 +1,11 @@
 /*******************************************************************************************************
  *
- * SwtGui.java, in gama.ui.base, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * SwtGui.java, in gama.ui.base, is part of the source code of the GAMA modeling and simulation platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.base.shared;
 
@@ -91,6 +90,7 @@ import gaml.statements.test.CompoundSummary;
 import gaml.statements.test.TestExperimentSummary;
 import one.util.streamex.StreamEx;
 
+// TODO: Auto-generated Javadoc
 /**
  * Written by drogoul Modified on 6 mai 2011.
  *
@@ -100,25 +100,14 @@ public class SwtGui implements IGui {
 
 	static {
 		DEBUG.OFF();
-		PreferencesHelper.initialize();
-
 	}
-
-	/** The instance. */
+	
 	private static SwtGui INSTANCE = new SwtGui();
 
-	/**
-	 * Gets the single instance of SwtGui.
-	 *
-	 * @return single instance of SwtGui
-	 */
 	public static IGui getInstance() {
 		return INSTANCE;
 	}
 
-	/**
-	 * Instantiates a new swt gui.
-	 */
 	private SwtGui() {}
 
 	/** The all tests running. */
@@ -126,10 +115,23 @@ public class SwtGui implements IGui {
 
 	/** The highlighted agent. */
 	private IAgent highlightedAgent;
-	
+
 	/** The mouse location in model. */
 	private GamaPoint mouseLocationInModel;
 
+	static {
+		// GamaFonts.setLabelFont(PreferencesHelper.BASE_BUTTON_FONT.getValue());
+		//PreferencesHelper.initialize();
+	}
+
+
+	/**
+	 * Confirm close.
+	 *
+	 * @param exp
+	 *            the exp
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean confirmClose(final IExperimentPlan exp) {
 		if (exp == null || !GamaPreferences.Runtime.CORE_ASK_CLOSING.getValue()) return true;
@@ -138,6 +140,52 @@ public class SwtGui implements IGui {
 				+ "' of model '" + exp.getModel().getName() + "' ?");
 	}
 
+	/**
+	 * Question.
+	 *
+	 * @param title the title
+	 * @param msg the msg
+	 * @return true, if successful
+	 */
+	@Override
+	public boolean question(final String title, final String msg) {
+		return Dialogs.question(title, msg);
+	}
+
+	/**
+	 * Tell.
+	 *
+	 * @param title
+	 *            the title
+	 * @param msg
+	 *            the msg
+	 */
+	@Override
+	public void inform(final String title, final String msg) {
+		Dialogs.inform(title, msg);
+	}
+
+	/**
+	 * Error.
+	 *
+	 * @param title
+	 *            the title
+	 * @param err
+	 *            the err
+	 */
+	@Override
+	public void error(final String title, final String err) {
+		Dialogs.error(title, err);
+	}
+
+	/**
+	 * Runtime error.
+	 *
+	 * @param scope
+	 *            the scope
+	 * @param g
+	 *            the g
+	 */
 	@Override
 	public void runtimeError(final IScope scope, final GamaRuntimeException g) {
 		if (g.isReported() || GAMA.getFrontmostController() != null && GAMA.getFrontmostController().isDisposing())
@@ -148,6 +196,14 @@ public class SwtGui implements IGui {
 		g.setReported();
 	}
 
+	/**
+	 * Display errors.
+	 *
+	 * @param scope
+	 *            the scope
+	 * @param exceptions
+	 *            the exceptions
+	 */
 	@Override
 	public void displayErrors(final IScope scope, final List<GamaRuntimeException> exceptions) {
 		if (exceptions == null) {
@@ -158,6 +214,15 @@ public class SwtGui implements IGui {
 		}
 	}
 
+	/**
+	 * Open test view.
+	 *
+	 * @param scope
+	 *            the scope
+	 * @param allTests
+	 *            the all tests
+	 * @return the i gama view. test
+	 */
 	@Override
 	public IGamaView.Test openTestView(final IScope scope, final boolean allTests) {
 		ALL_TESTS_RUNNING = allTests;
@@ -166,12 +231,23 @@ public class SwtGui implements IGui {
 		return v;
 	}
 
+	/**
+	 * Display tests results.
+	 *
+	 * @param scope
+	 *            the scope
+	 * @param summary
+	 *            the summary
+	 */
 	@Override
 	public void displayTestsResults(final IScope scope, final CompoundSummary<?, ?> summary) {
 		final IGamaView.Test v = (Test) WorkbenchHelper.getPage().findView(TEST_VIEW_ID);
 		if (v != null) { v.addTestResult(summary); }
 	}
 
+	/**
+	 * End test display.
+	 */
 	@Override
 	public void endTestDisplay() {
 		final IGamaView.Test v = (Test) WorkbenchHelper.getPage().findView(TEST_VIEW_ID);
@@ -179,6 +255,12 @@ public class SwtGui implements IGui {
 		WorkbenchHelper.getService(IRefreshHandler.class).refreshNavigator();
 	}
 
+	/**
+	 * Clear errors.
+	 *
+	 * @param scope
+	 *            the scope
+	 */
 	@Override
 	public void clearErrors(final IScope scope) {
 		final IRuntimeExceptionHandler handler = getRuntimeExceptionHandler();
@@ -188,9 +270,12 @@ public class SwtGui implements IGui {
 	/**
 	 * Internal show view.
 	 *
-	 * @param viewId the view id
-	 * @param secondaryId the secondary id
-	 * @param code the code
+	 * @param viewId
+	 *            the view id
+	 * @param secondaryId
+	 *            the secondary id
+	 * @param code
+	 *            the code
 	 * @return the object
 	 */
 	private Object internalShowView(final String viewId, final String secondaryId, final int code) {
@@ -214,6 +299,13 @@ public class SwtGui implements IGui {
 		return result[0];
 	}
 
+	/**
+	 * Copy to clipboard.
+	 *
+	 * @param text
+	 *            the text
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean copyToClipboard(final String text) {
 		WorkbenchHelper.asyncRun(() -> {
@@ -227,11 +319,30 @@ public class SwtGui implements IGui {
 		return true;
 	}
 
+	/**
+	 * Open welcome page.
+	 *
+	 * @param ifEmpty
+	 *            the if empty
+	 */
 	@Override
 	public void openWelcomePage(final boolean ifEmpty) {
 		WebHelper.openWelcomePage(ifEmpty);
 	}
 
+	/**
+	 * Show view.
+	 *
+	 * @param scope
+	 *            the scope
+	 * @param viewId
+	 *            the view id
+	 * @param secondaryId
+	 *            the secondary id
+	 * @param code
+	 *            the code
+	 * @return the i gama view
+	 */
 	@Override
 	public IGamaView showView(final IScope scope, final String viewId, final String secondaryId, final int code) {
 
@@ -258,19 +369,44 @@ public class SwtGui implements IGui {
 		}
 	}
 
+	/**
+	 * Open simulation perspective.
+	 *
+	 * @param model
+	 *            the model
+	 * @param experimentName
+	 *            the experiment name
+	 * @return true, if successful
+	 */
 	@Override
 	public final boolean openSimulationPerspective(final IModel model, final String experimentName) {
 		return PerspectiveHelper.openSimulationPerspective(model, experimentName);
 	}
 
+	/**
+	 * Gets the display description for.
+	 *
+	 * @param name
+	 *            the name
+	 * @return the display description for
+	 */
 	@Override
 	public DisplayDescription getDisplayDescriptionFor(final String name) {
 		return DISPLAYS.get(name);
 	}
 
+	/**
+	 * Creates the display surface for.
+	 *
+	 * @param output
+	 *            the output
+	 * @param args
+	 *            the args
+	 * @return the i display surface
+	 */
 	@Override
 	public IDisplaySurface createDisplaySurfaceFor(final LayeredDisplayOutput output, final Object... args) {
-		IDisplaySurface surface = null;
+		IDisplaySurface surface;
 		final String keyword = output.getData().getDisplayType();
 		final DisplayDescription creator = DISPLAYS.get(keyword);
 		if (creator == null)
@@ -280,11 +416,27 @@ public class SwtGui implements IGui {
 		return surface;
 	}
 
+	/**
+	 * Gets the all display surfaces.
+	 *
+	 * @return the all display surfaces
+	 */
 	@Override
-	public Iterable<IDisplaySurface> getAllDisplaySurfaces() {
-		return allDisplaySurfaces();
-	}
+	public Iterable<IDisplaySurface> getAllDisplaySurfaces() { return allDisplaySurfaces(); }
 
+	/**
+	 * Open user input dialog.
+	 *
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param parameters
+	 *            the parameters
+	 * @param font
+	 *            the font
+	 * @return the map
+	 */
 	@Override
 	public Map<String, Object> openUserInputDialog(final IScope scope, final String title,
 			final List<IParameter> parameters, final GamaFont font) {
@@ -293,12 +445,25 @@ public class SwtGui implements IGui {
 			result.put(p.getName(), p.getInitialValue(scope));
 		}
 		WorkbenchHelper.run(() -> {
-			final EditorsDialog dialog = new EditorsDialog(scope, WorkbenchHelper.getShell(), parameters, title, font);
+			final EditorsDialog dialog = new EditorsDialog(scope, null, parameters, title, font);
 			if (dialog.open() == Window.OK) { result.putAll(dialog.getValues()); }
 		});
 		return result;
 	}
 
+	/**
+	 * Open wizard.
+	 *
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param finish
+	 *            the finish
+	 * @param pages
+	 *            the pages
+	 * @return the i map
+	 */
 	@Override
 	public IMap<String, IMap<String, Object>> openWizard(final IScope scope, final String title,
 			final ActionDescription finish, final IList<IMap<String, Object>> pages) {
@@ -322,10 +487,44 @@ public class SwtGui implements IGui {
 		return result;
 	}
 
+	/*
+	 * @Override public Map<String, Object> openWizard(final IScope scope, final String title, final List<IParameter>
+	 * parameters, final GamaFont font) { final IMap<String, Object> result = GamaMapFactory.createUnordered(); for
+	 * (final IParameter p : parameters) { result.put(p.getName(), p.getInitialValue(scope)); } WorkbenchHelper.run(()
+	 * -> { final EditorsDialog dialog = new EditorsDialog(scope, WorkbenchHelper.getShell(), parameters, title, font);
+	 * if (dialog.open() == Window.OK) { result.putAll(dialog.getValues()); } }); return result; }
+	 */
+
+	/**
+	 * Open user input dialog confirm.
+	 *
+	 * @param title
+	 *            the title
+	 * @param message
+	 *            the message
+	 * @return the boolean
+	 */
+	@Override
+	public boolean confirm(final String title, final String message) {
+		final List<Boolean> result = new ArrayList<>();
+		WorkbenchHelper.run(() -> {
+			result.add(Dialogs.confirm(title, message));
+		});
+		return result.isEmpty() ? false : result.get(0);
+	}
+
+	/**
+	 * Open user control panel.
+	 *
+	 * @param scope
+	 *            the scope
+	 * @param panel
+	 *            the panel
+	 */
 	@Override
 	public void openUserControlPanel(final IScope scope, final UserPanelStatement panel) {
 		WorkbenchHelper.run(() -> {
-			IGamaView.User part = null;
+			IGamaView.User part;
 			part = (User) showView(scope, USER_CONTROL_VIEW_ID, null, IWorkbenchPage.VIEW_CREATE);
 			if (part != null) { part.initFor(scope, panel); }
 			scope.setOnUserHold(true);
@@ -338,6 +537,12 @@ public class SwtGui implements IGui {
 
 	}
 
+	/**
+	 * Close dialogs.
+	 *
+	 * @param scope
+	 *            the scope
+	 */
 	@Override
 	public void closeDialogs(final IScope scope) {
 
@@ -350,25 +555,38 @@ public class SwtGui implements IGui {
 
 	}
 
+	/**
+	 * Gets the highlighted agent.
+	 *
+	 * @return the highlighted agent
+	 */
 	@Override
-	public IAgent getHighlightedAgent() {
-		return highlightedAgent;
-	}
+	public IAgent getHighlightedAgent() { return highlightedAgent; }
 
+	/**
+	 * Sets the highlighted agent.
+	 *
+	 * @param a
+	 *            the new highlighted agent
+	 */
 	@Override
-	public void setHighlightedAgent(final IAgent a) {
-		highlightedAgent = a;
-	}
+	public void setHighlightedAgent(final IAgent a) { highlightedAgent = a; }
 
 	/**
 	 * Gets the model runner.
 	 *
 	 * @return the model runner
 	 */
-	private IModelRunner getModelRunner() {
-		return WorkbenchHelper.getService(IModelRunner.class);
-	}
+	private IModelRunner getModelRunner() { return WorkbenchHelper.getService(IModelRunner.class); }
 
+	/**
+	 * Edits the model.
+	 *
+	 * @param scope
+	 *            the scope
+	 * @param eObject
+	 *            the e object
+	 */
 	@Override
 	public void editModel(final IScope scope, final Object eObject) {
 		final IModelRunner modelRunner = getModelRunner();
@@ -376,6 +594,13 @@ public class SwtGui implements IGui {
 		modelRunner.editModel(eObject);
 	}
 
+	/**
+	 * Run headless tests.
+	 *
+	 * @param model
+	 *            the model
+	 * @return the list
+	 */
 	@Override
 	public List<TestExperimentSummary> runHeadlessTests(final Object model) {
 		final IModelRunner modelRunner = getModelRunner();
@@ -383,6 +608,14 @@ public class SwtGui implements IGui {
 		return modelRunner.runHeadlessTests(model);
 	}
 
+	/**
+	 * Update parameter view.
+	 *
+	 * @param scope
+	 *            the scope
+	 * @param exp
+	 *            the exp
+	 */
 	@Override
 	public void updateParameterView(final IScope scope, final IExperimentPlan exp) {
 
@@ -396,6 +629,14 @@ public class SwtGui implements IGui {
 		});
 	}
 
+	/**
+	 * Show parameter view.
+	 *
+	 * @param scope
+	 *            the scope
+	 * @param exp
+	 *            the exp
+	 */
 	@Override
 	public void showParameterView(final IScope scope, final IExperimentPlan exp) {
 
@@ -408,9 +649,11 @@ public class SwtGui implements IGui {
 	}
 
 	/**
-	 * Method setSelectedAgent()
+	 * Method setSelectedAgent().
 	 *
-	 * @see gama.common.ui.IGui#setSelectedAgent(gama.metamodel.agent.IAgent)
+	 * @param a
+	 *            the new selected agent
+	 * @see msi.gama.common.interfaces.IGui#setSelectedAgent(msi.gama.metamodel.agent.IAgent)
 	 */
 	@Override
 	public void setSelectedAgent(final IAgent a) {
@@ -428,6 +671,14 @@ public class SwtGui implements IGui {
 		});
 	}
 
+	/**
+	 * Prepare for experiment.
+	 *
+	 * @param scope
+	 *            the scope
+	 * @param exp
+	 *            the exp
+	 */
 	@Override
 	public void prepareForExperiment(final IScope scope, final IExperimentPlan exp) {
 		if (exp.isGui()) {
@@ -483,9 +734,9 @@ public class SwtGui implements IGui {
 	}
 
 	/**
-	 * Method cleanAfterExperiment()
+	 * Method cleanAfterExperiment().
 	 *
-	 * @see gama.common.ui.IGui#cleanAfterExperiment(gama.kernel.experiment.IExperimentPlan)
+	 * @see msi.gama.common.interfaces.IGui#cleanAfterExperiment(msi.gama.kernel.experiment.IExperimentPlan)
 	 */
 	@Override
 	public void cleanAfterExperiment() {
@@ -507,6 +758,14 @@ public class SwtGui implements IGui {
 		return WorkbenchHelper.getService(IRuntimeExceptionHandler.class);
 	}
 
+	/**
+	 * Run model.
+	 *
+	 * @param object
+	 *            the object
+	 * @param exp
+	 *            the exp
+	 */
 	@Override
 	public void runModel(final Object object, final String exp) {
 		final IModelRunner modelRunner = getModelRunner();
@@ -520,7 +779,7 @@ public class SwtGui implements IGui {
 	 * @return the list
 	 */
 	public static List<IDisplaySurface> allDisplaySurfaces() {
-		return StreamEx.of(allDisplayViews()).map(gama.common.ui.IGamaView.Display::getDisplaySurface).toList();
+		return StreamEx.of(allDisplayViews()).map(IGamaView.Display::getDisplaySurface).toList();
 	}
 
 	/**
@@ -539,9 +798,15 @@ public class SwtGui implements IGui {
 	}
 
 	/**
-	 * Method updateSpeedDisplay()
+	 * Method updateSpeedDisplay().
 	 *
-	 * @see gama.common.ui.IGui#updateSpeedDisplay(java.lang.Double)
+	 * @param scope
+	 *            the scope
+	 * @param d
+	 *            the d
+	 * @param notify
+	 *            the notify
+	 * @see msi.gama.common.interfaces.IGui#updateSpeedDisplay(java.lang.Double)
 	 */
 	@Override
 	public void updateSpeedDisplay(final IScope scope, final Double d, final boolean notify) {
@@ -553,20 +818,34 @@ public class SwtGui implements IGui {
 	}
 
 	/**
-	 * Method getMetaDataProvider()
+	 * Method getMetaDataProvider().
 	 *
-	 * @see gama.common.ui.IGui#getMetaDataProvider()
+	 * @return the meta data provider
+	 * @see msi.gama.common.interfaces.IGui#getMetaDataProvider()
 	 */
 	@Override
 	public IFileMetaDataProvider getMetaDataProvider() {
 		return WorkbenchHelper.getService(IFileMetaDataProvider.class);
 	}
 
+	/**
+	 * Gets the gaml label provider.
+	 *
+	 * @return the gaml label provider
+	 */
 	@Override
-	public IGamlLabelProvider getGamlLabelProvider() {
-		return WorkbenchHelper.getService(IGamlLabelProvider.class);
-	}
+	public IGamlLabelProvider getGamlLabelProvider() { return WorkbenchHelper.getService(IGamlLabelProvider.class); }
 
+	/**
+	 * Close simulation views.
+	 *
+	 * @param scope
+	 *            the scope
+	 * @param openModelingPerspective
+	 *            the open modeling perspective
+	 * @param immediately
+	 *            the immediately
+	 */
 	@Override
 	public void closeSimulationViews(final IScope scope, final boolean openModelingPerspective,
 			final boolean immediately) {
@@ -593,6 +872,13 @@ public class SwtGui implements IGui {
 
 	}
 
+	/**
+	 * Gets the experiment state.
+	 *
+	 * @param uid
+	 *            the uid
+	 * @return the experiment state
+	 */
 	@Override
 	public String getExperimentState(final String uid) {
 		final IExperimentController controller = GAMA.getFrontmostController();
@@ -601,20 +887,42 @@ public class SwtGui implements IGui {
 		return ISimulationStateProvider.RUNNING;
 	}
 
+	/**
+	 * Update experiment state.
+	 *
+	 * @param scope
+	 *            the scope
+	 * @param forcedState
+	 *            the forced state
+	 */
 	@Override
 	public void updateExperimentState(final IScope scope, final String forcedState) {
 		// DEBUG.OUT("STATE: " + forcedState);
 		final ISourceProviderService service = WorkbenchHelper.getService(ISourceProviderService.class);
-		final ISimulationStateProvider stateProvider =
-				(ISimulationStateProvider) service.getSourceProvider(ISimulationStateProvider.SIMULATION_RUNNING_STATE);
+		final ISimulationStateProvider stateProvider = (ISimulationStateProvider) service
+				.getSourceProvider(ISimulationStateProvider.SIMULATION_RUNNING_STATE);
 		if (stateProvider != null) { WorkbenchHelper.run(() -> stateProvider.updateStateTo(forcedState)); }
 	}
 
+	/**
+	 * Update experiment state.
+	 *
+	 * @param scope
+	 *            the scope
+	 */
 	@Override
 	public void updateExperimentState(final IScope scope) {
 		updateExperimentState(scope, getExperimentState(""));
 	}
 
+	/**
+	 * Update view title.
+	 *
+	 * @param out
+	 *            the out
+	 * @param agent
+	 *            the agent
+	 */
 	@Override
 	public void updateViewTitle(final IDisplayOutput out, final SimulationAgent agent) {
 		WorkbenchHelper.run(() -> {
@@ -625,22 +933,48 @@ public class SwtGui implements IGui {
 
 	}
 
+	/**
+	 * Update decorator.
+	 *
+	 * @param id
+	 *            the id
+	 */
 	@Override
 	public void updateDecorator(final String id) {
 		WorkbenchHelper.asyncRun(() -> WorkbenchHelper.getWorkbench().getDecoratorManager().update(id));
 
 	}
 
+	/**
+	 * Gets the status.
+	 *
+	 * @param scope
+	 *            the scope
+	 * @return the status
+	 */
 	@Override
 	public IStatusDisplayer getStatus(final IScope scope) {
 		return WorkbenchHelper.getService(IStatusDisplayer.class);
 	}
 
+	/**
+	 * Gets the console.
+	 *
+	 * @return the console
+	 */
 	@Override
-	public IConsoleDisplayer getConsole() {
-		return WorkbenchHelper.getService(IConsoleDisplayer.class);
-	}
+	public IConsoleDisplayer getConsole() { return WorkbenchHelper.getService(IConsoleDisplayer.class); }
 
+	/**
+	 * Run.
+	 *
+	 * @param taskName
+	 *            the task name
+	 * @param r
+	 *            the r
+	 * @param asynchronous
+	 *            the asynchronous
+	 */
 	@Override
 	public void run(final String taskName, final Runnable r, final boolean asynchronous) {
 
@@ -651,6 +985,12 @@ public class SwtGui implements IGui {
 		}
 	}
 
+	/**
+	 * Sets the focus on.
+	 *
+	 * @param shape
+	 *            the new focus on
+	 */
 	@Override
 	public void setFocusOn(final IShape shape) {
 		if (shape == null) return;
@@ -664,34 +1004,63 @@ public class SwtGui implements IGui {
 		GAMA.getExperiment().refreshAllOutputs();
 	}
 
+	/**
+	 * Apply layout.
+	 *
+	 * @param scope
+	 *            the scope
+	 * @param layout
+	 *            the layout
+	 */
 	@Override
 	public void applyLayout(final IScope scope, final Object layout) {
 		final IDisplayLayoutManager manager = WorkbenchHelper.getService(IDisplayLayoutManager.class);
 		if (manager != null) { manager.applyLayout(layout); }
 	}
 
+	/**
+	 * Gets the mouse location in model.
+	 *
+	 * @return the mouse location in model
+	 */
 	@Override
-	public GamaPoint getMouseLocationInModel() {
-		return mouseLocationInModel;
-	}
+	public GamaPoint getMouseLocationInModel() { return mouseLocationInModel; }
 
+	/**
+	 * Sets the mouse location in model.
+	 *
+	 * @param location
+	 *            the new mouse location in model
+	 */
 	@Override
-	public void setMouseLocationInModel(final GamaPoint location) {
-		mouseLocationInModel = location;
-	}
+	public void setMouseLocationInModel(final GamaPoint location) { mouseLocationInModel = location; }
 
+	/**
+	 * Exit.
+	 */
 	@Override
 	public void exit() {
 		WorkbenchHelper.asyncRun(() -> PlatformUI.getWorkbench().close());
 
 	}
 
+	/**
+	 * Open interactive console.
+	 *
+	 * @param scope
+	 *            the scope
+	 */
 	@Override
 	public void openInteractiveConsole(final IScope scope) {
 		this.showView(scope, INTERACTIVE_CONSOLE_VIEW_ID, null, IWorkbenchPage.VIEW_VISIBLE);
 
 	}
 
+	/**
+	 * Toggle full screen mode.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean toggleFullScreenMode() {
 		final IViewPart part = WorkbenchHelper.findFrontmostGamaViewUnderMouse();
@@ -702,6 +1071,9 @@ public class SwtGui implements IGui {
 		return false;
 	}
 
+	/**
+	 * Refresh navigator.
+	 */
 	@Override
 	public void refreshNavigator() {
 		final IRefreshHandler refresh = WorkbenchHelper.getService(IRefreshHandler.class);
@@ -709,30 +1081,13 @@ public class SwtGui implements IGui {
 
 	}
 
+	/**
+	 * Checks if is in display thread.
+	 *
+	 * @return true, if is in display thread
+	 */
 	@Override
-	public boolean isInDisplayThread() {
-		return EventQueue.isDispatchThread() || Display.getCurrent() != null;
-	}
-
-	@Override
-	public void error(final String title, final String message) {
-		Dialogs.error(title, message);
-	}
-
-	@Override
-	public void inform(final String title, final String message) {
-		Dialogs.inform(title, message);
-	}
-
-	@Override
-	public boolean question(final String title, final String message) {
-		return Dialogs.question(title, message);
-	}
-
-	@Override
-	public boolean confirm(final String title, final String message) {
-		return Dialogs.confirm(title, message);
-	}
+	public boolean isInDisplayThread() { return EventQueue.isDispatchThread() || Display.getCurrent() != null; }
 
 	@Override
 	public int chooseWorkspace() {
@@ -744,5 +1099,4 @@ public class SwtGui implements IGui {
 		});
 		return result[0];
 	}
-
 }

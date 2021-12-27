@@ -35,7 +35,6 @@ import gama.ui.base.resources.IGamaColors;
 import gama.ui.base.toolbar.GamaToolbarFactory.ToggleAction;
 import gama.ui.base.utils.PlatformHelper;
 import gama.ui.base.utils.ThemeHelper;
-import gama.ui.base.utils.WorkbenchHelper;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -140,8 +139,7 @@ public class GamaToolbar2 extends Composite {
 		data.horizontalAlignment = SWT.RIGHT;
 		data.minimumWidth = height * 2;
 		right.setLayoutData(data);
-		setBackgroundColor(
-				ThemeHelper.isDark() ? WorkbenchHelper.getShell().getBackground() : IGamaColors.WHITE.color());
+		setBackgroundColor(ThemeHelper.isDark() ? getShell().getBackground() : IGamaColors.WHITE.color());
 
 	}
 
@@ -161,9 +159,10 @@ public class GamaToolbar2 extends Composite {
 	 * @return the tool item
 	 */
 	public ToolItem sep(final int width, final int side /* SWT.LEFT or SWT.RIGHT */) {
-		ToolItem item = new ToolItem(side == SWT.LEFT ? left : right, SWT.SEPARATOR_FILL);
-		item.setWidth(width);
-		return item;
+		// ToolItem item = new ToolItem(side == SWT.LEFT ? left : right, SWT.SEPARATOR_FILL);
+		// item.setWidth(width);
+		// return item;
+		return new ToolItem(side == SWT.LEFT ? left : right, SWT.SEPARATOR);
 	}
 
 	/**

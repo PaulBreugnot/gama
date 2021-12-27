@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * SyntaxErrorsView.java, in gama.ui.modeling, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * SyntaxErrorsView.java, in gama.ui.modeling, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.modeling.views;
 
@@ -36,8 +36,8 @@ import gama.ui.base.resources.IGamaColors;
 import gama.ui.base.toolbar.GamaToolbar2;
 import gama.ui.base.toolbar.GamaToolbarFactory;
 import gama.ui.base.toolbar.IToolbarDecoratedView;
-import gama.ui.base.utils.WorkbenchHelper;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SyntaxErrorsView.
  */
@@ -45,13 +45,13 @@ public class SyntaxErrorsView extends MarkerSupportView implements IToolbarDecor
 
 	/** The parent. */
 	protected Composite parent;
-	
+
 	/** The toolbar. */
 	protected GamaToolbar2 toolbar;
 
 	/** The info action. */
 	ToolItem warningAction, infoAction;
-	
+
 	/** The listener. */
 	final BuildPreferenceChangeListener listener;
 
@@ -65,12 +65,18 @@ public class SyntaxErrorsView extends MarkerSupportView implements IToolbarDecor
 		GamaPreferences.Modeling.INFO_ENABLED.addChangeListener(listener);
 	}
 
+	/**
+	 * @see org.eclipse.ui.internal.views.markers.ExtendedMarkersView#createPartControl(org.eclipse.swt.widgets.Composite)
+	 */
 	@Override
 	public void createPartControl(final Composite compo) {
 		this.parent = GamaToolbarFactory.createToolbars(this, compo);
 		super.createPartControl(parent);
 	}
 
+	/**
+	 * @see org.eclipse.ui.internal.views.markers.ExtendedMarkersView#dispose()
+	 */
 	@Override
 	public void dispose() {
 		super.dispose();
@@ -79,13 +85,10 @@ public class SyntaxErrorsView extends MarkerSupportView implements IToolbarDecor
 	}
 
 	/**
-	 * The listener interface for receiving buildPreferenceChange events.
-	 * The class that is interested in processing a buildPreferenceChange
-	 * event implements this interface, and the object created
-	 * with that class is registered with a component using the
-	 * component's <code>addBuildPreferenceChangeListener<code> method. When
-	 * the buildPreferenceChange event occurs, that object's appropriate
-	 * method is invoked.
+	 * The listener interface for receiving buildPreferenceChange events. The class that is interested in processing a
+	 * buildPreferenceChange event implements this interface, and the object created with that class is registered with
+	 * a component using the component's <code>addBuildPreferenceChangeListener<code> method. When the
+	 * buildPreferenceChange event occurs, that object's appropriate method is invoked.
 	 *
 	 * @see BuildPreferenceChangeEvent
 	 */
@@ -97,13 +100,17 @@ public class SyntaxErrorsView extends MarkerSupportView implements IToolbarDecor
 		/**
 		 * Instantiates a new builds the preference change listener.
 		 *
-		 * @param v the v
+		 * @param v
+		 *            the v
 		 */
 		BuildPreferenceChangeListener(final SyntaxErrorsView v) {
 			view = v;
 		}
 
 		/**
+		 * After value change.
+		 *
+		 * @param newValue the new value
 		 * @see gama.common.preferences.IPreferenceChangeListener#afterValueChange(java.lang.Object)
 		 */
 		@Override
@@ -121,11 +128,17 @@ public class SyntaxErrorsView extends MarkerSupportView implements IToolbarDecor
 		if (infoAction != null) { infoAction.setSelection(GamaPreferences.Modeling.INFO_ENABLED.getValue()); }
 	}
 
+	/**
+	 * @see org.eclipse.ui.part.ViewPart#setContentDescription(java.lang.String)
+	 */
 	@Override
 	protected void setContentDescription(final String description) {
 		toolbar.status((Image) null, description, e -> openFilterDialog(), IGamaColors.BLUE, SWT.LEFT);
 	}
 
+	/**
+	 * @see gama.ui.base.toolbar.IToolbarDecoratedView#createToolItems(gama.ui.base.toolbar.GamaToolbar2)
+	 */
 	@Override
 	public void createToolItems(final GamaToolbar2 tb) {
 		this.toolbar = tb;
@@ -164,7 +177,8 @@ public class SyntaxErrorsView extends MarkerSupportView implements IToolbarDecor
 	/**
 	 * Do build.
 	 *
-	 * @param monitor the monitor
+	 * @param monitor
+	 *            the monitor
 	 */
 	static private void doBuild(final IProgressMonitor monitor) {
 		try {
@@ -189,7 +203,7 @@ public class SyntaxErrorsView extends MarkerSupportView implements IToolbarDecor
 	 */
 	static void build() {
 
-		final ProgressMonitorDialog dialog = new ProgressMonitorDialog(WorkbenchHelper.getShell());
+		final ProgressMonitorDialog dialog = new ProgressMonitorDialog(null);
 		dialog.setBlockOnOpen(false);
 		dialog.setCancelable(false);
 		dialog.setOpenOnRun(true);

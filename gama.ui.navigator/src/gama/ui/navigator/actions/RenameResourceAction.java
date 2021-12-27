@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * RenameResourceAction.java, in gama.ui.navigator, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * RenameResourceAction.java, in gama.ui.navigator, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.navigator.actions;
 
@@ -29,12 +29,10 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.IShellProvider;
 import org.eclipse.jface.window.Window;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.WorkspaceAction;
 import org.eclipse.ui.ide.undo.MoveResourcesOperation;
@@ -42,10 +40,12 @@ import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.ui.internal.ide.IIDEHelpContextIds;
 
+import gama.ui.base.dialogs.Dialogs;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.navigator.contents.LinkedFile;
 import gama.ui.navigator.metadata.FileMetaDataProvider;
 
+// TODO: Auto-generated Javadoc
 /**
  * Standard action for renaming the selected resources.
  * <p>
@@ -116,38 +116,28 @@ public class RenameResourceAction extends WorkspaceAction {
 	/**
 	 * Check if the user wishes to overwrite the supplied resource.
 	 *
-	 * @param shell            the shell to create the dialog in
-	 * @param destination            - the resource to be overwritten
+	 * @param destination
+	 *            - the resource to be overwritten
 	 * @return true, if successful
 	 * @returns true if there is no collision or delete was successful
 	 */
-	private boolean checkOverwrite(final Shell shell, final IResource destination) {
-
-		final boolean[] result = new boolean[1];
-
-		// Run it inside of a runnable to make sure we get to parent off of the
-		// shell as we are not in the UI thread.
-
-		final Runnable query = () -> {
-			final String pathName = destination.getFullPath().makeRelative().toString();
-			String message = RESOURCE_EXISTS_MESSAGE;
-			String title = RESOURCE_EXISTS_TITLE;
-			if (destination.getType() == IResource.PROJECT) {
-				message = PROJECT_EXISTS_MESSAGE;
-				title = PROJECT_EXISTS_TITLE;
-			}
-			result[0] = MessageDialog.openQuestion(shell, title, MessageFormat.format(message, pathName));
-		};
-
-		shell.getDisplay().syncExec(query);
-		return result[0];
+	private boolean checkOverwrite(final IResource destination) {
+		final String pathName = destination.getFullPath().makeRelative().toString();
+		String message = RESOURCE_EXISTS_MESSAGE;
+		String title = RESOURCE_EXISTS_TITLE;
+		if (destination.getType() == IResource.PROJECT) {
+			message = PROJECT_EXISTS_MESSAGE;
+			title = PROJECT_EXISTS_TITLE;
+		}
+		return Dialogs.question(title, MessageFormat.format(message, pathName));
 	}
 
 	/**
 	 * Check if the supplied resource is read only or null. If it is then ask the user if they want to continue. Return
 	 * true if the resource is not read only or if the user has given permission.
 	 *
-	 * @param currentResource the current resource
+	 * @param currentResource
+	 *            the current resource
 	 * @return boolean
 	 */
 	private boolean checkReadOnlyAndNull(final IResource currentResource) {
@@ -156,40 +146,50 @@ public class RenameResourceAction extends WorkspaceAction {
 
 		// Do a quick read only check
 		final ResourceAttributes attributes = currentResource.getResourceAttributes();
-		if (attributes != null && attributes.isReadOnly()) return MessageDialog.openQuestion(WorkbenchHelper.getShell(),
-				CHECK_RENAME_TITLE, MessageFormat.format(CHECK_RENAME_MESSAGE, currentResource.getName()));
+		if (attributes != null && attributes.isReadOnly()) return Dialogs.question(CHECK_RENAME_TITLE,
+				MessageFormat.format(CHECK_RENAME_MESSAGE, currentResource.getName()));
 
 		return true;
 	}
 
+	/**
+	 * Gets the operation message.
+	 *
+	 * @return the operation message
+	 */
 	/*
 	 * (non-Javadoc) Method declared on WorkspaceAction.
 	 */
 	@Override
-	protected String getOperationMessage() {
-		return IDEWorkbenchMessages.RenameResourceAction_progress;
-	}
+	protected String getOperationMessage() { return IDEWorkbenchMessages.RenameResourceAction_progress; }
 
+	/**
+	 * Gets the problems message.
+	 *
+	 * @return the problems message
+	 */
 	/*
 	 * (non-Javadoc) Method declared on WorkspaceAction.
 	 */
 	@Override
-	protected String getProblemsMessage() {
-		return IDEWorkbenchMessages.RenameResourceAction_problemMessage;
-	}
+	protected String getProblemsMessage() { return IDEWorkbenchMessages.RenameResourceAction_problemMessage; }
 
+	/**
+	 * Gets the problems title.
+	 *
+	 * @return the problems title
+	 */
 	/*
 	 * (non-Javadoc) Method declared on WorkspaceAction.
 	 */
 	@Override
-	protected String getProblemsTitle() {
-		return IDEWorkbenchMessages.RenameResourceAction_problemTitle;
-	}
+	protected String getProblemsTitle() { return IDEWorkbenchMessages.RenameResourceAction_problemTitle; }
 
 	/**
 	 * Return the new name to be given to the target resource.
 	 *
-	 * @param resource            the resource to query status on
+	 * @param resource
+	 *            the resource to query status on
 	 * @return java.lang.String
 	 */
 	protected String queryNewResourceName(final IResource resource) {
@@ -213,6 +213,9 @@ public class RenameResourceAction extends WorkspaceAction {
 		return null;
 	}
 
+	/**
+	 * Run.
+	 */
 	/*
 	 * (non-Javadoc) Method declared on IAction; overrides method on WorkspaceAction.
 	 */
@@ -244,6 +247,11 @@ public class RenameResourceAction extends WorkspaceAction {
 
 	}
 
+	/**
+	 * Gets the selected resources.
+	 *
+	 * @return the selected resources
+	 */
 	@Override
 	protected List<? extends IResource> getSelectedResources() {
 		final List<IResource> list = new ArrayList<>();
@@ -259,6 +267,10 @@ public class RenameResourceAction extends WorkspaceAction {
 	/**
 	 * The <code>RenameResourceAction</code> implementation of this <code>SelectionListenerAction</code> method ensures
 	 * that this action is disabled if any of the selections are not resources or resources that are not local.
+	 *
+	 * @param selection
+	 *            the selection
+	 * @return true, if successful
 	 */
 	@Override
 	protected boolean updateSelection(final IStructuredSelection selection) {
@@ -277,9 +289,7 @@ public class RenameResourceAction extends WorkspaceAction {
 	 * @return the model provider ids that are known to the client that instantiated this operation.
 	 * @since 3.2
 	 */
-	public String[] getModelProviderIds() {
-		return modelProviderIds;
-	}
+	public String[] getModelProviderIds() { return modelProviderIds; }
 
 	/**
 	 * Sets the model provider ids that are known to the client that instantiated this operation. Any potential side
@@ -289,10 +299,15 @@ public class RenameResourceAction extends WorkspaceAction {
 	 *            the model providers known to the client who is using this operation.
 	 * @since 3.2
 	 */
-	public void setModelProviderIds(final String[] modelProviderIds) {
-		this.modelProviderIds = modelProviderIds;
-	}
+	public void setModelProviderIds(final String[] modelProviderIds) { this.modelProviderIds = modelProviderIds; }
 
+	/**
+	 * Creates the operation.
+	 *
+	 * @param errorStatus
+	 *            the error status
+	 * @return the i runnable with progress
+	 */
 	/*
 	 * (non-Javadoc)
 	 *
@@ -313,7 +328,7 @@ public class RenameResourceAction extends WorkspaceAction {
 						? newNameWithoutExtension : newNameWithoutExtension + "." + fileExtension);
 				final IResource newResource = root.findMember(newPath);
 				boolean go = true;
-				if (newResource != null) { go = checkOverwrite(WorkbenchHelper.getShell(), newResource); }
+				if (newResource != null) { go = checkOverwrite(newResource); }
 				if (go) {
 					final MoveResourcesOperation op =
 							new MoveResourcesOperation(r, newPath, RenameResourceAction_operationTitle);

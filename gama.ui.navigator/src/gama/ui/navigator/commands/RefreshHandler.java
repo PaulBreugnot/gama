@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * RefreshHandler.java, in gama.ui.navigator, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * RefreshHandler.java, in gama.ui.navigator, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.navigator.commands;
 
@@ -34,17 +34,13 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.ProgressMonitorWrapper;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.osgi.util.NLS;
-import org.eclipse.swt.SWT;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
-import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 import org.eclipse.ui.internal.ide.dialogs.IDEResourceInfoUtils;
 
 import gama.common.ui.IGui;
 import gama.runtime.GAMA;
+import gama.ui.base.dialogs.Dialogs;
 import gama.ui.base.interfaces.IRefreshHandler;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.base.workspace.WorkspaceModelsManager;
@@ -54,6 +50,7 @@ import gama.ui.navigator.contents.ResourceManager;
 import gama.ui.navigator.metadata.FileMetaDataProvider;
 import gama.util.file.IFileMetaDataProvider;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class RefreshHandler.
  */
@@ -70,14 +67,15 @@ public class RefreshHandler implements IRefreshHandler {
 	private GamaNavigator getNavigator() {
 		if (navigator == null) {
 			final IWorkbenchPage page = WorkbenchHelper.getPage();
-			if (page != null) {
-				navigator = (GamaNavigator) page.findView(IGui.NAVIGATOR_VIEW_ID);
-			}
+			if (page != null) { navigator = (GamaNavigator) page.findView(IGui.NAVIGATOR_VIEW_ID); }
 		}
 		return navigator;
 	}
 	//
 
+	/**
+	 * Refresh navigator.
+	 */
 	@Override
 	public void refreshNavigator() {
 		WorkbenchHelper.run(() -> getNavigator().getCommonViewer().refresh());
@@ -86,9 +84,12 @@ public class RefreshHandler implements IRefreshHandler {
 	/**
 	 * Simple refresh.
 	 *
-	 * @param resource the resource
-	 * @param monitor the monitor
-	 * @throws CoreException the core exception
+	 * @param resource
+	 *            the resource
+	 * @param monitor
+	 *            the monitor
+	 * @throws CoreException
+	 *             the core exception
 	 */
 	protected void simpleRefresh(final IResource resource, final IProgressMonitor monitor) throws CoreException {
 		if (resource.getType() == IResource.PROJECT) {
@@ -102,6 +103,11 @@ public class RefreshHandler implements IRefreshHandler {
 		resource.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 	}
 
+	/**
+	 * Refresh resource.
+	 *
+	 * @param resource the resource
+	 */
 	@Override
 	public void refreshResource(final IResource resource) {
 		if (resource.getType() == PROJECT) {
@@ -123,7 +129,7 @@ public class RefreshHandler implements IRefreshHandler {
 			}
 		}
 
-		runInUI("Refreshing " + resource.getName(), 0, (m) -> {
+		runInUI("Refreshing " + resource.getName(), 0, m -> {
 			FileMetaDataProvider.getInstance().storeMetaData(resource, null, true);
 			FileMetaDataProvider.getInstance().getMetaData(resource, false, true);
 			getNavigator().getCommonViewer().refresh(getInstance().findWrappedInstanceOf(resource), true);
@@ -140,6 +146,11 @@ public class RefreshHandler implements IRefreshHandler {
 		});
 	}
 
+	/**
+	 * Complete refresh.
+	 *
+	 * @param list the list
+	 */
 	@Override
 	public void completeRefresh(final List<? extends IResource> list) {
 		final IStatus[] errorStatus = new IStatus[1];
@@ -155,16 +166,12 @@ public class RefreshHandler implements IRefreshHandler {
 						try {
 							final IResource resource = resourcesEnum.next();
 							simpleRefresh(resource, monitor);
-							if (monitor != null) {
-								monitor.worked(1);
-							}
+							if (monitor != null) { monitor.worked(1); }
 						} catch (final CoreException e) {}
-						if (monitor != null && monitor.isCanceled()) { throw new OperationCanceledException(); }
+						if (monitor != null && monitor.isCanceled()) throw new OperationCanceledException();
 					}
 				} finally {
-					if (monitor != null) {
-						monitor.done();
-					}
+					if (monitor != null) { monitor.done(); }
 				}
 			}
 		};
@@ -230,30 +237,18 @@ public class RefreshHandler implements IRefreshHandler {
 	/**
 	 * Check location deleted.
 	 *
-	 * @param project the project
-	 * @throws CoreException the core exception
+	 * @param project
+	 *            the project
+	 * @throws CoreException
+	 *             the core exception
 	 */
 	void checkLocationDeleted(final IProject project) throws CoreException {
-		if (!project.exists()) { return; }
+		if (!project.exists()) return;
 		final IFileInfo location = IDEResourceInfoUtils.getFileInfo(project.getLocationURI());
-		if (!location.exists()) {
-			final String message = NLS.bind(IDEWorkbenchMessages.RefreshAction_locationDeletedMessage,
-					project.getName(), location.toString());
-
-			final MessageDialog dialog = new MessageDialog(WorkbenchHelper.getShell(),
-					IDEWorkbenchMessages.RefreshAction_dialogTitle, null, message, MessageDialog.QUESTION,
-					new String[] { IDialogConstants.YES_LABEL, IDialogConstants.NO_LABEL }, 0) {
-				@Override
-				protected int getShellStyle() {
-					return super.getShellStyle() | SWT.SHEET;
-				}
-			};
-			WorkbenchHelper.run(() -> dialog.open());
-
-			// Do the deletion back in the operation thread
-			if (dialog.getReturnCode() == 0) { // yes was chosen
-				project.delete(true, true, null);
-			}
+		if (!location.exists() && Dialogs.confirm("Project location has been deleted",
+				"The location for project " + project.getName() + " (" + location.toString()
+						+ ") has been deleted. Do you want to remove " + project.getName() + " from the workspace ?")) {
+			project.delete(true, true, null);
 		}
 	}
 

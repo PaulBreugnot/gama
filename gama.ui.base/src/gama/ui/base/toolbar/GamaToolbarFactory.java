@@ -29,7 +29,6 @@ import gama.ui.base.resources.GamaColors;
 import gama.ui.base.resources.GamaIcons;
 import gama.ui.base.resources.IGamaColors;
 import gama.ui.base.utils.ThemeHelper;
-import gama.ui.base.utils.WorkbenchHelper;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -287,7 +286,7 @@ public class GamaToolbarFactory {
 		toolbarComposite.setLayout(layout);
 		// toolbarComposite.setBackground(IGamaColors.WHITE.color());
 		GamaColors.setBackground(toolbarComposite,
-				ThemeHelper.isDark() ? WorkbenchHelper.getShell().getBackground() : IGamaColors.WHITE.color());
+				ThemeHelper.isDark() ? composite.getShell().getBackground() : IGamaColors.WHITE.color());
 		return toolbarComposite;
 
 	}
