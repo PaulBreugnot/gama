@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * MapExpression.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * MapExpression.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gaml.expressions.data;
 
@@ -35,6 +35,7 @@ import gaml.types.GamaType;
 import gaml.types.IType;
 import gaml.types.Types;
 
+// TODO: Auto-generated Javadoc
 /**
  * ListValueExpr.
  *
@@ -46,7 +47,8 @@ public class MapExpression extends AbstractExpression implements IOperator {
 	/**
 	 * Creates the.
 	 *
-	 * @param elements the elements
+	 * @param elements
+	 *            the elements
 	 * @return the i expression
 	 */
 	public static IExpression create(final Iterable<? extends IExpression> elements) {
@@ -65,7 +67,7 @@ public class MapExpression extends AbstractExpression implements IOperator {
 
 	/** The keys. */
 	private final IExpression[] keys;
-	
+
 	/** The vals. */
 	private final IExpression[] vals;
 	// private final GamaMap values;
@@ -74,7 +76,8 @@ public class MapExpression extends AbstractExpression implements IOperator {
 	/**
 	 * Instantiates a new map expression.
 	 *
-	 * @param pairs the pairs
+	 * @param pairs
+	 *            the pairs
 	 */
 	MapExpression(final Iterable<? extends IExpression> pairs) {
 		final int size = Iterables.size(pairs);
@@ -82,8 +85,7 @@ public class MapExpression extends AbstractExpression implements IOperator {
 		vals = new IExpression[size];
 		int i = 0;
 		for (final IExpression e : pairs) {
-			if (e instanceof BinaryOperator) {
-				final BinaryOperator pair = (BinaryOperator) e;
+			if (e instanceof BinaryOperator pair) {
 				keys[i] = pair.exprs[0];
 				vals[i] = pair.exprs[1];
 			} else if (e instanceof ConstantExpression && e.getGamlType().getGamlType() == Types.PAIR) {
@@ -105,7 +107,8 @@ public class MapExpression extends AbstractExpression implements IOperator {
 	/**
 	 * Instantiates a new map expression.
 	 *
-	 * @param pairs the pairs
+	 * @param pairs
+	 *            the pairs
 	 */
 	MapExpression(final IMap<IExpression, IExpression> pairs) {
 		keys = new IExpression[pairs.size()];
@@ -123,6 +126,13 @@ public class MapExpression extends AbstractExpression implements IOperator {
 		type = Types.MAP.of(keyType, contentsType);
 	}
 
+	/**
+	 * Resolve against.
+	 *
+	 * @param scope
+	 *            the scope
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression resolveAgainst(final IScope scope) {
 		final IMap result = GamaMapFactory.create(type.getKeyType(), type.getContentType(), keys.length);
@@ -133,48 +143,71 @@ public class MapExpression extends AbstractExpression implements IOperator {
 		return new MapExpression(getElements());
 	}
 
+	/**
+	 * Value.
+	 *
+	 * @param scope
+	 *            the scope
+	 * @return the i map
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
+	 */
 	@Override
 	public IMap _value(final IScope scope) throws GamaRuntimeException {
 		// if ( isConst && computed ) { return (GamaMap) values.clone(); }
 		final IMap values = GamaMapFactory.create(type.getKeyType(), type.getContentType());
 		for (int i = 0; i < keys.length; i++) {
-			if (keys[i] == null || vals[i] == null) // computed = false;
-				return GamaMapFactory.create();
-			values.put(keys[i].value(scope), vals[i].value(scope));
+			// if (keys[i] == null || vals[i] == null) // computed = false;
+			// return GamaMapFactory.create();
+			values.put(keys[i] == null ? null : keys[i].value(scope), vals[i] == null ? null : vals[i].value(scope));
 		}
 		// computed = true;
 		return values;
 	}
 
+	/**
+	 * To string.
+	 *
+	 * @return the string
+	 */
 	@Override
 	public String toString() {
 		return getElements().toString();
 	}
 
+	/**
+	 * Checks if is const.
+	 *
+	 * @return true, if is const
+	 */
 	@Override
 	public boolean isConst() {
 		for (final IExpression expr : keys) {
-			if (!expr.isConst()) return false;
+			if (expr != null && !expr.isConst()) return false;
 		}
 		for (final IExpression expr : vals) {
-			if (!expr.isConst()) return false;
+			if (expr != null && !expr.isConst()) return false;
 		}
 		return true;
 	}
 
+	/**
+	 * Serialize.
+	 *
+	 * @param includingBuiltIn
+	 *            the including built in
+	 * @return the string
+	 */
 	@Override
 	public String serialize(final boolean includingBuiltIn) {
 		final StringBuilder sb = new StringBuilder();
 		sb.append(' ').append('[');
 		for (int i = 0; i < keys.length; i++) {
 			if (i > 0) { sb.append(','); }
-			if (keys[i] == null || vals[i] == null) {
-				continue;
-			} else {
-				sb.append(keys[i].serialize(includingBuiltIn));
-				sb.append("::");
-				sb.append(vals[i].serialize(includingBuiltIn));
-			}
+			// if (keys[i] == null || vals[i] == null) { continue; }
+			sb.append(keys[i] == null ? "nil" : keys[i].serialize(includingBuiltIn));
+			sb.append("::");
+			sb.append(vals[i] == null ? "nil" : vals[i].serialize(includingBuiltIn));
 		}
 		sb.append(']').append(' ');
 		return sb.toString();
@@ -213,12 +246,18 @@ public class MapExpression extends AbstractExpression implements IOperator {
 		return result;
 	}
 
+	/**
+	 * Gets the title.
+	 *
+	 * @return the title
+	 */
 	@Override
-	public String getTitle() {
-		return "literal map of type " + getGamlType().getTitle();
-	}
+	public String getTitle() { return "literal map of type " + getGamlType().getTitle(); }
 
 	/**
+	 * Gets the documentation.
+	 *
+	 * @return the documentation
 	 * @see gaml.expressions.IExpression#getDocumentation()
 	 */
 
@@ -228,8 +267,9 @@ public class MapExpression extends AbstractExpression implements IOperator {
 	}
 
 	/**
-	 * Method collectPlugins()
+	 * Method collectPlugins().
 	 *
+	 * @return true, if is context independant
 	 * @see gama.common.interfaces.IGamlDescription#collectPlugins(java.util.Set)
 	 */
 	// @Override
@@ -250,14 +290,24 @@ public class MapExpression extends AbstractExpression implements IOperator {
 	@Override
 	public boolean isContextIndependant() {
 		for (final IExpression e : keys) {
-			if ((e != null) && !e.isContextIndependant()) return false;
+			if (e != null && !e.isContextIndependant()) return false;
 		}
 		for (final IExpression e : vals) {
-			if ((e != null) && !e.isContextIndependant()) return false;
+			if (e != null && !e.isContextIndependant()) return false;
 		}
 		return true;
 	}
 
+	/**
+	 * Collect used vars of.
+	 *
+	 * @param species
+	 *            the species
+	 * @param alreadyProcessed
+	 *            the already processed
+	 * @param result
+	 *            the result
+	 */
 	@Override
 	public void collectUsedVarsOf(final SpeciesDescription species,
 			final ICollector<IVarDescriptionUser> alreadyProcessed, final ICollector<VariableDescription> result) {
@@ -273,6 +323,12 @@ public class MapExpression extends AbstractExpression implements IOperator {
 
 	}
 
+	/**
+	 * Visit suboperators.
+	 *
+	 * @param visitor
+	 *            the visitor
+	 */
 	@Override
 	public void visitSuboperators(final IOperatorVisitor visitor) {
 		for (final IExpression e : keys) {
@@ -285,37 +341,52 @@ public class MapExpression extends AbstractExpression implements IOperator {
 
 	}
 
+	/**
+	 * Arg.
+	 *
+	 * @param i
+	 *            the i
+	 * @return the i expression
+	 */
 	@Override
 	public IExpression arg(final int i) {
 		if (i < 0 || i > vals.length) return null;
 		return vals[i];
 	}
 
+	/**
+	 * Gets the prototype.
+	 *
+	 * @return the prototype
+	 */
 	@Override
-	public OperatorProto getPrototype() {
-		return null;
-	}
+	public OperatorProto getPrototype() { return null; }
 
 	/**
 	 * Checks if is empty.
 	 *
 	 * @return true, if is empty
 	 */
-	public boolean isEmpty() {
-		return keys.length == 0;
-	}
+	public boolean isEmpty() { return keys.length == 0; }
 
+	/**
+	 * Find any.
+	 *
+	 * @param predicate
+	 *            the predicate
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean findAny(final Predicate<IExpression> predicate) {
 		if (predicate.test(this)) return true;
 		if (keys != null) {
 			for (final IExpression e : keys) {
-				if (e.findAny(predicate)) return true;
+				if (e != null && e.findAny(predicate)) return true;
 			}
 		}
 		if (vals != null) {
 			for (final IExpression e : vals) {
-				if (e.findAny(predicate)) return true;
+				if (e != null && e.findAny(predicate)) return true;
 			}
 		}
 		return false;
