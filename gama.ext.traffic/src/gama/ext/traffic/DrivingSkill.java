@@ -356,155 +356,155 @@ public class DrivingSkill extends MovingSkill {
 
 	/** The Constant ADVANCED_DRIVING. */
 	public static final String ADVANCED_DRIVING = "advanced_driving";
-	
+
 	/** The Constant SECURITY_DISTANCE_COEFF. */
 	// Attributes' names
 	@Deprecated public static final String SECURITY_DISTANCE_COEFF = "security_distance_coeff";
-	
+
 	/** The Constant SAFETY_DISTANCE_COEFF. */
 	public static final String SAFETY_DISTANCE_COEFF = "safety_distance_coeff";
-	
+
 	/** The Constant MIN_SECURITY_DISTANCE. */
 	@Deprecated public static final String MIN_SECURITY_DISTANCE = "min_security_distance";
-	
+
 	/** The Constant MIN_SAFETY_DISTANCE. */
 	public static final String MIN_SAFETY_DISTANCE = "min_safety_distance";
-	
+
 	/** The Constant CURRENT_ROAD. */
 	public static final String CURRENT_ROAD = "current_road";
-	
+
 	/** The Constant NEXT_ROAD. */
 	public static final String NEXT_ROAD = "next_road";
-	
+
 	/** The Constant CURRENT_LANE. */
 	@Deprecated public static final String CURRENT_LANE = "current_lane";
-	
+
 	/** The Constant LOWEST_LANE. */
 	public static final String LOWEST_LANE = "lowest_lane";
-	
+
 	/** The Constant DISTANCE_TO_GOAL. */
 	public static final String DISTANCE_TO_GOAL = "distance_to_goal";
-	
+
 	/** The Constant DISTANCE_TO_CURRENT_TARGET. */
 	public static final String DISTANCE_TO_CURRENT_TARGET = "distance_to_current_target";
-	
+
 	/** The Constant VEHICLE_LENGTH. */
 	public static final String VEHICLE_LENGTH = "vehicle_length";
-	
+
 	/** The Constant PROBA_LANE_CHANGE_UP. */
 	@Deprecated public static final String PROBA_LANE_CHANGE_UP = "proba_lane_change_up";
-	
+
 	/** The Constant PROBA_LANE_CHANGE_DOWN. */
 	@Deprecated public static final String PROBA_LANE_CHANGE_DOWN = "proba_lane_change_down";
-	
+
 	/** The Constant PROBA_RESPECT_PRIORITIES. */
 	public static final String PROBA_RESPECT_PRIORITIES = "proba_respect_priorities";
-	
+
 	/** The Constant PROBA_RESPECT_STOPS. */
 	public static final String PROBA_RESPECT_STOPS = "proba_respect_stops";
-	
+
 	/** The Constant PROBA_BLOCK_NODE. */
 	public static final String PROBA_BLOCK_NODE = "proba_block_node";
-	
+
 	/** The Constant PROBA_USE_LINKED_ROAD. */
 	public static final String PROBA_USE_LINKED_ROAD = "proba_use_linked_road";
-	
+
 	/** The Constant RIGHT_SIDE_DRIVING. */
 	public static final String RIGHT_SIDE_DRIVING = "right_side_driving";
-	
+
 	/** The Constant IGNORE_ONEWAY. */
 	public static final String IGNORE_ONEWAY = "ignore_oneway";
-	
+
 	/** The Constant VIOLATING_ONEWAY. */
 	public static final String VIOLATING_ONEWAY = "violating_oneway";
-	
+
 	/** The Constant ON_LINKED_ROAD. */
 	public static final String ON_LINKED_ROAD = "on_linked_road";
-	
+
 	/** The Constant USING_LINKED_ROAD. */
 	public static final String USING_LINKED_ROAD = "using_linked_road";
-	
+
 	/** The Constant LINKED_LANE_LIMIT. */
 	public static final String LINKED_LANE_LIMIT = "linked_lane_limit";
-	
+
 	/** The Constant ALLOWED_LANES. */
 	public static final String ALLOWED_LANES = "allowed_lanes";
-	
+
 	/** The Constant TARGETS. */
 	@Deprecated public static final String TARGETS = "targets";
-	
+
 	/** The Constant CURRENT_TARGET. */
 	public static final String CURRENT_TARGET = "current_target";
-	
+
 	/** The Constant CURRENT_INDEX. */
 	public static final String CURRENT_INDEX = "current_index";
-	
+
 	/** The Constant FINAL_TARGET. */
 	public static final String FINAL_TARGET = "final_target";
-	
+
 	/** The Constant CURRENT_PATH. */
 	public static final String CURRENT_PATH = "current_path";
-	
+
 	/** The Constant ACCELERATION. */
 	public static final String ACCELERATION = "acceleration";
-	
+
 	/** The Constant MAX_ACCELERATION. */
 	public static final String MAX_ACCELERATION = "max_acceleration";
-	
+
 	/** The Constant MAX_DECELERATION. */
 	public static final String MAX_DECELERATION = "max_deceleration";
-	
+
 	/** The Constant TIME_HEADWAY. */
 	public static final String TIME_HEADWAY = "time_headway";
-	
+
 	/** The Constant DELTA_IDM. */
 	public static final String DELTA_IDM = "delta_idm";
-	
+
 	/** The Constant POLITENESS_FACTOR. */
 	public static final String POLITENESS_FACTOR = "politeness_factor";
-	
+
 	/** The Constant MAX_SAFE_DECELERATION. */
 	public static final String MAX_SAFE_DECELERATION = "max_safe_deceleration";
-	
+
 	/** The Constant ACC_GAIN_THRESHOLD. */
 	public static final String ACC_GAIN_THRESHOLD = "acc_gain_threshold";
-	
+
 	/** The Constant ACC_BIAS. */
 	public static final String ACC_BIAS = "acc_bias";
-	
+
 	/** The Constant TIME_SINCE_LC. */
 	public static final String TIME_SINCE_LC = "time_since_lane_change";
-	
+
 	/** The Constant LC_COOLDOWN. */
 	public static final String LC_COOLDOWN = "lane_change_cooldown";
-	
+
 	/** The Constant SPEED_COEFF. */
 	public static final String SPEED_COEFF = "speed_coeff";
-	
+
 	/** The Constant MAX_SPEED. */
 	public static final String MAX_SPEED = "max_speed";
-	
+
 	/** The Constant SEGMENT_INDEX. */
 	public static final String SEGMENT_INDEX = "segment_index_on_road";
-	
+
 	/** The Constant NUM_LANES_OCCUPIED. */
 	public static final String NUM_LANES_OCCUPIED = "num_lanes_occupied";
-	
+
 	/** The Constant LANE_CHANGE_LIMIT. */
 	public static final String LANE_CHANGE_LIMIT = "lane_change_limit";
-	
+
 	/** The Constant LEADING_VEHICLE. */
 	public static final String LEADING_VEHICLE = "leading_vehicle";
-	
+
 	/** The Constant LEADING_DISTANCE. */
 	public static final String LEADING_DISTANCE = "leading_distance";
-	
+
 	/** The Constant LEADING_SPEED. */
 	public static final String LEADING_SPEED = "leading_speed";
-	
+
 	/** The Constant FOLLOWER. */
 	public static final String FOLLOWER = "follower";
-	
+
 	/** The Constant ACT_CHOOSE_LANE. */
 	// Actions' names
 	public static final String ACT_CHOOSE_LANE = "choose_lane";
@@ -517,7 +517,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the speed.
 	 *
-	 * @param agent the agent
+	 * @param agent
+	 *            the agent
 	 * @return the speed
 	 */
 	@getter (IKeyword.SPEED)
@@ -530,8 +531,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the speed.
 	 *
-	 * @param vehicle the vehicle
-	 * @param speed the speed
+	 * @param vehicle
+	 *            the vehicle
+	 * @param speed
+	 *            the speed
 	 */
 	@setter (IKeyword.SPEED)
 	public static void setSpeed(final IAgent vehicle, final double speed) {
@@ -542,7 +545,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the real speed.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the real speed
 	 */
 	@getter (IKeyword.REAL_SPEED)
@@ -554,8 +558,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the real speed.
 	 *
-	 * @param vehicle the vehicle
-	 * @param speed the speed
+	 * @param vehicle
+	 *            the vehicle
+	 * @param speed
+	 *            the speed
 	 */
 	@setter (IKeyword.REAL_SPEED)
 	@Deprecated
@@ -566,8 +572,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the acceleration read only.
 	 *
-	 * @param vehicle the vehicle
-	 * @param val the val
+	 * @param vehicle
+	 *            the vehicle
+	 * @param val
+	 *            the val
 	 */
 	@setter (ACCELERATION)
 	public static void setAccelerationReadOnly(final IAgent vehicle, final Double val) {
@@ -577,8 +585,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the acceleration.
 	 *
-	 * @param vehicle the vehicle
-	 * @param val the val
+	 * @param vehicle
+	 *            the vehicle
+	 * @param val
+	 *            the val
 	 */
 	private static void setAcceleration(final IAgent vehicle, final Double val) {
 		vehicle.setAttribute(ACCELERATION, val);
@@ -587,7 +597,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the max acceleration.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the max acceleration
 	 */
 	@getter (MAX_ACCELERATION)
@@ -598,8 +609,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the max acceleration.
 	 *
-	 * @param vehicle the vehicle
-	 * @param val the val
+	 * @param vehicle
+	 *            the vehicle
+	 * @param val
+	 *            the val
 	 */
 	@setter (MAX_ACCELERATION)
 	public static void setMaxAcceleration(final IAgent vehicle, final Double val) {
@@ -609,7 +622,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the max deceleration.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the max deceleration
 	 */
 	@getter (MAX_DECELERATION)
@@ -620,7 +634,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the time headway.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the time headway
 	 */
 	@getter (TIME_HEADWAY)
@@ -631,7 +646,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the delta IDM.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the delta IDM
 	 */
 	@getter (DELTA_IDM)
@@ -642,7 +658,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the politeness factor.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the politeness factor
 	 */
 	@getter (POLITENESS_FACTOR)
@@ -653,7 +670,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the max safe deceleration.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the max safe deceleration
 	 */
 	@getter (MAX_SAFE_DECELERATION)
@@ -664,7 +682,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the acc gain threshold.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the acc gain threshold
 	 */
 	@getter (ACC_GAIN_THRESHOLD)
@@ -675,7 +694,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the acc bias.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the acc bias
 	 */
 	@getter (ACC_BIAS)
@@ -686,7 +706,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the time since LC.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the time since LC
 	 */
 	@getter (TIME_SINCE_LC)
@@ -697,8 +718,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the time since LC read only.
 	 *
-	 * @param vehicle the vehicle
-	 * @param time the time
+	 * @param vehicle
+	 *            the vehicle
+	 * @param time
+	 *            the time
 	 */
 	// @setter(TIME_SINCE_LC)
 	public static void setTimeSinceLCReadOnly(final IAgent vehicle, final double time) {
@@ -708,8 +731,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the time since LC.
 	 *
-	 * @param vehicle the vehicle
-	 * @param time the time
+	 * @param vehicle
+	 *            the vehicle
+	 * @param time
+	 *            the time
 	 */
 	@setter (TIME_SINCE_LC)
 	public static void setTimeSinceLC(final IAgent vehicle, final double time) {
@@ -719,7 +744,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the LC cooldown.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the LC cooldown
 	 */
 	@getter (LC_COOLDOWN)
@@ -730,7 +756,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the speed coeff.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the speed coeff
 	 */
 	@getter (SPEED_COEFF)
@@ -741,8 +768,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the speed coeff.
 	 *
-	 * @param vehicle the vehicle
-	 * @param val the val
+	 * @param vehicle
+	 *            the vehicle
+	 * @param val
+	 *            the val
 	 */
 	@setter (SPEED_COEFF)
 	public static void setSpeedCoeff(final IAgent vehicle, final Double val) {
@@ -752,7 +781,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the max speed.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the max speed
 	 */
 	@getter (MAX_SPEED)
@@ -763,8 +793,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the max speed.
 	 *
-	 * @param vehicle the vehicle
-	 * @param val the val
+	 * @param vehicle
+	 *            the vehicle
+	 * @param val
+	 *            the val
 	 */
 	@setter (MAX_SPEED)
 	public static void setMaxSpeed(final IAgent vehicle, final Double val) {
@@ -774,7 +806,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the current target.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the current target
 	 */
 	@getter (CURRENT_TARGET)
@@ -785,8 +818,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the current target.
 	 *
-	 * @param vehicle the vehicle
-	 * @param target the target
+	 * @param vehicle
+	 *            the vehicle
+	 * @param target
+	 *            the target
 	 */
 	@setter (CURRENT_TARGET)
 	public static void setCurrentTarget(final IAgent vehicle, final IAgent target) {
@@ -796,7 +831,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the final target.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the final target
 	 */
 	@getter (FINAL_TARGET)
@@ -807,8 +843,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the final target.
 	 *
-	 * @param vehicle the vehicle
-	 * @param point the point
+	 * @param vehicle
+	 *            the vehicle
+	 * @param point
+	 *            the point
 	 */
 	@setter (FINAL_TARGET)
 	public static void setFinalTarget(final IAgent vehicle, final IAgent point) {
@@ -818,7 +856,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the current index.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the current index
 	 */
 	@getter (CURRENT_INDEX)
@@ -829,8 +868,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the current index.
 	 *
-	 * @param vehicle the vehicle
-	 * @param index the index
+	 * @param vehicle
+	 *            the vehicle
+	 * @param index
+	 *            the index
 	 */
 	@setter (CURRENT_INDEX)
 	public static void setCurrentIndex(final IAgent vehicle, final Integer index) {
@@ -840,7 +881,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the segment index.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the segment index
 	 */
 	@getter (SEGMENT_INDEX)
@@ -851,8 +893,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the segment index.
 	 *
-	 * @param vehicle the vehicle
-	 * @param index the index
+	 * @param vehicle
+	 *            the vehicle
+	 * @param index
+	 *            the index
 	 */
 	@setter (SEGMENT_INDEX)
 	public static void setSegmentIndex(final IAgent vehicle, final Integer index) {
@@ -862,7 +906,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the current path.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the current path
 	 */
 	@getter (CURRENT_PATH)
@@ -873,8 +918,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the current path.
 	 *
-	 * @param vehicle the vehicle
-	 * @param path the path
+	 * @param vehicle
+	 *            the vehicle
+	 * @param path
+	 *            the path
 	 */
 	@setter (CURRENT_PATH)
 	public static void setCurrentPath(final IAgent vehicle, final IPath path) {
@@ -894,7 +941,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the targets.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the targets
 	 */
 	public static List<IAgent> getTargets(final IAgent vehicle) {
@@ -905,8 +953,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the targets.
 	 *
-	 * @param vehicle the vehicle
-	 * @param points the points
+	 * @param vehicle
+	 *            the vehicle
+	 * @param points
+	 *            the points
 	 */
 	@setter (TARGETS)
 	public static void setTargets(final IAgent vehicle, final List<IAgent> points) {
@@ -916,7 +966,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the proba use linked road.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the proba use linked road
 	 */
 	@getter (PROBA_USE_LINKED_ROAD)
@@ -927,8 +978,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the proba use linked road.
 	 *
-	 * @param vehicle the vehicle
-	 * @param proba the proba
+	 * @param vehicle
+	 *            the vehicle
+	 * @param proba
+	 *            the proba
 	 */
 	@setter (PROBA_USE_LINKED_ROAD)
 	public static void setProbaUseLinkedRoad(final IAgent vehicle, final Double proba) {
@@ -938,7 +991,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the proba lane change down.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the proba lane change down
 	 */
 	@getter (PROBA_LANE_CHANGE_DOWN)
@@ -950,8 +1004,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the proba lane change down.
 	 *
-	 * @param vehicle the vehicle
-	 * @param proba the proba
+	 * @param vehicle
+	 *            the vehicle
+	 * @param proba
+	 *            the proba
 	 */
 	@setter (PROBA_LANE_CHANGE_DOWN)
 	@Deprecated
@@ -962,7 +1018,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the proba lane change up.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the proba lane change up
 	 */
 	@getter (PROBA_LANE_CHANGE_UP)
@@ -974,8 +1031,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the proba lane change up.
 	 *
-	 * @param vehicle the vehicle
-	 * @param proba the proba
+	 * @param vehicle
+	 *            the vehicle
+	 * @param proba
+	 *            the proba
 	 */
 	@setter (PROBA_LANE_CHANGE_UP)
 	@Deprecated
@@ -986,7 +1045,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the proba respect priorities.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the proba respect priorities
 	 */
 	@getter (PROBA_RESPECT_PRIORITIES)
@@ -997,8 +1057,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the proba respect priorities.
 	 *
-	 * @param vehicle the vehicle
-	 * @param proba the proba
+	 * @param vehicle
+	 *            the vehicle
+	 * @param proba
+	 *            the proba
 	 */
 	@setter (PROBA_RESPECT_PRIORITIES)
 	public static void setProbaRespectPriorities(final IAgent vehicle, final Double proba) {
@@ -1008,7 +1070,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the proba block node.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the proba block node
 	 */
 	@getter (PROBA_BLOCK_NODE)
@@ -1019,8 +1082,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the proba block node.
 	 *
-	 * @param vehicle the vehicle
-	 * @param proba the proba
+	 * @param vehicle
+	 *            the vehicle
+	 * @param proba
+	 *            the proba
 	 */
 	@setter (PROBA_BLOCK_NODE)
 	public static void setProbaBlockNode(final IAgent vehicle, final Double proba) {
@@ -1030,7 +1095,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the probas respect stops.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the probas respect stops
 	 */
 	@getter (PROBA_RESPECT_STOPS)
@@ -1041,8 +1107,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the probas respect stops.
 	 *
-	 * @param vehicle the vehicle
-	 * @param probas the probas
+	 * @param vehicle
+	 *            the vehicle
+	 * @param probas
+	 *            the probas
 	 */
 	@setter (PROBA_RESPECT_STOPS)
 	public static void setProbasRespectStops(final IAgent vehicle, final List<Boolean> probas) {
@@ -1052,7 +1120,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the on linked road.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the on linked road
 	 */
 	@Deprecated
@@ -1064,8 +1133,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the on linked road.
 	 *
-	 * @param vehicle the vehicle
-	 * @param onLinkedRoad the on linked road
+	 * @param vehicle
+	 *            the vehicle
+	 * @param onLinkedRoad
+	 *            the on linked road
 	 */
 	@Deprecated
 	@setter (ON_LINKED_ROAD)
@@ -1076,7 +1147,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Checks if is using linked road.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return true, if is using linked road
 	 */
 	@getter (USING_LINKED_ROAD)
@@ -1093,8 +1165,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the using linked road.
 	 *
-	 * @param vehicle the vehicle
-	 * @param usingLinkedRoad the using linked road
+	 * @param vehicle
+	 *            the vehicle
+	 * @param usingLinkedRoad
+	 *            the using linked road
 	 */
 	@setter (USING_LINKED_ROAD)
 	public static void setUsingLinkedRoad(final IAgent vehicle, final boolean usingLinkedRoad) {
@@ -1104,7 +1178,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Can ignore oneway.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return true, if successful
 	 */
 	@getter (IGNORE_ONEWAY)
@@ -1115,7 +1190,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Checks if is violating oneway.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return true, if is violating oneway
 	 */
 	@getter (VIOLATING_ONEWAY)
@@ -1126,8 +1202,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the violating oneway.
 	 *
-	 * @param vehicle the vehicle
-	 * @param violatingOneway the violating oneway
+	 * @param vehicle
+	 *            the vehicle
+	 * @param violatingOneway
+	 *            the violating oneway
 	 */
 	@setter (VIOLATING_ONEWAY)
 	public static void setViolatingOneway(final IAgent vehicle, final boolean violatingOneway) {
@@ -1137,7 +1215,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the allowed lanes.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the allowed lanes
 	 */
 	@getter (ALLOWED_LANES)
@@ -1148,7 +1227,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the linked lane limit.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the linked lane limit
 	 */
 	@getter (LINKED_LANE_LIMIT)
@@ -1159,8 +1239,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the linked lane limit.
 	 *
-	 * @param vehicle the vehicle
-	 * @param linkedLaneLimit the linked lane limit
+	 * @param vehicle
+	 *            the vehicle
+	 * @param linkedLaneLimit
+	 *            the linked lane limit
 	 */
 	@setter (LINKED_LANE_LIMIT)
 	public static void setLinkedLaneLimit(final IAgent vehicle, final int linkedLaneLimit) {
@@ -1170,7 +1252,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the lane change limit.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the lane change limit
 	 */
 	@getter (LANE_CHANGE_LIMIT)
@@ -1181,7 +1264,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the right side driving.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the right side driving
 	 */
 	@getter (RIGHT_SIDE_DRIVING)
@@ -1192,8 +1276,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the right side driving.
 	 *
-	 * @param vehicle the vehicle
-	 * @param isRight the is right
+	 * @param vehicle
+	 *            the vehicle
+	 * @param isRight
+	 *            the is right
 	 */
 	@setter (RIGHT_SIDE_DRIVING)
 	public static void setRightSideDriving(final IAgent vehicle, final Boolean isRight) {
@@ -1203,7 +1289,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the security distance coeff.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the security distance coeff
 	 */
 	@Deprecated
@@ -1215,8 +1302,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the security distance coeff.
 	 *
-	 * @param vehicle the vehicle
-	 * @param ls the ls
+	 * @param vehicle
+	 *            the vehicle
+	 * @param ls
+	 *            the ls
 	 */
 	@Deprecated
 	@setter (SECURITY_DISTANCE_COEFF)
@@ -1227,7 +1316,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the safety distance coeff.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the safety distance coeff
 	 */
 	@getter (SAFETY_DISTANCE_COEFF)
@@ -1238,8 +1328,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the safety distance coeff.
 	 *
-	 * @param vehicle the vehicle
-	 * @param ls the ls
+	 * @param vehicle
+	 *            the vehicle
+	 * @param ls
+	 *            the ls
 	 */
 	@setter (SAFETY_DISTANCE_COEFF)
 	public static void setSafetyDistanceCoeff(final IAgent vehicle, final double ls) {
@@ -1249,7 +1341,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the current road.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the current road
 	 */
 	@getter (CURRENT_ROAD)
@@ -1260,8 +1353,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the current road.
 	 *
-	 * @param vehicle the vehicle
-	 * @param road the road
+	 * @param vehicle
+	 *            the vehicle
+	 * @param road
+	 *            the road
 	 */
 	@setter (CURRENT_ROAD)
 	public static void setCurrentRoad(final IAgent vehicle, final IAgent road) {
@@ -1271,7 +1366,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the next road.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the next road
 	 */
 	@getter (NEXT_ROAD)
@@ -1282,8 +1378,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the next road.
 	 *
-	 * @param vehicle the vehicle
-	 * @param road the road
+	 * @param vehicle
+	 *            the vehicle
+	 * @param road
+	 *            the road
 	 */
 	@setter (NEXT_ROAD)
 	public static void setNextRoad(final IAgent vehicle, final IAgent road) {
@@ -1293,7 +1391,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the vehicle length.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the vehicle length
 	 */
 	@getter (VEHICLE_LENGTH)
@@ -1304,7 +1403,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the current lane.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the current lane
 	 */
 	@Deprecated
@@ -1316,8 +1416,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the current lane.
 	 *
-	 * @param vehicle the vehicle
-	 * @param newLane the new lane
+	 * @param vehicle
+	 *            the vehicle
+	 * @param newLane
+	 *            the new lane
 	 */
 	@Deprecated
 	@setter (CURRENT_LANE)
@@ -1328,7 +1430,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the lowest lane.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the lowest lane
 	 */
 	@getter (LOWEST_LANE)
@@ -1339,8 +1442,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the lowest lane.
 	 *
-	 * @param vehicle the vehicle
-	 * @param lowestLane the lowest lane
+	 * @param vehicle
+	 *            the vehicle
+	 * @param lowestLane
+	 *            the lowest lane
 	 */
 	@setter (LOWEST_LANE)
 	public static void setLowestLane(final IAgent vehicle, final int lowestLane) {
@@ -1350,7 +1455,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the distance to goal.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the distance to goal
 	 */
 	@getter (DISTANCE_TO_GOAL)
@@ -1361,7 +1467,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the distance to current target.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the distance to current target
 	 */
 	@getter (DISTANCE_TO_CURRENT_TARGET)
@@ -1372,8 +1479,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the distance to current target.
 	 *
-	 * @param vehicle the vehicle
-	 * @param dist the dist
+	 * @param vehicle
+	 *            the vehicle
+	 * @param dist
+	 *            the dist
 	 */
 	@setter (DISTANCE_TO_CURRENT_TARGET)
 	public static void setDistanceToCurrentTarget(final IAgent vehicle, final double dist) {
@@ -1383,7 +1492,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the min security distance.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the min security distance
 	 */
 	@getter (MIN_SECURITY_DISTANCE)
@@ -1394,8 +1504,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the min sec distance.
 	 *
-	 * @param vehicle the vehicle
-	 * @param msd the msd
+	 * @param vehicle
+	 *            the vehicle
+	 * @param msd
+	 *            the msd
 	 */
 	@setter (MIN_SECURITY_DISTANCE)
 	public static void setMinSecDistance(final IAgent vehicle, final double msd) {
@@ -1405,7 +1517,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the min safety distance.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the min safety distance
 	 */
 	@getter (MIN_SAFETY_DISTANCE)
@@ -1416,8 +1529,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the distance to goal.
 	 *
-	 * @param vehicle the vehicle
-	 * @param dg the dg
+	 * @param vehicle
+	 *            the vehicle
+	 * @param dg
+	 *            the dg
 	 */
 	@setter (DISTANCE_TO_GOAL)
 	public static void setDistanceToGoal(final IAgent vehicle, final double dg) {
@@ -1427,7 +1542,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the num lanes occupied.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the num lanes occupied
 	 */
 	@getter (NUM_LANES_OCCUPIED)
@@ -1438,8 +1554,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the num lanes occupied.
 	 *
-	 * @param vehicle the vehicle
-	 * @param value the value
+	 * @param vehicle
+	 *            the vehicle
+	 * @param value
+	 *            the value
 	 */
 	@setter (NUM_LANES_OCCUPIED)
 	public static void setNumLanesOccupied(final IAgent vehicle, final Integer value) {
@@ -1449,7 +1567,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the leading vehicle.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the leading vehicle
 	 */
 	@getter (LEADING_VEHICLE)
@@ -1460,8 +1579,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the leading vehicle read only.
 	 *
-	 * @param vehicle the vehicle
-	 * @param leadingVehicle the leading vehicle
+	 * @param vehicle
+	 *            the vehicle
+	 * @param leadingVehicle
+	 *            the leading vehicle
 	 */
 	@setter (LEADING_VEHICLE)
 	public static void setLeadingVehicleReadOnly(final IAgent vehicle, final IAgent leadingVehicle) {
@@ -1471,8 +1592,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the leading vehicle.
 	 *
-	 * @param vehicle the vehicle
-	 * @param leadingVehicle the leading vehicle
+	 * @param vehicle
+	 *            the vehicle
+	 * @param leadingVehicle
+	 *            the leading vehicle
 	 */
 	public static void setLeadingVehicle(final IAgent vehicle, final IAgent leadingVehicle) {
 		vehicle.setAttribute(LEADING_VEHICLE, leadingVehicle);
@@ -1481,7 +1604,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the leading distance.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the leading distance
 	 */
 	@getter (LEADING_DISTANCE)
@@ -1494,7 +1618,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Gets the leading speed.
 	 *
-	 * @param vehicle the vehicle
+	 * @param vehicle
+	 *            the vehicle
 	 * @return the leading speed
 	 */
 	@getter (LEADING_SPEED)
@@ -1507,8 +1632,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the leading distance read only.
 	 *
-	 * @param vehicle the vehicle
-	 * @param leadingDist the leading dist
+	 * @param vehicle
+	 *            the vehicle
+	 * @param leadingDist
+	 *            the leading dist
 	 */
 	@setter (LEADING_DISTANCE)
 	public static void setLeadingDistanceReadOnly(final IAgent vehicle, final double leadingDist) {
@@ -1518,8 +1645,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the leading distance.
 	 *
-	 * @param vehicle the vehicle
-	 * @param leadingDist the leading dist
+	 * @param vehicle
+	 *            the vehicle
+	 * @param leadingDist
+	 *            the leading dist
 	 */
 	public static void setLeadingDistance(final IAgent vehicle, final double leadingDist) {
 		vehicle.setAttribute(LEADING_DISTANCE, leadingDist);
@@ -1528,8 +1657,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the leading speed read only.
 	 *
-	 * @param vehicle the vehicle
-	 * @param leadingSpeed the leading speed
+	 * @param vehicle
+	 *            the vehicle
+	 * @param leadingSpeed
+	 *            the leading speed
 	 */
 	@setter (LEADING_SPEED)
 	public static void setLeadingSpeedReadOnly(final IAgent vehicle, final double leadingSpeed) {
@@ -1539,8 +1670,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the leading speed.
 	 *
-	 * @param vehicle the vehicle
-	 * @param leadingSpeed the leading speed
+	 * @param vehicle
+	 *            the vehicle
+	 * @param leadingSpeed
+	 *            the leading speed
 	 */
 	public static void setLeadingSpeed(final IAgent vehicle, final double leadingSpeed) {
 		vehicle.setAttribute(LEADING_SPEED, leadingSpeed);
@@ -1549,8 +1682,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Sets the follower.
 	 *
-	 * @param vehicle the vehicle
-	 * @param follower the follower
+	 * @param vehicle
+	 *            the vehicle
+	 * @param follower
+	 *            the follower
 	 */
 	public static void setFollower(final IAgent vehicle, final IAgent follower) {
 		vehicle.setAttribute(FOLLOWER, follower);
@@ -1559,9 +1694,11 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Prim advanced follow.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the double
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "advanced_follow_driving",
@@ -1601,9 +1738,11 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Prim ready to cross.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the boolean
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "ready_to_cross",
@@ -1631,9 +1770,11 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Prim test next road.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the boolean
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "test_next_road",
@@ -1654,12 +1795,17 @@ public class DrivingSkill extends MovingSkill {
 	 * Check if the vehicle is ready to cross the intersection to get to a new road, concerning: 1. Traffic lights 2.
 	 * Other vehicles coming from other incoming roads
 	 *
-	 * @param scope the scope
-	 * @param vehicle the vehicle
-	 * @param node the node
-	 * @param newRoad the new road
+	 * @param scope
+	 *            the scope
+	 * @param vehicle
+	 *            the vehicle
+	 * @param node
+	 *            the node
+	 * @param newRoad
+	 *            the new road
 	 * @return true if ready, false otherwise
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	public static Boolean readyToCross(final IScope scope, final IAgent vehicle, final IAgent node,
 			final IAgent newRoad) throws GamaRuntimeException {
@@ -1762,9 +1908,11 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Prim compute path.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the i path
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "compute_path",
@@ -1841,9 +1989,11 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Prim compute path from nodes.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the i path
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "path_from_nodes",
@@ -1883,8 +2033,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Prim drive random.
 	 *
-	 * @param scope the scope
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param scope
+	 *            the scope
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "drive_random",
@@ -1924,8 +2076,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Prim drive.
 	 *
-	 * @param scope the scope
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param scope
+	 *            the scope
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "drive",
@@ -1949,8 +2103,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Prim on entering new road.
 	 *
-	 * @param scope the scope
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param scope
+	 *            the scope
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "on_entering_new_road",
@@ -1962,9 +2118,11 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Prim external factor on remaining time.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the double
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "external_factor_impact",
@@ -1989,8 +2147,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Prim unregister.
 	 *
-	 * @param scope the scope
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param scope
+	 *            the scope
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "unregister",
@@ -2005,9 +2165,11 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Prim speed choice.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the double
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "speed_choice",
@@ -2029,9 +2191,11 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Prim lane choice.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the integer
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "lane_choice",
@@ -2053,9 +2217,11 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Prim choose lane.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the integer
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = ACT_CHOOSE_LANE,
@@ -2083,10 +2249,14 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Select a random road among the outward edges of a given intersection node.
 	 *
-	 * @param scope the scope
-	 * @param graph            the graph on which the vehicle is driving
-	 * @param node            the intersection node whose outward edges will be considered
-	 * @param roadProba            a map that specifies probabilities of choosing certain roads
+	 * @param scope
+	 *            the scope
+	 * @param graph
+	 *            the graph on which the vehicle is driving
+	 * @param node
+	 *            the intersection node whose outward edges will be considered
+	 * @param roadProba
+	 *            a map that specifies probabilities of choosing certain roads
 	 * @return the selected road
 	 */
 	private IAgent chooseNextRoadRandomly(final IScope scope, final GamaSpatialGraph graph, final IAgent node,
@@ -2103,9 +2273,8 @@ public class DrivingSkill extends MovingSkill {
 		possibleRoads.removeIf(r -> !graph.getEdges().contains(r));
 
 		if (possibleRoads.isEmpty()) return null;
-		if (possibleRoads.size() == 1)
-			return possibleRoads.get(0);
-		else if (roadProba == null || roadProba.isEmpty())
+		if (possibleRoads.size() == 1) return possibleRoads.get(0);
+		if (roadProba == null || roadProba.isEmpty())
 			return possibleRoads.anyValue(scope);
 		else {
 			IList<Double> distribution = GamaListFactory.create(Types.FLOAT);
@@ -2121,10 +2290,14 @@ public class DrivingSkill extends MovingSkill {
 	 * Blocks vehicles crossing a given intersection from other roads, except the old road and the linked road of the
 	 * new one. e.g. think of a vehicle running a redlight at a four-way junction
 	 *
-	 * @param scope the scope
-	 * @param currentRoad            the old road of the vehicle
-	 * @param newRoad            the new road of the vehicle
-	 * @param node            the intersection node whose blocking info will be updated
+	 * @param scope
+	 *            the scope
+	 * @param currentRoad
+	 *            the old road of the vehicle
+	 * @param newRoad
+	 *            the new road of the vehicle
+	 * @param node
+	 *            the intersection node whose blocking info will be updated
 	 */
 	public void blockIntersection(final IScope scope, final IAgent currentRoad, final IAgent newRoad,
 			final IAgent node) {
@@ -2146,9 +2319,12 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Updates the `vehicle_ordering` map with the new distance to target.
 	 *
-	 * @param scope the scope
-	 * @param newLowestLane            the new lowest lane of the vehicle
-	 * @param newDistToCurrentTarget            the new distance to the vehicle's current target
+	 * @param scope
+	 *            the scope
+	 * @param newLowestLane
+	 *            the new lowest lane of the vehicle
+	 * @param newDistToCurrentTarget
+	 *            the new distance to the vehicle's current target
 	 */
 	private void updateVehicleOrdering(final IScope scope, final int newLowestLane,
 			final double newDistToCurrentTarget) {
@@ -2183,10 +2359,14 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Move across roads.
 	 *
-	 * @param scope the scope
-	 * @param isDrivingRandomly the is driving randomly
-	 * @param graph the graph
-	 * @param roadProba the road proba
+	 * @param scope
+	 *            the scope
+	 * @param isDrivingRandomly
+	 *            the is driving randomly
+	 * @param graph
+	 *            the graph
+	 * @param roadProba
+	 *            the road proba
 	 */
 	private void moveAcrossRoads(final IScope scope, final boolean isDrivingRandomly, final GamaSpatialGraph graph,
 			final Map<IAgent, Double> roadProba) {
@@ -2199,24 +2379,28 @@ public class DrivingSkill extends MovingSkill {
 		IAgent finalTarget = getFinalTarget(vehicle);
 		Pair<Integer, Double> laneAndAccPair;
 		double remainingTime = scope.getSimulation().getClock().getStepInSeconds();
+		int cnt = 0;
 		while (remainingTime > 0) {
+			cnt += 1;
 			GamaPoint loc = vehicle.getLocation();
 			IAgent currentTarget = getCurrentTarget(vehicle);
 			GamaPoint targetLoc = currentTarget.getLocation();
 
-			if (!isDrivingRandomly && loc.equals(finalTarget.getLocation())) { // Final node in path
+			if (!isDrivingRandomly && getCurrentIndex(vehicle) == getCurrentPath(vehicle).getEdgeList().size() - 1
+					&& loc.equals(finalTarget.getLocation())) { // Final node in path
 				clearDrivingStates(scope);
 				return;
 			}
 			if (loc.equals(targetLoc)) { // Intermediate node in path
 				IAgent newRoad = getNextRoad(vehicle);
-				if (newRoad == null) return;
-				// TODO: this error should only be raised if the modeler doesn't do anything about it
-				// String reason = isDrivingRandomly ? "which has no outgoing roads" :
-				// "because it has reached the end of the path";
-				// throw GamaRuntimeException.warning(vehicle.getName() + " stopped at " + currentTarget.getName() + ",
-				// " + reason,
-				// scope);
+				if (newRoad == null) { // Only raise the error if the modeler didn't do anything about the deadend
+					// right when the vehicle reached it
+					if (cnt > 1) return;
+					String reason = isDrivingRandomly ? "which has no outgoing roads"
+							: "because it has reached the end of the path";
+					throw GamaRuntimeException.warning(
+							vehicle.getName() + " stopped at " + currentTarget.getName() + ", " + reason, scope);
+				}
 				GamaPoint srcNodeLoc = RoadSkill.getSourceNode(newRoad).getLocation();
 				boolean violatingOneway = !loc.equals(srcNodeLoc);
 				// check traffic lights and vehicles coming from other roads
@@ -2293,8 +2477,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Prim force move.
 	 *
-	 * @param scope the scope
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param scope
+	 *            the scope
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "force_move",
@@ -2326,10 +2512,14 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Moves the vehicle from segment to segment on the current road.
 	 *
-	 * @param scope the scope
-	 * @param accel            acceleration
-	 * @param time            the amount of time available to move
-	 * @param newLowestLane            the lane to move on
+	 * @param scope
+	 *            the scope
+	 * @param accel
+	 *            acceleration
+	 * @param time
+	 *            the amount of time available to move
+	 * @param newLowestLane
+	 *            the lane to move on
 	 * @return the remaining amount of time in the simulation step
 	 */
 	public double moveAcrossSegments(final IScope scope, final double accel, final double time,
@@ -2397,9 +2587,12 @@ public class DrivingSkill extends MovingSkill {
 	 * Computes the speed of the vehicle with respect to its acceleration, its maximum speed and the speed limit of the
 	 * current road.
 	 *
-	 * @param scope the scope
-	 * @param acceleration            the acceleration for this simulation step
-	 * @param road            the road which the vehicle is on
+	 * @param scope
+	 *            the scope
+	 * @param acceleration
+	 *            the acceleration for this simulation step
+	 * @param road
+	 *            the road which the vehicle is on
 	 * @return the resulting speed
 	 */
 	private double computeSpeed(final IScope scope, final double acceleration, final IAgent road) {
@@ -2413,7 +2606,8 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Clears information after the vehicle has reached the final target in its path.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 */
 	private void clearDrivingStates(final IScope scope) {
 		IAgent vehicle = getCurrentAgent(scope);
@@ -2426,9 +2620,12 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Unregister.
 	 *
-	 * @param scope the scope
-	 * @param driver the driver
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param scope
+	 *            the scope
+	 * @param driver
+	 *            the driver
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	public static void unregister(final IScope scope, final IAgent driver) throws GamaRuntimeException {
 		IAgent currentRoad = getCurrentRoad(driver);
@@ -2446,8 +2643,10 @@ public class DrivingSkill extends MovingSkill {
 	/**
 	 * Prim die wrapper.
 	 *
-	 * @param scope the scope
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param scope
+	 *            the scope
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	// TODO: this action is not overridden
 	@action (
