@@ -107,6 +107,9 @@ public class Application implements IApplication {
 	/** The Constant GAML_PARAMETER. */
 	final public static String GAML_PARAMETER = "-gaml";
 
+	/** The Constant WRITE_XMI. */
+	final public static String WRITE_XMI = "-write-xmi";
+
 	/** The head less simulation. */
 	public static boolean headLessSimulation = false;
 
@@ -139,8 +142,6 @@ public class Application implements IApplication {
 
 	/**
 	 * Show help.
-	 *
-	 * @return the string
 	 */
 	private static void showHelp() {
 		showVersion();
@@ -167,7 +168,8 @@ public class Application implements IApplication {
 				+ "\n\t\t" + BUILD_XML_PARAMETER + " [experimentName] [modelFile.gaml] [xmlOutputFile.xml]"
 				+ "\n\t\t                             -- build an xml parameter file from a model"
 				+ "\n\t\t[xmlHeadlessFile.xml] [outputDirectory]"
-				+ "\n\t\t                             -- default usage of GAMA headless");
+				+ "\n\t\t                             -- default usage of GAMA headless" + "\n\t\t" + WRITE_XMI
+				+ " -- write scope provider resource files to disk");
 		DEBUG.OFF();
 	}
 
@@ -195,7 +197,7 @@ public class Application implements IApplication {
 
 		int size = args.size();
 		boolean mustContainInFile = true;
-		boolean mustContainOutFile = true;
+		boolean mustContainOutFolder = true;
 
 		// Parameters flag
 		// ========================
@@ -217,14 +219,14 @@ public class Application implements IApplication {
 		}
 		if (args.contains(TUNNELING_PARAMETER)) {
 			size = size - 1;
-			mustContainOutFile = false;
+			mustContainOutFolder = false;
 
 			// Change value only if function should apply parameter
 			this.tunnelingMode = apply;
 		}
 		if (args.contains(SOCKET_PARAMETER)) {
 			size = size - 2;
-			mustContainOutFile = false;
+			mustContainOutFolder = false;
 
 			// Change value only if function should apply parameter
 			this.socket = apply ? Integer.parseInt(after(args, SOCKET_PARAMETER)) : -1;
@@ -239,26 +241,30 @@ public class Application implements IApplication {
 
 		// Commands
 		// ========================
-		if (args.contains(GAMA_VERSION) || args.contains(HELP_PARAMETER) || args.contains(VALIDATE_LIBRARY_PARAMETER)
-				|| args.contains(TEST_LIBRARY_PARAMETER)) {
+		if (args.contains(WRITE_XMI) || args.contains(GAMA_VERSION) || args.contains(HELP_PARAMETER)
+				|| args.contains(VALIDATE_LIBRARY_PARAMETER) || args.contains(TEST_LIBRARY_PARAMETER)) {
 			size = size - 1;
-			mustContainOutFile = mustContainInFile = false;
+			mustContainOutFolder = mustContainInFile = false;
 		}
 		if (args.contains(BATCH_PARAMETER)) {
 			size = size - 3;
-			mustContainOutFile = false;
+			mustContainOutFolder = false;
+		}
+		if (args.contains(BUILD_XML_PARAMETER)) {
+			size = size - 4;
+			mustContainInFile = mustContainOutFolder = false;
 		}
 
 		// Runner verification
 		// ========================
-		if (mustContainInFile && mustContainOutFile && size < 2)
+		if (mustContainInFile && mustContainOutFolder && size < 2)
 			return showError(HeadLessErrors.INPUT_NOT_DEFINED, null);
-		if (!mustContainInFile && mustContainOutFile && size < 1)
+		if (!mustContainInFile && mustContainOutFolder && size < 1)
 			return showError(HeadLessErrors.OUTPUT_NOT_DEFINED, null);
 
 		// In/out files
 		// ========================
-		if (mustContainOutFile) {
+		if (mustContainOutFolder) {
 			// Check and create output folder
 			Globals.OUTPUT_PATH = args.get(args.size() - 1);
 			final File output = new File(Globals.OUTPUT_PATH);
@@ -269,7 +275,7 @@ public class Application implements IApplication {
 			if (!images.exists()) { images.mkdir(); }
 		}
 		if (mustContainInFile) {
-			final int inIndex = args.size() - (mustContainOutFile ? 2 : 1);
+			final int inIndex = args.size() - (mustContainOutFolder ? 2 : 1);
 			final File input = new File(args.get(inIndex));
 			if (!input.exists()) return showError(HeadLessErrors.NOT_EXIST_FILE_ERROR, args.get(inIndex));
 		}
@@ -338,7 +344,28 @@ public class Application implements IApplication {
 		if (args.contains(RUN_LIBRARY_PARAMETER)) return ModelLibraryRunner.getInstance().start();
 		if (args.contains(CHECK_MODEL_PARAMETER)) {
 			ModelLibraryGenerator.start(this, args);
-		} else if (args.contains(BATCH_PARAMETER)) {
+		}
+		// else if (args.contains(WRITE_XMI)) {
+		// String outputDir = "all-resources";
+		// DEBUG.ON();
+		// DEBUG.LOG("Writing xmi files to " + outputDir);
+		// IMap<EClass, Resource> resources = BuiltinGlobalScopeProvider.getResources();
+		// resources.forEach((k, res) -> {
+		// String out = k.getName() + ".xmi";
+		// OutputStream outf;
+		// try {
+		// outf = new FileOutputStream(out);
+		// res.save(outf, null);
+		// DEBUG.LOG("Resource written to " + out);
+		// } catch (Exception e1) {
+		// e1.printStackTrace();
+		// }
+		// });
+		// DEBUG.LOG("Done");
+		// }
+
+		// User runner
+		else if (args.contains(BATCH_PARAMETER)) {
 			runBatchSimulation(args.get(args.size() - 2), args.get(args.size() - 1));
 		} else if (args.contains(GAML_PARAMETER)) {
 			runGamlSimulation(args);
@@ -384,10 +411,9 @@ public class Application implements IApplication {
 	 */
 	public void buildXML(final List<String> arg)
 			throws ParserConfigurationException, TransformerException, IOException, GamaHeadlessException {
-
 		if (arg.size() < 3) {
 			DEBUG.ON();
-			DEBUG.ERR("Please check parameters.");
+			DEBUG.ERR("Check your parameters!");
 			showHelp();
 			return;
 		}
@@ -398,7 +424,6 @@ public class Application implements IApplication {
 		final String argXMLFile = arg.get(arg.size() - 1);
 
 		final List<IExperimentJob> jb = ExperimentationPlanFactory.buildExperiment(argGamlFile);
-
 		final ArrayList<IExperimentJob> selectedJob = new ArrayList<>();
 		for (final IExperimentJob j : jb) {
 			if (j.getExperimentName().equals(argExperimentName)) {
@@ -491,25 +516,6 @@ public class Application implements IApplication {
 	 *             the interrupted exception
 	 */
 	public void runSimulation(final List<String> args) throws FileNotFoundException, InterruptedException {
-
-		verbose = args.contains(VERBOSE_PARAMETER);
-		if (verbose) {
-			DEBUG.ON();
-
-		}
-		this.tunnelingMode = args.contains(TUNNELING_PARAMETER);
-		this.consoleMode = args.contains(CONSOLE_PARAMETER);
-		if (args.contains(SOCKET_PARAMETER)) {
-			this.socket = Integer.parseInt(after(args, SOCKET_PARAMETER));
-		} else {
-			this.socket = -1;
-		}
-
-		if (args.contains(THREAD_PARAMETER)) {
-			this.numberOfThread = Integer.parseInt(after(args, THREAD_PARAMETER));
-		} else {
-			numberOfThread = SimulationRuntime.UNDEFINED_QUEUE_SIZE;
-		}
 		processorQueue = new LocalSimulationRuntime(this.numberOfThread);
 
 		Reader in = null;
@@ -591,8 +597,8 @@ public class Application implements IApplication {
 		final IModel mdl = builder.compile(URI.createFileURI(pathToModel), errors);
 
 		final IExperimentPlan expPlan = mdl.getExperiment(experimentName);
-		expPlan.setHeadless(true);
 
+		expPlan.setHeadless(true);
 		expPlan.open();
 
 		System.exit(0);
@@ -623,7 +629,7 @@ public class Application implements IApplication {
 				break;
 			}
 		}
-
+		if (selectedJob == null) return;
 		Globals.OUTPUT_PATH = args.get(args.size() - 3);
 
 		selectedJob.setBufferedWriter(new XMLWriter(Globals.OUTPUT_PATH + "/" + Globals.OUTPUT_FILENAME + ".xml"));
