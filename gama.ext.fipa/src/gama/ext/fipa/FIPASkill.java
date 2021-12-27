@@ -1,7 +1,6 @@
 /*******************************************************************************************************
  *
- * FIPASkill.java, in gama.ext.fipa, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * FIPASkill.java, in gama.ext.fipa, is part of the source code of the GAMA modeling and simulation platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
@@ -65,71 +64,71 @@ import gaml.types.Types;
 		of = ConversationType.CONV_ID,
 		init = "[]",
 		doc = @doc ("A list containing the current conversations of agent. Ended conversations are automatically removed from this list.")),
-	@variable (
-			name = "accept_proposals",
-			type = IType.LIST,
-			of = IType.MESSAGE,
-			doc = @doc ("A list of 'accept_proposal' performative messages in the agent's mailbox")),
-	@variable (
-			name = "agrees",
-			type = IType.LIST,
-			of = IType.MESSAGE,
-			doc = @doc ("A list of 'agree' performative messages.")),
-	@variable (
-			name = "cancels",
-			type = IType.LIST,
-			of = IType.MESSAGE,
-			doc = @doc ("A list of 'cancel' performative messages.")),
-	@variable (
-			name = "cfps",
-			type = IType.LIST,
-			of = IType.MESSAGE,
-			doc = @doc ("A list of 'cfp' (call for proposal) performative messages.")),
-	@variable (
-			name = "failures",
-			type = IType.LIST,
-			of = IType.MESSAGE,
-			doc = @doc ("A list of 'failure' performative messages.")),
-	@variable (
-			name = "informs",
-			type = IType.LIST,
-			of = IType.MESSAGE,
-			doc = @doc ("A list of 'inform' performative messages.")),
-	@variable (
-			name = "proposes",
-			type = IType.LIST,
-			of = IType.MESSAGE,
-			doc = @doc ("A list of 'propose' performative messages .")),
-	@variable (
-			name = "queries",
-			type = IType.LIST,
-			of = IType.MESSAGE,
-			doc = @doc ("A list of 'query' performative messages.")),
-	@variable (
-			name = "refuses",
-			type = IType.LIST,
-			of = IType.MESSAGE,
-			doc = @doc ("A list of 'propose' performative messages.")),
-	@variable (
-			name = "reject_proposals",
-			type = IType.LIST,
-			of = IType.MESSAGE,
-			doc = @doc ("A list of 'reject_proposal' performative messages.")),
-	@variable (
-			name = "requests",
-			type = IType.LIST,
-			of = IType.MESSAGE,
-			doc = @doc ("A list of 'request' performative messages.")),
-	@variable (
-			name = "requestWhens",
-			type = IType.LIST,
-			of = IType.MESSAGE,
-			doc = @doc ("A list of 'request-when' performative messages.")),
-	@variable (
-			name = "subscribes",
-			type = IType.LIST,
-			of = IType.MESSAGE,
-			doc = @doc ("A list of 'subscribe' performative messages.")), })
+		@variable (
+				name = "accept_proposals",
+				type = IType.LIST,
+				of = IType.MESSAGE,
+				doc = @doc ("A list of 'accept_proposal' performative messages in the agent's mailbox")),
+		@variable (
+				name = "agrees",
+				type = IType.LIST,
+				of = IType.MESSAGE,
+				doc = @doc ("A list of 'agree' performative messages.")),
+		@variable (
+				name = "cancels",
+				type = IType.LIST,
+				of = IType.MESSAGE,
+				doc = @doc ("A list of 'cancel' performative messages.")),
+		@variable (
+				name = "cfps",
+				type = IType.LIST,
+				of = IType.MESSAGE,
+				doc = @doc ("A list of 'cfp' (call for proposal) performative messages.")),
+		@variable (
+				name = "failures",
+				type = IType.LIST,
+				of = IType.MESSAGE,
+				doc = @doc ("A list of 'failure' performative messages.")),
+		@variable (
+				name = "informs",
+				type = IType.LIST,
+				of = IType.MESSAGE,
+				doc = @doc ("A list of 'inform' performative messages.")),
+		@variable (
+				name = "proposes",
+				type = IType.LIST,
+				of = IType.MESSAGE,
+				doc = @doc ("A list of 'propose' performative messages .")),
+		@variable (
+				name = "queries",
+				type = IType.LIST,
+				of = IType.MESSAGE,
+				doc = @doc ("A list of 'query' performative messages.")),
+		@variable (
+				name = "refuses",
+				type = IType.LIST,
+				of = IType.MESSAGE,
+				doc = @doc ("A list of 'propose' performative messages.")),
+		@variable (
+				name = "reject_proposals",
+				type = IType.LIST,
+				of = IType.MESSAGE,
+				doc = @doc ("A list of 'reject_proposal' performative messages.")),
+		@variable (
+				name = "requests",
+				type = IType.LIST,
+				of = IType.MESSAGE,
+				doc = @doc ("A list of 'request' performative messages.")),
+		@variable (
+				name = "requestWhens",
+				type = IType.LIST,
+				of = IType.MESSAGE,
+				doc = @doc ("A list of 'request-when' performative messages.")),
+		@variable (
+				name = "subscribes",
+				type = IType.LIST,
+				of = IType.MESSAGE,
+				doc = @doc ("A list of 'subscribe' performative messages.")), })
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class FIPASkill extends MessagingSkill {
 
@@ -147,11 +146,13 @@ public class FIPASkill extends MessagingSkill {
 	// private static Map<String, Integer> protocolIndexes = new HashMap();
 
 	/**
-	 *  The performative indexes.
+	 * The performative indexes.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the FIPA message
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	// protected static Map<String, Integer> performativeIndexes = new HashMap();
 	// static {
@@ -238,9 +239,11 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Prim send message.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the FIPA message
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@Override
 	@action (
@@ -275,9 +278,11 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Prim reply to message.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the Action.CommandStatus indicating the success or failure of the primitive.
-	 * @throws GamaRuntimeException             Primitive reply. Replies a message. Retrieves the conversation specified by the conversationID input
+	 * @throws GamaRuntimeException
+	 *             Primitive reply. Replies a message. Retrieves the conversation specified by the conversationID input
 	 *             argument, the have this conversation handle the replying process.
 	 */
 	@action (
@@ -312,9 +317,11 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Gets the conversations.
 	 *
-	 * @param agent the agent
+	 * @param agent
+	 *            the agent
 	 * @return a list of currently active conversations.
-	 * @throws GamaRuntimeException             Retrieves a list of currently active conversations.
+	 * @throws GamaRuntimeException
+	 *             Retrieves a list of currently active conversations.
 	 */
 	@getter ("conversations")
 	public List<Conversation> getConversations(final IAgent agent) throws GamaRuntimeException {
@@ -326,12 +333,17 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Reply message.
 	 *
-	 * @param scope the scope
-	 * @param originals            the originals
-	 * @param performative            the performative
-	 * @param content            the content
+	 * @param scope
+	 *            the scope
+	 * @param originals
+	 *            the originals
+	 * @param performative
+	 *            the performative
+	 * @param content
+	 *            the content
 	 * @return the object
-	 * @throws GamaRuntimeException             Reply message.
+	 * @throws GamaRuntimeException
+	 *             Reply message.
 	 */
 	private Object replyMessage(final IScope scope, final IList<FIPAMessage> originals, final Performative performative,
 			final IList content) throws GamaRuntimeException {
@@ -375,9 +387,11 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Prim accept proposal.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the command status
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "accept_proposal",
@@ -402,9 +416,11 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Prim agree.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the command status
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "agree",
@@ -429,9 +445,11 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Prim cancel.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the command status
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "cancel",
@@ -456,9 +474,11 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Prim cfp.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the command status
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "cfp",
@@ -483,9 +503,11 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Prim end.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the command status
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "end_conversation",
@@ -510,9 +532,11 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Prim failure.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the command status
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "failure",
@@ -537,9 +561,11 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Prim inform.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the command status
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "inform",
@@ -564,9 +590,11 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Prim propose.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the command status
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "propose",
@@ -591,9 +619,11 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Prim query.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the command status
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "query",
@@ -618,9 +648,11 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Prim refuse.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the command status
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "refuse",
@@ -645,9 +677,11 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Prim reject proposal.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the command status
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "reject_proposal",
@@ -672,9 +706,11 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Prim request.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the command status
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "request",
@@ -699,9 +735,11 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Prim subscribe.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the command status
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@action (
 			name = "subscribe",
@@ -727,12 +765,14 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Gets the messages.
 	 *
-	 * @param scope the scope
-	 * @param agent the agent
+	 * @param scope
+	 *            the scope
+	 * @param agent
+	 *            the agent
 	 * @return the messages
 	 */
-	@getter ("messages")
-	public IList<FIPAMessage> getMessages(final IScope scope, final IAgent agent) {
+	// @getter ("messages")
+	private IList<FIPAMessage> getMessages(final IScope scope, final IAgent agent) {
 		final IList<FIPAMessage> result = MessageBroker.getInstance(scope).getMessagesFor(agent);
 		final List<FIPAMessage> received = MessageBroker.getInstance(scope).deliverMessagesFor(scope, agent);
 		result.addAll(received);
@@ -747,8 +787,10 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Gets the mailbox.
 	 *
-	 * @param scope the scope
-	 * @param agent the agent
+	 * @param scope
+	 *            the scope
+	 * @param agent
+	 *            the agent
 	 * @return the mailbox
 	 */
 	@Override
@@ -765,8 +807,10 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Gets the accept proposal msgs.
 	 *
-	 * @param scope the scope
-	 * @param agent the agent
+	 * @param scope
+	 *            the scope
+	 * @param agent
+	 *            the agent
 	 * @return the accept proposal msgs
 	 */
 	@getter ("accept_proposals")
@@ -777,8 +821,10 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Gets the agree msgs.
 	 *
-	 * @param scope the scope
-	 * @param agent the agent
+	 * @param scope
+	 *            the scope
+	 * @param agent
+	 *            the agent
 	 * @return the agree msgs
 	 */
 	@getter ("agrees")
@@ -789,8 +835,10 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Gets the cancel msgs.
 	 *
-	 * @param scope the scope
-	 * @param agent the agent
+	 * @param scope
+	 *            the scope
+	 * @param agent
+	 *            the agent
 	 * @return the cancel msgs
 	 */
 	@getter ("cancels")
@@ -801,8 +849,10 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Gets the cfp msgs.
 	 *
-	 * @param scope the scope
-	 * @param agent the agent
+	 * @param scope
+	 *            the scope
+	 * @param agent
+	 *            the agent
 	 * @return the cfp msgs
 	 */
 	@getter ("cfps")
@@ -813,8 +863,10 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Gets the failure msgs.
 	 *
-	 * @param scope the scope
-	 * @param agent the agent
+	 * @param scope
+	 *            the scope
+	 * @param agent
+	 *            the agent
 	 * @return the failure msgs
 	 */
 	@getter ("failures")
@@ -825,8 +877,10 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Gets the inform msgs.
 	 *
-	 * @param scope the scope
-	 * @param agent the agent
+	 * @param scope
+	 *            the scope
+	 * @param agent
+	 *            the agent
 	 * @return the inform msgs
 	 */
 	@getter ("informs")
@@ -837,8 +891,10 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Gets the propose msgs.
 	 *
-	 * @param scope the scope
-	 * @param agent the agent
+	 * @param scope
+	 *            the scope
+	 * @param agent
+	 *            the agent
 	 * @return the propose msgs
 	 */
 	@getter ("proposes")
@@ -849,8 +905,10 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Gets the query msgs.
 	 *
-	 * @param scope the scope
-	 * @param agent the agent
+	 * @param scope
+	 *            the scope
+	 * @param agent
+	 *            the agent
 	 * @return the query msgs
 	 */
 	@getter ("queries")
@@ -861,8 +919,10 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Gets the refuses msgs.
 	 *
-	 * @param scope the scope
-	 * @param agent the agent
+	 * @param scope
+	 *            the scope
+	 * @param agent
+	 *            the agent
 	 * @return the refuses msgs
 	 */
 	@getter ("refuses")
@@ -873,8 +933,10 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Gets the reject proposal msgs.
 	 *
-	 * @param scope the scope
-	 * @param agent the agent
+	 * @param scope
+	 *            the scope
+	 * @param agent
+	 *            the agent
 	 * @return the reject proposal msgs
 	 */
 	@getter ("reject_proposals")
@@ -885,8 +947,10 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Gets the request msgs.
 	 *
-	 * @param scope the scope
-	 * @param agent the agent
+	 * @param scope
+	 *            the scope
+	 * @param agent
+	 *            the agent
 	 * @return the request msgs
 	 */
 	@getter ("requests")
@@ -897,8 +961,10 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Gets the request when msgs.
 	 *
-	 * @param scope the scope
-	 * @param agent the agent
+	 * @param scope
+	 *            the scope
+	 * @param agent
+	 *            the agent
 	 * @return the request when msgs
 	 */
 	@getter ("requestWhens")
@@ -909,8 +975,10 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Gets the subscribe msgs.
 	 *
-	 * @param scope the scope
-	 * @param agent the agent
+	 * @param scope
+	 *            the scope
+	 * @param agent
+	 *            the agent
 	 * @return the subscribe msgs
 	 */
 	@getter ("subscribes")
@@ -921,9 +989,12 @@ public class FIPASkill extends MessagingSkill {
 	/**
 	 * Filter.
 	 *
-	 * @param scope the scope
-	 * @param agent the agent
-	 * @param performative            the performative
+	 * @param scope
+	 *            the scope
+	 * @param agent
+	 *            the agent
+	 * @param performative
+	 *            the performative
 	 * @return the gama list< i message>
 	 */
 	private IList<FIPAMessage> filter(final IScope scope, final IAgent agent, final Performative performative) {
