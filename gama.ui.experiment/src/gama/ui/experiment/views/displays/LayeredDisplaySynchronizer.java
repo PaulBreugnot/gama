@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * LayeredDisplaySynchronizer.java, in gama.ui.experiment, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * LayeredDisplaySynchronizer.java, in gama.ui.experiment, is part of the source code of the GAMA modeling and
+ * simulation platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.experiment.views.displays;
 
@@ -18,6 +18,7 @@ import gama.common.ui.IDisplaySurface;
 import gama.common.ui.IDisplaySynchronizer;
 import gama.core.dev.utils.DEBUG;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class LayeredDisplaySynchronizer.
  */
@@ -29,20 +30,21 @@ public class LayeredDisplaySynchronizer implements IDisplaySynchronizer {
 
 	/** The view update lock. */
 	Semaphore viewUpdateLock = new Semaphore(0);
-	
+
 	/** The surface render lock. */
 	Semaphore surfaceRenderLock = new Semaphore(1);
-	
+
 	/** The surface realisation lock. */
 	Semaphore surfaceRealisationLock = new Semaphore(0);
-	
+
 	/** The surface. */
 	IDisplaySurface surface;
 
 	/**
 	 * Acquire view lock.
 	 *
-	 * @throws InterruptedException the interrupted exception
+	 * @throws InterruptedException
+	 *             the interrupted exception
 	 */
 	private void acquireViewLock() throws InterruptedException {
 		if (viewUpdateLock.availablePermits() > 0) { viewUpdateLock.drainPermits(); }
@@ -59,7 +61,8 @@ public class LayeredDisplaySynchronizer implements IDisplaySynchronizer {
 	/**
 	 * Acquire lock.
 	 *
-	 * @throws InterruptedException the interrupted exception
+	 * @throws InterruptedException
+	 *             the interrupted exception
 	 */
 	private synchronized void acquireLock() throws InterruptedException {
 		wait();
@@ -72,6 +75,9 @@ public class LayeredDisplaySynchronizer implements IDisplaySynchronizer {
 		notify();
 	}
 
+	/**
+	 * Wait for view update authorisation.
+	 */
 	@Override
 	public void waitForViewUpdateAuthorisation() {
 		DEBUG.OUT("Waiting for view to update: " + Thread.currentThread().getName());
@@ -84,6 +90,9 @@ public class LayeredDisplaySynchronizer implements IDisplaySynchronizer {
 		} catch (InterruptedException e) {}
 	}
 
+	/**
+	 * Authorize view update.
+	 */
 	@Override
 	public void authorizeViewUpdate() {
 		DEBUG.OUT("Signalling that view can be updated: " + Thread.currentThread().getName());
@@ -94,6 +103,9 @@ public class LayeredDisplaySynchronizer implements IDisplaySynchronizer {
 		}
 	}
 
+	/**
+	 * Wait for rendering to be finished.
+	 */
 	@Override
 	public void waitForRenderingToBeFinished() {
 		DEBUG.OUT("Waiting for surface to be rendered: " + Thread.currentThread().getName());
@@ -110,6 +122,9 @@ public class LayeredDisplaySynchronizer implements IDisplaySynchronizer {
 
 	}
 
+	/**
+	 * Signal rendering is finished.
+	 */
 	@Override
 	public void signalRenderingIsFinished() {
 		DEBUG.OUT("Signalling that surface is rendered: " + Thread.currentThread().getName());
@@ -119,14 +134,18 @@ public class LayeredDisplaySynchronizer implements IDisplaySynchronizer {
 	/**
 	 * Sets the surface.
 	 *
-	 * @param surface the new surface
+	 * @param surface
+	 *            the new surface
 	 */
 	public void setSurface(final IDisplaySurface surface) {
 		this.surface = surface;
-		surface.setDisplaySynchronizer(this);
+		if (surface != null) { surface.setDisplaySynchronizer(this); }
 
 	}
 
+	/**
+	 * Wait for surface to be realized.
+	 */
 	@Override
 	public void waitForSurfaceToBeRealized() {
 		DEBUG.OUT("Waiting for surface to realize: " + Thread.currentThread().getName());
@@ -135,6 +154,9 @@ public class LayeredDisplaySynchronizer implements IDisplaySynchronizer {
 		} catch (InterruptedException e) {}
 	}
 
+	/**
+	 * Signal surface is realized.
+	 */
 	@Override
 	public void signalSurfaceIsRealized() {
 		DEBUG.OUT("Signalling that surface is realized: " + Thread.currentThread().getName());

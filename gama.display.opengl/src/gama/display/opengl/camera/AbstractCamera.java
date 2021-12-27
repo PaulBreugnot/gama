@@ -400,10 +400,32 @@ public abstract class AbstractCamera implements ICamera {
 	@Override
 	public final void mouseMoved(final com.jogamp.newt.event.MouseEvent e) {
 		invokeOnGLThread(drawable -> {
-			internalMouseMove(autoScaleUp(e.getX()), autoScaleUp(e.getY()), e.getButton(),
-					PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown(), e.isShiftDown());
+			internalMouseMove(autoScaleUp(e.getX()), autoScaleUp(e.getY()), e.getButton(), isControlDown(e),
+					e.isShiftDown());
 			return false;
 		});
+	}
+
+	/**
+	 * Checks if is control down.
+	 *
+	 * @param e
+	 *            the e
+	 * @return true, if is control down
+	 */
+	private boolean isControlDown(final com.jogamp.newt.event.MouseEvent e) {
+		return PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown();
+	}
+
+	/**
+	 * Checks if is control down.
+	 *
+	 * @param e
+	 *            the e
+	 * @return true, if is control down
+	 */
+	private boolean isControlDown(final com.jogamp.newt.event.KeyEvent e) {
+		return e.isControlDown() || PlatformHelper.isMac() && e.isMetaDown();
 	}
 
 	/**
@@ -544,8 +566,7 @@ public abstract class AbstractCamera implements ICamera {
 		invokeOnGLThread(drawable -> {
 			final int x = autoScaleUp(e.getX());
 			final int y = autoScaleUp(e.getY());
-			internalMouseDown(x, y, e.getButton(), PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown(),
-					e.isShiftDown());
+			internalMouseDown(x, y, e.getButton(), isControlDown(e), e.isShiftDown());
 			return false;
 		});
 	}
@@ -874,7 +895,7 @@ public abstract class AbstractCamera implements ICamera {
 
 		invokeOnGLThread(drawable -> {
 			if (!keystoneMode) {
-				switch (e.getKeyCode()) {
+				switch (e.getKeySymbol()) {
 					// We need to register here all the keystrokes used in the Workbench and on the view, as they might
 					// be caught by the NEWT key listener. Those dedicated to modelling are left over for the moment
 					// (like CTRL+SHIFT+H)
@@ -884,7 +905,7 @@ public abstract class AbstractCamera implements ICamera {
 						break;
 					case 'p':
 					case 'P':
-						if (PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown()) {
+						if (isControlDown(e)) {
 							if (e.isShiftDown()) {
 								GAMA.stepFrontmostExperiment();
 							} else {
@@ -894,7 +915,7 @@ public abstract class AbstractCamera implements ICamera {
 						break;
 					case 'R':
 					case 'r':
-						if (PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown()) {
+						if (isControlDown(e)) {
 							if (e.isShiftDown()) {
 								GAMA.relaunchFrontmostExperiment();
 							} else {
@@ -904,28 +925,9 @@ public abstract class AbstractCamera implements ICamera {
 						break;
 					case 'X':
 					case 'x':
-						if ((PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown()) && e.isShiftDown()) {
-							GAMA.closeAllExperiments(true, false);
-						}
+						if (isControlDown(e) && e.isShiftDown()) { GAMA.closeAllExperiments(true, false); }
 						break;
 
-					// Finally the keystrokes for the display itself
-					case com.jogamp.newt.event.KeyEvent.VK_LEFT:
-						setCtrlPressed(PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown());
-						if (cameraInteraction) { AbstractCamera.this.strafeLeft = true; }
-						break;
-					case com.jogamp.newt.event.KeyEvent.VK_RIGHT:
-						setCtrlPressed(PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown());
-						if (cameraInteraction) { AbstractCamera.this.strafeRight = true; }
-						break;
-					case com.jogamp.newt.event.KeyEvent.VK_UP:
-						setCtrlPressed(PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown());
-						if (cameraInteraction) { AbstractCamera.this.goesForward = true; }
-						break;
-					case com.jogamp.newt.event.KeyEvent.VK_DOWN:
-						setCtrlPressed(PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown());
-						if (cameraInteraction) { AbstractCamera.this.goesBackward = true; }
-						break;
 					case com.jogamp.newt.event.KeyEvent.VK_SPACE:
 						if (cameraInteraction) { resetPivot(); }
 						break;
@@ -938,9 +940,28 @@ public abstract class AbstractCamera implements ICamera {
 						setCtrlPressed(!firsttimeMouseDown);
 						break;
 				}
+				switch (e.getKeyCode()) {
+					// Finally the keystrokes for the display itself
+					case com.jogamp.newt.event.KeyEvent.VK_LEFT:
+						setCtrlPressed(isControlDown(e));
+						if (cameraInteraction) { AbstractCamera.this.strafeLeft = true; }
+						break;
+					case com.jogamp.newt.event.KeyEvent.VK_RIGHT:
+						setCtrlPressed(isControlDown(e));
+						if (cameraInteraction) { AbstractCamera.this.strafeRight = true; }
+						break;
+					case com.jogamp.newt.event.KeyEvent.VK_UP:
+						setCtrlPressed(isControlDown(e));
+						if (cameraInteraction) { AbstractCamera.this.goesForward = true; }
+						break;
+					case com.jogamp.newt.event.KeyEvent.VK_DOWN:
+						setCtrlPressed(isControlDown(e));
+						if (cameraInteraction) { AbstractCamera.this.goesBackward = true; }
+						break;
+				}
 				switch (e.getKeyChar()) {
 					case 0:
-						setCtrlPressed(e.isControlDown() || PlatformHelper.isMac() ? e.isMetaDown() : false);
+						setCtrlPressed(e.isControlDown() || PlatformHelper.isMac() && e.isMetaDown());
 						setShiftPressed(e.isShiftDown());
 						break;
 					case '+':
@@ -962,14 +983,12 @@ public abstract class AbstractCamera implements ICamera {
 						if (cameraInteraction && useNumKeys) { quickDownTurn(); }
 						break;
 					case 'k':
-						if (!(PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown())) { activateKeystoneMode(); }
+						if (!isControlDown(e)) { activateKeystoneMode(); }
 						break;
 					default:
 						return true;
 				}
-			} else if (e.getKeyChar() == 'k' && !(PlatformHelper.isMac() ? e.isMetaDown() : e.isControlDown())) {
-				activateKeystoneMode();
-			}
+			} else if (e.getKeyChar() == 'k' && !isControlDown(e)) { activateKeystoneMode(); }
 			return true;
 		});
 	}
@@ -1065,7 +1084,7 @@ public abstract class AbstractCamera implements ICamera {
 		invokeOnGLThread(drawable -> {
 			if (!keystoneMode) {
 				if (e.getKeyChar() == 0) {
-					setCtrlPressed(!(e.isControlDown() || PlatformHelper.isMac() ? e.isMetaDown() : false));
+					setCtrlPressed(!isControlDown(e));
 					setShiftPressed(!e.isShiftDown());
 					return true;
 				}
