@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * GamaPreferencesView.java, in gama.ui.base, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * GamaPreferencesView.java, in gama.ui.base, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.base.views;
 
@@ -54,10 +54,11 @@ import gama.ui.base.parameters.EditorFactory;
 import gama.ui.base.parameters.EditorsGroup;
 import gama.ui.base.resources.GamaIcons;
 import gama.ui.base.resources.IGamaIcons;
+import gama.ui.base.toolbar.Selector;
 import gama.ui.base.utils.WorkbenchHelper;
 import gaml.types.IType;
-import gama.ui.base.toolbar.Selector;
 
+// TODO: Auto-generated Javadoc
 /**
  * Class GamaPreferencesView.
  *
@@ -75,24 +76,24 @@ public class GamaPreferencesView {
 	/** The dialog location. */
 	static Pref<GamaPoint> DIALOG_LOCATION = GamaPreferences.create("dialog_location",
 			"Location of the preferences dialog on screen", new GamaPoint(-1, -1), IType.POINT, false).hidden();
-	
+
 	/** The dialog size. */
 	static Pref<GamaPoint> DIALOG_SIZE = GamaPreferences.create("dialog_size",
 			"Size of the preferences dialog on screen", new GamaPoint(-1, -1), IType.POINT, false).hidden();
-	
+
 	/** The dialog tab. */
 	static Pref<Integer> DIALOG_TAB = GamaPreferences
 			.create("dialog_tab", "Tab selected in the preferences dialog", -1, IType.INT, false).hidden();
 
 	/** The prefs images. */
 	public static Map<String, Image> prefs_images = new LinkedHashMap();
-	
+
 	/** The nb divisions. */
 	public static int NB_DIVISIONS = 2;
 
 	/** The instance. */
 	static GamaPreferencesView instance;
-	
+
 	/** The restart required. */
 	static boolean restartRequired;
 
@@ -139,10 +140,10 @@ public class GamaPreferencesView {
 
 	/** The shell. */
 	Shell parentShell, shell;
-	
+
 	/** The tab folder. */
 	CTabFolder tabFolder;
-	
+
 	/** The editors. */
 	final Map<String, IParameterEditor> editors = new LinkedHashMap();
 
@@ -152,7 +153,8 @@ public class GamaPreferencesView {
 	/**
 	 * Instantiates a new gama preferences view.
 	 *
-	 * @param parent the parent
+	 * @param parent
+	 *            the parent
 	 */
 	private GamaPreferencesView(final Shell parent) {
 		parentShell = parent;
@@ -178,8 +180,10 @@ public class GamaPreferencesView {
 	/**
 	 * Builds the contents for.
 	 *
-	 * @param tab the tab
-	 * @param entries the entries
+	 * @param tab
+	 *            the tab
+	 * @param entries
+	 *            the entries
 	 */
 	private void buildContentsFor(final CTabItem tab, final Map<String, List<Pref>> entries) {
 		final var viewer = new ParameterExpandBar(tab.getParent(), SWT.V_SCROLL);
@@ -206,8 +210,10 @@ public class GamaPreferencesView {
 	/**
 	 * Check activables.
 	 *
-	 * @param e the e
-	 * @param value the value
+	 * @param e
+	 *            the e
+	 * @param value
+	 *            the value
 	 */
 	void checkActivables(final Pref e, final Object value) {
 		if (e.getEnablement() != null) {
@@ -241,8 +247,10 @@ public class GamaPreferencesView {
 	/**
 	 * Check refreshables.
 	 *
-	 * @param e the e
-	 * @param value the value
+	 * @param e
+	 *            the e
+	 * @param value
+	 *            the value
 	 */
 	void checkRefreshables(final Pref e, final Object value) {
 		if (e.getRefreshment() != null) {
@@ -256,8 +264,10 @@ public class GamaPreferencesView {
 	/**
 	 * Builds the group contents.
 	 *
-	 * @param compo the compo
-	 * @param list the list
+	 * @param compo
+	 *            the compo
+	 * @param list
+	 *            the list
 	 */
 	private void buildGroupContents(final Composite compo, final List<Pref> list) {
 		GridLayoutFactory.fillDefaults().numColumns(NB_DIVISIONS).spacing(5, 0).equalWidth(true).applyTo(compo);
@@ -308,8 +318,10 @@ public class GamaPreferencesView {
 	/**
 	 * Gets the menu for.
 	 *
-	 * @param e the e
-	 * @param ed the ed
+	 * @param e
+	 *            the e
+	 * @param ed
+	 *            the ed
 	 * @return the menu for
 	 */
 	private static Menu getMenuFor(final Pref e, final AbstractEditor ed) {
@@ -319,13 +331,13 @@ public class GamaPreferencesView {
 
 		if (e.inGaml()) {
 			title.setText("Use gama." + e.getKey() + " in GAML");
-			@SuppressWarnings ("unused") final var sep = new MenuItem(m, SWT.SEPARATOR);
+			new MenuItem(m, SWT.SEPARATOR);
 			final var i = new MenuItem(m, SWT.PUSH);
 			i.setText("Copy name to clipboard");
 			i.addSelectionListener((Selector) se -> WorkbenchHelper.copy("gama." + e.getKey()));
 		} else {
 			title.setText("Not assignable from GAML");
-			@SuppressWarnings ("unused") final var sep = new MenuItem(m, SWT.SEPARATOR);
+			new MenuItem(m, SWT.SEPARATOR);
 		}
 		final var i2 = new MenuItem(m, SWT.PUSH);
 		i2.setText("Revert to default value");
@@ -339,7 +351,8 @@ public class GamaPreferencesView {
 	/**
 	 * Show error.
 	 *
-	 * @param string the string
+	 * @param string
+	 *            the string
 	 */
 	protected void showError(final String string) {
 		// TODO make it a proper component of the view
@@ -499,27 +512,6 @@ public class GamaPreferencesView {
 		shell.addDisposeListener(e -> {
 			saveDialogProperties();
 		});
-
-		// shell.addControlListener(new ControlListener() {
-		//
-		// @Override
-		// public void controlResized(final ControlEvent e) {
-		// for (final IParameterEditor ed : editors.values()) {
-		// ((AbstractEditor) ed).getLabel().resize(shell.getSize().x / (NB_DIVISIONS * 2));
-		// }
-		// for (final ParameterExpandBar bar : contents) {
-		// for (final ParameterExpandItem item : bar.getItems()) {
-		// item.setHeight(item.getControl().computeSize(SWT.DEFAULT, SWT.DEFAULT).y);
-		// }
-		//
-		// bar.redraw();
-		// }
-		// shell.layout(true, true);
-		// }
-		//
-		// @Override
-		// public void controlMoved(final ControlEvent e) {}
-		// });
 
 	}
 
