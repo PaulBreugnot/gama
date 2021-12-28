@@ -314,8 +314,8 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	 */
 	@Override
 	public void zoomIn() {
-		if (renderer.getData().cameraInteractionDisabled()) return;
-		renderer.getCameraHelper().zoom(true);
+		// if (renderer.getData().cameraInteractionDisabled()) return;
+		// renderer.getCameraHelper().zoom(true);
 	}
 
 	/**
@@ -325,8 +325,8 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	 */
 	@Override
 	public void zoomOut() {
-		if (renderer.getData().cameraInteractionDisabled()) return;
-		renderer.getCameraHelper().zoom(false);
+		// if (renderer.getData().cameraInteractionDisabled()) return;
+		// renderer.getCameraHelper().zoom(false);
 	}
 
 	/**
