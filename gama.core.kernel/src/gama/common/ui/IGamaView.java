@@ -158,6 +158,18 @@ public interface IGamaView {
 	public interface Display extends IGamaView {
 
 		/**
+		 * The Interface InnerComponent.
+		 */
+		public interface InnerComponent {
+			/**
+			 * Gets the view.
+			 *
+			 * @return the view
+			 */
+			Display getView();
+		}
+
+		/**
 		 * Contains point.
 		 *
 		 * @param x

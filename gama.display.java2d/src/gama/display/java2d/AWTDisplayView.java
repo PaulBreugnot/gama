@@ -14,6 +14,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
 import gama.display.java2d.swing.SwingControl;
+import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.experiment.views.displays.LayeredDisplayView;
 
 // TODO: Auto-generated Javadoc
@@ -47,6 +48,14 @@ public class AWTDisplayView extends LayeredDisplayView {
 		// WorkaroundForIssue2745.installOn(this);
 		// WorkaroundForIssue1353.install();
 		return surfaceComposite;
+	}
+
+	/**
+	 * Focus canvas.
+	 */
+	@Override
+	public void focusCanvas() {
+		WorkbenchHelper.asyncRun(() -> centralPanel.forceFocus());
 	}
 
 }

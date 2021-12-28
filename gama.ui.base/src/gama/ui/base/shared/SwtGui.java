@@ -18,6 +18,7 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewReference;
@@ -33,6 +34,7 @@ import gama.common.ui.IConsoleDisplayer;
 import gama.common.ui.IDisplayCreator.DisplayDescription;
 import gama.common.ui.IDisplaySurface;
 import gama.common.ui.IGamaView;
+import gama.common.ui.IGamaView.Display.InnerComponent;
 import gama.common.ui.IGamaView.Error;
 import gama.common.ui.IGamaView.Parameters;
 import gama.common.ui.IGamaView.Test;
@@ -435,11 +437,16 @@ public class SwtGui implements IGui {
 	/**
 	 * Open user input dialog.
 	 *
-	 * @param scope            the scope
-	 * @param title            the title
-	 * @param parameters            the parameters
-	 * @param font            the font
-	 * @param color the color
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param parameters
+	 *            the parameters
+	 * @param font
+	 *            the font
+	 * @param color
+	 *            the color
 	 * @return the map
 	 */
 	@Override
@@ -1065,8 +1072,15 @@ public class SwtGui implements IGui {
 	 */
 	@Override
 	public boolean toggleFullScreenMode() {
+		Control c = Display.getDefault().getCursorControl();
+		if (c instanceof InnerComponent) {
+			// DEBUG.OUT("Toggling from inner component ");
+			((InnerComponent) c).getView().toggleFullScreen();
+			return true;
+		}
 		final IViewPart part = WorkbenchHelper.findFrontmostGamaViewUnderMouse();
 		if (part instanceof IGamaView.Display) {
+			// DEBUG.OUT("Toggling from view ");
 			((IGamaView.Display) part).toggleFullScreen();
 			return true;
 		}
