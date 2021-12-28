@@ -121,8 +121,7 @@ public class ViewsHelper {
 	/**
 	 * Gets the display views.
 	 *
-	 * @param p
-	 *            the p
+	 * @param p the p
 	 * @return the display views
 	 */
 	public static List<IGamaView.Display> getDisplayViews(final Predicate<IViewPart> p) {
@@ -139,6 +138,7 @@ public class ViewsHelper {
 	 *            the id
 	 */
 	public static void hideView(final String id) {
+		// See if asyncRun would not be more appropriate ?
 		WorkbenchHelper.run(() -> {
 			final IWorkbenchPage activePage = getPage();
 			if (activePage == null) return;

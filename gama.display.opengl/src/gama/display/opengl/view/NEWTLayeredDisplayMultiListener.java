@@ -3,18 +3,6 @@
  */
 package gama.display.opengl.view;
 
-/*******************************************************************************************************
- *
- * NEWTLayeredDisplayMultiListener.java, in ummisco.gama.opengl, is part of the source code of the GAMA modeling and
- * simulation platform (v.1.8.2).
- *
- * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
- *
- * Visit https://github.com/gama-platform/gama for license information and contacts.
- *
- ********************************************************************************************************/
-
-import java.util.Objects;
 import java.util.function.Supplier;
 
 import com.jogamp.newt.Window;
@@ -30,7 +18,6 @@ import gama.common.interfaces.IDisposable;
 import gama.common.ui.IDisplaySurface;
 import gama.core.dev.utils.DEBUG;
 import gama.runtime.PlatformHelper;
-import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.experiment.views.displays.LayeredDisplayDecorator;
 import gama.ui.experiment.views.displays.LayeredDisplayMultiListener;
 
@@ -76,11 +63,11 @@ public class NEWTLayeredDisplayMultiListener implements MouseListener, KeyListen
 			if (!viewOk) return false;
 			final boolean controlOk = control != null /* && !control.isDisposed() */;
 			if (!controlOk) return false;
-			final boolean surfaceOk = surface != null && !surface.isDisposed();
-			if (!Objects.equals(WorkbenchHelper.getActivePart(), deco.view)) {
-				WorkbenchHelper.getPage().activate(deco.view);
-			}
-			return surfaceOk;
+
+			// if (!Objects.equals(WorkbenchHelper.getActivePart(), deco.view)) {
+			// WorkbenchHelper.getPage().activate(deco.view);
+			// }
+			return surface != null && !surface.isDisposed();
 		};
 
 		control.addKeyListener(this);
