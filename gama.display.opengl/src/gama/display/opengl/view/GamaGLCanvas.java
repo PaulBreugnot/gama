@@ -631,8 +631,8 @@ public class GamaGLCanvas extends Composite implements GLAutoDrawable, IDelegate
 	 *            the camera
 	 */
 	public void addCameraListeners(final ICamera camera) {
-		if (canvas.isDisposed()) return;
 		WorkbenchHelper.asyncRun(() -> {
+			if (isDisposed() || canvas.isDisposed()) return;
 			canvas.addKeyListener(camera);
 			canvas.addMouseListener(camera);
 			canvas.addMouseMoveListener(camera);
@@ -658,8 +658,9 @@ public class GamaGLCanvas extends Composite implements GLAutoDrawable, IDelegate
 	 *            the camera
 	 */
 	public void removeCameraListeners(final ICamera camera) {
-		if (canvas.isDisposed()) return;
+
 		WorkbenchHelper.asyncRun(() -> {
+			if (isDisposed() || canvas.isDisposed()) return;
 			canvas.removeKeyListener(camera);
 			canvas.removeMouseListener(camera);
 			canvas.removeMouseMoveListener(camera);
