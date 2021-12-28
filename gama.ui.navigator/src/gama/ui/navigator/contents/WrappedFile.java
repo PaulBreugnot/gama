@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * WrappedFile.java, in gama.ui.navigator, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * WrappedFile.java, in gama.ui.navigator, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.navigator.contents;
 
@@ -23,7 +23,6 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 
 import gama.core.application.bundles.GamaBundleLoader;
@@ -33,6 +32,7 @@ import gama.ui.base.utils.PreferencesHelper;
 import gama.ui.navigator.NavigatorContentProvider;
 import gama.util.file.IGamaFileMetaData;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class WrappedFile.
  */
@@ -40,21 +40,23 @@ public class WrappedFile extends WrappedResource<WrappedResource<?, ?>, IFile> {
 
 	/** The file parent. */
 	WrappedFile fileParent;
-	
+
 	/** The is shape file. */
 	boolean isShapeFile;
-	
+
 	/** The is shape file support. */
 	boolean isShapeFileSupport;
-	
+
 	/** The image. */
 	Image image;
 
 	/**
 	 * Instantiates a new wrapped file.
 	 *
-	 * @param root the root
-	 * @param wrapped the wrapped
+	 * @param root
+	 *            the root
+	 * @param wrapped
+	 *            the wrapped
 	 */
 	public WrappedFile(final WrappedContainer<?> root, final IFile wrapped) {
 		super(root, wrapped);
@@ -98,22 +100,42 @@ public class WrappedFile extends WrappedResource<WrappedResource<?, ?>, IFile> {
 		}
 	}
 
+	/**
+	 * Gets the parent.
+	 *
+	 * @return the parent
+	 */
 	@Override
 	public WrappedResource<?, ?> getParent() {
 		if (fileParent != null) return fileParent;
 		return super.getParent();
 	}
 
+	/**
+	 * Can be decorated.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean canBeDecorated() {
 		return false;
 	}
 
+	/**
+	 * Checks for children.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean hasChildren() {
 		return isShapeFile;
 	}
 
+	/**
+	 * Gets the navigator children.
+	 *
+	 * @return the navigator children
+	 */
 	@Override
 	public Object[] getNavigatorChildren() {
 		if (NavigatorContentProvider.FILE_CHILDREN_ENABLED && (isGamaFile() || isShapeFile)) return getFileChildren();
@@ -147,18 +169,29 @@ public class WrappedFile extends WrappedResource<WrappedResource<?, ?>, IFile> {
 	// return GamaFonts.getNavigFileFont();
 	// }
 
+	/**
+	 * Gets the image.
+	 *
+	 * @return the image
+	 */
 	@Override
 	public Image getImage() {
 		if (image == null) { computeFileImage(); }
 		return image;
 	}
 
-	@Override
-	public Color getColor() {
-		return null;
-	}
+	// @Override
+	// public Color getColor() {
+	// return null;
+	// }
 
-	@Override
+	/**
+ * Gets the suffix.
+ *
+ * @param sb the sb
+ * @return the suffix
+ */
+@Override
 	public void getSuffix(final StringBuilder sb) {
 		if (PreferencesHelper.NAVIGATOR_METADATA.getValue()) {
 			final IGamaFileMetaData data = GAMA.getGui().getMetaDataProvider().getMetaData(getResource(), false, true);
@@ -166,6 +199,11 @@ public class WrappedFile extends WrappedResource<WrappedResource<?, ?>, IFile> {
 		}
 	}
 
+	/**
+	 * Count models.
+	 *
+	 * @return the int
+	 */
 	@Override
 	public int countModels() {
 		return 0;
@@ -176,13 +214,14 @@ public class WrappedFile extends WrappedResource<WrappedResource<?, ?>, IFile> {
 	 *
 	 * @return true, if is gama file
 	 */
-	public boolean isGamaFile() {
-		return false;
-	}
+	public boolean isGamaFile() { return false; }
 
+	/**
+	 * Gets the type.
+	 *
+	 * @return the type
+	 */
 	@Override
-	public VirtualContentType getType() {
-		return VirtualContentType.FILE;
-	}
+	public VirtualContentType getType() { return VirtualContentType.FILE; }
 
 }

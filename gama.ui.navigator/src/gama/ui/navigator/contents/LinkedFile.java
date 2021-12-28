@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * LinkedFile.java, in gama.ui.navigator, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * LinkedFile.java, in gama.ui.navigator, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.navigator.contents;
 
@@ -14,16 +14,13 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.ide.IDE;
 
-import gama.ui.base.resources.GamaColors;
-import gama.ui.base.utils.ThemeHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 
+// TODO: Auto-generated Javadoc
 /**
  * Class LinkedFile.
  *
@@ -35,16 +32,19 @@ public class LinkedFile extends VirtualContent<Category> implements IAdaptable {
 
 	/** The file. */
 	final WrappedFile file;
-	
+
 	/** The suffix. */
 	final String suffix;
 
 	/**
 	 * Instantiates a new linked file.
 	 *
-	 * @param root the root
-	 * @param wrapped the wrapped
-	 * @param originalName the original name
+	 * @param root
+	 *            the root
+	 * @param wrapped
+	 *            the wrapped
+	 * @param originalName
+	 *            the original name
 	 */
 	public LinkedFile(final Category root, final IFile wrapped, final String originalName) {
 		super(root, NavigatorRoot.getInstance().getManager().findWrappedInstanceOf(wrapped).getName());
@@ -53,8 +53,9 @@ public class LinkedFile extends VirtualContent<Category> implements IAdaptable {
 	}
 
 	/**
-	 * Method hasChildren()
+	 * Method hasChildren().
 	 *
+	 * @return true, if successful
 	 * @see gama.ui.navigator.contents.VirtualContent#hasChildren()
 	 */
 	@Override
@@ -68,34 +69,33 @@ public class LinkedFile extends VirtualContent<Category> implements IAdaptable {
 	// }
 
 	/**
-	 * Method getNavigatorChildren()
+	 * Method getNavigatorChildren().
 	 *
+	 * @return the navigator children
 	 * @see gama.ui.navigator.contents.VirtualContent#getNavigatorChildren()
 	 */
 	@Override
-	public Object[] getNavigatorChildren() {
-		return EMPTY;
-	}
+	public Object[] getNavigatorChildren() { return EMPTY; }
 
 	/**
-	 * Method getImage()
+	 * Method getImage().
 	 *
+	 * @return the image
 	 * @see gama.ui.navigator.contents.VirtualContent#getImage()
 	 */
 	@Override
-	public Image getImage() {
-		return DEFAULT_LABEL_PROVIDER.getImage(file.getResource());
-	}
+	public Image getImage() { return DEFAULT_LABEL_PROVIDER.getImage(file.getResource()); }
 
 	/**
-	 * Method getColor()
+	 * Method getColor().
 	 *
+	 * @return true, if successful
 	 * @see gama.ui.navigator.contents.VirtualContent#getColor()
 	 */
-	@Override
-	public Color getColor() {
-		return ThemeHelper.isDark() ? GamaColors.system(SWT.COLOR_WHITE) : GamaColors.system(SWT.COLOR_BLACK);
-	}
+	// @Override
+	// public Color getColor() {
+	// return ThemeHelper.isDark() ? GamaColors.system(SWT.COLOR_WHITE) : GamaColors.system(SWT.COLOR_BLACK);
+	// }
 
 	/**
 	 * Method isParentOf()
@@ -119,8 +119,10 @@ public class LinkedFile extends VirtualContent<Category> implements IAdaptable {
 	}
 
 	/**
-	 * Method getAdapter()
+	 * Method getAdapter().
 	 *
+	 * @param adapter the adapter
+	 * @return the adapter
 	 * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
 	 */
 	@SuppressWarnings ({ "unchecked", "rawtypes" })
@@ -129,32 +131,47 @@ public class LinkedFile extends VirtualContent<Category> implements IAdaptable {
 		return adapter == IResource.class || adapter == IFile.class ? file.getResource() : null;
 	}
 
+	/**
+	 * Find max problem severity.
+	 *
+	 * @return the int
+	 */
 	@Override
 	public int findMaxProblemSeverity() {
 		return file.findMaxProblemSeverity();
 	}
 
+	/**
+	 * Gets the suffix.
+	 *
+	 * @param sb the sb
+	 * @return the suffix
+	 */
 	@Override
 	public void getSuffix(final StringBuilder sb) {
 		sb.append(suffix);
 	}
 
+	/**
+	 * Gets the overlay.
+	 *
+	 * @return the overlay
+	 */
 	@Override
-	public ImageDescriptor getOverlay() {
-		return null;
-	}
+	public ImageDescriptor getOverlay() { return null; }
 
+	/**
+	 * Gets the type.
+	 *
+	 * @return the type
+	 */
 	@Override
-	public VirtualContentType getType() {
-		return VirtualContentType.FILE_REFERENCE;
-	}
+	public VirtualContentType getType() { return VirtualContentType.FILE_REFERENCE; }
 
 	/**
 	 * Gets the target.
 	 *
 	 * @return the target
 	 */
-	public WrappedFile getTarget() {
-		return file;
-	}
+	public WrappedFile getTarget() { return file; }
 }

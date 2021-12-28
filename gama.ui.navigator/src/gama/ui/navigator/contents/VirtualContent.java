@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * VirtualContent.java, in gama.ui.navigator, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * VirtualContent.java, in gama.ui.navigator, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.navigator.contents;
 
@@ -18,18 +18,19 @@ import java.util.Map;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ILabelProvider;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 
+import gama.ui.base.resources.GamaColors.GamaUIColor;
 import gama.ui.base.resources.GamaIcons;
 import gama.ui.base.resources.IGamaColors;
-import gama.ui.base.resources.GamaColors.GamaUIColor;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class VirtualContent.
  *
- * @param <P> the generic type
+ * @param <P>
+ *            the generic type
  */
 public abstract class VirtualContent<P extends VirtualContent<?>> {
 
@@ -37,23 +38,23 @@ public abstract class VirtualContent<P extends VirtualContent<?>> {
 	 * The Enum VirtualContentType.
 	 */
 	public enum VirtualContentType {
-		
+
 		/** The root. */
-		ROOT, 
- /** The virtual folder. */
- VIRTUAL_FOLDER, 
- /** The project. */
- PROJECT, 
- /** The folder. */
- FOLDER, 
- /** The file. */
- FILE, 
- /** The file reference. */
- FILE_REFERENCE, 
- /** The category. */
- CATEGORY, 
- /** The gaml element. */
- GAML_ELEMENT
+		ROOT,
+		/** The virtual folder. */
+		VIRTUAL_FOLDER,
+		/** The project. */
+		PROJECT,
+		/** The folder. */
+		FOLDER,
+		/** The file. */
+		FILE,
+		/** The file reference. */
+		FILE_REFERENCE,
+		/** The category. */
+		CATEGORY,
+		/** The gaml element. */
+		GAML_ELEMENT
 	}
 
 	/** The default label provider. */
@@ -77,36 +78,38 @@ public abstract class VirtualContent<P extends VirtualContent<?>> {
 
 	/** The Constant NO_PROBLEM. */
 	public static final int NO_PROBLEM = -1;
-	
+
 	/** The Constant CLOSED. */
 	public static final int CLOSED = -2;
-	
+
 	/** The Constant LINK_OK. */
 	public static final int LINK_OK = -3;
-	
+
 	/** The Constant LINK_BROKEN. */
 	public static final int LINK_BROKEN = -4;
-	
+
 	/** The Constant WEBLINK_OK. */
 	public static final int WEBLINK_OK = -5;
-	
+
 	/** The Constant WEBLINK_BROKEN. */
 	public static final int WEBLINK_BROKEN = -6;
-	
+
 	/** The empty. */
 	public static Object[] EMPTY = {};
 
 	/** The root. */
 	private final P root;
-	
+
 	/** The name. */
 	private final String name;
 
 	/**
 	 * Instantiates a new virtual content.
 	 *
-	 * @param root the root
-	 * @param name the name
+	 * @param root
+	 *            the root
+	 * @param name
+	 *            the name
 	 */
 	public VirtualContent(final P root, final String name) {
 		this.root = root;
@@ -118,9 +121,7 @@ public abstract class VirtualContent<P extends VirtualContent<?>> {
 	 *
 	 * @return the manager
 	 */
-	public ResourceManager getManager() {
-		return NavigatorRoot.getInstance().getManager();
-	}
+	public ResourceManager getManager() { return NavigatorRoot.getInstance().getManager(); }
 
 	/**
 	 * Gets the type.
@@ -153,18 +154,14 @@ public abstract class VirtualContent<P extends VirtualContent<?>> {
 	 *
 	 * @return the name
 	 */
-	public String getName() {
-		return name;
-	}
+	public String getName() { return name; }
 
 	/**
 	 * Gets the parent.
 	 *
 	 * @return the parent
 	 */
-	public P getParent() {
-		return root;
-	}
+	public P getParent() { return root; }
 
 	/**
 	 * Checks for children.
@@ -190,14 +187,16 @@ public abstract class VirtualContent<P extends VirtualContent<?>> {
 	/**
 	 * Gets the color.
 	 *
+	 * @param sb the sb
 	 * @return the color
 	 */
-	public abstract Color getColor();
+	// public abstract Color getColor();
 
 	/**
 	 * Gets the suffix.
 	 *
-	 * @param sb the sb
+	 * @param sb
+	 *            the sb
 	 * @return the suffix
 	 */
 	public abstract void getSuffix(StringBuilder sb);
@@ -247,41 +246,34 @@ public abstract class VirtualContent<P extends VirtualContent<?>> {
 	 *
 	 * @return the status message
 	 */
-	public String getStatusMessage() {
-		return getName();
-	}
+	public String getStatusMessage() { return getName(); }
 
 	/**
 	 * Gets the status tooltip.
 	 *
 	 * @return the status tooltip
 	 */
-	public String getStatusTooltip() {
-		return null;
-	}
+	public String getStatusTooltip() { return null; }
 
 	/**
 	 * Gets the status color.
 	 *
 	 * @return the status color
 	 */
-	public GamaUIColor getStatusColor() {
-		return IGamaColors.GRAY_LABEL;
-	}
+	public GamaUIColor getStatusColor() { return IGamaColors.GRAY_LABEL; }
 
 	/**
 	 * Gets the status image.
 	 *
 	 * @return the status image
 	 */
-	public Image getStatusImage() {
-		return getImage();
-	}
+	public Image getStatusImage() { return getImage(); }
 
 	/**
 	 * Checks if is contained in.
 	 *
-	 * @param current the current
+	 * @param current
+	 *            the current
 	 * @return true, if is contained in
 	 */
 	public boolean isContainedIn(final VirtualContent<?> current) {

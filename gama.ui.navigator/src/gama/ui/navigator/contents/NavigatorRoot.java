@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * NavigatorRoot.java, in gama.ui.navigator, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * NavigatorRoot.java, in gama.ui.navigator, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.navigator.contents;
 
@@ -18,14 +18,14 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 
 import gama.common.GamlFileExtension;
+import gama.ui.base.resources.GamaColors.GamaUIColor;
 import gama.ui.base.resources.GamaIcons;
 import gama.ui.base.resources.IGamaColors;
-import gama.ui.base.resources.GamaColors.GamaUIColor;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class NavigatorRoot.
  */
@@ -34,19 +34,19 @@ public class NavigatorRoot extends VirtualContent implements IAdaptable {
 
 	/** The user folder. */
 	private TopLevelFolder userFolder;
-	
+
 	/** The test folder. */
 	private TopLevelFolder testFolder;
-	
+
 	/** The plugin folder. */
 	private TopLevelFolder pluginFolder;
-	
+
 	/** The library folder. */
 	private TopLevelFolder libraryFolder;
-	
+
 	/** The Constant instance. */
 	private final static NavigatorRoot instance = new NavigatorRoot();
-	
+
 	/** The mapper. */
 	private ResourceManager mapper;
 
@@ -63,9 +63,7 @@ public class NavigatorRoot extends VirtualContent implements IAdaptable {
 	 * @return the user folder
 	 */
 	public TopLevelFolder getUserFolder() {
-		if (userFolder == null) {
-			userFolder = new UserProjectsFolder(this, "User models");
-		}
+		if (userFolder == null) { userFolder = new UserProjectsFolder(this, "User models"); }
 		return userFolder;
 	}
 
@@ -75,9 +73,7 @@ public class NavigatorRoot extends VirtualContent implements IAdaptable {
 	 * @return the test folder
 	 */
 	public TopLevelFolder getTestFolder() {
-		if (testFolder == null) {
-			testFolder = new TestModelsFolder(this, "Test models");
-		}
+		if (testFolder == null) { testFolder = new TestModelsFolder(this, "Test models"); }
 		return testFolder;
 	}
 
@@ -87,9 +83,7 @@ public class NavigatorRoot extends VirtualContent implements IAdaptable {
 	 * @return the plugin folder
 	 */
 	public TopLevelFolder getPluginFolder() {
-		if (pluginFolder == null) {
-			pluginFolder = new PluginsModelsFolder(this, "Plugin models");
-		}
+		if (pluginFolder == null) { pluginFolder = new PluginsModelsFolder(this, "Plugin models"); }
 		return pluginFolder;
 	}
 
@@ -99,21 +93,18 @@ public class NavigatorRoot extends VirtualContent implements IAdaptable {
 	 * @return the library folder
 	 */
 	public TopLevelFolder getLibraryFolder() {
-		if (libraryFolder == null) {
-			libraryFolder = new ModelsLibraryFolder(this, "Library models");
-		}
+		if (libraryFolder == null) { libraryFolder = new ModelsLibraryFolder(this, "Library models"); }
 		return libraryFolder;
 	}
 
 	/**
 	 * Reset virtual folders.
 	 *
-	 * @param manager the manager
+	 * @param manager
+	 *            the manager
 	 */
 	public void resetVirtualFolders(final ResourceManager manager) {
-		if (manager != null) {
-			this.setManager(manager);
-		}
+		if (manager != null) { this.setManager(manager); }
 		setUserFolder(null);
 		setPluginFolder(null);
 		setTestFolder(null);
@@ -127,23 +118,35 @@ public class NavigatorRoot extends VirtualContent implements IAdaptable {
 		getFolders();
 	}
 
+	/**
+	 * Gets the adapter.
+	 *
+	 * @param adapter the adapter
+	 * @return the adapter
+	 */
 	@Override
 	public Object getAdapter(final Class adapter) {
-		if (adapter == IResource.class || adapter == IContainer.class) {
-			return ResourcesPlugin.getWorkspace().getRoot();
-		}
+		if (adapter == IResource.class || adapter == IContainer.class) return ResourcesPlugin.getWorkspace().getRoot();
 		return AdapterManager.getDefault().getAdapter(this, adapter);
 	}
 
+	/**
+	 * Checks for children.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean hasChildren() {
 		return true;
 	}
 
+	/**
+	 * Gets the navigator children.
+	 *
+	 * @return the navigator children
+	 */
 	@Override
-	public Object[] getNavigatorChildren() {
-		return getFolders();
-	}
+	public Object[] getNavigatorChildren() { return getFolders(); }
 
 	/**
 	 * Gets the folders.
@@ -154,39 +157,67 @@ public class NavigatorRoot extends VirtualContent implements IAdaptable {
 		return new TopLevelFolder[] { getLibraryFolder(), getPluginFolder(), getTestFolder(), getUserFolder() };
 	}
 
+	/**
+	 * Gets the image.
+	 *
+	 * @return the image
+	 */
 	@Override
-	public Image getImage() {
-		return null;
-	}
+	public Image getImage() { return null; }
+	//
+	// @Override
+	// public Color getColor() {
+	// return null;
+	// }
 
-	@Override
-	public Color getColor() {
-		return null;
-	}
-
-	@Override
+	/**
+ * Gets the suffix.
+ *
+ * @param sb the sb
+ * @return the suffix
+ */
+@Override
 	public void getSuffix(final StringBuilder sb) {}
 
+	/**
+	 * Find max problem severity.
+	 *
+	 * @return the int
+	 */
 	@Override
 	public int findMaxProblemSeverity() {
 		return 0;
 	}
 
+	/**
+	 * Gets the overlay.
+	 *
+	 * @return the overlay
+	 */
 	@Override
-	public ImageDescriptor getOverlay() {
-		return null;
-	}
+	public ImageDescriptor getOverlay() { return null; }
 
+	/**
+	 * Gets the top level folder.
+	 *
+	 * @return the top level folder
+	 */
 	@Override
-	public TopLevelFolder getTopLevelFolder() {
-		return getUserFolder();
-	}
+	public TopLevelFolder getTopLevelFolder() { return getUserFolder(); }
 
+	/**
+	 * Gets the type.
+	 *
+	 * @return the type
+	 */
 	@Override
-	public VirtualContentType getType() {
-		return VirtualContentType.ROOT;
-	}
+	public VirtualContentType getType() { return VirtualContentType.ROOT; }
 
+	/**
+	 * Gets the status message.
+	 *
+	 * @return the status message
+	 */
 	@Override
 	public String getStatusMessage() {
 		final IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
@@ -216,80 +247,88 @@ public class NavigatorRoot extends VirtualContent implements IAdaptable {
 
 	}
 
+	/**
+	 * Gets the status tooltip.
+	 *
+	 * @return the status tooltip
+	 */
 	@Override
-	public String getStatusTooltip() {
-		return ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString();
-	}
+	public String getStatusTooltip() { return ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString(); }
 
+	/**
+	 * Gets the status color.
+	 *
+	 * @return the status color
+	 */
 	@Override
-	public GamaUIColor getStatusColor() {
-		return IGamaColors.NEUTRAL;
-	}
+	public GamaUIColor getStatusColor() { return IGamaColors.NEUTRAL; }
 
+	/**
+	 * Gets the status image.
+	 *
+	 * @return the status image
+	 */
 	@Override
-	public Image getStatusImage() {
-		return GamaIcons.create("menu.about2").image();
-	}
+	public Image getStatusImage() { return GamaIcons.create("menu.about2").image(); }
 
 	/**
 	 * Sets the library folder.
 	 *
-	 * @param libraryFolder the new library folder
+	 * @param libraryFolder
+	 *            the new library folder
 	 */
-	public void setLibraryFolder(final TopLevelFolder libraryFolder) {
-		this.libraryFolder = libraryFolder;
-	}
+	public void setLibraryFolder(final TopLevelFolder libraryFolder) { this.libraryFolder = libraryFolder; }
 
 	/**
 	 * Sets the plugin folder.
 	 *
-	 * @param pluginFolder the new plugin folder
+	 * @param pluginFolder
+	 *            the new plugin folder
 	 */
-	public void setPluginFolder(final TopLevelFolder pluginFolder) {
-		this.pluginFolder = pluginFolder;
-	}
+	public void setPluginFolder(final TopLevelFolder pluginFolder) { this.pluginFolder = pluginFolder; }
 
 	/**
 	 * Sets the user folder.
 	 *
-	 * @param userFolder the new user folder
+	 * @param userFolder
+	 *            the new user folder
 	 */
-	public void setUserFolder(final TopLevelFolder userFolder) {
-		this.userFolder = userFolder;
-	}
+	public void setUserFolder(final TopLevelFolder userFolder) { this.userFolder = userFolder; }
 
 	/**
 	 * Sets the test folder.
 	 *
-	 * @param testFolder the new test folder
+	 * @param testFolder
+	 *            the new test folder
 	 */
-	public void setTestFolder(final TopLevelFolder testFolder) {
-		this.testFolder = testFolder;
-	}
+	public void setTestFolder(final TopLevelFolder testFolder) { this.testFolder = testFolder; }
 
+	/**
+	 * Gets the manager.
+	 *
+	 * @return the manager
+	 */
 	@Override
-	public ResourceManager getManager() {
-		return mapper;
-	}
+	public ResourceManager getManager() { return mapper; }
 
 	/**
 	 * Sets the manager.
 	 *
-	 * @param mapper the new manager
+	 * @param mapper
+	 *            the new manager
 	 */
-	public void setManager(final ResourceManager mapper) {
-		this.mapper = mapper;
-	}
+	public void setManager(final ResourceManager mapper) { this.mapper = mapper; }
 
 	/**
 	 * Gets the folder.
 	 *
-	 * @param s the s
+	 * @param s
+	 *            the s
 	 * @return the folder
 	 */
 	public TopLevelFolder getFolder(final String s) {
 		for (final TopLevelFolder folder : getFolders()) {
-			if (folder.getName().equals(s)) { return folder; }
+			if (folder.getName().equals(s)) return folder;
 		}
 		return null;
 	}
@@ -299,8 +338,6 @@ public class NavigatorRoot extends VirtualContent implements IAdaptable {
 	 *
 	 * @return single instance of NavigatorRoot
 	 */
-	public static NavigatorRoot getInstance() {
-		return instance;
-	}
+	public static NavigatorRoot getInstance() { return instance; }
 
 }

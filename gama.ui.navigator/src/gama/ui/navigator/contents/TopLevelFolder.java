@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * TopLevelFolder.java, in gama.ui.navigator, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * TopLevelFolder.java, in gama.ui.navigator, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.navigator.contents;
 
@@ -23,17 +23,16 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 
 import gama.core.application.bundles.GamaBundleLoader;
+import gama.ui.base.resources.GamaColors.GamaUIColor;
 import gama.ui.base.resources.GamaIcons;
 import gama.ui.base.resources.IGamaColors;
 import gama.ui.base.resources.IGamaIcons;
-import gama.ui.base.resources.GamaColors.GamaUIColor;
-import gama.ui.base.utils.ThemeHelper;
 import one.util.streamex.StreamEx;
 
+// TODO: Auto-generated Javadoc
 /**
  * Class TopLevelFolder.
  *
@@ -47,45 +46,53 @@ public class TopLevelFolder extends VirtualContent<NavigatorRoot> implements IGa
 	 * The Enum Location.
 	 */
 	public enum Location {
-		
+
 		/** The Core models. */
-		CoreModels, 
- /** The Plugins. */
- Plugins, 
- /** The Other. */
- Other, 
- /** The Unknown. */
- Unknown, 
- /** The Tests. */
- Tests
+		CoreModels,
+		/** The Plugins. */
+		Plugins,
+		/** The Other. */
+		Other,
+		/** The Unknown. */
+		Unknown,
+		/** The Tests. */
+		Tests
 	}
 
 	/** The children. */
 	WrappedProject[] children;
-	
+
 	/** The status icon. */
 	final Image icon, statusIcon;
-	
+
 	/** The nature. */
 	final String statusMessage, nature;
-	
+
 	/** The status color. */
 	final GamaUIColor statusColor;
-	
+
 	/** The location. */
 	final Location location;
 
 	/**
 	 * Instantiates a new top level folder.
 	 *
-	 * @param root the root
-	 * @param name the name
-	 * @param iconName the icon name
-	 * @param statusIconName the status icon name
-	 * @param statusMessage the status message
-	 * @param statusColor the status color
-	 * @param nature the nature
-	 * @param location the location
+	 * @param root
+	 *            the root
+	 * @param name
+	 *            the name
+	 * @param iconName
+	 *            the icon name
+	 * @param statusIconName
+	 *            the status icon name
+	 * @param statusMessage
+	 *            the status message
+	 * @param statusColor
+	 *            the status color
+	 * @param nature
+	 *            the nature
+	 * @param location
+	 *            the location
 	 */
 	public TopLevelFolder(final NavigatorRoot root, final String name, final String iconName,
 			final String statusIconName, final String statusMessage, final GamaUIColor statusColor, final String nature,
@@ -108,6 +115,11 @@ public class TopLevelFolder extends VirtualContent<NavigatorRoot> implements IGa
 				.map(p -> (WrappedProject) getManager().wrap(this, p)).toArray(WrappedProject.class);
 	}
 
+	/**
+	 * Checks for children.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean hasChildren() {
 		return children.length > 0;
@@ -118,11 +130,19 @@ public class TopLevelFolder extends VirtualContent<NavigatorRoot> implements IGa
 	// return GamaFonts.getNavigHeaderFont();
 	// }
 
+	/**
+	 * Gets the navigator children.
+	 *
+	 * @return the navigator children
+	 */
 	@Override
-	public Object[] getNavigatorChildren() {
-		return children;
-	}
+	public Object[] getNavigatorChildren() { return children; }
 
+	/**
+	 * Find max problem severity.
+	 *
+	 * @return the int
+	 */
 	@Override
 	public int findMaxProblemSeverity() {
 		var severity = NO_PROBLEM;
@@ -137,11 +157,12 @@ public class TopLevelFolder extends VirtualContent<NavigatorRoot> implements IGa
 	/**
 	 * Private accepts.
 	 *
-	 * @param project the project
+	 * @param project
+	 *            the project
 	 * @return true, if successful
 	 */
 	public final boolean privateAccepts(final IProject project) {
-		if ((project == null) || !project.exists()) return false;
+		if (project == null || !project.exists()) return false;
 		// TODO This one is clearly a hack. Should be replaced by a proper way
 		// to track persistently the closed projects
 		if (!project.isOpen()) return estimateLocation(project.getLocation()) == location;
@@ -155,7 +176,8 @@ public class TopLevelFolder extends VirtualContent<NavigatorRoot> implements IGa
 	/**
 	 * Estimate location.
 	 *
-	 * @param location the location
+	 * @param location
+	 *            the location
 	 * @return the location
 	 */
 	protected Location estimateLocation(final IPath location) {
@@ -183,7 +205,8 @@ public class TopLevelFolder extends VirtualContent<NavigatorRoot> implements IGa
 	/**
 	 * Accepts.
 	 *
-	 * @param desc the desc
+	 * @param desc
+	 *            the desc
 	 * @return true, if successful
 	 */
 	public final boolean accepts(final IProjectDescription desc) {
@@ -191,60 +214,85 @@ public class TopLevelFolder extends VirtualContent<NavigatorRoot> implements IGa
 		return desc.getNatureIds().length < 3;
 	}
 
+	/**
+	 * Gets the image.
+	 *
+	 * @return the image
+	 */
 	@Override
-	public final Image getImage() {
-		return icon;
-	}
+	public final Image getImage() { return icon; }
 
+	/**
+	 * Gets the status image.
+	 *
+	 * @return the status image
+	 */
 	@Override
-	public Image getStatusImage() {
-		return statusIcon;
-	}
+	public Image getStatusImage() { return statusIcon; }
 
+	/**
+	 * Gets the status message.
+	 *
+	 * @return the status message
+	 */
 	@Override
-	public String getStatusMessage() {
-		return statusMessage;
-	}
+	public String getStatusMessage() { return statusMessage; }
 
+	/**
+	 * Gets the status color.
+	 *
+	 * @return the status color
+	 */
 	@Override
-	public GamaUIColor getStatusColor() {
-		return statusColor;
-	}
+	public GamaUIColor getStatusColor() { return statusColor; }
+	//
+	// @Override
+	// public Color getColor() {
+	// return ThemeHelper.isDark() ? IGamaColors.VERY_LIGHT_GRAY.color() : IGamaColors.GRAY_LABEL.color();
+	// }
 
-	@Override
-	public Color getColor() {
-		return ThemeHelper.isDark() ? IGamaColors.VERY_LIGHT_GRAY.color() : IGamaColors.GRAY_LABEL.color();
-	}
-
-	@Override
+	/**
+ * Gets the suffix.
+ *
+ * @param sb the sb
+ * @return the suffix
+ */
+@Override
 	public void getSuffix(final StringBuilder sb) {
 		final var projectCount = children.length;
 		sb.append(projectCount).append(" project");
 		if (projectCount > 1) { sb.append("s"); }
 	}
 
+	/**
+	 * Gets the overlay.
+	 *
+	 * @return the overlay
+	 */
 	@Override
-	public ImageDescriptor getOverlay() {
-		return DESCRIPTORS.get(findMaxProblemSeverity());
-	}
+	public ImageDescriptor getOverlay() { return DESCRIPTORS.get(findMaxProblemSeverity()); }
 
+	/**
+	 * Gets the top level folder.
+	 *
+	 * @return the top level folder
+	 */
 	@Override
-	public TopLevelFolder getTopLevelFolder() {
-		return this;
-	}
+	public TopLevelFolder getTopLevelFolder() { return this; }
 
 	/**
 	 * Gets the nature.
 	 *
 	 * @return the nature
 	 */
-	public String getNature() {
-		return nature;
-	}
+	public String getNature() { return nature; }
 
+	/**
+	 * Gets the type.
+	 *
+	 * @return the type
+	 */
 	@Override
-	public VirtualContentType getType() {
-		return VirtualContentType.VIRTUAL_FOLDER;
-	}
+	public VirtualContentType getType() { return VirtualContentType.VIRTUAL_FOLDER; }
 
 }
