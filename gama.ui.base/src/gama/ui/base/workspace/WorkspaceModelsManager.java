@@ -55,6 +55,7 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.ContainerSelectionDialog;
 import org.osgi.framework.Bundle;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Multimap;
 
 import gama.core.application.bundles.GamaBundleLoader;
@@ -93,7 +94,6 @@ public class WorkspaceModelsManager {
 
 	/** The Constant BUILTIN_PROPERTY. */
 	public static final QualifiedName BUILTIN_PROPERTY = new QualifiedName("gama.builtin", "models");
-	// private static String BUILTIN_VERSION = null;
 
 	/** The Constant instance. */
 	public final static WorkspaceModelsManager instance = new WorkspaceModelsManager();
@@ -114,8 +114,6 @@ public class WorkspaceModelsManager {
 	 *            the model path
 	 */
 	public void openModelPassedAsArgument(final String modelPath) {
-		// printAllGuaranteedProperties();
-
 		String filePath = modelPath;
 		String expName = null;
 		if (filePath.contains("#")) {
@@ -177,31 +175,15 @@ public class WorkspaceModelsManager {
 	 * @return the i file
 	 */
 	private IFile findAndLoadIFile(final String filePath) {
-		// GAMA.getGui().debug("WorkspaceModelsManager.findAndLoadIFile " + filePath);
 		// No error in case of an empty argument
-		if (isBlank(filePath)) return null;
+		if (Strings.isNullOrEmpty(filePath)) return null;
 		final IPath path = new Path(filePath);
 
 		// 1st case: the path can be identified as a file residing in the workspace
 		IFile result = findInWorkspace(path);
 		if (result != null) return result;
+		// Otherwise it belongs outside
 		return findOutsideWorkspace(path);
-	}
-
-	/**
-	 * Checks if is blank.
-	 *
-	 * @param cs
-	 *            the cs
-	 * @return true, if is blank
-	 */
-	private boolean isBlank(final String cs) {
-		if (cs == null || cs.isEmpty()) return true;
-		final int sz = cs.length();
-		for (int i = 0; i < sz; i++) {
-			if (!Character.isWhitespace(cs.charAt(i))) return false;
-		}
-		return true;
 	}
 
 	/**
@@ -212,7 +194,6 @@ public class WorkspaceModelsManager {
 	 * @return the i file
 	 */
 	private IFile findInWorkspace(final IPath originalPath) {
-		// GAMA.getGui().debug("WorkspaceModelsManager.findInWorkspace " + originalPath);
 		final IPath filePath = originalPath.makeRelativeTo(workspacePath);
 		IFile file = null;
 		try {
@@ -232,7 +213,6 @@ public class WorkspaceModelsManager {
 	 * @return the i file
 	 */
 	private IFile findOutsideWorkspace(final IPath originalPath) {
-		// GAMA.getGui().debug("WorkspaceModelsManager.findOutsideWorkspace " + originalPath);
 		final File modelFile = new File(originalPath.toOSString());
 		// TODO If the file does not exist we return null (might be a good idea to check other locations)
 		if (!modelFile.exists()) return null;
@@ -307,16 +287,7 @@ public class WorkspaceModelsManager {
 						setValuesProjectDescription(proj, false, false, false, null);
 					}
 				};
-				operation.run(new NullProgressMonitor() {
-
-					// @Override
-					// public void done() {
-					// RefreshHandler.run();
-					// // scope.getGui().tell("Project " + workspace.getRoot().getProject(pathToProject).getName() +
-					// // " has been imported");
-					// }
-
-				});
+				operation.run(new NullProgressMonitor() {});
 			}
 		} catch (final InterruptedException | InvocationTargetException e) {
 			return null;
@@ -438,7 +409,7 @@ public class WorkspaceModelsManager {
 	/**
 	 * Link sample models to workspace.
 	 */
-	public static void linkSampleModelsToWorkspace() {
+	public void linkSampleModelsToWorkspace() {
 
 		final WorkspaceJob job = new WorkspaceJob("Updating the Built-in Models Library") {
 

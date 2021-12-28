@@ -40,6 +40,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.commands.ICommandService;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.internal.WorkbenchWindow;
+import org.eclipse.ui.navigator.CommonNavigator;
 import org.eclipse.ui.progress.UIJob;
 
 import com.google.common.cache.CacheBuilder;
@@ -48,6 +49,7 @@ import com.google.common.cache.LoadingCache;
 
 import gama.common.ui.IGamaView;
 import gama.common.ui.IGamaView.Display.InnerComponent;
+import gama.common.ui.IGui;
 import gama.core.dev.utils.DEBUG;
 import gama.ui.base.interfaces.IGamlEditor;
 import gama.ui.base.workspace.WorkspaceModelsManager;
@@ -149,8 +151,10 @@ public class WorkbenchHelper {
 	/**
 	 * Run.
 	 *
-	 * @param <T> the generic type
-	 * @param r            the r
+	 * @param <T>
+	 *            the generic type
+	 * @param r
+	 *            the r
 	 * @return the t
 	 */
 	public static <T> T run(final Callable<T> r) {
@@ -435,6 +439,18 @@ public class WorkbenchHelper {
 	 */
 	public static void close() {
 		asyncRun(() -> getWorkbench().close());
+	}
+
+	/**
+	 * Refresh navigator.
+	 */
+	public static void refreshNavigator() {
+		final IWorkbenchPage page = WorkbenchHelper.getPage();
+		if (page == null) return;
+		CommonNavigator navigator = (CommonNavigator) page.findView(IGui.NAVIGATOR_VIEW_ID);
+		if (navigator != null) {
+			WorkbenchHelper.runInUI("Refreshing navigator", 0, m -> navigator.getCommonViewer().refresh(true));
+		}
 	}
 
 }

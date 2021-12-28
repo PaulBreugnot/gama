@@ -49,6 +49,7 @@ import gama.ui.base.utils.PerspectiveHelper;
 import gama.ui.base.utils.ThemeHelper;
 import gama.ui.base.workspace.WorkspaceModelsManager;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GamaWorkbenchAdvisor.
  */
@@ -76,6 +77,11 @@ public class GamaWorkbenchAdvisor extends IDEWorkbenchAdvisor {
 		/** The files to open. */
 		private final ArrayList<String> filesToOpen = new ArrayList<>(1);
 
+		/**
+		 * Handle event.
+		 *
+		 * @param event the event
+		 */
 		@Override
 		public void handleEvent(final Event event) {
 			if (event.text != null) {
@@ -84,6 +90,11 @@ public class GamaWorkbenchAdvisor extends IDEWorkbenchAdvisor {
 			}
 		}
 
+		/**
+		 * Catch up.
+		 *
+		 * @param display the display
+		 */
 		@Override
 		public void catchUp(final Display display) {
 			if (filesToOpen.isEmpty()) return;
@@ -115,11 +126,22 @@ public class GamaWorkbenchAdvisor extends IDEWorkbenchAdvisor {
 		super(createProcessor());
 	}
 
+	/**
+	 * Creates the workbench window advisor.
+	 *
+	 * @param configurer the configurer
+	 * @return the workbench window advisor
+	 */
 	@Override
 	public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(final IWorkbenchWindowConfigurer configurer) {
 		return new GamaWindowAdvisor(this, configurer);
 	}
 
+	/**
+	 * Initialize.
+	 *
+	 * @param configurer the configurer
+	 */
 	@Override
 	public void initialize(final IWorkbenchConfigurer configurer) {
 
@@ -144,6 +166,9 @@ public class GamaWorkbenchAdvisor extends IDEWorkbenchAdvisor {
 		ThemeHelper.install();
 	}
 
+	/**
+	 * Post startup.
+	 */
 	@Override
 	public void postStartup() {
 		super.postStartup();
@@ -188,14 +213,19 @@ public class GamaWorkbenchAdvisor extends IDEWorkbenchAdvisor {
 
 	}
 
+	/**
+	 * Gets the initial window perspective id.
+	 *
+	 * @return the initial window perspective id
+	 */
 	@Override
-	public String getInitialWindowPerspectiveId() {
-		return IGui.PERSPECTIVE_MODELING_ID;
-	}
+	public String getInitialWindowPerspectiveId() { return IGui.PERSPECTIVE_MODELING_ID; }
 
 	/**
 	 * A workbench pre-shutdown method calls to prompt a confirmation of the shutdown and perform a saving of the
-	 * workspace
+	 * workspace.
+	 *
+	 * @return true, if successful
 	 */
 	@Override
 	public boolean preShutdown() {
@@ -212,6 +242,9 @@ public class GamaWorkbenchAdvisor extends IDEWorkbenchAdvisor {
 
 	}
 
+	/**
+	 * Post shutdown.
+	 */
 	@Override
 	public void postShutdown() {
 		try {
@@ -222,19 +255,23 @@ public class GamaWorkbenchAdvisor extends IDEWorkbenchAdvisor {
 		}
 	}
 
+	/**
+	 * Pre startup.
+	 */
 	@Override
 	public void preStartup() {
 		// Suspend background jobs while we startup
 		Job.getJobManager().suspend();
 		// super.preStartup();
 		/* Linking the stock models with the workspace if they are not already */
-		if (checkCopyOfBuiltInModels()) { WorkspaceModelsManager.linkSampleModelsToWorkspace(); }
+		if (checkCopyOfBuiltInModels()) { WorkspaceModelsManager.instance.linkSampleModelsToWorkspace(); }
 
 	}
 
 	/**
-	 * Method getWorkbenchErrorHandler()
+	 * Method getWorkbenchErrorHandler().
 	 *
+	 * @return the workbench error handler
 	 * @see org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor#getWorkbenchErrorHandler()
 	 */
 	@Override
@@ -259,6 +296,11 @@ public class GamaWorkbenchAdvisor extends IDEWorkbenchAdvisor {
 		};
 	}
 
+	/**
+	 * Event loop exception.
+	 *
+	 * @param t the t
+	 */
 	@Override
 	public void eventLoopException(final Throwable t) {
 		DEBUG.OUT("GAMA caught an error in the main application loop: " + t.getMessage());

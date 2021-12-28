@@ -71,37 +71,6 @@ public class RefreshHandler implements IRefreshHandler {
 		}
 		return navigator;
 	}
-	//
-
-	/**
-	 * Refresh navigator.
-	 */
-	@Override
-	public void refreshNavigator() {
-		WorkbenchHelper.run(() -> getNavigator().getCommonViewer().refresh());
-	}
-
-	/**
-	 * Simple refresh.
-	 *
-	 * @param resource
-	 *            the resource
-	 * @param monitor
-	 *            the monitor
-	 * @throws CoreException
-	 *             the core exception
-	 */
-	protected void simpleRefresh(final IResource resource, final IProgressMonitor monitor) throws CoreException {
-		if (resource.getType() == IResource.PROJECT) {
-			checkLocationDeleted((IProject) resource);
-		} else if (resource.getType() == IResource.ROOT) {
-			final IProject[] projects = ((IWorkspaceRoot) resource).getProjects();
-			for (final IProject project : projects) {
-				checkLocationDeleted(project);
-			}
-		}
-		resource.refreshLocal(IResource.DEPTH_INFINITE, monitor);
-	}
 
 	/**
 	 * Refresh resource.
@@ -167,7 +136,15 @@ public class RefreshHandler implements IRefreshHandler {
 					while (resourcesEnum.hasNext()) {
 						try {
 							final IResource resource = resourcesEnum.next();
-							simpleRefresh(resource, monitor);
+							if (resource.getType() == IResource.PROJECT) {
+								checkLocationDeleted((IProject) resource);
+							} else if (resource.getType() == IResource.ROOT) {
+								final IProject[] projects = ((IWorkspaceRoot) resource).getProjects();
+								for (final IProject project : projects) {
+									checkLocationDeleted(project);
+								}
+							}
+							resource.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 							if (monitor != null) { monitor.worked(1); }
 						} catch (final CoreException e) {}
 						if (monitor != null && monitor.isCanceled()) throw new OperationCanceledException();
@@ -204,7 +181,6 @@ public class RefreshHandler implements IRefreshHandler {
 					NavigatorRoot.getInstance().resetVirtualFolders(NavigatorRoot.getInstance().getManager());
 					monitor.beginTask("Refreshing GAMA Workspace: refreshing the navigator", 1);
 					final IWorkspace workspace = ResourcesPlugin.getWorkspace();
-					refreshNavigator();
 					monitor.beginTask("Refreshing GAMA Workspace: rebuilding models", 100);
 					try {
 
@@ -213,8 +189,6 @@ public class RefreshHandler implements IRefreshHandler {
 							@Override
 							public void done() {
 								super.done();
-								refreshNavigator();
-
 							}
 
 						});
@@ -226,6 +200,7 @@ public class RefreshHandler implements IRefreshHandler {
 					return Status.CANCEL_STATUS;
 				} finally {
 					ResourceManager.unblock(monitor);
+					// refreshNavigator();
 					monitor.done();
 				}
 				return errorStatus[0];
