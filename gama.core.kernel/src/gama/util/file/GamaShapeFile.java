@@ -38,6 +38,7 @@ import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 import gama.common.geometry.GamaGeometryFactory;
 import gama.common.geometry.GeometryUtils;
+import gama.common.preferences.GamaPreferences;
 import gama.common.util.GISUtils;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
@@ -464,7 +465,7 @@ public class GamaShapeFile extends GamaGisFile {
 		}
 		if (fds instanceof ShapefileDataStore store) {
 			store.setGeometryFactory(GeometryUtils.GEOMETRY_FACTORY);
-			store.setMemoryMapped(true);
+			store.setMemoryMapped(GamaPreferences.External.SHAPEFILES_IN_MEMORY.getValue());
 			store.setCharset(Charset.forName("UTF8"));
 		}
 		return fds;
