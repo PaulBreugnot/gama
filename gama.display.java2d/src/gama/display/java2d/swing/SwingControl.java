@@ -97,13 +97,16 @@ public abstract class SwingControl extends Composite {
 			populated = true;
 			WorkbenchHelper.runInUI("Opening Java2D display", 50, m -> {
 				frame = SWT_AWT.new_Frame(SwingControl.this);
-				applet = new JApplet();
-				if (PlatformHelper.isWindows()) { applet.setFocusTraversalPolicy(new LayoutFocusTraversalPolicy()); }
-				frame.add(applet);
 				EventQueue.invokeLater(() -> {
+					applet = new JApplet();
+					if (PlatformHelper.isWindows()) {
+						applet.setFocusTraversalPolicy(new LayoutFocusTraversalPolicy());
+					}
+
 					final Java2DDisplaySurface surface = createSwingComponent();
 					applet.getRootPane().getContentPane().add(surface);
 					WorkaroundForIssue2476.installOn(applet, surface);
+					frame.add(applet);
 				});
 				// SwingControl.this.getParent().layout(true, true);
 			});
@@ -123,7 +126,8 @@ public abstract class SwingControl extends Composite {
 	/**
 	 * Sets the bounds.
 	 *
-	 * @param rect the new bounds
+	 * @param rect
+	 *            the new bounds
 	 */
 	@Override
 	public void setBounds(final Rectangle rect) {
@@ -133,10 +137,14 @@ public abstract class SwingControl extends Composite {
 	/**
 	 * Overridden to propagate the size to the embedded Swing component.
 	 *
-	 * @param x the x
-	 * @param y the y
-	 * @param width the width
-	 * @param height the height
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 * @param width
+	 *            the width
+	 * @param height
+	 *            the height
 	 */
 	@Override
 	public void setBounds(final int x, final int y, final int width, final int height) {
