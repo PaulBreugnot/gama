@@ -106,7 +106,8 @@ public class RefreshHandler implements IRefreshHandler {
 	/**
 	 * Refresh resource.
 	 *
-	 * @param resource the resource
+	 * @param resource
+	 *            the resource
 	 */
 	@Override
 	public void refreshResource(final IResource resource) {
@@ -149,7 +150,8 @@ public class RefreshHandler implements IRefreshHandler {
 	/**
 	 * Complete refresh.
 	 *
-	 * @param list the list
+	 * @param list
+	 *            the list
 	 */
 	@Override
 	public void completeRefresh(final List<? extends IResource> list) {
@@ -183,7 +185,7 @@ public class RefreshHandler implements IRefreshHandler {
 				try {
 					ResourceManager.block();
 					monitor.beginTask("Refreshing GAMA Workspace: updating the library of models", 100);
-					WorkspaceModelsManager.loadModelsLibrary();
+					WorkspaceModelsManager.instance.loadModelsLibrary();
 					monitor.beginTask("Refreshing GAMA Workspace: recreating files metadata", 1000);
 					for (final IResource r : resources) {
 						r.accept(proxy -> {

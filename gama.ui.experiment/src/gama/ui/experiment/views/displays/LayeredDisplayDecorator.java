@@ -58,6 +58,7 @@ import gama.ui.base.toolbar.GamaCommand;
 import gama.ui.base.toolbar.GamaToolbar2;
 import gama.ui.base.toolbar.GamaToolbarFactory;
 import gama.ui.base.utils.PerspectiveHelper;
+import gama.ui.base.utils.ViewsHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.base.views.InteractiveConsoleView;
 
@@ -524,7 +525,7 @@ public class LayeredDisplayDecorator implements DisplayDataListener {
 	public void toggleInteractiveConsole() {
 		if (!sideControlsVisible) { toggleSideControls(); }
 		final InteractiveConsoleView view =
-				(InteractiveConsoleView) WorkbenchHelper.findView(IGui.INTERACTIVE_CONSOLE_VIEW_ID, null, true);
+				(InteractiveConsoleView) ViewsHelper.findView(IGui.INTERACTIVE_CONSOLE_VIEW_ID, null, true);
 		if (view == null) return;
 		if (interactiveConsoleVisible) {
 			view.getControlToDisplayInFullScreen().setParent(view.getParentOfControlToDisplayFullScreen());

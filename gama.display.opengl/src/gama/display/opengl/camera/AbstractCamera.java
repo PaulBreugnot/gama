@@ -28,6 +28,7 @@ import gama.runtime.GAMA;
 import gama.runtime.PlatformHelper;
 import gama.ui.base.bindings.GamaKeyBindings;
 import gama.ui.base.utils.DPIHelper;
+import gama.ui.base.utils.WorkbenchHelper;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -944,7 +945,7 @@ public abstract class AbstractCamera implements ICamera {
 					// (like CTRL+SHIFT+H)
 					// First the global keystrokes
 					case com.jogamp.newt.event.KeyEvent.VK_ESCAPE:
-						GAMA.getGui().toggleFullScreenMode();
+						WorkbenchHelper.toggleFullScreenMode();
 						break;
 					case 'p':
 					case 'P':

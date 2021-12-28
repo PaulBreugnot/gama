@@ -223,11 +223,16 @@ public interface IGui {
 	/**
 	 * Open user input dialog.
 	 *
-	 * @param scope            the scope
-	 * @param title            the title
-	 * @param parameters            the parameters
-	 * @param font            the font
-	 * @param color the color
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param parameters
+	 *            the parameters
+	 * @param font
+	 *            the font
+	 * @param color
+	 *            the color
 	 * @return the map
 	 */
 	Map<String, Object> openUserInputDialog(IScope scope, String title, List<IParameter> parameters, GamaFont font,
@@ -495,14 +500,6 @@ public interface IGui {
 	 */
 	void exit();
 
-	/**
-	 * Open interactive console.
-	 *
-	 * @param scope
-	 *            the scope
-	 */
-	void openInteractiveConsole(IScope scope);
-
 	// Tests
 
 	/**
@@ -539,13 +536,6 @@ public interface IGui {
 	 * @return the list
 	 */
 	List<TestExperimentSummary> runHeadlessTests(final Object model);
-
-	/**
-	 * Tries to put the frontmost display in full screen mode or in normal view mode if it is already in full screen.
-	 *
-	 * @return true if the toggle has succeeded
-	 */
-	boolean toggleFullScreenMode();
 
 	/**
 	 * Refresh navigator.

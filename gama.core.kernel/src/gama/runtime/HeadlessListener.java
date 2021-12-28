@@ -93,11 +93,16 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Open user input dialog.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param parameters the parameters
-	 * @param font the font
-	 * @param color the color
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param parameters
+	 *            the parameters
+	 * @param font
+	 *            the font
+	 * @param color
+	 *            the color
 	 * @return the map
 	 */
 	@Override
@@ -113,10 +118,14 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Open wizard.
 	 *
-	 * @param scope the scope
-	 * @param title the title
-	 * @param finish the finish
-	 * @param pages the pages
+	 * @param scope
+	 *            the scope
+	 * @param title
+	 *            the title
+	 * @param finish
+	 *            the finish
+	 * @param pages
+	 *            the pages
 	 * @return the i map
 	 */
 	@Override
@@ -143,7 +152,8 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Copy to clipboard.
 	 *
-	 * @param text the text
+	 * @param text
+	 *            the text
 	 * @return true, if successful
 	 */
 	@Override
@@ -154,8 +164,10 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Open user control panel.
 	 *
-	 * @param scope the scope
-	 * @param panel the panel
+	 * @param scope
+	 *            the scope
+	 * @param panel
+	 *            the panel
 	 */
 	@Override
 	public void openUserControlPanel(final IScope scope, final UserPanelStatement panel) {}
@@ -163,7 +175,8 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Close dialogs.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 */
 	@Override
 	public void closeDialogs(final IScope scope) {}
@@ -179,7 +192,8 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Sets the highlighted agent.
 	 *
-	 * @param a the new highlighted agent
+	 * @param a
+	 *            the new highlighted agent
 	 */
 	@Override
 	public void setHighlightedAgent(final IAgent a) {}
@@ -187,10 +201,14 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Show view.
 	 *
-	 * @param scope the scope
-	 * @param viewId the view id
-	 * @param name the name
-	 * @param code the code
+	 * @param scope
+	 *            the scope
+	 * @param viewId
+	 *            the view id
+	 * @param name
+	 *            the name
+	 * @param code
+	 *            the code
 	 * @return the i gama view
 	 */
 	@Override
@@ -201,8 +219,10 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Show parameter view.
 	 *
-	 * @param scope the scope
-	 * @param exp the exp
+	 * @param scope
+	 *            the scope
+	 * @param exp
+	 *            the exp
 	 */
 	@Override
 	public void showParameterView(final IScope scope, final IExperimentPlan exp) {}
@@ -210,8 +230,10 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Runtime error.
 	 *
-	 * @param scope the scope
-	 * @param g the g
+	 * @param scope
+	 *            the scope
+	 * @param g
+	 *            the g
 	 */
 	@Override
 	public void runtimeError(final IScope scope, final GamaRuntimeException g) {
@@ -221,7 +243,8 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Confirm close.
 	 *
-	 * @param experiment the experiment
+	 * @param experiment
+	 *            the experiment
 	 * @return true, if successful
 	 */
 	@Override
@@ -232,8 +255,10 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Prepare for experiment.
 	 *
-	 * @param scope the scope
-	 * @param exp the exp
+	 * @param scope
+	 *            the scope
+	 * @param exp
+	 *            the exp
 	 */
 	@Override
 	public void prepareForExperiment(final IScope scope, final IExperimentPlan exp) {}
@@ -241,8 +266,10 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Open simulation perspective.
 	 *
-	 * @param model the model
-	 * @param id the id
+	 * @param model
+	 *            the model
+	 * @param id
+	 *            the id
 	 * @return true, if successful
 	 */
 	@Override
@@ -255,8 +282,10 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Creates the display surface for.
 	 *
-	 * @param output the output
-	 * @param objects the objects
+	 * @param output
+	 *            the output
+	 * @param objects
+	 *            the objects
 	 * @return the i display surface
 	 */
 	@Override
@@ -273,8 +302,10 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Edits the model.
 	 *
-	 * @param scope the scope
-	 * @param eObject the e object
+	 * @param scope
+	 *            the scope
+	 * @param eObject
+	 *            the e object
 	 */
 	@Override
 	public void editModel(final IScope scope, final Object eObject) {}
@@ -282,8 +313,10 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Update parameter view.
 	 *
-	 * @param scope the scope
-	 * @param exp the exp
+	 * @param scope
+	 *            the scope
+	 * @param exp
+	 *            the exp
 	 */
 	@Override
 	public void updateParameterView(final IScope scope, final IExperimentPlan exp) {}
@@ -291,7 +324,8 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Sets the selected agent.
 	 *
-	 * @param a the new selected agent
+	 * @param a
+	 *            the new selected agent
 	 */
 	@Override
 	public void setSelectedAgent(final IAgent a) {}
@@ -314,8 +348,10 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Run model.
 	 *
-	 * @param object the object
-	 * @param exp the exp
+	 * @param object
+	 *            the object
+	 * @param exp
+	 *            the exp
 	 */
 	@Override
 	public void runModel(final Object object, final String exp) {}
@@ -323,9 +359,12 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Method updateSpeedDisplay().
 	 *
-	 * @param scope the scope
-	 * @param d the d
-	 * @param notify the notify
+	 * @param scope
+	 *            the scope
+	 * @param d
+	 *            the d
+	 * @param notify
+	 *            the notify
 	 * @see gama.common.ui.IGui#updateSpeedDisplay(java.lang.Double)
 	 */
 	@Override
@@ -385,9 +424,12 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Method closeSimulationViews().
 	 *
-	 * @param scope the scope
-	 * @param andOpenModelingPerspective the and open modeling perspective
-	 * @param immediately the immediately
+	 * @param scope
+	 *            the scope
+	 * @param andOpenModelingPerspective
+	 *            the and open modeling perspective
+	 * @param immediately
+	 *            the immediately
 	 * @see gama.common.ui.IGui#closeSimulationViews(boolean)
 	 */
 	@Override
@@ -397,7 +439,8 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Method getDisplayDescriptionFor().
 	 *
-	 * @param name the name
+	 * @param name
+	 *            the name
 	 * @return the display description for
 	 * @see gama.common.ui.IGui#getDisplayDescriptionFor(java.lang.String)
 	 */
@@ -409,7 +452,8 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Method getFrontmostSimulationState().
 	 *
-	 * @param uid the uid
+	 * @param uid
+	 *            the uid
 	 * @return the experiment state
 	 * @see gama.common.ui.IGui#getExperimentState()
 	 */
@@ -421,8 +465,10 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Method updateSimulationState().
 	 *
-	 * @param scope the scope
-	 * @param state the state
+	 * @param scope
+	 *            the scope
+	 * @param state
+	 *            the state
 	 * @see gama.common.ui.IGui#updateExperimentState(java.lang.String)
 	 */
 	@Override
@@ -431,7 +477,8 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Method updateSimulationState().
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @see gama.common.ui.IGui#updateExperimentState()
 	 */
 	@Override
@@ -440,8 +487,10 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Update view title.
 	 *
-	 * @param output the output
-	 * @param agent the agent
+	 * @param output
+	 *            the output
+	 * @param agent
+	 *            the agent
 	 */
 	@Override
 	public void updateViewTitle(final IDisplayOutput output, final SimulationAgent agent) {}
@@ -449,7 +498,8 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Open welcome page.
 	 *
-	 * @param b the b
+	 * @param b
+	 *            the b
 	 */
 	@Override
 	public void openWelcomePage(final boolean b) {}
@@ -457,7 +507,8 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Update decorator.
 	 *
-	 * @param string the string
+	 * @param string
+	 *            the string
 	 */
 	@Override
 	public void updateDecorator(final String string) {}
@@ -543,7 +594,8 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Gets the status.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the status
 	 */
 	@Override
@@ -562,7 +614,8 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Clear errors.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 */
 	@Override
 	public void clearErrors(final IScope scope) {}
@@ -570,9 +623,12 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Run.
 	 *
-	 * @param taskName the task name
-	 * @param opener the opener
-	 * @param asynchronous the asynchronous
+	 * @param taskName
+	 *            the task name
+	 * @param opener
+	 *            the opener
+	 * @param asynchronous
+	 *            the asynchronous
 	 */
 	@Override
 	public void run(final String taskName, final Runnable opener, final boolean asynchronous) {
@@ -588,7 +644,8 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Sets the focus on.
 	 *
-	 * @param o the new focus on
+	 * @param o
+	 *            the new focus on
 	 */
 	@Override
 	public void setFocusOn(final IShape o) {}
@@ -596,8 +653,10 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Apply layout.
 	 *
-	 * @param scope the scope
-	 * @param layout the layout
+	 * @param scope
+	 *            the scope
+	 * @param layout
+	 *            the layout
 	 */
 	@Override
 	public void applyLayout(final IScope scope, final Object layout) {}
@@ -605,8 +664,10 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Display errors.
 	 *
-	 * @param scope the scope
-	 * @param list the list
+	 * @param scope
+	 *            the scope
+	 * @param list
+	 *            the list
 	 */
 	@Override
 	public void displayErrors(final IScope scope, final List<GamaRuntimeException> list) {}
@@ -622,7 +683,8 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Sets the mouse location in model.
 	 *
-	 * @param modelCoordinates the new mouse location in model
+	 * @param modelCoordinates
+	 *            the new mouse location in model
 	 */
 	@Override
 	public void setMouseLocationInModel(final GamaPoint modelCoordinates) {}
@@ -657,18 +719,12 @@ public class HeadlessListener implements IGui {
 	}
 
 	/**
-	 * Open interactive console.
-	 *
-	 * @param scope the scope
-	 */
-	@Override
-	public void openInteractiveConsole(final IScope scope) {}
-
-	/**
 	 * Open test view.
 	 *
-	 * @param scope the scope
-	 * @param remainOpen the remain open
+	 * @param scope
+	 *            the scope
+	 * @param remainOpen
+	 *            the remain open
 	 * @return the i gama view. test
 	 */
 	@Override
@@ -683,8 +739,10 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Display tests results.
 	 *
-	 * @param scope the scope
-	 * @param summary the summary
+	 * @param scope
+	 *            the scope
+	 * @param summary
+	 *            the summary
 	 */
 	@Override
 	public void displayTestsResults(final IScope scope, final CompoundSummary<?, ?> summary) {
@@ -694,7 +752,8 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Run headless tests.
 	 *
-	 * @param model the model
+	 * @param model
+	 *            the model
 	 * @return the list
 	 */
 	@Override
@@ -707,17 +766,6 @@ public class HeadlessListener implements IGui {
 	 */
 	@Override
 	public void endTestDisplay() {}
-
-	/**
-	 * Toggle full screen mode.
-	 *
-	 * @return true, if successful
-	 */
-	@Override
-	public boolean toggleFullScreenMode() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	/**
 	 * Refresh navigator.
@@ -750,8 +798,10 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Error.
 	 *
-	 * @param title the title
-	 * @param message the message
+	 * @param title
+	 *            the title
+	 * @param message
+	 *            the message
 	 */
 	@Override
 	public void error(final String title, final String message) {
@@ -761,8 +811,10 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Inform.
 	 *
-	 * @param title the title
-	 * @param message the message
+	 * @param title
+	 *            the title
+	 * @param message
+	 *            the message
 	 */
 	@Override
 	public void inform(final String title, final String message) {
@@ -772,8 +824,10 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Question.
 	 *
-	 * @param title the title
-	 * @param message the message
+	 * @param title
+	 *            the title
+	 * @param message
+	 *            the message
 	 * @return true, if successful
 	 */
 	@Override
@@ -785,8 +839,10 @@ public class HeadlessListener implements IGui {
 	/**
 	 * Confirm.
 	 *
-	 * @param title the title
-	 * @param message the message
+	 * @param title
+	 *            the title
+	 * @param message
+	 *            the message
 	 * @return true, if successful
 	 */
 	@Override

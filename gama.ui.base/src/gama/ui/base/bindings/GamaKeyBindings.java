@@ -98,7 +98,7 @@ public class GamaKeyBindings implements Listener {
 	@Override
 	public void handleEvent(final Event event) {
 		if (event.keyCode == SWT.ESC) {
-			if (GAMA.getGui().toggleFullScreenMode()) {
+			if (WorkbenchHelper.toggleFullScreenMode()) {
 				// DEBUG.OUT("Toogle full screen");
 				consume(event);
 			}

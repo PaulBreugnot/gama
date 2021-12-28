@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * CsvWriter.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * CsvWriter.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.util.file.csv;
 
@@ -20,6 +20,7 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
+// TODO: Auto-generated Javadoc
 /**
  * A stream based writer for writing delimited text data to a file or a stream.
  */
@@ -51,9 +52,6 @@ public class CsvWriter implements Closeable {
 	/** The closed. */
 	private boolean closed = false;
 
-	/** The system record delimiter. */
-	private final String systemRecordDelimiter = System.getProperty("line.separator");
-
 	/**
 	 * Double up the text qualifier to represent an occurrence of the text qualifier.
 	 */
@@ -65,7 +63,8 @@ public class CsvWriter implements Closeable {
 	public static final int ESCAPE_MODE_BACKSLASH = 2;
 
 	/**
-	 * Creates a {@link msi.gama.util.file.csv.csvreader.CsvWriter CsvWriter} object using a file as the data destination.
+	 * Creates a {@link msi.gama.util.file.csv.csvreader.CsvWriter CsvWriter} object using a file as the data
+	 * destination.
 	 *
 	 * @param fileName
 	 *            The path to the file to output the data.
@@ -75,9 +74,9 @@ public class CsvWriter implements Closeable {
 	 *            The {@link java.nio.charset.Charset Charset} to use while writing the data.
 	 */
 	public CsvWriter(final String fileName, final char delimiter, final Charset charset) {
-		if (fileName == null) { throw new IllegalArgumentException("Parameter fileName can not be null."); }
+		if (fileName == null) throw new IllegalArgumentException("Parameter fileName can not be null.");
 
-		if (charset == null) { throw new IllegalArgumentException("Parameter charset can not be null."); }
+		if (charset == null) throw new IllegalArgumentException("Parameter charset can not be null.");
 
 		this.fileName = fileName;
 		userSettings.Delimiter = delimiter;
@@ -85,8 +84,9 @@ public class CsvWriter implements Closeable {
 	}
 
 	/**
-	 * Creates a {@link msi.gama.util.file.csv.csvreader.CsvWriter CsvWriter} object using a file as the data destination.&nbsp;Uses a
-	 * comma as the column delimiter and ISO-8859-1 as the {@link java.nio.charset.Charset Charset}.
+	 * Creates a {@link msi.gama.util.file.csv.csvreader.CsvWriter CsvWriter} object using a file as the data
+	 * destination.&nbsp;Uses a comma as the column delimiter and ISO-8859-1 as the {@link java.nio.charset.Charset
+	 * Charset}.
 	 *
 	 * @param fileName
 	 *            The path to the file to output the data.
@@ -104,7 +104,7 @@ public class CsvWriter implements Closeable {
 	 *            The character to use as the column delimiter.
 	 */
 	public CsvWriter(final Writer outputStream, final char delimiter) {
-		if (outputStream == null) { throw new IllegalArgumentException("Parameter outputStream can not be null."); }
+		if (outputStream == null) throw new IllegalArgumentException("Parameter outputStream can not be null.");
 
 		this.outputStream = outputStream;
 		userSettings.Delimiter = delimiter;
@@ -116,9 +116,7 @@ public class CsvWriter implements Closeable {
 	 *
 	 * @return The character being used as the column delimiter.
 	 */
-	public char getDelimiter() {
-		return userSettings.Delimiter;
-	}
+	public char getDelimiter() { return userSettings.Delimiter; }
 
 	/**
 	 * Sets the character to use as the column delimiter.
@@ -126,18 +124,14 @@ public class CsvWriter implements Closeable {
 	 * @param delimiter
 	 *            The character to use as the column delimiter.
 	 */
-	public void setDelimiter(final char delimiter) {
-		userSettings.Delimiter = delimiter;
-	}
+	public void setDelimiter(final char delimiter) { userSettings.Delimiter = delimiter; }
 
 	/**
 	 * Gets the record delimiter.
 	 *
 	 * @return the record delimiter
 	 */
-	public char getRecordDelimiter() {
-		return userSettings.RecordDelimiter;
-	}
+	public char getRecordDelimiter() { return userSettings.RecordDelimiter; }
 
 	/**
 	 * Sets the character to use as the record delimiter.
@@ -156,9 +150,7 @@ public class CsvWriter implements Closeable {
 	 *
 	 * @return The character to use as a text qualifier in the data.
 	 */
-	public char getTextQualifier() {
-		return userSettings.TextQualifier;
-	}
+	public char getTextQualifier() { return userSettings.TextQualifier; }
 
 	/**
 	 * Sets the character to use as a text qualifier in the data.
@@ -166,18 +158,14 @@ public class CsvWriter implements Closeable {
 	 * @param textQualifier
 	 *            The character to use as a text qualifier in the data.
 	 */
-	public void setTextQualifier(final char textQualifier) {
-		userSettings.TextQualifier = textQualifier;
-	}
+	public void setTextQualifier(final char textQualifier) { userSettings.TextQualifier = textQualifier; }
 
 	/**
 	 * Whether text qualifiers will be used while writing data or not.
 	 *
 	 * @return Whether text qualifiers will be used while writing data or not.
 	 */
-	public boolean getUseTextQualifier() {
-		return userSettings.UseTextQualifier;
-	}
+	public boolean getUseTextQualifier() { return userSettings.UseTextQualifier; }
 
 	/**
 	 * Sets whether text qualifiers will be used while writing data or not.
@@ -194,36 +182,30 @@ public class CsvWriter implements Closeable {
 	 *
 	 * @return the escape mode
 	 */
-	public int getEscapeMode() {
-		return userSettings.EscapeMode;
-	}
+	public int getEscapeMode() { return userSettings.EscapeMode; }
 
 	/**
 	 * Sets the escape mode.
 	 *
-	 * @param escapeMode the new escape mode
+	 * @param escapeMode
+	 *            the new escape mode
 	 */
-	public void setEscapeMode(final int escapeMode) {
-		userSettings.EscapeMode = escapeMode;
-	}
+	public void setEscapeMode(final int escapeMode) { userSettings.EscapeMode = escapeMode; }
 
 	/**
 	 * Sets the comment.
 	 *
-	 * @param comment the new comment
+	 * @param comment
+	 *            the new comment
 	 */
-	public void setComment(final char comment) {
-		userSettings.Comment = comment;
-	}
+	public void setComment(final char comment) { userSettings.Comment = comment; }
 
 	/**
 	 * Gets the comment.
 	 *
 	 * @return the comment
 	 */
-	public char getComment() {
-		return userSettings.Comment;
-	}
+	public char getComment() { return userSettings.Comment; }
 
 	/**
 	 * Whether fields will be surrounded by the text qualifier even if the qualifier is not necessarily needed to escape
@@ -231,9 +213,7 @@ public class CsvWriter implements Closeable {
 	 *
 	 * @return Whether fields will be forced to be qualified or not.
 	 */
-	public boolean getForceQualifier() {
-		return userSettings.ForceQualifier;
-	}
+	public boolean getForceQualifier() { return userSettings.ForceQualifier; }
 
 	/**
 	 * Use this to force all fields to be surrounded by the text qualifier even if the qualifier is not necessarily
@@ -242,9 +222,7 @@ public class CsvWriter implements Closeable {
 	 * @param forceQualifier
 	 *            Whether to force the fields to be qualified or not.
 	 */
-	public void setForceQualifier(final boolean forceQualifier) {
-		userSettings.ForceQualifier = forceQualifier;
-	}
+	public void setForceQualifier(final boolean forceQualifier) { userSettings.ForceQualifier = forceQualifier; }
 
 	/** The replacements. */
 	private static Map<Character, Character> REPLACEMENTS = new HashMap() {
@@ -272,13 +250,9 @@ public class CsvWriter implements Closeable {
 
 		checkInit();
 
-		if (content == null) {
-			content = "";
-		}
+		if (content == null) { content = ""; }
 
-		if (!firstColumn) {
-			outputStream.write(userSettings.Delimiter);
-		}
+		if (!firstColumn) { outputStream.write(userSettings.Delimiter); }
 
 		boolean textQualify = userSettings.ForceQualifier;
 
@@ -294,23 +268,17 @@ public class CsvWriter implements Closeable {
 				// check for empty first column, which if on its own
 				// line must
 				// be qualified or the line will be skipped
-				firstColumn && content.length() == 0)) {
-			textQualify = true;
-		}
+				firstColumn && content.length() == 0)) { textQualify = true; }
 
 		if (userSettings.UseTextQualifier && !textQualify && content.length() > 0 /* && preserveSpaces */ ) {
 			final char firstLetter = content.charAt(0);
 
-			if (firstLetter == Letters.SPACE || firstLetter == Letters.TAB) {
-				textQualify = true;
-			}
+			if (firstLetter == Letters.SPACE || firstLetter == Letters.TAB) { textQualify = true; }
 
 			if (!textQualify && content.length() > 1) {
 				final char lastLetter = content.charAt(content.length() - 1);
 
-				if (lastLetter == Letters.SPACE || lastLetter == Letters.TAB) {
-					textQualify = true;
-				}
+				if (lastLetter == Letters.SPACE || lastLetter == Letters.TAB) { textQualify = true; }
 			}
 		}
 
@@ -348,9 +316,7 @@ public class CsvWriter implements Closeable {
 
 		outputStream.write(content);
 
-		if (textQualify) {
-			outputStream.write(userSettings.TextQualifier);
-		}
+		if (textQualify) { outputStream.write(userSettings.TextQualifier); }
 
 		firstColumn = false;
 	}
@@ -358,8 +324,10 @@ public class CsvWriter implements Closeable {
 	/**
 	 * Write comment.
 	 *
-	 * @param commentText the comment text
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @param commentText
+	 *            the comment text
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	public void writeComment(final String commentText) throws IOException {
 		checkClosed();
@@ -373,7 +341,7 @@ public class CsvWriter implements Closeable {
 		if (useCustomRecordDelimiter) {
 			outputStream.write(userSettings.RecordDelimiter);
 		} else {
-			outputStream.write(systemRecordDelimiter);
+			outputStream.write(System.lineSeparator());
 		}
 
 		firstColumn = true;
@@ -428,7 +396,7 @@ public class CsvWriter implements Closeable {
 		if (useCustomRecordDelimiter) {
 			outputStream.write(userSettings.RecordDelimiter);
 		} else {
-			outputStream.write(systemRecordDelimiter);
+			outputStream.write(System.lineSeparator());
 		}
 
 		firstColumn = true;
@@ -468,14 +436,10 @@ public class CsvWriter implements Closeable {
 	 */
 	private void close(final boolean closing) {
 		if (!closed) {
-			if (closing) {
-				charset = null;
-			}
+			if (closing) { charset = null; }
 
 			try {
-				if (initialized) {
-					outputStream.close();
-				}
+				if (initialized) { outputStream.close(); }
 			} catch (final Exception e) {
 				// just eat the exception
 			}
@@ -492,11 +456,11 @@ public class CsvWriter implements Closeable {
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	private void checkClosed() throws IOException {
-		if (closed) { throw new IOException("This instance of the CsvWriter class has already been closed."); }
+		if (closed) throw new IOException("This instance of the CsvWriter class has already been closed.");
 	}
 
 	/**
-	 *
+	 * Finalize.
 	 */
 	@Override
 	protected void finalize() {
@@ -539,7 +503,7 @@ public class CsvWriter implements Closeable {
 	/**
 	 * The Class UserSettings.
 	 */
-	private class UserSettings {
+	private static class UserSettings {
 
 		// having these as publicly accessible members will prevent
 		/** The Text qualifier. */
@@ -581,9 +545,12 @@ public class CsvWriter implements Closeable {
 	/**
 	 * Replace.
 	 *
-	 * @param original the original
-	 * @param pattern the pattern
-	 * @param replace the replace
+	 * @param original
+	 *            the original
+	 * @param pattern
+	 *            the pattern
+	 * @param replace
+	 *            the replace
 	 * @return the string
 	 */
 	public static String replace(final String original, final String pattern, final String replace) {
@@ -591,7 +558,7 @@ public class CsvWriter implements Closeable {
 		int found = original.indexOf(pattern);
 
 		if (found > -1) {
-			final StringBuffer sb = new StringBuffer();
+			final StringBuilder sb = new StringBuilder();
 			int start = 0;
 
 			while (found != -1) {

@@ -10,7 +10,6 @@
  ********************************************************************************************************/
 package gama.util.file;
 
-import static org.apache.commons.lang.StringUtils.join;
 import static org.apache.commons.lang.StringUtils.splitByWholeSeparatorPreserveAllTokens;
 
 import java.io.IOException;
@@ -137,14 +136,14 @@ public class GamaShapeFile extends GamaGisFile {
 					try {
 						env = env.transform(new ProjectionFactory().getTargetCRS(scope), true);
 					} catch (final Exception e) {
-						if (store != null) { store.dispose(); }
+						store.dispose();
 						throw e;
 					}
 				}
 				try {
 					number = features.size();
 				} catch (final Exception e) {
-					if (store != null) { store.dispose(); }
+					store.dispose();
 					DEBUG.ERR("Error in loading shapefile: " + e.getMessage());
 				}
 				final java.util.List<AttributeDescriptor> att_list = store.getSchema().getAttributeDescriptors();
@@ -288,11 +287,11 @@ public class GamaShapeFile extends GamaGisFile {
 				system = "Unknown projection " + srs;
 
 			}
-			final String attributeNames = join(attributes.keySet(), SUB_DELIMITER);
-			final String types = join(attributes.values(), SUB_DELIMITER);
-			final Object[] toSave =
-					{ super.toPropertyString(), itemNumber, system, width, height, attributeNames, types };
-			return join(toSave, DELIMITER);
+			final String attributeNames = String.join(SUB_DELIMITER, attributes.keySet());
+			final String types = String.join(SUB_DELIMITER, attributes.values());
+			final String[] toSave = { super.toPropertyString(), String.valueOf(itemNumber), system,
+					String.valueOf(width), String.valueOf(height), attributeNames, types };
+			return String.join(DELIMITER, toSave);
 		}
 	}
 

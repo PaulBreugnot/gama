@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * WorkspaceModelsManager.java, in gama.ui.base, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * WorkspaceModelsManager.java, in gama.ui.base, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.base.workspace;
 
@@ -17,6 +17,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,6 +62,7 @@ import gama.core.application.workspace.WorkspaceManager;
 import gama.core.dev.utils.DEBUG;
 import gama.runtime.GAMA;
 
+// TODO: Auto-generated Javadoc
 /**
  * Class InitialModelOpener.
  *
@@ -70,20 +72,24 @@ import gama.runtime.GAMA;
  */
 public class WorkspaceModelsManager {
 
+	static {
+		DEBUG.ON();
+	}
+
 	/** The Constant GAMA_NATURE. */
-	public final static String GAMA_NATURE = "gama.core.application.gamaNature";
-	
+	public final static String GAMA_NATURE = "msi.gama.application.gamaNature";
+
 	/** The Constant XTEXT_NATURE. */
 	public final static String XTEXT_NATURE = "org.eclipse.xtext.ui.shared.xtextNature";
-	
+
 	/** The Constant PLUGIN_NATURE. */
-	public final static String PLUGIN_NATURE = "gama.core.application.pluginNature";
-	
+	public final static String PLUGIN_NATURE = "msi.gama.application.pluginNature";
+
 	/** The Constant TEST_NATURE. */
-	public final static String TEST_NATURE = "gama.core.application.testNature";
-	
+	public final static String TEST_NATURE = "msi.gama.application.testNature";
+
 	/** The Constant BUILTIN_NATURE. */
-	public final static String BUILTIN_NATURE = "gama.core.application.builtinNature";
+	public final static String BUILTIN_NATURE = "msi.gama.application.builtinNature";
 
 	/** The Constant BUILTIN_PROPERTY. */
 	public static final QualifiedName BUILTIN_PROPERTY = new QualifiedName("gama.builtin", "models");
@@ -92,10 +98,20 @@ public class WorkspaceModelsManager {
 	/** The Constant instance. */
 	public final static WorkspaceModelsManager instance = new WorkspaceModelsManager();
 
+	/** The workspace. */
+	final IWorkspace workspace = ResourcesPlugin.getWorkspace();
+
+	/** The location of the workspace. */
+	final IPath workspacePath = new Path(Platform.getInstanceLocation().getURL().getPath());
+
+	/** The folder of the workspace. */
+	final String workspaceLocation = workspacePath.toOSString();
+
 	/**
 	 * Open model passed as argument.
 	 *
-	 * @param modelPath the model path
+	 * @param modelPath
+	 *            the model path
 	 */
 	public void openModelPassedAsArgument(final String modelPath) {
 		// printAllGuaranteedProperties();
@@ -132,7 +148,7 @@ public class WorkspaceModelsManager {
 			while (GAMA.getRegularGui() == null) {
 				try {
 					Thread.sleep(100);
-					System.out.println(Thread.currentThread().getName() + ": waiting for the GUI to become available");
+					DEBUG.OUT(Thread.currentThread().getName() + ": waiting for the GUI to become available");
 				} catch (final InterruptedException e2) {
 					// TODO Auto-generated catch block
 					e2.printStackTrace();
@@ -156,11 +172,12 @@ public class WorkspaceModelsManager {
 	/**
 	 * Find and load I file.
 	 *
-	 * @param filePath the file path
+	 * @param filePath
+	 *            the file path
 	 * @return the i file
 	 */
 	private IFile findAndLoadIFile(final String filePath) {
-		// DEBUG.OUT("WorkspaceModelsManager.findAndLoadIFile " + filePath);
+		// GAMA.getGui().debug("WorkspaceModelsManager.findAndLoadIFile " + filePath);
 		// No error in case of an empty argument
 		if (isBlank(filePath)) return null;
 		final IPath path = new Path(filePath);
@@ -174,7 +191,8 @@ public class WorkspaceModelsManager {
 	/**
 	 * Checks if is blank.
 	 *
-	 * @param cs the cs
+	 * @param cs
+	 *            the cs
 	 * @return true, if is blank
 	 */
 	private boolean isBlank(final String cs) {
@@ -189,13 +207,12 @@ public class WorkspaceModelsManager {
 	/**
 	 * Find in workspace.
 	 *
-	 * @param originalPath the original path
+	 * @param originalPath
+	 *            the original path
 	 * @return the i file
 	 */
 	private IFile findInWorkspace(final IPath originalPath) {
 		// GAMA.getGui().debug("WorkspaceModelsManager.findInWorkspace " + originalPath);
-		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		final IPath workspacePath = new Path(Platform.getInstanceLocation().getURL().getPath());
 		final IPath filePath = originalPath.makeRelativeTo(workspacePath);
 		IFile file = null;
 		try {
@@ -210,7 +227,8 @@ public class WorkspaceModelsManager {
 	/**
 	 * Find outside workspace.
 	 *
-	 * @param originalPath the original path
+	 * @param originalPath
+	 *            the original path
 	 * @return the i file
 	 */
 	private IFile findOutsideWorkspace(final IPath originalPath) {
@@ -245,7 +263,6 @@ public class WorkspaceModelsManager {
 			return createUnclassifiedModelsProjectAndAdd(originalPath);
 		}
 
-		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		final IPath location = new Path(dotFile.getAbsolutePath());
 		final String pathToProject = projectFileBean.getName();
 
@@ -319,9 +336,11 @@ public class WorkspaceModelsManager {
 	/**
 	 * Creates the unclassified models project.
 	 *
-	 * @param location the location
+	 * @param location
+	 *            the location
 	 * @return the i folder
-	 * @throws CoreException the core exception
+	 * @throws CoreException
+	 *             the core exception
 	 */
 	public IFolder createUnclassifiedModelsProject(final IPath location) throws CoreException {
 		// First allow to select a parent folder
@@ -357,7 +376,8 @@ public class WorkspaceModelsManager {
 	/**
 	 * Creates the unclassified models project and add.
 	 *
-	 * @param location the location
+	 * @param location
+	 *            the location
 	 * @return the i file
 	 */
 	IFile createUnclassifiedModelsProjectAndAdd(final IPath location) {
@@ -392,8 +412,10 @@ public class WorkspaceModelsManager {
 	/**
 	 * Creates the unique file from.
 	 *
-	 * @param originalFile the original file
-	 * @param modelFolder the model folder
+	 * @param originalFile
+	 *            the original file
+	 * @param modelFolder
+	 *            the model folder
 	 * @return the i file
 	 */
 	private IFile createUniqueFileFrom(final IFile originalFile, final IFolder modelFolder) {
@@ -436,17 +458,17 @@ public class WorkspaceModelsManager {
 	/**
 	 * Load models library.
 	 */
-	public static void loadModelsLibrary() {
-		// while (!GamaBundleLoader.LOADED && !GamaBundleLoader.ERRORED) {
-		// try {
-		// Thread.sleep(100);
-		// // DEBUG.OUT("Waiting for GAML subsystem to load...");
-		// } catch (final InterruptedException e) {}
-		// }
-		// if (GamaBundleLoader.ERRORED) {
-		// GAMA.getGui().tell("Error in loading GAML language subsystem. Please consult the logs");
-		// return;
-		// }
+	public void loadModelsLibrary() {
+		while (!GamaBundleLoader.LOADED && !GamaBundleLoader.ERRORED) {
+			try {
+				Thread.sleep(100);
+				// DEBUG.OUT("Waiting for GAML subsystem to load...");
+			} catch (final InterruptedException e) {}
+		}
+		if (GamaBundleLoader.ERRORED) {
+			GAMA.getGui().inform("Error in loading GAML language subsystem. Please consult the logs");
+			return;
+		}
 		// DEBUG.OUT("Synchronous link of models library...");
 		final Multimap<Bundle, String> pluginsWithModels = GamaBundleLoader.getPluginsWithModels();
 		for (final Bundle plugin : pluginsWithModels.keySet()) {
@@ -460,17 +482,31 @@ public class WorkspaceModelsManager {
 				linkModelsToWorkspace(plugin, entry, true);
 			}
 		}
+		// If the directory is not empty, we should maybe try to recreate the projects (if they do not exist...)
+
+		try {
+			for (java.nio.file.Path r : Files.newDirectoryStream(java.nio.file.Path.of(workspaceLocation),
+					Files::isDirectory)) {
+				File folder = r.toFile();
+				if (isGamaProject(folder)) { createOrUpdateProject(folder.getName()); }
+			}
+		} catch (IOException | CoreException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	/**
 	 * Link models to workspace.
 	 *
-	 * @param bundle the bundle
-	 * @param path the path
-	 * @param tests the tests
+	 * @param bundle
+	 *            the bundle
+	 * @param path
+	 *            the path
+	 * @param tests
+	 *            the tests
 	 */
 
-	private static void linkModelsToWorkspace(final Bundle bundle, final String path, final boolean tests) {
+	private void linkModelsToWorkspace(final Bundle bundle, final String path, final boolean tests) {
 		// DEBUG.OUT("Linking library from bundle " + bundle.getSymbolicName() + " at path " + path);
 		final boolean core = bundle.equals(GamaBundleLoader.CORE_MODELS);
 		final URL fileURL = bundle.getEntry(path);
@@ -499,10 +535,12 @@ public class WorkspaceModelsManager {
 	/**
 	 * Find projects.
 	 *
-	 * @param folder the folder
-	 * @param found the found
+	 * @param folder
+	 *            the folder
+	 * @param found
+	 *            the found
 	 */
-	private static void findProjects(final File folder, final Map<File, IPath> found) {
+	private void findProjects(final File folder, final Map<File, IPath> found) {
 		if (folder == null) return;
 		final File[] dotFile = folder.listFiles(isDotFile);
 		if (dotFile == null) return;
@@ -522,14 +560,17 @@ public class WorkspaceModelsManager {
 	/**
 	 * Import built in projects.
 	 *
-	 * @param plugin the plugin
-	 * @param core the core
-	 * @param tests the tests
-	 * @param projects the projects
+	 * @param plugin
+	 *            the plugin
+	 * @param core
+	 *            the core
+	 * @param tests
+	 *            the tests
+	 * @param projects
+	 *            the projects
 	 */
-	private static void importBuiltInProjects(final Bundle plugin, final boolean core, final boolean tests,
+	private void importBuiltInProjects(final Bundle plugin, final boolean core, final boolean tests,
 			final Map<File, IPath> projects) {
-		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
 		for (final Map.Entry<File, IPath> entry : projects.entrySet()) {
 			final File project = entry.getKey();
 			final IPath location = entry.getValue();
@@ -563,20 +604,20 @@ public class WorkspaceModelsManager {
 	/**
 	 * Creates the or update project.
 	 *
-	 * @param name the name
+	 * @param name
+	 *            the name
 	 * @return the i project
 	 */
-	static public IProject createOrUpdateProject(final String name) {
-		final IWorkspace ws = ResourcesPlugin.getWorkspace();
+	public IProject createOrUpdateProject(final String name) {
 		final IProject[] projectHandle = { null };
 		final WorkspaceModifyOperation op = new WorkspaceModifyOperation() {
 
 			@Override
 			protected void execute(final IProgressMonitor monitor) throws CoreException {
 				final SubMonitor m = SubMonitor.convert(monitor, "Creating or updating " + name, 2000);
-				final IProject project = ws.getRoot().getProject(name);
+				final IProject project = workspace.getRoot().getProject(name);
 				if (!project.exists()) {
-					final IProjectDescription desc = ws.newProjectDescription(name);
+					final IProjectDescription desc = workspace.newProjectDescription(name);
 					project.create(desc, m.split(1000));
 				}
 				if (monitor.isCanceled()) throw new OperationCanceledException();
@@ -603,13 +644,18 @@ public class WorkspaceModelsManager {
 	/**
 	 * Sets the values project description.
 	 *
-	 * @param proj the proj
-	 * @param builtin the builtin
-	 * @param inPlugin the in plugin
-	 * @param inTests the in tests
-	 * @param bundle the bundle
+	 * @param proj
+	 *            the proj
+	 * @param builtin
+	 *            the builtin
+	 * @param inPlugin
+	 *            the in plugin
+	 * @param inTests
+	 *            the in tests
+	 * @param bundle
+	 *            the bundle
 	 */
-	static public void setValuesProjectDescription(final IProject proj, final boolean builtin, final boolean inPlugin,
+	public void setValuesProjectDescription(final IProject proj, final boolean builtin, final boolean inPlugin,
 			final boolean inTests, final Bundle bundle) {
 		/* Modify the project description */
 		IProjectDescription desc = null;
@@ -657,20 +703,17 @@ public class WorkspaceModelsManager {
 	/**
 	 * Stamp workspace from models.
 	 */
-	public static void stampWorkspaceFromModels() {
-		final IWorkspace workspace = ResourcesPlugin.getWorkspace();
+	public void stampWorkspaceFromModels() {
 		try {
 			final String stamp = WorkspaceManager.getCurrentGamaStampString();
 			final IWorkspaceRoot root = workspace.getRoot();
 			final String oldStamp = root.getPersistentProperty(BUILTIN_PROPERTY);
 			if (oldStamp != null) {
-				final File stampFile =
-						new File(new Path(root.getLocation().toOSString() + File.separator + oldStamp).toOSString());
+				final File stampFile = new File(new Path(workspaceLocation + File.separator + oldStamp).toOSString());
 				if (stampFile.exists()) { stampFile.delete(); }
 			}
 			root.setPersistentProperty(BUILTIN_PROPERTY, stamp);
-			final File stampFile =
-					new File(new Path(root.getLocation().toOSString() + File.separator + stamp).toOSString());
+			final File stampFile = new File(new Path(workspaceLocation + File.separator + stamp).toOSString());
 			if (!stampFile.exists()) { stampFile.createNewFile(); }
 		} catch (final CoreException | IOException e) {
 			e.printStackTrace();
@@ -680,9 +723,11 @@ public class WorkspaceModelsManager {
 	/**
 	 * Checks if is gama project.
 	 *
-	 * @param f the f
+	 * @param f
+	 *            the f
 	 * @return true, if is gama project
-	 * @throws CoreException the core exception
+	 * @throws CoreException
+	 *             the core exception
 	 */
 	public boolean isGamaProject(final File f) throws CoreException {
 		final String[] list = f.list();
@@ -691,7 +736,7 @@ public class WorkspaceModelsManager {
 				if (".project".equals(s)) {
 					IPath p = new Path(f.getAbsolutePath());
 					p = p.append(".project");
-					final IProjectDescription pd = ResourcesPlugin.getWorkspace().loadProjectDescription(p);
+					final IProjectDescription pd = workspace.loadProjectDescription(p);
 					if (pd.hasNature(WorkspaceModelsManager.GAMA_NATURE)) return true;
 				}
 			}

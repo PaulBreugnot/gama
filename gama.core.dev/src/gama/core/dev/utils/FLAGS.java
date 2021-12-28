@@ -19,6 +19,10 @@ package gama.core.dev.utils;
  * to change this default value (e.g. -Denable_logging=false). Note that preferences can also be set as system
  * properties using the same syntax
  *
+ * DEFAULTS: -Denable_logging=true -Duse_old_animator=true -Duse_old_sync_strategy=false
+ * -Duse_global_preference_store=true -Duse_precise_autoscale=false -Dread_only=false -Duse_old_tabs=true
+ * -Duse_legacy_drawers=false -Duse_delayed_resize=false -Duse_native_opengl_window=true
+ *
  *
  * @author A. Drogoul Aug. 2021
  *
@@ -48,9 +52,17 @@ public class FLAGS {
 
 	/**
 	 * Used in DEBUG, set to true to enable logging activities (which will follow the declaration of DEBUG.ON() on the
-	 * classes). Set to false to suppress all logging. True by default. KEEP IT THE FIRST PROPERTY
+	 * classes). Set to false to suppress all logging. True by default.
+	 *
+	 * Important to KEEP IT THE FIRST PROPERTY
 	 */
 	public static final boolean ENABLE_LOGGING = get("enable_logging", true);
+
+	/**
+	 * Used in ummisco.gama.opengl.OpenGL to impose the use of the "legacy" text and mesh drawers (ie without VBO/VBA).
+	 * False by default.
+	 */
+	public static final boolean USE_LEGACY_DRAWERS = get("use_legacy_drawers", false);
 
 	/**
 	 * For debugging purposes, see #3164. True by default until bugs on Linux regarding the use of multiple threads in

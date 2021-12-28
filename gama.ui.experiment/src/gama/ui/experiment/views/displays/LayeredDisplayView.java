@@ -46,6 +46,7 @@ import gama.ui.base.resources.GamaIcons;
 import gama.ui.base.resources.IGamaColors;
 import gama.ui.base.toolbar.GamaToolbar2;
 import gama.ui.base.toolbar.IToolbarDecoratedView;
+import gama.ui.base.utils.ViewsHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.base.views.GamaViewPart;
 
@@ -543,18 +544,12 @@ public abstract class LayeredDisplayView extends GamaViewPart
 
 	/**
 	 * Show overlay.
+	 *
+	 * @param show the show
 	 */
 	@Override
-	public void showOverlay() {
-		decorator.overlay.setVisible(true);
-	}
-
-	/**
-	 * Hide overlay.
-	 */
-	@Override
-	public void hideOverlay() {
-		decorator.overlay.setVisible(false);
+	public void showOverlay(final boolean show) {
+		decorator.overlay.setVisible(show);
 	}
 
 	/**
@@ -585,7 +580,7 @@ public abstract class LayeredDisplayView extends GamaViewPart
 		WorkbenchHelper.asyncRun(() -> {
 			try {
 				if (getDisplaySurface() != null) { getDisplaySurface().dispose(); }
-				WorkbenchHelper.hideView(this);
+				ViewsHelper.hideView(this);
 			} catch (final Exception e) {}
 		});
 

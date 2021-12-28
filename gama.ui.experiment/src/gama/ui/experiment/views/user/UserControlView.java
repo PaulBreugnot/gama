@@ -40,7 +40,7 @@ import gama.ui.base.resources.GamaIcons;
 import gama.ui.base.resources.IGamaColors;
 import gama.ui.base.resources.IGamaIcons;
 import gama.ui.base.toolbar.GamaToolbar2;
-import gama.ui.base.utils.WorkbenchHelper;
+import gama.ui.base.utils.ViewsHelper;
 import gama.ui.base.views.GamaViewPart;
 import gaml.architecture.user.UserInputStatement;
 import gaml.architecture.user.UserPanelStatement;
@@ -71,8 +71,10 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 	/**
 	 * Inits the for.
 	 *
-	 * @param scope the scope
-	 * @param panel the panel
+	 * @param scope
+	 *            the scope
+	 * @param panel
+	 *            the panel
 	 */
 	@Override
 	public void initFor(final IScope scope, final UserPanelStatement panel) {
@@ -107,7 +109,8 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 	/**
 	 * Own create part control.
 	 *
-	 * @param parent the parent
+	 * @param parent
+	 *            the parent
 	 */
 	@Override
 	public void ownCreatePartControl(final Composite parent) {
@@ -173,13 +176,14 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 	protected void doContinue() {
 		scope.setOnUserHold(false);
 		deactivate(getParentComposite());
-		WorkbenchHelper.hideView(this);
+		ViewsHelper.hideView(this);
 	}
 
 	/**
 	 * Widget disposed.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 */
 	@Override
 	public void widgetDisposed(final DisposeEvent e) {
@@ -212,7 +216,8 @@ public class UserControlView extends GamaViewPart implements IGamaView.User {
 	/**
 	 * Method createToolItem().
 	 *
-	 * @param tb the tb
+	 * @param tb
+	 *            the tb
 	 * @see gama.ui.views.toolbar.IToolbarDecoratedView#createToolItem(int, gama.ui.views.toolbar.GamaToolbar2)
 	 */
 	@Override

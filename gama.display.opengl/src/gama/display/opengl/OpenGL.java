@@ -46,6 +46,7 @@ import gama.common.geometry.Scaling3D;
 import gama.common.geometry.UnboundedCoordinateSequence;
 import gama.common.preferences.GamaPreferences;
 import gama.core.dev.utils.DEBUG;
+import gama.core.dev.utils.FLAGS;
 import gama.display.opengl.renderer.IOpenGLRenderer;
 import gama.display.opengl.renderer.caches.GeometryCache;
 import gama.display.opengl.renderer.caches.GeometryCache.BuiltInGeometry;
@@ -57,8 +58,12 @@ import gama.display.opengl.renderer.helpers.PickingHelper;
 import gama.display.opengl.scene.AbstractObject;
 import gama.display.opengl.scene.ObjectDrawer;
 import gama.display.opengl.scene.geometry.GeometryDrawer;
+import gama.display.opengl.scene.mesh.LegacyMeshDrawer;
 import gama.display.opengl.scene.mesh.MeshDrawer;
+import gama.display.opengl.scene.mesh.MeshObject;
 import gama.display.opengl.scene.resources.ResourceDrawer;
+import gama.display.opengl.scene.text.LegacyTextDrawer;
+import gama.display.opengl.scene.text.StringObject;
 import gama.display.opengl.scene.text.TextDrawer;
 import gama.metamodel.shape.GamaPoint;
 import gama.metamodel.shape.IShape;
@@ -101,10 +106,10 @@ public class OpenGL extends AbstractRendererHelper implements ITesselator {
 	private final GeometryDrawer geometryDrawer;
 
 	/** The string drawer. */
-	private final TextDrawer stringDrawer;
+	private final ObjectDrawer<StringObject> stringDrawer;
 
 	/** The field drawer. */
-	private final MeshDrawer fieldDrawer;
+	private final ObjectDrawer<MeshObject> fieldDrawer;
 
 	/** The resource drawer. */
 	private final ResourceDrawer resourceDrawer;
@@ -242,8 +247,8 @@ public class OpenGL extends AbstractRendererHelper implements ITesselator {
 		GLU.gluTessCallback(tobj, GLU.GLU_TESS_END, this);
 		GLU.gluTessProperty(tobj, GLU.GLU_TESS_TOLERANCE, 0.1);
 		geometryDrawer = new GeometryDrawer(this);
-		fieldDrawer = new MeshDrawer(this);
-		stringDrawer = new TextDrawer(this);
+		fieldDrawer = FLAGS.USE_LEGACY_DRAWERS ? new LegacyMeshDrawer(this) : new MeshDrawer(this);
+		stringDrawer = FLAGS.USE_LEGACY_DRAWERS ? new LegacyTextDrawer(this) : new TextDrawer(this);
 		resourceDrawer = new ResourceDrawer(this);
 	}
 

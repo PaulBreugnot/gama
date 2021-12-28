@@ -11,7 +11,6 @@
 package gama.ui.experiment.commands;
 
 import static gama.common.interfaces.IKeyword.LAYOUT;
-import static gama.ui.base.utils.WorkbenchHelper.findDisplay;
 import static gaml.operators.Displays.HORIZONTAL;
 import static gaml.operators.Displays.VERTICAL;
 import static org.eclipse.e4.ui.model.application.ui.basic.MBasicFactory.INSTANCE;
@@ -36,6 +35,7 @@ import gama.common.preferences.GamaPreferences;
 import gama.common.ui.IGamaView;
 import gama.core.dev.utils.DEBUG;
 import gama.ui.base.utils.PerspectiveHelper;
+import gama.ui.base.utils.ViewsHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 import gama.util.tree.GamaNode;
 import gama.util.tree.GamaTree;
@@ -203,21 +203,10 @@ public class ArrangeDisplayViews extends AbstractHandler {
 	 * Decorate displays.
 	 */
 	public static void decorateDisplays() {
-		WorkbenchHelper.getDisplayViews().forEach(v -> {
+		ViewsHelper.getDisplayViews(null).forEach(v -> {
 			final Boolean tb = PerspectiveHelper.keepToolbars();
-			if (tb != null) {
-				if (tb) {
-					v.showToolbar();
-				} else {
-					v.hideToolbar();
-				}
-			}
-			if (PerspectiveHelper.showOverlays()) {
-				v.showOverlay();
-			} else {
-				v.hideOverlay();
-			}
-
+			if (tb != null) { v.showToolbar(tb); }
+			v.showOverlay(PerspectiveHelper.showOverlays());
 		});
 	}
 
@@ -282,11 +271,11 @@ public class ArrangeDisplayViews extends AbstractHandler {
 	 */
 	static final List<MPlaceholder> listDisplayViews() {
 		final List<MPlaceholder> holders = getModelService().findElements(getApplication(), MPlaceholder.class,
-				IN_ACTIVE_PERSPECTIVE, e -> WorkbenchHelper.isDisplay(e.getElementId()));
+				IN_ACTIVE_PERSPECTIVE, e -> ViewsHelper.isDisplay(e.getElementId()));
 		/// Issue #2680
 		int currentIndex = 0;
 		for (final MPlaceholder h : holders) {
-			final IGamaView.Display display = findDisplay(h.getElementId());
+			final IGamaView.Display display = ViewsHelper.findDisplay(h.getElementId());
 			if (display != null) {
 				display.setIndex(currentIndex);
 				currentIndex++;

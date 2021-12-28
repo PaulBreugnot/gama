@@ -11,6 +11,8 @@
 package gama.common.preferences;
 
 import static gama.common.preferences.GamaPreferenceStore.getStore;
+import static gama.runtime.PlatformHelper.isLinux;
+import static gama.runtime.PlatformHelper.isMac;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -672,8 +674,7 @@ public class GamaPreferences {
 						() -> new GenericFile("Enter path", false), IType.FILE, true).in(NAME, PATHS);
 
 		/** The Constant jriFile. */
-		public static final String jriFile = System.getProperty("os.name").startsWith("Mac") ? "libjri.jnilib"
-				: System.getProperty("os.name").startsWith("Linux") ? "libjri.so" : "jri.dll";
+		public static final String jriFile = isMac() ? "libjri.jnilib" : isLinux() ? "libjri.so" : "jri.dll";
 
 		/** The Constant LIB_R. */
 		public static final Pref<? extends IGamaFile> LIB_R = create("pref_lib_r",
@@ -737,12 +738,9 @@ public class GamaPreferences {
 		 */
 		// "C:\\Program Files\\R\\R-2.15.1\\bin\\Rscript.exe"
 		private static String getDefaultRPath() {
-			final var os = System.getProperty("os.name");
-			if (os.startsWith("Mac"))
-				return "/Library/Frameworks/R.framework/Resources/library/rJava/jri/libjri.jnilib";
-			if (os.startsWith("Linux")) return "/usr/local/lib/libjri.so";
-			if (os.startsWith("Windows")) return "C:\\Program Files\\R\\R-3.4.0\\library\\rJava\\jri\\jri.dll";
-			return "";
+			if (isMac()) return "/Library/Frameworks/R.framework/Resources/library/rJava/jri/libjri.jnilib";
+			if (isLinux()) return "/usr/local/lib/libjri.so";
+			return "C:\\Program Files\\R\\R-3.4.0\\library\\rJava\\jri\\jri.dll";
 		}
 	}
 

@@ -10,8 +10,6 @@
  ********************************************************************************************************/
 package gama.ui.base.utils;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 
@@ -27,7 +25,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -35,14 +32,13 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.commands.ICommandService;
 import org.eclipse.ui.handlers.IHandlerService;
-import org.eclipse.ui.internal.Workbench;
 import org.eclipse.ui.internal.WorkbenchWindow;
 import org.eclipse.ui.progress.UIJob;
 
@@ -51,11 +47,10 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 
 import gama.common.ui.IGamaView;
-import gama.common.ui.IGui;
+import gama.common.ui.IGamaView.Display.InnerComponent;
 import gama.core.dev.utils.DEBUG;
 import gama.ui.base.interfaces.IGamlEditor;
 import gama.ui.base.workspace.WorkspaceModelsManager;
-import one.util.streamex.StreamEx;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -152,15 +147,34 @@ public class WorkbenchHelper {
 	}
 
 	/**
+	 * Run.
+	 *
+	 * @param <T> the generic type
+	 * @param r            the r
+	 * @return the t
+	 */
+	public static <T> T run(final Callable<T> r) {
+		final Display d = getDisplay();
+		if (d == null || d.isDisposed() || d.getThread() == Thread.currentThread()) {
+			try {
+				return r.call();
+			} catch (Exception e1) {}
+		}
+		Object[] result = new Object[1];
+		d.syncExec(() -> {
+			try {
+				result[0] = r.call();
+			} catch (Exception e) {}
+		});
+		return (T) result[0];
+	}
+
+	/**
 	 * Gets the display.
 	 *
 	 * @return the display
 	 */
-	public static Display getDisplay() {
-		IWorkbench w = getWorkbench();
-		if (w == null) return Display.getDefault();
-		return w.getDisplay();
-	}
+	public static Display getDisplay() { return getWorkbench().getDisplay(); }
 
 	/**
 	 * Gets the page.
@@ -178,7 +192,10 @@ public class WorkbenchHelper {
 	 *
 	 * @return the shell
 	 */
-	public static Shell getShell() { return getDisplay().getActiveShell(); }
+	public static Shell getShell() {
+
+		return getDisplay().getActiveShell();
+	}
 
 	/**
 	 * Gets the window.
@@ -229,73 +246,7 @@ public class WorkbenchHelper {
 	 *
 	 * @return the workbench
 	 */
-	public static IWorkbench getWorkbench() { return Workbench.getInstance(); }
-
-	/**
-	 * Find display.
-	 *
-	 * @param id
-	 *            the id
-	 * @return the i gama view. display
-	 */
-	public static IGamaView.Display findDisplay(final String id) {
-		final IWorkbenchPage page = WorkbenchHelper.getPage();
-		if (page == null) return null;
-		final IViewReference ref = page.findViewReference(id);
-		if (ref == null) return null;
-		final IViewPart view = ref.getView(false);
-		if (view instanceof IGamaView.Display) return (IGamaView.Display) view;
-		return null;
-	}
-
-	/**
-	 * Checks if is display.
-	 *
-	 * @param id
-	 *            the id
-	 * @return true, if is display
-	 */
-	public static boolean isDisplay(final String id) {
-		if (!id.startsWith(IGui.GL_LAYER_VIEW_ID) && !id.startsWith(IGui.LAYER_VIEW_ID)) return false;
-		final IWorkbenchPage page = WorkbenchHelper.getPage();
-		if (page == null) return false;
-		final IViewReference ref = page.findViewReference(id);
-		return ref != null;
-		// final IViewPart view = ref.getView(false);
-		// if (view instanceof IGamaView.Display) { return (IGamaView.Display) view; }
-		// return <
-	}
-
-	/**
-	 * Find view.
-	 *
-	 * @param id
-	 *            the id
-	 * @param second
-	 *            the second
-	 * @param restore
-	 *            the restore
-	 * @return the i view part
-	 */
-	public static IViewPart findView(final String id, final String second, final boolean restore) {
-		final IWorkbenchPage page = WorkbenchHelper.getPage();
-		if (page == null) return null;
-		final IViewReference ref = page.findViewReference(id, second);
-		if (ref == null) return null;
-		return ref.getView(restore);
-	}
-
-	/**
-	 * Gets the display views.
-	 *
-	 * @return the display views
-	 */
-	public static List<IGamaView.Display> getDisplayViews() {
-		final IWorkbenchPage page = WorkbenchHelper.getPage();
-		if (page == null) return Collections.EMPTY_LIST;
-		return StreamEx.of(page.getViewReferences()).map(v -> v.getView(false)).select(IGamaView.Display.class)
-				.toList();
-	}
+	public static IWorkbench getWorkbench() { return PlatformUI.getWorkbench(); }
 
 	/**
 	 * Sets the workbench window title.
@@ -307,39 +258,6 @@ public class WorkbenchHelper {
 		asyncRun(() -> {
 			if (WorkbenchHelper.getShell() != null) { WorkbenchHelper.getShell().setText(title); }
 		});
-
-	}
-
-	/**
-	 * Hide view.
-	 *
-	 * @param id
-	 *            the id
-	 */
-	public static void hideView(final String id) {
-
-		run(() -> {
-			final IWorkbenchPage activePage = getPage();
-			if (activePage == null) return;
-			final IViewReference view = activePage.findViewReference(id);
-			if (view != null) {
-				IWorkbenchPart part = view.getPart(false);
-				if (part != null && activePage.isPartVisible(part)) { activePage.hideView((IViewPart) part); }
-			}
-		});
-
-	}
-
-	/**
-	 * Hide view.
-	 *
-	 * @param gamaViewPart
-	 *            the gama view part
-	 */
-	public static void hideView(final IViewPart gamaViewPart) {
-		final IWorkbenchPage activePage = getPage();
-		if (activePage == null) return;
-		activePage.hideView(gamaViewPart);
 
 	}
 
@@ -370,33 +288,29 @@ public class WorkbenchHelper {
 	 */
 	public static void copy(final String o) {
 		final Runnable r = () -> getClipboard().setContents(new String[] { o }, TRANSFERS);
-		// if (isDisplayThread()) {
-		// r.run();
-		// } else {
 		asyncRun(r);
-		// }
 	}
 
 	/**
-	 * Find frontmost gama view under mouse.
+	 * Toggle full screen mode. Tries to put the frontmost display in full screen mode or in normal view mode if it is
+	 * already in full screen
 	 *
-	 * @return the i view part
-	 * @todo find a more robust way to find the view (maybe with the control ?)
+	 * @return true, if successful
 	 */
-	public static IViewPart findFrontmostGamaViewUnderMouse() {
-		final IWorkbenchPage page = getPage();
-		if (page == null) return null;
-		final Point p = getDisplay().getCursorLocation();
-		final List<IGamaView.Display> displays = StreamEx.of(page.getViewReferences()).map(r -> r.getView(false))
-				.filter(part -> page.isPartVisible(part)).select(IGamaView.Display.class)
-				.filter(display -> display.containsPoint(p.x, p.y)).toList();
-		if (displays.isEmpty()) return null;
-		if (displays.size() == 1) return (IViewPart) displays.get(0);
-		for (final IGamaView.Display display : displays) {
-			if (display.isFullScreen()) return (IViewPart) display;
+	public static boolean toggleFullScreenMode() {
+		Control c = run(() -> getDisplay().getCursorControl());
+		if (c instanceof InnerComponent) {
+			// DEBUG.OUT("Toggling from inner component ");
+			asyncRun(() -> ((InnerComponent) c).getView().toggleFullScreen());
+			return true;
 		}
-		// Strange: n views, none of them fullscreen, claiming to contain the mouse pointer...
-		return (IViewPart) displays.get(0);
+		final IViewPart part = run(ViewsHelper::findFrontmostGamaViewUnderMouse);
+		if (part instanceof IGamaView.Display) {
+			// DEBUG.OUT("Toggling from view ");
+			asyncRun(() -> ((IGamaView.Display) part).toggleFullScreen());
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -517,30 +431,10 @@ public class WorkbenchHelper {
 	}
 
 	/**
-	 * Run.
-	 *
-	 * @param <T>
-	 *            the generic type
-	 * @param r
-	 *            the r
-	 * @return the t
+	 * Close.
 	 */
-	public static <T> T run(final Callable<T> r) {
-		final Display d = getDisplay();
-		if (d == null || d.isDisposed() || d.getThread() == Thread.currentThread()) {
-			try {
-				return r.call();
-			} catch (Exception e1) {}
-		}
-		Object[] result = new Object[1];
-		if (d != null) {
-			d.syncExec(() -> {
-				try {
-					result[0] = r.call();
-				} catch (Exception e) {}
-			});
-		}
-		return (T) result[0];
+	public static void close() {
+		asyncRun(() -> getWorkbench().close());
 	}
 
 }

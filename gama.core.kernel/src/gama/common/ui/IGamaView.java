@@ -33,14 +33,11 @@ import gaml.statements.test.CompoundSummary;
 public interface IGamaView {
 
 	/**
-	 * Hide toolbar.
-	 */
-	void hideToolbar();
-
-	/**
 	 * Show toolbar.
+	 *
+	 * @param show the show
 	 */
-	void showToolbar();
+	void showToolbar(boolean show);
 
 	/**
 	 * Update.
@@ -211,13 +208,10 @@ public interface IGamaView {
 
 		/**
 		 * Show overlay.
+		 *
+		 * @param show the show
 		 */
-		void showOverlay();
-
-		/**
-		 * Hide overlay.
-		 */
-		void hideOverlay();
+		void showOverlay(boolean show);
 
 		/**
 		 * Gets the output.

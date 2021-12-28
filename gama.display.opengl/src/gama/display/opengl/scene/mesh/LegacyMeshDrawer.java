@@ -1,7 +1,7 @@
 /*******************************************************************************************************
  *
- * MeshDrawer.java, in gama.display.opengl, is part of the source code of the GAMA modeling and simulation platform
- * (v.2.0.0).
+ * LegacyMeshDrawer.java, in ummisco.gama.opengl, is part of the source code of the GAMA modeling and simulation
+ * platform (v.1.8.2).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
@@ -21,7 +21,6 @@ import java.util.Locale;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2ES2;
 import com.jogamp.opengl.GL2GL3;
-import com.jogamp.opengl.fixedfunc.GLPointerFunc;
 import com.jogamp.opengl.util.gl2.GLUT;
 
 import gama.common.geometry.ICoordinates;
@@ -40,7 +39,7 @@ import gaml.statements.draw.IMeshColorProvider;
  * @since 15 mai 2013
  *
  */
-public class MeshDrawer extends ObjectDrawer<MeshObject> {
+public class LegacyMeshDrawer extends ObjectDrawer<MeshObject> {
 
 	// ARRAYS
 	/** The data. */
@@ -88,7 +87,7 @@ public class MeshDrawer extends ObjectDrawer<MeshObject> {
 
 	/** The rgb. */
 	// An array used for the transfer of colors from the color provider
-	double[] rgb = new double[3];
+	private final double[] rgb = new double[3];
 
 	/** The fill. */
 	// The provider of color for the vertices
@@ -99,23 +98,23 @@ public class MeshDrawer extends ObjectDrawer<MeshObject> {
 	// NORMALS
 	/** The quad normals. */
 	// The normals used for quads drawing
-	final double[] quadNormals = { 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1 };
+	final private double[] quadNormals = { 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1 };
 
 	/** The surface. */
 	// The temporary coordinate sequence used to hold vertices to compute normals
-	final ICoordinates surface = ICoordinates.ofLength(9);
+	final private ICoordinates surface = ICoordinates.ofLength(9);
 
 	/** The normal. */
 	// The temporary transfer value for the normal
-	final GamaPoint normal = new GamaPoint();
+	final private GamaPoint normal = new GamaPoint();
 
 	/**
-	 * Instantiates a new mesh drawer.
+	 * Instantiates a new legacy mesh drawer.
 	 *
 	 * @param gl
 	 *            the gl
 	 */
-	public MeshDrawer(final OpenGL gl) {
+	public LegacyMeshDrawer(final OpenGL gl) {
 		super(gl);
 		// layerAlpha = gl.getCurrentObjectAlpha();
 	}
@@ -123,7 +122,8 @@ public class MeshDrawer extends ObjectDrawer<MeshObject> {
 	/**
 	 * Draw.
 	 *
-	 * @param object the object
+	 * @param object
+	 *            the object
 	 */
 	@Override
 	protected void _draw(final MeshObject object) {
@@ -153,7 +153,7 @@ public class MeshDrawer extends ObjectDrawer<MeshObject> {
 		this.cx = attributes.getCellSize().x;
 		this.cy = attributes.getCellSize().y;
 
-		this.withText = attributes.isWithText();
+		withText = attributes.isWithText();
 		this.triangles = attributes.isTriangulated();
 
 		initializeBuffers();
@@ -283,95 +283,43 @@ public class MeshDrawer extends ObjectDrawer<MeshObject> {
 	}
 
 	/**
-	 * Draw field fallback.
+	 * Draw field.
 	 */
-	public void drawFieldFallback() {
+	public void drawField() {
 		if (vertexBuffer.limit() == 0) return;
 		final var ogl = gl.getGL();
 		// Forcing alpha
 		ogl.glBlendColor(0.0f, 0.0f, 0.0f, (float) gl.getCurrentObjectAlpha());
 		ogl.glBlendFunc(GL2ES2.GL_CONSTANT_ALPHA, GL2ES2.GL_ONE_MINUS_CONSTANT_ALPHA);
 		gl.beginDrawing(GL.GL_TRIANGLES);
-		for (var index = 0; index < indexBuffer.limit(); index++) {
-			var i = indexBuffer.get(index);
-			int one = i * 3, two = i * 3 + 1, three = i * 3 + 2;
-			if (!gl.isWireframe() && outputsColors) {
-				// TODO Bug when using a gradient: some color components are outside the range
-				gl.setCurrentColor(colorBuffer.get(one), colorBuffer.get(two), colorBuffer.get(three), 1);
-			}
-			if (outputsTextures) { gl.outputTexCoord(texBuffer.get(i * 2), texBuffer.get(i * 2 + 1)); }
-			gl.outputNormal(normalBuffer.get(one), normalBuffer.get(two), normalBuffer.get(three));
-			ogl.glVertex3d(vertexBuffer.get(one), vertexBuffer.get(two), vertexBuffer.get(three));
-		}
-		if (outputsLines) {
-			ogl.glPolygonMode(GL.GL_FRONT_AND_BACK, GL2GL3.GL_LINE);
+		try {
 			for (var index = 0; index < indexBuffer.limit(); index++) {
 				var i = indexBuffer.get(index);
-				gl.setCurrentColor(lineColorBuffer.get(i * 3), lineColorBuffer.get(i * 3 + 1),
-						lineColorBuffer.get(i + 1), 1);
-				gl.outputVertex(vertexBuffer.get(i * 3), vertexBuffer.get(i * 3 + 1), vertexBuffer.get(i * 3 + 2));
-			}
-			ogl.glPolygonMode(GL.GL_FRONT_AND_BACK, GL2GL3.GL_FILL);
-		}
-		gl.endDrawing();
-		ogl.glBlendColor(0.0f, 0.0f, 0.0f, 0.0f);
-		ogl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
-		if (withText) { drawLabels(gl); }
-	}
-
-	/**
-	 * Draw field.
-	 */
-	public void drawField() {
-		// AD - See issue #3125
-		if (gl.isRenderingKeystone()) {
-			drawFieldFallback();
-			return;
-		}
-		if (vertexBuffer.limit() == 0) return;
-		final var ogl = gl.getGL();
-		// Forcing alpha
-		ogl.glBlendColor(0.0f, 0.0f, 0.0f, (float) gl.getCurrentObjectAlpha());
-		ogl.glBlendFunc(GL2ES2.GL_CONSTANT_ALPHA, GL2ES2.GL_ONE_MINUS_CONSTANT_ALPHA);
-
-		gl.enable(GLPointerFunc.GL_VERTEX_ARRAY);
-		gl.enable(GLPointerFunc.GL_NORMAL_ARRAY);
-		if (outputsTextures) {
-			gl.enable(GLPointerFunc.GL_TEXTURE_COORD_ARRAY);
-		} else {
-			ogl.glDisable(GL.GL_TEXTURE_2D);
-		}
-		if (outputsColors) { gl.enable(GLPointerFunc.GL_COLOR_ARRAY); }
-		try {
-			ogl.glVertexPointer(3, GL2GL3.GL_DOUBLE, 0, vertexBuffer);
-			ogl.glNormalPointer(GL2GL3.GL_DOUBLE, 0, normalBuffer);
-
-			if (outputsTextures) { ogl.glTexCoordPointer(2, GL2GL3.GL_DOUBLE, 0, texBuffer); }
-			if (outputsColors) { ogl.glColorPointer(3, GL2GL3.GL_DOUBLE, 0, colorBuffer); }
-
-			if (!gl.isWireframe()) {
-				ogl.glDrawElements(GL.GL_TRIANGLES, indexBuffer.limit(), GL.GL_UNSIGNED_INT, indexBuffer);
+				int one = i * 3, two = i * 3 + 1, three = i * 3 + 2;
+				if (!gl.isWireframe() && outputsColors) {
+					// TODO Bug when using a gradient: some color components are outside the range
+					gl.setCurrentColor(colorBuffer.get(one), colorBuffer.get(two), colorBuffer.get(three), 1);
+				}
+				if (outputsTextures) { gl.outputTexCoord(texBuffer.get(i * 2), texBuffer.get(i * 2 + 1)); }
+				gl.outputNormal(normalBuffer.get(one), normalBuffer.get(two), normalBuffer.get(three));
+				ogl.glVertex3d(vertexBuffer.get(one), vertexBuffer.get(two), vertexBuffer.get(three));
 			}
 			if (outputsLines) {
-				if (!outputsColors) { gl.enable(GLPointerFunc.GL_COLOR_ARRAY); }
-				ogl.glColorPointer(3, GL2GL3.GL_DOUBLE, 0, lineColorBuffer);
 				ogl.glPolygonMode(GL.GL_FRONT_AND_BACK, GL2GL3.GL_LINE);
-				ogl.glDrawElements(GL.GL_TRIANGLES, indexBuffer.limit(), GL.GL_UNSIGNED_INT, indexBuffer);
+				for (var index = 0; index < indexBuffer.limit(); index++) {
+					var i = indexBuffer.get(index);
+					gl.setCurrentColor(lineColorBuffer.get(i * 3), lineColorBuffer.get(i * 3 + 1),
+							lineColorBuffer.get(i + 1), 1);
+					gl.outputVertex(vertexBuffer.get(i * 3), vertexBuffer.get(i * 3 + 1), vertexBuffer.get(i * 3 + 2));
+				}
 				ogl.glPolygonMode(GL.GL_FRONT_AND_BACK, GL2GL3.GL_FILL);
 			}
-
 		} finally {
-			gl.disable(GLPointerFunc.GL_NORMAL_ARRAY);
-			if (outputsTextures) { gl.disable(GLPointerFunc.GL_TEXTURE_COORD_ARRAY); }
-			if (outputsColors || outputsLines) { gl.disable(GLPointerFunc.GL_COLOR_ARRAY); }
-			gl.disable(GLPointerFunc.GL_VERTEX_ARRAY);
-			// Putting back alpha to normal
+			gl.endDrawing();
 			ogl.glBlendColor(0.0f, 0.0f, 0.0f, 0.0f);
 			ogl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
-
 		}
 		if (withText) { drawLabels(gl); }
-
 	}
 
 	/**

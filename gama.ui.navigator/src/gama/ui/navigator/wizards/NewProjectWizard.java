@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * NewProjectWizard.java, in gama.ui.navigator, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * NewProjectWizard.java, in gama.ui.navigator, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ui.navigator.wizards;
 
@@ -42,6 +42,7 @@ import gama.ui.base.utils.WorkbenchHelper;
 import gama.ui.base.workspace.WorkspaceModelsManager;
 import gama.ui.navigator.contents.ResourceManager;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class NewProjectWizard.
  */
@@ -49,19 +50,21 @@ public class NewProjectWizard extends Wizard implements INewWizard, IExecutableE
 
 	/** The Constant NATURE_ID. */
 	public static final String NATURE_ID = "gama.core.application.gamaNature";
-	
+
 	/** The wizard page. */
 	private NewProjectWizardPage wizardPage;
-	
+
 	/** The project. */
 	private IProject project;
 
 	/**
 	 * Instantiates a new new project wizard.
 	 */
-	public NewProjectWizard() {
-	}
+	public NewProjectWizard() {}
 
+	/**
+	 * Adds the pages.
+	 */
 	@Override
 	public void addPages() {
 		wizardPage = new NewProjectWizardPage("NewGAMAProject");
@@ -70,6 +73,11 @@ public class NewProjectWizard extends Wizard implements INewWizard, IExecutableE
 		addPage(wizardPage);
 	}
 
+	/**
+	 * Perform finish.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean performFinish() {
 
@@ -119,12 +127,18 @@ public class NewProjectWizard extends Wizard implements INewWizard, IExecutableE
 	/**
 	 * This creates the project in the workspace.
 	 *
-	 * @param description the description
-	 * @param proj the proj
-	 * @param isTest the is test
-	 * @param monitor the monitor
-	 * @throws CoreException the core exception
-	 * @throws OperationCanceledException the operation canceled exception
+	 * @param description
+	 *            the description
+	 * @param proj
+	 *            the proj
+	 * @param isTest
+	 *            the is test
+	 * @param monitor
+	 *            the monitor
+	 * @throws CoreException
+	 *             the core exception
+	 * @throws OperationCanceledException
+	 *             the operation canceled exception
 	 */
 	void createProject(final IProjectDescription description, final IProject proj, final boolean isTest,
 			final IProgressMonitor monitor) throws CoreException, OperationCanceledException {
@@ -136,7 +150,7 @@ public class NewProjectWizard extends Wizard implements INewWizard, IExecutableE
 			if (monitor.isCanceled()) throw new OperationCanceledException();
 			proj.open(m.split(1000));
 
-			WorkspaceModelsManager.setValuesProjectDescription(proj, false, false, isTest, null);
+			WorkspaceModelsManager.instance.setValuesProjectDescription(proj, false, false, isTest, null);
 
 			/*
 			 * We now have the project and we can do more things with it before updating the perspective.
@@ -167,9 +181,23 @@ public class NewProjectWizard extends Wizard implements INewWizard, IExecutableE
 		}
 	}
 
+	/**
+	 * Inits the.
+	 *
+	 * @param workbench the workbench
+	 * @param selection the selection
+	 */
 	@Override
 	public void init(final IWorkbench workbench, final IStructuredSelection selection) {}
 
+	/**
+	 * Sets the initialization data.
+	 *
+	 * @param config the config
+	 * @param propertyName the property name
+	 * @param data the data
+	 * @throws CoreException the core exception
+	 */
 	@Override
 	public void setInitializationData(final IConfigurationElement config, final String propertyName, final Object data)
 			throws CoreException {}

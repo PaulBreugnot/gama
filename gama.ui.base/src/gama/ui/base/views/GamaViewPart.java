@@ -43,6 +43,7 @@ import gama.ui.base.resources.GamaColors.GamaUIColor;
 import gama.ui.base.toolbar.GamaToolbar2;
 import gama.ui.base.toolbar.GamaToolbarFactory;
 import gama.ui.base.toolbar.IToolbarDecoratedView;
+import gama.ui.base.utils.ViewsHelper;
 import gama.ui.base.utils.WorkbenchHelper;
 
 // TODO: Auto-generated Javadoc
@@ -162,18 +163,20 @@ public abstract class GamaViewPart extends ViewPart
 
 	/**
 	 * Show toolbar.
+	 *
+	 * @param show
+	 *            the show
 	 */
 	@Override
-	public void showToolbar() {
-		if (toolbar != null) { toolbar.show(); }
-	}
+	public void showToolbar(final boolean show) {
+		if (toolbar != null) {
+			if (show) {
+				toolbar.show();
+			} else {
+				toolbar.hide();
+			}
+		}
 
-	/**
-	 * Hide toolbar.
-	 */
-	@Override
-	public void hideToolbar() {
-		if (toolbar != null) { toolbar.hide(); }
 	}
 
 	/**
@@ -434,7 +437,7 @@ public abstract class GamaViewPart extends ViewPart
 		DEBUG.OUT("Closing " + this.getPartName());
 		WorkbenchHelper.asyncRun(() -> {
 			try {
-				WorkbenchHelper.hideView(GamaViewPart.this);
+				ViewsHelper.hideView(GamaViewPart.this);
 			} catch (final Exception e) {}
 		});
 

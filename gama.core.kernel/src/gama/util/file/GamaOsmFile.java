@@ -1,16 +1,15 @@
 /*******************************************************************************************************
  *
- * GamaOsmFile.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * GamaOsmFile.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.util.file;
 
-import static org.apache.commons.lang.StringUtils.join;
 import static org.apache.commons.lang.StringUtils.splitByWholeSeparatorPreserveAllTokens;
 
 import java.io.File;
@@ -48,10 +47,10 @@ import org.opengis.referencing.NoSuchAuthorityCodeException;
 import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
 import gama.common.geometry.Envelope3D;
-import gama.core.dev.annotations.IConcept;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.file;
+import gama.core.dev.annotations.IConcept;
 import gama.core.dev.utils.DEBUG;
 import gama.ext.libs.osmosis.Bound;
 import gama.ext.libs.osmosis.Entity;
@@ -81,6 +80,7 @@ import gaml.types.GamaGeometryType;
 import gaml.types.IType;
 import gaml.types.Types;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GamaOsmFile.
  */
@@ -105,24 +105,26 @@ public class GamaOsmFile extends GamaGisFile {
 
 		/** The item number. */
 		int itemNumber;
-		
+
 		/** The crs. */
 		CoordinateReferenceSystem crs;
-		
+
 		/** The width. */
 		final double width;
-		
+
 		/** The height. */
 		final double height;
-		
+
 		/** The attributes. */
 		final Map<String, String> attributes = new LinkedHashMap();
 
 		/**
 		 * Instantiates a new OSM info.
 		 *
-		 * @param url the url
-		 * @param modificationStamp the modification stamp
+		 * @param url
+		 *            the url
+		 * @param modificationStamp
+		 *            the modification stamp
 		 */
 		public OSMInfo(final URL url, final long modificationStamp) {
 			super(modificationStamp);
@@ -166,16 +168,17 @@ public class GamaOsmFile extends GamaGisFile {
 		 *
 		 * @return the crs
 		 */
-		public CoordinateReferenceSystem getCRS() {
-			return crs;
-		}
+		public CoordinateReferenceSystem getCRS() { return crs; }
 
 		/**
 		 * Instantiates a new OSM info.
 		 *
-		 * @param propertiesString the properties string
-		 * @throws NoSuchAuthorityCodeException the no such authority code exception
-		 * @throws FactoryException the factory exception
+		 * @param propertiesString
+		 *            the properties string
+		 * @throws NoSuchAuthorityCodeException
+		 *             the no such authority code exception
+		 * @throws FactoryException
+		 *             the factory exception
 		 */
 		public OSMInfo(final String propertiesString) throws NoSuchAuthorityCodeException, FactoryException {
 			super(propertiesString);
@@ -206,8 +209,9 @@ public class GamaOsmFile extends GamaGisFile {
 		}
 
 		/**
-		 * Method getSuffix()
+		 * Method getSuffix().
 		 *
+		 * @return the suffix
 		 * @see msi.gama.util.file.GamaFileMetaInformation#getSuffix()
 		 */
 		@Override
@@ -216,6 +220,11 @@ public class GamaOsmFile extends GamaGisFile {
 					: "" + itemNumber + " objects | " + Math.round(width) + "m x " + Math.round(height) + "m";
 		}
 
+		/**
+		 * Append suffix.
+		 *
+		 * @param sb the sb
+		 */
 		@Override
 		public void appendSuffix(final StringBuilder sb) {
 			if (hasFailed) {
@@ -229,6 +238,11 @@ public class GamaOsmFile extends GamaGisFile {
 			sb.append(Math.round(height)).append("m");
 		}
 
+		/**
+		 * Gets the documentation.
+		 *
+		 * @return the documentation
+		 */
 		@Override
 		public String getDocumentation() {
 			final StringBuilder sb = new StringBuilder();
@@ -255,29 +269,33 @@ public class GamaOsmFile extends GamaGisFile {
 		 *
 		 * @return the attributes
 		 */
-		public Map<String, String> getAttributes() {
-			return attributes;
-		}
+		public Map<String, String> getAttributes() { return attributes; }
 
+		/**
+		 * To property string.
+		 *
+		 * @return the string
+		 */
 		@Override
 		public String toPropertyString() {
-			final String attributeNames = join(attributes.keySet(), SUB_DELIMITER);
-			final String types = join(attributes.values(), SUB_DELIMITER);
-			final Object[] toSave = new Object[] { super.toPropertyString(), itemNumber,
-					crs == null ? "null" : crs.toWKT(), width, height, attributeNames, types };
-			return join(toSave, DELIMITER);
+			final String attributeNames = String.join(SUB_DELIMITER, attributes.keySet());
+			final String types = String.join(SUB_DELIMITER, attributes.values());
+			final String[] toSave =
+					{ super.toPropertyString(), String.valueOf(itemNumber), crs == null ? "null" : crs.toWKT(),
+							String.valueOf(width), String.valueOf(height), attributeNames, types };
+			return String.join(DELIMITER, toSave);
 		}
 	}
 
 	/** The filtering options. */
 	IMap<String, IList> filteringOptions;
-	
+
 	/** The attributes. */
 	Map<String, String> attributes = new HashMap<>();
 
 	/** The layers. */
 	final IMap<String, List<IShape>> layers = GamaMapFactory.create(Types.STRING, Types.LIST);
-	
+
 	/** The Constant featureTypes. */
 	final static List<String> featureTypes = Arrays.asList("aerialway", "aeroway", "amenity", "barrier", "boundary",
 			"building", "craft", "emergency", "geological", "highway", "historic", "landuse", "leisure", "man_made",
@@ -306,9 +324,12 @@ public class GamaOsmFile extends GamaGisFile {
 	/**
 	 * Instantiates a new gama osm file.
 	 *
-	 * @param scope the scope
-	 * @param pathName the path name
-	 * @param filteringOptions the filtering options
+	 * @param scope
+	 *            the scope
+	 * @param pathName
+	 *            the path name
+	 * @param filteringOptions
+	 *            the filtering options
 	 */
 	@doc (
 			value = "This file constructor allows to read an osm (.osm, .pbf, .bz2, .gz) file (using WGS84 coordinate system for the data)"
@@ -327,6 +348,12 @@ public class GamaOsmFile extends GamaGisFile {
 		this.filteringOptions = filteringOptions;
 	}
 
+	/**
+	 * Fetch from URL.
+	 *
+	 * @param scope the scope
+	 * @return the string
+	 */
 	@Override
 	protected String fetchFromURL(final IScope scope) {
 		String pathName = super.fetchFromURL(scope);
@@ -337,8 +364,10 @@ public class GamaOsmFile extends GamaGisFile {
 	/**
 	 * Gets the feature iterator.
 	 *
-	 * @param scope the scope
-	 * @param returnIt the return it
+	 * @param scope
+	 *            the scope
+	 * @param returnIt
+	 *            the return it
 	 * @return the feature iterator
 	 */
 	public void getFeatureIterator(final IScope scope, final boolean returnIt) {
@@ -355,14 +384,12 @@ public class GamaOsmFile extends GamaGisFile {
 			public void process(final EntityContainer entityContainer) {
 				final Entity entity = entityContainer.getEntity();
 				final boolean toFilter = filteringOptions != null && !filteringOptions.isEmpty();
-				if (entity instanceof Bound) {
-					final Bound bound = (Bound) entity;
+				if (entity instanceof Bound bound) {
 					final Envelope3D e =
 							Envelope3D.of(bound.getLeft(), bound.getRight(), bound.getBottom(), bound.getTop(), 0, 0);
 					computeProjection(scope, e);
 				} else if (returnIt) {
-					if (entity instanceof Node) {
-						final Node node = (Node) entity;
+					if (entity instanceof Node node) {
 						nodes.add(node);
 						final Geometry g = gis == null
 								? new GamaPoint(node.getLongitude(), node.getLatitude()).getInnerGeometry()
@@ -378,12 +405,10 @@ public class GamaOsmFile extends GamaGisFile {
 							for (final String keyN : filteringOptions.getKeys()) {
 								final IList valsPoss = filteringOptions.get(keyN);
 								for (final Tag tagN : ((Way) entity).getTags()) {
-									if (keyN.equals(tagN.getKey())) {
-										if (valsPoss == null || valsPoss.isEmpty()
-												|| valsPoss.contains(tagN.getValue())) {
-											keepObject = true;
-											break;
-										}
+									if (keyN.equals(tagN.getKey()) && (valsPoss == null || valsPoss.isEmpty()
+											|| valsPoss.contains(tagN.getValue()))) {
+										keepObject = true;
+										break;
 									}
 
 								}
@@ -412,13 +437,16 @@ public class GamaOsmFile extends GamaGisFile {
 	/**
 	 * Adds the attribute.
 	 *
-	 * @param atts the atts
-	 * @param nameAt the name at
-	 * @param val the val
+	 * @param atts
+	 *            the atts
+	 * @param nameAt
+	 *            the name at
+	 * @param val
+	 *            the val
 	 */
 	private void addAttribute(final Map<String, String> atts, final String nameAt, final Object val) {
 		final String type = atts.get(nameAt);
-		if (type != null && type.equals("string")) return;
+		if ("string".equals(type)) return;
 		String newType = "int";
 		try {
 			Integer.parseInt(val.toString());
@@ -430,10 +458,14 @@ public class GamaOsmFile extends GamaGisFile {
 			}
 		}
 
-		if (type == null || newType.equals("string")) { atts.put(nameAt, newType); }
+		if (type == null || "string".equals(newType)) { atts.put(nameAt, newType); }
 	}
 
 	/**
+	 * Fill buffer.
+	 *
+	 * @param scope the scope
+	 * @throws GamaRuntimeException the gama runtime exception
 	 * @see msi.gama.util.GamaFile#fillBuffer()
 	 */
 	@Override
@@ -446,12 +478,18 @@ public class GamaOsmFile extends GamaGisFile {
 	/**
 	 * Builds the geometries.
 	 *
-	 * @param scope the scope
-	 * @param nodes the nodes
-	 * @param ways the ways
-	 * @param relations the relations
-	 * @param intersectionNodes the intersection nodes
-	 * @param nodesPt the nodes pt
+	 * @param scope
+	 *            the scope
+	 * @param nodes
+	 *            the nodes
+	 * @param ways
+	 *            the ways
+	 * @param relations
+	 *            the relations
+	 * @param intersectionNodes
+	 *            the intersection nodes
+	 * @param nodesPt
+	 *            the nodes pt
 	 * @return the i list
 	 */
 	public IList<IShape> buildGeometries(final IScope scope, final List<Node> nodes, final List<Way> ways,
@@ -479,7 +517,7 @@ public class GamaOsmFile extends GamaGisFile {
 					final Object val = tg.getValue();
 					if (val != null) { addAttribute(atts, key, val); }
 					pt.setAttribute(key, val);
-					if (key.equals("highway")) { intersectionNodes.add(node.getId()); }
+					if ("highway".equals(key)) { intersectionNodes.add(node.getId()); }
 				}
 				if (hasAttributes) {
 					geometries.add(pt);
@@ -627,7 +665,8 @@ public class GamaOsmFile extends GamaGisFile {
 				if (entity instanceof Way) {
 					final List<WayNode> relationWays = ((Way) entity).getWayNodes();
 					final Map<String, Object> wayValues = GamaMapFactory.create();
-					wayValues.put("entity_order", order++);
+					wayValues.put("entity_order", order);
+					order++;
 					// TODO FIXME AD: What's that ??
 					wayValues.put("gama_bus_line", values.get("name"));
 					wayValues.put("osm_way_id", ((Way) entity).getId());
@@ -661,10 +700,14 @@ public class GamaOsmFile extends GamaGisFile {
 	/**
 	 * Creates the split road.
 	 *
-	 * @param wayNodes the way nodes
-	 * @param values the values
-	 * @param intersectionNodes the intersection nodes
-	 * @param nodesPt the nodes pt
+	 * @param wayNodes
+	 *            the way nodes
+	 * @param values
+	 *            the values
+	 * @param intersectionNodes
+	 *            the intersection nodes
+	 * @param nodesPt
+	 *            the nodes pt
 	 * @return the list
 	 */
 	public List<IShape> createSplitRoad(final List<WayNode> wayNodes, final Map<String, Object> values,
@@ -688,7 +731,8 @@ public class GamaOsmFile extends GamaGisFile {
 		int index = 0;
 		for (final List<IShape> pts : pointsList) {
 			final Map<String, Object> tempValues = new HashMap<>(values);
-			tempValues.put("way_order", index++);
+			tempValues.put("way_order", index);
+			index++;
 			final IShape g = createRoad(pts, tempValues);
 			if (g != null) { geometries.add(g); }
 		}
@@ -699,8 +743,10 @@ public class GamaOsmFile extends GamaGisFile {
 	/**
 	 * Creates the road.
 	 *
-	 * @param points the points
-	 * @param values the values
+	 * @param points
+	 *            the points
+	 * @param values
+	 *            the values
 	 * @return the i shape
 	 */
 	private IShape createRoad(final List<IShape> points, final Map<String, Object> values) {
@@ -719,14 +765,17 @@ public class GamaOsmFile extends GamaGisFile {
 	/**
 	 * Register highway.
 	 *
-	 * @param way the way
-	 * @param usedNodes the used nodes
-	 * @param intersectionNodes the intersection nodes
+	 * @param way
+	 *            the way
+	 * @param usedNodes
+	 *            the used nodes
+	 * @param intersectionNodes
+	 *            the intersection nodes
 	 */
 	void registerHighway(final Way way, final Set<Long> usedNodes, final Set<Long> intersectionNodes) {
 		for (final Tag tg : way.getTags()) {
 			final String key = tg.getKey();
-			if (key.equals("highway")) {
+			if ("highway".equals(key)) {
 				final List<WayNode> nodes = way.getWayNodes();
 				for (final WayNode node : nodes) {
 					final long id = node.getNodeId();
@@ -746,9 +795,12 @@ public class GamaOsmFile extends GamaGisFile {
 	/**
 	 * Read file.
 	 *
-	 * @param scope the scope
-	 * @param sink the sink
-	 * @param osmFile the osm file
+	 * @param scope
+	 *            the scope
+	 * @param sink
+	 *            the sink
+	 * @param osmFile
+	 *            the osm file
 	 */
 	private void readFile(final IScope scope, final Sink sink, final File osmFile) {
 		final String ext = getExtension(scope);
@@ -772,9 +824,12 @@ public class GamaOsmFile extends GamaGisFile {
 	/**
 	 * Read XML.
 	 *
-	 * @param scope the scope
-	 * @param sink the sink
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param scope
+	 *            the scope
+	 * @param sink
+	 *            the sink
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	private void readXML(final IScope scope, final Sink sink) throws GamaRuntimeException {
 		try {
@@ -799,6 +854,12 @@ public class GamaOsmFile extends GamaGisFile {
 
 	}
 
+	/**
+	 * Compute envelope.
+	 *
+	 * @param scope the scope
+	 * @return the envelope 3 D
+	 */
 	@Override
 	public Envelope3D computeEnvelope(final IScope scope) {
 		if (gis == null) { getFeatureIterator(scope, false); }
@@ -808,9 +869,11 @@ public class GamaOsmFile extends GamaGisFile {
 	}
 
 	/**
-	 * Method getExistingCRS()
+	 * Method getExistingCRS().
 	 *
-	 * @see gama.util.file.GamaGisFile#getExistingCRS()
+	 * @param scope the scope
+	 * @return the own CRS
+	 * @see msi.gama.util.file.GamaGisFile#getExistingCRS()
 	 */
 	@Override
 	protected CoordinateReferenceSystem getOwnCRS(final IScope scope) {
@@ -821,7 +884,8 @@ public class GamaOsmFile extends GamaGisFile {
 	/**
 	 * Gets the OSM attributes.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the OSM attributes
 	 */
 	public Map<String, String> getOSMAttributes(final IScope scope) {
@@ -837,19 +901,21 @@ public class GamaOsmFile extends GamaGisFile {
 	 *
 	 * @return the layers
 	 */
-	public Map<String, List<IShape>> getLayers() {
-		return layers;
-	}
+	public Map<String, List<IShape>> getLayers() { return layers; }
 
 	/**
 	 * Gets the feature types.
 	 *
 	 * @return the feature types
 	 */
-	public List<String> getFeatureTypes() {
-		return featureTypes;
-	}
+	public List<String> getFeatureTypes() { return featureTypes; }
 
+	/**
+	 * Gets the feature collection.
+	 *
+	 * @param scope the scope
+	 * @return the feature collection
+	 */
 	@Override
 	protected SimpleFeatureCollection getFeatureCollection(final IScope scope) {
 		return null;
