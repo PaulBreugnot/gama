@@ -18,6 +18,7 @@ import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.fixedfunc.GLMatrixFunc;
 import com.jogamp.opengl.glu.GLU;
 
+import gama.core.dev.utils.DEBUG;
 import gama.display.opengl.OpenGL;
 import gama.display.opengl.renderer.IOpenGLRenderer;
 import gaml.statements.draw.DrawingAttributes;
@@ -27,6 +28,10 @@ import gaml.statements.draw.DrawingAttributes;
  * The Class PickingHelper.
  */
 public class PickingHelper extends AbstractRendererHelper {
+
+	static {
+		DEBUG.ON();
+	}
 
 	/** The select buffer. */
 	protected final IntBuffer selectBuffer = Buffers.newDirectIntBuffer(1024);

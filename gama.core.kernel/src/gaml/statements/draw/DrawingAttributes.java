@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * DrawingAttributes.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * DrawingAttributes.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gaml.statements.draw;
 
@@ -17,6 +17,7 @@ import java.util.List;
 import gama.common.geometry.AxisAngle;
 import gama.common.geometry.Scaling3D;
 import gama.common.preferences.GamaPreferences;
+import gama.core.dev.utils.DEBUG;
 import gama.metamodel.agent.IAgent;
 import gama.metamodel.shape.GamaPoint;
 import gama.metamodel.shape.IShape;
@@ -25,29 +26,49 @@ import gama.util.GamaMaterial;
 import gama.util.file.GamaGifFile;
 import gaml.operators.IUnits;
 
+// TODO: Auto-generated Javadoc
 /**
- * The Class DrawingAttributes.
+ * The Class DrawingAttributes. /** The Class DrawingAttributes.
  */
 public class DrawingAttributes {
 
+	static {
+		DEBUG.ON();
+	}
+
+	/**
+	 * The Enum DrawerType.
+	 */
+	public enum DrawerType {
+
+		/** The geometry. */
+		GEOMETRY,
+		/** The string. */
+		STRING,
+		/** The mesh. */
+		MESH,
+		/** The resource. */
+		RESOURCE
+	}
+
 	/** The index. */
 	private static int INDEX = 0;
-	
+
 	/** The Constant TEXTURED_COLOR. */
 	public static final GamaColor TEXTURED_COLOR = new GamaColor(Color.white);
-	
+
 	/** The Constant SELECTED_COLOR. */
 	public static final GamaColor SELECTED_COLOR = new GamaColor(Color.red);
 
 	/** The Constant EMPTY. */
 	public static final int EMPTY = 1;
-	
+
 	/** The Constant SELECTED. */
 	public static final int SELECTED = 2;
-	
+
 	/** The Constant SYNTHETIC. */
 	public static final int SYNTHETIC = 4;
-	
+
 	/** The Constant LIGHTING. */
 	public static final int LIGHTING = 8;
 
@@ -56,28 +77,28 @@ public class DrawingAttributes {
 
 	/** The unique index. */
 	private final int uniqueIndex;
-	
+
 	/** The location. */
 	GamaPoint location;
-	
+
 	/** The size. */
 	Scaling3D size;
-	
+
 	/** The rotation. */
 	AxisAngle rotation;
-	
+
 	/** The line width. */
 	Double depth = null, lineWidth = GamaPreferences.Displays.CORE_LINE_WIDTH.getValue();
-	
+
 	/** The type. */
 	public IShape.Type type;
-	
+
 	/** The border. */
 	GamaColor fill, highlight, border;
-	
+
 	/** The textures. */
 	List<?> textures;
-	
+
 	/** The material. */
 	GamaMaterial material;
 
@@ -92,12 +113,18 @@ public class DrawingAttributes {
 	/**
 	 * Instantiates a new drawing attributes.
 	 *
-	 * @param size the size
-	 * @param rotation the rotation
-	 * @param location the location
-	 * @param color the color
-	 * @param border the border
-	 * @param lighting the lighting
+	 * @param size
+	 *            the size
+	 * @param rotation
+	 *            the rotation
+	 * @param location
+	 *            the location
+	 * @param color
+	 *            the color
+	 * @param border
+	 *            the border
+	 * @param lighting
+	 *            the lighting
 	 */
 	public DrawingAttributes(final Scaling3D size, final AxisAngle rotation, final GamaPoint location,
 			final GamaColor color, final GamaColor border, final Boolean lighting) {
@@ -115,14 +142,13 @@ public class DrawingAttributes {
 	 *
 	 * @return the index
 	 */
-	public int getIndex() {
-		return uniqueIndex;
-	}
+	public int getIndex() { return uniqueIndex; }
 
 	/**
 	 * Sets the synthetic.
 	 *
-	 * @param s the new synthetic
+	 * @param s
+	 *            the new synthetic
 	 */
 	public void setSynthetic(final boolean s) {
 		setFlag(SYNTHETIC, s);
@@ -133,14 +159,13 @@ public class DrawingAttributes {
 	 *
 	 * @return true, if is synthetic
 	 */
-	public boolean isSynthetic() {
-		return isSet(SYNTHETIC);
-	}
+	public boolean isSynthetic() { return isSet(SYNTHETIC); }
 
 	/**
 	 * Sets the lighting.
 	 *
-	 * @param lighting the new lighting
+	 * @param lighting
+	 *            the new lighting
 	 */
 	public void setLighting(final Boolean lighting) {
 		if (lighting == null) return;
@@ -150,7 +175,8 @@ public class DrawingAttributes {
 	/**
 	 * Sets the empty.
 	 *
-	 * @param b the new empty
+	 * @param b
+	 *            the new empty
 	 */
 	public void setEmpty(final Boolean b) {
 		if (b == null || !b) {
@@ -165,18 +191,14 @@ public class DrawingAttributes {
 	 *
 	 * @return the agent identifier
 	 */
-	public IAgent getAgentIdentifier() {
-		return null;
-	}
+	public IAgent getAgentIdentifier() { return null; }
 
 	/**
 	 * Gets the species name.
 	 *
 	 * @return the species name
 	 */
-	public String getSpeciesName() {
-		return null;
-	}
+	public String getSpeciesName() { return null; }
 
 	/**
 	 * Returns the angle of the rotation in degrees (or null if no rotation is defined).
@@ -191,7 +213,8 @@ public class DrawingAttributes {
 	/**
 	 * Sets the texture.
 	 *
-	 * @param o the new texture
+	 * @param o
+	 *            the new texture
 	 */
 	public void setTexture(final Object o) {
 		if (o == null) {
@@ -204,7 +227,8 @@ public class DrawingAttributes {
 	/**
 	 * Mark selected.
 	 *
-	 * @param pickedIndex the picked index
+	 * @param pickedIndex
+	 *            the picked index
 	 */
 	public void markSelected(final int pickedIndex) {
 		setSelected(pickedIndex == uniqueIndex);
@@ -215,41 +239,34 @@ public class DrawingAttributes {
 	 *
 	 * @return the anchor
 	 */
-	public GamaPoint getAnchor() {
-		return IUnits.bottom_left;
-	}
+	public GamaPoint getAnchor() { return IUnits.bottom_left; }
 
 	/**
 	 * Gets the location.
 	 *
 	 * @return the location
 	 */
-	public GamaPoint getLocation() {
-		return location;
-	}
+	public GamaPoint getLocation() { return location; }
 
 	/**
 	 * Gets the size.
 	 *
 	 * @return the size
 	 */
-	public Scaling3D getSize() {
-		return size;
-	}
+	public Scaling3D getSize() { return size; }
 
 	/**
 	 * Gets the depth.
 	 *
 	 * @return the depth
 	 */
-	public Double getDepth() {
-		return depth;
-	}
+	public Double getDepth() { return depth; }
 
 	/**
 	 * Sets the line width.
 	 *
-	 * @param d the new line width
+	 * @param d
+	 *            the new line width
 	 */
 	public void setLineWidth(final Double d) {
 		if (d == null) {
@@ -264,18 +281,14 @@ public class DrawingAttributes {
 	 *
 	 * @return the line width
 	 */
-	public Double getLineWidth() {
-		return lineWidth;
-	}
+	public Double getLineWidth() { return lineWidth; }
 
 	/**
 	 * Gets the type.
 	 *
 	 * @return the type
 	 */
-	public IShape.Type getType() {
-		return type;
-	}
+	public IShape.Type getType() { return type; }
 
 	/**
 	 * Use cache.
@@ -289,43 +302,39 @@ public class DrawingAttributes {
 	/**
 	 * Sets the type.
 	 *
-	 * @param type the new type
+	 * @param type
+	 *            the new type
 	 */
-	public void setType(final IShape.Type type) {
-		this.type = type;
-	}
+	public void setType(final IShape.Type type) { this.type = type; }
 
 	/**
 	 * Gets the rotation.
 	 *
 	 * @return the rotation
 	 */
-	public AxisAngle getRotation() {
-		return rotation;
-	}
+	public AxisAngle getRotation() { return rotation; }
 
 	/**
 	 * Sets the location.
 	 *
-	 * @param loc the new location
+	 * @param loc
+	 *            the new location
 	 */
-	public void setLocation(final GamaPoint loc) {
-		location = loc;
-	}
+	public void setLocation(final GamaPoint loc) { location = loc; }
 
 	/**
 	 * Sets the size.
 	 *
-	 * @param size the new size
+	 * @param size
+	 *            the new size
 	 */
-	public void setSize(final Scaling3D size) {
-		this.size = size;
-	}
+	public void setSize(final Scaling3D size) { this.size = size; }
 
 	/**
 	 * Sets the rotation.
 	 *
-	 * @param rotation the new rotation
+	 * @param rotation
+	 *            the new rotation
 	 */
 	public void setRotation(final AxisAngle rotation) {
 		if (rotation == null) return;
@@ -335,7 +344,8 @@ public class DrawingAttributes {
 	/**
 	 * Sets the height.
 	 *
-	 * @param depth the new height
+	 * @param depth
+	 *            the new height
 	 */
 	public void setHeight(final Double depth) {
 		if (depth == null) return;
@@ -348,7 +358,8 @@ public class DrawingAttributes {
 	 * @return the color
 	 */
 	public GamaColor getColor() {
-		if (isSet(SELECTED)) return SELECTED_COLOR;
+		if (isSelected()) // DEBUG.OUT("Selected agent: " + getAgentIdentifier() + " / index : " + uniqueIndex);
+			return SELECTED_COLOR;
 		if (highlight != null) return highlight;
 		if (isSet(EMPTY)) return null;
 		if (fill == null) {
@@ -389,25 +400,24 @@ public class DrawingAttributes {
 	/**
 	 * Sets the fill.
 	 *
-	 * @param color the new fill
+	 * @param color
+	 *            the new fill
 	 */
-	public void setFill(final GamaColor color) {
-		fill = color;
-	}
+	public void setFill(final GamaColor color) { fill = color; }
 
 	/**
 	 * Sets the border.
 	 *
-	 * @param border the new border
+	 * @param border
+	 *            the new border
 	 */
-	public void setBorder(final GamaColor border) {
-		this.border = border;
-	}
+	public void setBorder(final GamaColor border) { this.border = border; }
 
 	/**
 	 * Sets the lighting.
 	 *
-	 * @param lighting the new lighting
+	 * @param lighting
+	 *            the new lighting
 	 */
 	void setLighting(final boolean lighting) {
 		setFlag(LIGHTING, lighting);
@@ -423,29 +433,24 @@ public class DrawingAttributes {
 	/**
 	 * Sets the textures.
 	 *
-	 * @param textures the new textures
+	 * @param textures
+	 *            the new textures
 	 */
-	public void setTextures(final List<?> textures) {
-		this.textures = textures;
-	}
+	public void setTextures(final List<?> textures) { this.textures = textures; }
 
 	/**
 	 * Gets the textures.
 	 *
 	 * @return the textures
 	 */
-	public List getTextures() {
-		return textures;
-	}
+	public List getTextures() { return textures; }
 
 	/**
 	 * Checks if is empty.
 	 *
 	 * @return true, if is empty
 	 */
-	public boolean isEmpty() {
-		return isSet(EMPTY);
-	}
+	public boolean isEmpty() { return isSet(EMPTY); }
 
 	/**
 	 * Checks if is animated.
@@ -491,32 +496,28 @@ public class DrawingAttributes {
 	 *
 	 * @return true, if is lighting
 	 */
-	public boolean isLighting() {
-		return isSet(LIGHTING);
-	}
+	public boolean isLighting() { return isSet(LIGHTING); }
 
 	/**
 	 * Sets the highlighted.
 	 *
-	 * @param color the new highlighted
+	 * @param color
+	 *            the new highlighted
 	 */
-	public void setHighlighted(final GamaColor color) {
-		highlight = color;
-	}
+	public void setHighlighted(final GamaColor color) { highlight = color; }
 
 	/**
 	 * Checks if is selected.
 	 *
 	 * @return true, if is selected
 	 */
-	public boolean isSelected() {
-		return isSet(SELECTED);
-	}
+	public boolean isSelected() { return isSet(SELECTED); }
 
 	/**
 	 * Sets the selected.
 	 *
-	 * @param b the new selected
+	 * @param b
+	 *            the new selected
 	 */
 	public void setSelected(final boolean b) {
 		setFlag(SELECTED, b);
@@ -526,16 +527,15 @@ public class DrawingAttributes {
 	 * Method getMaterial().
 	 *
 	 * @return the material
-	 * @see gaml.statements.draw.DrawingAttributes#getMaterial()
+	 * @see msi.gaml.statements.draw.DrawingAttributes#getMaterial()
 	 */
-	public GamaMaterial getMaterial() {
-		return material;
-	}
+	public GamaMaterial getMaterial() { return material; }
 
 	/**
 	 * Sets the material.
 	 *
-	 * @param m the new material
+	 * @param m
+	 *            the new material
 	 */
 	public void setMaterial(final GamaMaterial m) {
 		material = m;
@@ -545,7 +545,8 @@ public class DrawingAttributes {
 	/**
 	 * Checks if is sets the.
 	 *
-	 * @param value the value
+	 * @param value
+	 *            the value
 	 * @return true, if is sets the
 	 */
 	public boolean isSet(final int value) {
@@ -555,8 +556,10 @@ public class DrawingAttributes {
 	/**
 	 * Sets the flag.
 	 *
-	 * @param value the value
-	 * @param b the b
+	 * @param value
+	 *            the value
+	 * @param b
+	 *            the b
 	 */
 	public void setFlag(final int value, final boolean b) {
 		flags = b ? flags | value : flags & ~value;

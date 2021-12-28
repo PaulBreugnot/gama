@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * SceneHelper.java, in gama.display.opengl, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * SceneHelper.java, in gama.display.opengl, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.display.opengl.renderer.helpers;
 
@@ -18,6 +18,7 @@ import gama.display.opengl.OpenGL;
 import gama.display.opengl.renderer.IOpenGLRenderer;
 import gama.display.opengl.scene.ModelScene;
 
+// TODO: Auto-generated Javadoc
 /**
  * Class SceneHelper. Manages the interactions between the updating and the rendering tasks by keeping hold of three
  * different scenes: - A back scene, which is updated by the simulation - A front scene, which is displayed by the
@@ -33,25 +34,29 @@ public class SceneHelper extends AbstractRendererHelper {
 
 	/** The back scene. */
 	volatile ModelScene backScene;
-	
+
 	/** The static scene. */
 	volatile ModelScene staticScene;
-	
+
 	/** The front scene. */
 	volatile ModelScene frontScene;
-	
+
 	/** The garbage. */
 	private final Queue<ModelScene> garbage = new ConcurrentLinkedQueue<>();
 
 	/**
 	 * Instantiates a new scene helper.
 	 *
-	 * @param renderer the renderer
+	 * @param renderer
+	 *            the renderer
 	 */
 	public SceneHelper(final IOpenGLRenderer renderer) {
 		super(renderer);
 	}
 
+	/**
+	 * Initialize.
+	 */
 	@Override
 	public void initialize() {}
 
@@ -66,8 +71,10 @@ public class SceneHelper extends AbstractRendererHelper {
 	/**
 	 * Begin drawing layer.
 	 *
-	 * @param layer the layer
-	 * @param currentLayerAlpha the current layer alpha
+	 * @param layer
+	 *            the layer
+	 * @param currentLayerAlpha
+	 *            the current layer alpha
 	 */
 	public void beginDrawingLayer(final ILayer layer, final Double currentLayerAlpha) {
 		final ModelScene scene = getSceneToUpdate();
@@ -132,14 +139,12 @@ public class SceneHelper extends AbstractRendererHelper {
 		// If there is another frontScene, we discard it (will be disposed of
 		// later)
 		if (frontScene != null) {
-			if (frontScene.rendered()) {
-				garbage.add(frontScene);
-			} else {
+			if (!frontScene.rendered()) {
 				garbage.add(backScene);
 				backScene = null;
 				return;
 			}
-
+			garbage.add(frontScene);
 		}
 		// We switch the scenes
 		frontScene = backScene;
@@ -151,7 +156,8 @@ public class SceneHelper extends AbstractRendererHelper {
 	 * This method creates a new scene and copies to it the static layers from a given existing scene. If no existing
 	 * scene is passed, a completely new scene is created
 	 *
-	 * @param existing the existing
+	 * @param existing
+	 *            the existing
 	 * @return a new scene
 	 */
 	protected ModelScene createSceneFrom(final ModelScene existing) {
@@ -170,9 +176,7 @@ public class SceneHelper extends AbstractRendererHelper {
 	 * @return the scene to render
 	 */
 
-	public ModelScene getSceneToRender() {
-		return frontScene;
-	}
+	public ModelScene getSceneToRender() { return frontScene; }
 
 	/**
 	 * Returns the scene to update. Can be null
@@ -180,22 +184,24 @@ public class SceneHelper extends AbstractRendererHelper {
 	 * @return the scene to update
 	 */
 
-	public ModelScene getSceneToUpdate() {
-		return backScene;
-	}
+	public ModelScene getSceneToUpdate() { return backScene; }
 
 	/**
 	 * Performs the management and disposal of discarded scenes.
 	 *
-	 * @param gl the gl
+	 * @param gl
+	 *            the gl
 	 */
 	public void garbageCollect(final OpenGL gl) {
-		final ModelScene[] scenes = garbage.toArray(new ModelScene[garbage.size()]);
+		int size = garbage.size();
+		if (size == 0) return;
+		final ModelScene[] scenes = garbage.toArray(new ModelScene[size]);
 		garbage.clear();
 		for (final ModelScene scene : scenes) {
 			scene.wipe(gl);
 			scene.dispose();
 		}
+		frontScene.unlock();
 	}
 
 	/**
@@ -252,15 +258,15 @@ public class SceneHelper extends AbstractRendererHelper {
 	 *
 	 * @return true, if is ready
 	 */
-	public boolean isReady() {
-		return getSceneToRender() != null;
-	}
+	public boolean isReady() { return getSceneToRender() != null; }
 
 	/**
 	 * Reshape.
 	 *
-	 * @param width the width
-	 * @param height the height
+	 * @param width
+	 *            the width
+	 * @param height
+	 *            the height
 	 */
 	public void reshape(final int width, final int height) {
 		if (getSceneToRender() == null) return;

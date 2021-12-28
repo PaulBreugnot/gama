@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * GeometryObject.java, in gama.display.opengl, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * GeometryObject.java, in gama.display.opengl, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.display.opengl.scene.geometry;
 
@@ -14,10 +14,11 @@ import org.locationtech.jts.geom.Geometry;
 
 import gama.common.geometry.GeometryUtils;
 import gama.display.opengl.scene.AbstractObject;
-import gama.display.opengl.scene.AbstractObject.DrawerType;
 import gama.metamodel.shape.GamaPoint;
 import gaml.statements.draw.DrawingAttributes;
+import gaml.statements.draw.DrawingAttributes.DrawerType;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GeometryObject.
  */
@@ -26,13 +27,22 @@ public class GeometryObject extends AbstractObject<Geometry, DrawingAttributes> 
 	/**
 	 * Instantiates a new geometry object.
 	 *
-	 * @param geometry the geometry
-	 * @param attributes the attributes
+	 * @param geometry
+	 *            the geometry
+	 * @param attributes
+	 *            the attributes
 	 */
 	public GeometryObject(final Geometry geometry, final DrawingAttributes attributes) {
 		super(geometry, attributes, DrawerType.GEOMETRY);
 	}
 
+	/**
+	 * Gets the translation into.
+	 *
+	 * @param p
+	 *            the p
+	 * @return the translation into
+	 */
 	@Override
 	public void getTranslationInto(final GamaPoint p) {
 		final GamaPoint explicitLocation = getAttributes().getLocation();
@@ -45,6 +55,13 @@ public class GeometryObject extends AbstractObject<Geometry, DrawingAttributes> 
 		}
 	}
 
+	/**
+	 * Gets the translation for rotation into.
+	 *
+	 * @param p
+	 *            the p
+	 * @return the translation for rotation into
+	 */
 	@Override
 	public void getTranslationForRotationInto(final GamaPoint p) {
 		final GamaPoint explicitLocation = getAttributes().getLocation();
@@ -109,6 +126,13 @@ public class GeometryObject extends AbstractObject<Geometry, DrawingAttributes> 
 		}
 	}
 
+	/**
+	 * Gets the translation for scaling into.
+	 *
+	 * @param p
+	 *            the p
+	 * @return the translation for scaling into
+	 */
 	@Override
 	public void getTranslationForScalingInto(final GamaPoint p) {
 		GeometryUtils.getContourCoordinates(getObject()).getCenter(p);

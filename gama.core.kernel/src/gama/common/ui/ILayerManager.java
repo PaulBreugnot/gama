@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ILayerManager.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ILayerManager.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.common.ui;
 
@@ -17,6 +17,7 @@ import gama.common.interfaces.IDisposable;
 import gama.common.interfaces.ItemList;
 import gama.metamodel.shape.IShape;
 
+// TODO: Auto-generated Javadoc
 /**
  * The class ILayerManager. Manages a fixed set of layers on behalf of a IDisplaySurface
  *
@@ -34,8 +35,10 @@ public interface ILayerManager extends ItemList<ILayer>, IDisposable {
 	/**
 	 * Gets the layers intersecting.
 	 *
-	 * @param xc            x-ordinate on screen
-	 * @param yc            y-ordinate on screen
+	 * @param xc
+	 *            x-ordinate on screen
+	 * @param yc
+	 *            y-ordinate on screen
 	 * @return a list of ILayers that contain the screen point {x,y} or an empty list if none contain it
 	 */
 	List<ILayer> getLayersIntersecting(int xc, int yc);
@@ -43,7 +46,8 @@ public interface ILayerManager extends ItemList<ILayer>, IDisposable {
 	/**
 	 * Asks this manager to draw all of its enabled layers on the graphics passed in parameter.
 	 *
-	 * @param displayGraphics            an instance of IGraphics on which to draw the layers
+	 * @param displayGraphics
+	 *            an instance of IGraphics on which to draw the layers
 	 */
 	void drawLayersOn(IGraphics displayGraphics);
 
@@ -57,8 +61,10 @@ public interface ILayerManager extends ItemList<ILayer>, IDisposable {
 	/**
 	 * Returns a rectangle that represent the area to focus on in order to focus on the geometry passed in parameter.
 	 *
-	 * @param geometry            the geometry or agent on which to focus on
-	 * @param s            the surface of this manager
+	 * @param geometry
+	 *            the geometry or agent on which to focus on
+	 * @param s
+	 *            the surface of this manager
 	 * @return a rectangle in screen coordinates
 	 */
 	Rectangle2D focusOn(IShape geometry, IDisplaySurface s);
@@ -83,5 +89,10 @@ public interface ILayerManager extends ItemList<ILayer>, IDisposable {
 	 * @return true, if successful
 	 */
 	boolean hasMouseMenuEventLayer();
+
+	/**
+	 * Force redrawing layers.
+	 */
+	void forceRedrawingLayers();
 
 }

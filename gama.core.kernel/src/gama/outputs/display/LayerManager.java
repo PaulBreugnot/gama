@@ -1,7 +1,7 @@
 /*******************************************************************************************************
  *
- * LayerManager.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * LayerManager.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
@@ -51,8 +51,10 @@ public class LayerManager implements ILayerManager {
 	/**
 	 * Creates the layer.
 	 *
-	 * @param output the output
-	 * @param layer the layer
+	 * @param output
+	 *            the output
+	 * @param layer
+	 *            the layer
 	 * @return the i layer
 	 */
 	public static ILayer createLayer(final LayeredDisplayOutput output, final ILayerStatement layer) {
@@ -87,7 +89,6 @@ public class LayerManager implements ILayerManager {
 	/** The enabled layers. */
 	private final ILayer[] layers;
 
-
 	/** The surface. */
 	final IDisplaySurface surface;
 
@@ -97,8 +98,10 @@ public class LayerManager implements ILayerManager {
 	/**
 	 * Instantiates a new layer manager.
 	 *
-	 * @param surface the surface
-	 * @param output the output
+	 * @param surface
+	 *            the surface
+	 * @param output
+	 *            the output
 	 */
 	public LayerManager(final IDisplaySurface surface, final LayeredDisplayOutput output) {
 		this.surface = surface;
@@ -124,28 +127,36 @@ public class LayerManager implements ILayerManager {
 	 */
 	@Override
 	public void dispose() {
-		for (final ILayer d : layers) { d.dispose(); }
+		for (final ILayer d : layers) {
+			d.dispose();
+		}
 	}
 
 	/**
 	 * Gets the layers intersecting.
 	 *
-	 * @param x the x
-	 * @param y the y
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 * @return the layers intersecting
 	 */
 	@Override
 	public List<ILayer> getLayersIntersecting(final int x, final int y) {
 		final List<ILayer> result = new ArrayList<>();
-		for (final ILayer layer : layers) { if (layer.containsScreenPoint(x, y)) { result.add(layer); } }
+		for (final ILayer layer : layers) {
+			if (layer.containsScreenPoint(x, y)) { result.add(layer); }
+		}
 		return result;
 	}
 
 	/**
 	 * Method focusOn().
 	 *
-	 * @param geometry the geometry
-	 * @param s the s
+	 * @param geometry
+	 *            the geometry
+	 * @param s
+	 *            the s
 	 * @return the rectangle 2 D
 	 * @see gama.common.ui.ILayerManager#focusOn(gama.metamodel.shape.IShape)
 	 */
@@ -166,11 +177,11 @@ public class LayerManager implements ILayerManager {
 		return result;
 	}
 
-
 	/**
 	 * Draw layers on.
 	 *
-	 * @param g the g
+	 * @param g
+	 *            the g
 	 */
 	@Override
 	public void drawLayersOn(final IGraphics g) {
@@ -179,28 +190,26 @@ public class LayerManager implements ILayerManager {
 		// If the experiment is already closed
 		if (scope == null || scope.interrupted()) return;
 		scope.setGraphics(g);
-		try {
-			boolean changed = false;
-			// First we compute all the data and verify if anything is changed
-			for (final ILayer dis : layers) {
-				if (scope.interrupted()) return;
-				changed |= dis.getData().compute(scope, g);
-			}
-			if (changed) {
-				for (final ILayer l : layers) { l.forceRedrawingOnce(); }
-				surface.layersChanged();
-			}
-			if (g.beginDrawingLayers()) {
+		boolean changed = false;
+		// First we compute all the data and verify if anything is changed
+		for (final ILayer dis : layers) {
+			if (scope.interrupted()) return;
+			changed |= dis.getData().compute(scope, g);
+		}
+		if (changed) { forceRedrawingLayers(); }
+
+		if (g.beginDrawingLayers()) {
+			try {
 				// We separate in two phases: updating of the data and then drawing
 				for (final ILayer dis : layers) {
 					if (scope.interrupted()) return;
 					dis.draw(scope, g);
 				}
+			} catch (final Exception e) {
+				GAMA.reportAndThrowIfNeeded(scope, GamaRuntimeException.create(e, scope), false);
+			} finally {
+				g.endDrawingLayers();
 			}
-		} catch (final Exception e) {
-			GAMA.reportAndThrowIfNeeded(scope, GamaRuntimeException.create(e, scope), false);
-		} finally {
-			g.endDrawingLayers();
 		}
 	}
 
@@ -212,12 +221,13 @@ public class LayerManager implements ILayerManager {
 	@Override
 	public List<ILayer> getItems() { return Arrays.asList(layers); }
 
-
 	/**
 	 * Gets the item display name.
 	 *
-	 * @param obj the obj
-	 * @param previousName the previous name
+	 * @param obj
+	 *            the obj
+	 * @param previousName
+	 *            the previous name
 	 * @return the item display name
 	 */
 	@Override
@@ -225,11 +235,11 @@ public class LayerManager implements ILayerManager {
 		return obj.getMenuName();
 	}
 
-
 	/**
 	 * Adds the item.
 	 *
-	 * @param obj the obj
+	 * @param obj
+	 *            the obj
 	 * @return true, if successful
 	 */
 	@Override
@@ -246,7 +256,9 @@ public class LayerManager implements ILayerManager {
 	 */
 	@Override
 	public void outputChanged() {
-		for (final ILayer i : layers) { i.reloadOn(surface); }
+		for (final ILayer i : layers) {
+			i.reloadOn(surface);
+		}
 	}
 
 	/**
@@ -256,7 +268,9 @@ public class LayerManager implements ILayerManager {
 	 */
 	@Override
 	public boolean stayProportional() {
-		for (final ILayer i : layers) { if (i.stayProportional()) return true; }
+		for (final ILayer i : layers) {
+			if (i.stayProportional()) return true;
+		}
 
 		return false;
 	}
@@ -264,8 +278,10 @@ public class LayerManager implements ILayerManager {
 	/**
 	 * Method makeItemSelectable().
 	 *
-	 * @param layer the layer
-	 * @param b the b
+	 * @param layer
+	 *            the layer
+	 * @param b
+	 *            the b
 	 * @see gama.common.interfaces.ItemList#makeItemSelectable(java.lang.Object, boolean)
 	 */
 	@Override
@@ -276,8 +292,10 @@ public class LayerManager implements ILayerManager {
 	/**
 	 * Method makeItemVisible().
 	 *
-	 * @param obj the obj
-	 * @param b the b
+	 * @param obj
+	 *            the obj
+	 * @param b
+	 *            the b
 	 * @see gama.common.interfaces.ItemList#makeItemVisible(java.lang.Object, boolean)
 	 */
 	@Override
@@ -288,14 +306,20 @@ public class LayerManager implements ILayerManager {
 			} else {
 				obj.disableOn(surface);
 			}
-			for (final ILayer l : layers) {
-				l.forceRedrawingOnce();
-			}
-			surface.layersChanged();
-
+			forceRedrawingLayers();
 		});
 	}
 
+	/**
+	 * Force redrawing layers.
+	 */
+	@Override
+	public void forceRedrawingLayers() {
+		for (final ILayer l : layers) {
+			l.forceRedrawingOnce();
+		}
+		surface.layersChanged();
+	}
 
 	/**
 	 * Checks if is providing coordinates.
@@ -309,7 +333,9 @@ public class LayerManager implements ILayerManager {
 	 */
 	@Override
 	public boolean isProvidingCoordinates() {
-		for (final ILayer i : layers) { if (i.getData().isVisible() && i.isProvidingCoordinates()) return true; }
+		for (final ILayer i : layers) {
+			if (i.getData().isVisible() && i.isProvidingCoordinates()) return true;
+		}
 		return false;
 	}
 
@@ -325,7 +351,9 @@ public class LayerManager implements ILayerManager {
 	 */
 	@Override
 	public boolean isProvidingWorldCoordinates() {
-		for (final ILayer i : layers) { if (i.getData().isVisible() && i.isProvidingWorldCoordinates()) return true; }
+		for (final ILayer i : layers) {
+			if (i.getData().isVisible() && i.isProvidingWorldCoordinates()) return true;
+		}
 		return false;
 	}
 
@@ -345,7 +373,8 @@ public class LayerManager implements ILayerManager {
 	/**
 	 * Checks if is item visible.
 	 *
-	 * @param obj the obj
+	 * @param obj
+	 *            the obj
 	 * @return true, if is item visible
 	 */
 	@Override

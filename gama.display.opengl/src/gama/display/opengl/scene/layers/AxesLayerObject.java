@@ -23,15 +23,20 @@ import static gaml.types.GamaGeometryType.buildLineCylinder;
 import java.util.List;
 
 import gama.common.geometry.AxisAngle;
+import gama.common.preferences.GamaPreferences;
 import gama.display.opengl.OpenGL;
 import gama.display.opengl.renderer.IOpenGLRenderer;
 import gama.display.opengl.scene.AbstractObject;
+import gama.display.opengl.scene.geometry.GeometryObject;
 import gama.display.opengl.scene.text.StringObject;
+import gama.metamodel.agent.IAgent;
 import gama.metamodel.shape.GamaPoint;
 import gama.metamodel.shape.GamaShape;
 import gama.metamodel.shape.IShape;
 import gama.util.GamaColor;
 import gama.util.GamaFont;
+import gaml.statements.draw.DrawingAttributes;
+import gaml.statements.draw.ShapeDrawingAttributes;
 import gaml.statements.draw.TextDrawingAttributes;
 
 // TODO: Auto-generated Javadoc
@@ -92,7 +97,8 @@ public class AxesLayerObject extends StaticLayerObject.World {
 	/**
 	 * Sets the scale.
 	 *
-	 * @param s the new scale
+	 * @param s
+	 *            the new scale
 	 */
 	@Override
 	public void setScale(final GamaPoint s) {
@@ -106,7 +112,8 @@ public class AxesLayerObject extends StaticLayerObject.World {
 	/**
 	 * Draw.
 	 *
-	 * @param gl the gl
+	 * @param gl
+	 *            the gl
 	 */
 	@Override
 	public void draw(final OpenGL gl) {
@@ -126,7 +133,8 @@ public class AxesLayerObject extends StaticLayerObject.World {
 	/**
 	 * Fill with objects.
 	 *
-	 * @param list the list
+	 * @param list
+	 *            the list
 	 */
 	@Override
 	public void fillWithObjects(final List<AbstractObject<?, ?>> list) {
@@ -145,6 +153,30 @@ public class AxesLayerObject extends StaticLayerObject.World {
 			final GamaShape s = new GamaShape(arrow, null, ROTATIONS[i], p.times(0.98));
 			addSyntheticObject(list, s, COLORS[i], IShape.Type.CONE, false);
 		}
+	}
+
+	/**
+	 * Adds the synthetic object.
+	 *
+	 * @param list
+	 *            the list
+	 * @param shape
+	 *            the shape
+	 * @param color
+	 *            the color
+	 * @param type
+	 *            the type
+	 * @param empty
+	 *            the empty
+	 */
+	protected void addSyntheticObject(final List<AbstractObject<?, ?>> list, final IShape shape, final GamaColor color,
+			final IShape.Type type, final boolean empty) {
+		final DrawingAttributes att = new ShapeDrawingAttributes(shape, (IAgent) null, color, color, type,
+				GamaPreferences.Displays.CORE_LINE_WIDTH.getValue(), null);
+		att.setEmpty(empty);
+		att.setHeight(shape.getDepth());
+		att.setLighting(false);
+		list.add(new GeometryObject(shape.getInnerGeometry(), att));
 	}
 
 }

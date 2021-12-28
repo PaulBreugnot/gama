@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ModelScene.java, in gama.display.opengl, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ModelScene.java, in gama.display.opengl, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.display.opengl.scene;
 
@@ -30,6 +30,7 @@ import gaml.statements.draw.DrawingAttributes;
 import gaml.statements.draw.MeshDrawingAttributes;
 import gaml.statements.draw.TextDrawingAttributes;
 
+// TODO: Auto-generated Javadoc
 /**
  *
  * The class ModelScene. A repository for all the objects that constitute the scene of a model : strings, images,
@@ -43,36 +44,38 @@ public class ModelScene {
 
 	/** The Constant AXES_KEY. */
 	public static final String AXES_KEY = "__axes__0";
-	
+
 	/** The Constant FRAME_KEY. */
 	public static final String FRAME_KEY = "__frame__0";
 
 	/** The layers. */
 	protected final IMap<String, LayerObject> layers = GamaMapFactory.create();
-	
+
 	/** The current layer. */
 	protected LayerObject currentLayer;
-	
+
 	/** The renderer. */
 	protected final IOpenGLRenderer renderer;
-	
+
 	/** The rendered. */
 	private volatile boolean rendered = false;
-	
+
 	/** The object number. */
 	private volatile int objectNumber;
-	
+
 	/** The z increment. */
 	private double zIncrement;
-	
+
 	/** The current layer trace. */
 	private int currentLayerTrace;
 
 	/**
 	 * Instantiates a new model scene.
 	 *
-	 * @param renderer the renderer
-	 * @param withWorld the with world
+	 * @param renderer
+	 *            the renderer
+	 * @param withWorld
+	 *            the with world
 	 */
 	public ModelScene(final IOpenGLRenderer renderer, final boolean withWorld) {
 		this.renderer = renderer;
@@ -92,7 +95,8 @@ public class ModelScene {
 	/**
 	 * Wipe.
 	 *
-	 * @param gl the gl
+	 * @param gl
+	 *            the gl
 	 */
 	public void wipe(final OpenGL gl) {
 		layers.forEach((name, obj) -> {
@@ -106,7 +110,8 @@ public class ModelScene {
 	/**
 	 * Draw.
 	 *
-	 * @param gl the gl
+	 * @param gl
+	 *            the gl
 	 */
 	public void draw(final OpenGL gl) {
 
@@ -116,8 +121,8 @@ public class ModelScene {
 		layers.forEach((name, layer) -> {
 			if (layer != null && !layer.isInvalid()) {
 				try {
-					layer.draw(gl);
 					layer.lock();
+					layer.draw(gl);
 				} catch (final RuntimeException r) {
 					DEBUG.ERR("Runtime error " + r.getMessage() + " in OpenGL loop");
 					r.printStackTrace();
@@ -167,8 +172,10 @@ public class ModelScene {
 	/**
 	 * Adds the string.
 	 *
-	 * @param string the string
-	 * @param attributes the attributes
+	 * @param string
+	 *            the string
+	 * @param attributes
+	 *            the attributes
 	 */
 	public void addString(final String string, final TextDrawingAttributes attributes) {
 		if (increment()) { currentLayer.addString(string, attributes); }
@@ -177,8 +184,10 @@ public class ModelScene {
 	/**
 	 * Adds the geometry file.
 	 *
-	 * @param file the file
-	 * @param attributes the attributes
+	 * @param file
+	 *            the file
+	 * @param attributes
+	 *            the attributes
 	 */
 	public void addGeometryFile(final GamaGeometryFile file, final DrawingAttributes attributes) {
 		if (increment()) { currentLayer.addFile(file, attributes); }
@@ -187,8 +196,10 @@ public class ModelScene {
 	/**
 	 * Adds the image.
 	 *
-	 * @param img the img
-	 * @param attributes the attributes
+	 * @param img
+	 *            the img
+	 * @param attributes
+	 *            the attributes
 	 */
 	public void addImage(final Object img, final DrawingAttributes attributes) {
 		if (increment()) { currentLayer.addImage(img, attributes); }
@@ -197,8 +208,10 @@ public class ModelScene {
 	/**
 	 * Adds the geometry.
 	 *
-	 * @param geometry the geometry
-	 * @param attributes the attributes
+	 * @param geometry
+	 *            the geometry
+	 * @param attributes
+	 *            the attributes
 	 */
 	public void addGeometry(final Geometry geometry, final DrawingAttributes attributes) {
 		if (increment()) { currentLayer.addGeometry(geometry, attributes); }
@@ -207,8 +220,10 @@ public class ModelScene {
 	/**
 	 * Adds the field.
 	 *
-	 * @param fieldValues the field values
-	 * @param attributes the attributes
+	 * @param fieldValues
+	 *            the field values
+	 * @param attributes
+	 *            the attributes
 	 */
 	public void addField(final IField fieldValues, final MeshDrawingAttributes attributes) {
 		if (increment()) { currentLayer.addField(fieldValues, attributes); }
@@ -249,18 +264,27 @@ public class ModelScene {
 	 * Reload.
 	 */
 	public void reload() {
-		for (final LayerObject l : layers.values()) {
-			l.unlock();
-		}
+		unlock();
 		dispose();
 		initWorld();
 	}
 
 	/**
+	 * Unlock.
+	 */
+	public void unlock() {
+		for (final LayerObject l : layers.values()) {
+			l.unlock();
+		}
+	}
+
+	/**
 	 * Begin drawing layer.
 	 *
-	 * @param layer the layer
-	 * @param alpha the alpha
+	 * @param layer
+	 *            the layer
+	 * @param alpha
+	 *            the alpha
 	 */
 	public void beginDrawingLayer(final ILayer layer, final Double alpha) {
 		final String key = layer.getName() + layer.getDefinition().getOrder();
@@ -276,8 +300,10 @@ public class ModelScene {
 	/**
 	 * Creates the regular layer.
 	 *
-	 * @param renderer the renderer
-	 * @param layer the layer
+	 * @param renderer
+	 *            the renderer
+	 * @param layer
+	 *            the layer
 	 * @return the layer object
 	 */
 	protected LayerObject createRegularLayer(final IOpenGLRenderer renderer, final ILayer layer) {
@@ -321,7 +347,8 @@ public class ModelScene {
 	/**
 	 * Recompute layout dimensions.
 	 *
-	 * @param gl the gl
+	 * @param gl
+	 *            the gl
 	 */
 	public void recomputeLayoutDimensions(final OpenGL gl) {
 		layers.forEach((name, layer) -> {

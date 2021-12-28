@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ObjectDrawer.java, in gama.display.opengl, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ObjectDrawer.java, in gama.display.opengl, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.display.opengl.scene;
 
@@ -16,10 +16,12 @@ import gama.common.geometry.Scaling3D;
 import gama.display.opengl.OpenGL;
 import gama.metamodel.shape.GamaPoint;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ObjectDrawer.
  *
- * @param <T> the generic type
+ * @param <T>
+ *            the generic type
  */
 public abstract class ObjectDrawer<T extends AbstractObject<?, ?>> {
 
@@ -29,7 +31,8 @@ public abstract class ObjectDrawer<T extends AbstractObject<?, ?>> {
 	/**
 	 * Instantiates a new object drawer.
 	 *
-	 * @param gl the gl
+	 * @param gl
+	 *            the gl
 	 */
 	public ObjectDrawer(final OpenGL gl) {
 		this.gl = gl;
@@ -38,26 +41,28 @@ public abstract class ObjectDrawer<T extends AbstractObject<?, ?>> {
 	/**
 	 * Draw.
 	 *
-	 * @param object the object
+	 * @param object            the object
+	 * @param isPicking the is picking
 	 */
-	final void draw(final T object) {
-		gl.beginObject(object);
-		_draw(object);
-		gl.endObject(object);
+	public final void draw(final AbstractObject object, final boolean isPicking) {
+		gl.beginObject(object, isPicking);
+		_draw((T) object);
+		gl.endObject(object, isPicking);
 	}
 
 	/**
 	 * Applies a scaling to the gl context if a size is defined. The scaling is done with respect of the envelope of the
 	 * geometrical object
 	 *
-	 * @param object            the object defining the size and the original envelope of the geometry
+	 * @param object
+	 *            the object defining the size and the original envelope of the geometry
 	 * @return true, if successful
 	 */
 	protected boolean applyScaling(final T object) {
 
 		final Scaling3D size = object.getAttributes().getSize();
 		if (size != null) {
-			final Envelope3D env = object.getEnvelope(gl);
+			final Envelope3D env = gl.getEnvelopeFor(object.getObject());
 			if (env != null) {
 				// try {
 				final boolean in2D = isDrawing2D(size, env, object);
@@ -91,7 +96,8 @@ public abstract class ObjectDrawer<T extends AbstractObject<?, ?>> {
 	/**
 	 * Applies a translation to the gl context.
 	 *
-	 * @param object            the object defining the translation
+	 * @param object
+	 *            the object defining the translation
 	 * @return true if a translation occured, false otherwise
 	 */
 	protected boolean applyTranslation(final T object) {
@@ -103,9 +109,12 @@ public abstract class ObjectDrawer<T extends AbstractObject<?, ?>> {
 	/**
 	 * Checks if is drawing 2 D.
 	 *
-	 * @param size the size
-	 * @param env the env
-	 * @param object the object
+	 * @param size
+	 *            the size
+	 * @param env
+	 *            the env
+	 * @param object
+	 *            the object
 	 * @return true, if is drawing 2 D
 	 */
 	protected boolean isDrawing2D(final Scaling3D size, final Envelope3D env, final T object) {
@@ -116,7 +125,8 @@ public abstract class ObjectDrawer<T extends AbstractObject<?, ?>> {
 	 * Applies either the rotation defined by the modeler in the draw statement and/or the initial rotation imposed to
 	 * geometries read from 3D files to the gl context.
 	 *
-	 * @param object            the object specifying the rotations
+	 * @param object
+	 *            the object specifying the rotations
 	 * @return true if one of the 2 rotations is applied, false otherwise
 	 */
 	protected boolean applyRotation(final T object) {
@@ -134,7 +144,8 @@ public abstract class ObjectDrawer<T extends AbstractObject<?, ?>> {
 	/**
 	 * Draw.
 	 *
-	 * @param object the object
+	 * @param object
+	 *            the object
 	 */
 	protected abstract void _draw(T object);
 
