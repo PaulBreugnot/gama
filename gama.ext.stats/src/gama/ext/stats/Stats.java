@@ -1,12 +1,11 @@
 /*******************************************************************************************************
  *
- * Stats.java, in gama.ext.stats, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * Stats.java, in gama.ext.stats, is part of the source code of the GAMA modeling and simulation platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ext.stats;
 
@@ -25,20 +24,21 @@ import org.apache.commons.math3.ml.distance.EuclideanDistance;
 import org.apache.commons.math3.random.MersenneTwister;
 import org.apache.commons.math3.stat.descriptive.moment.Kurtosis;
 import org.apache.commons.math3.stat.descriptive.moment.Skewness;
+import org.apache.commons.math3.stat.inference.TTest;
 
 import com.google.common.collect.Ordering;
 
 import gama.common.interfaces.IKeyword;
 import gama.common.preferences.GamaPreferences;
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.IOperatorCategory;
-import gama.core.dev.annotations.ITypeProvider;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.no_test;
 import gama.core.dev.annotations.GamlAnnotations.operator;
 import gama.core.dev.annotations.GamlAnnotations.test;
 import gama.core.dev.annotations.GamlAnnotations.usage;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.IOperatorCategory;
+import gama.core.dev.annotations.ITypeProvider;
 import gama.metamodel.shape.GamaPoint;
 import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
@@ -76,15 +76,17 @@ public class Stats {
 
 		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
-		
+
 		/** The id. */
 		int id;
 
 		/**
 		 * Instantiates a new instance.
 		 *
-		 * @param id the id
-		 * @param point the point
+		 * @param id
+		 *            the id
+		 * @param point
+		 *            the point
 		 */
 		public Instance(final int id, final double[] point) {
 			super(point);
@@ -96,18 +98,15 @@ public class Stats {
 		 *
 		 * @return the id
 		 */
-		public int getId() {
-			return id;
-		}
+		public int getId() { return id; }
 
 		/**
 		 * Sets the id.
 		 *
-		 * @param id the new id
+		 * @param id
+		 *            the new id
 		 */
-		public void setId(final int id) {
-			this.id = id;
-		}
+		public void setId(final int id) { this.id = id; }
 
 	}
 
@@ -118,28 +117,28 @@ public class Stats {
 
 		/** The Constant DEFAULT_CAPACITY. */
 		private static final int DEFAULT_CAPACITY = 50;
-		
+
 		/** The Constant GROWTH_RATE. */
 		private static final double GROWTH_RATE = 1.5d;
 
 		/** The data set. */
 		double[] dataSet;
-		
+
 		/** The data set size. */
 		int dataSetSize = 0;
 
 		/** The total. */
 		private double total = 0;
-		
+
 		/** The product. */
 		private double product = 1;
-		
+
 		/** The reciprocal sum. */
 		private double reciprocalSum = 0;
-		
+
 		/** The minimum. */
 		private double minimum = Double.MAX_VALUE;
-		
+
 		/** The maximum. */
 		private double maximum = Double.MIN_VALUE;
 
@@ -184,7 +183,8 @@ public class Stats {
 		/**
 		 * Update stats with new value.
 		 *
-		 * @param value the value
+		 * @param value
+		 *            the value
 		 */
 		private void updateStatsWithNewValue(final double value) {
 			total += value;
@@ -199,9 +199,7 @@ public class Stats {
 		 *
 		 * @return The size of the data set.
 		 */
-		public final int getSize() {
-			return dataSetSize;
-		}
+		public final int getSize() { return dataSetSize; }
 
 		/**
 		 * Determines the median value of the data set.
@@ -227,9 +225,7 @@ public class Stats {
 		 *
 		 * @return The product of all values.
 		 */
-		public final double getProduct() {
-			return product;
-		}
+		public final double getProduct() { return product; }
 
 		/**
 		 * The arithemthic mean of an n-element set is the sum of all the elements divided by n. The arithmetic mean is
@@ -238,9 +234,7 @@ public class Stats {
 		 * @return The arithmetic mean of all elements in the data set.
 		 * @see #getGeometricMean()
 		 */
-		public final double getArithmeticMean() {
-			return total / dataSetSize;
-		}
+		public final double getArithmeticMean() { return total / dataSetSize; }
 
 		/**
 		 * The geometric mean of an n-element set is the nth-root of the product of all the elements. The geometric mean
@@ -250,9 +244,7 @@ public class Stats {
 		 * @see #getArithmeticMean()
 		 * @see #getHarmonicMean()
 		 */
-		public final double getGeometricMean() {
-			return Math.pow(product, 1.0d / dataSetSize);
-		}
+		public final double getGeometricMean() { return Math.pow(product, 1.0d / dataSetSize); }
 
 		/**
 		 * The harmonic mean of an n-element set is {@literal n} divided by the sum of the reciprocals of the values
@@ -264,9 +256,7 @@ public class Stats {
 		 * @see #getGeometricMean()
 		 * @since 1.1
 		 */
-		public final double getHarmonicMean() {
-			return dataSetSize / reciprocalSum;
-		}
+		public final double getHarmonicMean() { return dataSetSize / reciprocalSum; }
 
 		/**
 		 * Calculates the mean absolute deviation of the data set. This is the average (absolute) amount that a single
@@ -296,9 +286,7 @@ public class Stats {
 		 * @see #getStandardDeviation()
 		 * @see #getMeanDeviation()
 		 */
-		public final double getVariance() {
-			return sumSquaredDiffs() / getSize();
-		}
+		public final double getVariance() { return sumSquaredDiffs() / getSize(); }
 
 		/**
 		 * Helper method for variance calculations.
@@ -324,14 +312,13 @@ public class Stats {
 		 * @see #getVariance()
 		 * @see #getMeanDeviation()
 		 */
-		public final double getStandardDeviation() {
-			return Math.sqrt(getVariance());
-		}
+		public final double getStandardDeviation() { return Math.sqrt(getVariance()); }
 
 		/**
 		 * Gets the stops.
 		 *
-		 * @param nb the nb
+		 * @param nb
+		 *            the nb
 		 * @return the stops
 		 */
 		public double[] getStops(final int nb) {
@@ -378,8 +365,10 @@ public class Stats {
 	/**
 	 * From.
 	 *
-	 * @param scope the scope
-	 * @param values the values
+	 * @param scope
+	 *            the scope
+	 * @param values
+	 *            the values
 	 * @return the data set
 	 */
 	private static DataSet from(final IScope scope, final IContainer values) {
@@ -393,9 +382,12 @@ public class Stats {
 	/**
 	 * Split.
 	 *
-	 * @param <T> the generic type
-	 * @param scope the scope
-	 * @param list the list
+	 * @param <T>
+	 *            the generic type
+	 * @param scope
+	 *            the scope
+	 * @param list
+	 *            the list
 	 * @return the i list
 	 */
 	@operator (
@@ -423,10 +415,14 @@ public class Stats {
 	/**
 	 * Split in.
 	 *
-	 * @param <T> the generic type
-	 * @param scope the scope
-	 * @param list the list
-	 * @param nb the nb
+	 * @param <T>
+	 *            the generic type
+	 * @param scope
+	 *            the scope
+	 * @param list
+	 *            the list
+	 * @param nb
+	 *            the nb
 	 * @return the i list
 	 */
 	@operator (
@@ -438,9 +434,10 @@ public class Stats {
 			concept = { IConcept.STATISTIC })
 	@doc (
 			see = { "split", "split_using" },
-			value = "Splits a list of numbers into n bins defined by n-1 bounds between the minimum "
-					+ "and maximum values found in the first argument. The splitting is strict "
-					+ "(i.e. elements are in the ith bin if they are strictly smaller than the ith bound)",
+			value = """
+					Splits a list of numbers into n bins defined by n-1 bounds between the minimum \
+					and maximum values found in the first argument. The splitting is strict \
+					(i.e. elements are in the ith bin if they are strictly smaller than the ith bound)""",
 			examples = { @example ("list<float> li <- [1.0,3.1,5.2,6.0,9.2,11.1,12.0,13.0,19.9,35.9,40.0];"), @example (
 					value = "split_in(li,3)",
 					equals = "[[1.0,3.1,5.2,6.0,9.2,11.1,12.0,13.0],[19.9],[35.9,40.0]]") })
@@ -452,11 +449,16 @@ public class Stats {
 	/**
 	 * Split in.
 	 *
-	 * @param <T> the generic type
-	 * @param scope the scope
-	 * @param list the list
-	 * @param nb the nb
-	 * @param strict the strict
+	 * @param <T>
+	 *            the generic type
+	 * @param scope
+	 *            the scope
+	 * @param list
+	 *            the list
+	 * @param nb
+	 *            the nb
+	 * @param strict
+	 *            the strict
 	 * @return the i list
 	 */
 	@operator (
@@ -468,9 +470,10 @@ public class Stats {
 			concept = { IConcept.STATISTIC })
 	@doc (
 			see = { "split", "split_using" },
-			value = "Splits a list of numbers into n bins defined by n-1 bounds between the minimum and maximum values"
-					+ " found in the first argument. The boolean argument controls whether or not the splitting is "
-					+ " strict (if true, elements are in the ith bin if they are strictly smaller than the ith bound)",
+			value = """
+					Splits a list of numbers into n bins defined by n-1 bounds between the minimum and maximum values\
+					 found in the first argument. The boolean argument controls whether or not the splitting is \
+					 strict (if true, elements are in the ith bin if they are strictly smaller than the ith bound)""",
 			examples = { @example ("list<float> l <- [1.0,3.1,5.2,6.0,9.2,11.1,12.0,13.0,19.9,35.9,40.0];"), @example (
 					value = "split_in(l,3, true)",
 					equals = "[[1.0,3.1,5.2,6.0,9.2,11.1,12.0,13.0],[19.9],[35.9,40.0]]") })
@@ -490,10 +493,14 @@ public class Stats {
 	/**
 	 * Split using.
 	 *
-	 * @param <T> the generic type
-	 * @param scope the scope
-	 * @param list the list
-	 * @param stops the stops
+	 * @param <T>
+	 *            the generic type
+	 * @param scope
+	 *            the scope
+	 * @param list
+	 *            the list
+	 * @param stops
+	 *            the stops
 	 * @return the i list
 	 */
 	@operator (
@@ -505,9 +512,10 @@ public class Stats {
 			concept = { IConcept.STATISTIC })
 	@doc (
 			see = { "split", "split_in" },
-			value = "Splits a list of numbers into n+1 bins using a set of n bounds passed as the second argument. "
-					+ "The splitting is strict (i.e. elements are in the ith bin if they are strictly smaller "
-					+ "than the ith bound), when no boolean attribute is specified.",
+			value = """
+					Splits a list of numbers into n+1 bins using a set of n bounds passed as the second argument. \
+					The splitting is strict (i.e. elements are in the ith bin if they are strictly smaller \
+					than the ith bound), when no boolean attribute is specified.""",
 			masterDoc = true,
 			examples = { @example ("list<float> li <- [1.0,3.1,5.2,6.0,9.2,11.1,12.0,13.0,19.9,35.9,40.0];"), @example (
 					value = "split_using(li,[1.0,3.0,4.2])",
@@ -520,11 +528,16 @@ public class Stats {
 	/**
 	 * Split using.
 	 *
-	 * @param <T> the generic type
-	 * @param scope the scope
-	 * @param list the list
-	 * @param stops the stops
-	 * @param strict the strict
+	 * @param <T>
+	 *            the generic type
+	 * @param scope
+	 *            the scope
+	 * @param list
+	 *            the list
+	 * @param stops
+	 *            the stops
+	 * @param strict
+	 *            the strict
 	 * @return the i list
 	 */
 	@operator (
@@ -536,9 +549,10 @@ public class Stats {
 			concept = { IConcept.STATISTIC })
 	@doc (
 			see = { "split", "split_in" },
-			value = "Splits a list of numbers into n+1 bins using a set of n bounds passed as the second argument."
-					+ " The boolean argument controls whether or not the splitting is strict "
-					+ "(if true, elements are in the ith bin if they are strictly smaller than the ith bound",
+			value = """
+					Splits a list of numbers into n+1 bins using a set of n bounds passed as the second argument.\
+					 The boolean argument controls whether or not the splitting is strict \
+					(if true, elements are in the ith bin if they are strictly smaller than the ith bound""",
 			examples = { @example ("list<float> l <- [1.0,3.1,5.2,6.0,9.2,11.1,12.0,13.0,19.9,35.9,40.0];"), @example (
 					value = "split_using(l,[1.0,3.0,4.2], true)",
 					equals = "[[],[1.0],[3.1],[5.2,6.0,9.2,11.1,12.0,13.0,19.9,35.9,40.0]]") })
@@ -572,8 +586,10 @@ public class Stats {
 	/**
 	 * Max.
 	 *
-	 * @param scope the scope
-	 * @param l the l
+	 * @param scope
+	 *            the scope
+	 * @param l
+	 *            the l
 	 * @return the object
 	 */
 	@operator (
@@ -595,10 +611,11 @@ public class Stats {
 									value = "max ([100, 23.2, 34.5])",
 									equals = "100.0") }),
 					@usage (
-							value = "if it is a list of points: max returns the maximum of all points as a point "
-									+ "(i.e. the point with the greatest coordinate on the x-axis, in case of equality "
-									+ "the point with the greatest coordinate on the y-axis is chosen. "
-									+ "If all the points are equal, the first one is returned. )",
+							value = """
+									if it is a list of points: max returns the maximum of all points as a point \
+									(i.e. the point with the greatest coordinate on the x-axis, in case of equality \
+									the point with the greatest coordinate on the y-axis is chosen. \
+									If all the points are equal, the first one is returned. )""",
 							examples = { @example (
 									value = "max([{1.0,3.0},{3.0,5.0},{9.0,1.0},{7.0,8.0}])",
 									equals = "{9.0,1.0}") }),
@@ -637,8 +654,10 @@ public class Stats {
 	/**
 	 * Min.
 	 *
-	 * @param scope the scope
-	 * @param l the l
+	 * @param scope
+	 *            the scope
+	 * @param l
+	 *            the l
 	 * @return the object
 	 */
 	@operator (
@@ -658,10 +677,11 @@ public class Stats {
 							value = "min ([100, 23.2, 34.5])",
 							equals = "23.2") }),
 					@usage (
-							value = "if it is a list of points: min returns the minimum of all points as a point "
-									+ "(i.e. the point with the smallest coordinate on the x-axis, in case of "
-									+ "equality the point with the smallest coordinate on the y-axis is chosen."
-									+ " If all the points are equal, the first one is returned. )"),
+							value = """
+									if it is a list of points: min returns the minimum of all points as a point \
+									(i.e. the point with the smallest coordinate on the x-axis, in case of \
+									equality the point with the smallest coordinate on the y-axis is chosen.\
+									 If all the points are equal, the first one is returned. )"""),
 					@usage (
 							value = "if it is a population of a list of other types: min transforms all elements "
 									+ "into integer and returns the minimum of them"),
@@ -703,8 +723,10 @@ public class Stats {
 	/**
 	 * Product.
 	 *
-	 * @param scope the scope
-	 * @param l the l
+	 * @param scope
+	 *            the scope
+	 * @param l
+	 *            the l
 	 * @return the object
 	 */
 	@SuppressWarnings ("null")
@@ -778,8 +800,10 @@ public class Stats {
 	/**
 	 * Op median.
 	 *
-	 * @param scope the scope
-	 * @param values the values
+	 * @param scope
+	 *            the scope
+	 * @param values
+	 *            the values
 	 * @return the object
 	 */
 	@operator (
@@ -849,8 +873,10 @@ public class Stats {
 	/**
 	 * Op st dev.
 	 *
-	 * @param scope the scope
-	 * @param values the values
+	 * @param scope
+	 *            the scope
+	 * @param values
+	 *            the values
 	 * @return the double
 	 */
 	@operator (
@@ -860,9 +886,10 @@ public class Stats {
 			category = { IOperatorCategory.STATISTICAL },
 			concept = { IConcept.STATISTIC })
 	@doc (
-			value = "the standard deviation on the elements of the operand. "
-					+ "See <A href=\"http://en.wikipedia.org/wiki/Standard_deviation\">Standard_deviation</A> "
-					+ "for more details.",
+			value = """
+					the standard deviation on the elements of the operand. \
+					See <A href="http://en.wikipedia.org/wiki/Standard_deviation">Standard_deviation</A> \
+					for more details.""",
 			comment = "The operator casts all the numerical element of the list into float. "
 					+ "The elements that are not numerical are discarded.",
 			special_cases = { "" },
@@ -878,8 +905,10 @@ public class Stats {
 	/**
 	 * Op geom mean.
 	 *
-	 * @param scope the scope
-	 * @param values the values
+	 * @param scope
+	 *            the scope
+	 * @param values
+	 *            the values
 	 * @return the double
 	 */
 	@operator (
@@ -906,8 +935,10 @@ public class Stats {
 	/**
 	 * Op harmonic mean.
 	 *
-	 * @param scope the scope
-	 * @param values the values
+	 * @param scope
+	 *            the scope
+	 * @param values
+	 *            the values
 	 * @return the double
 	 */
 	@operator (
@@ -934,8 +965,10 @@ public class Stats {
 	/**
 	 * Op variance.
 	 *
-	 * @param scope the scope
-	 * @param values the values
+	 * @param scope
+	 *            the scope
+	 * @param values
+	 *            the values
 	 * @return the double
 	 */
 	@operator (
@@ -961,8 +994,10 @@ public class Stats {
 	/**
 	 * Op mean deviation.
 	 *
-	 * @param scope the scope
-	 * @param values the values
+	 * @param scope
+	 *            the scope
+	 * @param values
+	 *            the values
 	 * @return the double
 	 */
 	@operator (
@@ -988,11 +1023,15 @@ public class Stats {
 	/**
 	 * Frequency of.
 	 *
-	 * @param scope the scope
-	 * @param original the original
-	 * @param filter the filter
+	 * @param scope
+	 *            the scope
+	 * @param original
+	 *            the original
+	 * @param filter
+	 *            the filter
 	 * @return the i map
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@operator (
 			value = { "frequency_of" },
@@ -1029,13 +1068,19 @@ public class Stats {
 	/**
 	 * Gets the correlation R.
 	 *
-	 * @param scope the scope
-	 * @param l1 the l 1
-	 * @param l2 the l 2
+	 * @param scope
+	 *            the scope
+	 * @param l1
+	 *            the l 1
+	 * @param l2
+	 *            the l 2
 	 * @return the correlation R
-	 * @throws GamaRuntimeException the gama runtime exception
-	 * @throws ParseException the parse exception
-	 * @throws ExecutionException the execution exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
+	 * @throws ParseException
+	 *             the parse exception
+	 * @throws ExecutionException
+	 *             the execution exception
 	 */
 	@operator (
 			value = { "corR", "R_correlation" },
@@ -1061,9 +1106,7 @@ public class Stats {
 
 	public static Object getCorrelationR(final IScope scope, final IContainer l1, final IContainer l2)
 			throws GamaRuntimeException, ParseException, ExecutionException {
-		if (l1.length(scope) == 0 || l2.length(scope) == 0) return Double.valueOf(0d);
-
-		if (l1.length(scope) != l2.length(scope)) return Double.valueOf(0d);
+		if (l1.length(scope) == 0 || l2.length(scope) == 0 || (l1.length(scope) != l2.length(scope))) return Double.valueOf(0d);
 
 		final RCaller caller = new RCaller();
 		final RCode code = new RCode();
@@ -1080,12 +1123,14 @@ public class Stats {
 
 		int i = 0;
 		for (final Object o : l1.iterable(scope)) {
-			vectorX[i++] = Double.parseDouble(o.toString());
+			vectorX[i] = Double.parseDouble(o.toString());
+			i++;
 		}
 
 		i = 0;
 		for (final Object o : l2.iterable(scope)) {
-			vectorY[i++] = Double.parseDouble(o.toString());
+			vectorY[i] = Double.parseDouble(o.toString());
+			i++;
 		}
 
 		code.addDoubleArray("vectorX", vectorX);
@@ -1108,12 +1153,17 @@ public class Stats {
 	/**
 	 * Gets the mean R.
 	 *
-	 * @param scope the scope
-	 * @param l the l
+	 * @param scope
+	 *            the scope
+	 * @param l
+	 *            the l
 	 * @return the mean R
-	 * @throws GamaRuntimeException the gama runtime exception
-	 * @throws ParseException the parse exception
-	 * @throws ExecutionException the execution exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
+	 * @throws ParseException
+	 *             the parse exception
+	 * @throws ExecutionException
+	 *             the execution exception
 	 */
 	@operator (
 			value = { "meanR", "R_mean" },
@@ -1154,7 +1204,8 @@ public class Stats {
 		final double[] data = new double[l.length(scope)];
 		int i = 0;
 		for (final Object o : l.iterable(scope)) {
-			data[i++] = Double.parseDouble(o.toString());
+			data[i] = Double.parseDouble(o.toString());
+			i++;
 		}
 
 		code.addDoubleArray("data", data);
@@ -1168,12 +1219,17 @@ public class Stats {
 	/**
 	 * D bscan apache.
 	 *
-	 * @param scope the scope
-	 * @param data the data
-	 * @param eps the eps
-	 * @param minPts the min pts
+	 * @param scope
+	 *            the scope
+	 * @param data
+	 *            the data
+	 * @param eps
+	 *            the eps
+	 * @param minPts
+	 *            the min pts
 	 * @return the i list
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@operator (
 			value = "dbscan",
@@ -1182,10 +1238,11 @@ public class Stats {
 			category = { IOperatorCategory.STATISTICAL },
 			concept = { IConcept.STATISTIC, IConcept.CLUSTERING })
 	@doc (
-			value = "returns the list of clusters (list of instance indices) computed with the dbscan"
-					+ " (density-based spatial clustering of applications with noise) algorithm from the "
-					+ "first operand data according to the maximum radius of the neighborhood to be considered (eps) "
-					+ "and the minimum number of points needed for a cluster (minPts). Usage: dbscan(data,eps,minPoints)",
+			value = """
+					returns the list of clusters (list of instance indices) computed with the dbscan\
+					 (density-based spatial clustering of applications with noise) algorithm from the \
+					first operand data according to the maximum radius of the neighborhood to be considered (eps) \
+					and the minimum number of points needed for a cluster (minPts). Usage: dbscan(data,eps,minPoints)""",
 			special_cases = "if the lengths of two vectors in the right-hand aren't equal, returns 0",
 			examples = { @example (
 					value = "dbscan ([[2,4,5], [3,8,2], [1,1,3], [4,3,4]],10,2)",
@@ -1228,12 +1285,17 @@ public class Stats {
 	/**
 	 * K means plusplus apache.
 	 *
-	 * @param scope the scope
-	 * @param data the data
-	 * @param k the k
-	 * @param maxIt the max it
+	 * @param scope
+	 *            the scope
+	 * @param data
+	 *            the data
+	 * @param k
+	 *            the k
+	 * @param maxIt
+	 *            the max it
 	 * @return the i list
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@operator (
 			value = "kmeans",
@@ -1242,10 +1304,11 @@ public class Stats {
 			category = { IOperatorCategory.STATISTICAL },
 			concept = { IConcept.STATISTIC, IConcept.CLUSTERING })
 	@doc (
-			value = "returns the list of clusters (list of instance indices) computed with the kmeans++ "
-					+ "algorithm from the first operand data according to the number of clusters to split"
-					+ " the data into (k) and the maximum number of iterations to run the algorithm."
-					+ "(If negative, no maximum will be used) (maxIt). Usage: kmeans(data,k,maxit)",
+			value = """
+					returns the list of clusters (list of instance indices) computed with the kmeans++ \
+					algorithm from the first operand data according to the number of clusters to split\
+					 the data into (k) and the maximum number of iterations to run the algorithm.\
+					(If negative, no maximum will be used) (maxIt). Usage: kmeans(data,k,maxit)""",
 			// special_cases = "if the lengths of two vectors in the right-hand aren't equal, returns 0",
 			masterDoc = true,
 			examples = { @example (
@@ -1283,12 +1346,17 @@ public class Stats {
 	/**
 	 * Op dynamic time warping.
 	 *
-	 * @param scope the scope
-	 * @param vals1 the vals 1
-	 * @param vals2 the vals 2
-	 * @param radius the radius
+	 * @param scope
+	 *            the scope
+	 * @param vals1
+	 *            the vals 1
+	 * @param vals2
+	 *            the vals 2
+	 * @param radius
+	 *            the radius
 	 * @return the double
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@operator (
 			value = "dtw",
@@ -1346,11 +1414,15 @@ public class Stats {
 	/**
 	 * Op dynamic time warping.
 	 *
-	 * @param scope the scope
-	 * @param vals1 the vals 1
-	 * @param vals2 the vals 2
+	 * @param scope
+	 *            the scope
+	 * @param vals1
+	 *            the vals 1
+	 * @param vals2
+	 *            the vals 2
 	 * @return the double
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@operator (
 			value = "dtw",
@@ -1402,10 +1474,13 @@ public class Stats {
 	/**
 	 * Skewness.
 	 *
-	 * @param scope the scope
-	 * @param data the data
+	 * @param scope
+	 *            the scope
+	 * @param data
+	 *            the data
 	 * @return the double
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@operator (
 			value = "skewness",
@@ -1431,10 +1506,13 @@ public class Stats {
 	/**
 	 * Kurtosis.
 	 *
-	 * @param scope the scope
-	 * @param data the data
+	 * @param scope
+	 *            the scope
+	 * @param data
+	 *            the data
 	 * @return the double
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@operator (
 			value = "kurtosis",
@@ -1462,11 +1540,15 @@ public class Stats {
 	/**
 	 * K means plusplus apache.
 	 *
-	 * @param scope the scope
-	 * @param data the data
-	 * @param k the k
+	 * @param scope
+	 *            the scope
+	 * @param data
+	 *            the data
+	 * @param k
+	 *            the k
 	 * @return the i list
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@operator (
 			value = "kmeans",
@@ -1475,9 +1557,10 @@ public class Stats {
 			category = { IOperatorCategory.STATISTICAL },
 			concept = { IConcept.STATISTIC, IConcept.CLUSTERING })
 	@doc (
-			value = "returns the list of clusters (list of instance indices) computed with the kmeans++ "
-					+ "algorithm from the first operand data according to the number of clusters to split"
-					+ " the data into (k). Usage: kmeans(data,k)",
+			value = """
+					returns the list of clusters (list of instance indices) computed with the kmeans++ \
+					algorithm from the first operand data according to the number of clusters to split\
+					 the data into (k). Usage: kmeans(data,k)""",
 			// special_cases = "if the lengths of two vectors in the right-hand aren't equal, returns 0",
 			usages = { @usage (
 					value = "The maximum number of (third operand) can be omitted.",
@@ -1492,10 +1575,13 @@ public class Stats {
 	/**
 	 * Builds the regression.
 	 *
-	 * @param scope the scope
-	 * @param data the data
+	 * @param scope
+	 *            the scope
+	 * @param data
+	 *            the data
 	 * @return the gama regression
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@operator (
 			value = "build",
@@ -1504,9 +1590,10 @@ public class Stats {
 			category = { IOperatorCategory.STATISTICAL },
 			concept = {})
 	@doc (
-			value = "returns the regression build from the matrix data (a row = an instance, "
-					+ "the last value of each line is the y value) while using the given ordinary "
-					+ "least squares method. Usage: build(data)",
+			value = """
+					returns the regression build from the matrix data (a row = an instance, \
+					the last value of each line is the y value) while using the given ordinary \
+					least squares method. Usage: build(data)""",
 			examples = { @example (
 					value = "build(matrix([[1.0,2.0,3.0,4.0],[2.0,3.0,4.0,2.0]]))",
 					isExecutable = false) })
@@ -1523,9 +1610,12 @@ public class Stats {
 	/**
 	 * Predict from regression.
 	 *
-	 * @param scope the scope
-	 * @param regression the regression
-	 * @param instance the instance
+	 * @param scope
+	 *            the scope
+	 * @param regression
+	 *            the regression
+	 * @param instance
+	 *            the instance
 	 * @return the double
 	 */
 	@operator (
@@ -1549,8 +1639,10 @@ public class Stats {
 	/**
 	 * Gini index.
 	 *
-	 * @param scope the scope
-	 * @param vals the vals
+	 * @param scope
+	 *            the scope
+	 * @param vals
+	 *            the vals
 	 * @return the double
 	 */
 	@operator (
@@ -1569,7 +1661,7 @@ public class Stats {
 
 	public static double giniIndex(final IScope scope, final IList<Double> vals) {
 		final int N = vals.size();
-		Double G = 0.0;
+		double G = 0.0;
 		double sumXi = 0.0;
 		for (int i = 0; i < N; i++) {
 			final double xi = vals.get(i);
@@ -1586,9 +1678,12 @@ public class Stats {
 	/**
 	 * Product of.
 	 *
-	 * @param scope the scope
-	 * @param container the container
-	 * @param filter the filter
+	 * @param scope
+	 *            the scope
+	 * @param container
+	 *            the container
+	 * @param filter
+	 *            the filter
 	 * @return the object
 	 */
 	@operator (
@@ -1617,9 +1712,12 @@ public class Stats {
 	/**
 	 * Variance of.
 	 *
-	 * @param scope the scope
-	 * @param container the container
-	 * @param filter the filter
+	 * @param scope
+	 *            the scope
+	 * @param container
+	 *            the container
+	 * @param filter
+	 *            the filter
 	 * @return the object
 	 */
 	@operator (
@@ -1640,6 +1738,35 @@ public class Stats {
 	@test ("[1,2,3,4,5,6] variance_of each with_precision 2 = 2.92")
 	public static Object variance_of(final IScope scope, final IContainer container, final IExpression filter) {
 		return opVariance(scope, collect(scope, container, filter));
+	}
+
+	@operator (
+			value = "t_test",
+			can_be_const = false,
+			category = { IOperatorCategory.STATISTICAL },
+			concept = { IConcept.STATISTIC })
+	@doc (
+			value = """
+					Returns the observed significance level, or p-value, associated with a two-sample, \
+					two-tailed t-test comparing the means of the two input lists.\
+					The number returned is the smallest significance level at which one can reject the null hypothesis""",
+			examples = { @example (
+					value = "t_test([10.0,5.0,1.0, 3.0],[1.0,10.0,5.0,1.0])",
+					equals = "0.01") })
+	public static Double tTestPValue(final IScope scope, final IList seq1, final IList seq2) {
+		TTest t = new TTest();
+
+		double[] s1 = new double[seq1.length(scope)];
+		for (int i = 0; i < seq1.length(scope); i++) {
+			s1[i] = Cast.asFloat(scope, seq1.get(i));
+		}
+
+		double[] s2 = new double[seq2.length(scope)];
+		for (int i = 0; i < seq2.length(scope); i++) {
+			s2[i] = Cast.asFloat(scope, seq2.get(i));
+		}
+
+		return t.tTest(s1, s2);
 	}
 
 }
