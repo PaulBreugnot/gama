@@ -27,6 +27,7 @@ import gama.outputs.LayeredDisplayData;
 import gama.outputs.LayeredDisplayData.DisplayDataListener;
 import gama.outputs.LayeredDisplayOutput;
 import gama.outputs.layers.IEventLayerListener;
+import gama.runtime.IScope.IGraphicsScope;
 import gaml.statements.draw.DrawingAttributes;
 
 // TODO: Auto-generated Javadoc
@@ -422,5 +423,13 @@ public interface IDisplaySurface extends DisplayDataListener, IScoped, IDisposab
 	 *            the new display synchronizer
 	 */
 	default void setDisplaySynchronizer(final IDisplaySynchronizer layeredDisplaySynchronizer) {}
+
+	/**
+	 * Gets the scope.
+	 *
+	 * @return the scope
+	 */
+	@Override
+	IGraphicsScope getScope();
 
 }

@@ -77,7 +77,7 @@ public class GAMA {
 	private static IGui regularGui;
 
 	/** The headless gui. */
-	private static IGui headlessGui = new HeadlessListener();
+	private static IGui headlessGui = new HeadlessGui();
 
 	/** The Constant controllers. */
 	// hqnghi: add several controllers to have multi-thread experiments
@@ -616,7 +616,7 @@ public class GAMA {
 	 */
 	public static IGui setHeadLessMode() {
 		isInHeadlessMode = true;
-		final IGui gui = new HeadlessListener();
+		final IGui gui = new HeadlessGui();
 		setHeadlessGui(gui);
 		return gui;
 	}

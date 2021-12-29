@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * AbstractDisplayGraphics.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * AbstractDisplayGraphics.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.outputs.display;
 
@@ -17,6 +17,7 @@ import org.locationtech.jts.geom.Envelope;
 import gama.common.ui.IDisplaySurface;
 import gama.common.ui.IGraphics;
 import gama.common.ui.ILayer;
+import gama.common.util.RandomUtils;
 import gama.metamodel.shape.GamaPoint;
 import gama.outputs.LayeredDisplayData;
 import gama.outputs.layers.OverlayLayer;
@@ -28,24 +29,27 @@ public abstract class AbstractDisplayGraphics implements IGraphics {
 
 	/** The rect. */
 	protected final Rectangle2D rect = new Rectangle2D.Double(0, 0, 1, 1);
-	
+
 	/** The Constant origin. */
 	protected static final GamaPoint origin = new GamaPoint(0, 0);
-	
+
 	/** The current layer alpha. */
 	protected double currentLayerAlpha = 1;
-	
+
 	/** The data. */
 	public LayeredDisplayData data;
-	
+
 	/** The surface. */
 	protected IDisplaySurface surface;
-	
+
 	/** The highlight. */
 	public boolean highlight = false;
 
 	/** The current layer. */
 	protected ILayer currentLayer;
+
+	/** The random number generator specific to this graphics. See Issue #3250. */
+	private final RandomUtils random = new RandomUtils();
 
 	@Override
 	public void setDisplaySurface(final IDisplaySurface surface) {
@@ -54,9 +58,7 @@ public abstract class AbstractDisplayGraphics implements IGraphics {
 	}
 
 	@Override
-	public boolean isNotReadyToUpdate() {
-		return surface.isDisposed();
-	}
+	public boolean isNotReadyToUpdate() { return surface.isDisposed(); }
 
 	@Override
 	public void dispose() {
@@ -82,7 +84,8 @@ public abstract class AbstractDisplayGraphics implements IGraphics {
 	/**
 	 * X from model units to pixels.
 	 *
-	 * @param mu the mu
+	 * @param mu
+	 *            the mu
 	 * @return the double
 	 */
 	protected final double xFromModelUnitsToPixels(final double mu) {
@@ -92,7 +95,8 @@ public abstract class AbstractDisplayGraphics implements IGraphics {
 	/**
 	 * Y from model units to pixels.
 	 *
-	 * @param mu the mu
+	 * @param mu
+	 *            the mu
 	 * @return the double
 	 */
 	protected final double yFromModelUnitsToPixels(final double mu) {
@@ -102,7 +106,8 @@ public abstract class AbstractDisplayGraphics implements IGraphics {
 	/**
 	 * W from model units to pixels.
 	 *
-	 * @param mu the mu
+	 * @param mu
+	 *            the mu
 	 * @return the double
 	 */
 	protected final double wFromModelUnitsToPixels(final double mu) {
@@ -112,7 +117,8 @@ public abstract class AbstractDisplayGraphics implements IGraphics {
 	/**
 	 * H from model units to pixels.
 	 *
-	 * @param mu the mu
+	 * @param mu
+	 *            the mu
 	 * @return the double
 	 */
 	protected final double hFromModelUnitsToPixels(final double mu) {
@@ -127,9 +133,8 @@ public abstract class AbstractDisplayGraphics implements IGraphics {
 
 	@Override
 	public double getyRatioBetweenPixelsAndModelUnits() {
-		if (currentLayer == null)
-			return getDisplayHeight() / data.getEnvHeight();
-		else if (currentLayer instanceof OverlayLayer)
+		if (currentLayer == null) return getDisplayHeight() / data.getEnvHeight();
+		if (currentLayer instanceof OverlayLayer)
 			return getxRatioBetweenPixelsAndModelUnits();
 		else
 			return currentLayer.getData().getSizeInPixels().y / data.getEnvHeight();
@@ -171,34 +176,22 @@ public abstract class AbstractDisplayGraphics implements IGraphics {
 	public void endDrawingLayers() {}
 
 	@Override
-	public Double getZoomLevel() {
-		return data.getZoomLevel();
-	}
+	public Double getZoomLevel() { return data.getZoomLevel(); }
 
 	@Override
-	public IDisplaySurface getSurface() {
-		return surface;
-	}
+	public IDisplaySurface getSurface() { return surface; }
 
 	@Override
-	public int getViewWidth() {
-		return surface.getWidth();
-	}
+	public int getViewWidth() { return surface.getWidth(); }
 
 	@Override
-	public int getViewHeight() {
-		return surface.getHeight();
-	}
+	public int getViewHeight() { return surface.getHeight(); }
 
 	@Override
-	public int getDisplayWidth() {
-		return (int) surface.getDisplayWidth();
-	}
+	public int getDisplayWidth() { return (int) surface.getDisplayWidth(); }
 
 	@Override
-	public int getDisplayHeight() {
-		return (int) surface.getDisplayHeight();
-	}
+	public int getDisplayHeight() { return (int) surface.getDisplayHeight(); }
 
 	/**
 	 * Gets the layer width.
@@ -219,8 +212,9 @@ public abstract class AbstractDisplayGraphics implements IGraphics {
 	}
 
 	@Override
-	public Envelope getVisibleRegion() {
-		return surface.getVisibleRegionForLayer(currentLayer);
-	}
+	public Envelope getVisibleRegion() { return surface.getVisibleRegionForLayer(currentLayer); }
+
+	@Override
+	public RandomUtils getRandom() { return random; }
 
 }

@@ -121,7 +121,8 @@ public class ViewsHelper {
 	/**
 	 * Gets the display views.
 	 *
-	 * @param p the p
+	 * @param p
+	 *            the p
 	 * @return the display views
 	 */
 	public static List<IGamaView.Display> getDisplayViews(final Predicate<IViewPart> p) {
@@ -189,6 +190,19 @@ public class ViewsHelper {
 			if (v.isFullScreen() || v.containsPoint(p.x, p.y)) return (IViewPart) v;
 		}
 		return null;
+	}
+
+	/**
+	 * Frontmost display surface.
+	 *
+	 * @return the i display surface
+	 */
+	public static IDisplaySurface frontmostDisplaySurface() {
+		IViewPart view = findFrontmostGamaViewUnderMouse();
+		if (view instanceof IGamaView.Display) return ((IGamaView.Display) view).getDisplaySurface();
+		List<IDisplaySurface> surfaces = allDisplaySurfaces();
+		if (surfaces.size() == 0) return null;
+		return surfaces.get(0);
 	}
 
 }

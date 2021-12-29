@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * FileExecuter.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * FileExecuter.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gaml.statements.draw;
 
@@ -18,7 +18,7 @@ import gama.common.geometry.Envelope3D;
 import gama.common.geometry.Scaling3D;
 import gama.common.preferences.GamaPreferences;
 import gama.common.ui.IGraphics;
-import gama.runtime.IScope;
+import gama.runtime.IScope.IGraphicsScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gama.util.file.GamaFile;
 import gama.util.file.GamaGisFile;
@@ -38,8 +38,10 @@ class FileExecuter extends DrawExecuter {
 	/**
 	 * Instantiates a new file executer.
 	 *
-	 * @param item the item
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param item
+	 *            the item
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	FileExecuter(final IExpression item) throws GamaRuntimeException {
 		super(item);
@@ -47,7 +49,8 @@ class FileExecuter extends DrawExecuter {
 	}
 
 	@Override
-	Rectangle2D executeOn(final IScope scope, final IGraphics g, final DrawingData data) throws GamaRuntimeException {
+	Rectangle2D executeOn(final IGraphicsScope scope, final IGraphics g, final DrawingData data)
+			throws GamaRuntimeException {
 		final GamaFile file = constImg == null ? (GamaFile) item.value(scope) : constImg;
 		if (file == null) return null;
 		final FileDrawingAttributes attributes =
@@ -73,14 +76,19 @@ class FileExecuter extends DrawExecuter {
 	/**
 	 * Compute attributes.
 	 *
-	 * @param scope the scope
-	 * @param data the data
-	 * @param imageFile the image file
-	 * @param gisFile the gis file
-	 * @param twoD the two D
+	 * @param scope
+	 *            the scope
+	 * @param data
+	 *            the data
+	 * @param imageFile
+	 *            the image file
+	 * @param gisFile
+	 *            the gis file
+	 * @param twoD
+	 *            the two D
 	 * @return the file drawing attributes
 	 */
-	FileDrawingAttributes computeAttributes(final IScope scope, final DrawingData data, final boolean imageFile,
+	FileDrawingAttributes computeAttributes(final IGraphicsScope scope, final DrawingData data, final boolean imageFile,
 			final boolean gisFile, final boolean twoD) {
 		final FileDrawingAttributes attributes = new FileDrawingAttributes(Scaling3D.of(data.size.get()),
 				data.rotation.get(), data.getLocation(), data.color.get(), data.border.get(), scope.getAgent(),

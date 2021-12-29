@@ -59,7 +59,7 @@ import gama.outputs.display.LayerManager;
 import gama.outputs.layers.IEventLayerListener;
 import gama.outputs.layers.OverlayLayer;
 import gama.runtime.GAMA;
-import gama.runtime.IScope;
+import gama.runtime.IScope.IGraphicsScope;
 import gama.ui.base.resources.GamaIcons;
 import gama.ui.base.resources.IGamaIcons;
 import gama.ui.base.utils.DPIHelper;
@@ -111,7 +111,7 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	protected IExpression temp_focus;
 
 	/** The scope. */
-	IScope scope;
+	IGraphicsScope scope;
 
 	/** The synchronizer. */
 	public IDisplaySynchronizer synchronizer;
@@ -136,7 +136,7 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 		parent = (Composite) objects[1];
 		output.getData().addListener(this);
 		output.setSurface(this);
-		setDisplayScope(output.getScope().copy("in opengl display"));
+		setDisplayScope(output.getScope().copyForGraphics("in opengl display"));
 		renderer = createRenderer();
 		renderer.setDisplaySurface(this);
 		animator = new GamaGLCanvas(parent, renderer).getAnimator();
@@ -419,7 +419,7 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	 */
 	@Override
 	public void outputReloaded() {
-		setDisplayScope(output.getScope().copy("in opengl display"));
+		setDisplayScope(output.getScope().copyForGraphics("in opengl display"));
 		if (!GamaPreferences.Runtime.ERRORS_IN_DISPLAYS.getValue()) { getScope().disableErrorReporting(); }
 		renderer.initScene();
 		layerManager.outputChanged();
@@ -629,7 +629,7 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	 * @see gama.common.ui.IDisplaySurface#getDisplayScope()
 	 */
 	@Override
-	public IScope getScope() { return scope; }
+	public IGraphicsScope getScope() { return scope; }
 
 	/**
 	 * Method getOutput().
@@ -749,7 +749,7 @@ public class SWTOpenGLDisplaySurface implements IDisplaySurface.OpenGL {
 	 * @param scope
 	 *            the new display scope
 	 */
-	protected void setDisplayScope(final IScope scope) {
+	protected void setDisplayScope(final IGraphicsScope scope) {
 		if (this.scope != null) { GAMA.releaseScope(this.scope); }
 		this.scope = scope;
 	}

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * DrawStatement.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * DrawStatement.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gaml.statements.draw;
 
@@ -31,8 +31,6 @@ import java.util.Arrays;
 import gama.common.interfaces.IGamlIssue;
 import gama.common.interfaces.IKeyword;
 import gama.common.ui.IGraphics;
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.ISymbolKind;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.facet;
@@ -40,7 +38,10 @@ import gama.core.dev.annotations.GamlAnnotations.facets;
 import gama.core.dev.annotations.GamlAnnotations.inside;
 import gama.core.dev.annotations.GamlAnnotations.symbol;
 import gama.core.dev.annotations.GamlAnnotations.usage;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.ISymbolKind;
 import gama.runtime.IScope;
+import gama.runtime.IScope.IGraphicsScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gaml.compilation.GAML;
 import gaml.compilation.IDescriptionValidator;
@@ -144,9 +145,10 @@ import gaml.types.Types;
 						name = "precision",
 						type = IType.FLOAT,
 						optional = true,
-						doc = @doc ("(only if the display type is opengl and only for text drawing) controls the accuracy with which curves are rendered in glyphs. Between 0 and 1, the default is 0.1. "
-								+ "Smaller values will output much more faithful curves but can be considerably slower, "
-								+ "so it is better if they concern text that does not change and can be drawn inside layers marked as 'refresh: false'")),
+						doc = @doc ("""
+								(only if the display type is opengl and only for text drawing) controls the accuracy with which curves are rendered in glyphs. Between 0 and 1, the default is 0.1. \
+								Smaller values will output much more faithful curves but can be considerably slower, \
+								so it is better if they concern text that does not change and can be drawn inside layers marked as 'refresh: false'""")),
 				@facet (
 						name = DrawStatement.BEGIN_ARROW,
 						type = { IType.INT, IType.FLOAT },
@@ -291,11 +293,9 @@ public class DrawStatement extends AbstractStatementSequence {
 
 					if (rot != null) {
 						final IExpressionDescription per = description.getFacet(PERSPECTIVE);
-						if (per != null) {
-							if (per.isConst() && per.equalsString(FALSE)) {
-								description.warning("Rotations cannot be applied when perspective is false",
-										IGamlIssue.CONFLICTING_FACETS, ROTATE);
-							}
+						if (per != null && per.isConst() && per.equalsString(FALSE)) {
+							description.warning("Rotations cannot be applied when perspective is false",
+									IGamlIssue.CONFLICTING_FACETS, ROTATE);
 						}
 					}
 				}
@@ -307,7 +307,8 @@ public class DrawStatement extends AbstractStatementSequence {
 		/**
 		 * Can draw.
 		 *
-		 * @param exp the exp
+		 * @param exp
+		 *            the exp
 		 * @return true, if successful
 		 */
 		private boolean canDraw(final IExpression exp) {
@@ -322,7 +323,7 @@ public class DrawStatement extends AbstractStatementSequence {
 
 	/** The Constant END_ARROW. */
 	public static final String END_ARROW = "end_arrow";
-	
+
 	/** The Constant BEGIN_ARROW. */
 	public static final String BEGIN_ARROW = "begin_arrow";
 
@@ -335,8 +336,10 @@ public class DrawStatement extends AbstractStatementSequence {
 	/**
 	 * Instantiates a new draw statement.
 	 *
-	 * @param desc the desc
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param desc
+	 *            the desc
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	public DrawStatement(final IDescription desc) throws GamaRuntimeException {
 		super(desc);
@@ -344,20 +347,23 @@ public class DrawStatement extends AbstractStatementSequence {
 		data = ThreadLocal.withInitial(() -> new DrawingData(this));
 		if (item == null) {
 			executer = null;
+		} else if (item.getGamlType().getGamlType().id() == IType.FILE) {
+			executer = new FileExecuter(item);
+		} else if (item.getGamlType().id() == IType.STRING) {
+			executer = new TextExecuter(item);
 		} else {
-			if (item.getGamlType().getGamlType().id() == IType.FILE) {
-				executer = new FileExecuter(item);
-			} else if (item.getGamlType().id() == IType.STRING) {
-				executer = new TextExecuter(item);
-			} else {
-				// item is supposed to be castable into a geometry
-				executer = new ShapeExecuter(item, getFacet(BEGIN_ARROW), getFacet(END_ARROW));
-			}
+			// item is supposed to be castable into a geometry
+			executer = new ShapeExecuter(item, getFacet(BEGIN_ARROW), getFacet(END_ARROW));
 		}
 	}
 
 	@Override
 	public Rectangle2D privateExecuteIn(final IScope scope) throws GamaRuntimeException {
+		if (scope.isGraphics()) return privateExecuteIn((IGraphicsScope) scope);
+		return null;
+	}
+
+	public Rectangle2D privateExecuteIn(final IGraphicsScope scope) throws GamaRuntimeException {
 		if (executer == null) return null;
 		final IGraphics g = scope.getGraphics();
 		if (g == null) return null;

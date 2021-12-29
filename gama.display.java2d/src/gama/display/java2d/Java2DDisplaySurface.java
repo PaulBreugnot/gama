@@ -71,7 +71,7 @@ import gama.outputs.display.LayerManager;
 import gama.outputs.layers.IEventLayerListener;
 import gama.outputs.layers.OverlayLayer;
 import gama.runtime.GAMA;
-import gama.runtime.IScope;
+import gama.runtime.IScope.IGraphicsScope;
 import gama.runtime.PlatformHelper;
 import gama.ui.base.utils.DPIHelper;
 import gama.ui.experiment.views.displays.DisplaySurfaceMenu;
@@ -138,7 +138,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	protected volatile boolean disposed;
 
 	/** The scope. */
-	private IScope scope;
+	private IGraphicsScope scope;
 
 	/** The frames. */
 	int frames;
@@ -164,7 +164,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	public Java2DDisplaySurface(final Object... args) {
 		output = (LayeredDisplayOutput) args[0];
 		output.setSurface(this);
-		setDisplayScope(output.getScope().copy("in java2D display"));
+		setDisplayScope(output.getScope().copyForGraphics("in java2D display"));
 		output.getData().addListener(this);
 		temp_focus = output.getFacet(IKeyword.FOCUS);
 		setDoubleBuffered(true);
@@ -327,7 +327,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	@Override
 	public void outputReloaded() {
 		// We first copy the scope
-		setDisplayScope(output.getScope().copy("in java2D display "));
+		setDisplayScope(output.getScope().copyForGraphics("in java2D display "));
 		// We disable error reporting
 		if (!GamaPreferences.Runtime.ERRORS_IN_DISPLAYS.getValue()) { getScope().disableErrorReporting(); }
 		layerManager.outputChanged();
@@ -342,7 +342,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	 * @return the scope
 	 */
 	@Override
-	public IScope getScope() { return scope; }
+	public IGraphicsScope getScope() { return scope; }
 
 	/**
 	 * Gets the manager.
@@ -868,7 +868,7 @@ public class Java2DDisplaySurface extends JPanel implements IDisplaySurface {
 	 * @param scope
 	 *            the new display scope
 	 */
-	protected void setDisplayScope(final IScope scope) {
+	protected void setDisplayScope(final IGraphicsScope scope) {
 		if (this.scope != null) { GAMA.releaseScope(this.scope); }
 		this.scope = scope;
 	}

@@ -39,7 +39,7 @@ import gama.outputs.display.AWTDisplayGraphics;
 import gama.outputs.display.LayerManager;
 import gama.outputs.layers.IEventLayerListener;
 import gama.runtime.GAMA;
-import gama.runtime.IScope;
+import gama.runtime.IScope.IGraphicsScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gama.util.GamaListFactory;
 import gama.util.IList;
@@ -75,7 +75,7 @@ public class ImageDisplaySurface implements IDisplaySurface {
 	public static String snapshotFolder = "/tmp/";
 
 	/** The scope. */
-	protected IScope scope;
+	protected IGraphicsScope scope;
 
 	/** The data. */
 	private final LayeredDisplayData data;
@@ -99,7 +99,7 @@ public class ImageDisplaySurface implements IDisplaySurface {
 	 */
 	@Override
 	public void outputReloaded() {
-		this.scope = output.getScope().copy("in image surface of " + output.getName());
+		this.scope = output.getScope().copyForGraphics("in image surface of " + output.getName());
 		if (!GamaPreferences.Runtime.ERRORS_IN_DISPLAYS.getValue()) { scope.disableErrorReporting(); }
 		if (manager == null) {
 			manager = new LayerManager(this, output);
@@ -115,7 +115,7 @@ public class ImageDisplaySurface implements IDisplaySurface {
 	 * @return the scope
 	 */
 	@Override
-	public IScope getScope() { return scope; }
+	public IGraphicsScope getScope() { return scope; }
 
 	/**
 	 * Save this surface into an image passed as a parameter.

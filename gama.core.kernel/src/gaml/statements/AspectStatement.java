@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * AspectStatement.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * AspectStatement.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gaml.statements;
 
@@ -18,8 +18,6 @@ import java.util.Map;
 import gama.common.interfaces.IKeyword;
 import gama.common.preferences.GamaPreferences;
 import gama.common.ui.IGraphics;
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.ISymbolKind;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.facet;
@@ -27,11 +25,13 @@ import gama.core.dev.annotations.GamlAnnotations.facets;
 import gama.core.dev.annotations.GamlAnnotations.inside;
 import gama.core.dev.annotations.GamlAnnotations.symbol;
 import gama.core.dev.annotations.GamlAnnotations.usage;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.ISymbolKind;
 import gama.metamodel.agent.IAgent;
 import gama.metamodel.shape.GamaPoint;
 import gama.metamodel.shape.IShape;
-import gama.runtime.GAMA;
 import gama.runtime.IScope;
+import gama.runtime.IScope.IGraphicsScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gama.util.GamaColor;
 import gaml.descriptions.IDescription;
@@ -107,9 +107,11 @@ public class AspectStatement extends AbstractStatementSequence {
 
 	/** The border color. */
 	public static GamaColor borderColor = GamaColor.getInt(Color.black.getRGB());
-	
+
 	/** The default aspect. */
-	public static IExecutable DEFAULT_ASPECT = scope -> {
+	public static IExecutable DEFAULT_ASPECT = sc -> {
+		if (!sc.isGraphics()) return null;
+		IGraphicsScope scope = (IGraphicsScope) sc;
 		final IAgent agent = scope.getAgent();
 		if (agent != null && !agent.dead()) {
 			final IGraphics g = scope.getGraphics();
@@ -132,28 +134,15 @@ public class AspectStatement extends AbstractStatementSequence {
 					final Double defaultSize = GamaPreferences.Displays.CORE_SIZE.getValue();
 					final GamaPoint point = agent.getLocation();
 
-					switch (SHAPES.get(defaultShape)) {
-						case 1:
-							ag = GamaGeometryType.buildCircle(defaultSize, point);
-							break;
-						case 2:
-							ag = GamaGeometryType.buildSquare(defaultSize, point);
-							break;
-						case 3:
-							ag = GamaGeometryType.buildTriangle(defaultSize, point);
-							break;
-						case 4:
-							ag = GamaGeometryType.buildSphere(defaultSize, point);
-							break;
-						case 5:
-							ag = GamaGeometryType.buildCube(defaultSize, point);
-							break;
-						case 6:
-							ag = GamaGeometryType.createPoint(point);
-							break;
-						default:
-							ag = agent.getGeometry();
-					}
+					ag = switch (SHAPES.get(defaultShape)) {
+						case 1 -> GamaGeometryType.buildCircle(defaultSize, point);
+						case 2 -> GamaGeometryType.buildSquare(defaultSize, point);
+						case 3 -> GamaGeometryType.buildTriangle(defaultSize, point);
+						case 4 -> GamaGeometryType.buildSphere(defaultSize, point);
+						case 5 -> GamaGeometryType.buildCube(defaultSize, point);
+						case 6 -> GamaGeometryType.createPoint(point);
+						default -> agent.getGeometry();
+					};
 				} else {
 					ag = agent.getGeometry();
 				}
@@ -174,7 +163,8 @@ public class AspectStatement extends AbstractStatementSequence {
 	/**
 	 * Instantiates a new aspect statement.
 	 *
-	 * @param desc the desc
+	 * @param desc
+	 *            the desc
 	 */
 	public AspectStatement(final IDescription desc) {
 		super(desc);
@@ -183,13 +173,18 @@ public class AspectStatement extends AbstractStatementSequence {
 	}
 
 	@Override
-	public Rectangle2D executeOn(final IScope scope) {
+	public Rectangle2D executeOn(final IScope sc) {
+		if (!sc.isGraphics()) return null;
+		IGraphicsScope scope = (IGraphicsScope) sc;
 		final IAgent agent = scope.getAgent();
 		final boolean shouldHighlight = agent == scope.getGui().getHighlightedAgent() && !isHighlightAspect;
 		if (agent != null && !agent.dead()) {
 			IGraphics g = scope.getGraphics();
 			// hqnghi: try to find scope from experiment
-			if (g == null) { g = GAMA.getExperiment().getAgent().getSimulation().getScope().getGraphics(); }
+			// if (g == null) { g = GAMA.getExperiment().getAgent().getSimulation().getScope().getGraphics(); }
+			// AD: removed as it should not be necessary... Or else we create a ISimulationAgent.getGraphicsScope()
+			// method ??
+			// if (g == null) { g = GAMA.getExperiment().getAgent().getSimulation().getScope().getGraphics(); }
 			// end-hqnghi
 			if (g == null) return null;
 			try {
@@ -210,7 +205,9 @@ public class AspectStatement extends AbstractStatementSequence {
 	}
 
 	@Override
-	public Rectangle2D privateExecuteIn(final IScope scope) throws GamaRuntimeException {
+	public Rectangle2D privateExecuteIn(final IScope sc) throws GamaRuntimeException {
+		if (!sc.isGraphics()) return null;
+		IGraphicsScope scope = (IGraphicsScope) sc;
 		final IGraphics g = scope.getGraphics();
 		if (g == null) return null;
 		super.privateExecuteIn(scope);

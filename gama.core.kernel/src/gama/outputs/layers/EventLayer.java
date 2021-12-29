@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * EventLayer.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * EventLayer.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -17,7 +17,7 @@ import gama.core.dev.utils.DEBUG;
 import gama.metamodel.agent.IAgent;
 import gama.metamodel.shape.GamaPoint;
 import gama.runtime.GAMA;
-import gama.runtime.IScope;
+import gama.runtime.IScope.IGraphicsScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gaml.expressions.IExpression;
 import gaml.operators.Cast;
@@ -31,25 +31,25 @@ public class EventLayer extends AbstractLayer implements IEventLayerListener {
 
 	/** The Constant MOUSE_PRESS. */
 	private final static int MOUSE_PRESS = 0;
-	
+
 	/** The Constant MOUSE_RELEASED. */
 	private final static int MOUSE_RELEASED = 1;
-	
+
 	/** The Constant MOUSE_CLICKED. */
 	private final static int MOUSE_CLICKED = 2;
-	
+
 	/** The Constant MOUSE_MOVED. */
 	private final static int MOUSE_MOVED = 4;
-	
+
 	/** The Constant MOUSE_ENTERED. */
 	private final static int MOUSE_ENTERED = 5;
-	
+
 	/** The Constant MOUSE_EXITED. */
 	private final static int MOUSE_EXITED = 6;
-	
+
 	/** The Constant MOUSE_MENU. */
 	private final static int MOUSE_MENU = 7;
-	
+
 	/** The Constant KEY_PRESSED. */
 	private final static int KEY_PRESSED = 3;
 
@@ -58,21 +58,22 @@ public class EventLayer extends AbstractLayer implements IEventLayerListener {
 	}
 
 	/** The execution scope. */
-	IScope executionScope;
+	IGraphicsScope executionScope;
 
 	/** The listened event. */
 	private int listenedEvent;
-	
+
 	/** The surface. */
 	private IDisplaySurface surface;
-	
+
 	/** The event. */
 	private String event;
 
 	/**
 	 * Instantiates a new event layer.
 	 *
-	 * @param layer the layer
+	 * @param layer
+	 *            the layer
 	 */
 	public EventLayer(final ILayerStatement layer) {
 		super(layer);
@@ -92,7 +93,8 @@ public class EventLayer extends AbstractLayer implements IEventLayerListener {
 	/**
 	 * Gets the listening event.
 	 *
-	 * @param eventTypeName the event type name
+	 * @param eventTypeName
+	 *            the event type name
 	 * @return the listening event
 	 */
 	private int getListeningEvent(final String eventTypeName) {
@@ -111,7 +113,8 @@ public class EventLayer extends AbstractLayer implements IEventLayerListener {
 		super.firstLaunchOn(surface);
 		this.surface = surface;
 		final IExpression eventType = definition.getFacet(IKeyword.NAME);
-		executionScope = surface.getScope().copy("of event layer");
+		if (executionScope != null) { GAMA.releaseScope(executionScope); }
+		executionScope = surface.getScope().copyForGraphics("of event layer");
 
 		// Evaluated in the display surface scope to gather variables defined in
 		// there
@@ -126,9 +129,7 @@ public class EventLayer extends AbstractLayer implements IEventLayerListener {
 	}
 
 	@Override
-	public String getType() {
-		return "Event layer";
-	}
+	public String getType() { return "Event layer"; }
 
 	// We explicitly translate by the origin of the surface
 	@Override
@@ -181,8 +182,10 @@ public class EventLayer extends AbstractLayer implements IEventLayerListener {
 	/**
 	 * Execute event.
 	 *
-	 * @param x the x
-	 * @param y the y
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 */
 	private void executeEvent(final int x, final int y) {
 		final IAgent agent = ((EventLayerStatement) definition).getExecuter(executionScope);
@@ -207,24 +210,20 @@ public class EventLayer extends AbstractLayer implements IEventLayerListener {
 	}
 
 	@Override
-	protected void privateDraw(final IScope scope, final IGraphics g) throws GamaRuntimeException {}
+	protected void privateDraw(final IGraphicsScope scope, final IGraphics g) throws GamaRuntimeException {}
 
 	@Override
-	public void draw(final IScope scope, final IGraphics g) throws GamaRuntimeException {
+	public void draw(final IGraphicsScope scope, final IGraphics g) throws GamaRuntimeException {
 		getData().compute(scope, g);
 	}
 
 	@Override
-	public Boolean isControllable() {
-		return false;
-	}
+	public Boolean isControllable() { return false; }
 
 	/**
 	 * Gets the event.
 	 *
 	 * @return the event
 	 */
-	public String getEvent() {
-		return event;
-	}
+	public String getEvent() { return event; }
 }

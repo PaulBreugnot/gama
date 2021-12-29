@@ -1,7 +1,6 @@
 /*******************************************************************************************************
  *
- * ILayer.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ILayer.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
@@ -27,6 +26,7 @@ import gama.metamodel.shape.IShape;
 import gama.outputs.layers.ILayerData;
 import gama.outputs.layers.ILayerStatement;
 import gama.runtime.IScope;
+import gama.runtime.IScope.IGraphicsScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 
 // TODO: Auto-generated Javadoc
@@ -57,19 +57,20 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	 *
 	 * @return a string representing this layer in the layers menu
 	 */
-	default String getMenuName() {
-		return getType() + ItemList.SEPARATION_CODE + getName();
-	}
+	default String getMenuName() { return getType() + ItemList.SEPARATION_CODE + getName(); }
 
 	/**
 	 * Asks this layer to draw itself on the IGraphics instance passed in parameter.
 	 *
-	 * @param scope            the current scope (usually that of the surface)
-	 * @param simGraphics            the current instance of IGraphics on which to draw the elements of the layer
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param scope
+	 *            the current scope (usually that of the surface)
+	 * @param simGraphics
+	 *            the current instance of IGraphics on which to draw the elements of the layer
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 
-	void draw(IScope scope, IGraphics simGraphics) throws GamaRuntimeException;
+	void draw(IGraphicsScope scope, IGraphics simGraphics) throws GamaRuntimeException;
 
 	/**
 	 * Asks this layer to dispose of the resources it may use (in addition to the ILayerData instance, which is
@@ -102,7 +103,8 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	/**
 	 * Indicates that this layer will make its first appearance on the surface, before being displayed.
 	 *
-	 * @param surface            the display surface on which this layer is drawn
+	 * @param surface
+	 *            the display surface on which this layer is drawn
 	 */
 	default void firstLaunchOn(final IDisplaySurface surface) {}
 
@@ -139,8 +141,10 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	 * Returns a rectangle that represents, in screen coordinates, the position of the geometry on which to focus in
 	 * this layer.
 	 *
-	 * @param geometry            a geometry or an agent
-	 * @param s            the surface on which this focus is requested
+	 * @param geometry
+	 *            a geometry or an agent
+	 * @param s
+	 *            the surface on which this focus is requested
 	 * @return a rectangle in screen coordinates
 	 */
 	default Rectangle2D focusOn(final IShape geometry, final IDisplaySurface s) {
@@ -151,9 +155,11 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	}
 
 	/**
-	 * Returns the collection of agents populating this layer in order to display them in the agents menu of the display.
+	 * Returns the collection of agents populating this layer in order to display them in the agents menu of the
+	 * display.
 	 *
-	 * @param scope            the current scope (usually the surface's one)
+	 * @param scope
+	 *            the current scope (usually the surface's one)
 	 * @return a collection of agents or an empty collection if no agents are drawn on this layer
 	 */
 	default Collection<IAgent> getAgentsForMenu(final IScope scope) {
@@ -183,8 +189,10 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	/**
 	 * Returns whether this layer contains the mouse cursor (or the point on screen passed in parameter).
 	 *
-	 * @param x            the x-ordinate on screen
-	 * @param y            the y-ordinate on screen
+	 * @param x
+	 *            the x-ordinate on screen
+	 * @param y
+	 *            the y-ordinate on screen
 	 * @return true if {x,y} is inside the layer, false otherwise
 	 */
 	default boolean containsScreenPoint(final int x, final int y) {
@@ -197,9 +205,12 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	/**
 	 * Returns the world (model) coordinates of the mouse cursor (or the point on screen passed in parameter).
 	 *
-	 * @param xOnScreen            the x-ordinate on screen
-	 * @param yOnScreen            the y-ordinate on screen
-	 * @param g            the surface on which the layer is displayed
+	 * @param xOnScreen
+	 *            the x-ordinate on screen
+	 * @param yOnScreen
+	 *            the y-ordinate on screen
+	 * @param g
+	 *            the surface on which the layer is displayed
 	 * @return a point describing a position in the world
 	 */
 	default GamaPoint getModelCoordinatesFrom(final int xOnScreen, final int yOnScreen, final IDisplaySurface g) {
@@ -210,9 +221,12 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	/**
 	 * Returns a point on screen whose coordinates correspond to the location in the world passed in parameter.
 	 *
-	 * @param x            the x-ordinate in the world
-	 * @param y            the y-ordinate in the world
-	 * @param g            the surface on which the layer is displayed
+	 * @param x
+	 *            the x-ordinate in the world
+	 * @param y
+	 *            the y-ordinate in the world
+	 * @param g
+	 *            the surface on which the layer is displayed
 	 * @return a point describing a position on screen
 	 */
 	default Point getScreenCoordinatesFrom(final double x, final double y, final IDisplaySurface g) {
@@ -228,10 +242,14 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	/**
 	 * Feeds a StringBuilder with coordinates information about the location on screen correctly formatted.
 	 *
-	 * @param xOnScreen            the x-ordinate on screen
-	 * @param yOnScreen            the y-ordinate on screen
-	 * @param g            the surface on which this layer is displayed
-	 * @param sb            the StringBuilder to feed
+	 * @param xOnScreen
+	 *            the x-ordinate on screen
+	 * @param yOnScreen
+	 *            the y-ordinate on screen
+	 * @param g
+	 *            the surface on which this layer is displayed
+	 * @param sb
+	 *            the StringBuilder to feed
 	 * @return the model coordinates info
 	 */
 
@@ -246,9 +264,12 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	/**
 	 * Collect all the agents intersecting (or close) to the screen point passed in parameter.
 	 *
-	 * @param x            the x-ordinate on screen
-	 * @param y            the y-ordinate on screen
-	 * @param g            the surface on which this layer is displayed
+	 * @param x
+	 *            the x-ordinate on screen
+	 * @param y
+	 *            the y-ordinate on screen
+	 * @param g
+	 *            the surface on which this layer is displayed
 	 * @return a set of agents (or an empty set if no agents are concerned or displayed)
 	 */
 	default Set<IAgent> collectAgentsAt(final int x, final int y, final IDisplaySurface g) {
@@ -265,14 +286,13 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	 *
 	 * @return true if it is an overlay, false otherwise
 	 */
-	default boolean isOverlay() {
-		return false;
-	}
+	default boolean isOverlay() { return false; }
 
 	/**
 	 * Returns a textual description of the layer that can be reinterpreted by GAML.
 	 *
-	 * @param includingBuiltIn the including built in
+	 * @param includingBuiltIn
+	 *            the including built in
 	 * @return the string
 	 */
 	@Override
@@ -283,7 +303,8 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	/**
 	 * Compares two layers using their definition order.
 	 *
-	 * @param o the o
+	 * @param o
+	 *            the o
 	 * @return the int
 	 */
 	@Override
@@ -298,8 +319,6 @@ public interface ILayer extends INamed, Comparable<ILayer> {
 	 * @return true by default, false if the layer shouldnt be displayed in the layer side controls
 	 */
 
-	default Boolean isControllable() {
-		return true;
-	}
+	default Boolean isControllable() { return true; }
 
 }

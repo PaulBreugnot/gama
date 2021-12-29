@@ -21,6 +21,7 @@ import gama.metamodel.agent.IAgent;
 import gama.metamodel.shape.IShape;
 import gama.runtime.ExecutionResult;
 import gama.runtime.IScope;
+import gama.runtime.IScope.IGraphicsScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gama.util.Collector;
 import gama.util.GamaMapFactory;
@@ -76,12 +77,15 @@ public class AgentLayer extends AbstractLayer {
 	/**
 	 * Private draw.
 	 *
-	 * @param scope the scope
-	 * @param g the g
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param scope
+	 *            the scope
+	 * @param g
+	 *            the g
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@Override
-	public void privateDraw(final IScope scope, final IGraphics g) throws GamaRuntimeException {
+	public void privateDraw(final IGraphicsScope scope, final IGraphics g) throws GamaRuntimeException {
 		if (scope == null || scope.interrupted()) return;
 		fillShapes(scope);
 		final String aspectName = ((AgentLayerStatement) definition).getAspectName();
@@ -109,7 +113,8 @@ public class AgentLayer extends AbstractLayer {
 	/**
 	 * Gets the agents for menu.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the agents for menu
 	 */
 	@Override
@@ -126,9 +131,12 @@ public class AgentLayer extends AbstractLayer {
 	/**
 	 * Collect agents at.
 	 *
-	 * @param x the x
-	 * @param y the y
-	 * @param g the g
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 * @param g
+	 *            the g
 	 * @return the sets the
 	 */
 	@Override
@@ -149,8 +157,10 @@ public class AgentLayer extends AbstractLayer {
 	/**
 	 * Focus on.
 	 *
-	 * @param geometry the geometry
-	 * @param s the s
+	 * @param geometry
+	 *            the geometry
+	 * @param s
+	 *            the s
 	 * @return the rectangle 2 D
 	 */
 	@Override

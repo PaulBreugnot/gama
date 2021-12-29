@@ -60,7 +60,7 @@ import gaml.statements.test.TestExperimentSummary;
  *
  * @see HeadlessEvent
  */
-public class HeadlessListener implements IGui {
+public class HeadlessGui implements IGui {
 
 	// See #2996: simplification of the logging done in this class
 	// static Logger LOGGER = LogManager.getLogManager().getLogger("");
@@ -77,7 +77,7 @@ public class HeadlessListener implements IGui {
 		// }
 		// LOGGER.setLevel(Level.ALL);
 		// }
-		GAMA.setHeadlessGui(new HeadlessListener());
+		GAMA.setHeadlessGui(new HeadlessGui());
 	}
 
 	/**
@@ -860,5 +860,8 @@ public class HeadlessListener implements IGui {
 	public int chooseWorkspace() {
 		return 0;
 	}
+
+	@Override
+	public IDisplaySurface getFrontmostDisplaySurface() { return null; }
 
 }

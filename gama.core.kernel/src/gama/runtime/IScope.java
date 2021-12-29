@@ -1,12 +1,11 @@
 /*******************************************************************************************************
  *
- * IScope.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * IScope.java, in msi.gama.core, is part of the source code of the GAMA modeling and simulation platform (v.1.8.2).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.runtime;
 
@@ -42,6 +41,61 @@ import gaml.types.IType;
  */
 @SuppressWarnings ({ "rawtypes" })
 public interface IScope extends Closeable, IBenchmarkable {
+
+	/**
+	 * The Interface IGraphicsScope.
+	 */
+	public interface IGraphicsScope extends IScope {
+		/**
+		 * Copy.
+		 *
+		 * @param additionalName
+		 *            the additional name
+		 * @return the i scope
+		 */
+		@Override
+		IGraphicsScope copy(String additionalName);
+
+		/**
+		 * Sets the horizontal pixel context.
+		 */
+		void setHorizontalPixelContext();
+
+		/**
+		 * Sets the vertical pixel context.
+		 */
+		void setVerticalPixelContext();
+
+		/**
+		 * Checks if is horizontal pixel context.
+		 *
+		 * @return true, if is horizontal pixel context
+		 */
+		boolean isHorizontalPixelContext();
+
+		/**
+		 * Sets the graphics.
+		 *
+		 * @param val
+		 *            the new graphics
+		 */
+		void setGraphics(IGraphics val);
+
+		/**
+		 * Gets the graphics.
+		 *
+		 * @return the graphics
+		 */
+		IGraphics getGraphics();
+
+		/**
+		 * Checks if is graphics.
+		 *
+		 * @return true, if is graphics
+		 */
+		@Override
+		default boolean isGraphics() { return true; }
+	}
 
 	// /**
 	// * Use this class to accumulate a series of execution results. Only the last one marked as 'passed' will be
@@ -272,9 +326,10 @@ public interface IScope extends Closeable, IBenchmarkable {
 	boolean reportErrors();
 
 	/**
-	 * Sets whether to trace or not the execution.
+	 * Sets whether to trace or not the execution
 	 *
-	 * @param trace            the new trace
+	 * @param trace
+	 *            the new trace
 	 */
 	void setTrace(boolean trace);
 
@@ -291,9 +346,7 @@ public interface IScope extends Closeable, IBenchmarkable {
 	 * @return the name for benchmarks
 	 */
 	@Override
-	default String getNameForBenchmarks() {
-		return getName();
-	}
+	default String getNameForBenchmarks() { return getName(); }
 
 	/**
 	 * Copy.
@@ -303,6 +356,15 @@ public interface IScope extends Closeable, IBenchmarkable {
 	 * @return the i scope
 	 */
 	IScope copy(String additionalName);
+
+	/**
+	 * Copy for graphics.
+	 *
+	 * @param additionalName
+	 *            the additional name
+	 * @return the i graphics scope
+	 */
+	IGraphicsScope copyForGraphics(String additionalName);
 
 	/**
 	 * Interrupted.
@@ -495,24 +557,10 @@ public interface IScope extends Closeable, IBenchmarkable {
 	ITopology setTopology(ITopology topology);
 
 	/**
-	 * Sets the graphics.
-	 *
-	 * @param val
-	 *            the new graphics
-	 */
-	void setGraphics(IGraphics val);
-
-	/**
-	 * Gets the graphics.
-	 *
-	 * @return the graphics
-	 */
-	IGraphics getGraphics();
-
-	/**
 	 * Execute.
 	 *
-	 * @param executable the executable
+	 * @param executable
+	 *            the executable
 	 * @return the execution result
 	 */
 	default ExecutionResult execute(final IExecutable executable) {
@@ -522,8 +570,10 @@ public interface IScope extends Closeable, IBenchmarkable {
 	/**
 	 * Execute.
 	 *
-	 * @param executable the executable
-	 * @param args the args
+	 * @param executable
+	 *            the executable
+	 * @param args
+	 *            the args
 	 * @return the execution result
 	 */
 	default ExecutionResult execute(final IExecutable executable, final Arguments args) {
@@ -606,10 +656,10 @@ public interface IScope extends Closeable, IBenchmarkable {
 	Object getGlobalVarValue(String name) throws GamaRuntimeException;
 
 	/**
-	 * Verifies that this scope has access to the global var value named 'name'.
+	 * Verifies that this scope has access to the global var value named 'name'
 	 *
-	 * @param name the name
-	 * @return true, if successful
+	 * @param name
+	 * @return
 	 */
 	boolean hasAccessToGlobalVar(String name);
 
@@ -639,11 +689,11 @@ public interface IScope extends Closeable, IBenchmarkable {
 
 	/**
 	 * Sets the var value, and states whether the var should be written in an outer scope (if it is defined there) or
-	 * kept in this scope (like for instance the variable defined in a loop (see Issue #3085).
+	 * kept in this scope (like for instance the variable defined in a loop (see Issue #3085)
 	 *
-	 * @param varName the var name
-	 * @param val the val
-	 * @param localScopeOnly the local scope only
+	 * @param varName
+	 * @param val
+	 * @param localScopeOnly
 	 */
 	void setVarValue(String varName, Object val, boolean localScopeOnly);
 
@@ -709,10 +759,11 @@ public interface IScope extends Closeable, IBenchmarkable {
 	/**
 	 * Gets the list arg.
 	 *
-	 * @param <T> the generic type
-	 * @param string            the string
+	 * @param string
+	 *            the string
 	 * @return the list arg
-	 * @throws GamaRuntimeException             the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	<T> IList<T> getListArg(String string) throws GamaRuntimeException;
 
@@ -866,9 +917,6 @@ public interface IScope extends Closeable, IBenchmarkable {
 	void disableTryMode();
 
 	/**
-	 * Sets the current error.
-	 *
-	 * @param g the new current error
 	 * @return the current statement or null if none
 	 */
 
@@ -882,20 +930,10 @@ public interface IScope extends Closeable, IBenchmarkable {
 	GamaRuntimeException getCurrentError();
 
 	/**
-	 * Sets the horizontal pixel context.
-	 */
-	void setHorizontalPixelContext();
-
-	/**
-	 * Sets the vertical pixel context.
-	 */
-	void setVerticalPixelContext();
-
-	/**
-	 * Checks if is horizontal pixel context.
+	 * Checks if is graphics.
 	 *
-	 * @return true, if is horizontal pixel context
+	 * @return true, if is graphics
 	 */
-	boolean isHorizontalPixelContext();
+	default boolean isGraphics() { return false; }
 
 }

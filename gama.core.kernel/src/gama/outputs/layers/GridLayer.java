@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * GridLayer.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * GridLayer.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -22,6 +22,7 @@ import gama.common.ui.IGraphics;
 import gama.metamodel.agent.IAgent;
 import gama.metamodel.shape.IShape;
 import gama.runtime.IScope;
+import gama.runtime.IScope.IGraphicsScope;
 import gama.util.Collector;
 import gama.util.GamaColor;
 import gama.util.file.GamaImageFile;
@@ -37,7 +38,8 @@ public class GridLayer extends AbstractLayer {
 	/**
 	 * Instantiates a new grid layer.
 	 *
-	 * @param layer the layer
+	 * @param layer
+	 *            the layer
 	 */
 	public GridLayer(final ILayerStatement layer) {
 		super(layer);
@@ -49,9 +51,7 @@ public class GridLayer extends AbstractLayer {
 	}
 
 	@Override
-	public GridLayerData getData() {
-		return (GridLayerData) super.getData();
-	}
+	public GridLayerData getData() { return (GridLayerData) super.getData(); }
 
 	@Override
 	public Rectangle2D focusOn(final IShape geometry, final IDisplaySurface s) {
@@ -67,7 +67,7 @@ public class GridLayer extends AbstractLayer {
 	}
 
 	@Override
-	public void privateDraw(final IScope scope, final IGraphics dg) {
+	public void privateDraw(final IGraphicsScope scope, final IGraphics dg) {
 		GamaColor lineColor = null;
 		final GridLayerData data = getData();
 		if (data.drawLines()) { lineColor = data.getLineColor(); }
@@ -109,9 +109,7 @@ public class GridLayer extends AbstractLayer {
 	}
 
 	@Override
-	public String getType() {
-		return "Grid layer";
-	}
+	public String getType() { return "Grid layer"; }
 
 	@Override
 	public Collection<IAgent> getAgentsForMenu(final IScope scope) {

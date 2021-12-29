@@ -27,7 +27,7 @@ import gama.outputs.LayeredDisplayData;
 import gama.outputs.LayeredDisplayData.Changes;
 import gama.outputs.LayeredDisplayOutput;
 import gama.outputs.layers.IEventLayerListener;
-import gama.runtime.IScope;
+import gama.runtime.IScope.IGraphicsScope;
 import gama.util.IList;
 
 // TODO: Auto-generated Javadoc
@@ -43,8 +43,10 @@ public class NullDisplaySurface implements IDisplaySurface {
 	/**
 	 * Method getImage().
 	 *
-	 * @param w the w
-	 * @param h the h
+	 * @param w
+	 *            the w
+	 * @param h
+	 *            the h
 	 * @return the image
 	 * @see gama.common.ui.IDisplaySurface#getImage()
 	 */
@@ -59,7 +61,7 @@ public class NullDisplaySurface implements IDisplaySurface {
 	 * @return the scope
 	 */
 	@Override
-	public IScope getScope() { return null; }
+	public IGraphicsScope getScope() { return null; }
 
 	/**
 	 * Method dispose().
@@ -72,7 +74,8 @@ public class NullDisplaySurface implements IDisplaySurface {
 	/**
 	 * Method updateDisplay().
 	 *
-	 * @param force the force
+	 * @param force
+	 *            the force
 	 * @see gama.common.ui.IDisplaySurface#updateDisplay()
 	 */
 	@Override
@@ -114,7 +117,8 @@ public class NullDisplaySurface implements IDisplaySurface {
 	/**
 	 * Method focusOn().
 	 *
-	 * @param geometry the geometry
+	 * @param geometry
+	 *            the geometry
 	 * @see gama.common.ui.IDisplaySurface#focusOn(gama.metamodel.shape.IShape)
 	 */
 	@Override
@@ -149,7 +153,8 @@ public class NullDisplaySurface implements IDisplaySurface {
 	/**
 	 * Method addMouseListener().
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @see gama.common.ui.IDisplaySurface#addMouseListener(java.awt.event.MouseListener)
 	 */
 	@Override
@@ -158,7 +163,8 @@ public class NullDisplaySurface implements IDisplaySurface {
 	/**
 	 * Method removeMouseListener().
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @see gama.common.ui.IDisplaySurface#removeMouseListener(java.awt.event.MouseListener)
 	 */
 	@Override
@@ -220,10 +226,14 @@ public class NullDisplaySurface implements IDisplaySurface {
 	/**
 	 * Method getModelCoordinatesFrom().
 	 *
-	 * @param xOnScreen the x on screen
-	 * @param yOnScreen the y on screen
-	 * @param sizeInPixels the size in pixels
-	 * @param positionInPixels the position in pixels
+	 * @param xOnScreen
+	 *            the x on screen
+	 * @param yOnScreen
+	 *            the y on screen
+	 * @param sizeInPixels
+	 *            the size in pixels
+	 * @param positionInPixels
+	 *            the position in pixels
 	 * @return the model coordinates from
 	 * @see gama.common.ui.IDisplaySurface#getModelCoordinatesFrom(int, int, java.awt.Point, java.awt.Point)
 	 */
@@ -236,8 +246,10 @@ public class NullDisplaySurface implements IDisplaySurface {
 	/**
 	 * Method selectAgent().
 	 *
-	 * @param x the x
-	 * @param y the y
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 * @return the i list
 	 * @see gama.common.ui.IDisplaySurface#selectAgent(int, int)
 	 */
@@ -258,7 +270,8 @@ public class NullDisplaySurface implements IDisplaySurface {
 	/**
 	 * Method followAgent().
 	 *
-	 * @param a the a
+	 * @param a
+	 *            the a
 	 * @see gama.common.ui.IDisplaySurface#followAgent(gama.metamodel.agent.IAgent)
 	 */
 	@Override
@@ -276,8 +289,10 @@ public class NullDisplaySurface implements IDisplaySurface {
 	/**
 	 * Method setSize().
 	 *
-	 * @param x the x
-	 * @param y the y
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 * @see gama.common.ui.IDisplaySurface#setSize(int, int)
 	 */
 	@Override
@@ -295,7 +310,8 @@ public class NullDisplaySurface implements IDisplaySurface {
 	/**
 	 * Method waitForUpdateAndRun().
 	 *
-	 * @param r the r
+	 * @param r
+	 *            the r
 	 * @see gama.common.ui.IDisplaySurface#waitForUpdateAndRun(java.lang.Runnable)
 	 */
 	@Override
@@ -330,8 +346,10 @@ public class NullDisplaySurface implements IDisplaySurface {
 	/**
 	 * Method changed().
 	 *
-	 * @param property the property
-	 * @param value the value
+	 * @param property
+	 *            the property
+	 * @param value
+	 *            the value
 	 * @see gama.outputs.LayeredDisplayData.DisplayDataListener#changed(gama.outputs.LayeredDisplayData.Changes,
 	 *      boolean)
 	 */
@@ -349,7 +367,8 @@ public class NullDisplaySurface implements IDisplaySurface {
 	/**
 	 * Method getVisibleRegionForLayer().
 	 *
-	 * @param currentLayer the current layer
+	 * @param currentLayer
+	 *            the current layer
 	 * @return the visible region for layer
 	 * @see gama.common.ui.IDisplaySurface#getVisibleRegionForLayer(gama.common.ui.ILayer)
 	 */
@@ -397,7 +416,8 @@ public class NullDisplaySurface implements IDisplaySurface {
 	/**
 	 * Gets the model coordinates info.
 	 *
-	 * @param sb the sb
+	 * @param sb
+	 *            the sb
 	 * @return the model coordinates info
 	 */
 	/*
@@ -411,7 +431,8 @@ public class NullDisplaySurface implements IDisplaySurface {
 	/**
 	 * Dispatch key event.
 	 *
-	 * @param character the character
+	 * @param character
+	 *            the character
 	 */
 	@Override
 	public void dispatchKeyEvent(final char character) {}
@@ -419,9 +440,12 @@ public class NullDisplaySurface implements IDisplaySurface {
 	/**
 	 * Dispatch mouse event.
 	 *
-	 * @param swtEventType the swt event type
-	 * @param x the x
-	 * @param y the y
+	 * @param swtEventType
+	 *            the swt event type
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 */
 	@Override
 	public void dispatchMouseEvent(final int swtEventType, final int x, final int y) {}
@@ -429,8 +453,10 @@ public class NullDisplaySurface implements IDisplaySurface {
 	/**
 	 * Sets the mouse position.
 	 *
-	 * @param x the x
-	 * @param y the y
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 */
 	@Override
 	public void setMousePosition(final int x, final int y) {}
@@ -444,8 +470,10 @@ public class NullDisplaySurface implements IDisplaySurface {
 	/**
 	 * Dragged to.
 	 *
-	 * @param x the x
-	 * @param y the y
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
 	 */
 	@Override
 	public void draggedTo(final int x, final int y) {}
@@ -453,7 +481,8 @@ public class NullDisplaySurface implements IDisplaySurface {
 	/**
 	 * Sets the menu manager.
 	 *
-	 * @param displaySurfaceMenu the new menu manager
+	 * @param displaySurfaceMenu
+	 *            the new menu manager
 	 */
 	@Override
 	public void setMenuManager(final Object displaySurfaceMenu) {}

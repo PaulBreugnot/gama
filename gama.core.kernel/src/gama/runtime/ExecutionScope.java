@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ExecutionScope.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ExecutionScope.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.runtime;
 
@@ -57,55 +57,55 @@ public class ExecutionScope implements IScope {
 
 	/** The Constant ATTRIBUTES. */
 	private static final String ATTRIBUTES = "%_attributes_%";
-	
+
 	/** The scope number. */
 	private static int SCOPE_NUMBER = 0;
 
 	/** The scope name. */
 	private final String scopeName;
-	
+
 	/** The execution context. */
 	protected IExecutionContext executionContext;
-	
+
 	/** The agent context. */
 	protected AgentExecutionContext agentContext;
-	
+
 	/** The additional context. */
 	protected final SpecialContext additionalContext = new SpecialContext();
-	
+
 	/** The errors disabled. */
 	private volatile boolean _action_halted, _loop_halted, _agent_halted, _trace, _in_try_mode, _interrupted,
 			_errors_disabled;
-	
+
 	/** The current symbol. */
 	private ISymbol currentSymbol;
 
 	/**
 	 * The Class SpecialContext.
 	 */
-	class SpecialContext {
-		
+	static class SpecialContext {
+
 		/** The each. */
 		Object each;
-		
+
 		/** The graphics. */
 		IGraphics graphics;
-		
+
 		/** The topology. */
 		public ITopology topology;
-		
+
 		/** The root agent. */
 		ITopLevelAgent rootAgent;
-		
+
 		/** The gui. */
 		IGui gui;
-		
+
 		/** The types. */
 		ITypesManager types;
-		
+
 		/** The current error. */
 		GamaRuntimeException currentError;
-		
+
 		/** The horizontal pixel context. */
 		boolean horizontalPixelContext = false;
 
@@ -125,7 +125,8 @@ public class ExecutionScope implements IScope {
 		/**
 		 * Copy from.
 		 *
-		 * @param specialContext the special context
+		 * @param specialContext
+		 *            the special context
 		 */
 		public void copyFrom(final SpecialContext specialContext) {
 			if (specialContext == null) return;
@@ -143,7 +144,8 @@ public class ExecutionScope implements IScope {
 	/**
 	 * Instantiates a new execution scope.
 	 *
-	 * @param root the root
+	 * @param root
+	 *            the root
 	 */
 	public ExecutionScope(final ITopLevelAgent root) {
 		this(root, null);
@@ -152,8 +154,10 @@ public class ExecutionScope implements IScope {
 	/**
 	 * Instantiates a new execution scope.
 	 *
-	 * @param root the root
-	 * @param otherName the other name
+	 * @param root
+	 *            the root
+	 * @param otherName
+	 *            the other name
 	 */
 	public ExecutionScope(final ITopLevelAgent root, final String otherName) {
 		this(root, otherName, null);
@@ -162,9 +166,12 @@ public class ExecutionScope implements IScope {
 	/**
 	 * Instantiates a new execution scope.
 	 *
-	 * @param root the root
-	 * @param otherName the other name
-	 * @param context the context
+	 * @param root
+	 *            the root
+	 * @param otherName
+	 *            the other name
+	 * @param context
+	 *            the context
 	 */
 	public ExecutionScope(final ITopLevelAgent root, final String otherName, final IExecutionContext context) {
 		this(root, otherName, context, null, null);
@@ -173,19 +180,24 @@ public class ExecutionScope implements IScope {
 	/**
 	 * Instantiates a new execution scope.
 	 *
-	 * @param root the root
-	 * @param otherName the other name
-	 * @param context the context
-	 * @param agentContext the agent context
-	 * @param specialContext the special context
+	 * @param root
+	 *            the root
+	 * @param otherName
+	 *            the other name
+	 * @param context
+	 *            the context
+	 * @param agentContext
+	 *            the agent context
+	 * @param specialContext
+	 *            the special context
 	 */
 	public ExecutionScope(final ITopLevelAgent root, final String otherName, final IExecutionContext context,
 			final AgentExecutionContext agentContext, final SpecialContext specialContext) {
-		String name = "Scope #" + ++SCOPE_NUMBER;
+		StringBuilder name = new StringBuilder("Scope #").append(++SCOPE_NUMBER);
 		setRoot(root);
-		if (root != null) { name += " of " + root.stringValue(root.getScope()); }
-		name += otherName == null || otherName.isEmpty() ? "" : " (" + otherName + ")";
-		this.scopeName = name;
+		if (root != null) { name.append(" of ").append(root.stringValue(root.getScope())); }
+		name.append(otherName == null || otherName.isEmpty() ? "" : " (" + otherName + ")");
+		this.scopeName = name.toString();
 		this.executionContext = context == null ? ExecutionContext.create(this) : context.createCopy();
 		this.agentContext = agentContext == null ? AgentExecutionContext.create(root, null) : agentContext;
 		this.additionalContext.copyFrom(specialContext);
@@ -194,7 +206,8 @@ public class ExecutionScope implements IScope {
 	/**
 	 * Creates the child context.
 	 *
-	 * @param agent the agent
+	 * @param agent
+	 *            the agent
 	 * @return the agent execution context
 	 */
 	public AgentExecutionContext createChildContext(final IAgent agent) {
@@ -245,14 +258,10 @@ public class ExecutionScope implements IScope {
 	}
 
 	@Override
-	public boolean isInTryMode() {
-		return _in_try_mode;
-	}
+	public boolean isInTryMode() { return _in_try_mode; }
 
 	@Override
-	public void setTrace(final boolean t) {
-		_trace = t;
-	}
+	public void setTrace(final boolean t) { _trace = t; }
 
 	/**
 	 *
@@ -333,11 +342,10 @@ public class ExecutionScope implements IScope {
 	/**
 	 * Sets the root.
 	 *
-	 * @param agent the new root
+	 * @param agent
+	 *            the new root
 	 */
-	protected void setRoot(final ITopLevelAgent agent) {
-		additionalContext.rootAgent = agent;
-	}
+	protected void setRoot(final ITopLevelAgent agent) { additionalContext.rootAgent = agent; }
 
 	/**
 	 * Method pop()
@@ -412,9 +420,7 @@ public class ExecutionScope implements IScope {
 	}
 
 	@Override
-	public ISymbol getCurrentSymbol() {
-		return currentSymbol;
-	}
+	public ISymbol getCurrentSymbol() { return currentSymbol; }
 
 	/**
 	 * Method execute(). Asks the scope to manage the execution of a statement on an agent, taking care of pushing the
@@ -478,11 +484,10 @@ public class ExecutionScope implements IScope {
 			if (ex instanceof OutOfMemoryError) {
 				GamaExecutorService.EXCEPTION_HANDLER.uncaughtException(Thread.currentThread(), ex);
 				return FAILED;
-			} else {
-				final GamaRuntimeException g = GamaRuntimeException.create(ex, this);
-				GAMA.reportAndThrowIfNeeded(this, g, true);
-				return FAILED;
 			}
+			final GamaRuntimeException g = GamaRuntimeException.create(ex, this);
+			GAMA.reportAndThrowIfNeeded(this, g, true);
+			return FAILED;
 		}
 	}
 
@@ -495,11 +500,10 @@ public class ExecutionScope implements IScope {
 			if (ex instanceof OutOfMemoryError) {
 				GamaExecutorService.EXCEPTION_HANDLER.uncaughtException(Thread.currentThread(), ex);
 				return FAILED;
-			} else {
-				final GamaRuntimeException g = GamaRuntimeException.create(ex, this);
-				GAMA.reportAndThrowIfNeeded(this, g, true);
-				return FAILED;
 			}
+			final GamaRuntimeException g = GamaRuntimeException.create(ex, this);
+			GAMA.reportAndThrowIfNeeded(this, g, true);
+			return FAILED;
 		}
 	}
 
@@ -514,11 +518,10 @@ public class ExecutionScope implements IScope {
 				if (ex instanceof OutOfMemoryError) {
 					GamaExecutorService.EXCEPTION_HANDLER.uncaughtException(Thread.currentThread(), ex);
 					return FAILED;
-				} else {
-					final GamaRuntimeException g = GamaRuntimeException.create(ex, this);
-					GAMA.reportAndThrowIfNeeded(this, g, true);
-					return FAILED;
 				}
+				final GamaRuntimeException g = GamaRuntimeException.create(ex, this);
+				GAMA.reportAndThrowIfNeeded(this, g, true);
+				return FAILED;
 			}
 		} finally {
 			if (pushed) { pop(agent); }
@@ -536,11 +539,10 @@ public class ExecutionScope implements IScope {
 				if (ex instanceof OutOfMemoryError) {
 					GamaExecutorService.EXCEPTION_HANDLER.uncaughtException(Thread.currentThread(), ex);
 					return FAILED;
-				} else {
-					final GamaRuntimeException g = GamaRuntimeException.create(ex, this);
-					GAMA.reportAndThrowIfNeeded(this, g, true);
-					return FAILED;
 				}
+				final GamaRuntimeException g = GamaRuntimeException.create(ex, this);
+				GAMA.reportAndThrowIfNeeded(this, g, true);
+				return FAILED;
 			}
 		} finally {
 			if (pushed) { pop(agent); }
@@ -558,11 +560,10 @@ public class ExecutionScope implements IScope {
 				if (ex instanceof OutOfMemoryError) {
 					GamaExecutorService.EXCEPTION_HANDLER.uncaughtException(Thread.currentThread(), ex);
 					return FAILED;
-				} else {
-					final GamaRuntimeException g = GamaRuntimeException.create(ex, this);
-					GAMA.reportAndThrowIfNeeded(this, g, true);
-					return FAILED;
 				}
+				final GamaRuntimeException g = GamaRuntimeException.create(ex, this);
+				GAMA.reportAndThrowIfNeeded(this, g, true);
+				return FAILED;
 			}
 		} finally {
 			if (pushed) { pop(agent); }
@@ -653,9 +654,7 @@ public class ExecutionScope implements IScope {
 	 * @see gama.runtime.IScope#getEach()
 	 */
 	@Override
-	public Object getEach() {
-		return additionalContext.each;
-	}
+	public Object getEach() { return additionalContext.each; }
 
 	/**
 	 * Method getArg()
@@ -724,8 +723,7 @@ public class ExecutionScope implements IScope {
 	/**
 	 * Method setAgentVarValue()
 	 *
-	 * @see gama.runtime.IScope#setAgentVarValue(gama.metamodel.agent.IAgent, java.lang.String,
-	 *      java.lang.Object)
+	 * @see gama.runtime.IScope#setAgentVarValue(gama.metamodel.agent.IAgent, java.lang.String, java.lang.Object)
 	 */
 	@Override
 	public void setAgentVarValue(final IAgent agent, final String name, final Object v) {
@@ -791,9 +789,7 @@ public class ExecutionScope implements IScope {
 	 */
 
 	@Override
-	public String getName() {
-		return scopeName;
-	}
+	public String getName() { return scopeName; }
 
 	@Override
 	public String toString() {
@@ -823,26 +819,6 @@ public class ExecutionScope implements IScope {
 		final ITopology previous = getTopology();
 		additionalContext.topology = topo;
 		return previous;
-	}
-
-	/**
-	 * Method setGraphics()
-	 *
-	 * @see gama.runtime.IScope#setGraphics(gama.common.ui.IGraphics)
-	 */
-	@Override
-	public void setGraphics(final IGraphics val) {
-		additionalContext.graphics = val;
-	}
-
-	/**
-	 * Method getGraphics()
-	 *
-	 * @see gama.runtime.IScope#getGraphics()
-	 */
-	@Override
-	public IGraphics getGraphics() {
-		return additionalContext.graphics;
 	}
 
 	/**
@@ -948,8 +924,7 @@ public class ExecutionScope implements IScope {
 
 	@Override
 	public Map peekReadAttributes() {
-		final Map value = (Map) this.getVarValue(ATTRIBUTES);
-		return value;
+		return (Map) this.getVarValue(ATTRIBUTES);
 	}
 
 	@Override
@@ -967,9 +942,7 @@ public class ExecutionScope implements IScope {
 	}
 
 	@Override
-	public ITopLevelAgent getRoot() {
-		return additionalContext.rootAgent;
-	}
+	public ITopLevelAgent getRoot() { return additionalContext.rootAgent; }
 
 	@Override
 	public boolean isPaused() {
@@ -1006,35 +979,20 @@ public class ExecutionScope implements IScope {
 	}
 
 	@Override
-	public IExecutionContext getExecutionContext() {
-		return executionContext;
-	}
+	public IExecutionContext getExecutionContext() { return executionContext; }
 
 	@Override
-	public void setCurrentError(final GamaRuntimeException g) {
-		additionalContext.currentError = g;
-	}
+	public void setCurrentError(final GamaRuntimeException g) { additionalContext.currentError = g; }
 
 	@Override
-	public GamaRuntimeException getCurrentError() {
-		return additionalContext.currentError;
-	}
-
-	@Override
-	public void setHorizontalPixelContext() {
-		additionalContext.horizontalPixelContext = true;
-
-	}
-
-	@Override
-	public void setVerticalPixelContext() {
-		additionalContext.horizontalPixelContext = false;
-
-	}
-
-	@Override
-	public boolean isHorizontalPixelContext() {
-		return additionalContext.horizontalPixelContext;
-	}
+	public GamaRuntimeException getCurrentError() { return additionalContext.currentError; }
+	
+	public IGraphicsScope copyForGraphics(final String additionalName) {
+ 		final GraphicsScope scope = new GraphicsScope(this, additionalName);
+ 		scope.executionContext = executionContext == null ? null : executionContext.createCopy();
+ 		scope.agentContext = agentContext == null ? null : agentContext.createCopy();
+ 		scope.additionalContext.copyFrom(additionalContext);
+ 		return scope;
+ 	}
 
 }

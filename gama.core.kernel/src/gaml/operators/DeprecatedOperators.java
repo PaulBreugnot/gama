@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * DeprecatedOperators.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * DeprecatedOperators.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gaml.operators;
 
@@ -14,18 +14,19 @@ import java.util.Arrays;
 
 import gama.common.interfaces.IKeyword;
 import gama.common.ui.IGraphics;
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.IOperatorCategory;
-import gama.core.dev.annotations.ITypeProvider;
-import gama.core.dev.annotations.Reason;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.no_test;
 import gama.core.dev.annotations.GamlAnnotations.operator;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.IOperatorCategory;
+import gama.core.dev.annotations.ITypeProvider;
+import gama.core.dev.annotations.Reason;
 import gama.metamodel.agent.IAgent;
 import gama.metamodel.shape.GamaPoint;
 import gama.metamodel.shape.IShape;
 import gama.runtime.IScope;
+import gama.runtime.IScope.IGraphicsScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gama.util.file.GamaFile;
 import gama.util.file.GamaGridFile;
@@ -472,11 +473,15 @@ public class DeprecatedOperators {
 	/**
 	 * At.
 	 *
-	 * @param scope the scope
-	 * @param s the s
-	 * @param val the val
+	 * @param scope
+	 *            the scope
+	 * @param s
+	 *            the s
+	 * @param val
+	 *            the val
 	 * @return the i agent
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@operator (
 			value = { IKeyword.AT, "@" },
@@ -1129,8 +1134,10 @@ public class DeprecatedOperators {
 	/**
 	 * Dem.
 	 *
-	 * @param scope the scope
-	 * @param demFileName the dem file name
+	 * @param scope
+	 *            the scope
+	 * @param demFileName
+	 *            the dem file name
 	 * @return the i shape
 	 */
 	@operator (
@@ -1155,9 +1162,12 @@ public class DeprecatedOperators {
 	/**
 	 * Dem.
 	 *
-	 * @param scope the scope
-	 * @param demFileName the dem file name
-	 * @param z_factor the z factor
+	 * @param scope
+	 *            the scope
+	 * @param demFileName
+	 *            the dem file name
+	 * @param z_factor
+	 *            the z factor
 	 * @return the i shape
 	 */
 	@operator (
@@ -1180,9 +1190,12 @@ public class DeprecatedOperators {
 	/**
 	 * Dem.
 	 *
-	 * @param scope the scope
-	 * @param demFile the dem file
-	 * @param textureFile the texture file
+	 * @param scope
+	 *            the scope
+	 * @param demFile
+	 *            the dem file
+	 * @param textureFile
+	 *            the texture file
 	 * @return the i shape
 	 */
 	@operator (
@@ -1205,10 +1218,14 @@ public class DeprecatedOperators {
 	/**
 	 * Dem.
 	 *
-	 * @param scope the scope
-	 * @param demFile the dem file
-	 * @param textureFile the texture file
-	 * @param z_factor the z factor
+	 * @param scope
+	 *            the scope
+	 * @param demFile
+	 *            the dem file
+	 * @param textureFile
+	 *            the texture file
+	 * @param z_factor
+	 *            the z factor
 	 * @return the i shape
 	 */
 	@operator (
@@ -1224,11 +1241,14 @@ public class DeprecatedOperators {
 					isExecutable = false) },
 			see = {})
 	@no_test (Reason.IMPOSSIBLE_TO_TEST)
-	public static IShape dem(final IScope scope, final GamaFile demFile, final GamaFile textureFile,
+	public static IShape dem(final IScope sc, final GamaFile demFile, final GamaFile textureFile,
 			final Double z_factor) {
 		// if (!(textureFile instanceof GamaImageFile))
 		// throw GamaRuntimeException.error("" + textureFile.getPath(scope) + " is not an image", scope);
+		if (!sc.isGraphics()) return null;
+		IGraphicsScope scope = (IGraphicsScope) sc;
 		final IGraphics graphics = scope.getGraphics();
+
 		if (graphics == null || graphics.cannotDraw()) return null;
 		final MeshDrawingAttributes attributes = new MeshDrawingAttributes(null, null, false);
 		attributes.setHeight(z_factor);
@@ -1256,8 +1276,10 @@ public class DeprecatedOperators {
 	/**
 	 * Gets the dimensions of.
 	 *
-	 * @param scope the scope
-	 * @param file the file
+	 * @param scope
+	 *            the scope
+	 * @param file
+	 *            the file
 	 * @return the dimensions of
 	 */
 	private static GamaPoint getDimensionsOf(final IScope scope, final GamaFile file) {

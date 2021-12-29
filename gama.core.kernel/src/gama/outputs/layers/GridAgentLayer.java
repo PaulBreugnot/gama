@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * GridAgentLayer.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * GridAgentLayer.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -17,7 +17,7 @@ import gama.common.ui.IGraphics;
 import gama.metamodel.agent.IAgent;
 import gama.metamodel.shape.IShape;
 import gama.runtime.ExecutionResult;
-import gama.runtime.IScope;
+import gama.runtime.IScope.IGraphicsScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gama.util.GamaColor;
 import gaml.operators.Cast;
@@ -33,7 +33,8 @@ public class GridAgentLayer extends AgentLayer {
 	/**
 	 * Instantiates a new grid agent layer.
 	 *
-	 * @param layer the layer
+	 * @param layer
+	 *            the layer
 	 */
 	public GridAgentLayer(final ILayerStatement layer) {
 		super(layer);
@@ -45,20 +46,17 @@ public class GridAgentLayer extends AgentLayer {
 	}
 
 	@Override
-	public GridLayerData getData() {
-		return (GridLayerData) super.getData();
-	}
+	public GridLayerData getData() { return (GridLayerData) super.getData(); }
 
 	@Override
-	public void privateDraw(final IScope s, final IGraphics gr) throws GamaRuntimeException {
+	public void privateDraw(final IGraphicsScope s, final IGraphics gr) throws GamaRuntimeException {
 		final GamaColor borderColor = getData().drawLines() ? getData().getLineColor() : null;
-		final IExecutable aspect = sc -> {
+		final IExecutable aspect = scope -> {
+			IGraphicsScope sc = (IGraphicsScope) scope;
 			final IAgent agent = sc.getAgent();
 			final IGraphics g = sc.getGraphics();
 			try {
-				if (agent == sc.getGui().getHighlightedAgent()) {
-					g.beginHighlight();
-				}
+				if (agent == sc.getGui().getHighlightedAgent()) { g.beginHighlight(); }
 				final GamaColor color = Cast.asColor(sc, agent.getDirectVarValue(sc, IKeyword.COLOR));
 				final IShape ag = agent.getGeometry();
 				final IShape ag2 = ag.copy(sc);
@@ -77,9 +75,7 @@ public class GridAgentLayer extends AgentLayer {
 			if (a != null) {
 				final ExecutionResult result = s.execute(aspect, a, null);
 				final Object r = result.getValue();
-				if (r instanceof Rectangle2D) {
-					shapes.put(a, (Rectangle2D) r);
-				}
+				if (r instanceof Rectangle2D) { shapes.put(a, (Rectangle2D) r); }
 			}
 		}
 

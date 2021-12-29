@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * MeshLayer.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * MeshLayer.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.outputs.layers;
 
@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 import gama.common.geometry.Scaling3D;
 import gama.common.ui.IGraphics;
-import gama.runtime.IScope;
+import gama.runtime.IScope.IGraphicsScope;
 import gama.util.GamaColor;
 import gama.util.file.GamaImageFile;
 import gama.util.matrix.IField;
@@ -28,7 +28,8 @@ public class MeshLayer extends AbstractLayer {
 	/**
 	 * Instantiates a new mesh layer.
 	 *
-	 * @param layer the layer
+	 * @param layer
+	 *            the layer
 	 */
 	public MeshLayer(final ILayerStatement layer) {
 		super(layer);
@@ -40,12 +41,10 @@ public class MeshLayer extends AbstractLayer {
 	}
 
 	@Override
-	public MeshLayerData getData() {
-		return (MeshLayerData) super.getData();
-	}
+	public MeshLayerData getData() { return (MeshLayerData) super.getData(); }
 
 	@Override
-	public void privateDraw(final IScope scope, final IGraphics dg) {
+	public void privateDraw(final IGraphicsScope scope, final IGraphics dg) {
 		GamaColor lineColor = null;
 		final MeshLayerData data = getData();
 		if (data.drawLines()) { lineColor = data.getLineColor(); }
@@ -71,8 +70,6 @@ public class MeshLayer extends AbstractLayer {
 	}
 
 	@Override
-	public String getType() {
-		return "Field layer";
-	}
+	public String getType() { return "Field layer"; }
 
 }

@@ -36,7 +36,7 @@ import gama.outputs.layers.OverlayLayer;
 import gama.outputs.layers.SpeciesLayer;
 import gama.outputs.layers.charts.ChartLayer;
 import gama.runtime.GAMA;
-import gama.runtime.IScope;
+import gama.runtime.IScope.IGraphicsScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 
 // TODO: Auto-generated Javadoc
@@ -186,7 +186,7 @@ public class LayerManager implements ILayerManager {
 	@Override
 	public void drawLayersOn(final IGraphics g) {
 		if (g == null || g.cannotDraw()) return;
-		final IScope scope = surface.getScope();
+		final IGraphicsScope scope = surface.getScope();
 		// If the experiment is already closed
 		if (scope == null || scope.interrupted()) return;
 		scope.setGraphics(g);

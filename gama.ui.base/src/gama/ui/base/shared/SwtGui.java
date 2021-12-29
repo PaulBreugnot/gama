@@ -1050,4 +1050,12 @@ public class SwtGui implements IGui {
 		});
 		return result[0];
 	}
+
+	/**
+	 * Gets the frontmost display surface.
+	 *
+	 * @return the frontmost display surface
+	 */
+	@Override
+	public IDisplaySurface getFrontmostDisplaySurface() { return ViewsHelper.frontmostDisplaySurface(); }
 }
