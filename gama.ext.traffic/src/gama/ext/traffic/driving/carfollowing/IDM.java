@@ -8,18 +8,18 @@
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
  ********************************************************************************************************/
-package gama.ext.traffic.carfollowing;
+package gama.ext.traffic.driving.carfollowing;
 
-import static gama.ext.traffic.DrivingSkill.getDeltaIDM;
-import static gama.ext.traffic.DrivingSkill.getMaxAcceleration;
-import static gama.ext.traffic.DrivingSkill.getMaxDeceleration;
-import static gama.ext.traffic.DrivingSkill.getMaxSpeed;
-import static gama.ext.traffic.DrivingSkill.getMinSafetyDistance;
-import static gama.ext.traffic.DrivingSkill.getSpeed;
-import static gama.ext.traffic.DrivingSkill.getSpeedCoeff;
-import static gama.ext.traffic.DrivingSkill.getTimeHeadway;
+import static gama.ext.traffic.driving.DrivingSkill.getDeltaIDM;
+import static gama.ext.traffic.driving.DrivingSkill.getMaxAcceleration;
+import static gama.ext.traffic.driving.DrivingSkill.getMaxDeceleration;
+import static gama.ext.traffic.driving.DrivingSkill.getMaxSpeed;
+import static gama.ext.traffic.driving.DrivingSkill.getMinSafetyDistance;
+import static gama.ext.traffic.driving.DrivingSkill.getSpeed;
+import static gama.ext.traffic.driving.DrivingSkill.getSpeedCoeff;
+import static gama.ext.traffic.driving.DrivingSkill.getTimeHeadway;
 
-import gama.ext.traffic.RoadSkill;
+import gama.ext.traffic.driving.RoadSkill;
 import gama.metamodel.agent.IAgent;
 import gama.runtime.IScope;
 

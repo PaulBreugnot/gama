@@ -8,7 +8,7 @@
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
  ********************************************************************************************************/
-package gama.ext.traffic;
+package gama.ext.traffic.driving;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,7 +23,7 @@ import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.no_test;
 import gama.core.dev.annotations.GamlAnnotations.operator;
-import gama.ext.traffic.carfollowing.CustomDualTreeBidiMap;
+import gama.ext.traffic.driving.carfollowing.CustomDualTreeBidiMap;
 import gama.metamodel.agent.IAgent;
 import gama.metamodel.shape.IShape;
 import gama.metamodel.topology.graph.GamaSpatialGraph;
@@ -35,7 +35,7 @@ import gama.util.graph.IGraph;
  * The Class DrivingOperators.
  */
 @SuppressWarnings({ "unchecked", "rawtypes" })
-public class DrivingOperators {
+public class Operators {
 
 	/**
 	 * Spatial driving from edges.

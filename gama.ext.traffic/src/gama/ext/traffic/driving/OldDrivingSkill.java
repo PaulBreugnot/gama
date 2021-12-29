@@ -8,7 +8,7 @@
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
  ********************************************************************************************************/
-package gama.ext.traffic;
+package gama.ext.traffic.driving;
 
 import java.util.Collection;
 import java.util.Collections;

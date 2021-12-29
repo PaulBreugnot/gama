@@ -7,26 +7,26 @@
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  *
  ********************************************************************************************************/
-package gama.ext.traffic.carfollowing;
+package gama.ext.traffic.driving.carfollowing;
 
-import static gama.ext.traffic.DrivingSkill.getCurrentRoad;
-import static gama.ext.traffic.DrivingSkill.getCurrentTarget;
-import static gama.ext.traffic.DrivingSkill.getDistanceToCurrentTarget;
-import static gama.ext.traffic.DrivingSkill.getLinkedLaneLimit;
-import static gama.ext.traffic.DrivingSkill.getMinSafetyDistance;
-import static gama.ext.traffic.DrivingSkill.getNextRoad;
-import static gama.ext.traffic.DrivingSkill.getNumLanesOccupied;
-import static gama.ext.traffic.DrivingSkill.getProbaUseLinkedRoad;
-import static gama.ext.traffic.DrivingSkill.getVehicleLength;
-import static gama.ext.traffic.DrivingSkill.isViolatingOneway;
-import static gama.ext.traffic.DrivingSkill.readyToCross;
+import static gama.ext.traffic.driving.DrivingSkill.getCurrentRoad;
+import static gama.ext.traffic.driving.DrivingSkill.getCurrentTarget;
+import static gama.ext.traffic.driving.DrivingSkill.getDistanceToCurrentTarget;
+import static gama.ext.traffic.driving.DrivingSkill.getLinkedLaneLimit;
+import static gama.ext.traffic.driving.DrivingSkill.getMinSafetyDistance;
+import static gama.ext.traffic.driving.DrivingSkill.getNextRoad;
+import static gama.ext.traffic.driving.DrivingSkill.getNumLanesOccupied;
+import static gama.ext.traffic.driving.DrivingSkill.getProbaUseLinkedRoad;
+import static gama.ext.traffic.driving.DrivingSkill.getVehicleLength;
+import static gama.ext.traffic.driving.DrivingSkill.isViolatingOneway;
+import static gama.ext.traffic.driving.DrivingSkill.readyToCross;
 
 import org.apache.commons.collections4.OrderedBidiMap;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.apache.commons.lang3.tuple.Triple;
 
-import gama.ext.traffic.RoadNodeSkill;
-import gama.ext.traffic.RoadSkill;
+import gama.ext.traffic.driving.RoadNodeSkill;
+import gama.ext.traffic.driving.RoadSkill;
 import gama.metamodel.agent.IAgent;
 import gama.metamodel.shape.GamaPoint;
 import gama.runtime.IScope;

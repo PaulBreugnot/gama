@@ -8,30 +8,30 @@
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  * 
  ********************************************************************************************************/
-package gama.ext.traffic.carfollowing;
+package gama.ext.traffic.driving.carfollowing;
 
-import static gama.ext.traffic.DrivingSkill.getAccBias;
-import static gama.ext.traffic.DrivingSkill.getAccGainThreshold;
-import static gama.ext.traffic.DrivingSkill.getAllowedLanes;
-import static gama.ext.traffic.DrivingSkill.getLCCooldown;
-import static gama.ext.traffic.DrivingSkill.getLaneChangeLimit;
-import static gama.ext.traffic.DrivingSkill.getLeadingDistance;
-import static gama.ext.traffic.DrivingSkill.getMaxSafeDeceleration;
-import static gama.ext.traffic.DrivingSkill.getNumLanesOccupied;
-import static gama.ext.traffic.DrivingSkill.getPolitenessFactor;
-import static gama.ext.traffic.DrivingSkill.getProbaUseLinkedRoad;
-import static gama.ext.traffic.DrivingSkill.getRightSideDriving;
-import static gama.ext.traffic.DrivingSkill.getSpeed;
-import static gama.ext.traffic.DrivingSkill.getTimeSinceLC;
-import static gama.ext.traffic.DrivingSkill.getVehicleLength;
-import static gama.ext.traffic.DrivingSkill.setFollower;
-import static gama.ext.traffic.DrivingSkill.setLeadingDistance;
-import static gama.ext.traffic.DrivingSkill.setLeadingSpeed;
-import static gama.ext.traffic.DrivingSkill.setLeadingVehicle;
-import static gama.ext.traffic.DrivingSkill.setTimeSinceLC;
-import static gama.ext.traffic.carfollowing.Utils.findFollower;
-import static gama.ext.traffic.carfollowing.Utils.findLeader;
-import static gama.ext.traffic.carfollowing.Utils.rescaleProba;
+import static gama.ext.traffic.driving.DrivingSkill.getAccBias;
+import static gama.ext.traffic.driving.DrivingSkill.getAccGainThreshold;
+import static gama.ext.traffic.driving.DrivingSkill.getAllowedLanes;
+import static gama.ext.traffic.driving.DrivingSkill.getLCCooldown;
+import static gama.ext.traffic.driving.DrivingSkill.getLaneChangeLimit;
+import static gama.ext.traffic.driving.DrivingSkill.getLeadingDistance;
+import static gama.ext.traffic.driving.DrivingSkill.getMaxSafeDeceleration;
+import static gama.ext.traffic.driving.DrivingSkill.getNumLanesOccupied;
+import static gama.ext.traffic.driving.DrivingSkill.getPolitenessFactor;
+import static gama.ext.traffic.driving.DrivingSkill.getProbaUseLinkedRoad;
+import static gama.ext.traffic.driving.DrivingSkill.getRightSideDriving;
+import static gama.ext.traffic.driving.DrivingSkill.getSpeed;
+import static gama.ext.traffic.driving.DrivingSkill.getTimeSinceLC;
+import static gama.ext.traffic.driving.DrivingSkill.getVehicleLength;
+import static gama.ext.traffic.driving.DrivingSkill.setFollower;
+import static gama.ext.traffic.driving.DrivingSkill.setLeadingDistance;
+import static gama.ext.traffic.driving.DrivingSkill.setLeadingSpeed;
+import static gama.ext.traffic.driving.DrivingSkill.setLeadingVehicle;
+import static gama.ext.traffic.driving.DrivingSkill.setTimeSinceLC;
+import static gama.ext.traffic.driving.carfollowing.Utils.findFollower;
+import static gama.ext.traffic.driving.carfollowing.Utils.findLeader;
+import static gama.ext.traffic.driving.carfollowing.Utils.rescaleProba;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,8 +40,8 @@ import java.util.stream.IntStream;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Triple;
 
-import gama.ext.traffic.RoadNodeSkill;
-import gama.ext.traffic.RoadSkill;
+import gama.ext.traffic.driving.RoadNodeSkill;
+import gama.ext.traffic.driving.RoadSkill;
 import gama.metamodel.agent.IAgent;
 import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;

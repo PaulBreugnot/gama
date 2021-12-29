@@ -8,7 +8,7 @@
  * Visit https://github.com/gama-platform/gama for license information and contacts.
  *
  ********************************************************************************************************/
-package gama.ext.traffic;
+package gama.ext.traffic.driving;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -34,8 +34,8 @@ import gama.core.dev.annotations.GamlAnnotations.variable;
 import gama.core.dev.annotations.GamlAnnotations.vars;
 import gama.core.dev.annotations.IConcept;
 import gama.core.dev.utils.DEBUG;
-import gama.ext.traffic.carfollowing.MOBIL;
-import gama.ext.traffic.carfollowing.Utils;
+import gama.ext.traffic.driving.carfollowing.MOBIL;
+import gama.ext.traffic.driving.carfollowing.Utils;
 import gama.metamodel.agent.IAgent;
 import gama.metamodel.shape.GamaPoint;
 import gama.metamodel.shape.IShape;
