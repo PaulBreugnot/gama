@@ -137,7 +137,7 @@ public abstract class AbstractCamera implements ICamera {
 		this.renderer = renderer2;
 		// LayeredDisplayData data = renderer.getData();
 		// if (!data.isCameraUpVectorDefined() && !data.getCameraOrientation().equals(UP_Z)) {
-		setUpVector(0.0, 1.0, 0.0);
+		setUpVector(0.0, 0.0, 1.0);
 		// }
 		glu = new GLU();
 	}
