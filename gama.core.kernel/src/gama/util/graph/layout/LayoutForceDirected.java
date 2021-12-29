@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * LayoutForceDirected.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * LayoutForceDirected.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.util.graph.layout;
 
@@ -31,22 +31,22 @@ public class LayoutForceDirected {
 
 	/** The graph. */
 	private final Graph<IShape, IShape> graph;
-	
+
 	/** The equi. */
 	private final boolean equi;
-	
+
 	/** The criterion. */
 	private final double criterion;
-	
+
 	/** The cooling rate. */
 	private final double coolingRate;
-	
+
 	/** The maxit. */
 	private final int maxit;
-	
+
 	/** The coeff force. */
 	private final double coeffForce;
-	
+
 	/** The bounds. */
 	IShape bounds;
 
@@ -55,32 +55,39 @@ public class LayoutForceDirected {
 
 	/** The area. */
 	private double area;
-	
+
 	/** The k. */
 	private double k;
-	
+
 	/** The t. */
 	private double t;
 
 	/** The equilibrium reached. */
 	private boolean equilibriumReached = false;
-	
+
 	/** The disp. */
 	private final Map<IShape, GamaPoint> disp;
-	
+
 	/** The loc. */
 	private final Map<IShape, GamaPoint> loc;
 
 	/**
 	 * Creates a new Simulation.
 	 *
-	 * @param graph the graph
-	 * @param bounds the bounds
-	 * @param coeffForce the coeff force
-	 * @param coolingRate the cooling rate
-	 * @param maxit the maxit
-	 * @param isEquilibriumCriterion the is equilibrium criterion
-	 * @param criterion the criterion
+	 * @param graph
+	 *            the graph
+	 * @param bounds
+	 *            the bounds
+	 * @param coeffForce
+	 *            the coeff force
+	 * @param coolingRate
+	 *            the cooling rate
+	 * @param maxit
+	 *            the maxit
+	 * @param isEquilibriumCriterion
+	 *            the is equilibrium criterion
+	 * @param criterion
+	 *            the criterion
 	 */
 	public LayoutForceDirected(final Graph<IShape, IShape> graph, final IShape bounds, final double coeffForce,
 			final double coolingRate, final int maxit, final boolean isEquilibriumCriterion, final double criterion) {
@@ -99,7 +106,8 @@ public class LayoutForceDirected {
 	/**
 	 * Starts the simulation.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return number of iterations used until criterion is met
 	 */
 	public int startSimulation(final IScope scope) {
@@ -136,7 +144,8 @@ public class LayoutForceDirected {
 	/**
 	 * Simulates a single step.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 */
 	private void simulateStep(final IScope scope) {
 		final double toleranceCenter = Math.sqrt(area) / 10.0;
@@ -152,9 +161,7 @@ public class LayoutForceDirected {
 					GamaPoint deltaPos = Points.subtract(loc.get(v), loc.get(u));
 					final double length = Points.norm(scope, deltaPos);
 
-					if (length != 0) {
-						deltaPos = Points.multiply(deltaPos, forceRepulsive(length, k) / length);
-					}
+					if (length != 0) { deltaPos = Points.multiply(deltaPos, forceRepulsive(length, k) / length); }
 
 					vDisp.add(deltaPos);
 
@@ -170,9 +177,7 @@ public class LayoutForceDirected {
 			GamaPoint deltaPos = Points.subtract(loc.get(v), loc.get(u));
 			final double length = Points.norm(scope, deltaPos);
 
-			if (length != 0) {
-				deltaPos = Points.multiply(deltaPos, forceAttractive(length, k) / length);
-			}
+			if (length != 0) { deltaPos = Points.multiply(deltaPos, forceAttractive(length, k) / length); }
 
 			disp.get(v).minus(deltaPos);
 			disp.get(u).add(deltaPos);
@@ -188,30 +193,22 @@ public class LayoutForceDirected {
 			final double length = Points.norm(scope, d);
 
 			// no equilibrium if one vertex has too high net force
-			if (length > criterion) {
-				equilibriumReached = false;
-			}
+			if (length > criterion) { equilibriumReached = false; }
 			// limit maximum displacement by temperature t
-			if (length != 0) {
-				d = Points.multiply(d, Math.min(length, t) / length);
-			}
+			if (length != 0) { d = Points.multiply(d, Math.min(length, t) / length); }
 			final GamaPoint l = loc.get(v);
 			l.add(d);
-			if (!bounds.intersects(l)) {
-				loc.put(v, Punctal._closest_point_to(l, bounds));
-			}
+			if (!bounds.intersects(l)) { loc.put(v, Punctal._closest_point_to(l, bounds)); }
 
 		}
-		final GamaPoint center = (GamaPoint) Containers.mean(scope, GamaListFactory.wrap(Types.POINT, loc.values()));
+		final GamaPoint center = (GamaPoint) Containers.opMean(scope, GamaListFactory.wrap(Types.POINT, loc.values()));
 		if (center.distance3D(bounds.getCentroid()) > toleranceCenter) {
 			final GamaPoint d = Points.subtract(bounds.getCentroid(), center);
 			d.multiplyBy(0.5);
 			for (final IShape v : graph.vertexSet()) {
 				final GamaPoint l = loc.get(v);
 				l.add(d);
-				if (!bounds.intersects(l)) {
-					loc.put(v, Punctal._closest_point_to(l, bounds));
-				}
+				if (!bounds.intersects(l)) { loc.put(v, Punctal._closest_point_to(l, bounds)); }
 			}
 		}
 		double maxDist = graph.vertexSet().stream().mapToDouble(v -> v.euclidianDistanceTo(center)).max().getAsDouble();
@@ -221,13 +218,9 @@ public class LayoutForceDirected {
 				final GamaPoint l = loc.get(v);
 				final GamaPoint d = Points.subtract(l, center);
 				final double len = d.norm();
-				if (len > 0) {
-					d.multiplyBy(maxDist / d.norm());
-				}
+				if (len > 0) { d.multiplyBy(maxDist / d.norm()); }
 				l.add(d);
-				if (!bounds.intersects(l)) {
-					loc.put(v, Punctal._closest_point_to(l, bounds));
-				}
+				if (!bounds.intersects(l)) { loc.put(v, Punctal._closest_point_to(l, bounds)); }
 			}
 		}
 
@@ -239,8 +232,10 @@ public class LayoutForceDirected {
 	/**
 	 * Calculates the amount of the attractive force between vertices using the expression entered by the user.
 	 *
-	 * @param d            the distance between the two vertices
-	 * @param k the k
+	 * @param d
+	 *            the distance between the two vertices
+	 * @param k
+	 *            the k
 	 * @return amount of force
 	 */
 	private double forceAttractive(final double d, final double k) {
@@ -250,8 +245,10 @@ public class LayoutForceDirected {
 	/**
 	 * Calculates the amount of the repulsive force between vertices using the expression entered by the user.
 	 *
-	 * @param d            the distance between the two vertices
-	 * @param k the k
+	 * @param d
+	 *            the distance between the two vertices
+	 * @param k
+	 *            the k
 	 * @return amount of force
 	 */
 	private double forceRepulsive(final double d, final double k) {

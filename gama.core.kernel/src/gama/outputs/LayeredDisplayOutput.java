@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * LayeredDisplayOutput.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * LayeredDisplayOutput.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.outputs;
 
@@ -21,11 +21,9 @@ import gama.common.interfaces.IKeyword;
 import gama.common.preferences.GamaPreferences;
 import gama.common.ui.IDisplaySurface;
 import gama.common.ui.IGamaView;
+import gama.common.ui.IGamaView.Display;
 import gama.common.ui.IGui;
 import gama.common.ui.IOverlayProvider;
-import gama.common.ui.IGamaView.Display;
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.ISymbolKind;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.facet;
@@ -33,6 +31,8 @@ import gama.core.dev.annotations.GamlAnnotations.facets;
 import gama.core.dev.annotations.GamlAnnotations.inside;
 import gama.core.dev.annotations.GamlAnnotations.symbol;
 import gama.core.dev.annotations.GamlAnnotations.usage;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.ISymbolKind;
 import gama.outputs.LayeredDisplayOutput.DisplaySerializer;
 import gama.outputs.LayeredDisplayOutput.InfoValidator;
 import gama.outputs.layers.AbstractLayerStatement;
@@ -303,10 +303,10 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 
 	/** The layers. */
 	private final List<AbstractLayerStatement> layers;
-	
+
 	/** The surface. */
 	protected IDisplaySurface surface;
-	
+
 	/** The index. */
 	private int index;
 
@@ -415,8 +415,10 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 		/**
 		 * Handle inheritance.
 		 *
-		 * @param d the d
-		 * @param string the string
+		 * @param d
+		 *            the d
+		 * @param string
+		 *            the string
 		 */
 		private void handleInheritance(final IDescription d, final String string) {
 			final IDescription output = d.getEnclosingDescription();
@@ -432,8 +434,10 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 		/**
 		 * Handle inheritance.
 		 *
-		 * @param child the child
-		 * @param parent the parent
+		 * @param child
+		 *            the child
+		 * @param parent
+		 *            the parent
 		 */
 		private void handleInheritance(final IDescription child, final IDescription parent) {
 			final Facets childFacets = child.getFacets();
@@ -450,7 +454,8 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 	/**
 	 * Instantiates a new layered display output.
 	 *
-	 * @param desc the desc
+	 * @param desc
+	 *            the desc
 	 */
 	public LayeredDisplayOutput(final IDescription desc) {
 		super(desc);
@@ -464,9 +469,7 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 	 *
 	 * @return the overlay provider
 	 */
-	public IOverlayProvider<OverlayInfo> getOverlayProvider() {
-		return overlayInfo;
-	}
+	public IOverlayProvider<OverlayInfo> getOverlayProvider() { return overlayInfo; }
 
 	@Override
 	public boolean shouldOpenAsynchronously() {
@@ -526,7 +529,8 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 	/**
 	 * Creates the surface.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 */
 	protected void createSurface(final IScope scope) {
 		if (surface != null) {
@@ -554,14 +558,10 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 	 *
 	 * @return the surface
 	 */
-	public IDisplaySurface getSurface() {
-		return surface;
-	}
+	public IDisplaySurface getSurface() { return surface; }
 
 	@Override
-	public List<? extends ISymbol> getChildren() {
-		return getLayers();
-	}
+	public List<? extends ISymbol> getChildren() { return getLayers(); }
 
 	@Override
 	public void setChildren(final Iterable<? extends ISymbol> commands) {
@@ -580,7 +580,8 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 	/**
 	 * Sets the surface.
 	 *
-	 * @param surface the new surface
+	 * @param surface
+	 *            the new surface
 	 */
 	public void setSurface(final IDisplaySurface surface) {
 		this.surface = surface;
@@ -599,8 +600,10 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 	/**
 	 * Gets the image.
 	 *
-	 * @param w the w
-	 * @param h the h
+	 * @param w
+	 *            the w
+	 * @param h
+	 *            the h
 	 * @return the image
 	 */
 	public BufferedImage getImage(final int w, final int h) {
@@ -610,7 +613,8 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 	/**
 	 * Sets the layers.
 	 *
-	 * @param layers the new layers
+	 * @param layers
+	 *            the new layers
 	 */
 	public void setLayers(final List<AbstractLayerStatement> layers) {
 		this.layers.clear();
@@ -622,9 +626,7 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 	 *
 	 * @return the layers
 	 */
-	public List<AbstractLayerStatement> getLayers() {
-		return layers;
-	}
+	public List<AbstractLayerStatement> getLayers() { return layers; }
 
 	@Override
 	public void setPaused(final boolean paused) {
@@ -656,27 +658,22 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 	}
 
 	@Override
-	public boolean isSynchronized() {
-		return super.isSynchronized() && getData().isSynchronized();
-	}
+	public boolean isSynchronized() { return super.isSynchronized() && getData().isSynchronized(); }
 
 	/**
 	 * Gets the index.
 	 *
 	 * @return the index
 	 */
-	public int getIndex() {
-		return index;
-	}
+	public int getIndex() { return index; }
 
 	/**
 	 * Sets the index.
 	 *
-	 * @param index the new index
+	 * @param index
+	 *            the new index
 	 */
-	public void setIndex(final int index) {
-		this.index = index;
-	}
+	public void setIndex(final int index) { this.index = index; }
 
 	@Override
 	public boolean isAutoSave() {
@@ -688,7 +685,8 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 	/**
 	 * Zoom.
 	 *
-	 * @param mode the mode
+	 * @param mode
+	 *            the mode
 	 */
 	public void zoom(final int mode) {
 		if (mode < 0) {
@@ -701,8 +699,13 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 	}
 
 	@Override
-	public IGamaView.Display getView() {
-		return (Display) super.getView();
+	public IGamaView.Display getView() { return (Display) super.getView(); }
+
+	/**
+	 * Release view.
+	 */
+	public void releaseView() {
+		view = null;
 	}
 
 }

@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * Containers.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * Containers.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gaml.operators;
 
@@ -39,15 +39,15 @@ import com.google.common.collect.Sets;
 
 import gama.common.interfaces.IGamlIssue;
 import gama.common.interfaces.IKeyword;
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.IOperatorCategory;
-import gama.core.dev.annotations.ITypeProvider;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.no_test;
 import gama.core.dev.annotations.GamlAnnotations.operator;
 import gama.core.dev.annotations.GamlAnnotations.test;
 import gama.core.dev.annotations.GamlAnnotations.usage;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.IOperatorCategory;
+import gama.core.dev.annotations.ITypeProvider;
 import gama.metamodel.agent.IAgent;
 import gama.metamodel.population.IPopulationSet;
 import gama.metamodel.population.MetaPopulation;
@@ -60,13 +60,13 @@ import gama.runtime.IScope;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gama.util.GamaColor;
 import gama.util.GamaListFactory;
+import gama.util.GamaListFactory.GamaListSupplier;
 import gama.util.GamaMapFactory;
+import gama.util.GamaMapFactory.GamaMapSupplier;
 import gama.util.GamaPair;
 import gama.util.IContainer;
 import gama.util.IList;
 import gama.util.IMap;
-import gama.util.GamaListFactory.GamaListSupplier;
-import gama.util.GamaMapFactory.GamaMapSupplier;
 import gama.util.graph.IGraph;
 import gama.util.matrix.IMatrix;
 import gaml.compilation.GAML;
@@ -104,8 +104,10 @@ public class Containers {
 		/**
 		 * Instantiates a new interleaving iterator.
 		 *
-		 * @param scope the scope
-		 * @param objects the objects
+		 * @param scope
+		 *            the scope
+		 * @param objects
+		 *            the objects
 		 */
 		public InterleavingIterator(final IScope scope, final Object... objects) {
 			for (final Object object : objects) {
@@ -138,9 +140,12 @@ public class Containers {
 	/**
 	 * With.
 	 *
-	 * @param <T> the generic type
-	 * @param scope the scope
-	 * @param filter the filter
+	 * @param <T>
+	 *            the generic type
+	 * @param scope
+	 *            the scope
+	 * @param filter
+	 *            the filter
 	 * @return the function
 	 */
 	public static <T> Function<Object, T> with(final IScope scope, final IExpression filter) {
@@ -153,9 +158,12 @@ public class Containers {
 	/**
 	 * By.
 	 *
-	 * @param <T> the generic type
-	 * @param scope the scope
-	 * @param filter the filter
+	 * @param <T>
+	 *            the generic type
+	 * @param scope
+	 *            the scope
+	 * @param filter
+	 *            the filter
 	 * @return the predicate
 	 */
 	public static <T> Predicate<T> by(final IScope scope, final IExpression filter) {
@@ -168,9 +176,12 @@ public class Containers {
 	/**
 	 * In container.
 	 *
-	 * @param <T> the generic type
-	 * @param scope the scope
-	 * @param l the l
+	 * @param <T>
+	 *            the generic type
+	 * @param scope
+	 *            the scope
+	 * @param l
+	 *            the l
 	 * @return the predicate
 	 */
 	public static <T> Predicate<T> inContainer(final IScope scope, final IContainer l) {
@@ -185,18 +196,21 @@ public class Containers {
 	/**
 	 * Stream.
 	 *
-	 * @param scope the scope
-	 * @param c the c
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
 	 * @return the stream ex
 	 */
-	private static StreamEx stream(final IScope scope, final IContainer c) {
+	public static StreamEx stream(final IScope scope, final IContainer c) {
 		return notNull(scope, c).stream(scope);
 	}
 
 	/**
 	 * List of.
 	 *
-	 * @param t the t
+	 * @param t
+	 *            the t
 	 * @return the gama list supplier
 	 */
 	public static GamaListSupplier listOf(final IType t) {
@@ -206,7 +220,8 @@ public class Containers {
 	/**
 	 * List like.
 	 *
-	 * @param c the c
+	 * @param c
+	 *            the c
 	 * @return the supplier
 	 */
 	public static Supplier<IList> listLike(final IContainer c) {
@@ -216,8 +231,10 @@ public class Containers {
 	/**
 	 * List like.
 	 *
-	 * @param c the c
-	 * @param c1 the c 1
+	 * @param c
+	 *            the c
+	 * @param c1
+	 *            the c 1
 	 * @return the supplier
 	 */
 	public static Supplier<IList> listLike(final IContainer c, final IContainer c1) {
@@ -227,8 +244,10 @@ public class Containers {
 	/**
 	 * As map of.
 	 *
-	 * @param k the k
-	 * @param v the v
+	 * @param k
+	 *            the k
+	 * @param v
+	 *            the v
 	 * @return the gama map supplier
 	 */
 	public static GamaMapSupplier asMapOf(final IType k, final IType v) {
@@ -243,8 +262,10 @@ public class Containers {
 		/**
 		 * Range.
 		 *
-		 * @param scope the scope
-		 * @param end the end
+		 * @param scope
+		 *            the scope
+		 * @param end
+		 *            the end
 		 * @return the i list
 		 */
 		@operator (
@@ -265,9 +286,12 @@ public class Containers {
 		/**
 		 * Range.
 		 *
-		 * @param scope the scope
-		 * @param start the start
-		 * @param end the end
+		 * @param scope
+		 *            the scope
+		 * @param start
+		 *            the start
+		 * @param end
+		 *            the end
 		 * @return the i list
 		 */
 		@operator (
@@ -292,10 +316,14 @@ public class Containers {
 		/**
 		 * Range.
 		 *
-		 * @param scope the scope
-		 * @param start the start
-		 * @param end the end
-		 * @param step the step
+		 * @param scope
+		 *            the scope
+		 * @param start
+		 *            the start
+		 * @param end
+		 *            the end
+		 * @param step
+		 *            the step
 		 * @return the i list
 		 */
 		@operator (
@@ -325,9 +353,12 @@ public class Containers {
 		/**
 		 * Every.
 		 *
-		 * @param scope the scope
-		 * @param source the source
-		 * @param step the step
+		 * @param scope
+		 *            the scope
+		 * @param source
+		 *            the source
+		 * @param step
+		 *            the step
 		 * @return the i list
 		 */
 		@operator (
@@ -348,10 +379,14 @@ public class Containers {
 		/**
 		 * Copy between.
 		 *
-		 * @param scope the scope
-		 * @param l1 the l 1
-		 * @param begin the begin
-		 * @param end the end
+		 * @param scope
+		 *            the scope
+		 * @param l1
+		 *            the l 1
+		 * @param begin
+		 *            the begin
+		 * @param end
+		 *            the end
 		 * @return the i list
 		 */
 		@operator (
@@ -381,9 +416,12 @@ public class Containers {
 		/**
 		 * Copy between.
 		 *
-		 * @param scope the scope
-		 * @param l1 the l 1
-		 * @param p the p
+		 * @param scope
+		 *            the scope
+		 * @param l1
+		 *            the l 1
+		 * @param p
+		 *            the p
 		 * @return the i list
 		 */
 		@operator (
@@ -405,9 +443,12 @@ public class Containers {
 	/**
 	 * Internal list.
 	 *
-	 * @param scope the scope
-	 * @param i the i
-	 * @param j the j
+	 * @param scope
+	 *            the scope
+	 * @param i
+	 *            the i
+	 * @param j
+	 *            the j
 	 * @return the i list
 	 */
 	@operator (
@@ -427,11 +468,15 @@ public class Containers {
 	/**
 	 * Internal at.
 	 *
-	 * @param scope the scope
-	 * @param shape the shape
-	 * @param indices the indices
+	 * @param scope
+	 *            the scope
+	 * @param shape
+	 *            the shape
+	 * @param indices
+	 *            the indices
 	 * @return the object
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@operator (
 			internal = true,
@@ -457,11 +502,15 @@ public class Containers {
 	/**
 	 * Internal at.
 	 *
-	 * @param scope the scope
-	 * @param agent the agent
-	 * @param indices the indices
+	 * @param scope
+	 *            the scope
+	 * @param agent
+	 *            the agent
+	 * @param indices
+	 *            the indices
 	 * @return the object
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@operator (
 			internal = true,
@@ -480,11 +529,15 @@ public class Containers {
 	/**
 	 * Internal at.
 	 *
-	 * @param scope the scope
-	 * @param container the container
-	 * @param indices the indices
+	 * @param scope
+	 *            the scope
+	 * @param container
+	 *            the container
+	 * @param indices
+	 *            the indices
 	 * @return the object
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@operator (
 			internal = true,
@@ -507,9 +560,12 @@ public class Containers {
 	/**
 	 * At.
 	 *
-	 * @param scope the scope
-	 * @param container the container
-	 * @param key the key
+	 * @param scope
+	 *            the scope
+	 * @param container
+	 *            the container
+	 * @param key
+	 *            the key
 	 * @return the object
 	 */
 	@operator (
@@ -521,9 +577,10 @@ public class Containers {
 	@doc (
 			value = "the element at the right operand index of the container",
 			masterDoc = true,
-			comment = "The first element of the container is located at the index 0. "
-					+ "In addition, if the user tries to get the element at an index higher or equals than the length of the container, he will get an IndexOutOfBoundException."
-					+ "The at operator behavior depends on the nature of the operand",
+			comment = """
+					The first element of the container is located at the index 0. \
+					In addition, if the user tries to get the element at an index higher or equals than the length of the container, he will get an IndexOutOfBoundException.\
+					The at operator behavior depends on the nature of the operand""",
 			usages = { @usage (
 					value = "if it is a list or a matrix, at returns the element at the index specified by the right operand",
 					examples = { @example (
@@ -583,7 +640,7 @@ public class Containers {
 			if (Types.FILE.isAssignableFrom(type)) { type = type.getWrappedType(); }
 			final IType keyType = type.getKeyType();
 			final boolean wrongKey = keyType != Types.NO_TYPE && !indexType.isTranslatableInto(keyType)
-					&& (!Types.MATRIX.isAssignableFrom(type) || (indexType != Types.INT));
+					&& (!Types.MATRIX.isAssignableFrom(type) || indexType != Types.INT);
 			if (wrongKey) {
 				context.error("The contents of this " + type.getGamlType().getName() + " can only be accessed with "
 						+ type.getKeyType() + " keys", IGamlIssue.WRONG_TYPE, emfContext);
@@ -597,9 +654,12 @@ public class Containers {
 	/**
 	 * At.
 	 *
-	 * @param scope the scope
-	 * @param container the container
-	 * @param key the key
+	 * @param scope
+	 *            the scope
+	 * @param container
+	 *            the container
+	 * @param key
+	 *            the key
 	 * @return the object
 	 */
 	@operator (
@@ -617,9 +677,12 @@ public class Containers {
 	/**
 	 * At.
 	 *
-	 * @param scope the scope
-	 * @param container the container
-	 * @param key the key
+	 * @param scope
+	 *            the scope
+	 * @param container
+	 *            the container
+	 * @param key
+	 *            the key
 	 * @return the object
 	 */
 	@operator (
@@ -637,9 +700,12 @@ public class Containers {
 	/**
 	 * At.
 	 *
-	 * @param scope the scope
-	 * @param species the species
-	 * @param key the key
+	 * @param scope
+	 *            the scope
+	 * @param species
+	 *            the species
+	 * @param key
+	 *            the key
 	 * @return the i agent
 	 */
 	@operator (
@@ -657,11 +723,15 @@ public class Containers {
 	/**
 	 * Grid at.
 	 *
-	 * @param scope the scope
-	 * @param s the s
-	 * @param val the val
+	 * @param scope
+	 *            the scope
+	 * @param s
+	 *            the s
+	 * @param val
+	 *            the val
 	 * @return the i agent
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@operator (
 			value = { "grid_at" },
@@ -691,8 +761,10 @@ public class Containers {
 	/**
 	 * Removes the duplicates.
 	 *
-	 * @param scope the scope
-	 * @param c the c
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
 	 * @return the i list
 	 */
 	@operator (
@@ -733,9 +805,12 @@ public class Containers {
 	/**
 	 * Contains all.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param c2 the c 2
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param c2
+	 *            the c 2
 	 * @return the boolean
 	 */
 	@operator (
@@ -770,9 +845,12 @@ public class Containers {
 	/**
 	 * Contains any.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param c1 the c 1
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param c1
+	 *            the c 1
 	 * @return the boolean
 	 */
 	@operator (
@@ -807,9 +885,12 @@ public class Containers {
 	/**
 	 * First.
 	 *
-	 * @param scope the scope
-	 * @param number the number
-	 * @param c the c
+	 * @param scope
+	 *            the scope
+	 * @param number
+	 *            the number
+	 * @param c
+	 *            the c
 	 * @return the i list
 	 */
 	@operator (
@@ -831,9 +912,12 @@ public class Containers {
 	/**
 	 * Last.
 	 *
-	 * @param scope the scope
-	 * @param number the number
-	 * @param c the c
+	 * @param scope
+	 *            the scope
+	 * @param number
+	 *            the number
+	 * @param c
+	 *            the c
 	 * @return the i list
 	 */
 	@operator (
@@ -857,11 +941,15 @@ public class Containers {
 	/**
 	 * In.
 	 *
-	 * @param scope the scope
-	 * @param o the o
-	 * @param c the c
+	 * @param scope
+	 *            the scope
+	 * @param o
+	 *            the o
+	 * @param c
+	 *            the c
 	 * @return the boolean
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@operator (
 			value = "in",
@@ -894,9 +982,12 @@ public class Containers {
 	/**
 	 * Index of.
 	 *
-	 * @param scope the scope
-	 * @param s the s
-	 * @param o the o
+	 * @param scope
+	 *            the scope
+	 * @param s
+	 *            the s
+	 * @param o
+	 *            the o
 	 * @return the integer
 	 */
 	@operator (
@@ -917,9 +1008,12 @@ public class Containers {
 	/**
 	 * Index of.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param o the o
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param o
+	 *            the o
 	 * @return the integer
 	 */
 	@operator (
@@ -948,9 +1042,12 @@ public class Containers {
 	/**
 	 * Index of.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param o the o
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param o
+	 *            the o
 	 * @return the object
 	 */
 	@operator (
@@ -974,9 +1071,12 @@ public class Containers {
 	/**
 	 * Index of.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param o the o
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param o
+	 *            the o
 	 * @return the gama point
 	 */
 	@operator (
@@ -1003,9 +1103,12 @@ public class Containers {
 	/**
 	 * All indexes of 2.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param o the o
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param o
+	 *            the o
 	 * @return the i list
 	 */
 	@operator (
@@ -1042,9 +1145,12 @@ public class Containers {
 	/**
 	 * Last index of.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param o the o
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param o
+	 *            the o
 	 * @return the integer
 	 */
 	@operator (
@@ -1064,9 +1170,12 @@ public class Containers {
 	/**
 	 * Last index of.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param o the o
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param o
+	 *            the o
 	 * @return the integer
 	 */
 	@operator (
@@ -1095,9 +1204,12 @@ public class Containers {
 	/**
 	 * Last index of.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param o the o
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param o
+	 *            the o
 	 * @return the gama point
 	 */
 	@operator (
@@ -1125,9 +1237,12 @@ public class Containers {
 	/**
 	 * Last index of.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param o the o
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param o
+	 *            the o
 	 * @return the object
 	 */
 	@operator (
@@ -1154,9 +1269,12 @@ public class Containers {
 	/**
 	 * Inter.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param c1 the c 1
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param c1
+	 *            the c 1
 	 * @return the i list
 	 */
 	@operator (
@@ -1198,9 +1316,12 @@ public class Containers {
 	/**
 	 * Minus.
 	 *
-	 * @param scope the scope
-	 * @param source the source
-	 * @param l the l
+	 * @param scope
+	 *            the scope
+	 * @param source
+	 *            the source
+	 * @param l
+	 *            the l
 	 * @return the i list
 	 */
 	@operator (
@@ -1237,9 +1358,12 @@ public class Containers {
 	/**
 	 * Minus.
 	 *
-	 * @param scope the scope
-	 * @param l1 the l 1
-	 * @param object the object
+	 * @param scope
+	 *            the scope
+	 * @param l1
+	 *            the l 1
+	 * @param object
+	 *            the object
 	 * @return the i list
 	 */
 	@operator (
@@ -1271,9 +1395,12 @@ public class Containers {
 	/**
 	 * Minus.
 	 *
-	 * @param scope the scope
-	 * @param l1 the l 1
-	 * @param object the object
+	 * @param scope
+	 *            the scope
+	 * @param l1
+	 *            the l 1
+	 * @param object
+	 *            the object
 	 * @return the i list
 	 */
 	@operator (
@@ -1295,9 +1422,12 @@ public class Containers {
 	/**
 	 * Of generic species.
 	 *
-	 * @param scope the scope
-	 * @param agents the agents
-	 * @param s the s
+	 * @param scope
+	 *            the scope
+	 * @param agents
+	 *            the agents
+	 * @param s
+	 *            the s
 	 * @return the i list
 	 */
 	@operator (
@@ -1336,9 +1466,12 @@ public class Containers {
 	/**
 	 * Of species.
 	 *
-	 * @param scope the scope
-	 * @param agents the agents
-	 * @param s the s
+	 * @param scope
+	 *            the scope
+	 * @param agents
+	 *            the agents
+	 * @param s
+	 *            the s
 	 * @return the i list
 	 */
 	@operator (
@@ -1347,11 +1480,12 @@ public class Containers {
 			category = IOperatorCategory.SPECIES,
 			concept = { IConcept.SPECIES })
 	@doc (
-			value = "a list, containing the agents of the left-hand operand whose species is the one denoted by the right-hand operand."
-					+ "The expression agents of_species (species self) is equivalent to agents where (species each = species self); "
-					+ "however, the advantage of using the first syntax is that the resulting list is correctly typed with the right species, "
-					+ "whereas, in the second syntax, the parser cannot determine the species of the agents within the list "
-					+ "(resulting in the need to cast it explicitly if it is to be used in an ask statement, for instance).",
+			value = """
+					a list, containing the agents of the left-hand operand whose species is the one denoted by the right-hand operand.\
+					The expression agents of_species (species self) is equivalent to agents where (species each = species self); \
+					however, the advantage of using the first syntax is that the resulting list is correctly typed with the right species, \
+					whereas, in the second syntax, the parser cannot determine the species of the agents within the list \
+					(resulting in the need to cast it explicitly if it is to be used in an ask statement, for instance).""",
 			usages = @usage ("if the right operand is nil, of_species returns the right operand"),
 			examples = { @example (
 					value = "(self neighbors_at 10) of_species (species (self))",
@@ -1370,10 +1504,14 @@ public class Containers {
 	/**
 	 * Of species.
 	 *
-	 * @param scope the scope
-	 * @param agents the agents
-	 * @param s the s
-	 * @param generic the generic
+	 * @param scope
+	 *            the scope
+	 * @param agents
+	 *            the agents
+	 * @param s
+	 *            the s
+	 * @param generic
+	 *            the generic
 	 * @return the i list
 	 */
 	private static IList of_species(final IScope scope, final IContainer agents, final ISpecies s,
@@ -1386,9 +1524,12 @@ public class Containers {
 	/**
 	 * Pair.
 	 *
-	 * @param scope the scope
-	 * @param a the a
-	 * @param b the b
+	 * @param scope
+	 *            the scope
+	 * @param a
+	 *            the a
+	 * @param b
+	 *            the b
 	 * @return the gama pair
 	 */
 	@operator (
@@ -1411,9 +1552,12 @@ public class Containers {
 	/**
 	 * Plus.
 	 *
-	 * @param scope the scope
-	 * @param c1 the c 1
-	 * @param c2 the c 2
+	 * @param scope
+	 *            the scope
+	 * @param c1
+	 *            the c 1
+	 * @param c2
+	 *            the c 2
 	 * @return the i container
 	 */
 	@operator (
@@ -1456,9 +1600,12 @@ public class Containers {
 	/**
 	 * Plus.
 	 *
-	 * @param scope the scope
-	 * @param l1 the l 1
-	 * @param l the l
+	 * @param scope
+	 *            the scope
+	 * @param l1
+	 *            the l 1
+	 * @param l
+	 *            the l
 	 * @return the i list
 	 */
 	@operator (
@@ -1489,9 +1636,12 @@ public class Containers {
 	/**
 	 * Union.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param c1 the c 1
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param c1
+	 *            the c 1
 	 * @return the i list
 	 */
 	@operator (
@@ -1524,9 +1674,12 @@ public class Containers {
 	/**
 	 * Group by.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param e the e
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param e
+	 *            the e
 	 * @return the i map
 	 */
 	@operator (
@@ -1569,9 +1722,12 @@ public class Containers {
 	/**
 	 * Last with.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param filter the filter
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param filter
+	 *            the filter
 	 * @return the object
 	 */
 	@operator (
@@ -1617,9 +1773,12 @@ public class Containers {
 	/**
 	 * First with.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param filter the filter
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param filter
+	 *            the filter
 	 * @return the object
 	 */
 	@operator (
@@ -1665,54 +1824,12 @@ public class Containers {
 	}
 
 	/**
-	 * Max of.
-	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param filter the filter
-	 * @return the object
-	 */
-	@operator (
-			value = { "max_of" },
-			type = ITypeProvider.TYPE_AT_INDEX + 2,
-			iterator = true,
-			category = IOperatorCategory.CONTAINER,
-			concept = { IConcept.CONTAINER, IConcept.FILTER })
-	@doc (
-			value = "the maximum value of the right-hand expression evaluated on each of the elements of the left-hand operand",
-			comment = "in the right-hand operand, the keyword each can be used to represent, in turn, each of the right-hand operand elements. ",
-			usages = { @usage ("As of GAMA 1.6, if the left-hand operand is nil or empty, max_of throws an error"),
-					@usage (
-							value = "if the left-operand is a map, the keyword each will contain each value",
-							examples = { @example (
-									value = "[1::2, 3::4, 5::6] max_of (each + 3)",
-									equals = "9") }) },
-			examples = {
-					// @example ( value = "graph([]) max_of([])", raises = "error", isTestOnly = true),
-					@example (
-							value = "[1,2,4,3,5,7,6,8] max_of (each * 100 )",
-							equals = "800"),
-					@example (
-							value = "graph g2 <- as_edge_graph([{1,5}::{12,45},{12,45}::{34,56}]);"),
-					@example (
-							value = "g2.vertices max_of (g2 degree_of( each ))",
-							equals = "2"),
-					@example (
-							value = "(list(node) max_of (round(node(each).location.x))",
-							equals = "96",
-							isExecutable = false) },
-			see = { "min_of" })
-	@test ("[1,2,4,3,5,7,6,8] max_of (each * 100 ) = 800")
-	@validator (ComparableValidator.class)
-	public static Object max_of(final IScope scope, final IContainer c, final IExpression filter) {
-		return stream(scope, c).map(with(scope, filter)).maxBy(Function.identity()).orElse(null);
-	}
-
-	/**
 	 * Sum.
 	 *
-	 * @param scope the scope
-	 * @param l the l
+	 * @param scope
+	 *            the scope
+	 * @param l
+	 *            the l
 	 * @return the object
 	 */
 	@operator (
@@ -1761,8 +1878,10 @@ public class Containers {
 	/**
 	 * Sum.
 	 *
-	 * @param scope the scope
-	 * @param g the g
+	 * @param scope
+	 *            the scope
+	 * @param g
+	 *            the g
 	 * @return the double
 	 */
 	@operator (
@@ -1780,8 +1899,10 @@ public class Containers {
 	/**
 	 * Cart prod.
 	 *
-	 * @param scope the scope
-	 * @param list the list
+	 * @param scope
+	 *            the scope
+	 * @param list
+	 *            the list
 	 * @return the object
 	 */
 	@operator (
@@ -1811,9 +1932,12 @@ public class Containers {
 	/**
 	 * Sum of.
 	 *
-	 * @param scope the scope
-	 * @param container the container
-	 * @param filter the filter
+	 * @param scope
+	 *            the scope
+	 * @param container
+	 *            the container
+	 * @param filter
+	 *            the filter
 	 * @return the object
 	 */
 	@operator (
@@ -1863,125 +1987,17 @@ public class Containers {
 	}
 
 	/**
-	 * Mean.
-	 *
-	 * @param scope the scope
-	 * @param l the l
-	 * @return the object
-	 * @throws GamaRuntimeException the gama runtime exception
-	 */
-	@operator (
-			value = "mean",
-			can_be_const = true,
-			type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1 + ITypeProvider.FLOAT_IN_CASE_OF_INT,
-			expected_content_type = { IType.INT, IType.FLOAT, IType.POINT, IType.COLOR },
-			category = { IOperatorCategory.STATISTICAL, IOperatorCategory.CONTAINER, IOperatorCategory.COLOR },
-			concept = { IConcept.STATISTIC, IConcept.COLOR })
-	@doc (
-			value = "the mean of all the elements of the operand",
-			comment = "the elements of the operand are summed (see sum for more details about the sum of container elements ) and then the sum value is divided by the number of elements.",
-			special_cases = {
-					"if the container contains points, the result will be a point. If the container contains rgb values, the result will be a rgb color" },
-			examples = { @example (
-					value = "mean ([4.5, 3.5, 5.5, 7.0])",
-					equals = "5.125 ") },
-			see = { "sum" })
-	@test ("mean ([4.5, 3.5, 5.5, 7.0]) with_precision 3 = 5.125")
-	public static Object mean(final IScope scope, final IContainer l) throws GamaRuntimeException {
-
-		final Object s = Containers.sum(scope, l);
-		int size = l.length(scope);
-		if (size == 0) { size = 1; }
-		if (s instanceof Number) return ((Number) s).doubleValue() / size;
-		if (s instanceof GamaPoint) return Points.divide(scope, (GamaPoint) s, size);
-		if (s instanceof GamaColor) return Colors.divide((GamaColor) s, size);
-		return Cast.asFloat(scope, s) / size;
-	}
-
-	/**
-	 * Mean of.
-	 *
-	 * @param scope the scope
-	 * @param container the container
-	 * @param filter the filter
-	 * @return the object
-	 */
-	@operator (
-			value = { "mean_of" },
-			type = ITypeProvider.TYPE_AT_INDEX + 2 + ITypeProvider.FLOAT_IN_CASE_OF_INT,
-			iterator = true,
-			category = IOperatorCategory.CONTAINER,
-			concept = { IConcept.CONTAINER, IConcept.FILTER })
-	@doc (
-			value = "the mean of the right-hand expression evaluated on each of the elements of the left-hand operand",
-			comment = "in the right-hand operand, the keyword each can be used to represent, in turn, each of the right-hand operand elements. ",
-			usages = { @usage (
-					value = "if the left-operand is a map, the keyword each will contain each value",
-					examples = { @example (
-							value = "[1::2, 3::4, 5::6] mean_of (each)",
-							equals = "4") }) },
-			examples = { @example (
-					value = "[1,2] mean_of (each * 10 )",
-					equals = "15") },
-			see = { "min_of", "max_of", "sum_of", "product_of" })
-	@test ("[1,2] mean_of (each * 10 ) = 15")
-	@test ("[1,2] mean_of (each * 10 ) = 15")
-	@test ("[1,2] mean_of (each * 10 ) = 15")
-	public static Object mean_of(final IScope scope, final IContainer container, final IExpression filter) {
-		return mean(scope, collect(scope, container, filter));
-	}
-
-	/**
-	 * Min of.
-	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param filter the filter
-	 * @return the object
-	 */
-	@operator (
-			value = { "min_of" },
-			type = ITypeProvider.TYPE_AT_INDEX + 2,
-			iterator = true,
-			category = IOperatorCategory.CONTAINER,
-			concept = { IConcept.CONTAINER, IConcept.FILTER })
-	@doc (
-			value = "the minimum value of the right-hand expression evaluated on each of the elements of the left-hand operand",
-			comment = "in the right-hand operand, the keyword each can be used to represent, in turn, each of the right-hand operand elements. ",
-			usages = { @usage ("if the left-hand operand is nil or empty, min_of throws an error"), @usage (
-					value = "if the left-operand is a map, the keyword each will contain each value",
-					examples = { @example (
-							value = "[1::2, 3::4, 5::6] min_of (each + 3)",
-							equals = "5") }) },
-			examples = {
-					// @example (value = "graph([]) min_of([])", raises = "error", isTestOnly = true),
-					@example (
-							value = "[1,2,4,3,5,7,6,8] min_of (each * 100 )",
-							equals = "100"),
-					@example (
-							value = "graph g2 <- as_edge_graph([{1,5}::{12,45},{12,45}::{34,56}]);"),
-					@example (
-							value = "g2 min_of (length(g2 out_edges_of each) )",
-							equals = "0"),
-					@example (
-							value = "(list(node) min_of (round(node(each).location.x))",
-							equals = "4",
-							isExecutable = false) },
-			see = { "max_of" })
-	@test ("[1,2,4,3,5,7,6,8] min_of (each * 100 ) = 100")
-	@validator (ComparableValidator.class)
-	public static Object min_of(final IScope scope, final IContainer c, final IExpression filter) {
-		return stream(scope, c).map(with(scope, filter)).minBy(Function.identity()).orElse(null);
-	}
-
-	/**
 	 * Among.
 	 *
-	 * @param scope the scope
-	 * @param number the number
-	 * @param c the c
+	 * @param scope
+	 *            the scope
+	 * @param number
+	 *            the number
+	 * @param c
+	 *            the c
 	 * @return the i list
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	@operator (
 			value = "among",
@@ -2059,9 +2075,12 @@ public class Containers {
 	/**
 	 * Sort.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param filter the filter
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param filter
+	 *            the filter
 	 * @return the i list
 	 */
 	@operator (
@@ -2102,9 +2121,12 @@ public class Containers {
 	/**
 	 * Where.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param filter the filter
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param filter
+	 *            the filter
 	 * @return the i list
 	 */
 	@operator (
@@ -2148,9 +2170,12 @@ public class Containers {
 	/**
 	 * Where.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param filter the filter
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param filter
+	 *            the filter
 	 * @return the i list
 	 */
 	@operator (
@@ -2178,10 +2203,14 @@ public class Containers {
 	/**
 	 * Where.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param contentType the content type
-	 * @param filter the filter
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param contentType
+	 *            the content type
+	 * @param filter
+	 *            the filter
 	 * @return the i list
 	 */
 	private static IList where(final IScope scope, final Iterable c, final IType contentType,
@@ -2198,9 +2227,12 @@ public class Containers {
 	/**
 	 * Where.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param filter the filter
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param filter
+	 *            the filter
 	 * @return the i list
 	 */
 	@operator (
@@ -2228,9 +2260,12 @@ public class Containers {
 	/**
 	 * With max of.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param filter the filter
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param filter
+	 *            the filter
 	 * @return the object
 	 */
 	@operator (
@@ -2271,9 +2306,12 @@ public class Containers {
 	/**
 	 * With min of.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param filter the filter
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param filter
+	 *            the filter
 	 * @return the object
 	 */
 	@operator (
@@ -2314,9 +2352,12 @@ public class Containers {
 	/**
 	 * Accumulate.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param filter the filter
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param filter
+	 *            the filter
 	 * @return the i list
 	 */
 	@operator (
@@ -2356,9 +2397,12 @@ public class Containers {
 	/**
 	 * Collect.
 	 *
-	 * @param scope the scope
-	 * @param c the c
-	 * @param filter the filter
+	 * @param scope
+	 *            the scope
+	 * @param c
+	 *            the c
+	 * @param filter
+	 *            the filter
 	 * @return the i list
 	 */
 	@operator (
@@ -2395,8 +2439,10 @@ public class Containers {
 	/**
 	 * Interleave.
 	 *
-	 * @param scope the scope
-	 * @param cc the cc
+	 * @param scope
+	 *            the scope
+	 * @param cc
+	 *            the cc
 	 * @return the i list
 	 */
 	@operator (
@@ -2424,9 +2470,12 @@ public class Containers {
 	/**
 	 * Count.
 	 *
-	 * @param scope the scope
-	 * @param original the original
-	 * @param filter the filter
+	 * @param scope
+	 *            the scope
+	 * @param original
+	 *            the original
+	 * @param filter
+	 *            the filter
 	 * @return the integer
 	 */
 	@operator (
@@ -2466,9 +2515,12 @@ public class Containers {
 	/**
 	 * One matches.
 	 *
-	 * @param scope the scope
-	 * @param original the original
-	 * @param filter the filter
+	 * @param scope
+	 *            the scope
+	 * @param original
+	 *            the original
+	 * @param filter
+	 *            the filter
 	 * @return the boolean
 	 */
 	@operator (
@@ -2495,9 +2547,12 @@ public class Containers {
 	/**
 	 * None matches.
 	 *
-	 * @param scope the scope
-	 * @param original the original
-	 * @param filter the filter
+	 * @param scope
+	 *            the scope
+	 * @param original
+	 *            the original
+	 * @param filter
+	 *            the filter
 	 * @return the boolean
 	 */
 	@operator (
@@ -2525,9 +2580,12 @@ public class Containers {
 	/**
 	 * All match.
 	 *
-	 * @param scope the scope
-	 * @param original the original
-	 * @param filter the filter
+	 * @param scope
+	 *            the scope
+	 * @param original
+	 *            the original
+	 * @param filter
+	 *            the filter
 	 * @return the boolean
 	 */
 	@operator (
@@ -2554,9 +2612,12 @@ public class Containers {
 	/**
 	 * Index by.
 	 *
-	 * @param scope the scope
-	 * @param original the original
-	 * @param keyProvider the key provider
+	 * @param scope
+	 *            the scope
+	 * @param original
+	 *            the original
+	 * @param keyProvider
+	 *            the key provider
 	 * @return the i map
 	 */
 	@operator (
@@ -2585,9 +2646,12 @@ public class Containers {
 	/**
 	 * As map.
 	 *
-	 * @param scope the scope
-	 * @param original the original
-	 * @param filter the filter
+	 * @param scope
+	 *            the scope
+	 * @param original
+	 *            the original
+	 * @param filter
+	 *            the filter
 	 * @return the i map
 	 */
 	@operator (
@@ -2612,9 +2676,8 @@ public class Containers {
 							equals = "[2::4, 4::8, 6::12] ") },
 			see = {})
 	public static IMap as_map(final IScope scope, final IContainer original, final IExpression filter) {
-		if (!(filter instanceof BinaryOperator))
+		if (!(filter instanceof BinaryOperator pair))
 			throw GamaRuntimeException.error("'as_map' expects a pair as second argument", scope);
-		final BinaryOperator pair = (BinaryOperator) filter;
 		if (!"::".equals(pair.getName()))
 			throw GamaRuntimeException.error("'as_map' expects a pair as second argument", scope);
 		final IExpression key = pair.arg(0);
@@ -2626,9 +2689,12 @@ public class Containers {
 	/**
 	 * Creates the map.
 	 *
-	 * @param scope the scope
-	 * @param keys the keys
-	 * @param values the values
+	 * @param scope
+	 *            the scope
+	 * @param keys
+	 *            the keys
+	 * @param values
+	 *            the values
 	 * @return the i map
 	 */
 	@operator (
@@ -2670,9 +2736,12 @@ public class Containers {
 	/**
 	 * Plus.
 	 *
-	 * @param scope the scope
-	 * @param m1 the m 1
-	 * @param m2 the m 2
+	 * @param scope
+	 *            the scope
+	 * @param m1
+	 *            the m 1
+	 * @param m2
+	 *            the m 2
 	 * @return the i map
 	 */
 	@operator (
@@ -2701,9 +2770,12 @@ public class Containers {
 	/**
 	 * Plus.
 	 *
-	 * @param scope the scope
-	 * @param m1 the m 1
-	 * @param m2 the m 2
+	 * @param scope
+	 *            the scope
+	 * @param m1
+	 *            the m 1
+	 * @param m2
+	 *            the m 2
 	 * @return the i map
 	 */
 	@operator (
@@ -2732,9 +2804,12 @@ public class Containers {
 	/**
 	 * Minus.
 	 *
-	 * @param scope the scope
-	 * @param m1 the m 1
-	 * @param m2 the m 2
+	 * @param scope
+	 *            the scope
+	 * @param m1
+	 *            the m 1
+	 * @param m2
+	 *            the m 2
 	 * @return the i map
 	 */
 	@operator (
@@ -2762,9 +2837,12 @@ public class Containers {
 	/**
 	 * Minus.
 	 *
-	 * @param scope the scope
-	 * @param m1 the m 1
-	 * @param m2 the m 2
+	 * @param scope
+	 *            the scope
+	 * @param m1
+	 *            the m 1
+	 * @param m2
+	 *            the m 2
 	 * @return the i map
 	 */
 	@operator (
@@ -2787,6 +2865,45 @@ public class Containers {
 		final IMap res = notNull(scope, m1).copy(scope);
 		res.remove(m2.getKey());
 		return res;
+	}
+
+	/**
+	 * Mean.
+	 *
+	 * @param scope
+	 *            the scope
+	 * @param l
+	 *            the l
+	 * @return the object
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
+	 */
+	@operator (
+			value = "mean",
+			can_be_const = true,
+			type = ITypeProvider.CONTENT_TYPE_AT_INDEX + 1 + ITypeProvider.FLOAT_IN_CASE_OF_INT,
+			expected_content_type = { IType.INT, IType.FLOAT, IType.POINT, IType.COLOR },
+			category = { IOperatorCategory.STATISTICAL, IOperatorCategory.CONTAINER, IOperatorCategory.COLOR },
+			concept = { IConcept.STATISTIC, IConcept.COLOR })
+	@doc (
+			value = "the mean of all the elements of the operand",
+			comment = "the elements of the operand are summed (see sum for more details about the sum of container elements ) and then the sum value is divided by the number of elements.",
+			special_cases = {
+					"if the container contains points, the result will be a point. If the container contains rgb values, the result will be a rgb color" },
+			examples = { @example (
+					value = "mean ([4.5, 3.5, 5.5, 7.0])",
+					equals = "5.125 ") },
+			see = { "sum" })
+	@test ("mean ([4.5, 3.5, 5.5, 7.0]) with_precision 3 = 5.125")
+	public static Object opMean(final IScope scope, final IContainer l) throws GamaRuntimeException {
+
+		final Object s = sum(scope, l);
+		int size = l.length(scope);
+		if (size == 0) { size = 1; }
+		if (s instanceof Number) return ((Number) s).doubleValue() / size;
+		if (s instanceof GamaPoint) return Points.divide(scope, (GamaPoint) s, size);
+		if (s instanceof GamaColor) return Colors.divide((GamaColor) s, size);
+		return Cast.asFloat(scope, s) / size;
 	}
 
 }

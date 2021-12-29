@@ -1,7 +1,6 @@
 /*******************************************************************************************************
  *
- * Spatial.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * Spatial.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
@@ -135,9 +134,12 @@ public abstract class Spatial {
 		/**
 		 * Using.
 		 *
-		 * @param scope the scope
-		 * @param expression the expression
-		 * @param topology the topology
+		 * @param scope
+		 *            the scope
+		 * @param expression
+		 *            the expression
+		 * @param topology
+		 *            the topology
 		 * @return the object
 		 */
 		@operator (
@@ -176,8 +178,10 @@ public abstract class Spatial {
 		/**
 		 * Circle.
 		 *
-		 * @param scope the scope
-		 * @param radius the radius
+		 * @param scope
+		 *            the scope
+		 * @param radius
+		 *            the radius
 		 * @return the i shape
 		 */
 		@operator (
@@ -195,7 +199,7 @@ public abstract class Spatial {
 						equals = "a geometry as a circle of radius 10.",
 						test = false) },
 				see = { "around", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle", "square",
-				"triangle" })
+						"triangle" })
 		@no_test // (comment="See Creation.experiment in test models : {Circle tests with tolerance}")
 		public static IShape circle(final IScope scope, final Double radius) {
 			GamaPoint location;
@@ -208,9 +212,12 @@ public abstract class Spatial {
 		/**
 		 * Circle.
 		 *
-		 * @param scope the scope
-		 * @param radius the radius
-		 * @param position the position
+		 * @param scope
+		 *            the scope
+		 * @param radius
+		 *            the radius
+		 * @param position
+		 *            the position
 		 * @return the i shape
 		 */
 		@operator (
@@ -226,7 +233,7 @@ public abstract class Spatial {
 								equals = "a geometry as a circle of radius 10, the center will be in the location {80,30}.",
 								test = false) }) },
 				see = { "around", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle", "square",
-				"triangle" })
+						"triangle" })
 		@no_test
 		public static IShape circle(final IScope scope, final Double radius, final GamaPoint position) {
 			GamaPoint location;
@@ -238,9 +245,12 @@ public abstract class Spatial {
 		/**
 		 * Ellipse.
 		 *
-		 * @param scope the scope
-		 * @param xRadius the x radius
-		 * @param yRadius the y radius
+		 * @param scope
+		 *            the scope
+		 * @param xRadius
+		 *            the x radius
+		 * @param yRadius
+		 *            the y radius
 		 * @return the i shape
 		 */
 		@operator (
@@ -270,9 +280,12 @@ public abstract class Spatial {
 		/**
 		 * Squicle.
 		 *
-		 * @param scope the scope
-		 * @param xRadius the x radius
-		 * @param power the power
+		 * @param scope
+		 *            the scope
+		 * @param xRadius
+		 *            the x radius
+		 * @param power
+		 *            the power
 		 * @return the i shape
 		 */
 		@operator (
@@ -302,10 +315,14 @@ public abstract class Spatial {
 		/**
 		 * Arc.
 		 *
-		 * @param scope the scope
-		 * @param xRadius the x radius
-		 * @param heading the heading
-		 * @param amplitude the amplitude
+		 * @param scope
+		 *            the scope
+		 * @param xRadius
+		 *            the x radius
+		 * @param heading
+		 *            the heading
+		 * @param amplitude
+		 *            the amplitude
 		 * @return the i shape
 		 */
 		@operator (
@@ -333,11 +350,16 @@ public abstract class Spatial {
 		/**
 		 * Arc.
 		 *
-		 * @param scope the scope
-		 * @param xRadius the x radius
-		 * @param heading the heading
-		 * @param amplitude the amplitude
-		 * @param filled the filled
+		 * @param scope
+		 *            the scope
+		 * @param xRadius
+		 *            the x radius
+		 * @param heading
+		 *            the heading
+		 * @param amplitude
+		 *            the amplitude
+		 * @param filled
+		 *            the filled
 		 * @return the i shape
 		 */
 		@operator (
@@ -369,11 +391,16 @@ public abstract class Spatial {
 		/**
 		 * Elliptical arc.
 		 *
-		 * @param scope the scope
-		 * @param pt1 the pt 1
-		 * @param pt2 the pt 2
-		 * @param h the h
-		 * @param nPts the n pts
+		 * @param scope
+		 *            the scope
+		 * @param pt1
+		 *            the pt 1
+		 * @param pt2
+		 *            the pt 2
+		 * @param h
+		 *            the h
+		 * @param nPts
+		 *            the n pts
 		 * @return the i shape
 		 */
 		@operator (
@@ -412,9 +439,12 @@ public abstract class Spatial {
 		/**
 		 * Cross.
 		 *
-		 * @param scope the scope
-		 * @param xRadius the x radius
-		 * @param width the width
+		 * @param scope
+		 *            the scope
+		 * @param xRadius
+		 *            the x radius
+		 * @param width
+		 *            the width
 		 * @return the i shape
 		 */
 		@operator (
@@ -442,8 +472,10 @@ public abstract class Spatial {
 		/**
 		 * Cross.
 		 *
-		 * @param scope the scope
-		 * @param xRadius the x radius
+		 * @param scope
+		 *            the scope
+		 * @param xRadius
+		 *            the x radius
 		 * @return the i shape
 		 */
 		@operator (
@@ -470,9 +502,12 @@ public abstract class Spatial {
 		/**
 		 * Cylinder.
 		 *
-		 * @param scope the scope
-		 * @param radius the radius
-		 * @param depth the depth
+		 * @param scope
+		 *            the scope
+		 * @param radius
+		 *            the radius
+		 * @param depth
+		 *            the depth
 		 * @return the i shape
 		 */
 		@operator (
@@ -489,7 +524,7 @@ public abstract class Spatial {
 						equals = "a geometry as a circle of radius 10.",
 						test = false) },
 				see = { "around", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle", "square",
-				"triangle" })
+						"triangle" })
 		@no_test // (comment="Dummy init in test models > Creation.experiment")
 		public static IShape cylinder(final IScope scope, final Double radius, final Double depth) {
 			GamaPoint location;
@@ -502,8 +537,10 @@ public abstract class Spatial {
 		/**
 		 * Sphere.
 		 *
-		 * @param scope the scope
-		 * @param radius the radius
+		 * @param scope
+		 *            the scope
+		 * @param radius
+		 *            the radius
 		 * @return the i shape
 		 */
 		@operator (
@@ -520,7 +557,7 @@ public abstract class Spatial {
 						equals = "a geometry as a circle of radius 10 but displays a sphere.",
 						test = false) },
 				see = { "around", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle", "square",
-				"triangle" })
+						"triangle" })
 		@no_test // (comment="Dummy init in test models > Creation.experiment")
 		public static IShape sphere(final IScope scope, final Double radius) {
 			GamaPoint location;
@@ -533,8 +570,10 @@ public abstract class Spatial {
 		/**
 		 * Teapot.
 		 *
-		 * @param scope the scope
-		 * @param size the size
+		 * @param scope
+		 *            the scope
+		 * @param size
+		 *            the size
 		 * @return the i shape
 		 */
 		@operator (
@@ -550,7 +589,7 @@ public abstract class Spatial {
 						equals = "a geometry as a circle of radius 10 but displays a teapot.",
 						test = false) },
 				see = { "around", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle", "square",
-				"triangle" })
+						"triangle" })
 		@no_test // (comment="Dummy init in test models > Creation.experiment")
 		public static IShape teapot(final IScope scope, final Double size) {
 			GamaPoint location;
@@ -563,9 +602,12 @@ public abstract class Spatial {
 		/**
 		 * Cone.
 		 *
-		 * @param scope the scope
-		 * @param p1 the p 1
-		 * @param p2 the p 2
+		 * @param scope
+		 *            the scope
+		 * @param p1
+		 *            the p 1
+		 * @param p2
+		 *            the p 2
 		 * @return the i shape
 		 */
 		@operator (
@@ -594,9 +636,9 @@ public abstract class Spatial {
 			final double originx = origin.getX();
 			final double originy = origin.getY();
 			final double worldWidth = scope.getTopology().getWidth();// -
-			// originx;
+																		// originx;
 			final double worldHeight = scope.getTopology().getHeight();// -
-			// originy;
+																		// originy;
 			final double max = Math.max(worldWidth, worldHeight);
 			final double min_point_x = originx + Maths.cos(min_angle) * max;
 			final double min_point_y = originy + Maths.sin(min_angle) * max;
@@ -612,8 +654,10 @@ public abstract class Spatial {
 		/**
 		 * Cone.
 		 *
-		 * @param scope the scope
-		 * @param p the p
+		 * @param scope
+		 *            the scope
+		 * @param p
+		 *            the p
 		 * @return the i shape
 		 */
 		@operator (
@@ -637,9 +681,12 @@ public abstract class Spatial {
 		/**
 		 * Cone 3 D.
 		 *
-		 * @param scope the scope
-		 * @param radius the radius
-		 * @param height the height
+		 * @param scope
+		 *            the scope
+		 * @param radius
+		 *            the radius
+		 * @param height
+		 *            the height
 		 * @return the i shape
 		 */
 		@operator (
@@ -655,7 +702,7 @@ public abstract class Spatial {
 						equals = "a geometry as a cone with a base circle of radius 10 and a height of 5.",
 						test = false) },
 				see = { "around", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle", "square",
-				"triangle" })
+						"triangle" })
 		@no_test
 		public static IShape cone3D(final IScope scope, final Double radius, final Double height) {
 			GamaPoint location;
@@ -668,8 +715,10 @@ public abstract class Spatial {
 		/**
 		 * Square.
 		 *
-		 * @param scope the scope
-		 * @param side_size the side size
+		 * @param scope
+		 *            the scope
+		 * @param side_size
+		 *            the side size
 		 * @return the i shape
 		 */
 		@operator (
@@ -690,7 +739,7 @@ public abstract class Spatial {
 								equals = "100.0",
 								returnType = "float") },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle",
-				"triangle" })
+						"triangle" })
 		@test ("square(10).area = 100")
 		public static IShape square(final IScope scope, final Double side_size) {
 			GamaPoint location;
@@ -703,8 +752,10 @@ public abstract class Spatial {
 		/**
 		 * Cube.
 		 *
-		 * @param scope the scope
-		 * @param side_size the side size
+		 * @param scope
+		 *            the scope
+		 * @param side_size
+		 *            the side size
 		 * @return the i shape
 		 */
 		@operator (
@@ -721,7 +772,7 @@ public abstract class Spatial {
 						equals = "a geometry as a square of side size 10.",
 						test = false) },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle",
-				"triangle" })
+						"triangle" })
 		@test ("cube(10).volume = 1000")
 		public static IShape cube(final IScope scope, final Double side_size) {
 			GamaPoint location;
@@ -734,8 +785,10 @@ public abstract class Spatial {
 		/**
 		 * Rectangle.
 		 *
-		 * @param scope the scope
-		 * @param p the p
+		 * @param scope
+		 *            the scope
+		 * @param p
+		 *            the p
 		 * @return the i shape
 		 */
 		@operator (
@@ -750,7 +803,7 @@ public abstract class Spatial {
 						equals = "a geometry as a rectangle with width = 10 and height = 5.",
 						test = false) },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "square",
-				"triangle" })
+						"triangle" })
 		@test ("rectangle({10, 5}).area = 50.0")
 		public static IShape rectangle(final IScope scope, final GamaPoint p) {
 			GamaPoint location;
@@ -762,9 +815,12 @@ public abstract class Spatial {
 		/**
 		 * Rectangle.
 		 *
-		 * @param scope the scope
-		 * @param x the x
-		 * @param y the y
+		 * @param scope
+		 *            the scope
+		 * @param x
+		 *            the x
+		 * @param y
+		 *            the y
 		 * @return the i shape
 		 */
 		@operator (
@@ -782,7 +838,7 @@ public abstract class Spatial {
 						equals = "a geometry as a rectangle with width = 10 and height = 5.",
 						test = false) },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "square",
-				"triangle" })
+						"triangle" })
 		@test ("rectangle(10, 5).area = 50.0")
 		public static IShape rectangle(final IScope scope, final double x, final double y) {
 			GamaPoint location;
@@ -794,9 +850,12 @@ public abstract class Spatial {
 		/**
 		 * Rectangle.
 		 *
-		 * @param scope the scope
-		 * @param upperLeftCorner the upper left corner
-		 * @param lowerRightCorner the lower right corner
+		 * @param scope
+		 *            the scope
+		 * @param upperLeftCorner
+		 *            the upper left corner
+		 * @param lowerRightCorner
+		 *            the lower right corner
 		 * @return the i shape
 		 */
 		@operator (
@@ -810,7 +869,7 @@ public abstract class Spatial {
 						equals = "a geometry as a rectangle with {1.0,1.0} as the upper-left corner, {10.0,10.0} as the lower-right corner.",
 						test = false) },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "square",
-				"triangle" })
+						"triangle" })
 		@test ("rectangle({0.0,0.0}, {10.0,10.0}).area = 100.0")
 		public static IShape rectangle(final IScope scope, final GamaPoint upperLeftCorner,
 				final GamaPoint lowerRightCorner) {
@@ -826,8 +885,10 @@ public abstract class Spatial {
 		/**
 		 * Box.
 		 *
-		 * @param scope the scope
-		 * @param p the p
+		 * @param scope
+		 *            the scope
+		 * @param p
+		 *            the p
 		 * @return the i shape
 		 */
 		@operator (
@@ -860,10 +921,14 @@ public abstract class Spatial {
 		/**
 		 * Box.
 		 *
-		 * @param scope the scope
-		 * @param x the x
-		 * @param y the y
-		 * @param z the z
+		 * @param scope
+		 *            the scope
+		 * @param x
+		 *            the x
+		 * @param y
+		 *            the y
+		 * @param z
+		 *            the z
 		 * @return the i shape
 		 */
 		@operator (
@@ -892,8 +957,10 @@ public abstract class Spatial {
 		/**
 		 * Triangle.
 		 *
-		 * @param scope the scope
-		 * @param side_size the side size
+		 * @param scope
+		 *            the scope
+		 * @param side_size
+		 *            the side size
 		 * @return the i shape
 		 */
 		@operator (
@@ -909,7 +976,7 @@ public abstract class Spatial {
 						equals = "a geometry as a triangle with side_size = 5.",
 						test = false) },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle",
-				"square" })
+						"square" })
 		@no_test
 		public static IShape triangle(final IScope scope, final Double side_size) {
 			GamaPoint location;
@@ -922,9 +989,12 @@ public abstract class Spatial {
 		/**
 		 * Triangle.
 		 *
-		 * @param scope the scope
-		 * @param base the base
-		 * @param height the height
+		 * @param scope
+		 *            the scope
+		 * @param base
+		 *            the base
+		 * @param height
+		 *            the height
 		 * @return the i shape
 		 */
 		@operator (
@@ -940,7 +1010,7 @@ public abstract class Spatial {
 						equals = "a geometry as a triangle with a base of 5m and a height of 10m.",
 						test = false) },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle",
-				"square" })
+						"square" })
 		@no_test
 		public static IShape triangle(final IScope scope, final Double base, final Double height) {
 			GamaPoint location;
@@ -953,8 +1023,10 @@ public abstract class Spatial {
 		/**
 		 * Pyramid.
 		 *
-		 * @param scope the scope
-		 * @param side_size the side size
+		 * @param scope
+		 *            the scope
+		 * @param side_size
+		 *            the side size
 		 * @return the i shape
 		 */
 		@operator (
@@ -971,7 +1043,7 @@ public abstract class Spatial {
 						equals = "a geometry as a square with side_size = 5.",
 						test = false) },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle",
-				"square" })
+						"square" })
 		@no_test
 		public static IShape pyramid(final IScope scope, final Double side_size) {
 			GamaPoint location;
@@ -984,8 +1056,10 @@ public abstract class Spatial {
 		/**
 		 * Hexagon.
 		 *
-		 * @param scope the scope
-		 * @param size the size
+		 * @param scope
+		 *            the scope
+		 * @param size
+		 *            the size
 		 * @return the i shape
 		 */
 		@operator (
@@ -1002,7 +1076,7 @@ public abstract class Spatial {
 						equals = "a geometry as a hexagon of width of 10 and height of 10.",
 						test = false) },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle",
-				"triangle" })
+						"triangle" })
 		@no_test
 		public static IShape hexagon(final IScope scope, final Double size) {
 			GamaPoint location;
@@ -1015,8 +1089,10 @@ public abstract class Spatial {
 		/**
 		 * Hexagon.
 		 *
-		 * @param scope the scope
-		 * @param size the size
+		 * @param scope
+		 *            the scope
+		 * @param size
+		 *            the size
 		 * @return the i shape
 		 */
 		@operator (
@@ -1030,7 +1106,7 @@ public abstract class Spatial {
 						equals = "a geometry as a hexagon of width of 10 and height of 5.",
 						test = false) },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle",
-				"triangle" })
+						"triangle" })
 		@no_test
 		public static IShape hexagon(final IScope scope, final GamaPoint size) {
 			GamaPoint location;
@@ -1045,9 +1121,12 @@ public abstract class Spatial {
 		/**
 		 * Hexagon.
 		 *
-		 * @param scope the scope
-		 * @param width the width
-		 * @param height the height
+		 * @param scope
+		 *            the scope
+		 * @param width
+		 *            the width
+		 * @param height
+		 *            the height
 		 * @return the i shape
 		 */
 		@operator (
@@ -1061,7 +1140,7 @@ public abstract class Spatial {
 						equals = "a geometry as a hexagon of width of 10 and height of 5.",
 						test = false) },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle",
-				"triangle" })
+						"triangle" })
 		@no_test
 		public static IShape hexagon(final IScope scope, final Double width, final Double height) {
 			GamaPoint location;
@@ -1074,8 +1153,10 @@ public abstract class Spatial {
 		/**
 		 * Polygon.
 		 *
-		 * @param scope the scope
-		 * @param points the points
+		 * @param scope
+		 *            the scope
+		 * @param points
+		 *            the points
 		 * @return the i shape
 		 */
 		@operator (
@@ -1104,7 +1185,7 @@ public abstract class Spatial {
 								equals = "point(5.0,5.0,0.0)",
 								returnType = "point") },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polyline", "rectangle", "square",
-				"triangle" })
+						"triangle" })
 		@no_test
 		public static IShape polygon(final IScope scope, final IContainer<?, ? extends IShape> points) {
 			if (points == null || points.isEmpty(scope)) return new GamaShape(new GamaPoint(0, 0));
@@ -1122,9 +1203,12 @@ public abstract class Spatial {
 		/**
 		 * Polyhedron.
 		 *
-		 * @param scope the scope
-		 * @param points the points
-		 * @param depth the depth
+		 * @param scope
+		 *            the scope
+		 * @param points
+		 *            the points
+		 * @param depth
+		 *            the depth
 		 * @return the i shape
 		 */
 		@operator (
@@ -1145,7 +1229,7 @@ public abstract class Spatial {
 						equals = "a polygon geometry composed of the 4 points and of depth 10.",
 						test = false) },
 				see = { "around", "circle", "cone", "line", "link", "norm", "point", "polyline", "rectangle", "square",
-				"triangle" })
+						"triangle" })
 		@no_test
 		public static IShape polyhedron(final IScope scope, final IContainer<?, IShape> points, final Double depth) {
 			if (points == null || points.isEmpty(scope)) return new GamaShape(new GamaPoint(0, 0));
@@ -1164,10 +1248,14 @@ public abstract class Spatial {
 		/**
 		 * Bezier curve.
 		 *
-		 * @param scope the scope
-		 * @param P0 the p0
-		 * @param P1 the p1
-		 * @param P2 the p2
+		 * @param scope
+		 *            the scope
+		 * @param P0
+		 *            the p0
+		 * @param P1
+		 *            the p1
+		 * @param P2
+		 *            the p2
 		 * @return the i shape
 		 */
 		@operator (
@@ -1198,11 +1286,16 @@ public abstract class Spatial {
 		/**
 		 * Bezier curve.
 		 *
-		 * @param scope the scope
-		 * @param P0 the p0
-		 * @param P1 the p1
-		 * @param P2 the p2
-		 * @param nbPoints the nb points
+		 * @param scope
+		 *            the scope
+		 * @param P0
+		 *            the p0
+		 * @param P1
+		 *            the p1
+		 * @param P2
+		 *            the p2
+		 * @param nbPoints
+		 *            the nb points
 		 * @return the i shape
 		 */
 		@operator (
@@ -1230,11 +1323,16 @@ public abstract class Spatial {
 		/**
 		 * Bezier curve.
 		 *
-		 * @param scope the scope
-		 * @param P0 the p0
-		 * @param P1 the p1
-		 * @param P2 the p2
-		 * @param P3 the p3
+		 * @param scope
+		 *            the scope
+		 * @param P0
+		 *            the p0
+		 * @param P1
+		 *            the p1
+		 * @param P2
+		 *            the p2
+		 * @param P3
+		 *            the p3
 		 * @return the i shape
 		 */
 		@operator (
@@ -1262,10 +1360,14 @@ public abstract class Spatial {
 		/**
 		 * Bezier curve.
 		 *
-		 * @param scope the scope
-		 * @param P0 the p0
-		 * @param P1 the p1
-		 * @param coefficient the coefficient
+		 * @param scope
+		 *            the scope
+		 * @param P0
+		 *            the p0
+		 * @param P1
+		 *            the p1
+		 * @param coefficient
+		 *            the coefficient
 		 * @return the i shape
 		 */
 		@operator (
@@ -1292,11 +1394,16 @@ public abstract class Spatial {
 		/**
 		 * Bezier curve.
 		 *
-		 * @param scope the scope
-		 * @param P0 the p0
-		 * @param P1 the p1
-		 * @param coefficient the coefficient
-		 * @param right the right
+		 * @param scope
+		 *            the scope
+		 * @param P0
+		 *            the p0
+		 * @param P1
+		 *            the p1
+		 * @param coefficient
+		 *            the coefficient
+		 * @param right
+		 *            the right
 		 * @return the i shape
 		 */
 		@operator (
@@ -1323,12 +1430,18 @@ public abstract class Spatial {
 		/**
 		 * Bezier curve.
 		 *
-		 * @param scope the scope
-		 * @param P0 the p0
-		 * @param P1 the p1
-		 * @param coefficient the coefficient
-		 * @param right the right
-		 * @param nbPoints the nb points
+		 * @param scope
+		 *            the scope
+		 * @param P0
+		 *            the p0
+		 * @param P1
+		 *            the p1
+		 * @param coefficient
+		 *            the coefficient
+		 * @param right
+		 *            the right
+		 * @param nbPoints
+		 *            the nb points
 		 * @return the i shape
 		 */
 		@operator (
@@ -1355,13 +1468,20 @@ public abstract class Spatial {
 		/**
 		 * Bezier curve.
 		 *
-		 * @param scope the scope
-		 * @param P0 the p0
-		 * @param P1 the p1
-		 * @param coefficient the coefficient
-		 * @param right the right
-		 * @param nbPoints the nb points
-		 * @param proportion the proportion
+		 * @param scope
+		 *            the scope
+		 * @param P0
+		 *            the p0
+		 * @param P1
+		 *            the p1
+		 * @param coefficient
+		 *            the coefficient
+		 * @param right
+		 *            the right
+		 * @param nbPoints
+		 *            the nb points
+		 * @param proportion
+		 *            the proportion
 		 * @return the i shape
 		 */
 		@operator (
@@ -1395,13 +1515,20 @@ public abstract class Spatial {
 		/**
 		 * Bezier curve.
 		 *
-		 * @param scope the scope
-		 * @param P0 the p0
-		 * @param P1 the p1
-		 * @param coefficient the coefficient
-		 * @param nbPoints the nb points
-		 * @param proportion the proportion
-		 * @param angle the angle
+		 * @param scope
+		 *            the scope
+		 * @param P0
+		 *            the p0
+		 * @param P1
+		 *            the p1
+		 * @param coefficient
+		 *            the coefficient
+		 * @param nbPoints
+		 *            the nb points
+		 * @param proportion
+		 *            the proportion
+		 * @param angle
+		 *            the angle
 		 * @return the i shape
 		 */
 		@operator (
@@ -1433,12 +1560,18 @@ public abstract class Spatial {
 		/**
 		 * Bezier curve.
 		 *
-		 * @param scope the scope
-		 * @param P0 the p0
-		 * @param P1 the p1
-		 * @param coefficient the coefficient
-		 * @param nbPoints the nb points
-		 * @param angle the angle
+		 * @param scope
+		 *            the scope
+		 * @param P0
+		 *            the p0
+		 * @param P1
+		 *            the p1
+		 * @param coefficient
+		 *            the coefficient
+		 * @param nbPoints
+		 *            the nb points
+		 * @param angle
+		 *            the angle
 		 * @return the i shape
 		 */
 		@operator (
@@ -1465,11 +1598,16 @@ public abstract class Spatial {
 		/**
 		 * Bezier curve.
 		 *
-		 * @param scope the scope
-		 * @param P0 the p0
-		 * @param P1 the p1
-		 * @param coefficient the coefficient
-		 * @param angle the angle
+		 * @param scope
+		 *            the scope
+		 * @param P0
+		 *            the p0
+		 * @param P1
+		 *            the p1
+		 * @param coefficient
+		 *            the coefficient
+		 * @param angle
+		 *            the angle
 		 * @return the i shape
 		 */
 		@operator (
@@ -1496,12 +1634,18 @@ public abstract class Spatial {
 		/**
 		 * Bezier curve.
 		 *
-		 * @param scope the scope
-		 * @param P0 the p0
-		 * @param P1 the p1
-		 * @param P2 the p2
-		 * @param P3 the p3
-		 * @param nbPoints the nb points
+		 * @param scope
+		 *            the scope
+		 * @param P0
+		 *            the p0
+		 * @param P1
+		 *            the p1
+		 * @param P2
+		 *            the p2
+		 * @param P3
+		 *            the p3
+		 * @param nbPoints
+		 *            the nb points
 		 * @return the i shape
 		 */
 		@operator (
@@ -1529,10 +1673,14 @@ public abstract class Spatial {
 		/**
 		 * Quadratic bezier curve.
 		 *
-		 * @param P0 the p0
-		 * @param P1 the p1
-		 * @param P2 the p2
-		 * @param nbPoints the nb points
+		 * @param P0
+		 *            the p0
+		 * @param P1
+		 *            the p1
+		 * @param P2
+		 *            the p2
+		 * @param nbPoints
+		 *            the nb points
 		 * @return the list
 		 */
 		private static List<IShape> quadraticBezierCurve(final GamaPoint P0, final GamaPoint P1, final GamaPoint P2,
@@ -1550,11 +1698,16 @@ public abstract class Spatial {
 		/**
 		 * Cubic bezier curve.
 		 *
-		 * @param P0 the p0
-		 * @param P1 the p1
-		 * @param P2 the p2
-		 * @param P3 the p3
-		 * @param nbPoints the nb points
+		 * @param P0
+		 *            the p0
+		 * @param P1
+		 *            the p1
+		 * @param P2
+		 *            the p2
+		 * @param P3
+		 *            the p3
+		 * @param nbPoints
+		 *            the nb points
 		 * @return the list
 		 */
 		private static List<IShape> cubicBezierCurve(final GamaPoint P0, final GamaPoint P1, final GamaPoint P2,
@@ -1572,10 +1725,14 @@ public abstract class Spatial {
 		/**
 		 * Quadratic bezier.
 		 *
-		 * @param v0 the v 0
-		 * @param v1 the v 1
-		 * @param v2 the v 2
-		 * @param t the t
+		 * @param v0
+		 *            the v 0
+		 * @param v1
+		 *            the v 1
+		 * @param v2
+		 *            the v 2
+		 * @param t
+		 *            the t
 		 * @return the double
 		 */
 		private static double quadraticBezier(final double v0, final double v1, final double v2, final double t) {
@@ -1585,11 +1742,16 @@ public abstract class Spatial {
 		/**
 		 * Cubic bezier.
 		 *
-		 * @param v0 the v 0
-		 * @param v1 the v 1
-		 * @param v2 the v 2
-		 * @param v3 the v 3
-		 * @param t the t
+		 * @param v0
+		 *            the v 0
+		 * @param v1
+		 *            the v 1
+		 * @param v2
+		 *            the v 2
+		 * @param v3
+		 *            the v 3
+		 * @param t
+		 *            the t
 		 * @return the double
 		 */
 		private static double cubicBezier(final double v0, final double v1, final double v2, final double v3,
@@ -1601,8 +1763,10 @@ public abstract class Spatial {
 		/**
 		 * Line.
 		 *
-		 * @param scope the scope
-		 * @param points the points
+		 * @param scope
+		 *            the scope
+		 * @param points
+		 *            the points
 		 * @return the i shape
 		 */
 		@operator (
@@ -1630,7 +1794,7 @@ public abstract class Spatial {
 								equals = "\"MULTILINESTRING ((0 0, 0 10, 10 10), (10 10, 10 0))\"",
 								returnType = "string"), },
 				see = { "around", "circle", "cone", "link", "norm", "point", "polygone", "rectangle", "square",
-				"triangle" })
+						"triangle" })
 		@test ("points_along(line({0,0},{0,10}),[0.5])[0] = point({0,5})")
 		public static IShape line(final IScope scope, final IContainer<?, IShape> points) {
 			if (points == null || points.isEmpty(scope)) return new GamaShape(new GamaPoint(0, 0));
@@ -1645,8 +1809,10 @@ public abstract class Spatial {
 		/**
 		 * Geometry collection.
 		 *
-		 * @param scope the scope
-		 * @param geometries the geometries
+		 * @param scope
+		 *            the scope
+		 * @param geometries
+		 *            the geometries
 		 * @return the i shape
 		 */
 		@operator (
@@ -1679,9 +1845,12 @@ public abstract class Spatial {
 		/**
 		 * Line.
 		 *
-		 * @param scope the scope
-		 * @param points the points
-		 * @param radius the radius
+		 * @param scope
+		 *            the scope
+		 * @param points
+		 *            the points
+		 * @param radius
+		 *            the radius
 		 * @return the i shape
 		 */
 		@operator (
@@ -1697,7 +1866,7 @@ public abstract class Spatial {
 								equals = "a polyline geometry composed of the 4 points.",
 								test = false) }) },
 				see = { "around", "circle", "cone", "link", "norm", "point", "polygone", "rectangle", "square",
-				"triangle" })
+						"triangle" })
 		@no_test
 		public static IShape line(final IScope scope, final IContainer<?, IShape> points, final double radius) {
 			if (points == null || points.isEmpty(scope)) return new GamaShape(new GamaPoint(0, 0));
@@ -1712,9 +1881,12 @@ public abstract class Spatial {
 		/**
 		 * Plan.
 		 *
-		 * @param scope the scope
-		 * @param points the points
-		 * @param depth the depth
+		 * @param scope
+		 *            the scope
+		 * @param points
+		 *            the points
+		 * @param depth
+		 *            the depth
 		 * @return the i shape
 		 */
 		@operator (
@@ -1732,7 +1904,7 @@ public abstract class Spatial {
 						equals = "a polyline geometry composed of the 4 points with a depth of 10.",
 						test = false) },
 				see = { "around", "circle", "cone", "link", "norm", "point", "polygone", "rectangle", "square",
-				"triangle" })
+						"triangle" })
 		@no_test
 		public static IShape plan(final IScope scope, final IContainer<?, IShape> points, final Double depth) {
 			if (points == null || points.isEmpty(scope)) return new GamaShape(new GamaPoint(0, 0));
@@ -1747,11 +1919,15 @@ public abstract class Spatial {
 		/**
 		 * Link.
 		 *
-		 * @param scope the scope
-		 * @param source the source
-		 * @param target the target
+		 * @param scope
+		 *            the scope
+		 * @param source
+		 *            the source
+		 * @param target
+		 *            the target
 		 * @return the i shape
-		 * @throws GamaRuntimeException the gama runtime exception
+		 * @throws GamaRuntimeException
+		 *             the gama runtime exception
 		 */
 		@operator (
 				value = { "link" },
@@ -1782,11 +1958,15 @@ public abstract class Spatial {
 		/**
 		 * Around.
 		 *
-		 * @param scope the scope
-		 * @param width the width
-		 * @param toBeCastedIntoGeometry the to be casted into geometry
+		 * @param scope
+		 *            the scope
+		 * @param width
+		 *            the width
+		 * @param toBeCastedIntoGeometry
+		 *            the to be casted into geometry
 		 * @return the i shape
-		 * @throws GamaRuntimeException the gama runtime exception
+		 * @throws GamaRuntimeException
+		 *             the gama runtime exception
 		 */
 		@operator (
 				value = "around",
@@ -1801,7 +1981,7 @@ public abstract class Spatial {
 						equals = "the ring geometry between 5 and 10.",
 						test = false) },
 				see = { "circle", "cone", "line", "link", "norm", "point", "polygon", "polyline", "rectangle", "square",
-				"triangle" })
+						"triangle" })
 		@no_test
 		public static IShape around(final IScope scope, final Double width, final Object toBeCastedIntoGeometry)
 				throws GamaRuntimeException {
@@ -1824,8 +2004,10 @@ public abstract class Spatial {
 		/**
 		 * Envelope.
 		 *
-		 * @param scope the scope
-		 * @param obj the obj
+		 * @param scope
+		 *            the scope
+		 * @param obj
+		 *            the obj
 		 * @return the i shape
 		 */
 		@operator (
@@ -1854,7 +2036,7 @@ public abstract class Spatial {
 								equals = "200.0",
 								returnType = "float") }
 
-				)
+		)
 		public static IShape envelope(final IScope scope, final Object obj) {
 			Envelope3D env = Envelope3D.of(GeometryUtils.computeEnvelopeFrom(scope, obj));
 			try {
@@ -1874,9 +2056,12 @@ public abstract class Spatial {
 		/**
 		 * Inter.
 		 *
-		 * @param scope the scope
-		 * @param g1 the g 1
-		 * @param g2 the g 2
+		 * @param scope
+		 *            the scope
+		 * @param g1
+		 *            the g 1
+		 * @param g2
+		 *            the g 2
 		 * @return the i shape
 		 */
 		@operator (
@@ -1928,9 +2113,12 @@ public abstract class Spatial {
 		/**
 		 * Union.
 		 *
-		 * @param scope the scope
-		 * @param g1 the g 1
-		 * @param g2 the g 2
+		 * @param scope
+		 *            the scope
+		 * @param g1
+		 *            the g 1
+		 * @param g2
+		 *            the g 2
 		 * @return the i shape
 		 */
 		@operator (
@@ -1989,8 +2177,10 @@ public abstract class Spatial {
 		/**
 		 * Union.
 		 *
-		 * @param scope the scope
-		 * @param elements the elements
+		 * @param scope
+		 *            the scope
+		 * @param elements
+		 *            the elements
 		 * @return the i shape
 		 */
 		@operator (
@@ -2017,9 +2207,12 @@ public abstract class Spatial {
 		/**
 		 * Minus.
 		 *
-		 * @param scope the scope
-		 * @param g1 the g 1
-		 * @param g2 the g 2
+		 * @param scope
+		 *            the scope
+		 * @param g1
+		 *            the g 1
+		 * @param g2
+		 *            the g 2
 		 * @return the i shape
 		 */
 		@operator (
@@ -2048,9 +2241,12 @@ public abstract class Spatial {
 		/**
 		 * Minus.
 		 *
-		 * @param scope the scope
-		 * @param g1 the g 1
-		 * @param agents the agents
+		 * @param scope
+		 *            the scope
+		 * @param g1
+		 *            the g 1
+		 * @param agents
+		 *            the agents
 		 * @return the i shape
 		 */
 		@operator (
@@ -2081,8 +2277,10 @@ public abstract class Spatial {
 		/**
 		 * Difference.
 		 *
-		 * @param first the first
-		 * @param g2 the g 2
+		 * @param first
+		 *            the first
+		 * @param g2
+		 *            the g 2
 		 * @return the geometry
 		 */
 		private static Geometry difference(final Geometry first, final Geometry g2) {
@@ -2131,9 +2329,12 @@ public abstract class Spatial {
 		/**
 		 * Adds the point.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param p the p
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param p
+		 *            the p
 		 * @return the i shape
 		 */
 		@operator (
@@ -2222,8 +2423,10 @@ public abstract class Spatial {
 		/**
 		 * Creates the polygon with point.
 		 *
-		 * @param geometry the geometry
-		 * @param point the point
+		 * @param geometry
+		 *            the geometry
+		 * @param point
+		 *            the point
 		 * @return the geometry
 		 */
 		private static Geometry createPolygonWithPoint(final Geometry geometry, final Coordinate point) {
@@ -2264,8 +2467,10 @@ public abstract class Spatial {
 		/**
 		 * Creates the line string with point.
 		 *
-		 * @param geometry the geometry
-		 * @param point the point
+		 * @param geometry
+		 *            the geometry
+		 * @param point
+		 *            the point
 		 * @return the geometry
 		 */
 		private static Geometry createLineStringWithPoint(final Geometry geometry, final Coordinate point) {
@@ -2311,10 +2516,14 @@ public abstract class Spatial {
 		/**
 		 * Masked by.
 		 *
-		 * @param scope the scope
-		 * @param source the source
-		 * @param obstacles the obstacles
-		 * @param prec the prec
+		 * @param scope
+		 *            the scope
+		 * @param source
+		 *            the source
+		 * @param obstacles
+		 *            the obstacles
+		 * @param prec
+		 *            the prec
 		 * @return the i shape
 		 */
 		@operator (
@@ -2416,8 +2625,10 @@ public abstract class Spatial {
 		/**
 		 * Intersection.
 		 *
-		 * @param geom the geom
-		 * @param geoms the geoms
+		 * @param geom
+		 *            the geom
+		 * @param geoms
+		 *            the geoms
 		 * @return true, if successful
 		 */
 		private static boolean intersection(final IShape geom, final List<IShape> geoms) {
@@ -2431,10 +2642,14 @@ public abstract class Spatial {
 		/**
 		 * Difference.
 		 *
-		 * @param scope the scope
-		 * @param geom the geom
-		 * @param geoms the geoms
-		 * @param ref the ref
+		 * @param scope
+		 *            the scope
+		 * @param geom
+		 *            the geom
+		 * @param geoms
+		 *            the geoms
+		 * @param ref
+		 *            the ref
 		 * @return the i shape
 		 */
 		private static IShape difference(final IScope scope, final IShape geom, final List<IShape> geoms,
@@ -2463,9 +2678,12 @@ public abstract class Spatial {
 		/**
 		 * Masked by.
 		 *
-		 * @param scope the scope
-		 * @param source the source
-		 * @param obstacles the obstacles
+		 * @param scope
+		 *            the scope
+		 * @param source
+		 *            the source
+		 * @param obstacles
+		 *            the obstacles
 		 * @return the i shape
 		 */
 		@operator (
@@ -2484,8 +2702,10 @@ public abstract class Spatial {
 		/**
 		 * Split at.
 		 *
-		 * @param geom the geom
-		 * @param pt the pt
+		 * @param geom
+		 *            the geom
+		 * @param pt
+		 *            the pt
 		 * @return the i list
 		 */
 		@operator (
@@ -2613,8 +2833,10 @@ public abstract class Spatial {
 		/**
 		 * Convex hull.
 		 *
-		 * @param scope the scope
-		 * @param g the g
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
 		 * @return the i shape
 		 */
 		@operator (
@@ -2635,9 +2857,12 @@ public abstract class Spatial {
 		/**
 		 * Scaled by.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param coefficient the coefficient
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param coefficient
+		 *            the coefficient
 		 * @return the i shape
 		 */
 		@operator (
@@ -2670,9 +2895,12 @@ public abstract class Spatial {
 		/**
 		 * Scaled by.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param coefficients the coefficients
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param coefficients
+		 *            the coefficients
 		 * @return the i shape
 		 */
 		@operator (
@@ -2686,8 +2914,12 @@ public abstract class Spatial {
 								value = "shape * {0.5,0.5,2}",
 								equals = "a geometry corresponding to the geometry of the agent applying the operator scaled by a coefficient of 0.5 in x, 0.5 in y and 2 in z",
 								test = false) }) })
-		@test ("geometry g <- cube (2);" + "float v1 <- g.area * g.height; " + "g <- g * {5, 5, 5};"
-				+ "float v2 <- g.area * g.height;  " + "v1 < v2")
+		@test ("""
+				geometry g <- cube (2);\
+				float v1 <- g.area * g.height; \
+				g <- g * {5, 5, 5};\
+				float v2 <- g.area * g.height;  \
+				v1 < v2""")
 		public static IShape scaled_by(final IScope scope, final IShape g, final GamaPoint coefficients) {
 			return new GamaShape(g, null, null, null, Scaling3D.of(coefficients), false);
 		}
@@ -2695,9 +2927,12 @@ public abstract class Spatial {
 		/**
 		 * Scaled to.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param bounds the bounds
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param bounds
+		 *            the bounds
 		 * @return the i shape
 		 */
 		@operator (
@@ -2710,8 +2945,12 @@ public abstract class Spatial {
 						value = "shape scaled_to {10,10}",
 						equals = "a geometry corresponding to the geometry of the agent applying the operator scaled so that it fits a square of 10x10",
 						test = false) })
-		@test ("geometry g <- cube (2);" + "float v1 <- g.area * g.height; " + "g <- g scaled_to {20,20};"
-				+ "float v2 <- g.area * g.height;  " + "v1 < v2")
+		@test ("""
+				geometry g <- cube (2);\
+				float v1 <- g.area * g.height; \
+				g <- g scaled_to {20,20};\
+				float v2 <- g.area * g.height;  \
+				v1 < v2""")
 		public static IShape scaled_to(final IScope scope, final IShape g, final GamaPoint bounds) {
 			return new GamaShape(g, null, null, null, Scaling3D.of(bounds), true);
 		}
@@ -2719,9 +2958,12 @@ public abstract class Spatial {
 		/**
 		 * Enlarged by.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param parameters the parameters
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param parameters
+		 *            the parameters
 		 * @return the i shape
 		 */
 		@operator (
@@ -2749,10 +2991,14 @@ public abstract class Spatial {
 		/**
 		 * Enlarged by.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param size the size
-		 * @param numberOfSegments the number of segments
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param size
+		 *            the size
+		 * @param numberOfSegments
+		 *            the number of segments
 		 * @return the i shape
 		 */
 		@operator (
@@ -2778,11 +3024,16 @@ public abstract class Spatial {
 		/**
 		 * Enlarged by.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param size the size
-		 * @param numberOfSegments the number of segments
-		 * @param endCap the end cap
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param size
+		 *            the size
+		 * @param numberOfSegments
+		 *            the number of segments
+		 * @param endCap
+		 *            the end cap
 		 * @return the i shape
 		 */
 		@operator (
@@ -2808,12 +3059,18 @@ public abstract class Spatial {
 		/**
 		 * Enlarged by.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param size the size
-		 * @param numberOfSegments the number of segments
-		 * @param endCap the end cap
-		 * @param isSingleSided the is single sided
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param size
+		 *            the size
+		 * @param numberOfSegments
+		 *            the number of segments
+		 * @param endCap
+		 *            the end cap
+		 * @param isSingleSided
+		 *            the is single sided
 		 * @return the i shape
 		 */
 		@operator (
@@ -2841,10 +3098,14 @@ public abstract class Spatial {
 		/**
 		 * Enlarged by.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param size the size
-		 * @param isSingleSided the is single sided
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param size
+		 *            the size
+		 * @param isSingleSided
+		 *            the is single sided
 		 * @return the i shape
 		 */
 		@operator (
@@ -2872,9 +3133,12 @@ public abstract class Spatial {
 		/**
 		 * Enlarged by.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param size the size
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param size
+		 *            the size
 		 * @return the i shape
 		 */
 		@operator (
@@ -2900,9 +3164,12 @@ public abstract class Spatial {
 		/**
 		 * Reduced by.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param size the size
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param size
+		 *            the size
 		 * @return the i shape
 		 */
 		@operator (
@@ -2923,13 +3190,12 @@ public abstract class Spatial {
 		}
 
 		/**
-		 * Rotated by.
+		 * @throws GamaRuntimeException
+		 *             Apply a rotation (of a given angle) to the agent geometry
 		 *
-		 * @param scope the scope
-		 * @param g1 the g 1
-		 * @param angle the angle
-		 * @return the i shape
-		 * @throws GamaRuntimeException             Apply a rotation (of a given angle) to the agent geometry
+		 * @param args
+		 *            : angle --: double, degree
+		 *
 		 */
 		@operator (
 				value = "rotated_by",
@@ -2952,8 +3218,10 @@ public abstract class Spatial {
 		/**
 		 * Inverse rotation.
 		 *
-		 * @param scope the scope
-		 * @param rotation the rotation
+		 * @param scope
+		 *            the scope
+		 * @param rotation
+		 *            the rotation
 		 * @return the gama pair
 		 */
 		@operator (
@@ -2977,8 +3245,10 @@ public abstract class Spatial {
 		/**
 		 * Normalized rotation.
 		 *
-		 * @param scope the scope
-		 * @param rotation the rotation
+		 * @param scope
+		 *            the scope
+		 * @param rotation
+		 *            the rotation
 		 * @return the gama pair
 		 */
 		@operator (
@@ -3008,8 +3278,10 @@ public abstract class Spatial {
 		/**
 		 * Rotation composition.
 		 *
-		 * @param scope the scope
-		 * @param rotation_list the rotation list
+		 * @param scope
+		 *            the scope
+		 * @param rotation_list
+		 *            the rotation list
 		 * @return the gama pair
 		 */
 		@operator (
@@ -3047,10 +3319,14 @@ public abstract class Spatial {
 		/**
 		 * Rotated by.
 		 *
-		 * @param scope the scope
-		 * @param g1 the g 1
-		 * @param rotation the rotation
-		 * @param vector the vector
+		 * @param scope
+		 *            the scope
+		 * @param g1
+		 *            the g 1
+		 * @param rotation
+		 *            the rotation
+		 * @param vector
+		 *            the vector
 		 * @return the i shape
 		 */
 		@operator (
@@ -3060,13 +3336,13 @@ public abstract class Spatial {
 		@doc (
 				value = "A geometry resulting from the application of a rotation by the operand angles (degree)"
 						+ " along the operand axis (last operand) to the left-hand operand (geometry, agent, point)",
-						masterDoc = true,
-						examples = { @example (
-								value = "rotated_by(pyramid(10),45.0, {1,0,0})",
-								equals = "the geometry resulting from a 45 degrees rotation along the {1,0,0} vector to the geometry of "
-										+ "the agent applying the operator.",
-										test = false) },
-						see = { "transformed_by", "translated_by" })
+				masterDoc = true,
+				examples = { @example (
+						value = "rotated_by(pyramid(10),45.0, {1,0,0})",
+						equals = "the geometry resulting from a 45 degrees rotation along the {1,0,0} vector to the geometry of "
+								+ "the agent applying the operator.",
+						test = false) },
+				see = { "transformed_by", "translated_by" })
 		@no_test
 		public static IShape rotated_by(final IScope scope, final IShape g1, final Double rotation,
 				final GamaPoint vector) {
@@ -3078,9 +3354,12 @@ public abstract class Spatial {
 		/**
 		 * Rotated by.
 		 *
-		 * @param scope the scope
-		 * @param p1 the p 1
-		 * @param rotation the rotation
+		 * @param scope
+		 *            the scope
+		 * @param p1
+		 *            the p 1
+		 * @param rotation
+		 *            the rotation
 		 * @return the gama point
 		 */
 		@operator (
@@ -3104,9 +3383,12 @@ public abstract class Spatial {
 		/**
 		 * Rotated by.
 		 *
-		 * @param scope the scope
-		 * @param g1 the g 1
-		 * @param rotation the rotation
+		 * @param scope
+		 *            the scope
+		 * @param g1
+		 *            the g 1
+		 * @param rotation
+		 *            the rotation
 		 * @return the i shape
 		 */
 		@operator (
@@ -3118,7 +3400,7 @@ public abstract class Spatial {
 						value = "rotated_by(pyramid(10),45.0::{1,0,0})",
 						equals = "the geometry resulting from a 45 degrees rotation along the {1,0,0} vector to the geometry of "
 								+ "the agent applying the operator.",
-								test = false) },
+						test = false) },
 				see = { "transformed_by", "translated_by" })
 		@no_test
 		public static IShape rotated_by(final IScope scope, final IShape g1, final GamaPair rotation) {
@@ -3131,9 +3413,12 @@ public abstract class Spatial {
 		/**
 		 * Rotated by.
 		 *
-		 * @param scope the scope
-		 * @param g1 the g 1
-		 * @param angle the angle
+		 * @param scope
+		 *            the scope
+		 * @param g1
+		 *            the g 1
+		 * @param angle
+		 *            the angle
 		 * @return the i shape
 		 */
 		@operator (
@@ -3152,14 +3437,13 @@ public abstract class Spatial {
 		}
 
 		/**
-		 * Transformed by.
-		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param p the p
-		 * @return the i shape
-		 * @throws GamaRuntimeException             Apply a affinite operation (of a given coefficient and angle)to the agent geometry. Angle is
+		 * @throws GamaRuntimeException
+		 *             Apply a affinite operation (of a given coefficient and angle)to the agent geometry. Angle is
 		 *             given by the point.x ; Coefficient by the point.y
+		 *
+		 * @param args
+		 *            : coefficient --: double; angle --: double, rad
+		 *
 		 */
 		@operator (
 				value = "transformed_by",
@@ -3168,25 +3452,24 @@ public abstract class Spatial {
 		@doc (
 				value = "A geometry resulting from the application of a rotation and a scaling (right-operand : "
 						+ "point {angle(degree), scale factor} of the left-hand operand (geometry, agent, point)",
-						examples = { @example (
-								value = "self transformed_by {45, 0.5}",
-								equals = "the geometry resulting from 45 degrees rotation and 50% scaling of the geometry "
-										+ "of the agent applying the operator.",
-										test = false) },
-						see = { "rotated_by", "translated_by" })
+				examples = { @example (
+						value = "self transformed_by {45, 0.5}",
+						equals = "the geometry resulting from 45 degrees rotation and 50% scaling of the geometry "
+								+ "of the agent applying the operator.",
+						test = false) },
+				see = { "rotated_by", "translated_by" })
 		public static IShape transformed_by(final IScope scope, final IShape g, final GamaPoint p) {
 			if (g == null) return null;
 			return scaled_by(scope, rotated_by(scope, g, p.x), p.y);
 		}
 
 		/**
-		 * Translated by.
+		 * @throws GamaRuntimeException
+		 *             Apply a translation operation (vector (dx, dy)) to the agent geometry
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param p the p
-		 * @return the i shape
-		 * @throws GamaRuntimeException             Apply a translation operation (vector (dx, dy)) to the agent geometry
+		 * @param args
+		 *            : dx --: double; dy --: double
+		 *
 		 */
 		@operator (
 				value = "translated_by",
@@ -3208,11 +3491,15 @@ public abstract class Spatial {
 		/**
 		 * At location.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param p the p
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param p
+		 *            the p
 		 * @return the i shape
-		 * @throws GamaRuntimeException the gama runtime exception
+		 * @throws GamaRuntimeException
+		 *             the gama runtime exception
 		 */
 		@operator (
 				value = { "at_location", "translated_to" },
@@ -3238,8 +3525,10 @@ public abstract class Spatial {
 		/**
 		 * Without holes.
 		 *
-		 * @param scope the scope
-		 * @param g the g
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
 		 * @return the i shape
 		 */
 		@operator (
@@ -3253,7 +3542,7 @@ public abstract class Spatial {
 						value = "solid(self)",
 						equals = "the geometry corresponding to the geometry of the agent applying the operator without "
 								+ "its holes.",
-								test = false),
+						test = false),
 						@example (
 								value = "without_holes(polygon([{0,50}, {0,0}, {50,0}, {50,50}, {0,50}]) - square(10) at_location {10,10}).area",
 								equals = "2500.0",
@@ -3281,10 +3570,14 @@ public abstract class Spatial {
 		/**
 		 * Skeletonize.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param clippingTolerance the clipping tolerance
-		 * @param triangulationTolerance the triangulation tolerance
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param clippingTolerance
+		 *            the clipping tolerance
+		 * @param triangulationTolerance
+		 *            the triangulation tolerance
 		 * @return the i list
 		 */
 		@operator (
@@ -3310,11 +3603,16 @@ public abstract class Spatial {
 		/**
 		 * Skeletonize.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param clippingTolerance the clipping tolerance
-		 * @param triangulationTolerance the triangulation tolerance
-		 * @param approxiClipping the approxi clipping
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param clippingTolerance
+		 *            the clipping tolerance
+		 * @param triangulationTolerance
+		 *            the triangulation tolerance
+		 * @param approxiClipping
+		 *            the approxi clipping
 		 * @return the i list
 		 */
 		@operator (
@@ -3340,9 +3638,12 @@ public abstract class Spatial {
 		/**
 		 * Skeletonize.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param clippingTolerance the clipping tolerance
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param clippingTolerance
+		 *            the clipping tolerance
 		 * @return the i list
 		 */
 		@operator (
@@ -3366,8 +3667,10 @@ public abstract class Spatial {
 		/**
 		 * Skeletonize.
 		 *
-		 * @param scope the scope
-		 * @param g the g
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
 		 * @return the i list
 		 */
 		@operator (
@@ -3395,8 +3698,10 @@ public abstract class Spatial {
 		/**
 		 * Triangulate.
 		 *
-		 * @param scope the scope
-		 * @param g the g
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
 		 * @return the i list
 		 */
 		@operator (
@@ -3419,9 +3724,12 @@ public abstract class Spatial {
 		/**
 		 * Triangulate.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param clipTolerance the clip tolerance
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param clipTolerance
+		 *            the clip tolerance
 		 * @return the i list
 		 */
 		@operator (
@@ -3445,8 +3753,10 @@ public abstract class Spatial {
 		/**
 		 * Triangulate.
 		 *
-		 * @param scope the scope
-		 * @param gs the gs
+		 * @param scope
+		 *            the scope
+		 * @param gs
+		 *            the gs
 		 * @return the i list
 		 */
 		@operator (
@@ -3470,10 +3780,14 @@ public abstract class Spatial {
 		/**
 		 * Triangulate.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param clipTolerance the clip tolerance
-		 * @param triangulationTolerance the triangulation tolerance
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param clipTolerance
+		 *            the clip tolerance
+		 * @param triangulationTolerance
+		 *            the triangulation tolerance
 		 * @return the i list
 		 */
 		@operator (
@@ -3499,11 +3813,16 @@ public abstract class Spatial {
 		/**
 		 * Triangulate.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param clipTolerance the clip tolerance
-		 * @param triangulationTolerance the triangulation tolerance
-		 * @param approxClip the approx clip
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param clipTolerance
+		 *            the clip tolerance
+		 * @param triangulationTolerance
+		 *            the triangulation tolerance
+		 * @param approxClip
+		 *            the approx clip
 		 * @return the i list
 		 */
 		@operator (
@@ -3529,8 +3848,10 @@ public abstract class Spatial {
 		/**
 		 * Vornoi.
 		 *
-		 * @param scope the scope
-		 * @param pts the pts
+		 * @param scope
+		 *            the scope
+		 * @param pts
+		 *            the pts
 		 * @return the i list
 		 */
 		@operator (
@@ -3554,9 +3875,12 @@ public abstract class Spatial {
 		/**
 		 * Vornoi.
 		 *
-		 * @param scope the scope
-		 * @param pts the pts
-		 * @param clip the clip
+		 * @param scope
+		 *            the scope
+		 * @param pts
+		 *            the pts
+		 * @param clip
+		 *            the clip
 		 * @return the i list
 		 */
 		@operator (
@@ -3579,9 +3903,12 @@ public abstract class Spatial {
 		/**
 		 * Smooth.
 		 *
-		 * @param scope the scope
-		 * @param geometry the geometry
-		 * @param fit the fit
+		 * @param scope
+		 *            the scope
+		 * @param geometry
+		 *            the geometry
+		 * @param fit
+		 *            the fit
 		 * @return the i shape
 		 */
 		@operator (
@@ -3606,10 +3933,14 @@ public abstract class Spatial {
 		/**
 		 * To squares.
 		 *
-		 * @param scope the scope
-		 * @param geom the geom
-		 * @param dimension the dimension
-		 * @param overlaps the overlaps
+		 * @param scope
+		 *            the scope
+		 * @param geom
+		 *            the geom
+		 * @param dimension
+		 *            the dimension
+		 * @param overlaps
+		 *            the overlaps
 		 * @return the i list
 		 */
 		@operator (
@@ -3633,10 +3964,14 @@ public abstract class Spatial {
 		/**
 		 * To squares.
 		 *
-		 * @param scope the scope
-		 * @param geom the geom
-		 * @param nbSquares the nb squares
-		 * @param overlaps the overlaps
+		 * @param scope
+		 *            the scope
+		 * @param geom
+		 *            the geom
+		 * @param nbSquares
+		 *            the nb squares
+		 * @param overlaps
+		 *            the overlaps
 		 * @return the i list
 		 */
 		@operator (
@@ -3661,11 +3996,16 @@ public abstract class Spatial {
 		/**
 		 * Square discretization.
 		 *
-		 * @param scope the scope
-		 * @param geom the geom
-		 * @param nbSquares the nb squares
-		 * @param overlaps the overlaps
-		 * @param precision the precision
+		 * @param scope
+		 *            the scope
+		 * @param geom
+		 *            the geom
+		 * @param nbSquares
+		 *            the nb squares
+		 * @param overlaps
+		 *            the overlaps
+		 * @param precision
+		 *            the precision
 		 * @return the i list
 		 */
 		@operator (
@@ -3690,10 +4030,14 @@ public abstract class Spatial {
 		/**
 		 * To rectangle.
 		 *
-		 * @param scope the scope
-		 * @param geom the geom
-		 * @param dimension the dimension
-		 * @param overlaps the overlaps
+		 * @param scope
+		 *            the scope
+		 * @param geom
+		 *            the geom
+		 * @param dimension
+		 *            the dimension
+		 * @param overlaps
+		 *            the overlaps
 		 * @return the i list
 		 */
 		@operator (
@@ -3718,11 +4062,16 @@ public abstract class Spatial {
 		/**
 		 * To rectangle.
 		 *
-		 * @param scope the scope
-		 * @param geom the geom
-		 * @param nbCols the nb cols
-		 * @param nbRows the nb rows
-		 * @param overlaps the overlaps
+		 * @param scope
+		 *            the scope
+		 * @param geom
+		 *            the geom
+		 * @param nbCols
+		 *            the nb cols
+		 * @param nbRows
+		 *            the nb rows
+		 * @param overlaps
+		 *            the overlaps
 		 * @return the i list
 		 */
 		@operator (
@@ -3751,9 +4100,12 @@ public abstract class Spatial {
 		/**
 		 * To squares.
 		 *
-		 * @param scope the scope
-		 * @param geom the geom
-		 * @param dimension the dimension
+		 * @param scope
+		 *            the scope
+		 * @param geom
+		 *            the geom
+		 * @param dimension
+		 *            the dimension
 		 * @return the i list
 		 */
 		@operator (
@@ -3777,9 +4129,12 @@ public abstract class Spatial {
 		/**
 		 * To rectangle.
 		 *
-		 * @param scope the scope
-		 * @param geom the geom
-		 * @param dimension the dimension
+		 * @param scope
+		 *            the scope
+		 * @param geom
+		 *            the geom
+		 * @param dimension
+		 *            the dimension
 		 * @return the i list
 		 */
 		@operator (
@@ -3802,10 +4157,14 @@ public abstract class Spatial {
 		/**
 		 * To rectangle.
 		 *
-		 * @param scope the scope
-		 * @param geom the geom
-		 * @param nbCols the nb cols
-		 * @param nbRows the nb rows
+		 * @param scope
+		 *            the scope
+		 * @param geom
+		 *            the geom
+		 * @param nbCols
+		 *            the nb cols
+		 * @param nbRows
+		 *            the nb rows
 		 * @return the i list
 		 */
 		@operator (
@@ -3833,8 +4192,10 @@ public abstract class Spatial {
 		/**
 		 * To segments.
 		 *
-		 * @param scope the scope
-		 * @param geom the geom
+		 * @param scope
+		 *            the scope
+		 * @param geom
+		 *            the geom
 		 * @return the i list
 		 */
 		@operator (
@@ -3873,8 +4234,10 @@ public abstract class Spatial {
 		/**
 		 * As hexagonal grid.
 		 *
-		 * @param ls the ls
-		 * @param param the param
+		 * @param ls
+		 *            the ls
+		 * @param param
+		 *            the param
 		 * @return the i list
 		 */
 		@operator (
@@ -3897,11 +4260,15 @@ public abstract class Spatial {
 		/**
 		 * As grid.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param dim the dim
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param dim
+		 *            the dim
 		 * @return the i matrix
-		 * @throws GamaRuntimeException the gama runtime exception
+		 * @throws GamaRuntimeException
+		 *             the gama runtime exception
 		 */
 		@operator (
 				value = "as_grid",
@@ -3925,11 +4292,15 @@ public abstract class Spatial {
 		/**
 		 * As 4 grid.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param dim the dim
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param dim
+		 *            the dim
 		 * @return the i matrix
-		 * @throws GamaRuntimeException the gama runtime exception
+		 * @throws GamaRuntimeException
+		 *             the gama runtime exception
 		 */
 		@operator (
 				value = "as_4_grid",
@@ -3954,9 +4325,12 @@ public abstract class Spatial {
 		/**
 		 * Split geometries.
 		 *
-		 * @param scope the scope
-		 * @param geom the geom
-		 * @param rates the rates
+		 * @param scope
+		 *            the scope
+		 * @param geom
+		 *            the geom
+		 * @param rates
+		 *            the rates
 		 * @return the i list
 		 */
 		@operator (
@@ -3982,12 +4356,17 @@ public abstract class Spatial {
 		/**
 		 * Split geometries.
 		 *
-		 * @param scope the scope
-		 * @param geom the geom
-		 * @param rates the rates
-		 * @param dimension the dimension
+		 * @param scope
+		 *            the scope
+		 * @param geom
+		 *            the geom
+		 * @param rates
+		 *            the rates
+		 * @param dimension
+		 *            the dimension
 		 * @return the i list
-		 * @throws GamaRuntimeException the gama runtime exception
+		 * @throws GamaRuntimeException
+		 *             the gama runtime exception
 		 */
 		@operator (
 				value = "to_sub_geometries",
@@ -4054,10 +4433,13 @@ public abstract class Spatial {
 		/**
 		 * Split lines.
 		 *
-		 * @param scope the scope
-		 * @param geoms the geoms
+		 * @param scope
+		 *            the scope
+		 * @param geoms
+		 *            the geoms
 		 * @return the i list
-		 * @throws GamaRuntimeException the gama runtime exception
+		 * @throws GamaRuntimeException
+		 *             the gama runtime exception
 		 */
 		@operator (
 				value = "split_lines",
@@ -4088,11 +4470,15 @@ public abstract class Spatial {
 		/**
 		 * Split lines.
 		 *
-		 * @param scope the scope
-		 * @param geoms the geoms
-		 * @param readAttributes the read attributes
+		 * @param scope
+		 *            the scope
+		 * @param geoms
+		 *            the geoms
+		 * @param readAttributes
+		 *            the read attributes
 		 * @return the i list
-		 * @throws GamaRuntimeException the gama runtime exception
+		 * @throws GamaRuntimeException
+		 *             the gama runtime exception
 		 */
 		@operator (
 				value = "split_lines",
@@ -4192,8 +4578,10 @@ public abstract class Spatial {
 		/**
 		 * Clean.
 		 *
-		 * @param scope the scope
-		 * @param g the g
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
 		 * @return the i shape
 		 */
 		@operator (
@@ -4227,11 +4615,16 @@ public abstract class Spatial {
 		/**
 		 * Clean.
 		 *
-		 * @param scope the scope
-		 * @param polylines the polylines
-		 * @param tolerance the tolerance
-		 * @param splitlines the splitlines
-		 * @param keepMainGraph the keep main graph
+		 * @param scope
+		 *            the scope
+		 * @param polylines
+		 *            the polylines
+		 * @param tolerance
+		 *            the tolerance
+		 * @param splitlines
+		 *            the splitlines
+		 * @param keepMainGraph
+		 *            the keep main graph
 		 * @return the i list
 		 */
 		@operator (
@@ -4240,18 +4633,19 @@ public abstract class Spatial {
 				category = { IOperatorCategory.SPATIAL, IOperatorCategory.SP_TRANSFORMATIONS },
 				concept = { IConcept.GEOMETRY, IConcept.SPATIAL_COMPUTATION, IConcept.SPATIAL_TRANSFORMATION })
 		@doc (
-				value = "A list of polylines corresponding to the cleaning of the first operand (list of polyline geometry or agents), considering the tolerance distance given "
-						+ "by the second operand; the third operator is used to define if the operator should as well split the lines at their intersections(true to split the lines); the last operand"
-						+ "is used to specify if the operator should as well keep only the main connected component of the network. "
-						+ "Usage: clean_network(lines:list of geometries or agents, tolerance: float, split_lines: bool, keepMainConnectedComponent: bool)",
-						comment = "The cleaned set of polylines",
-						examples = { @example (
-								value = "clean_network(my_road_shapefile.contents, 1.0, true, false)",
-								equals = "returns the list of polulines resulting from the cleaning of the geometry of the agent applying the operator with a tolerance of 1m, and splitting the lines at their intersections.",
-								isExecutable = false),
-								@example (
-										value = "clean_network([line({10,10}, {20,20}), line({10,20},{20,10})],3.0,true,false)",
-										equals = "[line({10.0,20.0,0.0},{15.0,15.0,0.0}),line({15.0,15.0,0.0},{20.0,10.0,0.0}), line({10.0,10.0,0.0},{15.0,15.0,0.0}), line({15.0,15.0,0.0},{20.0,20.0,0.0})]") })
+				value = """
+						A list of polylines corresponding to the cleaning of the first operand (list of polyline geometry or agents), considering the tolerance distance given \
+						by the second operand; the third operator is used to define if the operator should as well split the lines at their intersections(true to split the lines); the last operand\
+						is used to specify if the operator should as well keep only the main connected component of the network. \
+						Usage: clean_network(lines:list of geometries or agents, tolerance: float, split_lines: bool, keepMainConnectedComponent: bool)""",
+				comment = "The cleaned set of polylines",
+				examples = { @example (
+						value = "clean_network(my_road_shapefile.contents, 1.0, true, false)",
+						equals = "returns the list of polulines resulting from the cleaning of the geometry of the agent applying the operator with a tolerance of 1m, and splitting the lines at their intersections.",
+						isExecutable = false),
+						@example (
+								value = "clean_network([line({10,10}, {20,20}), line({10,20},{20,10})],3.0,true,false)",
+								equals = "[line({10.0,20.0,0.0},{15.0,15.0,0.0}),line({15.0,15.0,0.0},{20.0,10.0,0.0}), line({10.0,10.0,0.0},{15.0,15.0,0.0}), line({15.0,15.0,0.0},{20.0,20.0,0.0})]") })
 		@test ("length(clean_network([line({10,10}, {20,20}), line({10,20},{20,10})],3.0,true,false)) = 4")
 		public static IList<IShape> clean(final IScope scope, final IList<IShape> polylines, final double tolerance,
 				final boolean splitlines, final boolean keepMainGraph) {
@@ -4308,13 +4702,20 @@ public abstract class Spatial {
 		/**
 		 * Connect line.
 		 *
-		 * @param scope the scope
-		 * @param pt the pt
-		 * @param shape the shape
-		 * @param first the first
-		 * @param geoms the geoms
-		 * @param results the results
-		 * @param tolerance the tolerance
+		 * @param scope
+		 *            the scope
+		 * @param pt
+		 *            the pt
+		 * @param shape
+		 *            the shape
+		 * @param first
+		 *            the first
+		 * @param geoms
+		 *            the geoms
+		 * @param results
+		 *            the results
+		 * @param tolerance
+		 *            the tolerance
 		 * @return true, if successful
 		 */
 		private static boolean connectLine(final IScope scope, final GamaPoint pt, final IShape shape,
@@ -4323,7 +4724,7 @@ public abstract class Spatial {
 			tot.addAll(results);
 			tot.remove(shape);
 			final IShape closest = Queries.closest_to(scope, tot, pt);
-			if ((closest == null) || closest.intersects(shape)) return false;
+			if (closest == null || closest.intersects(shape)) return false;
 			if (closest.euclidianDistanceTo(pt) <= tolerance) {
 				final GamaPoint fp = closest.getPoints().firstValue(scope);
 				if (pt.equals3D(fp)) return false;
@@ -4354,10 +4755,14 @@ public abstract class Spatial {
 		/**
 		 * Modify point.
 		 *
-		 * @param scope the scope
-		 * @param shape the shape
-		 * @param pt the pt
-		 * @param first the first
+		 * @param scope
+		 *            the scope
+		 * @param shape
+		 *            the shape
+		 * @param pt
+		 *            the pt
+		 * @param first
+		 *            the first
 		 */
 		/*
 		 * if (first) {g <- line([pt] + (g.points - first(g.points)));} else {g <- line((g.points - last(g.points)) +
@@ -4374,12 +4779,7 @@ public abstract class Spatial {
 		}
 
 		/**
-		 * Simplification of a geometry (Douglas-Peuker algorithm).
-		 *
-		 * @param scope the scope
-		 * @param g1 the g 1
-		 * @param distanceTolerance the distance tolerance
-		 * @return the i shape
+		 * Simplification of a geometry (Douglas-Peuker algorithm)
 		 */
 
 		@operator (
@@ -4404,9 +4804,12 @@ public abstract class Spatial {
 		/**
 		 * With precision.
 		 *
-		 * @param scope the scope
-		 * @param g1 the g 1
-		 * @param precision the precision
+		 * @param scope
+		 *            the scope
+		 * @param g1
+		 *            the g 1
+		 * @param precision
+		 *            the precision
 		 * @return the i shape
 		 */
 		@operator (
@@ -4436,9 +4839,12 @@ public abstract class Spatial {
 		/**
 		 * Towards.
 		 *
-		 * @param scope the scope
-		 * @param agent the agent
-		 * @param target the target
+		 * @param scope
+		 *            the scope
+		 * @param agent
+		 *            the agent
+		 * @param target
+		 *            the target
 		 * @return the double
 		 */
 		@operator (
@@ -4461,9 +4867,12 @@ public abstract class Spatial {
 		/**
 		 * Distance between.
 		 *
-		 * @param scope the scope
-		 * @param t the t
-		 * @param geometries the geometries
+		 * @param scope
+		 *            the scope
+		 * @param t
+		 *            the t
+		 * @param geometries
+		 *            the geometries
 		 * @return the double
 		 */
 		@operator (
@@ -4499,11 +4908,15 @@ public abstract class Spatial {
 		/**
 		 * Direction between.
 		 *
-		 * @param scope the scope
-		 * @param t the t
-		 * @param geometries the geometries
+		 * @param scope
+		 *            the scope
+		 * @param t
+		 *            the t
+		 * @param geometries
+		 *            the geometries
 		 * @return the double
-		 * @throws GamaRuntimeException the gama runtime exception
+		 * @throws GamaRuntimeException
+		 *             the gama runtime exception
 		 */
 		@operator (
 				value = "direction_between",
@@ -4529,12 +4942,17 @@ public abstract class Spatial {
 		/**
 		 * Path between.
 		 *
-		 * @param scope the scope
-		 * @param graph the graph
-		 * @param source the source
-		 * @param target the target
+		 * @param scope
+		 *            the scope
+		 * @param graph
+		 *            the graph
+		 * @param source
+		 *            the source
+		 * @param target
+		 *            the target
 		 * @return the i path
-		 * @throws GamaRuntimeException the gama runtime exception
+		 * @throws GamaRuntimeException
+		 *             the gama runtime exception
 		 */
 		@operator (
 				value = "path_between",
@@ -4560,11 +4978,15 @@ public abstract class Spatial {
 		/**
 		 * Path between.
 		 *
-		 * @param scope the scope
-		 * @param topo the topo
-		 * @param nodes the nodes
+		 * @param scope
+		 *            the scope
+		 * @param topo
+		 *            the topo
+		 * @param nodes
+		 *            the nodes
 		 * @return the i path
-		 * @throws GamaRuntimeException the gama runtime exception
+		 * @throws GamaRuntimeException
+		 *             the gama runtime exception
 		 */
 		@operator (
 				value = "path_between",
@@ -4609,11 +5031,15 @@ public abstract class Spatial {
 		/**
 		 * Path between.
 		 *
-		 * @param scope the scope
-		 * @param cells the cells
-		 * @param nodes the nodes
+		 * @param scope
+		 *            the scope
+		 * @param cells
+		 *            the cells
+		 * @param nodes
+		 *            the nodes
 		 * @return the i path
-		 * @throws GamaRuntimeException the gama runtime exception
+		 * @throws GamaRuntimeException
+		 *             the gama runtime exception
 		 */
 		@operator (
 				value = "path_between",
@@ -4669,11 +5095,15 @@ public abstract class Spatial {
 		/**
 		 * Path between.
 		 *
-		 * @param scope the scope
-		 * @param cells the cells
-		 * @param nodes the nodes
+		 * @param scope
+		 *            the scope
+		 * @param cells
+		 *            the cells
+		 * @param nodes
+		 *            the nodes
 		 * @return the i path
-		 * @throws GamaRuntimeException the gama runtime exception
+		 * @throws GamaRuntimeException
+		 *             the gama runtime exception
 		 */
 		@operator (
 				value = "path_between",
@@ -4731,12 +5161,17 @@ public abstract class Spatial {
 		/**
 		 * Path between.
 		 *
-		 * @param scope the scope
-		 * @param cells the cells
-		 * @param source the source
-		 * @param target the target
+		 * @param scope
+		 *            the scope
+		 * @param cells
+		 *            the cells
+		 * @param source
+		 *            the source
+		 * @param target
+		 *            the target
 		 * @return the i path
-		 * @throws GamaRuntimeException the gama runtime exception
+		 * @throws GamaRuntimeException
+		 *             the gama runtime exception
 		 */
 		@operator (
 				value = "path_between",
@@ -4762,12 +5197,17 @@ public abstract class Spatial {
 		/**
 		 * Path between.
 		 *
-		 * @param scope the scope
-		 * @param cells the cells
-		 * @param source the source
-		 * @param target the target
+		 * @param scope
+		 *            the scope
+		 * @param cells
+		 *            the cells
+		 * @param source
+		 *            the source
+		 * @param target
+		 *            the target
 		 * @return the i path
-		 * @throws GamaRuntimeException the gama runtime exception
+		 * @throws GamaRuntimeException
+		 *             the gama runtime exception
 		 */
 		@operator (
 				value = "path_between",
@@ -4793,9 +5233,12 @@ public abstract class Spatial {
 		/**
 		 * Distance to.
 		 *
-		 * @param scope the scope
-		 * @param source the source
-		 * @param target the target
+		 * @param scope
+		 *            the scope
+		 * @param source
+		 *            the source
+		 * @param target
+		 *            the target
 		 * @return the double
 		 */
 		@operator (
@@ -4819,9 +5262,12 @@ public abstract class Spatial {
 		/**
 		 * Distance to.
 		 *
-		 * @param scope the scope
-		 * @param source the source
-		 * @param target the target
+		 * @param scope
+		 *            the scope
+		 * @param source
+		 *            the source
+		 * @param target
+		 *            the target
 		 * @return the double
 		 */
 		@operator (
@@ -4839,11 +5285,15 @@ public abstract class Spatial {
 		/**
 		 * Path to.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param g1 the g 1
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param g1
+		 *            the g 1
 		 * @return the i path
-		 * @throws GamaRuntimeException the gama runtime exception
+		 * @throws GamaRuntimeException
+		 *             the gama runtime exception
 		 */
 		@operator (
 				value = "path_to",
@@ -4859,7 +5309,7 @@ public abstract class Spatial {
 						equals = "the path between ag1 and ag2 considering the topology of the agent applying the operator",
 						isExecutable = false) },
 				see = { "towards", "direction_to", "distance_between", "direction_between", "path_between",
-				"distance_to" })
+						"distance_to" })
 		@no_test // test already done in Spatial tests models
 		public static IPath path_to(final IScope scope, final IShape g, final IShape g1) throws GamaRuntimeException {
 			if (g == null) return null;
@@ -4869,11 +5319,15 @@ public abstract class Spatial {
 		/**
 		 * Path to.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param g1 the g 1
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param g1
+		 *            the g 1
 		 * @return the i path
-		 * @throws GamaRuntimeException the gama runtime exception
+		 * @throws GamaRuntimeException
+		 *             the gama runtime exception
 		 */
 		@operator (
 				value = "path_to",
@@ -4901,9 +5355,12 @@ public abstract class Spatial {
 		/**
 		 * Disjoint from.
 		 *
-		 * @param scope the scope
-		 * @param g1 the g 1
-		 * @param g2 the g 2
+		 * @param scope
+		 *            the scope
+		 * @param g1
+		 *            the g 1
+		 * @param g2
+		 *            the g 2
 		 * @return the boolean
 		 */
 		@operator (
@@ -4939,12 +5396,11 @@ public abstract class Spatial {
 		}
 
 		/**
-		 * Return true if the agent geometry overlaps the geometry of the localized entity passed in parameter.
+		 * Return true if the agent geometry overlaps the geometry of the localized entity passed in parameter
 		 *
-		 * @param scope the scope
-		 * @param g1 the g 1
-		 * @param g2 the g 2
-		 * @return the boolean
+		 * @param args
+		 *            : agent --: a localized entity
+		 *
 		 */
 
 		@operator (
@@ -4998,11 +5454,11 @@ public abstract class Spatial {
 		}
 
 		/**
-		 * Return true if the agent geometry partially overlaps the geometry of the localized agent passed in parameter.
+		 * Return true if the agent geometry partially overlaps the geometry of the localized agent passed in parameter
 		 *
-		 * @param g1 the g 1
-		 * @param g2 the g 2
-		 * @return the boolean
+		 * @param args
+		 *            : agent --: a localized entity
+		 *
 		 */
 
 		@operator (
@@ -5037,11 +5493,11 @@ public abstract class Spatial {
 		}
 
 		/**
-		 * Return true if the agent geometry touches the geometry of the localized entity passed in parameter.
+		 * Return true if the agent geometry touches the geometry of the localized entity passed in parameter
 		 *
-		 * @param g1 the g 1
-		 * @param g2 the g 2
-		 * @return the boolean
+		 * @param args
+		 *            : agent --: a localized entity
+		 *
 		 */
 		@operator (
 				value = "touches",
@@ -5096,11 +5552,11 @@ public abstract class Spatial {
 		}
 
 		/**
-		 * Return true if the agent geometry crosses the geometry of the localized entity passed in parameter.
+		 * Return true if the agent geometry crosses the geometry of the localized entity passed in parameter
 		 *
-		 * @param g1 the g 1
-		 * @param g2 the g 2
-		 * @return the boolean
+		 * @param args
+		 *            : agent --: a localized entity
+		 *
 		 */
 
 		@operator (
@@ -5130,8 +5586,10 @@ public abstract class Spatial {
 		/**
 		 * Intersects.
 		 *
-		 * @param g1 the g 1
-		 * @param g2 the g 2
+		 * @param g1
+		 *            the g 1
+		 * @param g2
+		 *            the g 2
 		 * @return the boolean
 		 */
 		@operator (
@@ -5154,8 +5612,10 @@ public abstract class Spatial {
 		/**
 		 * Covers.
 		 *
-		 * @param g1 the g 1
-		 * @param g2 the g 2
+		 * @param g1
+		 *            the g 1
+		 * @param g2
+		 *            the g 2
 		 * @return the boolean
 		 */
 		@operator (
@@ -5185,8 +5645,10 @@ public abstract class Spatial {
 		/**
 		 * Centroid area.
 		 *
-		 * @param scope the scope
-		 * @param g the g
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
 		 * @return the gama point
 		 */
 		@operator (
@@ -5211,8 +5673,10 @@ public abstract class Spatial {
 		/**
 		 * Any location in.
 		 *
-		 * @param scope the scope
-		 * @param g the g
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
 		 * @return the gama point
 		 */
 		@operator (
@@ -5235,8 +5699,10 @@ public abstract class Spatial {
 		/**
 		 * Points on.
 		 *
-		 * @param geom the geom
-		 * @param distance the distance
+		 * @param geom
+		 *            the geom
+		 * @param distance
+		 *            the distance
 		 * @return the i list
 		 */
 		@operator (
@@ -5269,8 +5735,10 @@ public abstract class Spatial {
 		/**
 		 * Points along.
 		 *
-		 * @param geom the geom
-		 * @param rates the rates
+		 * @param geom
+		 *            the geom
+		 * @param rates
+		 *            the rates
 		 * @return the i list
 		 */
 		@operator (
@@ -5303,9 +5771,12 @@ public abstract class Spatial {
 		/**
 		 * Points at.
 		 *
-		 * @param scope the scope
-		 * @param nbLoc the nb loc
-		 * @param distance the distance
+		 * @param scope
+		 *            the scope
+		 * @param nbLoc
+		 *            the nb loc
+		 * @param distance
+		 *            the distance
 		 * @return the i list
 		 */
 		@operator (
@@ -5342,8 +5813,10 @@ public abstract class Spatial {
 		/**
 		 * Closest points with.
 		 *
-		 * @param a the a
-		 * @param b the b
+		 * @param a
+		 *            the a
+		 * @param b
+		 *            the b
 		 * @return the i list
 		 */
 		@operator (
@@ -5368,8 +5841,10 @@ public abstract class Spatial {
 		/**
 		 * Farthest point to.
 		 *
-		 * @param g the g
-		 * @param p the p
+		 * @param g
+		 *            the g
+		 * @param p
+		 *            the p
 		 * @return the gama point
 		 */
 		@operator (
@@ -5403,12 +5878,13 @@ public abstract class Spatial {
 		}
 
 		/**
-		 * Closest point to.
+		 * @throws GamaRuntimeException
+		 *             determine the closest point of a geometry to another given point.
 		 *
-		 * @param pt            a point
-		 * @param geom the geom
-		 * @return the gama point
-		 * @throws GamaRuntimeException             determine the closest point of a geometry to another given point.
+		 * @param pt
+		 *            a point
+		 * @param poly
+		 *            a polygon
 		 */
 		public static GamaPoint _closest_point_to(final IShape pt, final IShape geom) {
 			if (pt == null) return null;
@@ -5420,8 +5896,10 @@ public abstract class Spatial {
 		/**
 		 * Closest point to.
 		 *
-		 * @param pt the pt
-		 * @param geom the geom
+		 * @param pt
+		 *            the pt
+		 * @param geom
+		 *            the geom
 		 * @return the gama point
 		 */
 		public static GamaPoint _closest_point_to(final GamaPoint pt, final IShape geom) {
@@ -5435,10 +5913,14 @@ public abstract class Spatial {
 		/**
 		 * Angle in degrees between.
 		 *
-		 * @param scope the scope
-		 * @param p0 the p 0
-		 * @param p1 the p 1
-		 * @param p2 the p 2
+		 * @param scope
+		 *            the scope
+		 * @param p0
+		 *            the p 0
+		 * @param p1
+		 *            the p 1
+		 * @param p2
+		 *            the p 2
 		 * @return the double
 		 */
 		@operator (
@@ -5474,9 +5956,12 @@ public abstract class Spatial {
 		/**
 		 * Neighbors of.
 		 *
-		 * @param scope the scope
-		 * @param t the t
-		 * @param agent the agent
+		 * @param scope
+		 *            the scope
+		 * @param t
+		 *            the t
+		 * @param agent
+		 *            the agent
 		 * @return the i list
 		 */
 		@operator (
@@ -5493,7 +5978,7 @@ public abstract class Spatial {
 						equals = "returns all the agents located at a distance lower or equal to 1 to the agent applying the operator considering its topology.",
 						test = false) },
 				see = { "neighbors_at", "closest_to", "overlapping", "agents_overlapping", "agents_inside",
-				"agent_closest_to" })
+						"agent_closest_to" })
 		@no_test // already done in Spatial tests Models
 		public static IList neighbors_of(final IScope scope, final ITopology t, final IAgent agent) {
 			return _neighbors(scope, In.list(scope, agent.getPopulation()), agent, 1.0, t);
@@ -5504,10 +5989,14 @@ public abstract class Spatial {
 		/**
 		 * Neighbors of.
 		 *
-		 * @param scope the scope
-		 * @param t the t
-		 * @param agent the agent
-		 * @param distance the distance
+		 * @param scope
+		 *            the scope
+		 * @param t
+		 *            the t
+		 * @param agent
+		 *            the agent
+		 * @param distance
+		 *            the distance
 		 * @return the i list
 		 */
 		@operator (
@@ -5528,7 +6017,7 @@ public abstract class Spatial {
 				final Double distance) {
 			return _neighbors(scope,
 					agent instanceof IAgent ? In.list(scope, ((IAgent) agent).getPopulation()) : Different.with(),
-							agent, distance, t);
+					agent, distance, t);
 			// TODO We could compute a filter based on the population if it is
 			// an agent
 		}
@@ -5536,9 +6025,12 @@ public abstract class Spatial {
 		/**
 		 * Neighbors at.
 		 *
-		 * @param scope the scope
-		 * @param agent the agent
-		 * @param distance the distance
+		 * @param scope
+		 *            the scope
+		 * @param agent
+		 *            the agent
+		 * @param distance
+		 *            the distance
 		 * @return the i list
 		 */
 		@operator (
@@ -5560,15 +6052,18 @@ public abstract class Spatial {
 		public static IList neighbors_at(final IScope scope, final IShape agent, final Double distance) {
 			return _neighbors(scope,
 					agent instanceof IAgent ? In.list(scope, ((IAgent) agent).getPopulation()) : Different.with(),
-							agent, distance);
+					agent, distance);
 		}
 
 		/**
 		 * At distance.
 		 *
-		 * @param scope the scope
-		 * @param list the list
-		 * @param distance the distance
+		 * @param scope
+		 *            the scope
+		 * @param list
+		 *            the list
+		 * @param distance
+		 *            the distance
 		 * @return the i list<? extends I shape>
 		 */
 		@operator (
@@ -5584,13 +6079,14 @@ public abstract class Spatial {
 						equals = "the agents of the list located at a distance <= 20 from the caller agent (in the same order).",
 						isExecutable = false) },
 				see = { "neighbors_at", "neighbors_of", "agent_closest_to", "agents_inside", "closest_to", "inside",
-				"overlapping" })
+						"overlapping" })
 		@no_test // already done in Spatial tests Models
 		public static IList<? extends IShape> at_distance(final IScope scope,
 				final IContainer<?, ? extends IShape> list, final Double distance) {
 			if (GamaPreferences.External.AT_DISTANCE_OPTIMIZATION.getValue() && scope.getAgent().isPoint()) {
 				final ITopology topo = scope.getTopology();
-				if ((topo.isContinuous() && !topo.isTorus()) && ((double) list.length(scope) / (double) scope.getSimulation().getMembersSize(scope) < 0.1)) {
+				if (topo.isContinuous() && !topo.isTorus()
+						&& (double) list.length(scope) / (double) scope.getSimulation().getMembersSize(scope) < 0.1) {
 					try (final Collector.AsList<IAgent> results = Collector.getList()) {
 						final IAgent ag = scope.getAgent();
 						for (final IShape sp : list.iterable(scope)) {
@@ -5612,9 +6108,12 @@ public abstract class Spatial {
 		/**
 		 * Geom at distance.
 		 *
-		 * @param scope the scope
-		 * @param list the list
-		 * @param distance the distance
+		 * @param scope
+		 *            the scope
+		 * @param list
+		 *            the list
+		 * @param distance
+		 *            the distance
 		 * @return the i list<? extends I shape>
 		 */
 		public static IList<? extends IShape> geomAtDistance(final IScope scope,
@@ -5633,10 +6132,14 @@ public abstract class Spatial {
 		/**
 		 * Related entities.
 		 *
-		 * @param scope the scope
-		 * @param list the list
-		 * @param source the source
-		 * @param relation the relation
+		 * @param scope
+		 *            the scope
+		 * @param list
+		 *            the list
+		 * @param source
+		 *            the source
+		 * @param relation
+		 *            the relation
 		 * @return the i list<? extends I shape>
 		 */
 		static IList<? extends IShape> relatedEntities(final IScope scope, final IContainer<?, ? extends IShape> list,
@@ -5650,9 +6153,12 @@ public abstract class Spatial {
 		/**
 		 * Inside.
 		 *
-		 * @param scope the scope
-		 * @param list the list
-		 * @param source the source
+		 * @param scope
+		 *            the scope
+		 * @param list
+		 *            the list
+		 * @param source
+		 *            the source
 		 * @return the i list<? extends I shape>
 		 */
 		@operator (
@@ -5682,9 +6188,12 @@ public abstract class Spatial {
 		/**
 		 * Covering.
 		 *
-		 * @param scope the scope
-		 * @param list the list
-		 * @param source the source
+		 * @param scope
+		 *            the scope
+		 * @param list
+		 *            the list
+		 * @param source
+		 *            the source
 		 * @return the i list<? extends I shape>
 		 */
 		@operator (
@@ -5714,9 +6223,12 @@ public abstract class Spatial {
 		/**
 		 * Crossing.
 		 *
-		 * @param scope the scope
-		 * @param list the list
-		 * @param source the source
+		 * @param scope
+		 *            the scope
+		 * @param list
+		 *            the list
+		 * @param source
+		 *            the source
 		 * @return the i list<? extends I shape>
 		 */
 		@operator (
@@ -5746,9 +6258,12 @@ public abstract class Spatial {
 		/**
 		 * Touching.
 		 *
-		 * @param scope the scope
-		 * @param list the list
-		 * @param source the source
+		 * @param scope
+		 *            the scope
+		 * @param list
+		 *            the list
+		 * @param source
+		 *            the source
 		 * @return the i list<? extends I shape>
 		 */
 		@operator (
@@ -5778,9 +6293,12 @@ public abstract class Spatial {
 		/**
 		 * Partially overlapping.
 		 *
-		 * @param scope the scope
-		 * @param list the list
-		 * @param source the source
+		 * @param scope
+		 *            the scope
+		 * @param list
+		 *            the list
+		 * @param source
+		 *            the source
 		 * @return the i list<? extends I shape>
 		 */
 		@operator (
@@ -5810,9 +6328,12 @@ public abstract class Spatial {
 		/**
 		 * Overlapping.
 		 *
-		 * @param scope the scope
-		 * @param list the list
-		 * @param source the source
+		 * @param scope
+		 *            the scope
+		 * @param list
+		 *            the list
+		 * @param source
+		 *            the source
 		 * @return the i list<? extends I shape>
 		 */
 		@operator (
@@ -5831,7 +6352,7 @@ public abstract class Spatial {
 								value = "(species1 + species2) overlapping self",
 								isExecutable = false) },
 				see = { "neighbors_at", "neighbors_of", "agent_closest_to", "agents_inside", "closest_to", "inside",
-				"agents_overlapping" })
+						"agents_overlapping" })
 		@no_test // test already done in Spatial tests models
 		public static IList<? extends IShape> overlapping(final IScope scope,
 				final IContainer<?, ? extends IShape> list, final IShape source) {
@@ -5841,10 +6362,14 @@ public abstract class Spatial {
 		/**
 		 * Geoms related.
 		 *
-		 * @param scope the scope
-		 * @param list the list
-		 * @param source the source
-		 * @param relation the relation
+		 * @param scope
+		 *            the scope
+		 * @param list
+		 *            the list
+		 * @param source
+		 *            the source
+		 * @param relation
+		 *            the relation
 		 * @return the i list<? extends I shape>
 		 */
 		public static IList<? extends IShape> geomsRelated(final IScope scope,
@@ -5865,9 +6390,12 @@ public abstract class Spatial {
 		/**
 		 * Closest to.
 		 *
-		 * @param scope the scope
-		 * @param list the list
-		 * @param source the source
+		 * @param scope
+		 *            the scope
+		 * @param list
+		 *            the list
+		 * @param source
+		 *            the source
 		 * @return the i shape
 		 */
 		@operator (
@@ -5887,7 +6415,7 @@ public abstract class Spatial {
 								value = "(species1 + species2) closest_to self",
 								isExecutable = false) },
 				see = { "neighbors_at", "neighbors_of", "inside", "overlapping", "agents_overlapping", "agents_inside",
-				"agent_closest_to" })
+						"agent_closest_to" })
 		@no_test // already done in Spatial tests Models
 		public static IShape closest_to(final IScope scope, final IContainer<?, ? extends IShape> list,
 				final IShape source) {
@@ -5902,10 +6430,14 @@ public abstract class Spatial {
 		/**
 		 * Closest to.
 		 *
-		 * @param scope the scope
-		 * @param list the list
-		 * @param source the source
-		 * @param number the number
+		 * @param scope
+		 *            the scope
+		 * @param list
+		 *            the list
+		 * @param source
+		 *            the source
+		 * @param number
+		 *            the number
 		 * @return the i list
 		 */
 		@operator (
@@ -5925,7 +6457,7 @@ public abstract class Spatial {
 								value = "(species1 + species2) closest_to (self, 5)",
 								isExecutable = false) },
 				see = { "neighbors_at", "neighbors_of", "inside", "overlapping", "agents_overlapping", "agents_inside",
-				"agent_closest_to" })
+						"agent_closest_to" })
 		@no_test // already done in Spatial tests Models
 		public static IList<IShape> closest_to(final IScope scope, final IContainer<?, ? extends IShape> list,
 				final IShape source, final int number) {
@@ -5940,9 +6472,12 @@ public abstract class Spatial {
 		/**
 		 * Farthest to.
 		 *
-		 * @param scope the scope
-		 * @param list the list
-		 * @param source the source
+		 * @param scope
+		 *            the scope
+		 * @param list
+		 *            the list
+		 * @param source
+		 *            the source
 		 * @return the i shape
 		 */
 		@operator (
@@ -5976,9 +6511,12 @@ public abstract class Spatial {
 		/**
 		 * Geom clostest to.
 		 *
-		 * @param scope the scope
-		 * @param list the list
-		 * @param source the source
+		 * @param scope
+		 *            the scope
+		 * @param list
+		 *            the list
+		 * @param source
+		 *            the source
 		 * @return the i shape
 		 */
 		public static IShape geomClostestTo(final IScope scope, final IContainer<?, ? extends IShape> list,
@@ -5999,10 +6537,14 @@ public abstract class Spatial {
 		/**
 		 * Geom clostest to.
 		 *
-		 * @param scope the scope
-		 * @param list the list
-		 * @param source the source
-		 * @param number the number
+		 * @param scope
+		 *            the scope
+		 * @param list
+		 *            the list
+		 * @param source
+		 *            the source
+		 * @param number
+		 *            the number
 		 * @return the collection
 		 */
 		public static Collection<IShape> geomClostestTo(final IScope scope, final IContainer<?, ? extends IShape> list,
@@ -6019,9 +6561,12 @@ public abstract class Spatial {
 		/**
 		 * Geom farthest to.
 		 *
-		 * @param scope the scope
-		 * @param list the list
-		 * @param source the source
+		 * @param scope
+		 *            the scope
+		 * @param list
+		 *            the list
+		 * @param source
+		 *            the source
 		 * @return the i shape
 		 */
 		public static IShape geomFarthestTo(final IScope scope, final IContainer<?, ? extends IShape> list,
@@ -6042,8 +6587,10 @@ public abstract class Spatial {
 		/**
 		 * Agent closest to.
 		 *
-		 * @param scope the scope
-		 * @param source the source
+		 * @param scope
+		 *            the scope
+		 * @param source
+		 *            the source
 		 * @return the i agent
 		 */
 		@operator (
@@ -6060,7 +6607,7 @@ public abstract class Spatial {
 						equals = "the closest agent to the agent applying the operator.",
 						test = false) },
 				see = { "neighbors_at", "neighbors_of", "agents_inside", "agents_overlapping", "closest_to", "inside",
-				"overlapping" })
+						"overlapping" })
 		@no_test // already done in Spatial tests Models
 		public static IAgent agent_closest_to(final IScope scope, final Object source) {
 			return _closest(scope, Different.with(), source);
@@ -6069,8 +6616,10 @@ public abstract class Spatial {
 		/**
 		 * Agent farthest to.
 		 *
-		 * @param scope the scope
-		 * @param source the source
+		 * @param scope
+		 *            the scope
+		 * @param source
+		 *            the source
 		 * @return the i agent
 		 */
 		@operator (
@@ -6095,8 +6644,10 @@ public abstract class Spatial {
 		/**
 		 * Agents touching.
 		 *
-		 * @param scope the scope
-		 * @param source the source
+		 * @param scope
+		 *            the scope
+		 * @param source
+		 *            the source
 		 * @return the i list
 		 */
 		@operator (
@@ -6120,8 +6671,10 @@ public abstract class Spatial {
 		/**
 		 * Agents crossing.
 		 *
-		 * @param scope the scope
-		 * @param source the source
+		 * @param scope
+		 *            the scope
+		 * @param source
+		 *            the source
 		 * @return the i list
 		 */
 		@operator (
@@ -6145,8 +6698,10 @@ public abstract class Spatial {
 		/**
 		 * Agents partially overlapping.
 		 *
-		 * @param scope the scope
-		 * @param source the source
+		 * @param scope
+		 *            the scope
+		 * @param source
+		 *            the source
 		 * @return the i list
 		 */
 		@operator (
@@ -6170,8 +6725,10 @@ public abstract class Spatial {
 		/**
 		 * Agents cover.
 		 *
-		 * @param scope the scope
-		 * @param source the source
+		 * @param scope
+		 *            the scope
+		 * @param source
+		 *            the source
 		 * @return the i list
 		 */
 		@operator (
@@ -6195,8 +6752,10 @@ public abstract class Spatial {
 		/**
 		 * Agents inside.
 		 *
-		 * @param scope the scope
-		 * @param source the source
+		 * @param scope
+		 *            the scope
+		 * @param source
+		 *            the source
 		 * @return the i list
 		 */
 		@operator (
@@ -6220,8 +6779,10 @@ public abstract class Spatial {
 		/**
 		 * Agents overlapping.
 		 *
-		 * @param scope the scope
-		 * @param source the source
+		 * @param scope
+		 *            the scope
+		 * @param source
+		 *            the source
 		 * @return the i list
 		 */
 		@operator (
@@ -6246,8 +6807,10 @@ public abstract class Spatial {
 		/**
 		 * Agents at distance.
 		 *
-		 * @param scope the scope
-		 * @param distance the distance
+		 * @param scope
+		 *            the scope
+		 * @param distance
+		 *            the distance
 		 * @return the i list
 		 */
 		@operator (
@@ -6273,10 +6836,14 @@ public abstract class Spatial {
 		/**
 		 * Gather.
 		 *
-		 * @param scope the scope
-		 * @param filter the filter
-		 * @param source the source
-		 * @param relation the relation
+		 * @param scope
+		 *            the scope
+		 * @param filter
+		 *            the filter
+		 * @param source
+		 *            the source
+		 * @param relation
+		 *            the relation
 		 * @return the i list
 		 */
 		private static IList<IAgent> _gather(final IScope scope, final IAgentFilter filter, final Object source,
@@ -6290,9 +6857,12 @@ public abstract class Spatial {
 		/**
 		 * Closest.
 		 *
-		 * @param scope the scope
-		 * @param filter the filter
-		 * @param source the source
+		 * @param scope
+		 *            the scope
+		 * @param filter
+		 *            the filter
+		 * @param source
+		 *            the source
 		 * @return the i agent
 		 */
 		private static IAgent _closest(final IScope scope, final IAgentFilter filter, final Object source) {
@@ -6303,10 +6873,14 @@ public abstract class Spatial {
 		/**
 		 * Closest.
 		 *
-		 * @param scope the scope
-		 * @param filter the filter
-		 * @param source the source
-		 * @param number the number
+		 * @param scope
+		 *            the scope
+		 * @param filter
+		 *            the filter
+		 * @param source
+		 *            the source
+		 * @param number
+		 *            the number
 		 * @return the collection
 		 */
 		private static Collection<IAgent> _closest(final IScope scope, final IAgentFilter filter, final Object source,
@@ -6318,9 +6892,12 @@ public abstract class Spatial {
 		/**
 		 * Farthest.
 		 *
-		 * @param scope the scope
-		 * @param filter the filter
-		 * @param source the source
+		 * @param scope
+		 *            the scope
+		 * @param filter
+		 *            the filter
+		 * @param source
+		 *            the source
 		 * @return the i agent
 		 */
 		private static IAgent _farthest(final IScope scope, final IAgentFilter filter, final Object source) {
@@ -6331,10 +6908,14 @@ public abstract class Spatial {
 		/**
 		 * Neighbors.
 		 *
-		 * @param scope the scope
-		 * @param filter the filter
-		 * @param source the source
-		 * @param distance the distance
+		 * @param scope
+		 *            the scope
+		 * @param filter
+		 *            the filter
+		 * @param source
+		 *            the source
+		 * @param distance
+		 *            the distance
 		 * @return the i list
 		 */
 		private static IList<IAgent> _neighbors(final IScope scope, final IAgentFilter filter, final Object source,
@@ -6345,11 +6926,16 @@ public abstract class Spatial {
 		/**
 		 * Neighbors.
 		 *
-		 * @param scope the scope
-		 * @param filter the filter
-		 * @param source the source
-		 * @param distance the distance
-		 * @param t the t
+		 * @param scope
+		 *            the scope
+		 * @param filter
+		 *            the filter
+		 * @param source
+		 *            the source
+		 * @param distance
+		 *            the distance
+		 * @param t
+		 *            the t
 		 * @return the i list
 		 */
 		static IList<IAgent> _neighbors(final IScope scope, final IAgentFilter filter, final Object source,
@@ -6370,9 +6956,12 @@ public abstract class Spatial {
 		/**
 		 * Simple clustering by distance.
 		 *
-		 * @param scope the scope
-		 * @param agents the agents
-		 * @param distance the distance
+		 * @param scope
+		 *            the scope
+		 * @param agents
+		 *            the agents
+		 * @param distance
+		 *            the distance
 		 * @return the i list
 		 */
 		@operator (
@@ -6408,11 +6997,16 @@ public abstract class Spatial {
 		/**
 		 * Simple clustering by distance rec.
 		 *
-		 * @param scope the scope
-		 * @param filter the filter
-		 * @param distance the distance
-		 * @param clusteredAgs the clustered ags
-		 * @param currentAg the current ag
+		 * @param scope
+		 *            the scope
+		 * @param filter
+		 *            the filter
+		 * @param distance
+		 *            the distance
+		 * @param clusteredAgs
+		 *            the clustered ags
+		 * @param currentAg
+		 *            the current ag
 		 * @return the i list
 		 */
 		public static IList<IAgent> simpleClusteringByDistanceRec(final IScope scope, final IAgentFilter filter,
@@ -6433,9 +7027,12 @@ public abstract class Spatial {
 		/**
 		 * Hierarchical clusteringe.
 		 *
-		 * @param scope the scope
-		 * @param agents the agents
-		 * @param distance the distance
+		 * @param scope
+		 *            the scope
+		 * @param agents
+		 *            the agents
+		 * @param distance
+		 *            the distance
 		 * @return the i list
 		 */
 		@operator (
@@ -6541,10 +7138,14 @@ public abstract class Spatial {
 		/**
 		 * Prim IDW.
 		 *
-		 * @param scope the scope
-		 * @param geometries the geometries
-		 * @param points the points
-		 * @param power the power
+		 * @param scope
+		 *            the scope
+		 * @param geometries
+		 *            the geometries
+		 * @param points
+		 *            the points
+		 * @param power
+		 *            the power
 		 * @return the i map
 		 */
 		@operator (
@@ -6552,16 +7153,18 @@ public abstract class Spatial {
 				category = { IOperatorCategory.SPATIAL },
 				concept = { IConcept.GEOMETRY, IConcept.SPATIAL_COMPUTATION, IConcept.STATISTIC })
 		@doc (
-				value = "Inverse Distance Weighting (IDW) is a type of deterministic method for multivariate "
-						+ "interpolation with a known scattered set of points. The assigned values to each geometry are calculated with a weighted average of the values available at the known points. See: http://en.wikipedia.org/wiki/Inverse_distance_weighting "
-						+ "Usage: IDW (list of geometries, map of points (key: point, value: value), power parameter)",
-						examples = { @example (
-								value = "IDW([ag1, ag2, ag3, ag4, ag5],[{10,10}::25.0, {10,80}::10.0, {100,10}::15.0], 2)",
-								equals = "for example, can return [ag1::12.0, ag2::23.0,ag3::12.0,ag4::14.0,ag5::17.0]",
-								isExecutable = false) })
-		@test ("map<point, float> mapLocationPoints <- [{0,0}::10.0,{0,10}::-3.0];\r\n"
-				+ "		list<point> queryPoint <- [{0,5}];\r\n"
-				+ "		float((IDW(list(geometry(queryPoint)),mapLocationPoints,1)).pairs[0].value) with_precision 1 = 3.5")
+				value = """
+						Inverse Distance Weighting (IDW) is a type of deterministic method for multivariate \
+						interpolation with a known scattered set of points. The assigned values to each geometry are calculated with a weighted average of the values available at the known points. See: http://en.wikipedia.org/wiki/Inverse_distance_weighting \
+						Usage: IDW (list of geometries, map of points (key: point, value: value), power parameter)""",
+				examples = { @example (
+						value = "IDW([ag1, ag2, ag3, ag4, ag5],[{10,10}::25.0, {10,80}::10.0, {100,10}::15.0], 2)",
+						equals = "for example, can return [ag1::12.0, ag2::23.0,ag3::12.0,ag4::14.0,ag5::17.0]",
+						isExecutable = false) })
+		@test ("""
+				map<point, float> mapLocationPoints <- [{0,0}::10.0,{0,10}::-3.0];
+						list<point> queryPoint <- [{0,5}];
+						float((IDW(list(geometry(queryPoint)),mapLocationPoints,1)).pairs[0].value) with_precision 1 = 3.5""")
 		public static IMap<IShape, Double> primIDW(final IScope scope, final IContainer<?, ? extends IShape> geometries,
 				final IMap points, final int power) {
 			final IMap<IShape, Double> results = GamaMapFactory.create(Types.GEOMETRY, Types.FLOAT);
@@ -6598,9 +7201,12 @@ public abstract class Spatial {
 		/**
 		 * Moran index.
 		 *
-		 * @param scope the scope
-		 * @param vals the vals
-		 * @param mat the mat
+		 * @param scope
+		 *            the scope
+		 * @param vals
+		 *            the vals
+		 * @param mat
+		 *            the mat
 		 * @return the double
 		 */
 		@operator (
@@ -6618,12 +7224,12 @@ public abstract class Spatial {
 		public static double moranIndex(final IScope scope, final IList<Double> vals, final IMatrix<Double> mat) {
 			final GamaMatrix<Double> weightMatrix = (GamaMatrix<Double>) mat;
 			if (weightMatrix == null || weightMatrix.numCols != weightMatrix.numRows) throw GamaRuntimeException
-			.error("A squared weight matrix should be given for the moran index computation", scope);
+					.error("A squared weight matrix should be given for the moran index computation", scope);
 			final int N = vals.size();
 			double I = 0.0;
 			double sumWeights = 0.0;
 			double sumXi = 0;
-			final Double mean = (Double) Containers.mean(scope, vals);
+			final Double mean = (Double) Containers.opMean(scope, vals);
 			for (int i = 0; i < N; i++) {
 				final double xi = vals.get(i);
 				final double xiDev = xi - mean;
@@ -6648,10 +7254,14 @@ public abstract class Spatial {
 		/**
 		 * Sets the z.
 		 *
-		 * @param scope the scope
-		 * @param geom the geom
-		 * @param index the index
-		 * @param z the z
+		 * @param scope
+		 *            the scope
+		 * @param geom
+		 *            the geom
+		 * @param index
+		 *            the index
+		 * @param z
+		 *            the z
 		 * @return the i shape
 		 */
 		@operator (
@@ -6671,7 +7281,7 @@ public abstract class Spatial {
 			final Geometry g = geom.getInnerGeometry();
 			if (g == null) return geom;
 			if (index < 0 || index > g.getNumPoints() - 1) throw GamaRuntimeException
-			.warning("Trying to modify a point outside the bounds of the geometry", scope);
+					.warning("Trying to modify a point outside the bounds of the geometry", scope);
 			g.apply(new CoordinateSequenceFilter() {
 
 				boolean done = false;
@@ -6685,14 +7295,10 @@ public abstract class Spatial {
 				}
 
 				@Override
-				public boolean isDone() {
-					return done;
-				}
+				public boolean isDone() { return done; }
 
 				@Override
-				public boolean isGeometryChanged() {
-					return done;
-				}
+				public boolean isGeometryChanged() { return done; }
 			});
 
 			return geom;
@@ -6701,9 +7307,12 @@ public abstract class Spatial {
 		/**
 		 * Sets the z.
 		 *
-		 * @param scope the scope
-		 * @param geom the geom
-		 * @param coords the coords
+		 * @param scope
+		 *            the scope
+		 * @param geom
+		 *            the geom
+		 * @param coords
+		 *            the coords
 		 * @return the i shape
 		 */
 		@operator (
@@ -6723,7 +7332,7 @@ public abstract class Spatial {
 			if (g == null) return geom;
 			if (coords == null || coords.isEmpty(scope)) return null;
 			if (coords.length(scope) > g.getNumPoints()) throw GamaRuntimeException
-			.warning("Trying to modify a point outside the bounds of the geometry", scope);
+					.warning("Trying to modify a point outside the bounds of the geometry", scope);
 			final Double[] zs = coords.listValue(scope, Types.FLOAT, false).toArray(new Double[0]);
 			g.apply(new CoordinateSequenceFilter() {
 
@@ -6733,14 +7342,10 @@ public abstract class Spatial {
 				}
 
 				@Override
-				public boolean isDone() {
-					return false;
-				}
+				public boolean isDone() { return false; }
 
 				@Override
-				public boolean isGeometryChanged() {
-					return true;
-				}
+				public boolean isGeometryChanged() { return true; }
 			});
 
 			return geom;
@@ -6749,8 +7354,10 @@ public abstract class Spatial {
 		/**
 		 * Rgb to xyz.
 		 *
-		 * @param scope the scope
-		 * @param file the file
+		 * @param scope
+		 *            the scope
+		 * @param file
+		 *            the file
 		 * @return the i list
 		 */
 		@operator (
@@ -6795,8 +7402,10 @@ public abstract class Spatial {
 		/**
 		 * Checks if is clockwise.
 		 *
-		 * @param scope the scope
-		 * @param shape the shape
+		 * @param scope
+		 *            the scope
+		 * @param shape
+		 *            the shape
 		 * @return the boolean
 		 */
 		@operator (
@@ -6822,8 +7431,10 @@ public abstract class Spatial {
 		/**
 		 * Change clockwise.
 		 *
-		 * @param scope the scope
-		 * @param shape the shape
+		 * @param scope
+		 *            the scope
+		 * @param shape
+		 *            the shape
 		 * @return the i shape
 		 */
 		@operator (
@@ -6856,8 +7467,10 @@ public abstract class Spatial {
 		/**
 		 * Crs from file.
 		 *
-		 * @param scope the scope
-		 * @param gisFile the gis file
+		 * @param scope
+		 *            the scope
+		 * @param gisFile
+		 *            the gis file
 		 * @return the string
 		 */
 		@operator (
@@ -6886,8 +7499,10 @@ public abstract class Spatial {
 		/**
 		 * Transform CRS.
 		 *
-		 * @param scope the scope
-		 * @param g the g
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
 		 * @return the i shape
 		 */
 		@operator (
@@ -6913,8 +7528,10 @@ public abstract class Spatial {
 		/**
 		 * To GAM A CRS.
 		 *
-		 * @param scope the scope
-		 * @param g the g
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
 		 * @return the i shape
 		 */
 		@operator (
@@ -6940,9 +7557,12 @@ public abstract class Spatial {
 		/**
 		 * To GAM A CRS.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param code the code
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param code
+		 *            the code
 		 * @return the i shape
 		 */
 		@operator (
@@ -6974,9 +7594,12 @@ public abstract class Spatial {
 		/**
 		 * Transform CRS.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param code the code
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param code
+		 *            the code
 		 * @return the i shape
 		 */
 		@operator (
@@ -7009,10 +7632,14 @@ public abstract class Spatial {
 		/**
 		 * Transform CRS.
 		 *
-		 * @param scope the scope
-		 * @param g the g
-		 * @param sourceCode the source code
-		 * @param targetcode the targetcode
+		 * @param scope
+		 *            the scope
+		 * @param g
+		 *            the g
+		 * @param sourceCode
+		 *            the source code
+		 * @param targetcode
+		 *            the targetcode
 		 * @return the i shape
 		 */
 		@operator (

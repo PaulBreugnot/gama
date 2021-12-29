@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * LayoutGrid.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * LayoutGrid.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.util.graph.layout;
 
@@ -25,12 +25,13 @@ import gama.util.GamaMapFactory;
 import gama.util.IList;
 import gama.util.IMap;
 import gama.util.graph.IGraph;
+import gaml.operators.Containers;
 import gaml.operators.Graphs;
 import gaml.operators.Maths;
 import gaml.operators.Random;
 import gaml.operators.Spatial;
 import gaml.operators.Spatial.Queries;
-import gaml.types.Types; 
+import gaml.types.Types;
 
 /**
  * The Class LayoutGrid.
@@ -49,9 +50,12 @@ public class LayoutGrid {
 	/**
 	 * Instantiates a new layout grid.
 	 *
-	 * @param graph the graph
-	 * @param envelopeGeometry the envelope geometry
-	 * @param coeffSq the coeff sq
+	 * @param graph
+	 *            the graph
+	 * @param envelopeGeometry
+	 *            the envelope geometry
+	 * @param coeffSq
+	 *            the coeff sq
 	 */
 	public LayoutGrid(final IGraph<IShape, IShape> graph, final IShape envelopeGeometry, final double coeffSq) {
 		this.graph = graph;
@@ -62,9 +66,10 @@ public class LayoutGrid {
 	/**
 	 * Apply layout.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 */
-	@SuppressWarnings("null")
+	@SuppressWarnings ("null")
 	public void applyLayout(final IScope scope) {
 
 		IList<IShape> places = null;
@@ -91,8 +96,7 @@ public class LayoutGrid {
 		places.remove(center);
 		locs.put(currentV, center.getLocation());
 		final List<IShape> open = new ArrayList<>();
-		final List<IShape> remaining = new ArrayList<>();
-		remaining.addAll(graph.getVertices());
+		final List<IShape> remaining = new ArrayList<>(graph.getVertices());
 		remaining.remove(currentV);
 
 		final List<IShape> close = new ArrayList<>();
@@ -112,9 +116,7 @@ public class LayoutGrid {
 					remaining.remove(n);
 				}
 			}
-			if (remaining.isEmpty()) {
-				break;
-			}
+			if (remaining.isEmpty()) { break; }
 			dmax = -1;
 			java.util.Collections.shuffle(open, scope.getRandom().getGenerator());
 			for (final IShape v : open) {
@@ -150,7 +152,7 @@ public class LayoutGrid {
 					for (final IShape n : neigh2) {
 						pts.add(locs.get(n));
 					}
-					final GamaPoint targetLoc = (GamaPoint) gaml.operators.Containers.mean(scope, pts);
+					final GamaPoint targetLoc = (GamaPoint) Containers.opMean(scope, pts);
 					center = places.size() > 0 ? Queries.closest_to(scope, places, targetLoc.getLocation())
 							: locs.get(nV);
 				} else {

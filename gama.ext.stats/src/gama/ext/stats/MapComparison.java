@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * MapComparison.java, in gama.ext.stats, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * MapComparison.java, in gama.ext.stats, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.ext.stats;
 
@@ -19,13 +19,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import gama.core.dev.annotations.IConcept;
-import gama.core.dev.annotations.IOperatorCategory;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.example;
 import gama.core.dev.annotations.GamlAnnotations.no_test;
 import gama.core.dev.annotations.GamlAnnotations.operator;
 import gama.core.dev.annotations.GamlAnnotations.usage;
+import gama.core.dev.annotations.IConcept;
+import gama.core.dev.annotations.IOperatorCategory;
 import gama.metamodel.agent.IAgent;
 import gama.metamodel.shape.GamaPoint;
 import gama.metamodel.topology.filter.IAgentFilter;
@@ -55,10 +55,14 @@ public class MapComparison {
 	/**
 	 * Kappa.
 	 *
-	 * @param scope the scope
-	 * @param vals1 the vals 1
-	 * @param vals2 the vals 2
-	 * @param categories the categories
+	 * @param scope
+	 *            the scope
+	 * @param vals1
+	 *            the vals 1
+	 * @param vals2
+	 *            the vals 2
+	 * @param categories
+	 *            the categories
 	 * @return the double
 	 */
 	@operator (
@@ -85,11 +89,16 @@ public class MapComparison {
 	/**
 	 * Kappa.
 	 *
-	 * @param scope the scope
-	 * @param vals1 the vals 1
-	 * @param vals2 the vals 2
-	 * @param categories the categories
-	 * @param weights the weights
+	 * @param scope
+	 *            the scope
+	 * @param vals1
+	 *            the vals 1
+	 * @param vals2
+	 *            the vals 2
+	 * @param categories
+	 *            the categories
+	 * @param weights
+	 *            the weights
 	 * @return the double
 	 */
 	@operator (
@@ -155,11 +164,16 @@ public class MapComparison {
 	/**
 	 * Kappa simulation.
 	 *
-	 * @param scope the scope
-	 * @param valsInit the vals init
-	 * @param valsObs the vals obs
-	 * @param valsSim the vals sim
-	 * @param categories the categories
+	 * @param scope
+	 *            the scope
+	 * @param valsInit
+	 *            the vals init
+	 * @param valsObs
+	 *            the vals obs
+	 * @param valsSim
+	 *            the vals sim
+	 * @param categories
+	 *            the categories
 	 * @return the double
 	 */
 	@operator (
@@ -181,12 +195,18 @@ public class MapComparison {
 	/**
 	 * Kappa simulation.
 	 *
-	 * @param scope the scope
-	 * @param valsInit the vals init
-	 * @param valsObs the vals obs
-	 * @param valsSim the vals sim
-	 * @param categories the categories
-	 * @param weights the weights
+	 * @param scope
+	 *            the scope
+	 * @param valsInit
+	 *            the vals init
+	 * @param valsObs
+	 *            the vals obs
+	 * @param valsSim
+	 *            the vals sim
+	 * @param categories
+	 *            the categories
+	 * @param weights
+	 *            the weights
 	 * @return the double
 	 */
 	@operator (
@@ -265,14 +285,22 @@ public class MapComparison {
 	/**
 	 * Fuzzy kappa.
 	 *
-	 * @param scope the scope
-	 * @param agents the agents
-	 * @param vals1 the vals 1
-	 * @param vals2 the vals 2
-	 * @param similarities the similarities
-	 * @param categories the categories
-	 * @param fuzzycategories the fuzzycategories
-	 * @param distance the distance
+	 * @param scope
+	 *            the scope
+	 * @param agents
+	 *            the agents
+	 * @param vals1
+	 *            the vals 1
+	 * @param vals2
+	 *            the vals 2
+	 * @param similarities
+	 *            the similarities
+	 * @param categories
+	 *            the categories
+	 * @param fuzzycategories
+	 *            the fuzzycategories
+	 * @param distance
+	 *            the distance
 	 * @return the double
 	 */
 	@operator (
@@ -296,15 +324,24 @@ public class MapComparison {
 	/**
 	 * Fuzzy kappa.
 	 *
-	 * @param scope the scope
-	 * @param agents the agents
-	 * @param vals1 the vals 1
-	 * @param vals2 the vals 2
-	 * @param similarities the similarities
-	 * @param categories the categories
-	 * @param fuzzycategories the fuzzycategories
-	 * @param distance the distance
-	 * @param weights the weights
+	 * @param scope
+	 *            the scope
+	 * @param agents
+	 *            the agents
+	 * @param vals1
+	 *            the vals 1
+	 * @param vals2
+	 *            the vals 2
+	 * @param similarities
+	 *            the similarities
+	 * @param categories
+	 *            the categories
+	 * @param fuzzycategories
+	 *            the fuzzycategories
+	 * @param distance
+	 *            the distance
+	 * @param weights
+	 *            the weights
 	 * @return the double
 	 */
 	@operator (
@@ -356,15 +393,24 @@ public class MapComparison {
 	/**
 	 * Fuzzy kappa simulation.
 	 *
-	 * @param scope the scope
-	 * @param agents the agents
-	 * @param valsInit the vals init
-	 * @param valsObs the vals obs
-	 * @param valsSim the vals sim
-	 * @param similarities the similarities
-	 * @param categories the categories
-	 * @param fuzzytransitions the fuzzytransitions
-	 * @param distance the distance
+	 * @param scope
+	 *            the scope
+	 * @param agents
+	 *            the agents
+	 * @param valsInit
+	 *            the vals init
+	 * @param valsObs
+	 *            the vals obs
+	 * @param valsSim
+	 *            the vals sim
+	 * @param similarities
+	 *            the similarities
+	 * @param categories
+	 *            the categories
+	 * @param fuzzytransitions
+	 *            the fuzzytransitions
+	 * @param distance
+	 *            the distance
 	 * @return the double
 	 */
 	@operator (
@@ -390,16 +436,26 @@ public class MapComparison {
 	/**
 	 * Fuzzy kappa simulation.
 	 *
-	 * @param scope the scope
-	 * @param agents the agents
-	 * @param valsInit the vals init
-	 * @param valsObs the vals obs
-	 * @param valsSim the vals sim
-	 * @param similarities the similarities
-	 * @param categories the categories
-	 * @param fuzzytransitions the fuzzytransitions
-	 * @param distance the distance
-	 * @param weights the weights
+	 * @param scope
+	 *            the scope
+	 * @param agents
+	 *            the agents
+	 * @param valsInit
+	 *            the vals init
+	 * @param valsObs
+	 *            the vals obs
+	 * @param valsSim
+	 *            the vals sim
+	 * @param similarities
+	 *            the similarities
+	 * @param categories
+	 *            the categories
+	 * @param fuzzytransitions
+	 *            the fuzzytransitions
+	 * @param distance
+	 *            the distance
+	 * @param weights
+	 *            the weights
 	 * @return the double
 	 */
 	@operator (
@@ -495,19 +551,32 @@ public class MapComparison {
 	/**
 	 * Compute po.
 	 *
-	 * @param scope the scope
-	 * @param filter the filter
-	 * @param categoriesId the categories id
-	 * @param fuzzytransitions the fuzzytransitions
-	 * @param distance the distance
-	 * @param valsInit the vals init
-	 * @param valsObs the vals obs
-	 * @param valsSim the vals sim
-	 * @param agents the agents
-	 * @param nbCat the nb cat
-	 * @param nb the nb
-	 * @param similarities the similarities
-	 * @param weights the weights
+	 * @param scope
+	 *            the scope
+	 * @param filter
+	 *            the filter
+	 * @param categoriesId
+	 *            the categories id
+	 * @param fuzzytransitions
+	 *            the fuzzytransitions
+	 * @param distance
+	 *            the distance
+	 * @param valsInit
+	 *            the vals init
+	 * @param valsObs
+	 *            the vals obs
+	 * @param valsSim
+	 *            the vals sim
+	 * @param agents
+	 *            the agents
+	 * @param nbCat
+	 *            the nb cat
+	 * @param nb
+	 *            the nb
+	 * @param similarities
+	 *            the similarities
+	 * @param weights
+	 *            the weights
 	 * @return the double
 	 */
 	private static double computePo(final IScope scope, final IAgentFilter filter,
@@ -547,21 +616,36 @@ public class MapComparison {
 	/**
 	 * Compute xa xs.
 	 *
-	 * @param scope the scope
-	 * @param filter the filter
-	 * @param categoriesId the categories id
-	 * @param agsId the ags id
-	 * @param valObsId the val obs id
-	 * @param valSimId the val sim id
-	 * @param valInitId the val init id
-	 * @param fuzzytransitions the fuzzytransitions
-	 * @param distance the distance
-	 * @param agent the agent
-	 * @param valsInit the vals init
-	 * @param valsObs the vals obs
-	 * @param valsSim the vals sim
-	 * @param agents the agents
-	 * @param nbCat the nb cat
+	 * @param scope
+	 *            the scope
+	 * @param filter
+	 *            the filter
+	 * @param categoriesId
+	 *            the categories id
+	 * @param agsId
+	 *            the ags id
+	 * @param valObsId
+	 *            the val obs id
+	 * @param valSimId
+	 *            the val sim id
+	 * @param valInitId
+	 *            the val init id
+	 * @param fuzzytransitions
+	 *            the fuzzytransitions
+	 * @param distance
+	 *            the distance
+	 * @param agent
+	 *            the agent
+	 * @param valsInit
+	 *            the vals init
+	 * @param valsObs
+	 *            the vals obs
+	 * @param valsSim
+	 *            the vals sim
+	 * @param agents
+	 *            the agents
+	 * @param nbCat
+	 *            the nb cat
 	 * @return the double[]
 	 */
 	private static double[] computeXaXs(final IScope scope, final IAgentFilter filter,
@@ -608,13 +692,20 @@ public class MapComparison {
 	/**
 	 * Fuzzy transition.
 	 *
-	 * @param scope the scope
-	 * @param fuzzytransitions the fuzzytransitions
-	 * @param nbCat the nb cat
-	 * @param from1 the from 1
-	 * @param to1 the to 1
-	 * @param from2 the from 2
-	 * @param to2 the to 2
+	 * @param scope
+	 *            the scope
+	 * @param fuzzytransitions
+	 *            the fuzzytransitions
+	 * @param nbCat
+	 *            the nb cat
+	 * @param from1
+	 *            the from 1
+	 * @param to1
+	 *            the to 1
+	 * @param from2
+	 *            the from 2
+	 * @param to2
+	 *            the to 2
 	 * @return the double
 	 */
 	private static double fuzzyTransition(final IScope scope, final GamaMatrix<Double> fuzzytransitions,
@@ -625,15 +716,24 @@ public class MapComparison {
 	/**
 	 * Compute xa xs transitions.
 	 *
-	 * @param scope the scope
-	 * @param filter the filter
-	 * @param fuzzytransitions the fuzzytransitions
-	 * @param distance the distance
-	 * @param agents the agents
-	 * @param nbCat the nb cat
-	 * @param XaPerTransition the xa per transition
-	 * @param XsPerTransition the xs per transition
-	 * @param Xvals the xvals
+	 * @param scope
+	 *            the scope
+	 * @param filter
+	 *            the filter
+	 * @param fuzzytransitions
+	 *            the fuzzytransitions
+	 * @param distance
+	 *            the distance
+	 * @param agents
+	 *            the agents
+	 * @param nbCat
+	 *            the nb cat
+	 * @param XaPerTransition
+	 *            the xa per transition
+	 * @param XsPerTransition
+	 *            the xs per transition
+	 * @param Xvals
+	 *            the xvals
 	 */
 	private static void computeXaXsTransitions(final IScope scope, final IAgentFilter filter,
 			final GamaMatrix<Double> fuzzytransitions, final Double distance, final IContainer<Integer, IAgent> agents,
@@ -644,7 +744,7 @@ public class MapComparison {
 		for (final IAgent ag : agents.iterable(scope)) {
 			locs.add(ag.getLocation());
 		}
-		final GamaPoint centralLoc = (GamaPoint) Containers.mean(scope, locs);
+		final GamaPoint centralLoc = (GamaPoint) Containers.opMean(scope, locs);
 		if (filter != null) {
 			final IAgent centralAg = scope.getTopology().getAgentClosestTo(scope, centralLoc, filter);
 			final List<IAgent> neighbors = distance == 0 ? new ArrayList<>()
@@ -712,12 +812,18 @@ public class MapComparison {
 	/**
 	 * P.
 	 *
-	 * @param dist the dist
-	 * @param a the a
-	 * @param b the b
-	 * @param X the x
-	 * @param Y the y
-	 * @param ringsPn the rings pn
+	 * @param dist
+	 *            the dist
+	 * @param a
+	 *            the a
+	 * @param b
+	 *            the b
+	 * @param X
+	 *            the x
+	 * @param Y
+	 *            the y
+	 * @param ringsPn
+	 *            the rings pn
 	 * @return the double
 	 */
 	private static double p(final double dist, final int a, final int b, final double[] X, final double[] Y,
@@ -730,12 +836,18 @@ public class MapComparison {
 	/**
 	 * Compute expected sim.
 	 *
-	 * @param nbCat the nb cat
-	 * @param X the x
-	 * @param Y the y
-	 * @param nbRings the nb rings
-	 * @param rings the rings
-	 * @param ringsPn the rings pn
+	 * @param nbCat
+	 *            the nb cat
+	 * @param X
+	 *            the x
+	 * @param Y
+	 *            the y
+	 * @param nbRings
+	 *            the nb rings
+	 * @param rings
+	 *            the rings
+	 * @param ringsPn
+	 *            the rings pn
 	 * @return the double
 	 */
 	private static double computeExpectedSim(final int nbCat, final double[] X, final double[] Y, final int nbRings,
@@ -767,21 +879,36 @@ public class MapComparison {
 	/**
 	 * Compute similarity.
 	 *
-	 * @param scope the scope
-	 * @param filter the filter
-	 * @param distance the distance
-	 * @param vals1 the vals 1
-	 * @param vals2 the vals 2
-	 * @param agents the agents
-	 * @param nbCat the nb cat
-	 * @param nb the nb
-	 * @param crispVector1 the crisp vector 1
-	 * @param crispVector2 the crisp vector 2
-	 * @param sim the sim
-	 * @param fuzzyVector1 the fuzzy vector 1
-	 * @param fuzzyVector2 the fuzzy vector 2
-	 * @param similarities the similarities
-	 * @param weights the weights
+	 * @param scope
+	 *            the scope
+	 * @param filter
+	 *            the filter
+	 * @param distance
+	 *            the distance
+	 * @param vals1
+	 *            the vals 1
+	 * @param vals2
+	 *            the vals 2
+	 * @param agents
+	 *            the agents
+	 * @param nbCat
+	 *            the nb cat
+	 * @param nb
+	 *            the nb
+	 * @param crispVector1
+	 *            the crisp vector 1
+	 * @param crispVector2
+	 *            the crisp vector 2
+	 * @param sim
+	 *            the sim
+	 * @param fuzzyVector1
+	 *            the fuzzy vector 1
+	 * @param fuzzyVector2
+	 *            the fuzzy vector 2
+	 * @param similarities
+	 *            the similarities
+	 * @param weights
+	 *            the weights
 	 * @return the double
 	 */
 	private static double computeSimilarity(final IScope scope, final IAgentFilter filter, final Double distance,
@@ -852,20 +979,34 @@ public class MapComparison {
 	/**
 	 * Compute XY crisp vector.
 	 *
-	 * @param scope the scope
-	 * @param categoriesId the categories id
-	 * @param categories the categories
-	 * @param vals1 the vals 1
-	 * @param vals2 the vals 2
-	 * @param fuzzycategories the fuzzycategories
-	 * @param nbCat the nb cat
-	 * @param nb the nb
-	 * @param crispVector1 the crisp vector 1
-	 * @param crispVector2 the crisp vector 2
-	 * @param X the x
-	 * @param Y the y
-	 * @param sim the sim
-	 * @param weights the weights
+	 * @param scope
+	 *            the scope
+	 * @param categoriesId
+	 *            the categories id
+	 * @param categories
+	 *            the categories
+	 * @param vals1
+	 *            the vals 1
+	 * @param vals2
+	 *            the vals 2
+	 * @param fuzzycategories
+	 *            the fuzzycategories
+	 * @param nbCat
+	 *            the nb cat
+	 * @param nb
+	 *            the nb
+	 * @param crispVector1
+	 *            the crisp vector 1
+	 * @param crispVector2
+	 *            the crisp vector 2
+	 * @param X
+	 *            the x
+	 * @param Y
+	 *            the y
+	 * @param sim
+	 *            the sim
+	 * @param weights
+	 *            the weights
 	 */
 	private static void computeXYCrispVector(final IScope scope, final Map<Object, Integer> categoriesId,
 			final List<Object> categories, final IList<Object> vals1, final IList<Object> vals2,
@@ -906,12 +1047,18 @@ public class MapComparison {
 	/**
 	 * Builds the rings.
 	 *
-	 * @param scope the scope
-	 * @param filter the filter
-	 * @param distance the distance
-	 * @param rings the rings
-	 * @param ringsPn the rings pn
-	 * @param agents the agents
+	 * @param scope
+	 *            the scope
+	 * @param filter
+	 *            the filter
+	 * @param distance
+	 *            the distance
+	 * @param rings
+	 *            the rings
+	 * @param ringsPn
+	 *            the rings pn
+	 * @param agents
+	 *            the agents
 	 * @return the int
 	 */
 	private static int buildRings(final IScope scope, final IAgentFilter filter, final Double distance,
@@ -922,7 +1069,7 @@ public class MapComparison {
 		for (final IAgent ag : agents.iterable(scope)) {
 			locs.add(ag.getLocation());
 		}
-		final GamaPoint centralLoc = (GamaPoint) Containers.mean(scope, locs);
+		final GamaPoint centralLoc = (GamaPoint) Containers.opMean(scope, locs);
 		final IAgent centralAg = scope.getTopology().getAgentClosestTo(scope, centralLoc, filter);
 		final List<IAgent> neighbors = distance == 0 || filter == null ? new ArrayList<>()
 				: new ArrayList<>(scope.getTopology().getNeighborsOf(scope, centralAg, distance, filter));
@@ -952,9 +1099,12 @@ public class MapComparison {
 	/**
 	 * Percent absolute deviation.
 	 *
-	 * @param scope the scope
-	 * @param vals1 the vals 1
-	 * @param vals2 the vals 2
+	 * @param scope
+	 *            the scope
+	 * @param vals1
+	 *            the vals 1
+	 * @param vals2
+	 *            the vals 2
 	 * @return the double
 	 */
 	@operator (
