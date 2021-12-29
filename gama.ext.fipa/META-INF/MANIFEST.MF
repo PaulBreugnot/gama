@@ -9,6 +9,6 @@ Export-Package:
  gama.ext.fipa
 Bundle-ClassPath: .
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-16
 Automatic-Module-Name: gama.ext.fipa
 

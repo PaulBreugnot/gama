@@ -273,7 +273,7 @@ Export-Package: gama.common,
  gaml.variables
 Bundle-ClassPath: schema/,
  .
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-16
 Automatic-Module-Name: gama.core.kernel
 Import-Package: org.apache.commons.compress.compressors.bzip2;version="1.19.0",
  org.apache.commons.lang;version="2.6.0",

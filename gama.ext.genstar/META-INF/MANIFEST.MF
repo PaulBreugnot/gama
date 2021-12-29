@@ -4,7 +4,7 @@ Bundle-Name: Population generation extension
 Bundle-SymbolicName: gama.ext.genstar;singleton:=true
 Bundle-Version: 2.0.0.qualifier
 Automatic-Module-Name: gama.ext.genstar
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-16
 Require-Bundle: gama.core.kernel;bundle-version="2.0.0",
  gama.ext.libs;bundle-version="2.0.0"
 Bundle-ClassPath: lib/genstar-core-1.0.4.jar,

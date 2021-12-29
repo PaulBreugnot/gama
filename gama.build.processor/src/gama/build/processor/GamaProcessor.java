@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * GamaProcessor.java, in gama.build.processor, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * GamaProcessor.java, in gama.build.processor, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.build.processor;
 
@@ -28,54 +28,58 @@ import javax.tools.FileObject;
 import gama.build.processor.tests.TestProcessor;
 import gama.core.dev.annotations.GamlAnnotations.tests;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class GamaProcessor.
  */
+
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 @SupportedAnnotationTypes ({ "*" })
-@SupportedSourceVersion (SourceVersion.RELEASE_11)
+@SupportedSourceVersion (SourceVersion.RELEASE_16)
 public class GamaProcessor extends AbstractProcessor implements Constants {
-
-	/** The Constant IMPORTS. */
-	public final static String[] IMPORTS = { "gaml.extensions.multi_criteria", "gama.outputs.layers.charts",
-			"gama.outputs.layers", "gama.outputs", "gama.kernel.batch", "gama.kernel.root",
-			"gaml.architecture.weighted_tasks", "gaml.architecture.user", "gaml.architecture.reflex",
-			"gaml.architecture.finite_state_machine", "gaml.species", "gama.metamodel.shape", "gaml.expressions",
-			"gama.metamodel.topology", "gaml.statements.test", "gama.metamodel.population", "gama.kernel.simulation",
-			"gama.kernel.model", "java.util", "gaml.statements.draw", " gama.metamodel.shape", "gama.common.interfaces",
-			"gama.runtime", "java.lang", "gama.metamodel.agent", "gaml.types", "gaml.compilation", "gaml.factories",
-			"gaml.descriptions", "gama.util.tree", "gama.util.file", "gama.util.matrix", "gama.util.graph",
-			"gama.util.path", "gama.util", "gama.runtime.exceptions", "gaml.factories", "gaml.statements",
-			"gaml.skills", "gaml.variables", "gama.kernel.experiment", "gaml.operators", "gama.common.interfaces",
-			"gama.common.ui", "gaml.extensions.messaging", "gama.metamodel.population" };
 
 	/** The context. */
 	private ProcessorContext context;
-	
+
 	/** The Constant JAVA_HEADER. */
-	public static final String JAVA_HEADER;
-	
+	// public static final String JAVA_HEADER;
+
 	/** The count. */
 	int count;
-	
+
 	/** The begin. */
 	long begin = 0;
-	
+
 	/** The complete. */
 	long complete = 0;
 
-	static {
-		final StringBuilder sb = new StringBuilder();
-		writeImmutableHeader(sb);
-		JAVA_HEADER = sb.toString();
-	}
+	// static {
+	// final StringBuilder sb = new StringBuilder();
+	// writeImmutableHeader(sb);
+	// JAVA_HEADER = sb.toString();
+	// }
 
+	/**
+	 * Inits the.
+	 *
+	 * @param pe
+	 *            the pe
+	 */
 	@Override
 	public synchronized void init(final ProcessingEnvironment pe) {
 		super.init(pe);
 		context = new ProcessorContext(pe);
 	}
 
+	/**
+	 * Process.
+	 *
+	 * @param annotations
+	 *            the annotations
+	 * @param env
+	 *            the env
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment env) {
 		if (complete == 0) { complete = System.currentTimeMillis(); }
@@ -126,7 +130,8 @@ public class GamaProcessor extends AbstractProcessor implements Constants {
 	/**
 	 * Generate java source.
 	 *
-	 * @param file the file
+	 * @param file
+	 *            the file
 	 */
 	public void generateJavaSource(final FileObject file) {
 		try (Writer source = context.createSourceWriter(file)) {
@@ -142,11 +147,12 @@ public class GamaProcessor extends AbstractProcessor implements Constants {
 	/**
 	 * Write immutable header.
 	 *
-	 * @param sb the sb
+	 * @param sb
+	 *            the sb
 	 */
-	protected static void writeImmutableHeader(final StringBuilder sb) {
-		for (final String element : IMPORTS) {
-			sb.append(ln).append("import ").append(element).append(".*;");
+	protected void writeImmutableHeader(final StringBuilder sb) {
+		for (final String element : ProcessorConstants.IMPORTS) {
+			sb.append(ln).append("import ").append(element).append("*;");
 		}
 		for (final String element : EXPLICIT_IMPORTS) {
 			sb.append(ln).append("import ").append(element).append(";");
@@ -164,7 +170,8 @@ public class GamaProcessor extends AbstractProcessor implements Constants {
 	/**
 	 * Write mutable header.
 	 *
-	 * @param sb the sb
+	 * @param sb
+	 *            the sb
 	 */
 	protected void writeMutableHeader(final StringBuilder sb) {
 		processors.values().forEach(p -> {
@@ -185,7 +192,8 @@ public class GamaProcessor extends AbstractProcessor implements Constants {
 	public StringBuilder writeJavaBody() {
 		final StringBuilder sb = new StringBuilder();
 		sb.append("package ").append(PACKAGE_NAME).append(".").append(context.shortcut).append(';');
-		sb.append(ln).append(JAVA_HEADER);
+		sb.append(ln);
+		writeImmutableHeader(sb);
 		writeMutableHeader(sb);
 		processors.values().forEach(p -> {
 			if (p.outputToJava() && p.hasElements()) { p.writeJavaBody(sb, context); }

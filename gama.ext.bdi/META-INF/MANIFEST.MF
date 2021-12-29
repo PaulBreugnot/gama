@@ -8,6 +8,6 @@ Require-Bundle: gama.core.kernel;bundle-version="2.0.0",
 Export-Package: gama.ext.bdi
 Bundle-ClassPath: .
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-16
 Automatic-Module-Name: gama.ext.bdi
 Bundle-Vendor: MIAT

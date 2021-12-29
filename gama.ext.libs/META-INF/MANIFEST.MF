@@ -747,5 +747,5 @@ Bundle-ClassPath: .,
  jgrapht 1.5.1/jheaps-0.13.jar,
  jgrapht 1.5.1/antlr4-runtime-4.8-1.jar,
  svgsalamander1.1.1/svgSalamander-v1.1.1.jar
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-16
 Automatic-Module-Name: gama.ext.libs

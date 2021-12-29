@@ -6,6 +6,6 @@ Bundle-Version: 2.0.0.qualifier
 Bundle-Vendor: UMMISCO
 Export-Package: gama.build.processor
 Require-Bundle: gama.core.dev
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-16
 Automatic-Module-Name: gama.build.processor
 

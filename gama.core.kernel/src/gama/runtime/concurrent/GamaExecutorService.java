@@ -1,7 +1,7 @@
 /*******************************************************************************************************
  *
- * GamaExecutorService.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * GamaExecutorService.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
@@ -63,41 +63,39 @@ public abstract class GamaExecutorService {
 	/** The Constant CONCURRENCY_SIMULATIONS. */
 	public static final Pref<Boolean> CONCURRENCY_SIMULATIONS =
 			create("pref_parallel_simulations", "Make experiments run simulations in parallel", true, IType.BOOL, true)
-			.in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY);
-
+					.in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY);
 
 	/** The Constant CONCURRENCY_SIMULATIONS_ALL. */
-	public static final Pref<Boolean> CONCURRENCY_SIMULATIONS_ALL =
-			create("pref_parallel_simulations_all", "Allow parallel simulations with different parameter sets", false, IType.BOOL, true)
-			.in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY);
+	public static final Pref<Boolean> CONCURRENCY_SIMULATIONS_ALL = create("pref_parallel_simulations_all",
+			"In batch mode, allow to run simulations with different parameter sets in parallel", false, IType.BOOL,
+			true).in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY);
 
 	/** The Constant CONCURRENCY_GRID. */
-	public static final Pref<Boolean> CONCURRENCY_GRID =
-			create("pref_parallel_grids", "Make grids schedule their agents in parallel", false, IType.BOOL, true)
-			.in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY);
+	public static final Pref<Boolean> CONCURRENCY_GRID = create("pref_parallel_grids",
+			"Make grids schedule their agents in parallel (beware that setting this to true no longer allows GAMA to ensure the reproducibility of simulations)",
+			false, IType.BOOL, true).in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY);
 
 	/** The Constant CONCURRENCY_SPECIES. */
-	public static final Pref<Boolean> CONCURRENCY_SPECIES =
-			create("pref_parallel_species", "Make species schedule their agents in parallel", false, IType.BOOL, true)
-			.in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY);
+	public static final Pref<Boolean> CONCURRENCY_SPECIES = create("pref_parallel_species",
+			"Make species schedule their agents in parallel (beware that setting this to true no longer allows GAMA to ensure the reproducibility of simulations)",
+			false, IType.BOOL, true).in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY);
 
 	/** The Constant CONCURRENCY_THRESHOLD. */
-	public static final Pref<Integer> CONCURRENCY_THRESHOLD =
-			create("pref_parallel_threshold", "Number under which agents are executed sequentially", 20, IType.INT,
-					true).between(1, null).in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY);
-
+	public static final Pref<Integer> CONCURRENCY_THRESHOLD = create("pref_parallel_threshold",
+			"Number under which agents are executed sequentially. If set to 1, agents are always executed in parallel",
+			20, IType.INT, true).between(1, null).in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY);
 	/** The Constant THREADS_NUMBER. */
 	public static final Pref<Integer> THREADS_NUMBER =
 			create("pref_parallel_threads",
 					"Max. number of threads to use (available processors: " + Runtime.getRuntime().availableProcessors()
-					+ ")",
+							+ ")",
 					4, IType.INT, true).between(1, null)
-			.in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY)
-			.onChange(newValue -> {
-				reset();
-				System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism",
-						String.valueOf(newValue));
-			});
+							.in(GamaPreferences.Runtime.NAME, GamaPreferences.Runtime.CONCURRENCY)
+							.onChange(newValue -> {
+								reset();
+								System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism",
+										String.valueOf(newValue));
+							});
 
 	/**
 	 * Reset.
@@ -110,15 +108,14 @@ public abstract class GamaExecutorService {
 	/**
 	 * Sets the concurrency level.
 	 *
-	 * @param nb the new concurrency level
+	 * @param nb
+	 *            the new concurrency level
 	 */
 	public static void setConcurrencyLevel(final int nb) {
 		if (AGENT_PARALLEL_EXECUTOR != null) { AGENT_PARALLEL_EXECUTOR.shutdown(); }
 		AGENT_PARALLEL_EXECUTOR = new ForkJoinPool(nb) {
 			@Override
-			public UncaughtExceptionHandler getUncaughtExceptionHandler() {
-				return EXCEPTION_HANDLER;
-			}
+			public UncaughtExceptionHandler getUncaughtExceptionHandler() { return EXCEPTION_HANDLER; }
 		};
 
 	}
@@ -141,9 +138,12 @@ public abstract class GamaExecutorService {
 	/**
 	 * Returns the level of parallelism from the expression passed and the preferences.
 	 *
-	 * @param scope the scope
-	 * @param concurrency            The facet passed to the statement or species
-	 * @param caller the caller
+	 * @param scope
+	 *            the scope
+	 * @param concurrency
+	 *            The facet passed to the statement or species
+	 * @param caller
+	 *            the caller
 	 * @return 0 for no parallelism, 1 for complete parallelism (i.e. each agent on its own), n for parallelism with a
 	 *         threshold of n
 	 */
@@ -182,7 +182,8 @@ public abstract class GamaExecutorService {
 	/**
 	 * Execute threaded.
 	 *
-	 * @param r the r
+	 * @param r
+	 *            the r
 	 */
 	public static void executeThreaded(final Runnable r) {
 		AGENT_PARALLEL_EXECUTOR.invoke(ForkJoinTask.adapt(r));
@@ -191,12 +192,17 @@ public abstract class GamaExecutorService {
 	/**
 	 * Step.
 	 *
-	 * @param <A> the generic type
-	 * @param scope the scope
-	 * @param pop the pop
-	 * @param species the species
+	 * @param <A>
+	 *            the generic type
+	 * @param scope
+	 *            the scope
+	 * @param pop
+	 *            the pop
+	 * @param species
+	 *            the species
 	 * @return the boolean
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	public static <A extends IAgent> Boolean step(final IScope scope, final IList<A> pop, final ISpecies species)
 			throws GamaRuntimeException {
@@ -210,12 +216,17 @@ public abstract class GamaExecutorService {
 	/**
 	 * Step.
 	 *
-	 * @param <A> the generic type
-	 * @param scope the scope
-	 * @param array the array
-	 * @param species the species
+	 * @param <A>
+	 *            the generic type
+	 * @param scope
+	 *            the scope
+	 * @param array
+	 *            the array
+	 * @param species
+	 *            the species
 	 * @return the boolean
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	public static <A extends IShape> Boolean step(final IScope scope, final A[] array, final ISpecies species)
 			throws GamaRuntimeException {
@@ -235,11 +246,16 @@ public abstract class GamaExecutorService {
 	/**
 	 * Do step.
 	 *
-	 * @param <A> the generic type
-	 * @param scope the scope
-	 * @param array the array
-	 * @param threshold the threshold
-	 * @param species the species
+	 * @param <A>
+	 *            the generic type
+	 * @param scope
+	 *            the scope
+	 * @param array
+	 *            the array
+	 * @param threshold
+	 *            the threshold
+	 * @param species
+	 *            the species
 	 * @return the boolean
 	 */
 	private static <A extends IShape> Boolean doStep(final IScope scope, final A[] array, final int threshold,
@@ -272,12 +288,18 @@ public abstract class GamaExecutorService {
 	/**
 	 * Execute.
 	 *
-	 * @param <A> the generic type
-	 * @param scope the scope
-	 * @param executable the executable
-	 * @param array the array
-	 * @param parallel the parallel
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param <A>
+	 *            the generic type
+	 * @param scope
+	 *            the scope
+	 * @param executable
+	 *            the executable
+	 * @param array
+	 *            the array
+	 * @param parallel
+	 *            the parallel
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	public static <A extends IShape> void execute(final IScope scope, final IExecutable executable, final A[] array,
 			final IExpression parallel) throws GamaRuntimeException {
@@ -302,11 +324,16 @@ public abstract class GamaExecutorService {
 	/**
 	 * Execute.
 	 *
-	 * @param scope the scope
-	 * @param executable the executable
-	 * @param list the list
-	 * @param parallel the parallel
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param scope
+	 *            the scope
+	 * @param executable
+	 *            the executable
+	 * @param list
+	 *            the list
+	 * @param parallel
+	 *            the parallel
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	public static void execute(final IScope scope, final IExecutable executable, final List<? extends IAgent> list,
 			final IExpression parallel) throws GamaRuntimeException {

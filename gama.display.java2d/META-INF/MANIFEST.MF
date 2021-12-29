@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Java2D Display for GAMA
 Bundle-SymbolicName: gama.display.java2d;singleton:=true
 Bundle-Version: 2.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-16
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.swt,
  gama.core.kernel;bundle-version="2.0.0",

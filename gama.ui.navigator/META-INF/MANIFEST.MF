@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Navigator
 Bundle-SymbolicName: gama.ui.navigator;singleton:=true
 Bundle-Version: 2.0.0.qualifier
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-16
 Bundle-ActivationPolicy: lazy
 Export-Package: gama.ui.navigator,
  gama.ui.navigator.actions,

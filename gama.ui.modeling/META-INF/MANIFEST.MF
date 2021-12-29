@@ -50,7 +50,7 @@ Export-Package: gama.ui.modeling,
  gama.core.lang.ide.contentassist.antlr.internal,
  gama.core.lang.ui.contentassist
 Bundle-Activator: gama.ui.modeling.internal.ModelingActivator
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-16
 Automatic-Module-Name: gama.ui.modeling
 Import-Package: gama.core.headless.core,
  org.apache.log4j

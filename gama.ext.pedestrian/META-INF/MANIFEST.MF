@@ -4,7 +4,7 @@ Bundle-Name: Pedestrian
 Bundle-SymbolicName: gama.ext.pedestrian;singleton:=true
 Bundle-Version: 2.0.0.qualifier
 Automatic-Module-Name: gama.ext.pedestrian
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-16
 Require-Bundle: gama.core.kernel;bundle-version="2.0.0",
  gama.ext.libs;bundle-version="2.0.0"
 Export-Package: gama.ext.pedestrian.operator,

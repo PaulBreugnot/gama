@@ -10,7 +10,7 @@ Export-Package: gama.core.application,
  gama.core.application.projects,
  gama.core.application.workspace
 Bundle-ClassPath: .
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-16
 Automatic-Module-Name: msi.gama.application
 Import-Package: gama.common.interfaces,
  gama.common.ui,

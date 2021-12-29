@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ElementProcessor.java, in gama.build.processor, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ElementProcessor.java, in msi.gama.processor, is part of the source code of the GAMA modeling and simulation platform
+ * (v.1.8.2).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.build.processor;
 
@@ -51,38 +51,41 @@ import gama.core.dev.annotations.GamlAnnotations.type;
 import gama.core.dev.annotations.GamlAnnotations.usage;
 import gama.core.dev.annotations.GamlAnnotations.variable;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ElementProcessor.
  *
- * @param <T> the generic type
+ * @param <T>
+ *            the generic type
  */
 public abstract class ElementProcessor<T extends Annotation> implements IProcessor<T>, Constants {
 
 	/** The Constant NAME_CACHE. */
 	protected static final Map<String, String> NAME_CACHE = new HashMap<>();
-	
+
 	/** The Constant CONCAT. */
 	static final StringBuilder CONCAT = new StringBuilder();
 
 	/** The serialized elements. */
 	protected final SortedMap<String, StringBuilder> serializedElements = new TreeMap<>();
-	
+
 	/** The Constant CLASS_PARAM. */
 	static final Pattern CLASS_PARAM = Pattern.compile("<.*?>");
-	
+
 	/** The Constant SINGLE_QUOTE. */
 	static final Pattern SINGLE_QUOTE = Pattern.compile("\"");
-	
+
 	/** The Constant QUOTE_MATCHER. */
 	static final String QUOTE_MATCHER = Matcher.quoteReplacement("\\\"");
-	
+
 	/** The initialization method name. */
 	protected String initializationMethodName;
 
 	/**
 	 * Concat.
 	 *
-	 * @param array the array
+	 * @param array
+	 *            the array
 	 * @return the string
 	 */
 	protected final static String concat(final String... array) {
@@ -102,8 +105,10 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * Clean.
 	 *
-	 * @param context the context
-	 * @param map the map
+	 * @param context
+	 *            the context
+	 * @param map
+	 *            the map
 	 */
 	protected void clean(final ProcessorContext context, final Map<String, StringBuilder> map) {
 		for (final String k : context.getRoots()) {
@@ -111,11 +116,22 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 		}
 	}
 
+	/**
+	 * Checks for elements.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean hasElements() {
 		return serializedElements.size() > 0;
 	}
 
+	/**
+	 * Process.
+	 *
+	 * @param context
+	 *            the context
+	 */
 	@Override
 	public void process(final ProcessorContext context) {
 		final Class<T> a = getAnnotationClass();
@@ -139,13 +155,15 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	}
 
 	/** The Constant NULL_DOCS. */
-	static final doc[] NULL_DOCS = new doc[0];
+	static final doc[] NULL_DOCS = {};
 
 	/**
 	 * Checks if is internal.
 	 *
-	 * @param main the main
-	 * @param a the a
+	 * @param main
+	 *            the main
+	 * @param a
+	 *            the a
 	 * @return true, if is internal
 	 */
 	protected boolean isInternal(final Element main, final Annotation a) {
@@ -169,8 +187,10 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * Gets the doc annotation.
 	 *
-	 * @param main the main
-	 * @param a the a
+	 * @param main
+	 *            the main
+	 * @param a
+	 *            the a
 	 * @return the doc annotation
 	 */
 	protected doc getDocAnnotation(final Element main, final Annotation a) {
@@ -181,9 +201,7 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 			docs = ((symbol) a).doc();
 		} else if (a instanceof arg) {
 			docs = ((arg) a).doc();
-		} else if (a instanceof display) {
-			// nothing
-		} else if (a instanceof experiment) {
+		} else if (a instanceof display || a instanceof experiment) {
 			// nothing
 		} else if (a instanceof constant) {
 			docs = ((constant) a).doc();
@@ -210,8 +228,10 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * Checks if is deprecated.
 	 *
-	 * @param e the e
-	 * @param a the a
+	 * @param e
+	 *            the e
+	 * @param a
+	 *            the a
 	 * @return true, if is deprecated
 	 */
 	protected boolean isDeprecated(final Element e, final Annotation a) {
@@ -223,7 +243,8 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * Checks for tests.
 	 *
-	 * @param examples the examples
+	 * @param examples
+	 *            the examples
 	 * @return true, if successful
 	 */
 	public boolean hasTests(final example[] examples) {
@@ -236,8 +257,10 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * Checks for tests.
 	 *
-	 * @param e the e
-	 * @param a the a
+	 * @param e
+	 *            the e
+	 * @param a
+	 *            the a
 	 * @return true, if successful
 	 */
 	public boolean hasTests(final Element e, final Annotation a) {
@@ -262,10 +285,14 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * Verify doc.
 	 *
-	 * @param context the context
-	 * @param e the e
-	 * @param displayedName the displayed name
-	 * @param a the a
+	 * @param context
+	 *            the context
+	 * @param e
+	 *            the e
+	 * @param displayedName
+	 *            the displayed name
+	 * @param a
+	 *            the a
 	 */
 	protected void verifyDoc(final ProcessorContext context, final Element e, final String displayedName,
 			final Annotation a) {
@@ -282,10 +309,20 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 
 	}
 
+	/**
+	 * Serialize.
+	 *
+	 * @param context
+	 *            the context
+	 * @param elements
+	 *            the elements
+	 * @param sb
+	 *            the sb
+	 */
 	@Override
 	public void serialize(final ProcessorContext context, final Collection<StringBuilder> elements,
 			final StringBuilder sb) {
-		elements.forEach((builder) -> {
+		elements.forEach(builder -> {
 			if (builder != null) { sb.append(builder); }
 		});
 	}
@@ -293,11 +330,16 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * Write method.
 	 *
-	 * @param method the method
-	 * @param followingMethod the following method
-	 * @param elements the elements
-	 * @param sb the sb
-	 * @param context the context
+	 * @param method
+	 *            the method
+	 * @param followingMethod
+	 *            the following method
+	 * @param elements
+	 *            the elements
+	 * @param sb
+	 *            the sb
+	 * @param context
+	 *            the context
 	 */
 	private void writeMethod(final String method, final String followingMethod,
 			final Collection<StringBuilder> elements, final StringBuilder sb, final ProcessorContext context) {
@@ -307,6 +349,14 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 		sb.append(ln).append("}");
 	}
 
+	/**
+	 * Write java body.
+	 *
+	 * @param sb
+	 *            the sb
+	 * @param context
+	 *            the context
+	 */
 	@Override
 	public void writeJavaBody(final StringBuilder sb, final ProcessorContext context) {
 		final String method = getInitializationMethodName();
@@ -323,18 +373,21 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * Size of.
 	 *
-	 * @param elements the elements
+	 * @param elements
+	 *            the elements
 	 * @return the int
 	 */
 	private int sizeOf(final Map<String, StringBuilder> elements) {
-		return elements.values().stream().filter(e -> e != null).mapToInt(e -> e.length()).sum();
+		return elements.values().stream().filter(e -> e != null).mapToInt(StringBuilder::length).sum();
 	}
 
 	/**
 	 * Half of.
 	 *
-	 * @param elements the elements
-	 * @param firstHalf the first half
+	 * @param elements
+	 *            the elements
+	 * @param firstHalf
+	 *            the first half
 	 * @return the list
 	 */
 	private List<StringBuilder> halfOf(final Map<String, StringBuilder> elements, final boolean firstHalf) {
@@ -347,10 +400,14 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * Creates the element.
 	 *
-	 * @param sb the sb
-	 * @param context the context
-	 * @param e the e
-	 * @param annotation the annotation
+	 * @param sb
+	 *            the sb
+	 * @param context
+	 *            the context
+	 * @param e
+	 *            the e
+	 * @param annotation
+	 *            the annotation
 	 */
 	public abstract void createElement(StringBuilder sb, ProcessorContext context, Element e, T annotation);
 
@@ -361,6 +418,11 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	 */
 	protected abstract Class<T> getAnnotationClass();
 
+	/**
+	 * Gets the initialization method name.
+	 *
+	 * @return the initialization method name
+	 */
 	@Override
 	public final String getInitializationMethodName() {
 		if (initializationMethodName == null) {
@@ -373,7 +435,8 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * To java string.
 	 *
-	 * @param s the s
+	 * @param s
+	 *            the s
 	 * @return the string
 	 */
 	protected static String toJavaString(final String s) {
@@ -385,7 +448,8 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * To class object.
 	 *
-	 * @param s the s
+	 * @param s
+	 *            the s
 	 * @return the string
 	 */
 	protected final static String toClassObject(final String s) {
@@ -396,8 +460,10 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * To array of strings.
 	 *
-	 * @param segments the segments
-	 * @param sb the sb
+	 * @param segments
+	 *            the segments
+	 * @param sb
+	 *            the sb
 	 * @return the string builder
 	 */
 	protected final static StringBuilder toArrayOfStrings(final String[] segments, final StringBuilder sb) {
@@ -417,7 +483,8 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * Check prim.
 	 *
-	 * @param c the c
+	 * @param c
+	 *            the c
 	 * @return the string
 	 */
 	protected static String checkPrim(final String c) {
@@ -427,7 +494,8 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * Return when null.
 	 *
-	 * @param returnClass the return class
+	 * @param returnClass
+	 *            the return class
 	 * @return the string
 	 */
 	protected static String returnWhenNull(final String returnClass) {
@@ -437,9 +505,12 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * Param.
 	 *
-	 * @param sb the sb
-	 * @param c the c
-	 * @param par the par
+	 * @param sb
+	 *            the sb
+	 * @param c
+	 *            the c
+	 * @param par
+	 *            the par
 	 */
 	protected static void param(final StringBuilder sb, final String c, final String par) {
 		final String jc = checkPrim(c);
@@ -465,7 +536,8 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * Escape double quotes.
 	 *
-	 * @param input the input
+	 * @param input
+	 *            the input
 	 * @return the string
 	 */
 	protected static String escapeDoubleQuotes(final String input) {
@@ -476,8 +548,10 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * To array of ints.
 	 *
-	 * @param array the array
-	 * @param sb the sb
+	 * @param array
+	 *            the array
+	 * @param sb
+	 *            the sb
 	 * @return the string builder
 	 */
 	public static StringBuilder toArrayOfInts(final int[] array, final StringBuilder sb) {
@@ -495,27 +569,26 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	}
 
 	/**
-	 * Raw name of.
+	 * Returns the "raw" name of a type (qualified name w/o the type parameters). Additionally compares the resulting
+	 * name to the elements in GamaProcessor.IMPORTS_SET and removes the path if it is imported.
 	 *
-	 * @param context the context
-	 * @param t the t
+	 * @param context
+	 *            the context
+	 * @param t
+	 *            the t
 	 * @return the string
 	 */
 	static String rawNameOf(final ProcessorContext context, final TypeMirror t) {
-		if (t.getKind().equals(TypeKind.VOID)) return "void";
+		if (TypeKind.VOID.equals(t.getKind())) return "void";
 		final String key = t.toString();
 		if (NAME_CACHE.containsKey(key)) return NAME_CACHE.get(key);
 		String type = context.getTypeUtils().erasure(t).toString();
 		// As a workaround for ECJ/javac discrepancies regarding erasure
 		type = CLASS_PARAM.matcher(type).replaceAll("");
 		// Reduction by considering the imports written in the header
-		for (final String element : GamaProcessor.IMPORTS) {
-			if (type.startsWith(element)) {
-				type = type.replace(element + ".", "");
-				break;
-			}
-		}
-		// context.emit(Kind.NOTE, "Type to convert : " + key + " | Reduction: " + type, null);
+		int lastDot = type.lastIndexOf('.') + 1;
+		String path = type.substring(0, lastDot);
+		if (context.containsImport(path)) { type = type.substring(lastDot); }
 		NAME_CACHE.put(key, type);
 		return type;
 	}
@@ -523,7 +596,8 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * To boolean.
 	 *
-	 * @param b the b
+	 * @param b
+	 *            the b
 	 * @return the string
 	 */
 	protected String toBoolean(final boolean b) {
@@ -536,8 +610,10 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	 * A method that allows to verify that the element on which annotations are processed is valid. Should return true
 	 * if it is the case, false otherwise. And errors should be produced in this case
 	 *
-	 * @param context            the current processor context (which gives access to various utilities)
-	 * @param e            the current element to be processed
+	 * @param context
+	 *            the current processor context (which gives access to various utilities)
+	 * @param e
+	 *            the current element to be processed
 	 * @return true, if successful
 	 */
 	protected boolean validateElement(final ProcessorContext context, final Element e) {
@@ -547,9 +623,12 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * Assert contains scope.
 	 *
-	 * @param context the context
-	 * @param throwsError the throws error
-	 * @param e the e
+	 * @param context
+	 *            the context
+	 * @param throwsError
+	 *            the throws error
+	 * @param e
+	 *            the e
 	 * @return true, if successful
 	 */
 	protected boolean assertContainsScope(final ProcessorContext context, final boolean throwsError,
@@ -564,10 +643,14 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * Assert arguments size.
 	 *
-	 * @param context the context
-	 * @param throwsError the throws error
-	 * @param e the e
-	 * @param i the i
+	 * @param context
+	 *            the context
+	 * @param throwsError
+	 *            the throws error
+	 * @param e
+	 *            the e
+	 * @param i
+	 *            the i
 	 * @return true, if successful
 	 */
 	protected boolean assertArgumentsSize(final ProcessorContext context, final boolean throwsError,
@@ -581,14 +664,17 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * Assert not void.
 	 *
-	 * @param context the context
-	 * @param throwsError the throws error
-	 * @param e the e
+	 * @param context
+	 *            the context
+	 * @param throwsError
+	 *            the throws error
+	 * @param e
+	 *            the e
 	 * @return true, if successful
 	 */
 	protected boolean assertNotVoid(final ProcessorContext context, final boolean throwsError,
 			final ExecutableElement e) {
-		if (!e.getReturnType().getKind().equals(TypeKind.VOID)) return true;
+		if (!TypeKind.VOID.equals(e.getReturnType().getKind())) return true;
 		context.emit(throwsError ? Kind.ERROR : Kind.WARNING,
 				"The method should return a result to be annotated with " + getAnnotationClass().getSimpleName(), e);
 		return !throwsError;
@@ -597,16 +683,19 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * Assert class is agent or skill.
 	 *
-	 * @param context the context
-	 * @param throwsError the throws error
-	 * @param e the e
+	 * @param context
+	 *            the context
+	 * @param throwsError
+	 *            the throws error
+	 * @param e
+	 *            the e
 	 * @return true, if successful
 	 */
 	protected boolean assertClassIsAgentOrSkill(final ProcessorContext context, final boolean throwsError,
 			final TypeElement e) {
 		TypeMirror t = e.asType();
-		if (context.getTypeUtils().isAssignable(t, context.getIAgent())
-				|| context.getTypeUtils().isAssignable(t, context.getISkill()))
+		if (context.getTypeUtils().isSubtype(t, context.getIAgent())
+				|| context.getTypeUtils().isSubtype(t, context.getISkill()))
 			return true;
 		context.emit(throwsError ? Kind.ERROR : Kind.WARNING, getAnnotationClass().getSimpleName()
 				+ " annotations do not make sense outside IAgent or ISkill subclasses", e);
@@ -616,15 +705,19 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * Assert class extends.
 	 *
-	 * @param context the context
-	 * @param throwsError the throws error
-	 * @param e the e
-	 * @param type the type
+	 * @param context
+	 *            the context
+	 * @param throwsError
+	 *            the throws error
+	 * @param e
+	 *            the e
+	 * @param type
+	 *            the type
 	 * @return true, if successful
 	 */
 	protected boolean assertClassExtends(final ProcessorContext context, final boolean throwsError, final TypeElement e,
 			final TypeMirror type) {
-		if (context.getTypeUtils().isAssignable(e.asType(), type)) return true;
+		if (context.getTypeUtils().isSubtype(e.asType(), type)) return true;
 		context.emit(throwsError ? Kind.ERROR : Kind.WARNING, getAnnotationClass().getSimpleName()
 				+ " annotations shoud be placed on classes extending or implementing " + type.toString(), e);
 		return !throwsError;
@@ -633,9 +726,12 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * Assert one scope and string constructor.
 	 *
-	 * @param context the context
-	 * @param throwsError the throws error
-	 * @param e the e
+	 * @param context
+	 *            the context
+	 * @param throwsError
+	 *            the throws error
+	 * @param e
+	 *            the e
 	 * @return true, if successful
 	 */
 	protected boolean assertOneScopeAndStringConstructor(final ProcessorContext context, final boolean throwsError,
@@ -659,10 +755,14 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * Assert annotation present.
 	 *
-	 * @param context the context
-	 * @param throwsError the throws error
-	 * @param e the e
-	 * @param anno the anno
+	 * @param context
+	 *            the context
+	 * @param throwsError
+	 *            the throws error
+	 * @param e
+	 *            the e
+	 * @param anno
+	 *            the anno
 	 * @return true, if successful
 	 */
 	protected boolean assertAnnotationPresent(final ProcessorContext context, final boolean throwsError,
@@ -677,9 +777,12 @@ public abstract class ElementProcessor<T extends Annotation> implements IProcess
 	/**
 	 * Assert element is public.
 	 *
-	 * @param context the context
-	 * @param throwsError the throws error
-	 * @param e the e
+	 * @param context
+	 *            the context
+	 * @param throwsError
+	 *            the throws error
+	 * @param e
+	 *            the e
 	 * @return true, if successful
 	 */
 	protected boolean assertElementIsPublic(final ProcessorContext context, final boolean throwsError,

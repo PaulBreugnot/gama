@@ -37,6 +37,6 @@ Export-Package: com.thoughtworks.xstream,
 Import-Package: gama.core.application.bundles,
  org.apache.commons.lang
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-16
 Automatic-Module-Name: ummisco.gama.serialize
 Bundle-Vendor: IRIT

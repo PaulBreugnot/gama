@@ -4,7 +4,7 @@ Bundle-Name: Annotations and development utilities
 Bundle-SymbolicName: gama.core.dev;singleton:=true
 Bundle-Version: 2.0.0.qualifier
 Bundle-Vendor: UMMISCO
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-16
 Export-Package: gama.core.dev.annotations,
  gama.core.dev.constants,
  gama.core.dev.utils

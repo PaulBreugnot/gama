@@ -15,20 +15,15 @@
         <file path="/gama.build.processor/build.properties"/>
         <file path="/gama.core.dev/.project"/>
         <file path="/gama.core.dev/pom.xml"/>
-        <javaElement handleIdentifier="=gama.build.processor/src&lt;gama.build.processor.doc"/>
-        <javaElement handleIdentifier="=gama.build.processor/src&lt;gama.build.processor"/>
-        <javaElement handleIdentifier="=gama.build.processor/src&lt;gama.build.processor.resources"/>
+        <javaElement handleIdentifier="=gama.core.dev/src"/>
         <file path="/gama.core.dev/.classpath"/>
-        <javaElement handleIdentifier="=gama.core.dev/src&lt;gama.core.dev.constants"/>
-        <javaElement handleIdentifier="=gama.core.dev/src&lt;gama.core.dev.utils"/>
         <folder path="/gama.core.dev/META-INF"/>
-        <javaElement handleIdentifier="=gama.build.processor/src&lt;gama.build.processor.tests"/>
         <file path="/gama.build.processor/.gitignore"/>
         <file path="/gama.core.dev/build.properties"/>
         <file path="/gama.build.processor/.project"/>
         <file path="/gama.build.processor/plugin.xml"/>
-        <javaElement handleIdentifier="=gama.core.dev/src&lt;gama.core.dev.annotations"/>
         <file path="/gama.build.processor/pom.xml"/>
+        <javaElement handleIdentifier="=gama.build.processor/src"/>
         <file path="/gama.build.processor/.classpath"/>
     </selectedElements>
 </jardesc>

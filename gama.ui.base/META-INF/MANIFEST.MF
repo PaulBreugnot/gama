@@ -5,7 +5,7 @@ Bundle-SymbolicName: gama.ui.base;singleton:=true
 Eclipse-BundleShape: dir
 Bundle-Version: 2.0.0.qualifier
 Bundle-Vendor: UMMISCO
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-16
 Bundle-ActivationPolicy: lazy
 Export-Package: gama.ui.base.bindings,
  gama.ui.base.commands,

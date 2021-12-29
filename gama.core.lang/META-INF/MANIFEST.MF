@@ -33,7 +33,7 @@ Export-Package: gama.core.lang,
  gama.core.lang.gaml,
  gama.core.lang.parser.antlr.internal
 Import-Package: org.apache.commons.lang;version="2.4.0"
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-16
 Automatic-Module-Name: gama.core.lang
 Bundle-ActivationPolicy: lazy
 Bundle-Activator: gama.core.lang.Activator

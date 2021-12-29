@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ProcessorContext.java, in gama.build.processor, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ProcessorContext.java, in msi.gama.processor, is part of the source code of the GAMA modeling and simulation platform
+ * (v.1.8.2).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.build.processor;
 
@@ -22,6 +22,7 @@ import java.io.Writer;
 import java.lang.annotation.Annotation;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -48,47 +49,42 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ProcessorContext.
  */
-public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment, Constants {
-	
+public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment, Constants, ProcessorConstants {
+
 	/** The Constant PRODUCES_DOC. */
 	private final static boolean PRODUCES_DOC = true;
-	
+
 	/** The Constant CHARSET. */
 	public static final Charset CHARSET = Charset.forName("UTF-8");
-	
-	/** The Constant ADDITIONS_PACKAGE_BASE. */
-	public static final String ADDITIONS_PACKAGE_BASE = "gaml.additions";
-	
-	/** The Constant ADDITIONS_CLASS_NAME. */
-	public static final String ADDITIONS_CLASS_NAME = "GamlAdditions";
-	
+
 	/** The Constant PRODUCES_WARNING. */
 	private final static boolean PRODUCES_WARNING = true;
-	
+
 	/** The Constant OUT. */
 	public static final StandardLocation OUT = StandardLocation.SOURCE_OUTPUT;
-	
+
 	/** The delegate. */
 	private final ProcessingEnvironment delegate;
-	
+
 	/** The round. */
 	private RoundEnvironment round;
-	
+
 	/** The string. */
 	private TypeMirror iSkill, iAgent, iVarAndActionSupport, iScope, string;
-	
+
 	/** The current plugin. */
 	public volatile String currentPlugin;
-	
+
 	/** The shortcut. */
 	public volatile String shortcut;
-	
+
 	/** The roots. */
 	public List<String> roots;
-	
+
 	/** The Constant xmlBuilder. */
 	public static final DocumentBuilder xmlBuilder;
 
@@ -103,7 +99,8 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	/**
 	 * Instantiates a new processor context.
 	 *
-	 * @param pe the pe
+	 * @param pe
+	 *            the pe
 	 */
 	public ProcessorContext(final ProcessingEnvironment pe) {
 		delegate = pe;
@@ -114,14 +111,13 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	 *
 	 * @return the builder
 	 */
-	public DocumentBuilder getBuilder() {
-		return xmlBuilder;
-	}
+	public DocumentBuilder getBuilder() { return xmlBuilder; }
 
 	/**
 	 * Name of.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @return the string
 	 */
 	public String nameOf(final TypeElement e) {
@@ -132,41 +128,43 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	/**
 	 * Introduced to handle issue #1671.
 	 *
-	 * @param annotationClass the annotation class
-	 * @return the list<? extends element>
+	 * @param annotationClass
+	 *            the annotation class
+	 * @return the list
 	 */
-	public List<? extends Element> sortElements(final Class<? extends Annotation> annotationClass) {
+	public List<Element> sortElements(final Class<? extends Annotation> annotationClass) {
 		final Set<? extends Element> elements = getElementsAnnotatedWith(annotationClass);
-		final List<? extends Element> result = new ArrayList<>(elements);
-		sort(result, (o1, o2) -> o1.toString().compareTo(o2.toString()));
+		final List<Element> result = new ArrayList<>(elements);
+		sort(result, Comparator.comparing(Element::toString));
 		return result;
 	}
 
 	/**
 	 * Group elements.
 	 *
-	 * @param annotationClass the annotation class
+	 * @param annotationClass
+	 *            the annotation class
 	 * @return the map
 	 */
 	public final Map<String, List<Element>> groupElements(final Class<? extends Annotation> annotationClass) {
-		final Map<String, List<Element>> result = getElementsAnnotatedWith(annotationClass).stream()
-				.collect(Collectors.groupingBy((k) -> getRootClassOf(k)));
+
 		// result.forEach((s, l) -> sort(l, (o1, o2) -> o1.toString().compareTo(o2.toString())));
-		return result;
+		return getElementsAnnotatedWith(annotationClass).stream().collect(Collectors.groupingBy(this::getRootClassOf));
 	}
 
 	/**
 	 * Gets the root class of.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @return the root class of
 	 */
 	private String getRootClassOf(final Element e) {
 		final ElementKind kind = e.getKind();
 		final Element enclosing = e.getEnclosingElement();
 		final ElementKind enclosingKind = enclosing.getKind();
-		if ((kind == ElementKind.CLASS || kind == ElementKind.INTERFACE)
-				&& !(enclosingKind == ElementKind.CLASS || enclosingKind == ElementKind.INTERFACE))
+		if ((kind == ElementKind.CLASS || kind == ElementKind.INTERFACE) && enclosingKind != ElementKind.CLASS
+				&& enclosingKind != ElementKind.INTERFACE)
 			return e.toString();
 		return getRootClassOf(enclosing);
 	}
@@ -177,7 +175,7 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	 * @return the i skill
 	 */
 	public TypeMirror getISkill() {
-		if (iSkill == null) { iSkill = getType("gama.common.interfaces.ISkill"); }
+		if (iSkill == null) { iSkill = getType(I_SKILL_QN); }
 		return iSkill;
 	}
 
@@ -187,7 +185,7 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	 * @return the i scope
 	 */
 	public TypeMirror getIScope() {
-		if (iScope == null) { iScope = getType("gama.runtime.IScope"); }
+		if (iScope == null) { iScope = getType(I_SCOPE_QN); }
 		return iScope;
 	}
 
@@ -197,14 +195,15 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	 * @return the string
 	 */
 	public TypeMirror getString() {
-		if (string == null) { string = getType("java.lang.String"); }
+		if (string == null) { string = getType(STRING_QN); }
 		return string;
 	}
 
 	/**
 	 * Gets the type.
 	 *
-	 * @param qualifiedName the qualified name
+	 * @param qualifiedName
+	 *            the qualified name
 	 * @return the type
 	 */
 	public TypeMirror getType(final String qualifiedName) {
@@ -219,9 +218,7 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	 * @return the i var and action support
 	 */
 	public TypeMirror getIVarAndActionSupport() {
-		if (iVarAndActionSupport == null) {
-			iVarAndActionSupport = getType("gama.common.interfaces.IVarAndActionSupport");
-		}
+		if (iVarAndActionSupport == null) { iVarAndActionSupport = getType(I_VAR_AND_ACTION_SUPPORT_QN); }
 		return iVarAndActionSupport;
 	}
 
@@ -231,49 +228,71 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	 * @return the i agent
 	 */
 	TypeMirror getIAgent() {
-		if (iAgent == null) { iAgent = getType("gama.metamodel.agent.IAgent"); }
+		if (iAgent == null) { iAgent = getType(I_AGENT_QN); }
 		return iAgent;
 	}
 
+	/**
+	 * Gets the options.
+	 *
+	 * @return the options
+	 */
 	@Override
-	public Map<String, String> getOptions() {
-		return delegate.getOptions();
-	}
+	public Map<String, String> getOptions() { return delegate.getOptions(); }
 
+	/**
+	 * Gets the messager.
+	 *
+	 * @return the messager
+	 */
 	@Override
-	public Messager getMessager() {
-		return delegate.getMessager();
-	}
+	public Messager getMessager() { return delegate.getMessager(); }
 
+	/**
+	 * Gets the filer.
+	 *
+	 * @return the filer
+	 */
 	@Override
-	public Filer getFiler() {
-		return delegate.getFiler();
-	}
+	public Filer getFiler() { return delegate.getFiler(); }
 
+	/**
+	 * Gets the element utils.
+	 *
+	 * @return the element utils
+	 */
 	@Override
-	public Elements getElementUtils() {
-		return delegate.getElementUtils();
-	}
+	public Elements getElementUtils() { return delegate.getElementUtils(); }
 
+	/**
+	 * Gets the type utils.
+	 *
+	 * @return the type utils
+	 */
 	@Override
-	public Types getTypeUtils() {
-		return delegate.getTypeUtils();
-	}
+	public Types getTypeUtils() { return delegate.getTypeUtils(); }
 
+	/**
+	 * Gets the source version.
+	 *
+	 * @return the source version
+	 */
 	@Override
-	public SourceVersion getSourceVersion() {
-		return delegate.getSourceVersion();
-	}
+	public SourceVersion getSourceVersion() { return delegate.getSourceVersion(); }
 
+	/**
+	 * Gets the locale.
+	 *
+	 * @return the locale
+	 */
 	@Override
-	public Locale getLocale() {
-		return delegate.getLocale();
-	}
+	public Locale getLocale() { return delegate.getLocale(); }
 
 	/**
 	 * Emit warning.
 	 *
-	 * @param s the s
+	 * @param s
+	 *            the s
 	 */
 	public void emitWarning(final String s) {
 		emitWarning(s, (Element) null);
@@ -282,7 +301,8 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	/**
 	 * Emit error.
 	 *
-	 * @param s the s
+	 * @param s
+	 *            the s
 	 */
 	public void emitError(final String s) {
 		emitError(s, (Element) null);
@@ -291,8 +311,10 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	/**
 	 * Emit warning.
 	 *
-	 * @param s the s
-	 * @param e the e
+	 * @param s
+	 *            the s
+	 * @param e
+	 *            the e
 	 */
 	public void emitWarning(final String s, final Element e) {
 		emit(Kind.WARNING, s, e);
@@ -301,8 +323,10 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	/**
 	 * Emit error.
 	 *
-	 * @param s the s
-	 * @param e the e
+	 * @param s
+	 *            the s
+	 * @param e
+	 *            the e
 	 */
 	public void emitError(final String s, final Element e) {
 		emit(Kind.ERROR, s, e);
@@ -311,9 +335,12 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	/**
 	 * Emit.
 	 *
-	 * @param kind the kind
-	 * @param s the s
-	 * @param e the e
+	 * @param kind
+	 *            the kind
+	 * @param s
+	 *            the s
+	 * @param e
+	 *            the e
 	 */
 	public void emit(final Kind kind, final String s, final Element e) {
 		if (!PRODUCES_WARNING) return;
@@ -327,8 +354,10 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	/**
 	 * Emit error.
 	 *
-	 * @param s the s
-	 * @param e1 the e 1
+	 * @param s
+	 *            the s
+	 * @param e1
+	 *            the e 1
 	 */
 	public void emitError(final String s, final Exception e1) {
 		emit(Kind.ERROR, s, e1, null);
@@ -337,8 +366,10 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	/**
 	 * Emit warning.
 	 *
-	 * @param s the s
-	 * @param e1 the e 1
+	 * @param s
+	 *            the s
+	 * @param e1
+	 *            the e 1
 	 */
 	public void emitWarning(final String s, final Exception e1) {
 		emit(Kind.WARNING, s, e1, null);
@@ -347,9 +378,12 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	/**
 	 * Emit error.
 	 *
-	 * @param s the s
-	 * @param e1 the e 1
-	 * @param element the element
+	 * @param s
+	 *            the s
+	 * @param e1
+	 *            the e 1
+	 * @param element
+	 *            the element
 	 */
 	public void emitError(final String s, final Exception e1, final Element element) {
 		emit(Kind.ERROR, s, e1, element);
@@ -358,9 +392,12 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	/**
 	 * Emit warning.
 	 *
-	 * @param s the s
-	 * @param e1 the e 1
-	 * @param element the element
+	 * @param s
+	 *            the s
+	 * @param e1
+	 *            the e 1
+	 * @param element
+	 *            the element
 	 */
 	public void emitWarning(final String s, final Exception e1, final Element element) {
 		emit(Kind.WARNING, s, e1, element);
@@ -369,10 +406,14 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	/**
 	 * Emit.
 	 *
-	 * @param kind the kind
-	 * @param s the s
-	 * @param e1 the e 1
-	 * @param element the element
+	 * @param kind
+	 *            the kind
+	 * @param s
+	 *            the s
+	 * @param e1
+	 *            the e 1
+	 * @param element
+	 *            the element
 	 */
 	public void emit(final Kind kind, final String s, final Exception e1, final Element element) {
 		final StringBuilder sb = new StringBuilder();
@@ -388,33 +429,61 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	/**
 	 * Sets the round environment.
 	 *
-	 * @param env the new round environment
+	 * @param env
+	 *            the new round environment
 	 */
 	public void setRoundEnvironment(final RoundEnvironment env) {
 		round = env;
-		roots = round.getRootElements().stream().map(e -> e.toString()).collect(Collectors.toList());
+		roots = round.getRootElements().stream().map(Element::toString).collect(Collectors.toList());
 	}
 
+	/**
+	 * Processing over.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean processingOver() {
 		return round.processingOver();
 	}
 
+	/**
+	 * Error raised.
+	 *
+	 * @return true, if successful
+	 */
 	@Override
 	public boolean errorRaised() {
 		return round.errorRaised();
 	}
 
+	/**
+	 * Gets the root elements.
+	 *
+	 * @return the root elements
+	 */
 	@Override
-	public Set<? extends Element> getRootElements() {
-		return round.getRootElements();
-	}
+	public Set<? extends Element> getRootElements() { return round.getRootElements(); }
 
+	/**
+	 * Gets the elements annotated with.
+	 *
+	 * @param a
+	 *            the a
+	 * @return the elements annotated with
+	 */
 	@Override
 	public Set<? extends Element> getElementsAnnotatedWith(final TypeElement a) {
 		return round.getElementsAnnotatedWith(a);
 	}
 
+	/**
+	 * Gets the elements annotated with.
+	 *
+	 * @param a
+	 *            the a
+	 * @return the elements annotated with
+	 */
 	@Override
 	public Set<? extends Element> getElementsAnnotatedWith(final Class<? extends Annotation> a) {
 		return round.getElementsAnnotatedWith(a);
@@ -423,14 +492,14 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	/**
 	 * Creates the writer.
 	 *
-	 * @param s the s
+	 * @param s
+	 *            the s
 	 * @return the writer
 	 */
 	public Writer createWriter(final String s) {
 		try {
 			final OutputStream output = getFiler().createResource(OUT, "", s, (Element[]) null).openOutputStream();
-			final Writer writer = new OutputStreamWriter(output, CHARSET);
-			return writer;
+			return new OutputStreamWriter(output, CHARSET);
 		} catch (final Exception e) {
 			emitWarning("", e);
 		}
@@ -462,9 +531,8 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 		initCurrentPlugin();
 		try {
 
-			final FileObject obj = getFiler().createSourceFile(
-					ADDITIONS_PACKAGE_BASE + "." + shortcut + "." + ADDITIONS_CLASS_NAME, (Element[]) null);
-			return obj;
+			return getFiler().createSourceFile(ADDITIONS_PACKAGE_BASE + "." + shortcut + "." + ADDITIONS_CLASS_NAME,
+					(Element[]) null);
 		} catch (final Exception e) {
 			emitWarning("Exception raised while creating the source file: " + e.getMessage(), e);
 		}
@@ -483,7 +551,8 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	/**
 	 * Creates the test writer.
 	 *
-	 * @param fileName the file name
+	 * @param fileName
+	 *            the file name
 	 * @return the writer
 	 */
 	public Writer createTestWriter(final String fileName) {
@@ -492,8 +561,7 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 			final OutputStream output =
 					getFiler().createResource(OUT, getTestFolderName() + ".models", fileName, (Element[]) null)
 							.openOutputStream();
-			final Writer writer = new OutputStreamWriter(output, CHARSET);
-			return writer;
+			return new OutputStreamWriter(output, CHARSET);
 		} catch (final Exception e) {
 			e.printStackTrace();
 			emitWarning("Impossible to create test file " + fileName + ": ", e);
@@ -545,8 +613,8 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 					+ "			<arguments>\n" + "			</arguments>\n" + "		</buildCommand>\n"
 					+ "	</buildSpec>\n" + "	<natures>\n"
 					+ "		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>\n"
-					+ "		<nature>gama.core.application.gamaNature</nature>\n"
-					+ "		<nature>gama.core.application.testNature</nature>\n" + "	</natures>\n"
+					+ "		<nature>msi.gama.application.gamaNature</nature>\n"
+					+ "		<nature>msi.gama.application.testNature</nature>\n" + "	</natures>\n"
 					+ "</projectDescription>\n" + "");
 		} catch (final IOException t) {
 			emitWarning("", t);
@@ -556,14 +624,14 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	/**
 	 * Creates the source writer.
 	 *
-	 * @param file the file
+	 * @param file
+	 *            the file
 	 * @return the writer
 	 */
 	public Writer createSourceWriter(final FileObject file) {
 		try {
 			final OutputStream output = file.openOutputStream();
-			final Writer writer = new OutputStreamWriter(output, CHARSET);
-			return writer;
+			return new OutputStreamWriter(output, CHARSET);
 		} catch (final Exception e) {
 			emitWarning("Error in creating source writer", e);
 		}
@@ -582,9 +650,11 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	/**
 	 * Gets the input stream.
 	 *
-	 * @param string the string
+	 * @param string
+	 *            the string
 	 * @return the input stream
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	public InputStream getInputStream(final String string) throws IOException {
 		return getFiler().getResource(ProcessorContext.OUT, "", string).openInputStream();
@@ -593,7 +663,8 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	/**
 	 * Gets the useful annotations on.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @return the useful annotations on
 	 */
 	public List<Annotation> getUsefulAnnotationsOn(final Element e) {
@@ -610,8 +681,17 @@ public class ProcessorContext implements ProcessingEnvironment, RoundEnvironment
 	 *
 	 * @return the roots
 	 */
-	public List<String> getRoots() {
-		return roots;
+	public List<String> getRoots() { return roots; }
+
+	/**
+	 * Contains import.
+	 *
+	 * @param path
+	 *            the path
+	 * @return true, if successful
+	 */
+	public boolean containsImport(final String path) {
+		return IMPORTS.contains(path);
 	}
 
 }

@@ -13,7 +13,7 @@ Export-Package: gama.ext.databases,
  gama.ext.databases.species,
  gama.ext.databases.sql
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-16
 Bundle-Activator: gama.ext.databases.Activator
 Automatic-Module-Name: gama.ext.databases
 Bundle-ClassPath: ., lib/olap4j 1.2.0/jars/olap4j-1.2.0.jar,
