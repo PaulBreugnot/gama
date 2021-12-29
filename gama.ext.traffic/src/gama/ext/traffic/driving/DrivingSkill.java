@@ -41,6 +41,7 @@ import gama.metamodel.shape.GamaPoint;
 import gama.metamodel.shape.IShape;
 import gama.metamodel.topology.graph.GamaSpatialGraph;
 import gama.runtime.IScope;
+import gama.runtime.concurrent.GamaExecutorService;
 import gama.runtime.exceptions.GamaRuntimeException;
 import gama.util.GamaListFactory;
 import gama.util.IList;
@@ -203,9 +204,10 @@ import gaml.types.Types;
 				name = DrivingSkill.ACC_GAIN_THRESHOLD,
 				type = IType.FLOAT,
 				init = "0.2",
-				doc = @doc ("the minimum acceleration gain for the vehicle to switch to another lane, "
-						+ "introduced to prevent frantic lane changing. "
-						+ "Known as the parameter 'a_th' in the MOBIL lane changing model")),
+				doc = @doc ("""
+						the minimum acceleration gain for the vehicle to switch to another lane, \
+						introduced to prevent frantic lane changing. \
+						Known as the parameter 'a_th' in the MOBIL lane changing model""")),
 		@variable (
 				name = DrivingSkill.ACC_BIAS,
 				type = IType.FLOAT,
@@ -1976,8 +1978,7 @@ public class DrivingSkill extends MovingSkill {
 			}
 			path = PathFactory.newInstance(graph, source, target, edges);
 		} else
-			throw GamaRuntimeException.error("either `nodes` or `target` must be specified", scope);
-
+			throw GamaRuntimeException.error("one of `nodes` or `target` must be non nil", scope);
 		// restore graph direction
 		graph.setDirected(true);
 
@@ -2091,15 +2092,16 @@ public class DrivingSkill extends MovingSkill {
 					examples = { @example ("do drive;") }))
 	public void primDrive(final IScope scope) throws GamaRuntimeException {
 		IAgent vehicle = getCurrentAgent(scope);
-		if (getFinalTarget(vehicle) == null) {
-			String msg = String.format("%s is not driving because it has no final target", vehicle.getName());
+		IPath path = getCurrentPath(vehicle);
+		if (path == null) {
+			String msg = String.format(
+					"%s is not driving because it has not been assigned a valid path. "
+							+ "The action `compute_path` might have been used with the same source and target node.",
+					vehicle.getName());
 			throw GamaRuntimeException.warning(msg, scope);
 		}
 		// Initialize the first road
-		if (getCurrentIndex(vehicle) == -1) {
-			IPath path = getCurrentPath(vehicle);
-			setNextRoad(vehicle, (IAgent) path.getEdgeList().get(0));
-		}
+		if (getCurrentIndex(vehicle) == -1) { setNextRoad(vehicle, (IAgent) path.getEdgeList().get(0)); }
 		moveAcrossRoads(scope, false, null, null);
 	}
 
@@ -2234,10 +2236,11 @@ public class DrivingSkill extends MovingSkill {
 					optional = false,
 					doc = @doc ("the new road that's the vehicle is going to enter")) },
 			doc = @doc (
-					value = "Override this if you want to manually choose a lane when entering new road. "
-							+ "By default, the vehicle tries to stay in the current lane. "
-							+ "If the new road has fewer lanes than the current one and the current lane index is too big, "
-							+ "it tries to enter the most uppermost lane.",
+					value = """
+							Override this if you want to manually choose a lane when entering new road. \
+							By default, the vehicle tries to stay in the current lane. \
+							If the new road has fewer lanes than the current one and the current lane index is too big, \
+							it tries to enter the most uppermost lane.""",
 					returns = "an integer representing the lane index"))
 	public Integer primChooseLane(final IScope scope) throws GamaRuntimeException {
 		IAgent newRoad = (IAgent) scope.getArg("new_road", IType.AGENT);
@@ -2370,6 +2373,10 @@ public class DrivingSkill extends MovingSkill {
 	 */
 	private void moveAcrossRoads(final IScope scope, final boolean isDrivingRandomly, final GamaSpatialGraph graph,
 			final Map<IAgent, Double> roadProba) {
+		if (GamaExecutorService.CONCURRENCY_SPECIES.getValue()) throw GamaRuntimeException.error("""
+				Driving agents cannot be scheduled in parallel. \
+				Please disable "Make species schedule theirs agents in parallel" \
+				in Preferences > Execution > Parallelism.""", scope);
 		IAgent vehicle = getCurrentAgent(scope);
 		ISpecies context = vehicle.getSpecies();
 
@@ -2405,7 +2412,10 @@ public class DrivingSkill extends MovingSkill {
 				GamaPoint srcNodeLoc = RoadSkill.getSourceNode(newRoad).getLocation();
 				boolean violatingOneway = !loc.equals(srcNodeLoc);
 				// check traffic lights and vehicles coming from other roads
-				if (!readyToCross(scope, vehicle, currentTarget, newRoad)) return;
+				if (!readyToCross(scope, vehicle, currentTarget, newRoad)) {
+					setSpeed(vehicle, 0.0);
+					return;
+				}
 
 				// Choose a lane on the new road
 				IStatement.WithArgs actionCL = context.getAction(ACT_CHOOSE_LANE);

@@ -225,9 +225,19 @@ public class ImageUtils {
 	 *             Signals that an I/O exception has occurred.
 	 */
 	private BufferedImage ioRead(final File file, final IIOReadProgressListener listener) throws IOException {
-		Iterator<ImageReader> readers = ImageIO.getImageReadersBySuffix(Files.getFileExtension(file.getName()));
-		ImageReader imageReader = readers.next();
-		ImageInputStream imageInputStream = ImageIO.createImageInputStream(file);
+		ImageReader imageReader = null;
+		ImageInputStream imageInputStream = null;
+		try {
+			Iterator<ImageReader> readers = ImageIO.getImageReadersBySuffix(Files.getFileExtension(file.getName()));
+			imageReader = readers.next();
+			imageInputStream = ImageIO.createImageInputStream(file);
+
+		} catch (final Exception e) {
+			Iterator<ImageReader> readers = ImageIO.getImageReadersBySuffix("jpg");
+			imageReader = readers.next();
+			imageInputStream = ImageIO.createImageInputStream(file);
+		}
+
 		imageReader.setInput(imageInputStream, false);
 		if (listener != null) { imageReader.addIIOReadProgressListener(listener); }
 		return imageReader.read(0);

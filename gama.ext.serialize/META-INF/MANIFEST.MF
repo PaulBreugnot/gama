@@ -4,7 +4,8 @@ Bundle-Name: Serialization extensions for GAMA
 Bundle-SymbolicName: gama.ext.serialize;singleton:=true
 Bundle-Version: 2.0.0.qualifier
 Require-Bundle: gama.core.kernel;bundle-version="2.0.0",
- gama.ext.libs;bundle-version="2.0.0"
+ gama.ext.libs;bundle-version="2.0.0",
+ gama.ext.bdi;bundle-version="2.0.0"
 Bundle-ClassPath: .,
  ext/xstream-1.4.8.jar,
  ext/kxml2-2.3.0.jar,
