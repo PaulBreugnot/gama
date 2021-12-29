@@ -40,6 +40,7 @@ import gama.common.ui.IGamlLabelProvider;
 import gama.common.ui.IGui;
 import gama.common.ui.IRuntimeExceptionHandler;
 import gama.common.ui.IStatusDisplayer;
+import gama.common.util.ImageUtils;
 import gama.core.dev.utils.DEBUG;
 import gama.kernel.experiment.ExperimentAgent;
 import gama.kernel.experiment.IExperimentController;
@@ -128,6 +129,7 @@ public class SwtGui implements IGui {
 	static {
 		// GamaFonts.setLabelFont(PreferencesHelper.BASE_BUTTON_FONT.getValue());
 		// PreferencesHelper.initialize();
+		ImageUtils.getCachedGC();
 	}
 
 	/**

@@ -471,11 +471,11 @@ public class LayeredDisplayOutput extends AbstractDisplayOutput {
 	 */
 	public IOverlayProvider<OverlayInfo> getOverlayProvider() { return overlayInfo; }
 
-	@Override
-	public boolean shouldOpenAsynchronously() {
-		// OpenGL views need to be opened synchronously
-		return !getData().isOpenGL();
-	}
+	// @Override
+	// public boolean shouldOpenAsynchronously() {
+	// // OpenGL views need to be opened synchronously
+	// return !getData().isOpenGL();
+	// }
 
 	@Override
 	public boolean init(final IScope scope) throws GamaRuntimeException {

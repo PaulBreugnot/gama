@@ -12,6 +12,7 @@ package gama.common.util;
 
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.RenderingHints;
 import java.awt.Transparency;
@@ -38,6 +39,7 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.io.Files;
 import com.sun.media.jai.codec.FileSeekableStream;
 
+import gama.core.dev.utils.DEBUG;
 import gama.runtime.GAMA;
 import gama.runtime.IScope;
 
@@ -46,6 +48,10 @@ import gama.runtime.IScope;
  * The Class ImageUtils.
  */
 public class ImageUtils {
+
+	static {
+		DEBUG.OFF();
+	}
 
 	/** The no image. */
 	private static BufferedImage NO_IMAGE;
@@ -73,8 +79,13 @@ public class ImageUtils {
 	 */
 	public static GraphicsConfiguration getCachedGC() {
 		if (cachedGC == null) {
-			cachedGC = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice()
-					.getDefaultConfiguration();
+			DEBUG.OUT("Creating cached Graphics Configuration");
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			DEBUG.OUT("Local Graphics Environment selected");
+			GraphicsDevice gd = ge.getDefaultScreenDevice();
+			DEBUG.OUT("Default Graphics Device selected");
+			cachedGC = gd.getDefaultConfiguration();
+			DEBUG.OUT("Default Graphics Configuration selected");
 		}
 		return cachedGC;
 	}
