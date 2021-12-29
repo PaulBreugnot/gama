@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * RootTopology.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * RootTopology.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.metamodel.topology.continuous;
 
@@ -27,10 +27,14 @@ public class RootTopology extends ContinuousTopology {
 	/**
 	 * Instantiates a new root topology.
 	 *
-	 * @param scope the scope
-	 * @param geom the geom
-	 * @param isTorus the is torus
-	 * @param hasParallelism the has parallelism
+	 * @param scope
+	 *            the scope
+	 * @param geom
+	 *            the geom
+	 * @param isTorus
+	 *            the is torus
+	 * @param hasParallelism
+	 *            the has parallelism
 	 */
 	public RootTopology(final IScope scope, final IShape geom, final boolean isTorus, final boolean hasParallelism) {
 		super(scope, geom);
@@ -42,29 +46,27 @@ public class RootTopology extends ContinuousTopology {
 
 	/** The spatial index. */
 	private final ISpatialIndex.Compound spatialIndex;
-	
+
 	/** The is torus. */
 	private final boolean isTorus;
 
 	@Override
-	public ISpatialIndex getSpatialIndex() {
-		return spatialIndex;
-	}
+	public ISpatialIndex getSpatialIndex() { return spatialIndex; }
 
 	/**
 	 * Update environment.
 	 *
-	 * @param newEnv the new env
-	 * @param hasParallelism the has parallelism
+	 * @param newEnv
+	 *            the new env
+	 * @param hasParallelism
+	 *            the has parallelism
 	 */
-	public void updateEnvironment(final IShape newEnv, final boolean hasParallelism) {
-		spatialIndex.update(newEnv.getEnvelope(), hasParallelism);
+	public void updateEnvironment(final IScope scope, final IShape newEnv, final boolean hasParallelism) {
+		spatialIndex.update(scope, newEnv.getEnvelope(), hasParallelism);
 	}
 
 	@Override
-	public boolean isTorus() {
-		return isTorus;
-	}
+	public boolean isTorus() { return isTorus; }
 
 	@Override
 	public void setRoot(final IScope scope, final RootTopology root) {}
@@ -72,7 +74,8 @@ public class RootTopology extends ContinuousTopology {
 	/**
 	 * Merge with.
 	 *
-	 * @param other the other
+	 * @param other
+	 *            the other
 	 */
 	public void mergeWith(final RootTopology other) {
 		spatialIndex.mergeWith(other.spatialIndex);
@@ -87,10 +90,11 @@ public class RootTopology extends ContinuousTopology {
 	/**
 	 * Removes the.
 	 *
-	 * @param pop the pop
+	 * @param pop
+	 *            the pop
 	 */
 	public void remove(final IPopulation<? extends IAgent> pop) {
-		if (spatialIndex != null) { spatialIndex.remove(pop); }
+		if (spatialIndex != null) { spatialIndex.remove(pop.getSpecies()); }
 
 	}
 

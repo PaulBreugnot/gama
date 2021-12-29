@@ -1,7 +1,7 @@
 /*******************************************************************************************************
  *
- * AbstractGamlAdditions.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * AbstractGamlAdditions.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
@@ -330,7 +330,9 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	 *            the factories
 	 */
 	protected void _factories(final SymbolFactory... factories) {
-		for (final SymbolFactory f : factories) { DescriptionFactory.addFactory(f); }
+		for (final SymbolFactory f : factories) {
+			DescriptionFactory.addFactory(f);
+		}
 	}
 
 	/**
@@ -386,7 +388,11 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 		} else {
 			keywords = Arrays.asList(names);
 		}
-		if (fmd != null) { for (final FacetProto f : fmd) { f.buildDoc(c); } }
+		if (fmd != null) {
+			for (final FacetProto f : fmd) {
+				f.buildDoc(c);
+			}
+		}
 
 		final SymbolProto md = new SymbolProto(c, sequence, args, sKind, !scope, fmd, omissible, contextKeywords,
 				contextKinds, remote, unique, name_unique, sc, validator2, serializer2,
@@ -798,7 +804,7 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	protected OperatorProto _proto(final String name, final GamaGetter.Unary helper, final int returnType,
 			final Class signature, final int typeProvider, final int contentTypeProvider, final int keyTypeProvider) {
 		return new OperatorProto(name, null, helper, false, true, returnType, signature, false, typeProvider,
-				contentTypeProvider, keyTypeProvider, AI);
+				contentTypeProvider, keyTypeProvider, AI, CURRENT_PLUGIN_NAME);
 	}
 
 	/**
@@ -844,8 +850,10 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	/**
 	 * Creates a VariableDescription.
 	 *
-	 * @param keyword the keyword
-	 * @param facets the facets
+	 * @param keyword
+	 *            the keyword
+	 * @param facets
+	 *            the facets
 	 * @return the i description
 	 */
 	protected IDescription desc(final int keyword, final String... facets) {
@@ -888,7 +896,9 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	public static void initType(final String keyword, final IType<?> typeInstance, final int id, final int varKind,
 			final Class... wraps) {
 		final IType<?> type = Types.builtInTypes.initType(keyword, typeInstance, id, varKind, wraps[0]);
-		for (final Class cc : wraps) { Types.CLASSES_TYPES_CORRESPONDANCE.put(cc, type.getName()); }
+		for (final Class cc : wraps) {
+			Types.CLASSES_TYPES_CORRESPONDANCE.put(cc, type.getName());
+		}
 		type.setDefiningPlugin(CURRENT_PLUGIN_NAME);
 		Types.cache(id, typeInstance);
 		VARTYPE2KEYWORDS.put(varKind, keyword);
@@ -916,7 +926,9 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 		final List<Class> classes = collectImplementationClasses(clazz, Collections.EMPTY_SET, FIELDS.keySet());
 		final Map<String, OperatorProto> fieldsMap = create();
 		for (final Class c : classes) {
-			for (final OperatorProto desc : FIELDS.get(c)) { fieldsMap.put(desc.getName(), desc); }
+			for (final OperatorProto desc : FIELDS.get(c)) {
+				fieldsMap.put(desc.getName(), desc);
+			}
 		}
 		return fieldsMap;
 	}
@@ -1004,7 +1016,9 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 			return true;
 		};
 
-		for (final TypeDescription s : getBuiltInSpecies()) { s.visitOwnActions(visitor); }
+		for (final TypeDescription s : getBuiltInSpecies()) {
+			s.visitOwnActions(visitor);
+		}
 		GamaSkillRegistry.INSTANCE.visitSkills(desc -> {
 			((SkillDescription) desc).visitOwnActions(visitor);
 			return true;
@@ -1019,19 +1033,24 @@ public abstract class AbstractGamlAdditions implements IGamlAdditions {
 	 *            the strings
 	 */
 	public static void _constants(final String[]... strings) {
-		for (final String[] s : strings) { Collections.addAll(CONSTANTS, s); }
+		for (final String[] s : strings) {
+			Collections.addAll(CONSTANTS, s);
+		}
 	}
 
 	/**
 	 * Checks if is unary operator.
 	 *
-	 * @param name the name
+	 * @param name
+	 *            the name
 	 * @return true, if is unary operator
 	 */
 	public static boolean isUnaryOperator(final String name) {
 		if (!OPERATORS.containsKey(name)) return false;
 		final Map<Signature, OperatorProto> map = OPERATORS.get(name);
-		for (final Signature s : map.keySet()) { if (s.isUnary()) return true; }
+		for (final Signature s : map.keySet()) {
+			if (s.isUnary()) return true;
+		}
 		return false;
 	}
 

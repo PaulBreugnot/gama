@@ -47,8 +47,8 @@ import gama.core.dev.utils.FLAGS;
 import gama.display.opengl.camera.ICamera;
 import gama.display.opengl.renderer.IOpenGLRenderer;
 import gama.runtime.PlatformHelper;
+import gama.ui.base.bindings.IDelegateEventsToParent;
 import gama.ui.base.utils.WorkbenchHelper;
-import gama.ui.bindings.IDelegateEventsToParent;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -643,8 +643,7 @@ public class GamaGLCanvas extends Composite implements GLAutoDrawable, IDelegate
 			addMouseMoveListener(camera);
 			addMouseWheelListener(camera);
 			addMouseTrackListener(camera);
-			if (drawable instanceof Window) {
-				Window w = (Window) drawable;
+			if (drawable instanceof Window w) {
 				w.addKeyListener(camera);
 				w.addMouseListener(camera);
 			}
@@ -671,8 +670,7 @@ public class GamaGLCanvas extends Composite implements GLAutoDrawable, IDelegate
 			removeMouseMoveListener(camera);
 			removeMouseWheelListener(camera);
 			removeMouseTrackListener(camera);
-			if (drawable instanceof Window) {
-				Window w = (Window) drawable;
+			if (drawable instanceof Window w) {
 				w.removeKeyListener(camera);
 				w.removeMouseListener(camera);
 			}
