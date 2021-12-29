@@ -1,26 +1,24 @@
 /*******************************************************************************************************
  *
- * IGraph.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * IGraph.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.util.graph;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import org.jgrapht.Graph;
 
-import gama.core.dev.annotations.ITypeProvider;
 import gama.core.dev.annotations.GamlAnnotations.doc;
 import gama.core.dev.annotations.GamlAnnotations.getter;
 import gama.core.dev.annotations.GamlAnnotations.variable;
 import gama.core.dev.annotations.GamlAnnotations.vars;
+import gama.core.dev.annotations.ITypeProvider;
 import gama.metamodel.topology.graph.FloydWarshallShortestPathsGAMA;
 import gama.runtime.IScope;
 import gama.util.GamaPair;
@@ -35,12 +33,14 @@ import gaml.types.IType;
 
 /**
  * Written by drogoul Modified on 24 nov. 2011
- * 
+ *
  * An interface for the different kinds of graphs encountered in GAML. Vertices are the keys (actually, pairs of nodes),
  * while edges are the values
  *
- * @param <Node> the generic type
- * @param <Edge> the generic type
+ * @param <Node>
+ *            the generic type
+ * @param <Edge>
+ *            the generic type
  */
 @vars ({ @variable (
 		name = "spanning_tree",
@@ -73,7 +73,8 @@ public interface IGraph<Node, Edge>
 	/**
 	 * Gets the vertex weight.
 	 *
-	 * @param v the v
+	 * @param v
+	 *            the v
 	 * @return the vertex weight
 	 */
 	double getVertexWeight(final Object v);
@@ -81,7 +82,8 @@ public interface IGraph<Node, Edge>
 	/**
 	 * Gets the weight of.
 	 *
-	 * @param v the v
+	 * @param v
+	 *            the v
 	 * @return the weight of
 	 */
 	Double getWeightOf(final Object v);
@@ -89,45 +91,48 @@ public interface IGraph<Node, Edge>
 	/**
 	 * Sets the vertex weight.
 	 *
-	 * @param v the v
-	 * @param weight the weight
+	 * @param v
+	 *            the v
+	 * @param weight
+	 *            the weight
 	 */
 	void setVertexWeight(final Object v, final double weight);
 
 	/**
 	 * Sets the weights.
 	 *
-	 * @param weights the weights
+	 * @param weights
+	 *            the weights
 	 */
 	void setWeights(Map<?, Double> weights);
-
-	/**
-	 * Internal edge set.
-	 *
-	 * @return the collection
-	 */
-	Collection _internalEdgeSet();
-
-	/**
-	 * Internal nodes set.
-	 *
-	 * @return the collection
-	 */
-	Collection _internalNodesSet();
-
-	/**
-	 * Internal edge map.
-	 *
-	 * @return the map
-	 */
-	Map<Edge, _Edge<Node, Edge>> _internalEdgeMap();
-
-	/**
-	 * Internal vertex map.
-	 *
-	 * @return the map
-	 */
-	Map<Node, _Vertex<Node, Edge>> _internalVertexMap();
+	//
+	// /**
+	// * Internal edge set.
+	// *
+	// * @return the collection
+	// */
+	// Collection _internalEdgeSet();
+	//
+	// /**
+	// * Internal nodes set.
+	// *
+	// * @return the collection
+	// */
+	// Collection _internalNodesSet();
+	//
+	// /**
+	// * Internal edge map.
+	// *
+	// * @return the map
+	// */
+	// Map<Edge, _Edge<Node, Edge>> _internalEdgeMap();
+	//
+	// /**
+	// * Internal vertex map.
+	// *
+	// * @return the map
+	// */
+	// Map<Node, _Vertex<Node, Edge>> _internalVertexMap();
 
 	/**
 	 * Gets the edges.
@@ -148,7 +153,8 @@ public interface IGraph<Node, Edge>
 	/**
 	 * Gets the spanning tree.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the spanning tree
 	 */
 	@getter ("spanning_tree")
@@ -157,7 +163,8 @@ public interface IGraph<Node, Edge>
 	/**
 	 * Gets the circuit.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the circuit
 	 */
 	@getter ("circuit")
@@ -189,14 +196,16 @@ public interface IGraph<Node, Edge>
 	/**
 	 * Sets the directed.
 	 *
-	 * @param b the new directed
+	 * @param b
+	 *            the new directed
 	 */
 	void setDirected(final boolean b);
 
 	/**
 	 * Adds the edge.
 	 *
-	 * @param p the p
+	 * @param p
+	 *            the p
 	 * @return the object
 	 */
 	Object addEdge(Object p);
@@ -204,18 +213,18 @@ public interface IGraph<Node, Edge>
 	/**
 	 * Sets the shortest path algorithm.
 	 *
-	 * @param optiType the new shortest path algorithm
+	 * @param optiType
+	 *            the new shortest path algorithm
 	 */
 	void setShortestPathAlgorithm(String optiType);
-	
+
 	/**
 	 * Sets the k shortest path algorithm.
 	 *
-	 * @param optiType the new k shortest path algorithm
+	 * @param optiType
+	 *            the new k shortest path algorithm
 	 */
 	void setKShortestPathAlgorithm(String optiType);
-	
-	
 
 	/**
 	 * Gets the floyd warshall shortest paths.
@@ -227,7 +236,8 @@ public interface IGraph<Node, Edge>
 	/**
 	 * Sets the floyd warshall shortest paths.
 	 *
-	 * @param optimizer the optimizer
+	 * @param optimizer
+	 *            the optimizer
 	 */
 	void setFloydWarshallShortestPaths(FloydWarshallShortestPathsGAMA<Node, Edge> optimizer);
 
@@ -241,7 +251,8 @@ public interface IGraph<Node, Edge>
 	/**
 	 * Sets the version.
 	 *
-	 * @param version the new version
+	 * @param version
+	 *            the new version
 	 */
 	void setVersion(int version);
 
@@ -259,9 +270,12 @@ public interface IGraph<Node, Edge>
 	/**
 	 * Compute shortest path between.
 	 *
-	 * @param scope the scope
-	 * @param source the source
-	 * @param target the target
+	 * @param scope
+	 *            the scope
+	 * @param source
+	 *            the source
+	 * @param target
+	 *            the target
 	 * @return the i path
 	 */
 	IPath<Node, Edge, IGraph<Node, Edge>> computeShortestPathBetween(IScope scope, final Node source,
@@ -270,9 +284,12 @@ public interface IGraph<Node, Edge>
 	/**
 	 * Compute best route between.
 	 *
-	 * @param scope the scope
-	 * @param source the source
-	 * @param target the target
+	 * @param scope
+	 *            the scope
+	 * @param source
+	 *            the source
+	 * @param target
+	 *            the target
 	 * @return the i list
 	 */
 	IList<Edge> computeBestRouteBetween(IScope scope, final Node source, final Node target);
@@ -280,7 +297,8 @@ public interface IGraph<Node, Edge>
 	/**
 	 * Compute weight.
 	 *
-	 * @param gamaPath the gama path
+	 * @param gamaPath
+	 *            the gama path
 	 * @return the double
 	 */
 	double computeWeight(final IPath<Node, Edge, ? extends IGraph<Node, Edge>> gamaPath);
@@ -302,17 +320,22 @@ public interface IGraph<Node, Edge>
 	/**
 	 * Sets the save computed shortest paths.
 	 *
-	 * @param saveComputedShortestPaths the new save computed shortest paths
+	 * @param saveComputedShortestPaths
+	 *            the new save computed shortest paths
 	 */
 	void setSaveComputedShortestPaths(boolean saveComputedShortestPaths);
 
 	/**
 	 * Compute K shortest paths between.
 	 *
-	 * @param scope the scope
-	 * @param source the source
-	 * @param target the target
-	 * @param k the k
+	 * @param scope
+	 *            the scope
+	 * @param source
+	 *            the source
+	 * @param target
+	 *            the target
+	 * @param k
+	 *            the k
 	 * @return the i list
 	 */
 	IList<IPath<Node, Edge, IGraph<Node, Edge>>> computeKShortestPathsBetween(IScope scope, Node source, Node target,
@@ -321,10 +344,14 @@ public interface IGraph<Node, Edge>
 	/**
 	 * Compute K best routes between.
 	 *
-	 * @param scope the scope
-	 * @param source the source
-	 * @param target the target
-	 * @param k the k
+	 * @param scope
+	 *            the scope
+	 * @param source
+	 *            the source
+	 * @param target
+	 *            the target
+	 * @param k
+	 *            the k
 	 * @return the i list
 	 */
 	IList<IList<Edge>> computeKBestRoutesBetween(IScope scope, final Node source, final Node target, int k);
@@ -332,8 +359,10 @@ public interface IGraph<Node, Edge>
 	/**
 	 * Builds the value.
 	 *
-	 * @param scope the scope
-	 * @param object the object
+	 * @param scope
+	 *            the scope
+	 * @param object
+	 *            the object
 	 * @return the graphs. graph object to add
 	 */
 	Graphs.GraphObjectToAdd buildValue(IScope scope, Object object);
@@ -341,8 +370,10 @@ public interface IGraph<Node, Edge>
 	/**
 	 * Builds the values.
 	 *
-	 * @param scope the scope
-	 * @param objects the objects
+	 * @param scope
+	 *            the scope
+	 * @param objects
+	 *            the objects
 	 * @return the i container
 	 */
 	IContainer buildValues(IScope scope, IContainer objects);
@@ -350,8 +381,10 @@ public interface IGraph<Node, Edge>
 	/**
 	 * Builds the index.
 	 *
-	 * @param scope the scope
-	 * @param object the object
+	 * @param scope
+	 *            the scope
+	 * @param object
+	 *            the object
 	 * @return the gama pair
 	 */
 	GamaPair<Node, Node> buildIndex(IScope scope, Object object);
@@ -359,8 +392,10 @@ public interface IGraph<Node, Edge>
 	/**
 	 * Builds the indexes.
 	 *
-	 * @param scope the scope
-	 * @param value the value
+	 * @param scope
+	 *            the scope
+	 * @param value
+	 *            the value
 	 * @return the i container
 	 */
 	IContainer<?, GamaPair<Node, Node>> buildIndexes(IScope scope, IContainer value);
@@ -382,21 +417,25 @@ public interface IGraph<Node, Edge>
 	/**
 	 * Contains.
 	 *
-	 * @param scope the scope
-	 * @param o the o
+	 * @param scope
+	 *            the scope
+	 * @param o
+	 *            the o
 	 * @return true, if successful
 	 */
 	@Override
 	default boolean contains(final IScope scope, final Object o) {
-		if (o instanceof GamaPair) { return Graphs.containsEdge(scope, this, (GamaPair) o); }
+		if (o instanceof GamaPair) return Graphs.containsEdge(scope, this, (GamaPair) o);
 		return Graphs.containsEdge(scope, this, o);
 	}
 
 	/**
 	 * Contains key.
 	 *
-	 * @param scope the scope
-	 * @param o the o
+	 * @param scope
+	 *            the scope
+	 * @param o
+	 *            the o
 	 * @return true, if successful
 	 */
 	@Override

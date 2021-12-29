@@ -19,6 +19,7 @@ import org.jgrapht.Graphs;
 import org.locationtech.jts.geom.Coordinate;
 
 import gama.common.util.StringUtils;
+import gama.core.dev.utils.DEBUG;
 import gama.metamodel.agent.IAgent;
 import gama.metamodel.population.IPopulation;
 import gama.metamodel.shape.GamaPoint;
@@ -210,15 +211,14 @@ public class GamaSpatialGraph extends GamaGraph<IShape, IShape> implements ISpat
 
 	@Override
 	protected void buildByVertices(final IScope scope, final IContainer<?, IShape> list) {
-		for (final IShape p : list.iterable(scope)) {
+		Iterable<? extends IShape> shapes = list.iterable(scope);
+		for (final IShape p : shapes) {
 			super.addVertex(p);
 		}
-		for (final IShape o1 : list.iterable(scope)) { // Try to create
-														// automatic edges
+		for (final IShape o1 : shapes) { // Try to create automatic edges
 			if (o1.getAgent() != null) { o1.getAgent().setAttribute("attached_graph", this); }
-			for (final IShape o2 : list.iterable(scope)) {
-				if (vertexRelation.equivalent(scope, o1, o2)) { continue; }
-				if (vertexRelation.related(scope, o1, o2)) { addEdge(o1, o2); }
+			for (final IShape o2 : shapes) { // See issue #2945 -- do not add an edge if it already exists
+				if (vertexRelation.related(scope, o1, o2) && !containsEdge(o1, o2)) { addEdge(o1, o2); }
 			}
 		}
 	}
@@ -275,6 +275,7 @@ public class GamaSpatialGraph extends GamaGraph<IShape, IShape> implements ISpat
 	 */
 	private void refreshEdges() {
 		final Set<? extends IShape> vSet = vertexSet();
+		DEBUG.OUT("Refreshing Edges " + edgeSpecies);
 		boolean related, already;
 		for (final IShape s1 : vSet) {
 			for (final IShape s2 : vSet) {

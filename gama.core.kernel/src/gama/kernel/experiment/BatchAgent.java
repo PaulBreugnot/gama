@@ -1,7 +1,7 @@
 /*******************************************************************************************************
  *
- * BatchAgent.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * BatchAgent.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
@@ -79,9 +79,12 @@ public class BatchAgent extends ExperimentAgent {
 	/**
 	 * Instantiates a new batch agent.
 	 *
-	 * @param p the p
-	 * @param index the index
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @param p
+	 *            the p
+	 * @param index
+	 *            the index
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	public BatchAgent(final IPopulation p, final int index) throws GamaRuntimeException {
 		super(p, index);
@@ -111,7 +114,8 @@ public class BatchAgent extends ExperimentAgent {
 	/**
 	 * Schedule.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 */
 	@Override
 	public void schedule(final IScope scope) {
@@ -129,7 +133,8 @@ public class BatchAgent extends ExperimentAgent {
 	/**
 	 * Inits the.
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return the object
 	 */
 	@Override
@@ -164,7 +169,7 @@ public class BatchAgent extends ExperimentAgent {
 		try {
 			if (hasSimulations) {
 				for (final IAgent sim : pop.toArray()) {
-					memorizeFitnessAndCloseSimulation(sim);
+					memorizeFitnessAndCloseSimulation(sim, true);
 				}
 				pop.clear();
 			}
@@ -187,43 +192,28 @@ public class BatchAgent extends ExperimentAgent {
 	/**
 	 * Memorize fitness and close simulation.
 	 *
-	 * @param sim the sim
+	 * @param sim
+	 *            the sim
 	 */
-	public void memorizeFitnessAndCloseSimulation(final IAgent sim) {
-		final IExpression fitness = getSpecies().getExplorationAlgorithm().getFitnessExpression();
-		final FileOutput output = getSpecies().getLog();
-		double lastFitnessValue = 0;
-		if (fitness != null) {
-			lastFitnessValue = Cast.asFloat(sim.getScope(), fitness.value(sim.getScope()));
-			fitnessValues.add(lastFitnessValue);
-		}
-		if (output != null) { getSpecies().getLog().doRefreshWriteAndClose(currentSolution, lastFitnessValue); }
-		sim.dispose();
+	public void memorizeFitnessAndCloseSimulation(final IAgent sim, final boolean dispose) {
+		fitnessValues.add(computeFitnessAndCloseSimulation(sim, currentSolution, dispose));
 	}
 
-	/**
-	 * Compute fitness and close simulation.
-	 *
-	 * @param sim the sim
-	 * @param sol the sol
-	 * @return the double
-	 */
-	public double ComputeFitnessAndCloseSimulation(final IAgent sim, final ParametersSet sol) {
+	private double computeFitnessAndCloseSimulation(final IAgent sim, final ParametersSet sol, final boolean dispose) {
 		final IExpression fitness = getSpecies().getExplorationAlgorithm().getFitnessExpression();
 		final FileOutput output = getSpecies().getLog();
 		double lastFitnessValue = 0;
-		if (fitness != null) {
-			lastFitnessValue = Cast.asFloat(sim.getScope(), fitness.value(sim.getScope()));
-		}
+		if (fitness != null) { lastFitnessValue = Cast.asFloat(sim.getScope(), fitness.value(sim.getScope())); }
 		if (output != null) { getSpecies().getLog().doRefreshWriteAndClose(sol, lastFitnessValue); }
-		sim.dispose();
+		if (dispose) { sim.dispose(); }
 		return lastFitnessValue;
 	}
 
 	/**
 	 * Method step().
 	 *
-	 * @param scope the scope
+	 * @param scope
+	 *            the scope
 	 * @return true, if successful
 	 * @see gama.metamodel.agent.GamlAgent#step(gama.runtime.IScope) This method, called once by the front controller,
 	 *      actually serves as "launching" the batch process (entirely piloted by the exploration algorithm)
@@ -257,20 +247,19 @@ public class BatchAgent extends ExperimentAgent {
 	 *
 	 * @return the run number
 	 */
-	public int getRunNumber() {
-		return this.runNumber;
-	}
-
-
+	public int getRunNumber() { return this.runNumber; }
 
 	/**
 	 * Creates the simulation.
 	 *
-	 * @param sim the sim
-	 * @param simToParameter the sim to parameter
+	 * @param sim
+	 *            the sim
+	 * @param simToParameter
+	 *            the sim to parameter
 	 * @return the simulation agent
 	 */
-	private SimulationAgent createSimulation(final Map<String, Object> sim, final Map<IAgent, ParametersSet> simToParameter) {
+	private SimulationAgent createSimulation(final Map<String, Object> sim,
+			final Map<IAgent, ParametersSet> simToParameter) {
 		ParametersSet sol = (ParametersSet) sim.get("parameters");
 		final SimulationAgent s = createSimulation(sol, true);
 		s.setSeed((Double) sim.get("seed"));
@@ -281,14 +270,17 @@ public class BatchAgent extends ExperimentAgent {
 	/**
 	 * Launch simulations with solution.
 	 *
-	 * @param sols the sols
+	 * @param sols
+	 *            the sols
 	 * @return the map
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
-	public Map<ParametersSet, Double> launchSimulationsWithSolution(final List<ParametersSet> sols) throws GamaRuntimeException {
+	public Map<ParametersSet, Double> launchSimulationsWithSolution(final List<ParametersSet> sols)
+			throws GamaRuntimeException {
 		// We first reset the currentSolution and the fitness values
 		final SimulationPopulation pop = getSimulationPopulation();
-		Map<ParametersSet,Double> fitnessRes = GamaMapFactory.create();
+		Map<ParametersSet, Double> fitnessRes = GamaMapFactory.create();
 		if (pop == null) return fitnessRes;
 		final List<Map<String, Object>> sims = new ArrayList<>();
 
@@ -296,8 +288,8 @@ public class BatchAgent extends ExperimentAgent {
 		if (numberOfCores == 0) { numberOfCores = 1; }
 
 		Map<ParametersSet, List<Double>> outputs = GamaMapFactory.create();
-		for (ParametersSet sol :sols ) {
-			for (int i = 0; i  < getSeeds().length ; i++) {
+		for (ParametersSet sol : sols) {
+			for (int i = 0; i < getSeeds().length; i++) {
 				Map<String, Object> sim = new HashMap<>();
 				sim.put("parameters", sol);
 				sim.put("seed", getSeeds()[i]);
@@ -332,18 +324,12 @@ public class BatchAgent extends ExperimentAgent {
 				final boolean mustStop = stopConditionMet || agent.dead() || agent.getScope().isPaused();
 				if (mustStop) {
 					pop.unscheduleSimulation(agent);
-					//if (!getSpecies().keepsSimulations()) {
+					double val = computeFitnessAndCloseSimulation(agent, ps, !getSpecies().keepsSimulations());
 
-					double val = ComputeFitnessAndCloseSimulation(agent, ps);
-
-					if (!outputs.containsKey(ps)) {
-						outputs.put(ps, new ArrayList<>());
-					}
+					if (!outputs.containsKey(ps)) { outputs.put(ps, new ArrayList<>()); }
 					outputs.get(ps).add(val);
 
-					if (!sims.isEmpty()) {
-						createSimulation(sims.remove(0), simToParameter);
-					}
+					if (!sims.isEmpty()) { createSimulation(sims.remove(0), simToParameter); }
 
 				}
 			}
@@ -380,7 +366,7 @@ public class BatchAgent extends ExperimentAgent {
 			lastSolution = p;
 			lastFitness = fitnessCombination == IExploration.C_MAX ? Collections.max(outputs.get(p))
 					: fitnessCombination == IExploration.C_MIN ? Collections.min(outputs.get(p))
-							: Statistics.calculateMean(outputs.get(p));
+					: Statistics.calculateMean(outputs.get(p));
 			fitnessRes.put(p, lastFitness);
 			// we update the best solution found so far
 			getSpecies().getExplorationAlgorithm().updateBestFitness(lastSolution, lastFitness);
@@ -396,9 +382,11 @@ public class BatchAgent extends ExperimentAgent {
 	/**
 	 * Launch simulations with solution.
 	 *
-	 * @param sol the sol
+	 * @param sol
+	 *            the sol
 	 * @return the double
-	 * @throws GamaRuntimeException the gama runtime exception
+	 * @throws GamaRuntimeException
+	 *             the gama runtime exception
 	 */
 	public Double launchSimulationsWithSolution(final ParametersSet sol) throws GamaRuntimeException {
 		// We first reset the currentSolution and the fitness values
@@ -445,16 +433,16 @@ public class BatchAgent extends ExperimentAgent {
 					final boolean mustStop = stopConditionMet || agent.dead() || agent.getScope().isPaused();
 					if (mustStop) {
 						pop.unscheduleSimulation(agent);
-						if (!getSpecies().keepsSimulations()) { memorizeFitnessAndCloseSimulation(agent); }
+						memorizeFitnessAndCloseSimulation(agent, !getSpecies().keepsSimulations());
 					}
 				}
 				// We inform the status line
 				if (!dead) {
 					getScope().getGui().getStatus(getScope())
-					.setStatus(
-							"Run " + runNumber + " | " + repeatIndex + "/" + seeds.length
-							+ " simulations (using " + pop.getNumberOfActiveThreads() + " threads)",
-							"small.batch" + i / 5);
+							.setStatus(
+									"Run " + runNumber + " | " + repeatIndex + "/" + seeds.length
+											+ " simulations (using " + pop.getNumberOfActiveThreads() + " threads)",
+									"small.batch" + i / 5);
 				}
 				if (++i == 20) { i = 0; }
 				// We then verify that the front scheduler has not been paused
@@ -490,7 +478,7 @@ public class BatchAgent extends ExperimentAgent {
 		lastSolution = currentSolution;
 		lastFitness = fitnessCombination == IExploration.C_MAX ? Collections.max(fitnessValues)
 				: fitnessCombination == IExploration.C_MIN ? Collections.min(fitnessValues)
-						: Statistics.calculateMean(fitnessValues);
+				: Statistics.calculateMean(fitnessValues);
 
 		// we update the best solution found so far
 		getSpecies().getExplorationAlgorithm().updateBestFitness(lastSolution, lastFitness);
@@ -537,7 +525,8 @@ public class BatchAgent extends ExperimentAgent {
 	/**
 	 * Adds the specific parameters.
 	 *
-	 * @param params the params
+	 * @param params
+	 *            the params
 	 */
 	public void addSpecificParameters(final List<IParameter.Batch> params) {
 		params.add(new ParameterAdapter("Stop condition", IExperimentPlan.BATCH_CATEGORY_NAME, IType.STRING) {
@@ -635,18 +624,15 @@ public class BatchAgent extends ExperimentAgent {
 	 *
 	 * @return the seeds
 	 */
-	public Double[] getSeeds() {
-		return seeds;
-	}
+	public Double[] getSeeds() { return seeds; }
 
 	/**
 	 * Sets the seeds.
 	 *
-	 * @param seeds the new seeds
+	 * @param seeds
+	 *            the new seeds
 	 */
-	public void setSeeds(final Double[] seeds) {
-		this.seeds = seeds;
-	}
+	public void setSeeds(final Double[] seeds) { this.seeds = seeds; }
 
 	/**
 	 * Close simulations.
