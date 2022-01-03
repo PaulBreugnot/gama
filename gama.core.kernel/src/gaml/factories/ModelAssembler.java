@@ -35,6 +35,7 @@ import com.google.common.collect.Sets;
 
 import gama.common.interfaces.IGamlIssue;
 import gama.common.interfaces.IKeyword;
+import gama.core.dev.utils.DEBUG;
 import gama.util.GamaMapFactory;
 import gama.util.IMap;
 import gaml.compilation.GamlCompilationError;
@@ -64,6 +65,10 @@ import gaml.types.Types;
 @SuppressWarnings ({ "unchecked", "rawtypes" })
 public class ModelAssembler {
 
+	static {
+		DEBUG.ON();
+	}
+
 	/**
 	 * Assemble.
 	 *
@@ -84,6 +89,8 @@ public class ModelAssembler {
 	public ModelDescription assemble(final String projectPath, final String modelPath,
 			final Iterable<ISyntacticElement> allModels, final ValidationContext collector, final boolean document,
 			final Map<String, ModelDescription> mm) {
+		// DEBUG.OUT("All models passed to ModelAssembler: "
+		// + Iterables.transform(allModels, @Nullable ISyntacticElement::getName));
 		final ImmutableList<ISyntacticElement> models = ImmutableList.copyOf(allModels);
 		final IMap<String, ISyntacticElement> speciesNodes = GamaMapFactory.create();
 		final IMap<String, IMap<String, ISyntacticElement>>[] experimentNodes = new IMap[1];

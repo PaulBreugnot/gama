@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ErrorToDiagnoticTranslator.java, in gama.core.lang, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ErrorToDiagnoticTranslator.java, in gama.core.lang, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.core.lang.validation;
 
@@ -32,8 +32,8 @@ import gama.core.lang.gaml.Import;
 import gama.core.lang.gaml.Model;
 import gama.core.lang.gaml.Statement;
 import gama.core.lang.gaml.impl.StatementImpl;
-import gama.core.lang.indexer.GamlResourceIndexer;
 import gama.core.lang.resource.GamlResource;
+import gama.core.lang.resource.GamlResourceServices;
 import gaml.compilation.GamlCompilationError;
 import gaml.descriptions.ValidationContext;
 
@@ -52,18 +52,19 @@ public class ErrorToDiagnoticTranslator {
 	/**
 	 * Translate.
 	 *
-	 * @param errors the errors
-	 * @param r the r
-	 * @param mode the mode
+	 * @param errors
+	 *            the errors
+	 * @param r
+	 *            the r
+	 * @param mode
+	 *            the mode
 	 * @return the diagnostic
 	 */
 	public Diagnostic translate(final ValidationContext errors, final GamlResource r, final CheckMode mode) {
 		final BasicDiagnostic chain = new BasicDiagnostic();
 		for (final GamlCompilationError e : errors) {
 			final Diagnostic d = translate(e, r, mode);
-			if (d != null) {
-				chain.add(d);
-			}
+			if (d != null) { chain.add(d); }
 		}
 		return chain;
 	}
@@ -71,23 +72,24 @@ public class ErrorToDiagnoticTranslator {
 	/**
 	 * Translate.
 	 *
-	 * @param e the e
-	 * @param r the r
-	 * @param mode the mode
+	 * @param e
+	 *            the e
+	 * @param r
+	 *            the r
+	 * @param mode
+	 *            the mode
 	 * @return the diagnostic
 	 */
 	public Diagnostic translate(final GamlCompilationError e, final GamlResource r, final CheckMode mode) {
 		final URI errorURI = e.getURI();
-		if (!GamlResourceIndexer.equals(errorURI, r.getURI())) {
-			//			final String uri = URI.decode(errorURI.toFileString());
+		if (!GamlResourceServices.equals(errorURI, r.getURI())) {
+			// final String uri = URI.decode(errorURI.toFileString());
 			final String s = URI.decode(errorURI.lastSegment());
 			final EObject m = r.getContents().get(0);
 			final EObject eObject = findImportWith(m, s);
-			final EAttribute feature =
-					eObject instanceof Model ? GamlPackage.Literals.GAML_DEFINITION__NAME
-							: eObject instanceof HeadlessExperiment
-							? GamlPackage.Literals.HEADLESS_EXPERIMENT__IMPORT_URI
-									: GamlPackage.Literals.IMPORT__IMPORT_URI;
+			final EAttribute feature = eObject instanceof Model ? GamlPackage.Literals.GAML_DEFINITION__NAME
+					: eObject instanceof HeadlessExperiment ? GamlPackage.Literals.HEADLESS_EXPERIMENT__IMPORT_URI
+					: GamlPackage.Literals.IMPORT__IMPORT_URI;
 			return createDiagnostic(CheckMode.NORMAL_ONLY, Diagnostic.ERROR, e.toString() + " (in " + s + ")", eObject,
 					feature, ValidationMessageAcceptor.INSIGNIFICANT_INDEX, e.getCode(), e.getData());
 		}
@@ -100,9 +102,7 @@ public class ErrorToDiagnoticTranslator {
 			} else if (s.eIsSet(GamlPackage.Literals.SDEFINITION__TKEY)) {
 				feature = GamlPackage.Literals.SDEFINITION__TKEY;
 			}
-		} else if (object instanceof Model) {
-			feature = GamlPackage.Literals.GAML_DEFINITION__NAME;
-		}
+		} else if (object instanceof Model) { feature = GamlPackage.Literals.GAML_DEFINITION__NAME; }
 		if (!Arrays.contains(e.getData(), null)) {
 			final int index = ValidationMessageAcceptor.INSIGNIFICANT_INDEX;
 			return createDiagnostic(mode, toDiagnosticSeverity(e), e.toString(), object, feature, index, e.getCode(),
@@ -114,50 +114,53 @@ public class ErrorToDiagnoticTranslator {
 	/**
 	 * Creates the diagnostic.
 	 *
-	 * @param mode the mode
-	 * @param diagnosticSeverity the diagnostic severity
-	 * @param message the message
-	 * @param object the object
-	 * @param feature the feature
-	 * @param index the index
-	 * @param code the code
-	 * @param issueData the issue data
+	 * @param mode
+	 *            the mode
+	 * @param diagnosticSeverity
+	 *            the diagnostic severity
+	 * @param message
+	 *            the message
+	 * @param object
+	 *            the object
+	 * @param feature
+	 *            the feature
+	 * @param index
+	 *            the index
+	 * @param code
+	 *            the code
+	 * @param issueData
+	 *            the issue data
 	 * @return the diagnostic
 	 */
 	private Diagnostic createDiagnostic(final CheckMode mode, final int diagnosticSeverity, final String message,
 			final EObject object, final EStructuralFeature feature, final int index, final String code,
 			final String... issueData) {
-		final Diagnostic result = new FeatureBasedDiagnostic(diagnosticSeverity, message, object, feature, index,
-				getType(mode), code, issueData);
-		return result;
+		return new FeatureBasedDiagnostic(diagnosticSeverity, message, object, feature, index, getType(mode), code,
+				issueData);
 	}
 
 	/**
 	 * Gets the type.
 	 *
-	 * @param mode the mode
+	 * @param mode
+	 *            the mode
 	 * @return the type
 	 */
 	private CheckType getType(final CheckMode mode) {
-		if (mode == CheckMode.FAST_ONLY) {
-			return CheckType.FAST;
-		} else if (mode == CheckMode.EXPENSIVE_ONLY) {
+		if (mode == CheckMode.FAST_ONLY) return CheckType.FAST;
+		if (mode == CheckMode.EXPENSIVE_ONLY)
 			return CheckType.EXPENSIVE;
-		} else if (mode == CheckMode.ALL) {
+		else if ((mode == CheckMode.ALL) || (mode == CheckMode.NORMAL_AND_FAST) || (mode != CheckMode.NORMAL_ONLY))
 			return CheckType.FAST;
-		} else if (mode == CheckMode.NORMAL_AND_FAST) {
-			return CheckType.FAST;
-		} else if (mode == CheckMode.NORMAL_ONLY) {
+		else
 			return CheckType.NORMAL;
-		} else {
-			return CheckType.FAST;
-		}
 	}
 
 	/**
 	 * To diagnostic severity.
 	 *
-	 * @param e the e
+	 * @param e
+	 *            the e
 	 * @return the int
 	 */
 	protected int toDiagnosticSeverity(final GamlCompilationError e) {
@@ -166,9 +169,7 @@ public class ErrorToDiagnoticTranslator {
 			diagnosticSeverity = Diagnostic.ERROR;
 		} else if (e.isWarning()) {
 			diagnosticSeverity = Diagnostic.WARNING;
-		} else if (e.isInfo()) {
-			diagnosticSeverity = Diagnostic.INFO;
-		}
+		} else if (e.isInfo()) { diagnosticSeverity = Diagnostic.INFO; }
 
 		return diagnosticSeverity;
 	}
@@ -176,20 +177,18 @@ public class ErrorToDiagnoticTranslator {
 	/**
 	 * Find import with.
 	 *
-	 * @param m the m
-	 * @param s the s
+	 * @param m
+	 *            the m
+	 * @param s
+	 *            the s
 	 * @return the e object
 	 */
 	private EObject findImportWith(final EObject m, final String s) {
 		if (m instanceof Model) {
 			for (final Import i : ((Model) m).getImports()) {
-				if (i.getImportURI().endsWith(s)) {
-					return i;
-				}
+				if (i.getImportURI().endsWith(s)) return i;
 			}
-		} else if (m instanceof ExperimentFileStructure) {
-			return ((ExperimentFileStructure) m).getExp();
-		}
+		} else if (m instanceof ExperimentFileStructure) return ((ExperimentFileStructure) m).getExp();
 		return m;
 	}
 

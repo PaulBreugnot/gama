@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * GamlResource.java, in gama.core.lang, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * GamlResource.java, in gama.core.lang, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.core.lang.resource;
 
@@ -34,9 +34,9 @@ import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimaps;
 
+import gama.common.interfaces.IGamlIssue;
 import gama.core.lang.gaml.GamlPackage;
 import gama.core.lang.gaml.Model;
-import gama.common.interfaces.IGamlIssue;
 import gama.core.lang.indexer.GamlResourceIndexer;
 import gama.runtime.IExecutionContext;
 import gama.util.GamaMapFactory;
@@ -63,10 +63,10 @@ public class GamlResource extends LazyLinkingResource {
 
 	/** The memoize description. */
 	private static boolean MEMOIZE_DESCRIPTION = false;
-	
+
 	/** The description. */
 	ModelDescription description;
-	
+
 	/** The element. */
 	ISyntacticElement element;
 
@@ -75,9 +75,7 @@ public class GamlResource extends LazyLinkingResource {
 	 *
 	 * @return the validation context
 	 */
-	public ValidationContext getValidationContext() {
-		return GamlResourceServices.getValidationContext(this);
-	}
+	public ValidationContext getValidationContext() { return GamlResourceServices.getValidationContext(this); }
 
 	/**
 	 * Checks for semantic errors.
@@ -89,9 +87,7 @@ public class GamlResource extends LazyLinkingResource {
 	}
 
 	@Override
-	public String getEncoding() {
-		return "UTF-8";
-	}
+	public String getEncoding() { return "UTF-8"; }
 
 	@Override
 	public String toString() {
@@ -101,8 +97,10 @@ public class GamlResource extends LazyLinkingResource {
 	/**
 	 * Update with.
 	 *
-	 * @param model the model
-	 * @param newState the new state
+	 * @param model
+	 *            the model
+	 * @param newState
+	 *            the new state
 	 */
 	public void updateWith(final ModelDescription model, final boolean newState) {
 		GamlResourceServices.updateState(getURI(), model, newState, GamlResourceServices.getValidationContext(this));
@@ -114,9 +112,7 @@ public class GamlResource extends LazyLinkingResource {
 	 * @return the syntactic contents
 	 */
 	public ISyntacticElement getSyntacticContents() {
-		if (element == null) {
-			setElement(GamlResourceServices.buildSyntacticContents(this));
-		}
+		if (element == null) { setElement(GamlResourceServices.buildSyntacticContents(this)); }
 		return element;
 	}
 
@@ -129,7 +125,8 @@ public class GamlResource extends LazyLinkingResource {
 	/**
 	 * Builds the model description.
 	 *
-	 * @param resources the resources
+	 * @param resources
+	 *            the resources
 	 * @return the model description
 	 */
 	private ModelDescription buildModelDescription(final LinkedHashMultimap<String, GamlResource> resources) {
@@ -172,12 +169,14 @@ public class GamlResource extends LazyLinkingResource {
 	/**
 	 * Invalidate.
 	 *
-	 * @param r the r
-	 * @param s the s
+	 * @param r
+	 *            the r
+	 * @param s
+	 *            the s
 	 */
 	public void invalidate(final GamlResource r, final String s) {
 		GamlCompilationError error = null;
-		if (GamlResourceIndexer.equals(r.getURI(), getURI())) {
+		if (GamlResourceServices.equals(r.getURI(), getURI())) {
 			error = new GamlCompilationError(s, IGamlIssue.GENERAL, r.getContents().get(0), false, false);
 		} else {
 			error = new GamlCompilationError(s, IGamlIssue.GENERAL, r.getURI(), false, false);
@@ -192,7 +191,7 @@ public class GamlResource extends LazyLinkingResource {
 	 * @return the model description
 	 */
 	public ModelDescription buildCompleteDescription() {
-		if (MEMOIZE_DESCRIPTION && description != null) { return description; }
+		if (MEMOIZE_DESCRIPTION && description != null) return description;
 		final LinkedHashMultimap<String, GamlResource> imports = GamlResourceIndexer.validateImportsOf(this);
 		if (hasErrors() || hasSemanticErrors()) {
 			setDescription(null);
@@ -266,36 +265,36 @@ public class GamlResource extends LazyLinkingResource {
 	/**
 	 * Sets the description.
 	 *
-	 * @param model the new description
+	 * @param model
+	 *            the new description
 	 */
 	private void setDescription(final ModelDescription model) {
-		if (!MEMOIZE_DESCRIPTION) { return; }
-		if (model == description) { return; }
-		if (description != null) {
-			description.dispose();
-		}
+		if (!MEMOIZE_DESCRIPTION || (model == description)) return;
+		if (description != null) { description.dispose(); }
 		description = model;
 	}
 
 	/**
 	 * Sets the element.
 	 *
-	 * @param model the new element
+	 * @param model
+	 *            the new element
 	 */
 	private void setElement(final ISyntacticElement model) {
-		if (model == element) { return; }
-		if (element != null) {
-			element.dispose();
-		}
+		if (model == element) return;
+		if (element != null) { element.dispose(); }
 		element = model;
 	}
 
 	/**
 	 * In the case of synthetic resources, pass the URI they depend on.
 	 *
-	 * @param is the is
-	 * @param additionalLinkingContext the additional linking context
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @param is
+	 *            the is
+	 * @param additionalLinkingContext
+	 *            the additional linking context
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	public void loadSynthetic(final InputStream is, final IExecutionContext additionalLinkingContext)
 			throws IOException {
@@ -314,9 +313,7 @@ public class GamlResource extends LazyLinkingResource {
 	}
 
 	@Override
-	public OnChangeEvictingCache getCache() {
-		return (OnChangeEvictingCache) super.getCache();
-	}
+	public OnChangeEvictingCache getCache() { return (OnChangeEvictingCache) super.getCache(); }
 
 	@Override
 	protected void doLinking() {

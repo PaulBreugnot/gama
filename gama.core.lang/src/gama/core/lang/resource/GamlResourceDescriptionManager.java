@@ -1,17 +1,19 @@
 /*******************************************************************************************************
  *
- * GamlResourceDescriptionManager.java, in gama.core.lang, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * GamlResourceDescriptionManager.java, in gama.core.lang, is part of the source code of the GAMA modeling and
+ * simulation platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.core.lang.resource;
 
+import static gama.core.lang.resource.GamlResourceServices.properlyEncodedURI;
+
 import java.util.Collection;
-import java.util.Iterator;
+import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -25,8 +27,6 @@ import com.google.inject.Inject;
 
 import gama.core.lang.indexer.GamlResourceIndexer;
 import gama.core.lang.scoping.BuiltinGlobalScopeProvider;
-import gama.util.Collector;
-import gama.util.ICollector;
 
 /**
  * The class GamlResourceDescriptionManager.
@@ -52,19 +52,21 @@ public class GamlResourceDescriptionManager extends DefaultResourceDescriptionMa
 	@Override
 	public boolean isAffected(final Collection<Delta> deltas, final IResourceDescription candidate,
 			final IResourceDescriptions context) {
-		// final boolean result = false;
-		final URI newUri = candidate.getURI();
-		try (ICollector<URI> deltaUris = Collector.getSet()) {
-			for (final Delta d : deltas) {
-				deltaUris.add(GamlResourceServices.properlyEncodedURI(d.getUri()));
-			}
-			final Iterator<URI> it = GamlResourceIndexer.allImportsOf(newUri);
-			while (it.hasNext()) {
-				final URI next = it.next();
-				if (deltaUris.contains(next)) { return true; }
-			}
-			return super.isAffected(deltas, candidate, context);
+		Map<URI, String> imports;
+		if (!(candidate instanceof GamlResourceDescription)) {
+			// Seems to happen, although it shouldnt !
+			imports = GamlResourceIndexer.allImportsOf(candidate.getURI());
+		} else {
+			imports = GamlResourceIndexer
+					.allImportsOf((GamlResource) ((GamlResourceDescription) candidate).getResource());
 		}
+		if (imports.isEmpty()) return false;
+		for (Delta d : deltas) {
+			if (d.haveEObjectDescriptionsChanged() && imports.containsKey(properlyEncodedURI(d.getUri()))) return true;
+		}
+		return false;
+		// return super.isAffected(deltas, candidate, context);
+
 	}
 
 	@Override

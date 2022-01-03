@@ -14,8 +14,6 @@ package gama.core.lang.scoping;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -23,7 +21,6 @@ import java.util.Set;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.EObjectDescription;
 import org.eclipse.xtext.resource.IEObjectDescription;
@@ -145,7 +142,8 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 		/**
 		 * Method containsKey().
 		 *
-		 * @param key the key
+		 * @param key
+		 *            the key
 		 * @return true, if successful
 		 * @see java.util.Map#containsKey(java.lang.Object)
 		 */
@@ -161,7 +159,8 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 		/**
 		 * Method containsValue().
 		 *
-		 * @param value the value
+		 * @param value
+		 *            the value
 		 * @return true, if successful
 		 * @see java.util.Map#containsValue(java.lang.Object)
 		 */
@@ -178,7 +177,8 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 		/**
 		 * Method get().
 		 *
-		 * @param key the key
+		 * @param key
+		 *            the key
 		 * @return the string
 		 * @see java.util.Map#get(java.lang.Object)
 		 */
@@ -195,8 +195,10 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 		/**
 		 * Method put().
 		 *
-		 * @param key the key
-		 * @param value the value
+		 * @param key
+		 *            the key
+		 * @param value
+		 *            the value
 		 * @return the string
 		 * @see java.util.Map#put(java.lang.Object, java.lang.Object)
 		 */
@@ -219,7 +221,8 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 		/**
 		 * Method remove().
 		 *
-		 * @param key the key
+		 * @param key
+		 *            the key
 		 * @return the string
 		 * @see java.util.Map#remove(java.lang.Object)
 		 */
@@ -232,7 +235,8 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 		/**
 		 * Method putAll().
 		 *
-		 * @param m the m
+		 * @param m
+		 *            the m
 		 * @see java.util.Map#putAll(java.util.Map)
 		 */
 		@Override
@@ -257,7 +261,9 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 		@Override
 		public Set<String> keySet() {
 			final HashSet<String> keys = new HashSet<>();
-			for (int i = 0; i < contents.length; i += 2) { keys.add(contents[i]); }
+			for (int i = 0; i < contents.length; i += 2) {
+				keys.add(contents[i]);
+			}
 			return keys;
 		}
 
@@ -270,7 +276,9 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 		@Override
 		public Collection<String> values() {
 			final HashSet<String> values = new HashSet<>();
-			for (int i = 1; i < contents.length; i += 2) { values.add(contents[i]); }
+			for (int i = 1; i < contents.length; i += 2) {
+				values.add(contents[i]);
+			}
 			return values;
 		}
 
@@ -412,17 +420,20 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 	/**
 	 * Adds the var.
 	 *
-	 * @param t            the t
-	 * @param o the o
-	 * @param keyword            the keyword indicating the type of the stub (variable, action, etc.)
-	 * @param classes the classes
+	 * @param t
+	 *            the t
+	 * @param o
+	 *            the o
+	 * @param keyword
+	 *            the keyword indicating the type of the stub (variable, action, etc.)
+	 * @param classes
+	 *            the classes
 	 * @return the last stub constructed
 	 */
 	public static GamlDefinition addWithDoc(final String t, final IGamlDescription o, final String keyword,
 			final EClass... classes) {
 
-		//		DEBUG.OUT("Adding stub for " + keyword + " " + t);
-
+		// DEBUG.OUT("Adding stub for " + keyword + " " + t);
 
 		GamlDefinition stub = null;
 		QualifiedName qName = QualifiedName.create(t);
@@ -505,7 +516,8 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 	/**
 	 * Get the object descriptions for the built-in types.
 	 *
-	 * @param eClass the e class
+	 * @param eClass
+	 *            the e class
 	 * @return the e object descriptions
 	 */
 	public IMap<QualifiedName, IEObjectDescription> getEObjectDescriptions(final EClass eClass) {
@@ -545,7 +557,9 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 				add(eType, t);
 				add(eVar, t);
 			}
-			for (final String t : IUnits.UNITS_EXPR.keySet()) { addUnit(eUnit, t); }
+			for (final String t : IUnits.UNITS_EXPR.keySet()) {
+				addUnit(eUnit, t);
+			}
 			for (final OperatorProto t : AbstractGamlAdditions.getAllFields()) {
 				addWithDoc(t.getName(), t, "field", eVar);
 			}
@@ -576,51 +590,30 @@ public class BuiltinGlobalScopeProvider extends ImportUriGlobalScopeProvider imp
 	}
 
 	/**
-	 * Gets the all imported URIs.
+	 * Gets the scope.
 	 *
 	 * @param resource
 	 *            the resource
-	 * @param set
-	 *            the set
-	 * @return the all imported UR is
-	 */
-	public Map<URI, String> getAllImportedURIs(final Resource resource, final ResourceSet set) {
-		return GamlResourceIndexer.allLabeledImportsOf((GamlResource) resource);
-	}
-
-	/**
-	 * Gets the imported uris.
-	 *
-	 * @param resource the resource
-	 * @return the imported uris
-	 */
-	@Override
-	protected LinkedHashSet<URI> getImportedUris(final Resource resource) {
-		LinkedHashSet<URI> result = new LinkedHashSet<>();
-		Iterator<URI> uris = GamlResourceIndexer.allImportsOf(resource.getURI());
-		while (uris.hasNext()) { result.add(uris.next()); }
-		return result;
-	}
-
-	/**
-	 * Gets the scope.
-	 *
-	 * @param resource the resource
-	 * @param ignoreCase the ignore case
-	 * @param type the type
-	 * @param filter the filter
+	 * @param ignoreCase
+	 *            the ignore case
+	 * @param type
+	 *            the type
+	 * @param filter
+	 *            the filter
 	 * @return the scope
 	 */
 	@Override
 	protected IScope getScope(final Resource resource, final boolean ignoreCase, final EClass type,
 			final Predicate<IEObjectDescription> filter) {
 		IScope scope = getGlobalScope(type);
-		final Collection<URI> uniqueImportURIs = getAllImportedURIs(resource, resource.getResourceSet()).keySet();
-		if (uniqueImportURIs.size() == 1) return scope;
-		final List<URI> urisAsList = Lists.newArrayList(uniqueImportURIs);
-		urisAsList.remove(resource.getURI());
-		Collections.reverse(urisAsList);
-		final IResourceDescriptions descriptions = getResourceDescriptions(resource, urisAsList);
+		Collection<URI> imports = GamlResourceIndexer.allImportsOf((GamlResource) resource).keySet();
+		int size = imports.size();
+		if (size == 0) return scope;
+		if (size > 1) {
+			imports = Lists.newArrayList(imports);
+			Collections.reverse((List<URI>) imports);
+		}
+		final IResourceDescriptions descriptions = getResourceDescriptions(resource, imports);
 		return SelectableBasedScope.createScope(scope, descriptions, filter, type, false);
 	}
 

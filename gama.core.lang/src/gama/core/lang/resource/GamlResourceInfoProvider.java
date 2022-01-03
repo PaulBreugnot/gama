@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * GamlResourceInfoProvider.java, in gama.core.lang, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * GamlResourceInfoProvider.java, in gama.core.lang, is part of the source code of the GAMA modeling and simulation
+ * platform (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gama.core.lang.resource;
 
@@ -28,7 +28,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.SynchronizedXtextResourceSet;
 import org.eclipse.xtext.resource.XtextResourceSet;
 
@@ -62,9 +62,12 @@ public class GamlResourceInfoProvider implements IGamlResourceInfoServices {
 	/**
 	 * Gets the info.
 	 *
-	 * @param originalURI the original URI
-	 * @param r the r
-	 * @param stamp the stamp
+	 * @param originalURI
+	 *            the original URI
+	 * @param r
+	 *            the r
+	 * @param stamp
+	 *            the stamp
 	 * @return the info
 	 */
 	public GamlFileInfo getInfo(final URI originalURI, final GamlResource r, final long stamp) {
@@ -72,9 +75,7 @@ public class GamlResourceInfoProvider implements IGamlResourceInfoServices {
 		Set<String> imports = null;
 		final Set<URI> uris = GamlResourceIndexer.directImportsOf(originalURI);
 		for (final URI u : uris) {
-			if (imports == null) {
-				imports = new LinkedHashSet();
-			}
+			if (imports == null) { imports = new LinkedHashSet(); }
 			imports.add(u.deresolve(originalURI).toString());
 		}
 
@@ -96,15 +97,13 @@ public class GamlResourceInfoProvider implements IGamlResourceInfoServices {
 		Set<String> uses = null;
 		Set<String> exps = null;
 
-		final TreeIterator<EObject> tree = EcoreUtil2.getAllContents(r, true);
+		final TreeIterator<EObject> tree = EcoreUtil.getAllContents(r, true);
 		boolean processExperiments = true;
 		while (tree.hasNext()) {
 			final EObject e = tree.next();
 			if (e instanceof Pragma) {
 				final String s = ((Pragma) e).getName();
-				if (IKeyword.NO_EXPERIMENT.equals(s)) {
-					processExperiments = false;
-				}
+				if (IKeyword.NO_EXPERIMENT.equals(s)) { processExperiments = false; }
 			} else if (e instanceof StringLiteral) {
 				final String s = ((StringLiteral) e).getOp();
 				if (s.length() > 4) {
@@ -112,36 +111,24 @@ public class GamlResourceInfoProvider implements IGamlResourceInfoServices {
 					final String ext = u.fileExtension();
 					if (ext != null && !ext.isEmpty()) {
 						// if (GamaBundleLoader.HANDLED_FILE_EXTENSIONS.contains(ext)) {
-						if (uses == null) {
-							uses = new LinkedHashSet();
-						}
+						if (uses == null) { uses = new LinkedHashSet(); }
 						uses.add(s);
 						// }
 					}
 				}
 			} else if (processExperiments && e instanceof S_Experiment) {
 				String s = ((S_Experiment) e).getName();
-				if (s == null) {
-					DEBUG.ERR("EXPERIMENT NULL");
-				}
-				if (EGaml.getInstance().isBatch(e)) {
-					s = GamlFileInfo.BATCH_PREFIX + s;
-				}
+				if (s == null) { DEBUG.ERR("EXPERIMENT NULL"); }
+				if (EGaml.getInstance().isBatch(e)) { s = GamlFileInfo.BATCH_PREFIX + s; }
 
-				if (exps == null) {
-					exps = new LinkedHashSet();
-				}
+				if (exps == null) { exps = new LinkedHashSet(); }
 				exps.add(s);
 			} else if (processExperiments && e instanceof HeadlessExperiment) {
 				String s = ((HeadlessExperiment) e).getName();
 
-				if (EGaml.getInstance().isBatch(e)) {
-					s = GamlFileInfo.BATCH_PREFIX + s;
-				}
+				if (EGaml.getInstance().isBatch(e)) { s = GamlFileInfo.BATCH_PREFIX + s; }
 
-				if (exps == null) {
-					exps = new LinkedHashSet();
-				}
+				if (exps == null) { exps = new LinkedHashSet(); }
 				exps.add(s);
 			}
 		}
@@ -174,7 +161,8 @@ public class GamlResourceInfoProvider implements IGamlResourceInfoServices {
 	/**
 	 * Clear resource set.
 	 *
-	 * @param resourceSet the resource set
+	 * @param resourceSet
+	 *            the resource set
 	 */
 	protected void clearResourceSet(final ResourceSet resourceSet) {
 		final boolean wasDeliver = resourceSet.eDeliver();
@@ -194,9 +182,7 @@ public class GamlResourceInfoProvider implements IGamlResourceInfoServices {
 	 * @return the resource set
 	 */
 	private XtextResourceSet getResourceSet() {
-		if (resourceSet == null) {
-			resourceSet = new SynchronizedXtextResourceSet();
-		}
+		if (resourceSet == null) { resourceSet = new SynchronizedXtextResourceSet(); }
 		return resourceSet;
 	}
 
