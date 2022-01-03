@@ -1,7 +1,7 @@
 /*******************************************************************************************************
  *
- * SymbolDescription.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * SymbolDescription.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
@@ -98,7 +98,10 @@ public abstract class SymbolDescription implements IDescription {
 		this.keyword = keyword;
 		this.facets = facets;
 		element = source;
-		if (superDesc != null) { originName = superDesc.getName(); }
+		if (facets != null && facets.containsKey(ORIGIN)) {
+			originName = facets.getLabel(ORIGIN);
+			facets.remove(ORIGIN);
+		} else if (superDesc != null) { originName = superDesc.getName(); }
 		setEnclosingDescription(superDesc);
 		proto = DescriptionFactory.getProto(getKeyword(), getSpeciesContext());
 	}
@@ -151,7 +154,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Gets the facet.
 	 *
-	 * @param string the string
+	 * @param string
+	 *            the string
 	 * @return the facet
 	 */
 	@Override
@@ -162,7 +166,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Gets the facet expr.
 	 *
-	 * @param strings the strings
+	 * @param strings
+	 *            the strings
 	 * @return the facet expr
 	 */
 	@Override
@@ -173,7 +178,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Gets the facet.
 	 *
-	 * @param strings the strings
+	 * @param strings
+	 *            the strings
 	 * @return the facet
 	 */
 	@Override
@@ -184,7 +190,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Checks for facet.
 	 *
-	 * @param string the string
+	 * @param string
+	 *            the string
 	 * @return true, if successful
 	 */
 	@Override
@@ -195,7 +202,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Gets the litteral.
 	 *
-	 * @param string the string
+	 * @param string
+	 *            the string
 	 * @return the litteral
 	 */
 	@Override
@@ -206,8 +214,10 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Sets the facet.
 	 *
-	 * @param name the name
-	 * @param desc the desc
+	 * @param name
+	 *            the name
+	 * @param desc
+	 *            the desc
 	 */
 	@Override
 	public void setFacet(final String name, final IExpressionDescription desc) {
@@ -218,8 +228,10 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Sets the facet.
 	 *
-	 * @param string the string
-	 * @param exp the exp
+	 * @param string
+	 *            the string
+	 * @param exp
+	 *            the exp
 	 */
 	@Override
 	public void setFacet(final String string, final IExpression exp) {
@@ -230,20 +242,25 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Removes the facets.
 	 *
-	 * @param strings the strings
+	 * @param strings
+	 *            the strings
 	 */
 	@Override
 	public void removeFacets(final String... strings) {
 		if (!hasFacets()) return;
-		for (final String s : strings) { facets.remove(s); }
+		for (final String s : strings) {
+			facets.remove(s);
+		}
 		if (facets.isEmpty()) { facets = null; }
 	}
 
 	/**
 	 * Visit facets.
 	 *
-	 * @param names the names
-	 * @param visitor the visitor
+	 * @param names
+	 *            the names
+	 * @param visitor
+	 *            the visitor
 	 * @return true, if successful
 	 */
 	@Override
@@ -267,7 +284,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * First facet found among.
 	 *
-	 * @param strings the strings
+	 * @param strings
+	 *            the strings
 	 * @return the string
 	 */
 	@Override
@@ -309,7 +327,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Serialize.
 	 *
-	 * @param includingBuiltIn the including built in
+	 * @param includingBuiltIn
+	 *            the including built in
 	 * @return the string
 	 */
 	@Override
@@ -407,8 +426,10 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Document.
 	 *
-	 * @param e the e
-	 * @param desc the desc
+	 * @param e
+	 *            the e
+	 * @param desc
+	 *            the desc
 	 */
 	@Override
 	public void document(final EObject e, final IGamlDescription desc) {
@@ -421,7 +442,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Error.
 	 *
-	 * @param message the message
+	 * @param message
+	 *            the message
 	 */
 	@Override
 	public void error(final String message) {
@@ -431,8 +453,10 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Error.
 	 *
-	 * @param message the message
-	 * @param code the code
+	 * @param message
+	 *            the message
+	 * @param code
+	 *            the code
 	 */
 	@Override
 	public void error(final String message, final String code) {
@@ -442,10 +466,14 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Error.
 	 *
-	 * @param s the s
-	 * @param code the code
-	 * @param facet the facet
-	 * @param data the data
+	 * @param s
+	 *            the s
+	 * @param code
+	 *            the code
+	 * @param facet
+	 *            the facet
+	 * @param data
+	 *            the data
 	 */
 	@Override
 	public void error(final String s, final String code, final EObject facet, final String... data) {
@@ -455,10 +483,14 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Error.
 	 *
-	 * @param s the s
-	 * @param code the code
-	 * @param facet the facet
-	 * @param data the data
+	 * @param s
+	 *            the s
+	 * @param code
+	 *            the code
+	 * @param facet
+	 *            the facet
+	 * @param data
+	 *            the data
 	 */
 	@Override
 	public void error(final String s, final String code, final String facet, final String... data) {
@@ -468,8 +500,10 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Info.
 	 *
-	 * @param message the message
-	 * @param code the code
+	 * @param message
+	 *            the message
+	 * @param code
+	 *            the code
 	 */
 	@Override
 	public void info(final String message, final String code) {
@@ -479,10 +513,14 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Info.
 	 *
-	 * @param s the s
-	 * @param code the code
-	 * @param facet the facet
-	 * @param data the data
+	 * @param s
+	 *            the s
+	 * @param code
+	 *            the code
+	 * @param facet
+	 *            the facet
+	 * @param data
+	 *            the data
 	 */
 	@Override
 	public void info(final String s, final String code, final EObject facet, final String... data) {
@@ -492,10 +530,14 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Info.
 	 *
-	 * @param s the s
-	 * @param code the code
-	 * @param facet the facet
-	 * @param data the data
+	 * @param s
+	 *            the s
+	 * @param code
+	 *            the code
+	 * @param facet
+	 *            the facet
+	 * @param data
+	 *            the data
 	 */
 	@Override
 	public void info(final String s, final String code, final String facet, final String... data) {
@@ -505,8 +547,10 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Warning.
 	 *
-	 * @param message the message
-	 * @param code the code
+	 * @param message
+	 *            the message
+	 * @param code
+	 *            the code
 	 */
 	@Override
 	public void warning(final String message, final String code) {
@@ -516,10 +560,14 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Warning.
 	 *
-	 * @param s the s
-	 * @param code the code
-	 * @param object the object
-	 * @param data the data
+	 * @param s
+	 *            the s
+	 * @param code
+	 *            the code
+	 * @param object
+	 *            the object
+	 * @param data
+	 *            the data
 	 */
 	@Override
 	public void warning(final String s, final String code, final EObject object, final String... data) {
@@ -529,10 +577,14 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Warning.
 	 *
-	 * @param s the s
-	 * @param code the code
-	 * @param facet the facet
-	 * @param data the data
+	 * @param s
+	 *            the s
+	 * @param code
+	 *            the code
+	 * @param facet
+	 *            the facet
+	 * @param data
+	 *            the data
 	 */
 	@Override
 	public void warning(final String s, final String code, final String facet, final String... data) {
@@ -561,7 +613,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Sets the name.
 	 *
-	 * @param name the new name
+	 * @param name
+	 *            the new name
 	 */
 	@Override
 	public void setName(final String name) {
@@ -611,7 +664,9 @@ public abstract class SymbolDescription implements IDescription {
 	// @Override
 	public final void addChildren(final Iterable<? extends IDescription> originalChildren) {
 		if (originalChildren == null /* || !getMeta().hasSequence() */) return;
-		for (final IDescription c : originalChildren) { addChild(c); }
+		for (final IDescription c : originalChildren) {
+			addChild(c);
+		}
 	}
 
 	/**
@@ -631,7 +686,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Sets the enclosing description.
 	 *
-	 * @param desc the new enclosing description
+	 * @param desc
+	 *            the new enclosing description
 	 */
 	@Override
 	public void setEnclosingDescription(final IDescription desc) { enclosing = desc; }
@@ -639,8 +695,10 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Gets the underlying element.
 	 *
-	 * @param facet the facet
-	 * @param returnFacet the return facet
+	 * @param facet
+	 *            the facet
+	 * @param returnFacet
+	 *            the return facet
 	 * @return the underlying element
 	 */
 	@Override
@@ -679,7 +737,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Copy.
 	 *
-	 * @param into the into
+	 * @param into
+	 *            the into
 	 * @return the i description
 	 */
 	@Override
@@ -690,7 +749,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Visit own children recursively.
 	 *
-	 * @param visitor the visitor
+	 * @param visitor
+	 *            the visitor
 	 * @return true, if successful
 	 */
 	@Override
@@ -709,7 +769,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Checks for attribute.
 	 *
-	 * @param aName the a name
+	 * @param aName
+	 *            the a name
 	 * @return true, if successful
 	 */
 	@Override
@@ -720,7 +781,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Manipulates var.
 	 *
-	 * @param aName the a name
+	 * @param aName
+	 *            the a name
 	 * @return true, if successful
 	 */
 	@Override
@@ -744,7 +806,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Gets the description declaring var.
 	 *
-	 * @param aName the a name
+	 * @param aName
+	 *            the a name
 	 * @return the description declaring var
 	 */
 	@Override
@@ -755,8 +818,10 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Gets the description declaring action.
 	 *
-	 * @param aName the a name
-	 * @param superInvocation the super invocation
+	 * @param aName
+	 *            the a name
+	 * @param superInvocation
+	 *            the super invocation
 	 * @return the description declaring action
 	 */
 	@Override
@@ -767,8 +832,10 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Gets the var expr.
 	 *
-	 * @param aName the a name
-	 * @param asField the as field
+	 * @param aName
+	 *            the a name
+	 * @param asField
+	 *            the as field
 	 * @return the var expr
 	 */
 	@Override
@@ -779,7 +846,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Gets the type named.
 	 *
-	 * @param s the s
+	 * @param s
+	 *            the s
 	 * @return the type named
 	 */
 	@Override
@@ -848,7 +916,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Gets the species description.
 	 *
-	 * @param actualSpecies the actual species
+	 * @param actualSpecies
+	 *            the actual species
 	 * @return the species description
 	 * @see msi.gama.common.interfaces.IDescription#getSpeciesDescription(java.lang.String)
 	 */
@@ -862,7 +931,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Gets the action.
 	 *
-	 * @param aName the a name
+	 * @param aName
+	 *            the a name
 	 * @return the action
 	 * @see msi.gama.common.interfaces.IDescription#getAction(java.lang.String)
 	 */
@@ -898,7 +968,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Sets the defining plugin.
 	 *
-	 * @param plugin the new defining plugin
+	 * @param plugin
+	 *            the new defining plugin
 	 */
 	@Override
 	public void setDefiningPlugin(final String plugin) {
@@ -943,7 +1014,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Sets the origin name.
 	 *
-	 * @param name the new origin name
+	 * @param name
+	 *            the new origin name
 	 */
 	@Override
 	public void setOriginName(final String name) {
@@ -1207,7 +1279,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Gets the children with keyword.
 	 *
-	 * @param aKeyword the a keyword
+	 * @param aKeyword
+	 *            the a keyword
 	 * @return the children with keyword
 	 */
 	@Override
@@ -1218,7 +1291,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Gets the child with keyword.
 	 *
-	 * @param aKeyword the a keyword
+	 * @param aKeyword
+	 *            the a keyword
 	 * @return the child with keyword
 	 */
 	@Override
@@ -1259,7 +1333,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Attach alternate var description provider.
 	 *
-	 * @param vp the vp
+	 * @param vp
+	 *            the vp
 	 */
 	@Override
 	public void attachAlternateVarDescriptionProvider(final IVarDescriptionProvider vp) {}
@@ -1288,7 +1363,8 @@ public abstract class SymbolDescription implements IDescription {
 	/**
 	 * Replace children with.
 	 *
-	 * @param array the array
+	 * @param array
+	 *            the array
 	 */
 	@Override
 	public void replaceChildrenWith(final Iterable<IDescription> array) {}

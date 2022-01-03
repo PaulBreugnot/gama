@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * TypeDescription.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * TypeDescription.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gaml.descriptions;
 
@@ -53,27 +53,35 @@ public abstract class TypeDescription extends SymbolDescription {
 	/** The actions. */
 	// lazily
 	protected IMap<String, ActionDescription> actions;
-	
+
 	/** The attributes. */
 	protected IMap<String, VariableDescription> attributes;
-	
+
 	/** The parent. */
 	protected TypeDescription parent;
-	
+
 	/** The is abstract. */
 	protected final boolean isAbstract;
 
 	/**
 	 * Instantiates a new type description.
 	 *
-	 * @param keyword the keyword
-	 * @param clazz the clazz
-	 * @param macroDesc the macro desc
-	 * @param parent the parent
-	 * @param cp the cp
-	 * @param source the source
-	 * @param facets the facets
-	 * @param plugin the plugin
+	 * @param keyword
+	 *            the keyword
+	 * @param clazz
+	 *            the clazz
+	 * @param macroDesc
+	 *            the macro desc
+	 * @param parent
+	 *            the parent
+	 * @param cp
+	 *            the cp
+	 * @param source
+	 *            the source
+	 * @param facets
+	 *            the facets
+	 * @param plugin
+	 *            the plugin
 	 */
 	public TypeDescription(final String keyword, final Class clazz, final IDescription macroDesc,
 			final TypeDescription parent, final Iterable<? extends IDescription> cp, final EObject source,
@@ -178,7 +186,8 @@ public abstract class TypeDescription extends SymbolDescription {
 	/**
 	 * Gets the attribute.
 	 *
-	 * @param vn the vn
+	 * @param vn
+	 *            the vn
 	 * @return the attribute
 	 */
 	public VariableDescription getAttribute(final String vn) {
@@ -190,7 +199,8 @@ public abstract class TypeDescription extends SymbolDescription {
 	/**
 	 * Redefines attribute.
 	 *
-	 * @param vn the vn
+	 * @param vn
+	 *            the vn
 	 * @return true, if successful
 	 */
 	public boolean redefinesAttribute(final String vn) {
@@ -218,7 +228,8 @@ public abstract class TypeDescription extends SymbolDescription {
 	/**
 	 * Adds the attribute no check.
 	 *
-	 * @param vd the vd
+	 * @param vd
+	 *            the vd
 	 */
 	protected void addAttributeNoCheck(final VariableDescription vd) {
 		if (attributes == null) { attributes = GamaMapFactory.create(); }
@@ -230,8 +241,10 @@ public abstract class TypeDescription extends SymbolDescription {
 	/**
 	 * Assert attributes are compatible.
 	 *
-	 * @param existingVar the existing var
-	 * @param newVar the new var
+	 * @param existingVar
+	 *            the existing var
+	 * @param newVar
+	 *            the new var
 	 * @return true, if successful
 	 */
 	public boolean assertAttributesAreCompatible(final VariableDescription existingVar,
@@ -250,11 +263,16 @@ public abstract class TypeDescription extends SymbolDescription {
 	/**
 	 * Mark type difference.
 	 *
-	 * @param existingVar the existing var
-	 * @param newVar the new var
-	 * @param existingType the existing type
-	 * @param newType the new type
-	 * @param error the error
+	 * @param existingVar
+	 *            the existing var
+	 * @param newVar
+	 *            the new var
+	 * @param existingType
+	 *            the existing type
+	 * @param newType
+	 *            the new type
+	 * @param error
+	 *            the error
 	 */
 	private void markTypeDifference(final VariableDescription existingVar, final VariableDescription newVar,
 			final IType existingType, final IType newType, final boolean error) {
@@ -294,8 +312,10 @@ public abstract class TypeDescription extends SymbolDescription {
 	/**
 	 * Mark attribute redefinition.
 	 *
-	 * @param existingVar the existing var
-	 * @param newVar the new var
+	 * @param existingVar
+	 *            the existing var
+	 * @param newVar
+	 *            the new var
 	 */
 	public void markAttributeRedefinition(final VariableDescription existingVar, final VariableDescription newVar) {
 		if (newVar.isBuiltIn() && existingVar.isBuiltIn()) return;
@@ -332,7 +352,8 @@ public abstract class TypeDescription extends SymbolDescription {
 	/**
 	 * Inherit attributes from.
 	 *
-	 * @param p the p
+	 * @param p
+	 *            the p
 	 */
 	protected void inheritAttributesFrom(final TypeDescription p) {
 		for (final VariableDescription v : p.getAttributes()) {
@@ -343,7 +364,8 @@ public abstract class TypeDescription extends SymbolDescription {
 	/**
 	 * Adds the own attribute.
 	 *
-	 * @param vd the vd
+	 * @param vd
+	 *            the vd
 	 */
 	public void addOwnAttribute(final VariableDescription vd) {
 		final String newVarName = vd.getName();
@@ -363,7 +385,8 @@ public abstract class TypeDescription extends SymbolDescription {
 	/**
 	 * Adds the inherited attribute.
 	 *
-	 * @param vd the vd
+	 * @param vd
+	 *            the vd
 	 */
 	public void addInheritedAttribute(final VariableDescription vd) {
 		// We dont inherit from previously added variables, as a child and its
@@ -385,10 +408,14 @@ public abstract class TypeDescription extends SymbolDescription {
 	 * (meaning a cycle is being introduced by the addition of a variable), then emits an error on the first
 	 * non-built-in variable involved in the cycle
 	 *
-	 * @param graph the graph
-	 * @param source the source
-	 * @param target the target
-	 * @param type the type
+	 * @param graph
+	 *            the graph
+	 * @param source
+	 *            the source
+	 * @param target
+	 *            the target
+	 * @param type
+	 *            the type
 	 * @return true if the addition has been done, false otherwise
 	 */
 	private boolean add(final DirectedAcyclicGraph<VariableDescription, Object> graph, final VariableDescription source,
@@ -450,17 +477,18 @@ public abstract class TypeDescription extends SymbolDescription {
 	/**
 	 * Sets the parent.
 	 *
-	 * @param parent the new parent
+	 * @param parent
+	 *            the new parent
 	 */
-	public void setParent(final TypeDescription parent) {
-		this.parent = parent;
-	}
+	public void setParent(final TypeDescription parent) { this.parent = parent; }
 
 	/**
 	 * Duplicate info.
 	 *
-	 * @param one the one
-	 * @param two the two
+	 * @param one
+	 *            the one
+	 * @param two
+	 *            the two
 	 */
 	protected void duplicateInfo(final IDescription one, final IDescription two) {
 		final String aName = one.getName();
@@ -484,13 +512,18 @@ public abstract class TypeDescription extends SymbolDescription {
 	/**
 	 * Adds the action.
 	 *
-	 * @param newAction the new action
+	 * @param newAction
+	 *            the new action
 	 */
 	protected void addAction(final ActionDescription newAction) {
 		final String actionName = newAction.getName();
 		if (actions != null) {
-			final StatementDescription existing = actions.get(actionName);
-			if (existing != null) { duplicateInfo(newAction, existing); }
+			final ActionDescription existing = actions.get(actionName);
+			if (existing != null) {
+				assertActionsAreCompatible(newAction, existing, existing.getOriginName());
+
+				duplicateInfo(newAction, existing);
+			}
 		} else {
 			actions = GamaMapFactory.createUnordered();
 		}
@@ -500,7 +533,8 @@ public abstract class TypeDescription extends SymbolDescription {
 	/**
 	 * Redefines action.
 	 *
-	 * @param theName the the name
+	 * @param theName
+	 *            the the name
 	 * @return true, if successful
 	 */
 	public boolean redefinesAction(final String theName) {
@@ -528,7 +562,8 @@ public abstract class TypeDescription extends SymbolDescription {
 	/**
 	 * Removes the action.
 	 *
-	 * @param temp the temp
+	 * @param temp
+	 *            the temp
 	 */
 	public void removeAction(final String temp) {
 		if (actions == null) return;
@@ -597,8 +632,10 @@ public abstract class TypeDescription extends SymbolDescription {
 	/**
 	 * Checks if is arg of.
 	 *
-	 * @param op the op
-	 * @param arg the arg
+	 * @param op
+	 *            the op
+	 * @param arg
+	 *            the arg
 	 * @return true, if is arg of
 	 */
 	public boolean isArgOf(final String op, final String arg) {
@@ -612,9 +649,7 @@ public abstract class TypeDescription extends SymbolDescription {
 	 *
 	 * @return a TypeDescription or null
 	 */
-	public TypeDescription getParent() {
-		return parent;
-	}
+	public TypeDescription getParent() { return parent; }
 
 	@Override
 	public void dispose() {
@@ -640,7 +675,8 @@ public abstract class TypeDescription extends SymbolDescription {
 	/**
 	 * Inherit actions from.
 	 *
-	 * @param p the p
+	 * @param p
+	 *            the p
 	 */
 	protected void inheritActionsFrom(final TypeDescription p) {
 		if (p == null || p == this) return;
@@ -683,9 +719,12 @@ public abstract class TypeDescription extends SymbolDescription {
 	/**
 	 * Assert actions are compatible.
 	 *
-	 * @param myAction the my action
-	 * @param parentAction the parent action
-	 * @param parentName the parent name
+	 * @param myAction
+	 *            the my action
+	 * @param parentAction
+	 *            the parent action
+	 * @param parentName
+	 *            the parent name
 	 */
 	public static void assertActionsAreCompatible(final ActionDescription myAction,
 			final ActionDescription parentAction, final String parentName) {
@@ -772,7 +811,8 @@ public abstract class TypeDescription extends SymbolDescription {
 	/**
 	 * Visit all attributes.
 	 *
-	 * @param visitor the visitor
+	 * @param visitor
+	 *            the visitor
 	 * @return true, if successful
 	 */
 	public boolean visitAllAttributes(final DescriptionVisitor<IDescription> visitor) {
@@ -783,7 +823,8 @@ public abstract class TypeDescription extends SymbolDescription {
 	/**
 	 * Visit own attributes.
 	 *
-	 * @param visitor the visitor
+	 * @param visitor
+	 *            the visitor
 	 * @return true, if successful
 	 */
 	public boolean visitOwnAttributes(final DescriptionVisitor<IDescription> visitor) {
@@ -794,7 +835,8 @@ public abstract class TypeDescription extends SymbolDescription {
 	/**
 	 * Visit own actions.
 	 *
-	 * @param visitor the visitor
+	 * @param visitor
+	 *            the visitor
 	 * @return true, if successful
 	 */
 	public boolean visitOwnActions(final DescriptionVisitor<IDescription> visitor) {
@@ -805,7 +847,8 @@ public abstract class TypeDescription extends SymbolDescription {
 	/**
 	 * Visit own actions recursively.
 	 *
-	 * @param visitor the visitor
+	 * @param visitor
+	 *            the visitor
 	 * @return true, if successful
 	 */
 	public boolean visitOwnActionsRecursively(final DescriptionVisitor<IDescription> visitor) {
@@ -833,7 +876,8 @@ public abstract class TypeDescription extends SymbolDescription {
 	/**
 	 * Gets the own attribute.
 	 *
-	 * @param kw the kw
+	 * @param kw
+	 *            the kw
 	 * @return the own attribute
 	 */
 	public VariableDescription getOwnAttribute(final String kw) {
@@ -843,7 +887,8 @@ public abstract class TypeDescription extends SymbolDescription {
 	/**
 	 * Gets the own action.
 	 *
-	 * @param kw the kw
+	 * @param kw
+	 *            the kw
 	 * @return the own action
 	 */
 	public ActionDescription getOwnAction(final String kw) {

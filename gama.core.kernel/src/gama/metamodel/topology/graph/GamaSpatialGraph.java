@@ -218,7 +218,8 @@ public class GamaSpatialGraph extends GamaGraph<IShape, IShape> implements ISpat
 		for (final IShape o1 : shapes) { // Try to create automatic edges
 			if (o1.getAgent() != null) { o1.getAgent().setAttribute("attached_graph", this); }
 			for (final IShape o2 : shapes) { // See issue #2945 -- do not add an edge if it already exists
-				if (vertexRelation.related(scope, o1, o2) && !containsEdge(o1, o2)) { addEdge(o1, o2); }
+				// Reverted for the moment
+				if (vertexRelation.related(scope, o1, o2) /* && !containsEdge(o1, o2) */) { addEdge(o1, o2); }
 			}
 		}
 	}

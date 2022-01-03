@@ -1,12 +1,12 @@
 /*******************************************************************************************************
  *
- * ModelAssembler.java, in gama.core.kernel, is part of the source code of the
- * GAMA modeling and simulation platform (v.2.0.0).
+ * ModelAssembler.java, in gama.core.kernel, is part of the source code of the GAMA modeling and simulation platform
+ * (v.2.0.0).
  *
  * (c) 2007-2021 UMI 209 UMMISCO IRD/SU & Partners (IRIT, MIAT, TLU, CTU)
  *
  * Visit https://github.com/gama-platform/gama for license information and contacts.
- * 
+ *
  ********************************************************************************************************/
 package gaml.factories;
 
@@ -39,17 +39,18 @@ import gama.util.GamaMapFactory;
 import gama.util.IMap;
 import gaml.compilation.GamlCompilationError;
 import gaml.compilation.ast.ISyntacticElement;
+import gaml.compilation.ast.ISyntacticElement.SyntacticVisitor;
 import gaml.compilation.ast.SyntacticFactory;
 import gaml.compilation.ast.SyntacticModelElement;
-import gaml.compilation.ast.ISyntacticElement.SyntacticVisitor;
+import gaml.descriptions.ConstantExpressionDescription;
 import gaml.descriptions.ExperimentDescription;
 import gaml.descriptions.IDescription;
+import gaml.descriptions.IDescription.DescriptionVisitor;
 import gaml.descriptions.ModelDescription;
 import gaml.descriptions.SpeciesDescription;
 import gaml.descriptions.SymbolDescription;
 import gaml.descriptions.TypeDescription;
 import gaml.descriptions.ValidationContext;
-import gaml.descriptions.IDescription.DescriptionVisitor;
 import gaml.statements.Facets;
 import gaml.types.Types;
 
@@ -66,12 +67,18 @@ public class ModelAssembler {
 	/**
 	 * Assemble.
 	 *
-	 * @param projectPath the project path
-	 * @param modelPath the model path
-	 * @param allModels the all models
-	 * @param collector the collector
-	 * @param document the document
-	 * @param mm the mm
+	 * @param projectPath
+	 *            the project path
+	 * @param modelPath
+	 *            the model path
+	 * @param allModels
+	 *            the all models
+	 * @param collector
+	 *            the collector
+	 * @param document
+	 *            the document
+	 * @param mm
+	 *            the mm
 	 * @return the model description
 	 */
 	public ModelDescription assemble(final String projectPath, final String modelPath,
@@ -106,7 +113,10 @@ public class ModelAssembler {
 						globalFacets.putAll(currentModel.copyFacets(null));
 					}
 				}
-				currentModel.visitChildren(element -> globalNodes.addChild(element));
+				currentModel.visitChildren(element -> {
+					element.setFacet(IKeyword.ORIGIN, ConstantExpressionDescription.create(currentModel.getName()));
+					globalNodes.addChild(element);
+				});
 				SyntacticVisitor visitor = element -> addSpeciesNode(element, speciesNodes, collector);
 				currentModel.visitSpecies(visitor);
 
@@ -244,7 +254,8 @@ public class ModelAssembler {
 	/**
 	 * Gets the species in hierarchical order.
 	 *
-	 * @param model the model
+	 * @param model
+	 *            the model
 	 * @return the species in hierarchical order
 	 */
 	private Iterable<SpeciesDescription> getSpeciesInHierarchicalOrder(final ModelDescription model) {
@@ -273,7 +284,8 @@ public class ModelAssembler {
 	/**
 	 * Creates the scheduler species.
 	 *
-	 * @param model the model
+	 * @param model
+	 *            the model
 	 */
 	private void createSchedulerSpecies(final ModelDescription model) {
 		final SpeciesDescription sd =
@@ -300,10 +312,14 @@ public class ModelAssembler {
 	/**
 	 * Adds the experiment.
 	 *
-	 * @param origin the origin
-	 * @param model the model
-	 * @param experiment the experiment
-	 * @param cache the cache
+	 * @param origin
+	 *            the origin
+	 * @param model
+	 *            the model
+	 * @param experiment
+	 *            the experiment
+	 * @param cache
+	 *            the cache
 	 */
 	void addExperiment(final String origin, final ModelDescription model, final ISyntacticElement experiment,
 			final Map<String, SpeciesDescription> cache) {
@@ -319,10 +335,14 @@ public class ModelAssembler {
 	/**
 	 * Adds the experiment node.
 	 *
-	 * @param element the element
-	 * @param modelName the model name
-	 * @param experimentNodes the experiment nodes
-	 * @param collector the collector
+	 * @param element
+	 *            the element
+	 * @param modelName
+	 *            the model name
+	 * @param experimentNodes
+	 *            the experiment nodes
+	 * @param collector
+	 *            the collector
 	 */
 	void addExperimentNode(final ISyntacticElement element, final String modelName,
 			final Map<String, IMap<String, ISyntacticElement>> experimentNodes, final ValidationContext collector) {
@@ -353,9 +373,12 @@ public class ModelAssembler {
 	/**
 	 * Adds the micro species.
 	 *
-	 * @param macro the macro
-	 * @param micro the micro
-	 * @param cache the cache
+	 * @param macro
+	 *            the macro
+	 * @param micro
+	 *            the micro
+	 * @param cache
+	 *            the cache
 	 */
 	void addMicroSpecies(final SpeciesDescription macro, final ISyntacticElement micro,
 			final Map<String, SpeciesDescription> cache) {
@@ -376,9 +399,12 @@ public class ModelAssembler {
 	/**
 	 * Adds the species node.
 	 *
-	 * @param element the element
-	 * @param speciesNodes the species nodes
-	 * @param collector the collector
+	 * @param element
+	 *            the element
+	 * @param speciesNodes
+	 *            the species nodes
+	 * @param collector
+	 *            the collector
 	 */
 	void addSpeciesNode(final ISyntacticElement element, final Map<String, ISyntacticElement> speciesNodes,
 			final ValidationContext collector) {
@@ -396,8 +422,10 @@ public class ModelAssembler {
 	 * Recursively complements a species and its micro-species. Add variables, behaviors (actions, reflex, task, states,
 	 * ...), aspects to species.
 	 *
-	 * @param species the species
-	 * @param node the node
+	 * @param species
+	 *            the species
+	 * @param node
+	 *            the node
 	 */
 	void complementSpecies(final SpeciesDescription species, final ISyntacticElement node) {
 		if (species == null) return;
@@ -417,8 +445,10 @@ public class ModelAssembler {
 	/**
 	 * Parent experiment.
 	 *
-	 * @param model the model
-	 * @param micro the micro
+	 * @param model
+	 *            the model
+	 * @param micro
+	 *            the micro
 	 */
 	void parentExperiment(final ModelDescription model, final ISyntacticElement micro) {
 		// Gather the previously created species
@@ -435,10 +465,14 @@ public class ModelAssembler {
 	/**
 	 * Parent species.
 	 *
-	 * @param macro the macro
-	 * @param micro the micro
-	 * @param model the model
-	 * @param cache the cache
+	 * @param macro
+	 *            the macro
+	 * @param micro
+	 *            the micro
+	 * @param model
+	 *            the model
+	 * @param cache
+	 *            the cache
 	 */
 	void parentSpecies(final SpeciesDescription macro, final ISyntacticElement micro, final ModelDescription model,
 			final Map<String, SpeciesDescription> cache) {
@@ -458,8 +492,10 @@ public class ModelAssembler {
 	/**
 	 * Lookup first in the cache passed in argument, then in the built-in species.
 	 *
-	 * @param name the name
-	 * @param cache the cache
+	 * @param name
+	 *            the name
+	 * @param cache
+	 *            the cache
 	 * @return the species description
 	 */
 	SpeciesDescription lookupSpecies(final String name, final Map<String, SpeciesDescription> cache) {
@@ -478,7 +514,8 @@ public class ModelAssembler {
 	/**
 	 * Builds the model name.
 	 *
-	 * @param source the source
+	 * @param source
+	 *            the source
 	 * @return the string
 	 */
 	protected String buildModelName(final String source) {
