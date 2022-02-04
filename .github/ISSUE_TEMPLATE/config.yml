@@ -10,4 +10,5 @@ contact_links:
     url:  https://github.com/gama-platform/gama/discussions
     about: Please use discussions for questions related to enhancements, use and future of GAMA
   - name: Thank you for your contributions ! 
+    url:  
     about: Your contributions to open source projects, large or small, make great projects like GAMA possible. Thank you for taking the time to contribute.
