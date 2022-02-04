@@ -1,6 +1,6 @@
 ---
-name: Bug report
-about: Create a report to help us improve GAMA
+name: Report a problem in GAMA
+about: Create a report to help us eliminate it. Please search the repository first to make sure this is a new problem. And remember, the more information you provide, the more likely we are to find a solution! 
 title: ''
 labels: ''
 assignees: ''
