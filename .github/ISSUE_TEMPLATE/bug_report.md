@@ -1,6 +1,6 @@
 ---
-name: Report a problem in GAMA
-about: Create a report to help us eliminate it. Please search the repository first to make sure this is a new problem. And remember, the more information you provide, the more likely we are to find a fix! 
+name: Report a problem in using GAMA
+about: Create a report to help us eliminate it. Search the repository first to make sure this is a new problem and remember, the more information you provide, the more likely we are to find a fix! 
 title: ''
 labels: ''
 assignees: ''
