@@ -1,6 +1,6 @@
 ---
 name: Feature or enhancement request
-about: Suggest an idea for improving or extending GAMA. Please submit only mature ideas: the others should be discussed first in the [discussions] (https://github.com/gama-platform/gama/discussions) section
+about: Suggest an idea for improving or extending GAMA. Please submit only mature ideas: the others should be discussed first in the forum or discussions section
 title: ''
 labels: ''
 assignees: ''
