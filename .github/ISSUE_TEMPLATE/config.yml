@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Issues regarding GAMA's website and documentation
+    url:  https://github.com/gama-platform/gama-platform.github.io/issues/new/choose
+    about: Please open issues relating to http://gama-platform.org and the documentation in its repository
+  - name: Questions regarding your model (best practices, problem of data, ...) or how to use GAMA should be asked in the forum
+    url:  https://groups.google.com/forum/#!forum/gama-platform
+    about: Please use the forum for questions related to the use of GAMA and your model
+  - name: ... or, alternatively, in the discussions  
+    url:  https://github.com/gama-platform/gama/discussions
+    about: Please use discussions for questions related to enhancements, use and future of GAMA
