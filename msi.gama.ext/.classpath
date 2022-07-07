@@ -13,13 +13,6 @@
 	<classpathentry exported="true" kind="lib" path="geotools/imageio-ext-cog-reader-1.3.5.jar"/>
 	<classpathentry exported="true" kind="lib" path="geotools/commons-httpclient-3.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="geotools/ejml-core-0.34.jar"/>
-	<classpathentry exported="true" kind="lib" path="geotools/xml-commons-resolver-1.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="geotools/org.w3.xlink-25.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="geotools/picocontainer-1.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="geotools/net.opengis.fes-25.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="geotools/net.opengis.ows-25.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="geotools/net.opengis.wfs-25.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="geotools/ojdbc8-19.10.0.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="geotools/jcc-11.5.5.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="geotools/gt-xml-25.0.jar" sourcepath="geotools/geotools-25.0-src.zip"/>
 	<classpathentry exported="true" kind="lib" path="geotools/gt-xsd-core-25.0.jar" sourcepath="geotools/geotools-25.0-src.zip"/>
@@ -29,7 +22,6 @@
 	<classpathentry exported="true" kind="lib" path="geotools/commons-text-1.6.jar"/>
 	<classpathentry exported="true" kind="lib" path="geotools/gt-http-25.0.jar" sourcepath="geotools/geotools-25.0-src.zip"/>
 	<classpathentry exported="true" kind="lib" path="geotools/jtds-1.3.1.jar" sourcepath="geotools/geotools-25.0-src.zip"/>
-	<classpathentry exported="true" kind="lib" path="geotools/systems-common-2.0.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="geotools/commons-lang3-3.8.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="geotools/disruptor-1.2.13.jar"/>
 	<classpathentry exported="true" kind="lib" path="geotools/batik-transcoder-1.14.jar"/>
@@ -120,8 +112,6 @@
 	<classpathentry exported="true" kind="lib" path="geotools/jt-zonal-1.1.20.jar"/>
 	<classpathentry exported="true" kind="lib" path="geotools/jt-zonalstats-1.6.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="geotools/mysql-connector-java-8.0.22.jar"/>
-	<classpathentry exported="true" kind="lib" path="geotools/postgresql-42.2.19.jar"/>
-	<classpathentry exported="true" kind="lib" path="geotools/sqlite-jdbc-3.34.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="streamex/streamex-0.7.3.jar" sourcepath="streamex/streamex-0.7.3-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="geotools/gt-http-commons-25.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
