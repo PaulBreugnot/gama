@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="lib" path="commons-math3-3.6.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="moeaframework-2.13.jar" sourcepath="moeaframework-2.13.jar"/>
+	<classpathentry exported="true" kind="lib" path="svgsalamander1.1.1/svgSalamander-v1.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="jgrapht 1.5.1/antlr4-runtime-4.8-1.jar"/>
+	<classpathentry exported="true" kind="lib" path="jgrapht 1.5.1/jheaps-0.13.jar"/>
+	<classpathentry exported="true" kind="lib" path="jgrapht 1.5.1/jgrapht-guava-1.5.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="jgrapht 1.5.1/jgrapht-io-1.5.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="jgrapht 1.5.1/jgrapht-opt-1.5.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="jgrapht 1.5.1/jgrapht-core-1.5.1.jar" sourcepath="jgrapht 1.5.1/src.zip"/>
+	<classpathentry exported="true" kind="lib" path="jaxb/jaxb-api.jar"/>
+	<classpathentry exported="true" kind="lib" path="jaxb/jaxb-core.jar"/>
+	<classpathentry exported="true" kind="lib" path="jaxb/jaxb-impl.jar"/>
+	<classpathentry exported="true" kind="lib" path="jsr 363/indriya-2.1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="jsr 363/si-quantity-2.0.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="jsr 363/si-units-2.0.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="jsr 363/unit-api-2.1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="jsr 363/uom-lib-common-2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="jfreechart/jfreechart-1.5.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="jts 1.18.1/jts-core-1.18.1.jar" sourcepath="jts 1.18.1/jts-core-1.18.1-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="jts 1.18.1/jts-io-common-1.18.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry exported="true" kind="lib" path="protobuf-java-3.6.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
